@@ -281,7 +281,9 @@ class Collection
     $index = $this->prepareKey($index);
     if (isset($this->_items[$index])) {
       unset($this->_items[$index]);
-      $this->_items = \array_values($this->_items);
+      if ($this->_mode === self::MODE_NUMERIC) {
+        $this->_items = \array_values($this->_items);
+      }
     }
   }
 

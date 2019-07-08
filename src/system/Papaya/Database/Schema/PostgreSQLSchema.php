@@ -2,6 +2,10 @@
 
 namespace Papaya\Database\Schema {
 
+  use Papaya\Database\Schema\Structure\FieldStructure;
+  use Papaya\Database\Schema\Structure\IndexFieldStructure;
+  use Papaya\Database\Schema\Structure\IndexStructure;
+  use Papaya\Database\Schema\Structure\TableStructure;
   use Papaya\Database\SQLStatement;
 
   class PostgreSQLSchema extends AbstractSchema {
@@ -16,7 +20,7 @@ namespace Papaya\Database\Schema {
           return $row['tablename'];
         },
         iterator_to_array(
-          $this->connection->execute($sql)
+          $this->_connection->execute($sql)
         )
       );
     }
@@ -24,11 +28,11 @@ namespace Papaya\Database\Schema {
     /**
      * @param string $tableName
      * @param string $tablePrefix
-     * @return array
+     * @return TableStructure
      */
     public function describeTable($tableName, $tablePrefix = '') {
-      $fields = [];
-      $table = $this->getIdentifier($tableName, $tablePrefix);
+      $prefixedTableName = $this->getIdentifier($tableName, $tablePrefix);
+      $table = new TableStructure($tableName, $tablePrefix !== '');
       $sql = "SELECT a.attname AS fieldname,
                    t.typname AS fieldtype,
                    pg_catalog.format_type(a.atttypid, a.atttypmod),
@@ -41,18 +45,16 @@ namespace Papaya\Database\Schema {
                AND a.atthasdef) AS defaultwert
               FROM pg_class c, pg_attribute a, pg_type t
              WHERE relkind = 'r'
-               AND c.relname='$table'
+               AND c.relname = ?
                AND a.attnum > 0
                AND a.atttypid = t.oid
                AND a.attrelid = c.oid
              ORDER BY a.attnum";
-      if ($result = $this->connection->execute($sql)) {
+      if ($result = $this->_connection->execute($sql, [$prefixedTableName])) {
         while ($row = $result->fetchAssoc()) {
-          $fields[$row['fieldname']] = $this->parseFieldData($row);
+          $table->fields[] = $this->parseFieldData($row);
         }
       }
-      $keys = [];
-
       $sql = "SELECT ic.relname AS index_name, a.attname AS column_name,
                    i.indisunique AS unique_key, i.indisprimary AS primary_key,
                    idx
@@ -61,44 +63,46 @@ namespace Papaya\Database\Schema {
              WHERE bc.oid = i.indrelid AND ic.oid = i.indexrelid
                AND i.indkey[idx] = a.attnum
                AND a.attrelid = bc.oid
-               AND bc.relname = '$table'
+               AND bc.relname = ?
              ORDER BY a.attnum";
-      if ($result = $this->connection->execute($sql)) {
+      if ($result = $this->_connection->execute($sql, [$prefixedTableName])) {
+        $indexFields = [];
         while ($row = $result->fetchAssoc()) {
           if ($row['primary_key'] === 't') {
             $keyName = 'PRIMARY';
-          } elseif (strpos($row['index_name'], $table) === 0) {
-            $keyName = substr($row['index_name'], strlen($table) + 1);
+          } elseif (strpos($row['index_name'], $prefixedTableName) === 0) {
+            $keyName = substr($row['index_name'], strlen($prefixedTableName) + 1);
           } else {
             $keyName = $row['index_name'];
           }
-          $keys[$keyName]['orgname'] = $row['index_name'];
-          $keys[$keyName]['name'] = $keyName;
-          $keys[$keyName]['unique'] = ($row['unique_key'] === 't') ? 'yes' : 'no';
-          $keys[$keyName]['fields'][$row['idx']] = $row['column_name'];
-          ksort($keys[$keyName]['fields']);
-          $keys[$keyName]['fulltext'] = 'no';
+          if (!isset($table->indizes[$keyName])) {
+            $table->indizes[$keyName] = new IndexStructure(
+              $keyName,
+              $row['unique_key'] === 't'
+            );
+          }
+          $indexFields[$keyName][$row['idx']] = $row;
+        }
+        foreach ($indexFields as $indexName => $fields) {
+          ksort($fields);
+          foreach ($fields as $field) {
+            $table->indizes[$indexName]->fields[] = new IndexFieldStructure($field['column_name']);
+          }
         }
       }
-      return [
-        'name' => $tableName,
-        'fields' => $fields,
-        'keys' => $keys
-      ];
+      return $table;
     }
 
 
     /**
-     * Parse PostgreSQL field data
-     *
      * @param array $row
      * @access private
-     * @return array
+     * @return FieldStructure
      */
     private function parseFieldData($row) {
-      $autoIncrement = 0;
-      if (0 === strpos($row['fieldtype'], 'int')) {
-        $type = 'integer';
+      $autoIncrement = FALSE;
+      if (0 === strpos($row['field_type'], 'int')) {
+        $type = FieldStructure::TYPE_INTEGER;
         switch ($row['format_type']) {
         case 'bigint':
           $size = 8;
@@ -112,67 +116,63 @@ namespace Papaya\Database\Schema {
         default :
           $size = 8;
         }
-      } elseif ($row['fieldtype'] === 'varchar' || $row['fieldtype'] === 'bpchar') {
-        $type = 'string';
+      } elseif ($row['field_type'] === 'varchar' || $row['field_type'] === 'bpchar') {
+        $type = FieldStructure::TYPE_TEXT;
         $size = substr(
           $row['format_type'],
           strrpos($row['format_type'], '(') + 1,
           -1
         );
-      } elseif ($row['fieldtype'] === 'text') {
-        $type = 'string';
+      } elseif ($row['field_type'] === 'text') {
+        $type = FieldStructure::TYPE_TEXT;
         $size = 65535;
-      } elseif ($row['fieldtype'] === 'numeric') {
-        $type = 'float';
+      } elseif ($row['field_type'] === 'numeric') {
+        $type = FieldStructure::TYPE_DECIMAL;
         $size = substr($row['format_type'], 8, -1);
       } else {
+        $type = FieldStructure::TYPE_TEXT;
         $size = 16777215;
-        $type = 'string';
       }
       $stringFieldPattern = '(^\'(([^\']+|\\\\)+)\'::(character varying|bpchar)$)i';
       $numericFieldPattern = '(^(\d+)(::(smallint|integer|bigint|int|numeric))?$)i';
+      $default = NULL;
       if (
-        preg_match('(^nextval\(\'[\w\.]+\'::text\)$)i', $row['defaultwert'], $matches) ||
-        preg_match("(^nextval\(\(\'[\w\.]+\'::text\)::regclass\)$)i", $row['defaultwert'], $matches) ||
-        preg_match("(^nextval\(\'[\w\.]+\'::regclass\)$)i", $row['defaultwert'], $matches)
+        preg_match('(^nextval\(\'[\w\.]+\'::text\)$)i', $row['default_value'], $matches) ||
+        preg_match("(^nextval\(\(\'[\w\.]+\'::text\)::regclass\)$)i", $row['default_value'], $matches) ||
+        preg_match("(^nextval\(\'[\w\.]+\'::regclass\)$)i", $row['default_value'], $matches)
       ) {
-        $autoIncrement = 1;
-        $default = 1;
-      } elseif (preg_match($stringFieldPattern, $row['defaultwert'], $matches)) {
+        $autoIncrement = TRUE;
+      } elseif (preg_match($stringFieldPattern, $row['default_value'], $matches)) {
         if ((string)$matches[1] !== '') {
           $default = $matches[1];
         }
-      } elseif (preg_match($numericFieldPattern, $row['defaultwert'], $matches)) {
+      } elseif (preg_match($numericFieldPattern, $row['default_value'], $matches)) {
         if ((string)$matches[1] !== '0' || (strtolower($row['not_null']) === 't')) {
           $default = $matches[1];
         }
       }
-      $result = [
-        'name' => $row['fieldname'],
-        'type' => $type,
-        'size' => $size,
-        'null' => (strtolower($row['not_null']) === 't') ? 'no' : 'yes',
-        'autoinc' => ($autoIncrement > 0) ? 'yes' : 'no',
-        'default' => NULL
-      ];
-      if ((!$autoIncrement) && isset($default)) {
-        $result['default'] = $default;
-      }
-      return $result;
+      return new FieldStructure(
+        $row['field_name'],
+        $type,
+        $size,
+        $autoIncrement,
+        strtolower($row['not_null']) === 't',
+        !$autoIncrement ? $default : NULL
+      );
     }
 
     /**
-     * @param array $tableStructure
+     * @param TableStructure $tableStructure
      * @param string $tablePrefix
      * @return bool
      */
-    public function createTable(array $tableStructure, $tablePrefix = '') {
+    public function createTable(TableStructure $tableStructure, $tablePrefix = '') {
       if (is_array($tableStructure['fields']) && trim($tableStructure['name']) !== '') {
         $table = $this->getIdentifier($tableStructure['name'], $tablePrefix);
         $sql = 'CREATE TABLE "'.$table.'" ('."\n";
         $parameters = [];
         foreach ($tableStructure['fields'] as $field) {
-          $fieldType = $this->getFieldType($field);
+          $fieldType = $this->getFieldTypeSQL($field);
           $sql .= '  "'.$this->getIdentifier($field['name']).'" '.
             $fieldType[0].",\n";
           array_push($parameters, ...$fieldType[1]);
@@ -195,7 +195,7 @@ namespace Papaya\Database\Schema {
           }
         }
         $sql = substr($sql, 0, -2)."\n)\n";
-        if ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
+        if ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
           if (isset($tableStructure['keys']) && is_array($tableStructure['keys'])) {
             foreach ($tableStructure['keys'] as $key) {
               $this->addIndex($table, $key);
@@ -210,40 +210,39 @@ namespace Papaya\Database\Schema {
     /**
      * PostgresSQL field type
      *
-     * @param array $field
-     * @param bool $separated
+     * @param FieldStructure $field
      * @return array
      */
-    private function getFieldType($field, $separated = FALSE) {
-      $parameters = [];
-      if (isset($field['autoinc']) && $field['autoinc'] === 'yes') {
-        if ($separated) {
-          $result['type'] = ($field['size'] > 4) ? 'BIGINT' : 'INTEGER';
-          $result['not_null'] = 'NOT NULL';
-          $result['default'] = 'DEFAULT 1';
-          $result['autoinc'] = TRUE;
-          return [$result, []];
-        }
-        return [($field['size'] > 4) ? 'BIGSERIAL' : 'SERIAL', []];
+    private function getFieldTypeArray(FieldStructure $field) {
+      if ($field->isAutoIncrement) {
+        return [
+          [
+            'type' => ($field['size'] > 4) ? 'BIGINT' : 'INTEGER',
+            'not_null' => 'NOT NULL',
+            'default' => 'DEFAULT 1'
+          ],
+          []
+        ];
       }
-      if (isset($field['null']) && $field['null'] === 'yes') {
+      $parameters = [];
+      if ($field->allowsNull) {
         $default = NULL;
         $notNullStr = '';
       } else {
         $default = '';
-        $notNullStr = ' NOT NULL';
+        $notNullStr = 'NOT NULL';
       }
-      if (isset($field['default'])) {
-        $default = $field['default'];
+      if (!empty($field->defaultValue)) {
+        $default = $field->defaultValue;
       }
       $defaultStr = '';
       if (isset($default)) {
-        $defaultStr = ' DEFAULT ?';
-        switch (strtolower($field['type'])) {
-        case 'integer':
+        $defaultStr = 'DEFAULT ?';
+        switch ($field->type) {
+        case FieldStructure::TYPE_INTEGER:
           $parameters[] = (int)$default;
           break;
-        case 'float':
+        case FieldStructure::TYPE_DECIMAL:
           $parameters[] = (float)$default;
           break;
         default:
@@ -251,8 +250,8 @@ namespace Papaya\Database\Schema {
           break;
         }
       }
-      switch (strtolower(trim($field['type']))) {
-      case 'integer':
+      switch ($field->size) {
+      case FieldStructure::TYPE_INTEGER:
         $size = ($field['size'] > 0) ? (int)$field['size'] : 1;
         if ($size <= 2) {
           $result = 'SMALLINT';
@@ -262,80 +261,102 @@ namespace Papaya\Database\Schema {
           $result = 'BIGINT';
         }
         break;
-      case 'float':
-        if (FALSE !== strpos($field['size'], ',')) {
-          list($before, $after) = explode(',', $field['size']);
-          $before = ($before > 0) ? (int)$before : 1;
-          $after = (int)$after;
-          if ($after > $before) {
-            $before += $after;
-          }
-          $result = 'NUMERIC('.$before.','.$after.')';
-        } else {
-          $result = 'NUMERIC('.(int)$field['size'].',0)';
-        }
+      case FieldStructure::TYPE_DECIMAL:
+        list($before, $after) = explode(',', $field->size);
+        $result = 'NUMERIC('.$before.','.$after.')';
         break;
-      case 'string':
+      case 'FieldStructure::TYPE_TEXT':
       default :
-        $size = ($field['size'] > 0) ? (int)$field['size'] : 1;
+        $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 255) {
-          $result = 'VARCHAR('.$field['size'].')';
+          $result = 'VARCHAR('.$field->size.')';
         } else {
           $result = 'TEXT';
         }
         break;
       }
-      if ($separated) {
-        return [
-          [
-            'type' => $result,
-            'default' => $defaultStr,
-            'not_null' => $notNullStr,
-            'autoinc' => FALSE
-          ],
-          $parameters
-        ];
-      }
       return [
-        $result.$defaultStr.$notNullStr,
+        [
+          'type' => $result,
+          'default' => $defaultStr,
+          'not_null' => $notNullStr
+        ],
         $parameters
       ];
     }
 
     /**
+     * @param FieldStructure $field
+     * @return array|string
+     */
+    public function getFieldTypeSQL(FieldStructure $field) {
+      if ($field->isAutoIncrement) {
+        return [
+          ($field->size > 4) ? 'BIGSERIAL' : 'SERIAL',
+          []
+        ];
+      }
+      $data = $this->getFieldTypeArray($field);
+      return [
+        $data['type'].' '.$data['default'].' '.$data['not_null'],
+        $data[1]
+      ];
+    }
+
+    /**
      * @param string $tableName
-     * @param array $indexStructure
+     * @param IndexStructure $indexStructure
      * @return bool
      */
-    public function addIndex($tableName, array $indexStructure) {
+    public function addIndex($tableName, IndexStructure $indexStructure) {
       return $this->changeIndex($tableName, $indexStructure, FALSE);
     }
 
     /**
      * @param string $tableName
-     * @param array $indexStructure
+     * @param IndexStructure $indexStructure
      * @param bool $dropCurrent
      * @return bool
      */
-    public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE) {
-      $key = $this->getIndexInfo($tableName, $indexStructure['name']);
-      if ($dropCurrent && $key) {
-        $this->dropIndex($tableName, $indexStructure['name']);
+    public function changeIndex($tableName, IndexStructure $indexStructure, $dropCurrent = TRUE) {
+      if ($dropCurrent) {
+        $this->dropIndex($tableName, $indexStructure->name);
       }
-      if (isset($indexStructure['fields']) && is_array($indexStructure['fields'])) {
-        $fields = '('.implode(',', $indexStructure['fields']).')';
-        if ($indexStructure['name'] === 'PRIMARY') {
-          $sql = 'ALTER TABLE "'.$this->getIdentifier($tableName).'" ADD PRIMARY KEY '.$fields;
-        } elseif (isset($indexStructure['unique']) && $indexStructure['unique'] === 'yes') {
-          $sql = 'CREATE UNIQUE INDEX "'.$this->getIdentifier($tableName).'_'.
-            $this->getIdentifier($indexStructure['name']).'" ON "'.$this->getIdentifier($tableName).'" '.
-            $fields;
+      if (count($indexStructure->fields) > 0) {
+        if ($indexStructure->isPrimary) {
+          $sql = sprintf(
+            'ALTER TABLE %s ADD PRIMARY KEY (%s)',
+            $this->getQuotedIdentifier($tableName),
+            implode(',', $this->getQuotedIdentifiers($indexStructure->fields->keys()))
+          );
         } else {
-          $sql = 'CREATE INDEX "'.$this->getIdentifier($tableName).'_'.
-            $this->getIdentifier($indexStructure['name']).'" ON "'.
-            $this->getIdentifier($tableName).'" '.$fields;
+          $sql = sprintf(
+            'CREATE %s INDEX %s ON %s (%s)',
+            $indexStructure->isUnique ? 'UNIQUE' : '',
+            $this->getQuotedIdentifier($tableName.'_'.$indexStructure->name),
+            $this->getQuotedIdentifier($tableName),
+            implode(',', $this->getQuotedIdentifiers($indexStructure->fields->keys()))
+          );
         }
-        return ($this->connection->execute($sql) !== FALSE);
+        return ($this->_connection->execute($sql) !== FALSE);
+      }
+      return FALSE;
+    }
+
+    /**
+     * @param string $tableName
+     * @param string $indexName
+     * @return bool
+     */
+    public function dropIndex($tableName, $indexName) {
+      if ($indexInfo = $this->getIndexInfo($tableName, $indexName)) {
+        $quotedIndexName = $this->getQuotedIdentifier($indexInfo['name']);
+        if ($indexInfo['primary']) {
+          $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).' DROP CONSTRAINT '.$quotedIndexName;
+        } else {
+          $sql = 'DROP INDEX '.$quotedIndexName;
+        }
+        return ($this->_connection->execute($sql) !== FALSE);
       }
       return FALSE;
     }
@@ -343,15 +364,14 @@ namespace Papaya\Database\Schema {
     /**
      * Get index information
      *
-     * @param string $table
-     * @param string $key
+     * @param string $tableName
+     * @param string $indexName
      * @access public
-     * @return array|FALSE $result
+     * @return array|NULL $result
      */
-    private function getIndexInfo($table, $key) {
+    private function getIndexInfo($tableName, $indexName) {
       $result = FALSE;
-      $tableName = $this->getIdentifier($table);
-      $keyName = ($key === 'PRIMARY') ? 'primary_key' : $this->getIdentifier($key);
+      $keyName = ($indexName === IndexStructure::PRIMARY) ? 'primary_key' : $this->getIdentifier($indexName);
       $sql = 'SELECT ic.relname, ic.relname AS index_name, a.attname AS column_name,
                    i.indisunique AS unique_key, i.indisprimary AS primary_key
               FROM pg_class bc, pg_class ic, pg_index i, pg_attribute a
@@ -369,119 +389,97 @@ namespace Papaya\Database\Schema {
                AND ic.relname = ?
              ORDER BY a.attnum';
       $parameters = [
-        $tableName, $tableName.'_'.$keyName
+        $tableName, $tableName.'_'.$indexName
       ];
       if (
-        ($res = $this->connection->execute(new SQLStatement($sql, $parameters))) &&
+        ($res = $this->_connection->execute(new SQLStatement($sql, $parameters))) &&
         ($row = $res->fetchAssoc())
       ) {
         if ($row['primary_key'] === 't') {
-          $keyName = 'PRIMARY';
-        } elseif (strpos($row['index_name'], $table) === 0) {
-          $keyName = substr($row['index_name'], strlen($table) + 1);
-        } else {
-          $keyName = $row['index_name'];
+          return [
+            'name' => IndexStructure::PRIMARY,
+            'primary' => TRUE
+          ];
         }
-        $result['orgname'] = $row['index_name'];
-        $result['name'] = $keyName;
-        $result['unique'] = ($row['unique_key'] === 't') ? 'yes' : 'no';
-        $result['fields'][] = $row['column_name'];
-        $result['fulltext'] = 'no';
+        return [
+          'name' =>  $row['index_name'],
+          'primary' => FALSE
+        ];
       }
-      return $result;
+      return NULL;
     }
 
     /**
      * @param string $tableName
-     * @param string $indexName
+     * @param FieldStructure $fieldStructure
      * @return bool
      */
-    public function dropIndex($tableName, $indexName) {
-      if ($key = $this->getIndexInfo($tableName, $indexName)) {
-        $keyName = $this->getIdentifier($key['orgname']);
-        if ($key['name'] === 'PRIMARY') {
-          $sql = 'ALTER TABLE "'.$tableName.'" DROP CONSTRAINT "'.$keyName.'"';
-        } else {
-          $sql = 'DROP INDEX "'.$keyName.'"';
-        }
-        return ($this->connection->execute($sql) !== FALSE);
-      }
-      return FALSE;
-    }
-
-    /**
-     * @param string $tableName
-     * @param array $fieldStructure
-     * @return bool
-     */
-    public function addField($tableName, array $fieldStructure) {
+    public function addField($tableName, FieldStructure $fieldStructure) {
       return $this->changeField($tableName, $fieldStructure);
     }
 
     /**
      * @param string $tableName
-     * @param array $fieldStructure
+     * @param FieldStructure $fieldStructure
      * @return bool
      */
-    public function changeField($tableName, array $fieldStructure) {
+    public function changeField($tableName, FieldStructure $fieldStructure) {
       $tableName = $this->getIdentifier($tableName);
-      $fieldName = $this->getIdentifier($fieldStructure['name']);
-
-      $xmlType = $this->getFieldType($fieldStructure);
-
-      //check field exists in db
-      if ($databaseField = $this->getFieldInfo($tableName, $fieldStructure['name'])) {
-        $dbType = $this->getFieldType($databaseField);
-        if ($xmlType !== $dbType) {
-          $sqlData = $this->getFieldType($fieldStructure, TRUE);
+      $fieldName = $this->getIdentifier($fieldStructure->name);
+      if ($databaseField = $this->getFieldInfo($tableName, $fieldStructure->name)) {
+        if ($this->isFieldDifferent($fieldStructure, $databaseField)) {
+          $alterSQL = sprintf(
+            /** @lang TEXT */
+            'ALTER TABLE %s ALTER COLUMN %s ',
+            $this->getQuotedIdentifier($tableName),
+            $this->getQuotedIdentifier($fieldName)
+          );
+          list($sqlData, $parameters) = $this->getFieldTypeArray($fieldStructure);
           $sql = '';
-          $parameters = [];
-          if ($sqlData['autoinc']) {
-            $sql .= "ALTER TABLE \"$tableName\"
-                     ALTER COLUMN \"$fieldName\"
-                     SET DEFAULT nextval(?::text);\n";
-            $parameters[] = "public.{$tableName}_{$fieldName}_seq";
+          if ($fieldStructure->isAutoIncrement) {
+            $sql .= $alterSQL.sprintf(
+              "SET DEFAULT nextval(%s::text);\n",
+              $this->getQuotedIdentifier("public.{$tableName}_{$fieldName}_seq")
+            );
           } elseif (!empty($sqlData['default'])) {
-            $sql .= "ALTER TABLE \"$tableName\"
-                     ALTER COLUMN \"$fieldName\"
-                       SET ?::{$sqlData['type']};\n";
-            $parameters[] = $sqlData['default'];
+            $sql .= $alterSQL.sprintf("SET %s::%s;\n", $sqlData['default'], $sqlData['type']);
           }
-          $sql .= "ALTER TABLE \"$tableName\"
-                   ALTER COLUMN \"$fieldName\"
-                    TYPE {$sqlData['type']} USING \"$fieldName\"::{$sqlData['type']};\n";
-          $sql .= "ALTER TABLE \"$tableName\"
-                   ALTER COLUMN \"$fieldName\"\n";
-          $sql .= empty($sqlData['not_null']) ? ' DROP NOT NULL ' : ' SET NOT NULL ';
-          $sql .= ";\n";
-          return ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
+          $sql .= $alterSQL.sprintf(
+            'TYPE %1$s USING %2$s::%1$s;'."\n", $sqlData['type'], $this->getQuotedIdentifier($fieldName)
+          );
+          $sql .= $alterSQL.(empty($sqlData['not_null']) ? ' DROP NOT NULL ' : ' SET NOT NULL ').";\n";
+          return ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
         }
         return TRUE;
       }
-      $sql = "ALTER TABLE \"$tableName\"
-              ADD COLUMN \"$fieldName\" $xmlType;\n";
-      return ($this->connection->execute($sql) !== FALSE);
+      $fieldType = $this->getFieldTypeSQL($fieldStructure);
+      $sql = sprintf(
+        "ALTER TABLE %s ADD COLUMN %s %s;\n",
+        $this->getQuotedIdentifier($tableName),
+        $this->getQuotedIdentifier($fieldName),
+        $fieldType[0]
+      );
+      return ($this->_connection->execute($sql, $fieldType[1]) !== FALSE);
     }
 
     /**
-     * Get field information
-     *
      * @param string $table
      * @param string $fieldName
-     * @access public
-     * @return mixed array with row or boolean FALSE
+     * @return FieldStructure|NULL
      */
     private function getFieldInfo($table, $fieldName) {
-      $sql = "SELECT a.attname AS fieldname,
-                   t.typname AS fieldtype,
+      $sql = "SELECT a.attname AS field_name,
+                   t.typname AS field_type,
                    pg_catalog.format_type(a.atttypid, a.atttypmod),
-                   a.attlen AS fieldsize,
+                   a.attlen AS field_size,
                    a.attnotNull AS not_null,
-                   (SELECT substring(d.adsrc FOR 128)
-              FROM pg_catalog.pg_attrdef d
-             WHERE d.adrelid = a.attrelid
-               AND d.adnum = a.attnum
-               AND a.atthasdef) AS defaultwert
+                   (
+                     SELECT substring(d.adsrc FOR 128)
+                       FROM pg_catalog.pg_attrdef d
+                      WHERE d.adrelid = a.attrelid
+                        AND d.adnum = a.attnum
+                        AND a.atthasdef
+                   ) AS default_value
               FROM pg_class c, pg_attribute a, pg_type t
              WHERE relkind = 'r'
                AND c.relname = ?
@@ -494,12 +492,12 @@ namespace Papaya\Database\Schema {
         $table, $fieldName
       ];
       if (
-        ($res = $this->connection->execute(new SQLStatement($sql, $parameters))) &&
+        ($res = $this->_connection->execute(new SQLStatement($sql, $parameters))) &&
         ($row = $res->fetchAssoc())
       ) {
         return $this->parseFieldData($row);
       }
-      return FALSE;
+      return NULL;
     }
 
     /**
@@ -509,54 +507,54 @@ namespace Papaya\Database\Schema {
      */
     public function dropField($tableName, $fieldName) {
       $sql = sprintf(
-        'ALTER TABLE "%s" DROP COLUMN "%s"',
-        $this->getIdentifier($tableName),
-        $this->getIdentifier($fieldName)
+        'ALTER TABLE %s DROP COLUMN %s',
+        $this->getQuotedIdentifier($tableName),
+        $this->getQuotedIdentifier($fieldName)
       );
-      return ($this->connection->execute($sql) !== FALSE);
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**
      * Compare the field structure
      *
-     * @param array $expectedStructure
-     * @param array $currentStructure
+     * @param FieldStructure $expectedStructure
+     * @param FieldStructure $currentStructure
      * @return boolean different
      */
-    public function isFieldDifferent(array $expectedStructure, array $currentStructure) {
-      if ($expectedStructure['type'] !== $currentStructure['type']) {
+    public function isFieldDifferent(FieldStructure $expectedStructure, FieldStructure $currentStructure) {
+      if ($expectedStructure->type !== $currentStructure->type) {
         return TRUE;
       }
-      if ((int)$expectedStructure['size'] !== (int)$currentStructure['size']) {
+      if ($expectedStructure->size !== $currentStructure->size) {
         if (
-          $expectedStructure['type'] === 'string' &&
-          $expectedStructure['size'] > 255 &&
-          $currentStructure['size'] > 255
+          $expectedStructure->type === FieldStructure::TYPE_TEXT &&
+          $expectedStructure->size > 255 &&
+          $currentStructure->size > 255
         ) {
           return FALSE;
         }
         if (
-          $expectedStructure['type'] === 'integer' &&
-          $currentStructure['autoinc'] === 'yes' &&
-          $expectedStructure['autoinc'] === 'yes' &&
+          $expectedStructure->type === FieldStructure::TYPE_INTEGER &&
+          $currentStructure->isAutoIncrement &&
+          $expectedStructure->isAutoIncrement &&
           (
-            ((int)$expectedStructure['size'] === 2 && (int)$currentStructure['size'] === 4) ||
-            ((int)$expectedStructure['size'] === 6 && (int)$currentStructure['size'] === 8)
+            ($expectedStructure->size === 2 && $currentStructure->size === 4) ||
+            ($expectedStructure->size === 6 && $currentStructure->size === 8)
           )
         ) {
           return FALSE;
         }
         return TRUE;
       }
-      if ($expectedStructure['null'] !== $currentStructure['null']) {
+      if ($expectedStructure->allowsNull !== $currentStructure->allowsNull) {
         return TRUE;
       }
-      if ($expectedStructure['autoinc'] === 'yes' && $currentStructure['autoinc'] !== 'yes') {
+      if ($expectedStructure->isAutoIncrement !== $currentStructure->isAutoIncrement) {
         return TRUE;
       }
       if (
-        !(empty($expectedStructure['default']) && empty($currentStructure['default'])) &&
-        $expectedStructure['default'] !== $currentStructure['default']
+        !(empty($expectedStructure->defaultValue) && empty($currentStructure->defaultValue)) &&
+        $expectedStructure->defaultValue !== $currentStructure->defaultValue
       ) {
         return TRUE;
       }
@@ -564,27 +562,24 @@ namespace Papaya\Database\Schema {
     }
 
     /**
-     * Compare key structure
-     *
-     * @param array $expectedStructure
-     * @param array $currentStructure
+     * @param IndexStructure $expectedStructure
+     * @param IndexStructure $currentStructure
      * @return boolean
      */
-    public function isIndexDifferent(array $expectedStructure, array $currentStructure) {
-      $result = FALSE;
+    public function isIndexDifferent(IndexStructure $expectedStructure, IndexStructure $currentStructure) {
       if (
-        ($expectedStructure['unique'] === 'yes' || $expectedStructure['name'] === 'PRIMARY') !==
-        ($currentStructure['unique'] === 'yes' || $currentStructure['name'] === 'PRIMARY')
+        ($expectedStructure->isUnique || $expectedStructure->isPrimary) !==
+        ($currentStructure->isUnique || $currentStructure->isPrimary)
       ) {
-        $result = TRUE;
-      } elseif (
-        count(array_intersect($expectedStructure['fields'], $currentStructure['fields'])) !== count(
-          $expectedStructure['fields']
-        )
-      ) {
-        $result = TRUE;
+        return TRUE;
       }
-      return $result;
+      if (
+        count(array_intersect($expectedStructure->fields->keys(), $currentStructure->fields->keys())) !==
+        count($expectedStructure->fields)
+      ) {
+        return TRUE;
+      }
+      return FALSE;
     }
   }
 }

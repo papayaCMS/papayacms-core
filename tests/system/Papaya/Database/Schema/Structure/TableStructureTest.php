@@ -55,7 +55,9 @@ namespace Papaya\Database\Schema\Structure {
       $document->loadXML(self::VALID_XML_TABLE_STRUCTURE);
       $structure = TableStructure::createFromXML($document);
 
-      $this->assertXmlStringEqualsXmlString($xml, $structure->getXMLDocument()->saveXML());
+      $this->assertXmlStringEqualsXmlString(
+        self::VALID_XML_TABLE_STRUCTURE, $structure->getXMLDocument()->saveXML()
+      );
     }
 
     public function testCreateFromXMLWithEmptyXMLExpectingException() {

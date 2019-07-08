@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\UI;
+
 if (!defined('IMAGETYPE_SWC')) {
   /**
    * Fallback to ensure the existence of constant IMAGETYPE_SWC. It comes usually with PHP
@@ -48,6 +50,12 @@ define('PAPAYA_MODULE_TABLE_ERROR', 3);
  * @subpackage Core
  */
 class papaya_modulemanager extends base_db {
+  const ACTION_FIELD_ADD = 'field_add';
+  const ACTION_FIELD_REMOVE = 'field_delete';
+  const ACTION_FIELD_CHANGE = 'field_update';
+  const ACTION_INDEX_ADD = 'index_add';
+  const ACTION_INDEX_REMOVE = 'index_delete';
+  const ACTION_INDEX_CHANGE = 'index_update';
   /**
    * XML modules list filename
    * @var string $modulesFileName
@@ -117,7 +125,7 @@ class papaya_modulemanager extends base_db {
   /**
    * @var NULL|array
    */
-  public $tableStruct = NULL;
+  public $_tableStructure = NULL;
 
   /**
    * @var \Papaya\Template
@@ -248,7 +256,7 @@ class papaya_modulemanager extends base_db {
               } else {
                 $xmlFileName = $path.'table_'.$tableName.'.xml';
                 if ($struct = $this->loadTableStructure($xmlFileName, $pkgId)) {
-                  $created = $this->databaseCreateTable(
+                  $created = $this->getSchema()->createTable(
                     $struct,
                     $this->getTablePrefixUsage($tableName, $pkgId)
                       ? PAPAYA_DB_TABLEPREFIX : NULL
@@ -295,7 +303,7 @@ class papaya_modulemanager extends base_db {
             $path = $this->getTableDataPath($this->packages[$pkgId]['modulegroup_path']);
             $xmlFileName = $path.'table_'.$this->params['table'].'.xml';
             if ($struct = $this->loadTableStructure($xmlFileName, $pkgId)) {
-              $created = $this->databaseCreateTable(
+              $created = $this->getSchema()->createTable(
                 $struct,
                 $this->getTablePrefixUsage($this->params['table'], $pkgId)
                   ? PAPAYA_DB_TABLEPREFIX : ''
@@ -309,8 +317,8 @@ class papaya_modulemanager extends base_db {
           }
         }
         break;
-      case 'field_add':
-      case 'field_update':
+      case self::ACTION_FIELD_ADD:
+      case self::ACTION_FIELD_CHANGE:
         if (
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
@@ -327,8 +335,8 @@ class papaya_modulemanager extends base_db {
               if (isset($struct['fields'][$this->params['field']])) {
                 $field = $struct['fields'][$this->params['field']];
                 switch ($this->params['cmd']) {
-                case 'field_add':
-                  if ($this->databaseAddField($tableFullName, $field)) {
+                case self::ACTION_FIELD_ADD:
+                  if ($this->getSchema()->addField($tableFullName, $field)) {
                     unset($this->params['cmd']);
                     $this->addMsg(
                       MSG_INFO,
@@ -336,8 +344,8 @@ class papaya_modulemanager extends base_db {
                     );
                   }
                   break;
-                case 'field_update':
-                  if ($this->databaseChangeField($tableFullName, $field)) {
+                case self::ACTION_FIELD_CHANGE:
+                  if ($this->getSchema()->changeField($tableFullName, $field)) {
                     unset($this->params['cmd']);
                     $this->addMsg(
                       MSG_INFO,
@@ -352,7 +360,7 @@ class papaya_modulemanager extends base_db {
           }
         }
         break;
-      case 'field_delete':
+      case self::ACTION_FIELD_REMOVE:
         if (
           isset($this->params['field_action_confirm']) &&
           $this->params['field_action_confirm'] &&
@@ -361,7 +369,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['field']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['field'])
         ) {
-          $changed = $this->databaseDropField(
+          $changed = $this->getSchema()->dropField(
             $this->getTableFullName($this->params['table']),
             $this->params['field']
           );
@@ -371,8 +379,8 @@ class papaya_modulemanager extends base_db {
           }
         }
         break;
-      case 'index_add':
-      case 'index_update':
+      case self::ACTION_INDEX_ADD:
+      case self::ACTION_INDEX_CHANGE:
         if (
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
@@ -389,16 +397,16 @@ class papaya_modulemanager extends base_db {
               if (isset($struct['keys'][$this->params['index']])) {
                 $index = $struct['keys'][$this->params['index']];
                 switch ($this->params['cmd']) {
-                case 'index_add':
-                  if ($this->databaseAddIndex($tableFullName, $index)) {
+                case self::ACTION_INDEX_ADD:
+                  if ($this->getSchema()->addIndex($tableFullName, $index)) {
                     unset($this->params['cmd']);
                     $this->addMsg(
                       MSG_INFO, $this->_gt('Index added.')
                     );
                   }
                   break;
-                case 'index_update':
-                  if ($this->databaseChangeIndex($tableFullName, $index)) {
+                case self::ACTION_INDEX_CHANGE:
+                  if ($this->getSchema()->changeIndex($tableFullName, $index)) {
                     unset($this->params['cmd']);
                     $this->addMsg(
                       MSG_INFO, $this->_gt('Index modified.')
@@ -412,7 +420,7 @@ class papaya_modulemanager extends base_db {
           }
         }
         break;
-      case 'index_delete':
+      case self::ACTION_INDEX_REMOVE:
         if (
           isset($this->params['index_action_confirm']) &&
           $this->params['index_action_confirm'] &&
@@ -421,7 +429,7 @@ class papaya_modulemanager extends base_db {
           isset($this->params['index']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['index'])
         ) {
-          $changed = $this->databaseDropIndex(
+          $changed = $this->getSchema()->dropIndex(
             $this->getTableFullName($this->params['table']), $this->params['index']
           );
           if ($changed) {
@@ -904,10 +912,10 @@ class papaya_modulemanager extends base_db {
     }
     $menubar->addSeparator();
     if (
-      isset($this->tableStruct) &&
-      is_array($this->tableStruct) &&
-      isset($this->tableStruct['actions']) &&
-      $this->tableStruct['actions'] > 0
+      isset($this->_tableStructure) &&
+      is_array($this->_tableStructure) &&
+      isset($this->_tableStructure['actions']) &&
+      $this->_tableStructure['actions'] > 0
     ) {
       $menubar->addButton(
         'Synchronize',
@@ -1565,13 +1573,13 @@ class papaya_modulemanager extends base_db {
       $package = $this->packages[$pkgId];
       $path = $this->prependModulePath($package['modulegroup_path']);
       $tableFile = $this->getTableDataPath($package['modulegroup_path']).'table_'.$table.'.xml';
-      $this->tableStruct = $this->loadTableStructure($tableFile, $pkgId);
+      $this->_tableStructure = $this->loadTableStructure($tableFile, $pkgId);
       if (
-        isset($this->tableStruct['name']) &&
-        isset($this->tables[$this->tableStruct['name']]) &&
-        $this->tables[$this->tableStruct['name']] === TRUE
+        isset($this->_tableStructure['name']) &&
+        isset($this->tables[$this->_tableStructure['name']]) &&
+        $this->tables[$this->_tableStructure['name']] === TRUE
       ) {
-        if (isset($this->tableStruct['actions']) && $this->tableStruct['actions'] > 0) {
+        if (isset($this->_tableStructure['actions']) && $this->_tableStructure['actions'] > 0) {
           $this->setTableStatus($path, $table, TRUE);
         } else {
           $this->setTableStatus($path, $table, FALSE);
@@ -1583,267 +1591,74 @@ class papaya_modulemanager extends base_db {
   }
 
   /**
-   * Compare field definition in XML and database
-   *
-   * @param array $xmlField
-   * @param array $databaseField
-   * @access public
-   * @return boolean
-   */
-  function compareFieldStructure($xmlField, $databaseField) {
-    return $this->databaseCompareFieldStructure($xmlField, $databaseField);
-  }
-
-  /**
-   * Compare key structure
-   *
-   * @param array $xmlKey
-   * @param array $databaseKey
-   * @access public
-   * @return boolean update needed
-   */
-  function compareKeyStructure($xmlKey, $databaseKey) {
-    if ($this->databaseCompareKeyStructure($xmlKey, $databaseKey)) {
-      $databaseKeyFields = array_values($databaseKey['fields']);
-      foreach (array_values($xmlKey['fields']) as $idx => $fieldName) {
-        if (
-          (!isset($databaseKeyFields[$idx])) ||
-          $databaseKeyFields[$idx] != $fieldName
-        ) {
-          return TRUE;
-        }
-      }
-    }
-    return FALSE;
-  }
-
-  /**
    * Load table structure
    *
    * @param string $xmlFileName
-   * @param integer $pkgId
-   * @return array|boolean array or FALSE
+   * @return array|FALSE
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
-  public function loadTableStructure($xmlFileName, $pkgId = NULL) {
+  public function loadTableStructure($xmlFileName) {
     if (file_exists($xmlFileName)) {
-      if (is_null($pkgId) && !empty($this->params['pkg_id'])) {
-        $pkgId = $this->params['pkg_id'];
-      }
-      $tableData = array(
-        'name' => NULL,
-        'type' => NULL,
-        'fields' => array(),
-        'keys' => array(),
+      $expectedStructure = \Papaya\Database\Schema\Structure\TableStructure::createFromXML(
+        \Papaya\XML\Document::createFromXML(file_get_contents($xmlFileName))
       );
-      $xmlTree = \Papaya\XML\Document::createFromXML(file_get_contents($xmlFileName), TRUE);
-      if (
-        isset($xmlTree) &&
-        isset($xmlTree->documentElement) &&
-        $xmlTree->documentElement->hasChildNodes()
-      ) {
-        $tableData['name'] = strtolower($xmlTree->documentElement->getAttribute('name'));
-        $tableData['actions'] = 0;
+      $currentStructure = $this->getSchema()->describeTable(
+        $expectedStructure->name,
+        $expectedStructure->name ? $this->papaya()->options['PAPAYA_DB_TABLEPREFIX'] : ''
+      );
 
-        if (
-          isset($this->tables[$tableData['name']]) &&
-          $this->tables[$tableData['name']] === TRUE
-        ) {
-          $prefix = $this->getTablePrefixUsage($tableData['name'], $pkgId);
-          $tableDatabaseStruct = $this->databaseQueryTableStructure(
-            $tableData['name'],
-            $prefix ? PAPAYA_DB_TABLEPREFIX : ''
-          );
-        } else {
-          $tableDatabaseStruct = array(
-            'name' => $tableData['name'],
-            'type' => NULL,
-            'fields' => array(),
-            'keys' => array(),
-          );
-        }
+      $requiredChanges = [
+        'fields' => [],
+        'indizes' => []
+      ];
 
-        for ($idx = 0; $idx < $xmlTree->documentElement->childNodes->length; $idx++) {
-          $node = $xmlTree->documentElement->childNodes->item($idx);
-          if ($node instanceof DOMElement) {
-            switch ($node->nodeName) {
-            case 'fields':
-              if ($node->hasChildNodes()) {
-                for ($idx2 = 0; $idx2 < $node->childNodes->length; $idx2++) {
-                  $fieldNode = $node->childNodes->item($idx2);
-                  if (
-                    $fieldNode instanceof DOMElement &&
-                    $fieldNode->nodeName == 'field' &&
-                    $fieldNode->hasAttribute('name')
-                  ) {
-                    $fieldName = strtolower($fieldNode->getAttribute('name'));
-                    $fieldData = array(
-                      'name' => '',
-                      'type' => '',
-                      'size' => 0,
-                      'null' => 'no',
-                      'default' => NULL,
-                      'autoinc' => 'no'
-                    );
-                    foreach ($fieldNode->attributes as $attribute) {
-                      $fieldData[$attribute->name] = $attribute->value;
-                    }
-                    if (
-                      is_null($fieldData['default']) &&
-                      $fieldData['null'] == 'no' &&
-                      !($fieldData['autoinc'] == 'yes')
-                    ) {
-                      switch ($fieldData['type']) {
-                      case 'integer' :
-                      case 'float' :
-                        $fieldData['default'] = '0';
-                        break;
-                      case 'string' :
-                        if ($fieldData['size'] < 65535) {
-                          $fieldData['default'] = "";
-                        }
-                        break;
-                      }
-                    }
-                    $tableData['fields'][$fieldName] = $fieldData;
-                    $tableData['fields'][$fieldName]['name'] = $fieldName;
-                    if (isset($tableDatabaseStruct['fields'][$fieldName])) {
-                      if (
-                        $this->compareFieldStructure(
-                          $tableData['fields'][$fieldName],
-                          $tableDatabaseStruct['fields'][$fieldName]
-                        )
-                      ) {
-                        $tableData['fields'][$fieldName]['action'] = 'update';
-                        $this->incrementTableActions($tableData);
-                      } else {
-                        $tableData['fields'][$fieldName]['action'] = FALSE;
-                      }
-                    } else {
-                      $tableData['fields'][$fieldName]['action'] = 'add';
-                      $this->incrementTableActions($tableData);
-                    }
-                  }
-                }
-              }
-              if (
-                isset($tableDatabaseStruct['fields']) &&
-                is_array($tableDatabaseStruct['fields'])
-              ) {
-                foreach ($tableDatabaseStruct['fields'] as $field) {
-                  $fieldName = strtolower($field['name']);
-                  if (!isset($tableData['fields'][$fieldName])) {
-                    $tableData['fields'][$fieldName] = $field;
-                    $tableData['fields'][$fieldName]['action'] = 'delete';
-                    $this->incrementTableActions($tableData);
-                  }
-                }
-              }
-              break;
-            case 'keys':
-              if ($node->hasChildNodes()) {
-                for ($idx2 = 0; $idx2 < $node->childNodes->length; $idx2++) {
-                  $keyNode = $node->childNodes->item($idx2);
-                  if ($keyNode instanceof DOMElement) {
-                    $keyName = strtolower($keyNode->getAttribute('name'));
-                    switch ($keyNode->nodeName) {
-                      /** @noinspection PhpMissingBreakStatementInspection */
-                    case 'primary-key':
-                      $keyName = 'PRIMARY';
-                    case 'key':
-                      $keyData = array(
-                        'name' => '',
-                        'fields' => array(),
-                        'keysize' => array(),
-                        'unique' => 'no',
-                        'fulltext' => 'no',
-                        'default' => ''
-                      );
-                      foreach ($keyNode->attributes as $attribute) {
-                        $keyData[$attribute->name] = $attribute->value;
-                      }
-                      $tableData['keys'][$keyName] = $keyData;
-                      $tableData['keys'][$keyName]['name'] = $keyName;
-                      if ($keyNode->hasChildNodes()) {
-                        for ($idx3 = 0; $idx3 < $keyNode->childNodes->length; $idx3++) {
-                          $fieldNode = $keyNode->childNodes->item($idx3);
-                          if (
-                            $fieldNode instanceof DOMElement &&
-                            $fieldNode->nodeName == 'field'
-                          ) {
-                            $s = strtolower($fieldNode->nodeValue);
-                            $tableData['keys'][$keyName]['fields'][] = $s;
-                            if (
-                              $fieldNode->hasAttribute('size') &&
-                              $fieldNode->getAttribute('size') > 0
-                            ) {
-                              $tableData['keys'][$keyName]['keysize'][$s] =
-                                (int)$fieldNode->getAttribute('size');
-                            }
-                          }
-                        }
-                      }
-                      if (isset($tableDatabaseStruct['keys'][$keyName])) {
-                        if (
-                          $this->compareKeyStructure(
-                            $tableData['keys'][$keyName],
-                            $tableDatabaseStruct['keys'][$keyName]
-                          )
-                        ) {
-                          $tableData['keys'][$keyName]['action'] = 'update';
-                          $this->incrementTableActions($tableData);
-                        } else {
-                          $tableData['keys'][$keyName]['action'] = FALSE;
-                        }
-                      } else {
-                        $tableData['keys'][$keyName]['action'] = 'add';
-                        $this->incrementTableActions($tableData);
-                      }
-                      break;
-                    }
-                  }
-                }
-              }
-              if (
-                isset($tableDatabaseStruct['keys']) &&
-                is_array($tableDatabaseStruct['keys'])
-              ) {
-                foreach ($tableDatabaseStruct['keys'] as $key) {
-                  $keyName = $key['name'];
-                  if (!isset($tableData['keys'][$keyName])) {
-                    $tableData['keys'][$keyName] = $key;
-                    $tableData['keys'][$keyName]['action'] = 'delete';
-                    $this->incrementTableActions($tableData);
-                  }
-                }
-              }
-              break;
-            }
-          }
+      $fieldNames =  array_unique(
+        array_merge($expectedStructure->fields->keys(), $currentStructure->fields->keys())
+      );
+      /** @var string $fieldName */
+      foreach ($fieldNames as $fieldName) {
+        /** @var \Papaya\Database\Schema\Structure\FieldStructure $expectedField */
+        $expectedField = isset($expectedStructure->fields[$fieldName]) ? $expectedStructure->fields[$fieldName] : NULL;
+        /** @var \Papaya\Database\Schema\Structure\FieldStructure $currentField */
+        $currentField = isset($currentStructure->fields[$fieldName]) ? $currentStructure->fields[$fieldName] : NULL;
+        if (isset($expectedField) && !isset($currentField)) {
+          $requiredChanges['fields'][$expectedField->name] = self::ACTION_FIELD_ADD;
+        } elseif (!isset($expectedField) && isset($currentField)) {
+          $requiredChanges['fields'][$currentField->name] = self::ACTION_FIELD_REMOVE;
+          // remove
+        } elseif ($this->getSchema()->isFieldDifferent($expectedField, $currentField)) {
+          $requiredChanges['fields'][$expectedField->name] = self::ACTION_FIELD_CHANGE;
         }
-        unset($tableDatabaseStruct);
-      } else {
-        $this->addMsg(MSG_ERROR, $this->_gt('Invalid table structure XML document.'));
-        return FALSE;
       }
-      unset($xmlTree);
-      return $tableData;
+
+      $indexNames =  array_unique(
+        array_merge($expectedStructure->indizes->keys(), $currentStructure->indizes->keys())
+      );
+      $requiredChanges = [];
+      /** @var string $indexName */
+      foreach ($indexNames as $indexName) {
+        /** @var \Papaya\Database\Schema\Structure\IndexStructure $expectedIndex */
+        $expectedIndex = isset($expectedStructure->indizes[$indexName]) ? $expectedStructure->indizes[$indexName] : NULL;
+        /** @var \Papaya\Database\Schema\Structure\IndexStructure $currentIndex */
+        $currentIndex = isset($currentStructure->indizes[$indexName]) ? $currentStructure->indizes[$indexName] : NULL;
+        if (isset($expectedIndex) && !isset($currentIndex)) {
+          $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_ADD;
+        } elseif (!isset($expectedIndex) && isset($currentIndex)) {
+          $requiredChanges['indizes'][$currentIndex->name] = self::ACTION_INDEX_REMOVE;
+          // remove
+        } elseif ($this->getSchema()->isIndexDifferent($expectedIndex, $currentIndex)) {
+          $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_CHANGE;
+        }
+      }
+
+      return [
+        'name' => $expectedStructure->name,
+        'expected' => $expectedStructure,
+        'current' => $currentStructure,
+        'changes' => $requiredChanges
+      ];
     }
     return FALSE;
-  }
-
-  /**
-   * Increment table actions counter.
-   *
-   * @param &$tableData
-   * @access public
-   * @return void
-   */
-  function incrementTableActions(&$tableData) {
-    if (isset($tableData['actions'])) {
-      ++$tableData['actions'];
-    } else {
-      $tableData['actions'] = 1;
-    }
   }
 
   /**
@@ -1859,7 +1674,7 @@ class papaya_modulemanager extends base_db {
       $tableFullName = $this->getTableFullName($tableStruct['name']);
       switch($field['action']) {
       case 'add':
-        if ($this->databaseAddField($tableFullName, $field)) {
+        if ($this->getSchema()->addField($tableFullName, $field)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Field added.').' '.$fieldName
           );
@@ -1871,7 +1686,7 @@ class papaya_modulemanager extends base_db {
         }
         break;
       case 'delete':
-        if ($this->databaseDropField($tableFullName, $fieldName)) {
+        if ($this->getSchema()->dropField($tableFullName, $fieldName)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Field deleted.').' '.$fieldName
           );
@@ -1883,7 +1698,7 @@ class papaya_modulemanager extends base_db {
         }
         break;
       case 'update':
-        if ($this->databaseChangeField($tableFullName, $field)) {
+        if ($this->getSchema()->changeField($tableFullName, $field)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Field modified.').' '.$fieldName
           );
@@ -1899,7 +1714,7 @@ class papaya_modulemanager extends base_db {
     foreach ($tableStruct['keys'] as $keyName => $key) {
       switch ($key['action']) {
       case 'add':
-        if ($this->databaseAddIndex($tableFullName, $key)) {
+        if ($this->getSchema()->addIndex($tableFullName, $key)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index added.').' '.$keyName
           );
@@ -1911,7 +1726,7 @@ class papaya_modulemanager extends base_db {
         }
         break;
       case 'delete':
-        if ($this->databaseDropIndex($tableFullName, $keyName)) {
+        if ($this->getSchema()->dropIndex($tableFullName, $keyName)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index deleted.').' '.$keyName
           );
@@ -1923,7 +1738,7 @@ class papaya_modulemanager extends base_db {
         }
         break;
       case 'update':
-        if ($this->databaseChangeIndex($tableFullName, $key)) {
+        if ($this->getSchema()->changeIndex($tableFullName, $key)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index modified.').' '.$keyName
           );
@@ -1963,6 +1778,7 @@ class papaya_modulemanager extends base_db {
    *
    * @param $tables
    * @access public
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   function loadTableDBData($tables) {
     unset($this->tables);
@@ -1971,7 +1787,7 @@ class papaya_modulemanager extends base_db {
       foreach ($this->tables as $tableName => $inDatabase) {
         $this->tables[$tableName] = FALSE;
       }
-      $dbTables = $this->databaseQueryTableNames();
+      $dbTables = $this->getSchema()->getTables();
       if (is_array($dbTables)) {
         foreach ($dbTables as $tableName) {
           if (strpos($tableName, PAPAYA_DB_TABLEPREFIX.'_') !== FALSE) {
@@ -1983,6 +1799,14 @@ class papaya_modulemanager extends base_db {
         }
       }
     }
+  }
+
+  /**
+   * @return \Papaya\Database\Schema
+   * @throws \Papaya\Database\Exception\ConnectionFailed
+   */
+  private function getSchema() {
+    return $this->getDatabaseAccess()->schema();
   }
 
   /**
@@ -2242,14 +2066,17 @@ class papaya_modulemanager extends base_db {
       isset($this->packages) &&
       is_array($this->packages) &&
       (
-        isset($this->modules) &&
-        is_array($this->modules) &&
-        count($this->modules) > 0
-      ) ||
-      (
-        isset($this->tables) &&
-        is_array($this->tables) &&
-        count($this->tables) > 0)
+        (
+          isset($this->modules) &&
+          is_array($this->modules) &&
+          count($this->modules) > 0
+        ) ||
+        (
+          isset($this->tables) &&
+          is_array($this->tables) &&
+          count($this->tables) > 0
+        )
+      )
     ) {
       $str = sprintf(
         '<listview title="%s">',
@@ -2582,7 +2409,7 @@ class papaya_modulemanager extends base_db {
   function getPackageDialog() {
     if (
       (isset($this->module) && is_array($this->module)) ||
-      (isset($this->tableStruct) && is_array($this->tableStruct))
+      (isset($this->_tableStructure) && is_array($this->_tableStructure))
     ) {
       return FALSE;
     } elseif (
@@ -2706,23 +2533,22 @@ class papaya_modulemanager extends base_db {
    * @access public
    */
   function getTableDialog() {
-    if (isset($this->tableStruct) && is_array($this->tableStruct)) {
+    if (isset($this->_tableStructure) && is_array($this->_tableStructure)) {
       if (
-        isset($this->tables[$this->tableStruct['name']]) &&
-        $this->tables[$this->tableStruct['name']] === TRUE
+        isset($this->_tableStructure['expected'], $this->tables[$this->_tableStructure['name']]) &&
+        $this->tables[$this->_tableStructure['name']] === TRUE
       ) {
         if (
-          isset($this->tableStruct['actions']) &&
-          $this->tableStruct['actions'] > 0 &&
           isset($this->params['cmd']) &&
-          $this->params['cmd'] == 'sync'
+          $this->params['cmd'] === 'sync' &&
+          count($this->_tableStructure['changes']) > 0
         ) {
-          $this->getTableSyncDialog($this->tableStruct['name']);
+          $this->getTableSyncDialog($this->_tableStructure['name']);
         }
-        $this->getFieldsListView($this->tableStruct);
-        $this->getKeysListView($this->tableStruct);
+        $this->getFieldsListView($this->_tableStructure);
+        $this->getKeysListView($this->_tableStructure);
       } else {
-        $this->getCreateTableDialog($this->tableStruct['name']);
+        $this->getCreateTableDialog($this->_tableStructure['name']);
       }
     } elseif (isset($this->params['table']) && !empty($this->params['table'])) {
       $this->addMsg(MSG_ERROR, $this->_gt('Could not load table structure file!'));
@@ -2732,174 +2558,146 @@ class papaya_modulemanager extends base_db {
   /**
    * Get fields list view
    *
-   * @param array $struct
+   * @param array $structure
    * @access public
    */
-  function getFieldsListView($struct) {
-    if (isset($struct['fields']) && is_array($struct['fields'])) {
+  function getFieldsListView($structure) {
+    if (isset($structure['expected'])) {
       $images = $this->papaya()->images;
-      $str = sprintf(
-        '<listview title="%s">',
-        papaya_strings::escapeHTMLChars($this->_gt('Fields'))
+      $listView = new \Papaya\UI\ListView();
+      $listView->caption = new Papaya\UI\Text\Translated('Fields');
+      $listView->columns[] = new \Papaya\UI\ListView\Column(new \Papaya\UI\Text\Translated('Name'));
+      $listView->columns[] = new \Papaya\UI\ListView\Column(
+        new \Papaya\UI\Text\Translated('Type'), \Papaya\UI\Option\Align::CENTER
       );
-      $str .= '<cols>';
-      $str .= '<col>'.papaya_strings::escapeHTMLChars($this->_gt('Name')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Type')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Size')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Null')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Auto Increment')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Action')).'</col>';
-      $str .= '</cols>';
-      $str .= '<items>';
-      foreach ($struct['fields'] as $field) {
-        $str .= sprintf(
-          '<listitem title="%s">',
-          papaya_strings::escapeHTMLChars($field['name'])
+      $listView->columns[] = new \Papaya\UI\ListView\Column(
+        new \Papaya\UI\Text\Translated('Size'), \Papaya\UI\Option\Align::CENTER
+      );
+      $listView->columns[] = new \Papaya\UI\ListView\Column(
+        new \Papaya\UI\Text\Translated('Null'), \Papaya\UI\Option\Align::CENTER
+      );
+      $listView->columns[] = new \Papaya\UI\ListView\Column(
+        new \Papaya\UI\Text\Translated('Auto Increment'), \Papaya\UI\Option\Align::CENTER
+      );
+      $listView->columns[] = new \Papaya\UI\ListView\Column(
+        new \Papaya\UI\Text\Translated('Action'), \Papaya\UI\Option\Align::CENTER
+      );
+
+      $fieldNames = array_unique(
+        array_merge($structure['expected']->fields->keys(), $structure['current']->fields->keys())
+      );
+      foreach ($fieldNames as $fieldName) {
+        /** @var \Papaya\Database\Schema\Structure\FieldStructure $field */
+        $field = isset($structure['expected']->fields[$fieldName])
+          ? $structure['expected']->fields[$fieldName] : $structure['current']->fields[$fieldName];
+        $listView->items[] = $item = new \Papaya\UI\ListView\Item('', $field->name);
+        $item->subitems[] = new Papaya\UI\ListView\SubItem\Text($field->type);
+        $item->subitems[] = new Papaya\UI\ListView\SubItem\Text($field->size);
+        $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+          $field->allowsNull ? $images['status-node-checked-disabled'] : $images['status-node-empty-disabled']
         );
-        $str .= sprintf(
-          '<subitem align="center">%s</subitem>',
-          papaya_strings::escapeHTMLChars($field['type'])
+        $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+          $field->isAutoIncrement ? $images['status-node-checked-disabled'] : $images['status-node-empty-disabled']
         );
-        $str .= sprintf(
-          '<subitem align="center">%s</subitem>',
-          papaya_strings::escapeHTMLChars($field['size'])
-        );
-        $activeGlyph = ($field['null'] == 'yes')
-          ? $images['status-node-checked-disabled']
-          : $images['status-node-empty-disabled'];
-        $str .= sprintf(
-          '<subitem align="center"><glyph src="%s"/></subitem>',
-          papaya_strings::escapeHTMLChars($activeGlyph)
-        );
-        $activeGlyph = ($field['autoinc'] == 'yes')
-          ? $images['status-node-checked-disabled']
-          : $images['status-node-empty-disabled'];
-        $str .= sprintf(
-          '<subitem align="center"><glyph src="%s"/></subitem>',
-          papaya_strings::escapeHTMLChars($activeGlyph)
-        );
-        if (isset($field['action']) && $field['action']) {
-          switch ($field['action']) {
-          case 'add':
-            $glyph = $images['actions-generic-add'];
-            break;
-          case 'delete':
-            $glyph = $images['actions-generic-delete'];
-            break;
-          case 'update':
-            $glyph = $images['actions-edit'];
-            break;
-          default :
-            $glyph = $images[0];
-          }
-          $href = $this->getLink(
-            array(
-              'cmd' => 'field_'.$field['action'],
-              'field' => $field['name']
-            )
+        $action = isset($structure['changes']['fields'][$field->name]) ? $structure['changes']['fields'][$field->name] : NULL;
+        switch ($action) {
+        case self::ACTION_FIELD_ADD:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+            $images['actions-generic-add'],
+            '',
+            ['cmd' => $action, 'field' => $field->name]
           );
-          $str .= sprintf(
-            '<subitem align="center"><a href="%s"><glyph src="%s"/></a></subitem>',
-            papaya_strings::escapeHTMLChars($href),
-            papaya_strings::escapeHTMLChars($glyph)
+          break;
+        case self::ACTION_FIELD_REMOVE:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+            $images['actions-generic-delete'],
+            '',
+            ['cmd' => $action, 'field' => $field->name]
           );
-        } else {
-          $str .= '<subitem/>';
+          break;
+        case self::ACTION_FIELD_CHANGE:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+            $images['actions-edit'],
+            '',
+            ['cmd' => $action, 'field' => $field->name]
+          );
+          break;
+        default:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\EmptyValue();
         }
-        $str .= '</listitem>';
       }
-      $str .= '</items>';
-      $str .= '</listview>';
-      $this->layout->addRight($str);
+      $this->layout->addRight($listView->getXML());
     }
   }
 
   /**
    * Get Keys list view
    *
-   * @param array $struct
+   * @param array $structure
    * @access public
    */
-  function getKeysListView($struct) {
-    if (isset($struct['keys']) && is_array($struct['keys'])) {
+  function getKeysListView($structure) {
+    if (isset($structure['expected'])) {
       $images = $this->papaya()->images;
-      $str = sprintf(
-        '<listview title="%s">',
-        papaya_strings::escapeHTMLChars($this->_gt('Index'))
+      $listView = new UI\ListView();
+      $listView->caption = new UI\Text\Translated('Fields');
+      $listView->columns[] = new UI\ListView\Column(new UI\Text\Translated('Name'));
+      $listView->columns[] = new UI\ListView\Column(
+        new UI\Text\Translated('Fields'), UI\Option\Align::CENTER
       );
-      $str .= '<cols>';
-      $str .= '<col>'.papaya_strings::escapeHTMLChars($this->_gt('Name')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Fields')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Unique')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Fulltext')).'</col>';
-      $str .= '<col align="center">'.
-        papaya_strings::escapeHTMLChars($this->_gt('Action')).'</col>';
-      $str .= '</cols>';
-      $str .= '<items>';
-      foreach ($struct['keys'] as $key) {
-        $str .= sprintf(
-          '<listitem title="%s">',
-          papaya_strings::escapeHTMLChars($key['name'])
+      $listView->columns[] = new UI\ListView\Column(
+        new UI\Text\Translated('Unique'), UI\Option\Align::CENTER
+      );
+      $listView->columns[] = new UI\ListView\Column(
+        new UI\Text\Translated('Fulltext'), UI\Option\Align::CENTER
+      );
+      $listView->columns[] = new UI\ListView\Column(
+        new UI\Text\Translated('Action'), UI\Option\Align::CENTER
+      );
+
+      $indexNames = array_unique(
+        array_merge($structure['expected']->indizes->keys(), $structure['current']->indizes->keys())
+      );
+      foreach ($indexNames as $indexName) {
+        /** @var \Papaya\Database\Schema\Structure\IndexStructure $index */
+        $index = isset($structure['expected']->indizes[$indexName])
+          ? $structure['expected']->indizes[$indexName] : $structure['current']->indizes[$indexName];
+        $listView->items[] = $item = new UI\ListView\Item('', $index->name);
+        $item->subitems[] = new UI\ListView\SubItem\Text(implode(', ',$index->fields->keys()));
+        $item->subitems[] = new UI\ListView\SubItem\Image(
+          $index->isUnique ? $images['status-node-checked-disabled'] : $images['status-node-empty-disabled']
         );
-        $str .= sprintf(
-          '<subitem>%s</subitem>',
-          papaya_strings::escapeHTMLChars(implode(', ', $key['fields']))
+        $item->subitems[] = new UI\ListView\SubItem\Image(
+          $index->isFullText ? $images['status-node-checked-disabled'] : $images['status-node-empty-disabled']
         );
-        $activeGlyph = ($key['unique'] == 'yes' || $key['name'] == 'PRIMARY')
-          ? $images['status-node-checked-disabled']
-          : $images['status-node-empty-disabled'];
-        $str .= sprintf(
-          '<subitem align="center"><glyph src="%s"/></subitem>',
-          papaya_strings::escapeHTMLChars($activeGlyph)
-        );
-        $activeGlyph = ($key['fulltext'] == 'yes')
-          ? $images['status-node-checked-disabled']
-          : $images['status-node-empty-disabled'];
-        $str .= sprintf(
-          '<subitem align="center"><glyph src="%s"/></subitem>',
-          papaya_strings::escapeHTMLChars($activeGlyph)
-        );
-        if (isset($key['action']) && $key['action']) {
-          switch ($key['action']) {
-          case 'add':
-            $glyph = $images['actions-generic-add'];
-            break;
-          case 'delete':
-            $glyph = $images['actions-generic-delete'];
-            break;
-          case 'update':
-            $glyph = $images['actions-edit'];
-            break;
-          default:
-            $glyph = $images[0];
-          }
-          $href = $this->getLink(
-            array(
-              'cmd' => 'index_'.$key['action'],
-              'index' => $key['name']
-            )
+        $action = isset($structure['changes']['indizes'][$index->name]) ? $structure['changes']['indizes'][$index->name] : NULL;
+        switch ($action) {
+        case self::ACTION_INDEX_ADD:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+            $images['actions-generic-add'],
+            '',
+            ['cmd' => $action, 'index' => $index->name]
           );
-          $str .= sprintf(
-            '<subitem align="center"><a href="%s"><glyph src="%s"/></a></subitem>',
-            papaya_strings::escapeHTMLChars($href),
-            papaya_strings::escapeHTMLChars($glyph)
+          break;
+        case self::ACTION_INDEX_REMOVE:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+            $images['actions-generic-delete'],
+            '',
+            ['cmd' => $action, 'index' => $index->name]
           );
-        } else {
-          $str .= '<subitem/>';
+          break;
+        case self::ACTION_INDEX_CHANGE:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
+            $images['actions-edit'],
+            '',
+            ['cmd' => $action, 'index' => $index->name]
+          );
+          break;
+        default:
+          $item->subitems[] = new Papaya\UI\ListView\SubItem\EmptyValue();
         }
-        $str .= '</listitem>';
       }
-      $str .= '</items>';
-      $str .= '</listview>';
-      $this->layout->addRight($str);
+      $this->layout->addRight($listView->getXML());
     }
   }
 
@@ -2936,8 +2734,8 @@ class papaya_modulemanager extends base_db {
     if (
       isset($table) &&
       trim($table != '') &&
-      isset($this->tableStruct) &&
-      is_array($this->tableStruct)
+      isset($this->_tableStructure) &&
+      is_array($this->_tableStructure)
     ) {
       $hidden = array(
         'cmd' => 'sync',
@@ -2966,11 +2764,11 @@ class papaya_modulemanager extends base_db {
   function getFieldDialog() {
     if (
       isset($this->params['cmd']) &&
-      in_array($this->params['cmd'], array('field_add', 'field_delete', 'field_update')) &&
+      in_array($this->params['cmd'], array(self::ACTION_FIELD_ADD, self::ACTION_FIELD_REMOVE, self::ACTION_FIELD_CHANGE)) &&
       isset($this->params['field']) &&
-      isset($this->tableStruct) &&
-      is_array($this->tableStruct) &&
-      isset($this->tableStruct['fields'][$this->params['field']])
+      isset($this->_tableStructure) &&
+      is_array($this->_tableStructure) &&
+      isset($this->_tableStructure['fields'][$this->params['field']])
     ) {
       $hidden = array(
         'cmd' => $this->params['cmd'],
@@ -2979,15 +2777,15 @@ class papaya_modulemanager extends base_db {
         'field_action_confirm' => 1,
       );
       switch ($this->params['cmd']) {
-      case 'field_add':
+      case self::ACTION_FIELD_ADD:
         $msgPattern = 'Add field "%s" to table "%s"?';
         $btnCaption = 'Add';
         break;
-      case 'field_delete':
+      case self::ACTION_FIELD_REMOVE:
         $msgPattern = 'Delete field "%s" from table "%s"?';
         $btnCaption = 'Delete';
         break;
-      case 'field_update':
+      case self::ACTION_FIELD_CHANGE:
       default :
         $msgPattern = 'Modify field "%s" in table "%s"?';
         $btnCaption = 'Modify';
@@ -3015,9 +2813,9 @@ class papaya_modulemanager extends base_db {
       isset($this->params['cmd']) &&
       in_array($this->params['cmd'], array('index_add', 'index_delete', 'index_update')) &&
       isset($this->params['index']) &&
-      isset($this->tableStruct) &&
-      is_array($this->tableStruct) &&
-      isset($this->tableStruct['keys'][$this->params['index']])
+      isset($this->_tableStructure) &&
+      is_array($this->_tableStructure) &&
+      isset($this->_tableStructure['keys'][$this->params['index']])
     ) {
       $hidden = array(
         'cmd' => $this->params['cmd'],

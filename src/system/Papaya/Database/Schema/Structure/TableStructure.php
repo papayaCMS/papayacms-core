@@ -96,6 +96,7 @@ namespace Papaya\Database\Schema\Structure {
      */
     public function getXMLDocument() {
       $document = new Document();
+      $document->formatOutput = TRUE;
       $node = $document->appendElement(
         'table',
         [ 'name' => $this->_tableName],

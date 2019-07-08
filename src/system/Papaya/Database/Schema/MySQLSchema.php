@@ -2,6 +2,10 @@
 
 namespace Papaya\Database\Schema {
 
+  use Papaya\Database\Schema\Structure\FieldStructure;
+  use Papaya\Database\Schema\Structure\IndexStructure;
+  use Papaya\Database\Schema\Structure\IndexFieldStructure;
+  use Papaya\Database\Schema\Structure\TableStructure;
   use Papaya\Database\SQLStatement;
 
   class MySQLSchema extends AbstractSchema {
@@ -11,8 +15,8 @@ namespace Papaya\Database\Schema {
      */
     public function getTables() {
       $tables = [];
-      if ($result = $this->connection->execute('SHOW TABLES')) {
-        while($tableName = $result->fetchField()) {
+      if ($result = $this->_connection->execute('SHOW TABLES')) {
+        while ($tableName = $result->fetchField()) {
           $tables[] = $tableName;
         }
       }
@@ -20,69 +24,59 @@ namespace Papaya\Database\Schema {
     }
 
     /**
-     * Query table structure
-     *
      * @param string $tableName
      * @param string $tablePrefix optional, default value ''
-     * @access public
-     * @return array
+     * @return TableStructure
      */
     public function describeTable($tableName, $tablePrefix = '') {
-      $fields = [];
-      $table = $this->$this->getIdentifier($tableName, $tablePrefix);
-      $sql = 'SHOW TABLE STATUS LIKE ?';
-      $tableType = NULL;
-      if (
-        ($result = $this->connection->execute(new SQLStatement($sql, [$table]))) &&
-        ($row = $result->fetchAssoc())
-      ) {
-        $tableType = (strtoupper($row['Engine']) === 'INNODB')
-          ? 'transactions' : NULL;
-      }
-      $sql = "SHOW FIELDS FROM $table";
-      if ($result = $this->connection->execute($sql)) {
+      $table = new TableStructure($tableName, $tablePrefix !== '');
+      $quotedTableName = $this->getQuotedIdentifier($tableName, $tablePrefix);
+      if ($result = $this->_connection->execute("SHOW FIELDS FROM $quotedTableName")) {
         while ($row = $result->fetchAssoc()) {
-          $fields[$row['Field']] = $this->parseFieldData($row);
+          $table->fields[] = $this->parseFieldData($row);
         }
       }
-      $keys = [];
-      $sql = "SHOW KEYS FROM $table";
-      if ($result = $this->connection->execute($sql)) {
+      if ($result = $this->_connection->execute("SHOW KEYS FROM $quotedTableName")) {
+        $indexFields = [];
         while ($row = $result->fetchAssoc()) {
           $keyName = $row['Key_name'];
-          $keys[$keyName]['name'] = $keyName;
-          $keys[$keyName]['unique'] = ((int)$row['Non_unique'] === 0) ? 'yes' : 'no';
-          $keys[$keyName]['fields'][$row['Seq_in_index']] = $row['Column_name'];
-          if (isset($row['Sub_part'])) {
-            $keys[$keyName]['keysize'][$row['Column_name']] = (int)$row['Sub_part'];
-          } elseif (
-            $fields[$row['Column_name']] === 'string' &&
-            $fields[$row['Column_name']] > 255
-          ) {
-            $keys[$keyName]['keysize'][$row['Column_name']] = 255;
-          } else {
-            $keys[$keyName]['keysize'][$row['Column_name']] = 0;
+          if (!isset($table->indizes[$keyName])) {
+            $table->indizes[] = $index = new IndexStructure(
+              $keyName,
+              (int)$row['Non_unique'] === 0,
+              (isset($row['Index_type']) && $row['Index_type'] === 'FULLTEXT') || $row['Comment'] === 'FULLTEXT'
+            );
           }
-          if (isset($row['Index_type']) && $row['Index_type'] === 'FULLTEXT') {
-            $keys[$keyName]['fulltext'] = 'yes';
-          } elseif ($row['Comment'] === 'FULLTEXT') {
-            $keys[$keyName]['fulltext'] = 'yes';
-          } else {
-            $keys[$keyName]['fulltext'] = 'no';
+          $indexFields[$keyName][(int)$row['Seq_in_index']] = $row;
+        }
+        foreach ($table->indizes as $index) {
+          $fields = $indexFields[$index->name];
+          ksort($fields);
+          foreach ($fields as $row) {
+            $fieldName = $row[$row['Column_name']];
+            $size = 0;
+            if ($row['Sub_part'] > 0) {
+              $size = $row['Sub_part'];
+            } elseif (
+              !$index->isFullText &&
+              $table->fields[$fieldName]->type === FieldStructure::TYPE_TEXT &&
+              $table->fields[$fieldName]->size > 255
+            ) {
+              $size = 255;
+            }
+            $index->fields[] = new IndexFieldStructure($fieldName, $size);
           }
         }
       }
-      return [
-        'name' => $tableName,
-        'type' => $tableType,
-        'fields' => $fields,
-        'keys' => $keys
-      ];
+      return $table;
     }
 
+    /**
+     * @param array $row
+     * @return FieldStructure
+     */
     private function parseFieldData(array $row) {
       $type = $this->parseFieldType($row['Type']);
-      $autoIncrement = (strtolower($row['Extra']) === 'auto_increment');
       $default = NULL;
       if (isset($row['Default'])) {
         if ($type[0] === 'integer') {
@@ -95,16 +89,20 @@ namespace Papaya\Database\Schema {
           $default = $row['Default'];
         }
       }
-      return [
-        'name' => $row['Field'],
-        'type' => $type[0],
-        'size' => $type[1],
-        'null' => (strtolower($row['Null']) === 'yes') ? 'yes' : 'no',
-        'default' => isset($default) ? (string)$default : NULL,
-        'autoinc' => $autoIncrement ? 'yes' : 'no'
-      ];
+      return new FieldStructure(
+        $row['Field'],
+        $type[0],
+        $type[1],
+        strtolower($row['Extra']) === 'auto_increment',
+        strtolower($row['Null']) === 'yes',
+        isset($default) ? (string)$default : NULL
+      );
     }
 
+    /**
+     * @param $typeString
+     * @return array [$type, $size]
+     */
     private function parseFieldType($typeString) {
       $p = strpos($typeString, '(');
       if ($p !== FALSE) {
@@ -117,142 +115,120 @@ namespace Papaya\Database\Schema {
       switch (strtoupper($mysqliType)) {
       case 'TINYINT':
       case 'SMALLINT':
-        $type = 'integer';
+        $type = FieldStructure::TYPE_INTEGER;
         $size = 2;
         break;
       case 'MEDIUMINT':
       case 'INT':
       case 'INTEGER':
-        $type = 'integer';
+        $type = FieldStructure::TYPE_INTEGER;
         $size = 4;
         break;
       case 'BIGINT':
         $size = 8;
-        $type = 'integer';
+        $type = FieldStructure::TYPE_INTEGER;
         break;
       case 'FLOAT':
       case 'DOUBLE':
       case 'REAL':
       case 'DECIMAL':
       case 'NUMERIC':
-        $type = 'float';
+        $type = FieldStructure::TYPE_DECIMAL;
         break;
       case 'TINYTEXT':
-        $type = 'string';
-        $size = '255';
+        $type = FieldStructure::TYPE_TEXT;
+        $size = 255;
         break;
       case 'TEXT':
-        $type = 'string';
-        $size = '65535';
+        $type = FieldStructure::TYPE_TEXT;
+        $size = 65535;
         break;
       case 'MEDIUMTEXT':
-        $type = 'string';
-        $size = '16777215';
+        $type = FieldStructure::TYPE_TEXT;
+        $size = 16777215;
         break;
       case 'LONGTEXT':
-        $type = 'string';
-        $size = '4294967295';
+        $type = FieldStructure::TYPE_TEXT;
+        $size = 4294967295;
         break;
       case 'CHAR':
       case 'VARCHAR':
       default :
-        $type = 'string';
+        $type = FieldStructure::TYPE_TEXT;
         break;
       }
       return [$type, $size];
     }
 
     /**
-     * @param array $tableStructure
+     * @param TableStructure $tableStructure
      * @param string $tablePrefix
-     * @access public
      * @return boolean
      */
-    public function createTable(array $tableStructure, $tablePrefix = '') {
-      $fulltextIndex = FALSE;
-      if (
-        isset($tableStructure['fields'], $tableStructure['name']) &&
-        is_array($tableStructure['fields']) &&
-        trim($tableStructure['name']) !== ''
-      ) {
-        $table = $this->getIdentifier($tableStructure['name'], $tablePrefix);
-        $sql = "CREATE TABLE `$table` (\n";
+    public function createTable(TableStructure $tableStructure, $tablePrefix = '') {
+      if (count($tableStructure->fields) > 0) {
+        $sql = '';
         $parameters = [];
         $autoIncrementField = FALSE;
-        foreach ($tableStructure['fields'] as $field) {
-          $extra = $this->getFieldExtras($field, !$autoIncrementField);
-          $sql .= '  `'.$this->getIdentifier($field['name']).'` '.
-            $this->getFieldType($field['type'], $field['size']).
-            $extra[0].",\n";
+        /** @var FieldStructure $field */
+        foreach ($tableStructure->fields as $field) {
+          $extra = $this->getFieldExtrasSQL($field, !$autoIncrementField);
+          $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$this->getFieldTypeSQL($field).$extra[0].",\n";
           array_push($parameters, ...$extra[1]);
         }
-        if (isset($tableStructure['keys']) && is_array($tableStructure['keys'])) {
-          if (isset($tableStructure['keys']['PRIMARY'])) {
-            $key = $tableStructure['keys']['PRIMARY'];
-            $fieldStr = '(';
-            foreach ($key['fields'] as $fieldName) {
-              if (
-                isset($key['keysize'][$fieldName]) &&
-                $key['keysize'][$fieldName] > 0
-              ) {
-                $fieldStr .= '`'.$this->getIdentifier($fieldName).'` ('.
-                  (int)$key['keysize'][$fieldName].'), ';
+        if (count($tableStructure->indizes) > 0) {
+          if ($primary = $tableStructure->indizes->getPrimary()) {
+            $fieldsString = '(';
+            foreach ($primary->fields as $field) {
+              if ($field->size > 0) {
+                $fieldsString .= sprintf(
+                  '%s (%d), ', $this->getQuotedIdentifier($field->name), $field->size
+                );
               } else {
-                $fieldStr .= '`'.$this->getIdentifier($fieldName).'`, ';
+                $fieldsString .= $this->getQuotedIdentifier($field->name).', ';
               }
             }
-            $sql .= 'PRIMARY KEY '.substr($fieldStr, 0, -2)."),\n";
+            $sql .= 'PRIMARY KEY '.substr($fieldsString, 0, -2).'), ';
           }
-          foreach ($tableStructure['keys'] as $keyName => $key) {
-            if ($keyName !== 'PRIMARY') {
-              if (isset($key['unique']) && $key['unique'] === 'yes') {
+          foreach ($tableStructure->indizes as $index) {
+            if (!$index->isPrimary) {
+              if ($index->isUnique) {
                 $sql .= '  UNIQUE ';
-              } elseif (isset($key['fulltext']) && $key['fulltext'] === 'yes') {
+              } elseif ($index->isFullText) {
                 $sql .= '  FULLTEXT ';
-                $fulltextIndex = TRUE;
               } else {
                 $sql .= ' KEY ';
               }
-              $fieldStr = '(';
-              foreach ($key['fields'] as $fieldName) {
-                if (
-                  isset($key['keysize'][$fieldName]) &&
-                  $key['keysize'][$fieldName] > 0
-                ) {
-                  $fieldStr .= '`'.$this->getIdentifier($fieldName).'` ('.
-                    (int)$key['keysize'][$fieldName].'), ';
+              $fieldsString = '(';
+                foreach ($index->fields as $field) {
+                if ($field->size > 0) {
+                  $fieldsString .= sprintf(
+                    '%s (%d), ', $this->getQuotedIdentifier($field->name), $field->size
+                  );
                 } else {
-                  $fieldStr .= '`'.$this->getIdentifier($fieldName).'`, ';
+                  $fieldsString .= $this->getQuotedIdentifier($field->name).', ';
                 }
               }
-              $sql .= '`'.$keyName.'` '.substr($fieldStr, 0, -2)."),\n";
+              $sql .= $this->getQuotedIdentifier($index->name).' '.substr($fieldsString, 0, -2).'), ';
             }
           }
         }
-        $sql = substr($sql, 0, -2)."\n) ";
-        if ($fulltextIndex) {
-          $sql .= ' ENGINE=MyISAM';
-        } elseif (isset($tableStructure['type']) && $tableStructure['type'] === 'transactions') {
-          $sql .= ' ENGINE=InnoDB';
-        }
-        $sql .= ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci';
-        return ($this->connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
+        $sql = 'CREATE TABLE '.$this->getQuotedIdentifier($tableStructure->name, $tablePrefix).
+          ' ( '.substr($sql, 0, -2).' ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci';
+        return ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
       }
       return FALSE;
     }
 
     /**
-     * MySQL field type
-     *
-     * @param string $type
-     * @param string|int $size
-     * @access private
+     * @param FieldStructure $field
      * @return string
+     * @access private
      */
-    private function getFieldType($type, $size) {
-      switch (strtolower(trim($type))) {
-      case 'integer':
-        $size = ($size > 0) ? (int)$size : 1;
+    private function getFieldTypeSQL(FieldStructure $field) {
+      switch ($field->type) {
+      case FieldStructure::TYPE_INTEGER:
+        $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 2) {
           $result = 'TINYINT';
         } elseif ($size <= 4) {
@@ -261,22 +237,13 @@ namespace Papaya\Database\Schema {
           $result = 'BIGINT';
         }
         break;
-      case 'float':
-        if (FALSE !== strpos($size, ',')) {
-          list($before, $after) = explode(',', $size);
-          $before = ($before > 0) ? (int)$before : 1;
-          $after = (int)$after;
-          if ($after > $before) {
-            $before += $after;
-          }
-          $result = 'DECIMAL('.$before.','.$after.')';
-        } else {
-          $result = 'DECIMAL('.(int)$size.',0)';
-        }
+      case FieldStructure::TYPE_DECIMAL:
+        list($before, $after) = explode(',', $field->size);
+        $result = 'DECIMAL('.$before.','.$after.')';
         break;
-      case 'string':
+      case FieldStructure::TYPE_TEXT:
       default:
-        $size = ($size > 0) ? (int)$size : 1;
+        $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 4) {
           $result = 'CHAR('.$size.')';
         } elseif ($size <= 255) {
@@ -296,13 +263,13 @@ namespace Papaya\Database\Schema {
     /**
      * Get MySQL field extras
      *
-     * @param array $field
+     * @param FieldStructure $field
      * @param bool $allowAutoIncrement
      * @return array SQL instruction and parameters
      */
-    private function getFieldExtras($field, $allowAutoIncrement = FALSE) {
+    private function getFieldExtrasSQL($field, $allowAutoIncrement = FALSE) {
       $parameters = [];
-      if (isset($field['null']) && $field['null'] === 'yes') {
+      if ($field->allowsNull) {
         $default = NULL;
         $notNullStr = '';
       } else {
@@ -315,14 +282,14 @@ namespace Papaya\Database\Schema {
       if (isset($default)) {
         $defaultStr = ' DEFAULT ?';
         switch (strtolower($field['type'])) {
-        case 'integer':
+        case FieldStructure::TYPE_INTEGER:
           $parameters[] = (int)$default;
           break;
-        case 'float':
+        case FieldStructure::TYPE_DECIMAL:
           $parameters[] = (float)$default;
           break;
-        case 'string' :
-          if ($field['size'] > 255) {
+        case FieldStructure::TYPE_TEXT :
+          if ($field->size > 255) {
             $defaultStr = '';
           } else {
             $parameters[] = (string)$default;
@@ -332,10 +299,7 @@ namespace Papaya\Database\Schema {
       } else {
         $defaultStr = ' DEFAULT NULL';
       }
-      if (
-        $allowAutoIncrement &&
-        isset($field['autoinc']) && $field['autoinc'] === 'yes'
-      ) {
+      if ($allowAutoIncrement && $field->isAutoIncrement) {
         $autoIncrementString = ' auto_increment';
         $defaultStr = '';
       } else {
@@ -349,75 +313,75 @@ namespace Papaya\Database\Schema {
 
     /**
      * @param string $tableName
-     * @param array $fieldStructure
+     * @param FieldStructure $fieldStructure
      * @return bool
      */
-    public function addField($tableName, array $fieldStructure) {
+    public function addField($tableName, FieldStructure $fieldStructure) {
+      list($extrasSQL, $parameters) = $this->getFieldExtrasSQL($fieldStructure);
       $sql = sprintf(
       /** @lang text */
-        'ALTER TABLE `%s` ADD COLUMN `%s` %s %s',
-        $this->getIdentifier($tableName),
-        $this->getIdentifier($fieldStructure['name']),
-        $this->getFieldType($fieldStructure['type'], $fieldStructure['size']),
-        $this->getFieldExtras($fieldStructure)
+        'ALTER TABLE %s ADD COLUMN %s %s %s',
+        $this->getQuotedIdentifier($tableName),
+        $this->getQuotedIdentifier($fieldStructure['name']),
+        $this->getFieldTypeSQL($fieldStructure),
+        $extrasSQL
       );
-      return ($this->connection->execute($sql) !== FALSE);
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**
      * @param string $tableName
-     * @param array $fieldStructure
+     * @param FieldStructure $fieldStructure
      * @return bool
      */
-    public function changeField($tableName, array $fieldStructure) {
+    public function changeField($tableName, FieldStructure $fieldStructure) {
       $allowAutoIncrement = FALSE;
-      if (isset($fieldStructure['autoinc']) && $fieldStructure['autoinc'] === 'yes') {
-        $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($tableName).'`';
-        if ($result = $this->connection->execute($sql)) {
-          $autoIncrementField = NULL;
+      if ($fieldStructure->isAutoIncrement) {
+        $sql = 'SHOW COLUMNS FROM '.$this->getQuotedIdentifier($tableName);
+        if ($result = $this->_connection->execute($sql)) {
+          $oldAutoIncrementField = NULL;
           $fieldExists = FALSE;
           while ($row = $result->fetchAssoc()) {
             $isAutoIncrement = strtolower($row['Extra']) === 'auto_increment';
-            if ($row['Field'] === $fieldStructure['name']) {
+            if ($row['Field'] === $fieldStructure->name) {
               $allowAutoIncrement = (trim($row['Key']) !== '');
               if ($isAutoIncrement) {
-                unset($autoIncrementField);
+                unset($oldAutoIncrementField);
                 break;
               }
               $fieldExists = TRUE;
             } elseif ($isAutoIncrement) {
-              $autoIncrementField = $this->parseFieldData($row);
+              $oldAutoIncrementField = $this->parseFieldData($row);
             }
-            if ($fieldExists && isset($autoIncrementField)) {
+            if ($fieldExists && isset($oldAutoIncrementField)) {
               break;
             }
           }
           $result->free();
-          if (isset($autoIncrementField)) {
-            $autoIncrementField['autoinc'] = 'no';
+          if (isset($oldAutoIncrementField)) {
+            list($extrasSQL, $parameters) = $this->getFieldExtrasSQL($oldAutoIncrementField, FALSE);
             $sql = sprintf(
-            /** @lang text */
-              'ALTER TABLE `%s` MODIFY COLUMN `%s` %s %s',
-              $this->getIdentifier($tableName),
-              $this->getIdentifier($autoIncrementField['name']),
-              $this->getFieldType(
-                $autoIncrementField['type'], $autoIncrementField['size']
-              ),
-              $this->getFieldExtras($autoIncrementField)
+              /** @lang text */
+              'ALTER TABLE %s MODIFY COLUMN %s %s %s',
+              $this->getQuotedIdentifier($tableName),
+              $this->getQuotedIdentifier($oldAutoIncrementField->name),
+              $this->getFieldTypeSQL($oldAutoIncrementField),
+              $extrasSQL
             );
-            $this->connection->execute($sql);
+            $this->_connection->execute($sql, $parameters);
           }
         }
       }
+      list($extrasSQL, $parameters) = $this->getFieldExtrasSQL($fieldStructure, $allowAutoIncrement);
       $sql = sprintf(
       /** @lang text */
-        'ALTER TABLE `%s` MODIFY COLUMN `%s` %s %s',
-        $this->getIdentifier($tableName),
-        $this->getIdentifier($fieldStructure['name']),
-        $this->getFieldType($fieldStructure['type'], $fieldStructure['size']),
-        $this->getFieldExtras($fieldStructure, $allowAutoIncrement)
+        'ALTER TABLE %s MODIFY COLUMN %s %s %s',
+        $this->getQuotedIdentifier($tableName),
+        $this->getQuotedIdentifier($fieldStructure->name),
+        $this->getFieldTypeSQL($fieldStructure),
+        $extrasSQL
       );
-      return ($this->connection->execute($sql) !== FALSE);
+      return ($this->_connection->execute($sql, $parameters) !== FALSE);
     }
 
     /**
@@ -427,78 +391,54 @@ namespace Papaya\Database\Schema {
      */
     public function dropField($tableName, $fieldName) {
       $sql = sprintf(
-      /** @lang text */
-        'ALTER TABLE `%s` DROP COLUMN `%s`',
-        $this->getIdentifier($tableName),
-        $this->getIdentifier($fieldName)
+        /** @lang text */
+        'ALTER TABLE %s DROP COLUMN %s',
+        $this->getQuotedIdentifier($tableName),
+        $this->getQuotedIdentifier($fieldName)
       );
-      return ($this->connection->execute($sql) !== FALSE);
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**
      * @param string $tableName
-     * @param array $indexStructure
+     * @param IndexStructure $indexStructure
      * @return bool
      */
-    public function addIndex($tableName, array $indexStructure) {
+    public function addIndex($tableName, IndexStructure $indexStructure) {
       return $this->changeIndex($tableName, $indexStructure, FALSE);
     }
 
     /**
      * @param string $tableName
-     * @param array $indexStructure
+     * @param IndexStructure $indexStructure
      * @param bool $dropCurrent
      * @return bool
      */
-    public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE) {
-      if (isset($indexStructure['fields']) && is_array($indexStructure['fields'])) {
-        $sql = 'SHOW COLUMNS FROM `'.$this->getIdentifier($tableName).'`';
-        if ($res = $this->connection->execute($sql)) {
-          $needed = count($indexStructure['fields']);
-          $existsInDatabase = 0;
-          while ($row = $res->fetchAssoc()) {
-            if (
-              ++$existsInDatabase >= $needed &&
-              in_array($row['Field'], $indexStructure['fields'], FALSE)
-            ) {
-              break;
-            }
-          }
-          $res->free();
-          if ($existsInDatabase >= $needed) {
-            $fields = '(';
-            foreach ($indexStructure['fields'] as $fieldName) {
-              if (
-                isset($indexStructure['keysize'][$fieldName]) &&
-                $indexStructure['keysize'][$fieldName] > 0
-              ) {
-                $fields .= '`'.$this->getIdentifier($fieldName).'` ('.
-                  (int)$indexStructure['keysize'][$fieldName].'), ';
-              } else {
-                $fields .= '`'.$this->getIdentifier($fieldName).'`, ';
-              }
-            }
-            $fields = substr($fields, 0, -2).')';
-            $drop = $dropCurrent
-              ? ' DROP INDEX `'.$this->getIdentifier($indexStructure['name']).'`,' : '';
-            if ($indexStructure['name'] === 'PRIMARY') {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
-                ' ADD PRIMARY KEY '.$fields;
-            } elseif (isset($indexStructure['fulltext']) && $indexStructure['fulltext'] === 'yes') {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
-                ' ADD FULLTEXT `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
-            } elseif (isset($indexStructure['unique']) && $indexStructure['unique'] === 'yes') {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
-                ' ADD UNIQUE `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
-            } else {
-              $sql = 'ALTER TABLE `'.$this->getIdentifier($tableName).'`'.$drop.
-                ' ADD INDEX `'.$this->getIdentifier($indexStructure['name']).'` '.$fields;
-            }
-            return ($this->connection->execute($sql) !== FALSE);
-          }
+    public function changeIndex($tableName, IndexStructure $indexStructure, $dropCurrent = TRUE) {
+      $fields = '(';
+      /** @var IndexFieldStructure $field */
+      foreach ($indexStructure->fields as $field) {
+        if ($field->size > 0) {
+          $fields .= $this->getQuotedIdentifier($field->name).' ('.$field->size.'), ';
+        } else {
+          $fields .= $this->getQuotedIdentifier($field->name).', ';
         }
       }
-      return FALSE;
+      $fields = substr($fields, 0, -2).')';
+      $drop = $dropCurrent ? ' DROP INDEX '.$this->getQuotedIdentifier($indexStructure['name']).',' : '';
+      if ($indexStructure->isPrimary) {
+        $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.' ADD PRIMARY KEY '.$fields;
+      } elseif ($indexStructure->isFullText) {
+        $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.
+          ' ADD FULLTEXT '.$this->getQuotedIdentifier($indexStructure['name']).' '.$fields;
+      } elseif ($indexStructure->isUnique) {
+        $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.
+          ' ADD UNIQUE '.$this->getQuotedIdentifier($indexStructure['name']).' '.$fields;
+      } else {
+        $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.
+          ' ADD INDEX '.$this->getQuotedIdentifier($indexStructure['name']).' '.$fields;
+      }
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**
@@ -507,65 +447,61 @@ namespace Papaya\Database\Schema {
      * @return bool
      */
     public function dropIndex($tableName, $indexName) {
-      if ($indexName === 'PRIMARY') {
-        $sql =
-          /** @lang text */
-          'ALTER TABLE `'.$this->getIdentifier($tableName).'` DROP PRIMARY KEY';
+      if ($indexName === IndexStructure::PRIMARY) {
+        $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).' DROP PRIMARY KEY';
       } else {
-        $sql =
-          /** @lang text */
-          'ALTER TABLE `'.$this->getIdentifier($tableName).'` DROP INDEX `'.
-          $this->getIdentifier($indexName).'`';
+        $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).' DROP INDEX '.
+          $this->getQuotedIdentifier($indexName);
       }
-      return ($this->connection->execute($sql) !== FALSE);
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**
-     * @param array $expectedStructure
-     * @param array $currentStructure
+     * @param FieldStructure $expectedStructure
+     * @param FieldStructure $currentStructure
      * @return bool
      */
-    public function isFieldDifferent(array $expectedStructure, array $currentStructure) {
-      if ($expectedStructure['type'] !== $currentStructure['type']) {
+    public function isFieldDifferent(FieldStructure $expectedStructure, FieldStructure $currentStructure) {
+      if ($expectedStructure->type !== $currentStructure->type) {
         return TRUE;
       }
-      if ((int)$expectedStructure['size'] !== (int)$currentStructure['size']) {
+      if ($expectedStructure->size !== $currentStructure->size) {
         return TRUE;
       }
-      if ($expectedStructure['null'] !== $currentStructure['null']) {
+      if ($expectedStructure->allowsNull !== $currentStructure->allowsNull) {
         return TRUE;
       }
-      if ($expectedStructure['autoinc'] === 'yes' && $currentStructure['autoinc'] !== 'yes') {
+      if ($expectedStructure->isAutoIncrement !== $currentStructure->isAutoIncrement) {
         return TRUE;
       }
-      if ($expectedStructure['default'] !== $currentStructure['default']) {
+      if ($expectedStructure->defaultValue !== $currentStructure->defaultValue) {
         return TRUE;
       }
       return FALSE;
     }
 
     /**
-     * @param array $expectedStructure
-     * @param array $currentStructure
+     * @param IndexStructure $expectedStructure
+     * @param IndexStructure $currentStructure
      * @return bool
      */
-    public function isIndexDifferent(array $expectedStructure, array $currentStructure) {
+    public function isIndexDifferent(IndexStructure $expectedStructure, IndexStructure $currentStructure) {
       if (
-        ($expectedStructure['unique'] === 'yes' || $expectedStructure['name'] === 'PRIMARY') !==
-        ($currentStructure['unique'] === 'yes' || $currentStructure['name'] === 'PRIMARY')
+        ($expectedStructure->isUnique || $expectedStructure->isPrimary()) !==
+        ($currentStructure->isUnique || $currentStructure->isPrimary())
       ) {
         return TRUE;
       }
-      if ($expectedStructure['fulltext'] === 'yes' && $currentStructure['fulltext'] !== 'yes') {
+      if ($expectedStructure->isFullText && $currentStructure->isFullText) {
         return TRUE;
       }
-      if (count(array_diff_assoc($expectedStructure['keysize'], $currentStructure['keysize'])) > 0) {
+      if (count(array_diff($expectedStructure->fields->keys(), $currentStructure->fields->keys())) !== 0) {
         return TRUE;
       }
-      if (
-        count(array_diff($expectedStructure['fields'], $currentStructure['fields'])) > 0
-      ) {
-        return TRUE;
+      foreach ($expectedStructure->fields as $field) {
+        if ($field->size !== $currentStructure->fields[$field->name]->size) {
+          return TRUE;
+        }
       }
       return FALSE;
     }

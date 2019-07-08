@@ -11,6 +11,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property string $name
    * @property IndexFieldsStructure $fields
    * @property bool $isUnique
+   * @property bool $isPrimary
    * @property bool $isFullText
    */
   class IndexStructure implements Declared, Appendable {
@@ -41,8 +42,8 @@ namespace Papaya\Database\Schema\Structure {
         throw new \UnexpectedValueException('Key name can not be empty.');
       }
       $this->_name = strtoupper($name) === self::PRIMARY ? self::PRIMARY : $name;
-      $this->_isUnique = $isUnique && !$isFullText;
-      $this->_isFullText = (bool)$isFullText;
+      $this->_isUnique =  $this->isPrimary() || ($isUnique && !$isFullText);
+      $this->_isFullText =  !$this->isPrimary() && $isFullText;
       $this->_fields = new IndexFieldsStructure();
     }
 
@@ -95,6 +96,7 @@ namespace Papaya\Database\Schema\Structure {
       return [
         'name' => ['_name'],
         'isUnique' => ['_isUnique'],
+        'isPrimary' => ['isPrimary'],
         'isFullText'=> ['_isFullText'],
         'fields' => ['_fields']
       ];

@@ -16,6 +16,9 @@
 namespace Papaya\Database\Schema {
 
   use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Database\Schema\Structure\FieldStructure;
+  use Papaya\Database\Schema\Structure\IndexStructure;
+  use Papaya\Database\Schema\Structure\TableStructure;
   use Papaya\Test\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
@@ -27,7 +30,7 @@ namespace Papaya\Database\Schema {
 
     /**
      * @param string $expected
-     * @param string $tableName
+     * @param string $identifier
      * @param string $prefix
      * @testWith
      *   ["table", "table"]
@@ -35,18 +38,18 @@ namespace Papaya\Database\Schema {
      *   ["prefix_table", "table", "prefix"]
      *   ["field name", "field name"]
      */
-    public function testGetIdentifier($expected, $tableName, $prefix = '') {
+    public function testGetIdentifier($expected, $identifier, $prefix = '') {
       /** @var DatabaseConnection $connection */
       $connection = $this->createMock(DatabaseConnection::class);
       $schema = new AbstractSchema_TestProxy($connection);
       $this->assertSame(
         $expected,
-        $schema->getIdentifier($tableName, $prefix)
+        $schema->getIdentifier($identifier, $prefix)
       );
     }
 
     /**
-     * @param string $tableName
+     * @param string $identifier
      * @param string $prefix
      * @testWith
      *   [""]
@@ -55,12 +58,35 @@ namespace Papaya\Database\Schema {
      *   ["\"table\""]
      *   ["'table'"]
      */
-    public function testGetIdentifierWithInvalidValuesExpectingException($tableName, $prefix = '') {
+    public function testGetIdentifierWithInvalidValuesExpectingException($identifier, $prefix = '') {
       /** @var DatabaseConnection $connection */
       $connection = $this->createMock(DatabaseConnection::class);
       $schema = new AbstractSchema_TestProxy($connection);
       $this->expectException(\InvalidArgumentException::class);
-      $schema->getIdentifier($tableName, $prefix);
+      $schema->getIdentifier($identifier, $prefix);
+    }
+
+    /**
+     * @param string $expected
+     * @param string $identifier
+     * @param string $prefix
+     * @testWith
+     *   ["`table_name`", "table_name"]
+     *   ["`prefix_table_name`", "table_name", "prefix"]
+     */
+    public function testGetQuotedIdentifier($expected, $identifier, $prefix = '') {
+      /** @var DatabaseConnection $connection */
+      $connection = $this->createMock(DatabaseConnection::class);
+      $connection
+        ->expects($this->once())
+        ->method('quoteIdentifier')
+        ->willReturnCallback(
+          static function($name) { return "`{$name}`"; }
+        );
+      $schema = new AbstractSchema_TestProxy($connection);
+      $this->assertSame(
+        $expected, $schema->getQuotedIdentifier($identifier, $prefix)
+      );
     }
   }
 
@@ -70,37 +96,41 @@ namespace Papaya\Database\Schema {
       return parent::getIdentifier($name, $prefix);
     }
 
+    public function getQuotedIdentifier($name, $prefix = '') {
+      return parent::getQuotedIdentifier($name, $prefix);
+    }
+
     public function getTables() {
     }
 
     public function describeTable($tableName, $tablePrefix = '') {
     }
 
-    public function createTable(array $tableStructure, $tablePrefix = '') {
+    public function createTable(TableStructure $tableStructure, $tablePrefix = '') {
     }
 
-    public function addField($tableName, array $fieldStructure) {
+    public function addField($tableName, FieldStructure $fieldStructure) {
     }
 
-    public function changeField($tableName, array $fieldStructure) {
+    public function changeField($tableName, FieldStructure $fieldStructure) {
     }
 
     public function dropField($tableName, $fieldName) {
     }
 
-    public function addIndex($tableName, array $indexStructure) {
+    public function addIndex($tableName, IndexStructure $indexStructure) {
     }
 
-    public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE) {
+    public function changeIndex($tableName, IndexStructure $indexStructure, $dropCurrent = TRUE) {
     }
 
     public function dropIndex($tableName, $indexName) {
     }
 
-    public function isFieldDifferent(array $expectedStructure, array $currentStructure) {
+    public function isFieldDifferent(FieldStructure $expectedStructure, FieldStructure $currentStructure) {
     }
 
-    public function isIndexDifferent(array $expectedStructure, array $currentStructure) {
+    public function isIndexDifferent(IndexStructure $expectedStructure, IndexStructure $currentStructure) {
     }
   }
 }

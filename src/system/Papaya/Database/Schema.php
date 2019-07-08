@@ -2,6 +2,10 @@
 
 namespace Papaya\Database {
 
+  use Papaya\Database\Schema\Structure\FieldStructure;
+  use Papaya\Database\Schema\Structure\IndexStructure;
+  use Papaya\Database\Schema\Structure\TableStructure;
+
   interface Schema {
 
     /**
@@ -12,30 +16,30 @@ namespace Papaya\Database {
     /**
      * @param string $tableName
      * @param string $tablePrefix
-     * @return array
+     * @return TableStructure
      */
     public function describeTable($tableName, $tablePrefix = '');
 
     /**
-     * @param array $tableStructure
+     * @param TableStructure $tableStructure
      * @param string $tablePrefix
      * @return bool
      */
-    public function createTable(array $tableStructure, $tablePrefix = '');
+    public function createTable(TableStructure $tableStructure, $tablePrefix = '');
 
     /**
      * @param string $tableName
-     * @param array $fieldStructure
+     * @param FieldStructure $fieldStructure
      * @return bool
      */
-    public function addField($tableName, array $fieldStructure);
+    public function addField($tableName, FieldStructure $fieldStructure);
 
     /**
      * @param string $tableName
-     * @param array $fieldStructure
+     * @param FieldStructure $fieldStructure
      * @return bool
      */
-    public function changeField($tableName, array $fieldStructure);
+    public function changeField($tableName, FieldStructure $fieldStructure);
 
     /**
      * @param string $tableName
@@ -46,18 +50,18 @@ namespace Papaya\Database {
 
     /**
      * @param string $tableName
-     * @param array $indexStructure
+     * @param IndexStructure $indexStructure
      * @return bool
      */
-    public function addIndex($tableName, array $indexStructure);
+    public function addIndex($tableName, IndexStructure $indexStructure);
 
     /**
      * @param string $tableName
-     * @param array $indexStructure
+     * @param IndexStructure $indexStructure
      * @param bool $dropCurrent
      * @return bool
      */
-    public function changeIndex($tableName, array $indexStructure, $dropCurrent = TRUE);
+    public function changeIndex($tableName, IndexStructure $indexStructure, $dropCurrent = TRUE);
 
     /**
      * @param string $tableName
@@ -67,18 +71,18 @@ namespace Papaya\Database {
     public function dropIndex($tableName, $indexName);
 
     /**
-     * @param array $expectedStructure
-     * @param array $currentStructure
+     * @param FieldStructure $expectedStructure
+     * @param FieldStructure $currentStructure
      * @return bool
      */
-    public function isFieldDifferent(array $expectedStructure, array $currentStructure);
+    public function isFieldDifferent(FieldStructure $expectedStructure, FieldStructure $currentStructure);
 
     /**
-     * @param array $expectedStructure
-     * @param array $currentStructure
+     * @param IndexStructure $expectedStructure
+     * @param IndexStructure $currentStructure
      * @return bool
      */
-    public function isIndexDifferent(array $expectedStructure, array $currentStructure);
+    public function isIndexDifferent(IndexStructure $expectedStructure, IndexStructure $currentStructure);
   }
 
 }
