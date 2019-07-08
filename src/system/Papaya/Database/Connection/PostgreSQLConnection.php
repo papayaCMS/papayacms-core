@@ -177,7 +177,7 @@ namespace Papaya\Database\Connection {
       $dbmsResult = FALSE;
       if (empty($parameters)) {
         $dbmsResult = @pg_query($this->_postgresql, $sql);
-      } elseif ($dbmsStatement = @pg_prepare($this->_postgresql, '', $sql)) {
+      } elseif ($dbmsStatement = @pg_prepare($this->_postgresql, '', $this->rewritePlaceholders($sql))) {
         $dbmsResult = @pg_execute($this->_postgresql, $parameters);
       }
       if (is_resource($dbmsResult)) {
@@ -190,6 +190,39 @@ namespace Papaya\Database\Connection {
       throw new QueryFailed(
         empty($errorMessage) ? 'Unknown PostgreSQL error.' : $errorMessage, 0, NULL, $statement
       );
+    }
+
+    /**
+     * Replace standard positional placeholders (?) outside literals/identifiers with the ones used by the
+     * PostgreSQL extension ($n).
+     *
+     * @param string $sql
+     * @return string
+     */
+    private function rewritePlaceholders($sql) {
+      $quoteCharacters = ["'", '"'];
+      $patterns = [];
+      foreach ($quoteCharacters as $quoteCharacter) {
+        $patterns[] = \sprintf('(?:%1$s(?:[^%1$s]|\\\\%1$s|%1$s{2})*%1$s)', $quoteCharacter);
+      }
+      $pattern = '(('.\implode('|', $patterns).'))';
+      $parts = \preg_split($pattern, $sql, -1, PREG_SPLIT_DELIM_CAPTURE);
+      $result = '';
+      foreach ($parts as $part) {
+        if (\in_array(\substr($part, 0, 1), $quoteCharacters, TRUE)) {
+          $result .= $part;
+          continue;
+        }
+        $result .= \preg_replace_callback(
+          '(\\?)',
+          static function() {
+            static $index = 1;
+            return '\$'.($index++);
+          },
+          $part
+        );
+      }
+      return $result;
     }
 
     /**
