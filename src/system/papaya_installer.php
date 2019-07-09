@@ -289,7 +289,7 @@ class papaya_installer extends base_db {
       'login_exists' => FALSE
     );
     if ($result['database_connected'] && $result['optiontable_defined']) {
-      $this->existingTables = array_flip($this->databaseQueryTableNames());
+      $this->existingTables = array_flip($this->getDatabaseAccess()->schema()->getTables());
       $result['optiontable_exists'] = $this->checkTableExists(PAPAYA_DB_TBL_OPTIONS);
       $optionFileName = $this->getTableStructuresPath().'table_options.xml';
       if (file_exists($optionFileName) &&
@@ -932,7 +932,7 @@ class papaya_installer extends base_db {
     $tableFileName = $this->getTableStructuresPath().'table_'.$table.'.xml';
     $result = TRUE;
     if ($struct = $this->moduleManager->loadTableStructure($tableFileName)) {
-      if (isset($struct['actions']) && (int)$struct['actions'] > 0) {
+      if (isset($struct['changes']) && (count($struct['changes']['fields']) > 0 || count($struct['changes']['indizes']) > 0)) {
         $result = FALSE;
       }
       unset($struct);
