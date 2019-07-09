@@ -61,6 +61,7 @@ namespace Papaya\Database\Schema {
       // create temporary table with old table definitions
       $temporaryTableName = 'tmp_'.$tableName;
       $temporaryTableStructure = clone $tableStructure;
+      $temporaryTableStructure->name = $temporaryTableName;
       $this->_connection->execute(
         sprintf('DROP TABLE IF EXISTS "%s"', $temporaryTableName)
       );
@@ -239,7 +240,7 @@ namespace Papaya\Database\Schema {
       } else {
         $primaryKeyField = NULL;
       }
-      $sql = 'CREATE TABLE "'.$this->getQuotedIdentifier($tableStructure->name)."\" (\n";
+      $sql = 'CREATE TABLE '.$this->getQuotedIdentifier($tableStructure->name)." (\n";
       $parameters = [];
       /** @var FieldStructure $field */
       foreach ($tableStructure->fields as $field) {
@@ -253,7 +254,7 @@ namespace Papaya\Database\Schema {
       /** @var IndexStructure $index */
       foreach ($tableStructure->indizes as $index) {
         if (
-          $index->isPrimary() && count($index->field) > 1
+          $index->isPrimary() && count($index->fields) > 1
         ) {
           $sql .= 'PRIMARY KEY ('.implode(',', $this->getQuotedIdentifiers($index->fields->keys()))."),\n";
         } elseif ($index->isUnique && !$index->isPrimary()) {
@@ -294,16 +295,15 @@ namespace Papaya\Database\Schema {
       $default = $field->defaultValue;
       $defaultStr = '';
       if (isset($default)) {
-        $defaultStr = ' DEFAULT ?';
         switch ($field->type) {
         case FieldStructure::TYPE_INTEGER:
-          $parameters[] = (int)$default;
+          $defaultStr = ' DEFAULT '.(int)$default;
           break;
         case FieldStructure::TYPE_DECIMAL:
-          $parameters[] = (float)$default;
+          $defaultStr = ' DEFAULT '.(float)$default;
           break;
         default:
-          $parameters[] = (string)$default;
+          $defaultStr = ' DEFAULT '.$this->_connection->quoteString($default);
           break;
         }
       }
@@ -369,10 +369,10 @@ namespace Papaya\Database\Schema {
       }
       $fields = '('.implode(',', $this->getQuotedIdentifiers($indexStructure->fields->keys())).')';
       $quotedTableName = $this->getQuotedIdentifier($tableName);
-      $quotedIndexName = $this->getQuotedIdentifier($tableName.'_'.$indexStructure['name']);
-      if ($indexStructure['name'] === 'PRIMARY') {
+      $quotedIndexName = $this->getQuotedIdentifier($tableName.'_'.$indexStructure->name);
+      if ($indexStructure->isPrimary) {
         $sql = '';
-      } elseif (isset($indexStructure['unique']) && $indexStructure['unique'] === 'yes') {
+      } elseif ($indexStructure->isUnique) {
         $sql = 'CREATE UNIQUE INDEX '.$quotedIndexName.' ON '.$quotedTableName.' '.$fields;
       } else {
         $sql = 'CREATE INDEX '.$quotedIndexName.' ON '.$quotedTableName.' '.$fields;
@@ -433,11 +433,10 @@ namespace Papaya\Database\Schema {
      * @return bool
      */
     public function dropIndex($tableName, $indexName) {
-      $sql = 'PRAGMA index_list("'.$this->getIdentifier($tableName).'")';
-      if ($res = $this->_connection->execute($sql)) {
+      $sql = 'PRAGMA index_list('.$this->getQuotedIdentifier($tableName).')';
+      if ($dbResult = $this->_connection->execute($sql)) {
         $internalName = NULL;
-        $keys = [];
-        while ($row = $res->fetchAssoc()) {
+        while ($row = $dbResult->fetchAssoc()) {
           if ($row['origin'] === 'pk' || $row['origin'] === 'u') {
             continue;
           }
@@ -451,7 +450,7 @@ namespace Papaya\Database\Schema {
           }
         }
         if (NULL !== $internalName) {
-          $sql = 'DROP INDEX '.$this->getQuotedIdentifier($indexName);
+          $sql = 'DROP INDEX '.$this->getQuotedIdentifier($internalName);
           return ($this->_connection->execute($sql) !== FALSE);
         }
       }

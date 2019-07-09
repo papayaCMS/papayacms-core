@@ -51,10 +51,7 @@ namespace Papaya\Database\Schema\Structure {
      * @param bool $usePrefix
      */
     public function __construct($name, $usePrefix = TRUE) {
-      if (trim($name) === '') {
-        throw new \UnexpectedValueException('Table name can not be empty.');
-      }
-      $this->_tableName = $name;
+      $this->setName($name);
       $this->_usePrefix = (bool)$usePrefix;
       $this->_fields = new FieldsStructure();
       $this->_indizes = new IndizesStructure();
@@ -63,6 +60,13 @@ namespace Papaya\Database\Schema\Structure {
     public function __clone() {
       $this->_fields = clone $this->_fields;
       $this->_indizes = clone $this->_indizes;
+    }
+
+    public function setName($name) {
+      if (trim($name) === '') {
+        throw new \UnexpectedValueException('Table name can not be empty.');
+      }
+      $this->_tableName = $name;
     }
 
     public static function createFromXML(\DOMNode $node) {
@@ -114,7 +118,7 @@ namespace Papaya\Database\Schema\Structure {
      */
     public static function getPropertyDeclaration() {
       return [
-        'name' => ['_tableName'],
+        'name' => ['_tableName', 'setName'],
         'usePrefix' => ['_usePrefix'],
         'fields' => ['_fields'],
         'indizes' => ['_indizes']

@@ -320,9 +320,8 @@ class papaya_modulemanager extends base_db {
       case self::ACTION_FIELD_ADD:
       case self::ACTION_FIELD_CHANGE:
         if (
-          isset($this->params['field_action_confirm']) &&
+          isset($this->params['field_action_confirm'], $this->params['table']) &&
           $this->params['field_action_confirm'] &&
-          isset($this->params['table']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
@@ -332,8 +331,8 @@ class papaya_modulemanager extends base_db {
             $xmlFileName = $path.'table_'.$this->params['table'].'.xml';
             if ($struct = $this->loadTableStructure($xmlFileName, $this->params['pkg_id'])) {
               $tableFullName = $this->getTableFullName($this->params['table']);
-              if (isset($struct['fields'][$this->params['field']])) {
-                $field = $struct['fields'][$this->params['field']];
+              if (isset($struct['expected']->fields[$this->params['field']])) {
+                $field = $struct['expected']->fields[$this->params['field']];
                 switch ($this->params['cmd']) {
                 case self::ACTION_FIELD_ADD:
                   if ($this->getSchema()->addField($tableFullName, $field)) {
@@ -362,11 +361,9 @@ class papaya_modulemanager extends base_db {
         break;
       case self::ACTION_FIELD_REMOVE:
         if (
-          isset($this->params['field_action_confirm']) &&
+          isset($this->params['field_action_confirm'], $this->params['table'], $this->params['field']) &&
           $this->params['field_action_confirm'] &&
-          isset($this->params['table']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['table']) &&
-          isset($this->params['field']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['field'])
         ) {
           $changed = $this->getSchema()->dropField(
@@ -382,9 +379,8 @@ class papaya_modulemanager extends base_db {
       case self::ACTION_INDEX_ADD:
       case self::ACTION_INDEX_CHANGE:
         if (
-          isset($this->params['index_action_confirm']) &&
+          isset($this->params['index_action_confirm'], $this->params['table']) &&
           $this->params['index_action_confirm'] &&
-          isset($this->params['table']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['table'])
         ) {
           if (isset($this->packages[$this->params['pkg_id']])) {
@@ -394,8 +390,8 @@ class papaya_modulemanager extends base_db {
             $xmlFileName = $path.'table_'.$this->params['table'].'.xml';
             if ($struct = $this->loadTableStructure($xmlFileName, $this->params['pkg_id'])) {
               $tableFullName = $this->getTableFullName($this->params['table']);
-              if (isset($struct['keys'][$this->params['index']])) {
-                $index = $struct['keys'][$this->params['index']];
+              if (isset($struct['expected']->indizes[$this->params['index']])) {
+                $index = $struct['expected']->indizes[$this->params['index']];
                 switch ($this->params['cmd']) {
                 case self::ACTION_INDEX_ADD:
                   if ($this->getSchema()->addIndex($tableFullName, $index)) {
@@ -422,11 +418,9 @@ class papaya_modulemanager extends base_db {
         break;
       case self::ACTION_INDEX_REMOVE:
         if (
-          isset($this->params['index_action_confirm']) &&
+          isset($this->params['index_action_confirm'], $this->params['table'], $this->params['index']) &&
           $this->params['index_action_confirm'] &&
-          isset($this->params['table']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['table']) &&
-          isset($this->params['index']) &&
           \Papaya\Filter\Factory::isTextWithNumbers($this->params['index'])
         ) {
           $changed = $this->getSchema()->dropIndex(
@@ -450,8 +444,7 @@ class papaya_modulemanager extends base_db {
               $this->packages[$this->params['pkg_id']]['modulegroup_path']
             );
             $xmlFileName = $path.'table_'.$this->params['table'].'.xml';
-            if ($struct = $this->loadTableStructure($xmlFileName, $this->params['pkg_id'])) {
-              $struct['name'] = $this->params['table'];
+            if ($struct = $this->loadTableStructure($xmlFileName)) {
               if ($this->syncTableStructure($struct)) {
                 $this->addMsg(MSG_INFO, $this->_gt('Table structure updated!'));
               } else {
@@ -912,10 +905,11 @@ class papaya_modulemanager extends base_db {
     }
     $menubar->addSeparator();
     if (
-      isset($this->_tableStructure) &&
-      is_array($this->_tableStructure) &&
-      isset($this->_tableStructure['actions']) &&
-      $this->_tableStructure['actions'] > 0
+      isset($this->_tableStructure['changes']) &&
+      (
+        count($this->_tableStructure['changes']['fields']) > 0 ||
+        count($this->_tableStructure['changes']['indizes']) > 0
+      )
     ) {
       $menubar->addButton(
         'Synchronize',
@@ -1579,7 +1573,13 @@ class papaya_modulemanager extends base_db {
         isset($this->tables[$this->_tableStructure['name']]) &&
         $this->tables[$this->_tableStructure['name']] === TRUE
       ) {
-        if (isset($this->_tableStructure['actions']) && $this->_tableStructure['actions'] > 0) {
+        if (
+          isset($this->_tableStructure['changes']) &&
+          (
+            count($this->_tableStructure['changes']['fields']) > 0 ||
+            count($this->_tableStructure['changes']['indizes']) > 0
+          )
+        ) {
           $this->setTableStatus($path, $table, TRUE);
         } else {
           $this->setTableStatus($path, $table, FALSE);
@@ -1634,7 +1634,6 @@ class papaya_modulemanager extends base_db {
       $indexNames =  array_unique(
         array_merge($expectedStructure->indizes->keys(), $currentStructure->indizes->keys())
       );
-      $requiredChanges = [];
       /** @var string $indexName */
       foreach ($indexNames as $indexName) {
         /** @var \Papaya\Database\Schema\Structure\IndexStructure $expectedIndex */
@@ -1669,12 +1668,11 @@ class papaya_modulemanager extends base_db {
    * @return boolean;
    */
   function syncTableStructure($tableStruct) {
-    $tableFullName = '';
-    foreach ($tableStruct['fields'] as $fieldName => $field) {
-      $tableFullName = $this->getTableFullName($tableStruct['name']);
-      switch($field['action']) {
-      case 'add':
-        if ($this->getSchema()->addField($tableFullName, $field)) {
+    $tableFullName = $this->getTableFullName($tableStruct['expected']->name);
+    foreach ($tableStruct['changes']['fields'] as $fieldName => $action) {
+      switch($action) {
+      case self::ACTION_FIELD_ADD:
+        if ($this->getSchema()->addField($tableFullName, $tableStruct['expected']->fields[$fieldName])) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Field added.').' '.$fieldName
           );
@@ -1685,7 +1683,7 @@ class papaya_modulemanager extends base_db {
           return FALSE;
         }
         break;
-      case 'delete':
+      case self::ACTION_FIELD_REMOVE:
         if ($this->getSchema()->dropField($tableFullName, $fieldName)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Field deleted.').' '.$fieldName
@@ -1697,8 +1695,8 @@ class papaya_modulemanager extends base_db {
           return FALSE;
         }
         break;
-      case 'update':
-        if ($this->getSchema()->changeField($tableFullName, $field)) {
+      case self::ACTION_FIELD_CHANGE:
+        if ($this->getSchema()->changeField($tableFullName, $tableStruct['expected']->fields[$fieldName])) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Field modified.').' '.$fieldName
           );
@@ -1711,10 +1709,10 @@ class papaya_modulemanager extends base_db {
         break;
       }
     }
-    foreach ($tableStruct['keys'] as $keyName => $key) {
-      switch ($key['action']) {
-      case 'add':
-        if ($this->getSchema()->addIndex($tableFullName, $key)) {
+    foreach ($tableStruct['changes']['indizes'] as $keyName => $action) {
+      switch ($action) {
+      case self::ACTION_INDEX_ADD:
+        if ($this->getSchema()->addIndex($tableFullName,  $tableStruct['expected']->indizes[$keyName])) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index added.').' '.$keyName
           );
@@ -1725,7 +1723,7 @@ class papaya_modulemanager extends base_db {
           return FALSE;
         }
         break;
-      case 'delete':
+      case self::ACTION_INDEX_REMOVE:
         if ($this->getSchema()->dropIndex($tableFullName, $keyName)) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index deleted.').' '.$keyName
@@ -1737,8 +1735,8 @@ class papaya_modulemanager extends base_db {
           return FALSE;
         }
         break;
-      case 'update':
-        if ($this->getSchema()->changeIndex($tableFullName, $key)) {
+      case self::ACTION_INDEX_CHANGE:
+        if ($this->getSchema()->changeIndex($tableFullName,  $tableStruct['expected']->indizes[$keyName])) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index modified.').' '.$keyName
           );
@@ -2605,21 +2603,21 @@ class papaya_modulemanager extends base_db {
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
             $images['actions-generic-add'],
             '',
-            ['cmd' => $action, 'field' => $field->name]
+            [$this->paramName => ['cmd' => $action, 'field' => $field->name]]
           );
           break;
         case self::ACTION_FIELD_REMOVE:
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
             $images['actions-generic-delete'],
             '',
-            ['cmd' => $action, 'field' => $field->name]
+            [$this->paramName => ['cmd' => $action, 'field' => $field->name]]
           );
           break;
         case self::ACTION_FIELD_CHANGE:
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
             $images['actions-edit'],
             '',
-            ['cmd' => $action, 'field' => $field->name]
+            [$this->paramName => ['cmd' => $action, 'field' => $field->name]]
           );
           break;
         default:
@@ -2676,21 +2674,21 @@ class papaya_modulemanager extends base_db {
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
             $images['actions-generic-add'],
             '',
-            ['cmd' => $action, 'index' => $index->name]
+            [$this->paramName => ['cmd' => $action, 'index' => $index->name]]
           );
           break;
         case self::ACTION_INDEX_REMOVE:
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
             $images['actions-generic-delete'],
             '',
-            ['cmd' => $action, 'index' => $index->name]
+            [$this->paramName => ['cmd' => $action, 'index' => $index->name]]
           );
           break;
         case self::ACTION_INDEX_CHANGE:
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
             $images['actions-edit'],
             '',
-            ['cmd' => $action, 'index' => $index->name]
+            [$this->paramName => ['cmd' => $action, 'index' => $index->name]]
           );
           break;
         default:
@@ -2763,12 +2761,8 @@ class papaya_modulemanager extends base_db {
    */
   function getFieldDialog() {
     if (
-      isset($this->params['cmd']) &&
-      in_array($this->params['cmd'], array(self::ACTION_FIELD_ADD, self::ACTION_FIELD_REMOVE, self::ACTION_FIELD_CHANGE)) &&
-      isset($this->params['field']) &&
-      isset($this->_tableStructure) &&
-      is_array($this->_tableStructure) &&
-      isset($this->_tableStructure['fields'][$this->params['field']])
+      isset($this->params['cmd'], $this->params['field'], $this->_tableStructure['changes']['fields'][$this->params['field']]) &&
+      in_array($this->params['cmd'], array(self::ACTION_FIELD_ADD, self::ACTION_FIELD_REMOVE, self::ACTION_FIELD_CHANGE), TRUE)
     ) {
       $hidden = array(
         'cmd' => $this->params['cmd'],
@@ -2810,12 +2804,8 @@ class papaya_modulemanager extends base_db {
    */
   function getIndexDialog() {
     if (
-      isset($this->params['cmd']) &&
-      in_array($this->params['cmd'], array('index_add', 'index_delete', 'index_update')) &&
-      isset($this->params['index']) &&
-      isset($this->_tableStructure) &&
-      is_array($this->_tableStructure) &&
-      isset($this->_tableStructure['keys'][$this->params['index']])
+      isset($this->params['cmd'], $this->params['index'], $this->_tableStructure['changes']['indizes'][$this->params['index']]) &&
+      in_array($this->params['cmd'], array(self::ACTION_INDEX_ADD, self::ACTION_INDEX_REMOVE, self::ACTION_INDEX_CHANGE), TRUE)
     ) {
       $hidden = array(
         'cmd' => $this->params['cmd'],
