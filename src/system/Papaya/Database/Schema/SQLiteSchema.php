@@ -126,6 +126,19 @@ namespace Papaya\Database\Schema {
             $primaryIndex->fields[] = new IndexFieldStructure($row['name']);
           }
         }
+        // remove autoincrement if the primary key has more then one field
+        if (
+          ($primaryIndex = $table->indizes->getPrimary()) &&
+          count($primaryIndex->fields) > 1
+        ) {
+          foreach ($table->fields as $fieldName => $field) {
+            if ($field->isAutoIncrement) {
+              $table->fields[$fieldName] = new FieldStructure(
+                $field->name, $field->type, FALSE, $field->allowsNull, $field->defaultValue
+              );
+            }
+          }
+        }
       }
       if ($dbResult = $this->_connection->execute('PRAGMA index_list('.$quotedTableName.')')) {
         $internalKeyNames = [];

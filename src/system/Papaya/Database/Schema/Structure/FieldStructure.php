@@ -211,6 +211,7 @@ namespace Papaya\Database\Schema\Structure {
       switch ($this->_type) {
       case self::TYPE_INTEGER :
         $this->_defaultValue = (int)$value;
+        break;
       case self::TYPE_DECIMAL :
         $this->_defaultValue = (float)$value;
         if (is_nan($this->_defaultValue)) {
