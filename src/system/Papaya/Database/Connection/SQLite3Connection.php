@@ -89,8 +89,7 @@ class SQLite3Connection extends AbstractConnection {
    * @param Statement|string $statement
    * @param int $options
    * @return DatabaseResult|int
-   * @throws ConnectionFailed
-   * @throws \Papaya\Database\Exception\QueryFailed
+   * @throws QueryFailed
    */
   public function execute($statement, $options = 0) {
     if (!Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
@@ -113,7 +112,7 @@ class SQLite3Connection extends AbstractConnection {
   /**
    * @param Statement|string $statement
    * @return bool|int|SQLiteExtensionResult
-   * @throws \Papaya\Database\Exception\QueryFailed
+   * @throws QueryFailed
    */
   private function process($statement) {
     if ($statement instanceof Statement) {
@@ -159,7 +158,7 @@ class SQLite3Connection extends AbstractConnection {
    * If a query fails, throw an database exception
    *
    * @param Statement $statement
-   * @return \Papaya\Database\Exception\QueryFailed
+   * @return QueryFailed
    */
   private function _createQueryException(Statement $statement) {
     $errorCode = $this->_sqlite3->lastErrorCode();
@@ -192,12 +191,10 @@ class SQLite3Connection extends AbstractConnection {
    * @param mixed $value Value to escape
    * @access public
    * @return string escaped value.
-   * @throws ConnectionFailed
    */
   public function escapeString($value) {
-    $this->connect();
     $value = parent::escapeString($value);
-    return $this->_sqlite3->escapeString($value);
+    return SQLite3Extension::escapeString(str_replace("\x00", '', $value));
   }
 
   /**

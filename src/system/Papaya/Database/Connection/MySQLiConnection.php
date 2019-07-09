@@ -116,14 +116,12 @@ namespace Papaya\Database\Connection {
      * @param DatabaseStatement|string $statement
      * @param int $options
      * @return DatabaseResult|int
-     * @throws ConnectionFailed
      * @throws QueryFailed
      */
     public function execute($statement, $options = 0) {
       if (!Bitwise::inBitmask(self::DISABLE_RESULT_CLEANUP, $options)) {
         $this->cleanup();
       }
-      $this->connect();
       if (!$statement instanceof DatabaseStatement) {
         $statement = new SQLStatement((string)$statement, []);
       }
