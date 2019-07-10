@@ -318,7 +318,9 @@ namespace Papaya\Database {
       $errorHandler = $this->errorHandler();
       if (NULL !== $errorHandler) {
         $errorHandler($exception);
-      } elseif ($messages = $this->papaya()->messages) {
+      } elseif (
+        $messages = $this->papaya()->getObject('messages', TRUE)
+      ) {
         $mapSeverity = [
           DatabaseException::SEVERITY_INFO => Message::SEVERITY_INFO,
           DatabaseException::SEVERITY_WARNING => Message::SEVERITY_WARNING,
@@ -333,7 +335,7 @@ namespace Papaya\Database {
         if ($exception instanceof Exception\QueryFailed) {
           $logMsg->context()->append(new Message\Context\Text($exception->getStatement()));
         }
-        $this->papaya()->messages->dispatch($logMsg);
+        $messages->dispatch($logMsg);
       }
     }
 

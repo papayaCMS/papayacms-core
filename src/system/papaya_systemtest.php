@@ -434,8 +434,9 @@ class papaya_systemtest {
   */
   function testDatabase() {
     try {
-      $uriData = new \Papaya\Database\Source\Name(PAPAYA_DB_URI);
-      if (extension_loaded($uriData->api)) {
+      $application = \Papaya\Application::getInstance();
+      $connection = $application->database->getConnector()->getConnection();
+      if ($connection->isExtensionAvailable()) {
         return TESTRESULT_OK;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {

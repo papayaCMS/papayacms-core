@@ -1013,8 +1013,8 @@ class papaya_installer extends base_db {
   function createTable($xmlFileName, $tableName) {
     $result = FALSE;
     if ($struct = $this->moduleManager->loadTableStructure($xmlFileName)) {
-      $struct['name'] = $tableName;
-      if ($this->databaseCreateTable($struct, NULL)) {
+      $struct['expected']->table = $tableName;
+      if ($this->getDatabaseAccess()->schema()->createTable($struct['expected'], NULL)) {
         unset($this->params['cmd']);
         $this->addMsg(MSG_INFO, $this->_gt('Table created.'));
         $result = TRUE;

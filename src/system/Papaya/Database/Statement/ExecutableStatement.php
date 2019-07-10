@@ -15,6 +15,7 @@
 namespace Papaya\Database\Statement {
 
   use Papaya\Database\Connection;
+  use Papaya\Database\Exception\ConnectionFailed;
   use Papaya\Database\Statement;
 
   abstract class ExecutableStatement implements Statement {
@@ -41,7 +42,11 @@ namespace Papaya\Database\Statement {
     }
 
     public function __toString() {
-      return $this->getSQLString(FALSE);
+      try {
+        return $this->getSQLString(FALSE);
+      } catch (ConnectionFailed $e) {
+        return '';
+      }
     }
   }
 }

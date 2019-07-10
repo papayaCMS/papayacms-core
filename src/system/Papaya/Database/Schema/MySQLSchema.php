@@ -41,7 +41,7 @@ namespace Papaya\Database\Schema {
         while ($row = $result->fetchAssoc()) {
           $keyName = $row['Key_name'];
           if (!isset($table->indizes[$keyName])) {
-            $table->indizes[] = $index = new IndexStructure(
+            $table->indizes[] = new IndexStructure(
               $keyName,
               (int)$row['Non_unique'] === 0,
               (isset($row['Index_type']) && $row['Index_type'] === 'FULLTEXT') || $row['Comment'] === 'FULLTEXT'
@@ -53,7 +53,7 @@ namespace Papaya\Database\Schema {
           $fields = $indexFields[$index->name];
           ksort($fields);
           foreach ($fields as $row) {
-            $fieldName = $row[$row['Column_name']];
+            $fieldName = $row['Column_name'];
             $size = 0;
             if ($row['Sub_part'] > 0) {
               $size = $row['Sub_part'];
@@ -269,6 +269,7 @@ namespace Papaya\Database\Schema {
      */
     private function getFieldExtrasSQL($field, $allowAutoIncrement = FALSE) {
       $parameters = [];
+      $defaultStr = '';
       if ($field->allowsNull) {
         $default = NULL;
         $notNullStr = '';
@@ -276,23 +277,22 @@ namespace Papaya\Database\Schema {
         $default = '';
         $notNullStr = ' NOT NULL';
       }
-      if (isset($field['default'])) {
-        $default = $field['default'];
+      if (isset($field->defaultValue)) {
+        $default = $field->defaultValue;
       }
       if (isset($default)) {
-        $defaultStr = ' DEFAULT ?';
-        switch (strtolower($field['type'])) {
+        switch (strtolower($field->type)) {
         case FieldStructure::TYPE_INTEGER:
-          $parameters[] = (int)$default;
+          $defaultStr = ' DEFAULT '.((int)$default);
           break;
         case FieldStructure::TYPE_DECIMAL:
-          $parameters[] = (float)$default;
+          $defaultStr = ' DEFAULT '.((float)$default);
           break;
         case FieldStructure::TYPE_TEXT :
           if ($field->size > 255) {
             $defaultStr = '';
           } else {
-            $parameters[] = (string)$default;
+            $defaultStr = ' DEFAULT '.$this->_connection->quoteString($default);
           }
           break;
         }
@@ -322,7 +322,7 @@ namespace Papaya\Database\Schema {
       /** @lang text */
         'ALTER TABLE %s ADD COLUMN %s %s %s',
         $this->getQuotedIdentifier($tableName),
-        $this->getQuotedIdentifier($fieldStructure['name']),
+        $this->getQuotedIdentifier($fieldStructure->name),
         $this->getFieldTypeSQL($fieldStructure),
         $extrasSQL
       );
@@ -492,7 +492,7 @@ namespace Papaya\Database\Schema {
       ) {
         return TRUE;
       }
-      if ($expectedStructure->isFullText && $currentStructure->isFullText) {
+      if ($expectedStructure->isFullText !== $currentStructure->isFullText) {
         return TRUE;
       }
       if (count(array_diff($expectedStructure->fields->keys(), $currentStructure->fields->keys())) !== 0) {

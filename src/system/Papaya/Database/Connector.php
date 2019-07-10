@@ -208,7 +208,7 @@ namespace Papaya\Database {
      * @return DataSourceName
      * @throws ConnectionFailed
      */
-    private function getDSN($mode = self::MODE_READ) {
+    public function getDSN($mode = self::MODE_READ) {
       if (isset($this->_databaseConfiguration[$mode])) {
         return $this->_databaseConfiguration[$mode];
       }
@@ -236,7 +236,7 @@ namespace Papaya\Database {
      * @return Connection
      * @throws ConnectionFailed
      */
-    private function getConnection($mode = self::MODE_READ) {
+    public function getConnection($mode = self::MODE_READ) {
       if (isset($this->_databaseObjects[$mode])) {
         return $this->_databaseObjects[$mode];
       }
@@ -300,7 +300,7 @@ namespace Papaya\Database {
      */
     public function connect($mode = self::MODE_READ) {
       $connection = $this->getConnection($mode);
-      if ($connection->isExtensionAvailable() && $connection->connect()) {
+      if ($connection->connect()) {
         return $connection;
       }
       throw new ConnectionFailed(

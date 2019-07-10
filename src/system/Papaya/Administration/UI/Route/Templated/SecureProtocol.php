@@ -15,6 +15,7 @@
 namespace Papaya\Administration\UI\Route\Templated {
 
   use Papaya\Administration\UI\Route\Templated;
+  use Papaya\Database\Exception\ConnectionFailed;
   use Papaya\Response;
   use Papaya\Router;
   use Papaya\Utility;
@@ -44,20 +45,35 @@ namespace Papaya\Administration\UI\Route\Templated {
           \preg_match('(^localhost(:\d+)?$)i', Utility\Server\Name::get())
         )
       ) {
+        try {
+          $hasDatabase = (bool)$this->papaya()->database->getConnector()->connect();
+        } catch (ConnectionFailed $exception) {
+          $hasDatabase = FALSE;
+        }
+
         $dialog = new \Papaya\UI\Dialog();
-        $dialog->caption = new \Papaya\UI\Text\Translated('Warning');
         $url = new \Papaya\URL\Current();
         $url->setScheme('https');
         $dialog->action($url->getURL());
-        $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-          \Papaya\Message::SEVERITY_WARNING,
-          new \Papaya\UI\Text\Translated(
+        if ($hasDatabase) {
+          $dialog->caption = new \Papaya\UI\Text\Translated('Warning');
+          $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
+            \Papaya\Message::SEVERITY_WARNING,
+             new \Papaya\UI\Text\Translated(
+                'If possible, please use https to access the administration interface.'
+              )
+          );
+          $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
+            new \Papaya\UI\Text\Translated('Use https')
+          );
+        } else {
+          $dialog->caption = 'Warning';
+          $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
+            \Papaya\Message::SEVERITY_WARNING,
             'If possible, please use https to access the administration interface.'
-          )
-        );
-        $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
-          new \Papaya\UI\Text\Translated('Use https')
-        );
+          );
+          $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit('Use https');
+        }
         $this->getTemplate()->add($dialog);
       }
       return NULL;

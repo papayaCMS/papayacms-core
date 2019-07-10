@@ -257,7 +257,7 @@ class papaya_modulemanager extends base_db {
                 $xmlFileName = $path.'table_'.$tableName.'.xml';
                 if ($struct = $this->loadTableStructure($xmlFileName, $pkgId)) {
                   $created = $this->getSchema()->createTable(
-                    $struct,
+                    $struct['expected'],
                     $this->getTablePrefixUsage($tableName, $pkgId)
                       ? PAPAYA_DB_TABLEPREFIX : NULL
                   );
@@ -304,7 +304,7 @@ class papaya_modulemanager extends base_db {
             $xmlFileName = $path.'table_'.$this->params['table'].'.xml';
             if ($struct = $this->loadTableStructure($xmlFileName, $pkgId)) {
               $created = $this->getSchema()->createTable(
-                $struct,
+                $struct['expected'],
                 $this->getTablePrefixUsage($this->params['table'], $pkgId)
                   ? PAPAYA_DB_TABLEPREFIX : ''
               );
@@ -1599,57 +1599,66 @@ class papaya_modulemanager extends base_db {
    */
   public function loadTableStructure($xmlFileName) {
     if (file_exists($xmlFileName)) {
-      $expectedStructure = \Papaya\Database\Schema\Structure\TableStructure::createFromXML(
-        \Papaya\XML\Document::createFromXML(file_get_contents($xmlFileName))
-      );
-      $currentStructure = $this->getSchema()->describeTable(
-        $expectedStructure->name,
-        $expectedStructure->name ? $this->papaya()->options['PAPAYA_DB_TABLEPREFIX'] : ''
-      );
+      try {
+        $expectedStructure = \Papaya\Database\Schema\Structure\TableStructure::createFromXML(
+          \Papaya\XML\Document::createFromXML(file_get_contents($xmlFileName))
+        );
+      } catch (UnexpectedValueException $exception) {
+        return FALSE;
+      }
 
       $requiredChanges = [
         'fields' => [],
         'indizes' => []
       ];
+      try {
+        $currentStructure = $this->getSchema()->describeTable(
+          $expectedStructure->name,
+          $expectedStructure->name ? $this->papaya()->options['PAPAYA_DB_TABLEPREFIX'] : ''
+        );
 
-      $fieldNames =  array_unique(
-        array_merge($expectedStructure->fields->keys(), $currentStructure->fields->keys())
-      );
-      /** @var string $fieldName */
-      foreach ($fieldNames as $fieldName) {
-        /** @var \Papaya\Database\Schema\Structure\FieldStructure $expectedField */
-        $expectedField = isset($expectedStructure->fields[$fieldName]) ? $expectedStructure->fields[$fieldName] : NULL;
-        /** @var \Papaya\Database\Schema\Structure\FieldStructure $currentField */
-        $currentField = isset($currentStructure->fields[$fieldName]) ? $currentStructure->fields[$fieldName] : NULL;
-        if (isset($expectedField) && !isset($currentField)) {
-          $requiredChanges['fields'][$expectedField->name] = self::ACTION_FIELD_ADD;
-        } elseif (!isset($expectedField) && isset($currentField)) {
-          $requiredChanges['fields'][$currentField->name] = self::ACTION_FIELD_REMOVE;
-          // remove
-        } elseif ($this->getSchema()->isFieldDifferent($expectedField, $currentField)) {
-          $requiredChanges['fields'][$expectedField->name] = self::ACTION_FIELD_CHANGE;
+        $fieldNames = array_unique(
+          array_merge($expectedStructure->fields->keys(), $currentStructure->fields->keys())
+        );
+        /** @var string $fieldName */
+        foreach ($fieldNames as $fieldName) {
+          /** @var \Papaya\Database\Schema\Structure\FieldStructure $expectedField */
+          $expectedField = isset($expectedStructure->fields[$fieldName]) ? $expectedStructure->fields[$fieldName]
+            : NULL;
+          /** @var \Papaya\Database\Schema\Structure\FieldStructure $currentField */
+          $currentField = isset($currentStructure->fields[$fieldName]) ? $currentStructure->fields[$fieldName] : NULL;
+          if (isset($expectedField) && !isset($currentField)) {
+            $requiredChanges['fields'][$expectedField->name] = self::ACTION_FIELD_ADD;
+          } elseif (!isset($expectedField) && isset($currentField)) {
+            $requiredChanges['fields'][$currentField->name] = self::ACTION_FIELD_REMOVE;
+            // remove
+          } elseif ($this->getSchema()->isFieldDifferent($expectedField, $currentField)) {
+            $requiredChanges['fields'][$expectedField->name] = self::ACTION_FIELD_CHANGE;
+          }
         }
-      }
 
-      $indexNames =  array_unique(
-        array_merge($expectedStructure->indizes->keys(), $currentStructure->indizes->keys())
-      );
-      /** @var string $indexName */
-      foreach ($indexNames as $indexName) {
-        /** @var \Papaya\Database\Schema\Structure\IndexStructure $expectedIndex */
-        $expectedIndex = isset($expectedStructure->indizes[$indexName]) ? $expectedStructure->indizes[$indexName] : NULL;
-        /** @var \Papaya\Database\Schema\Structure\IndexStructure $currentIndex */
-        $currentIndex = isset($currentStructure->indizes[$indexName]) ? $currentStructure->indizes[$indexName] : NULL;
-        if (isset($expectedIndex) && !isset($currentIndex)) {
-          $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_ADD;
-        } elseif (!isset($expectedIndex) && isset($currentIndex)) {
-          $requiredChanges['indizes'][$currentIndex->name] = self::ACTION_INDEX_REMOVE;
-          // remove
-        } elseif ($this->getSchema()->isIndexDifferent($expectedIndex, $currentIndex)) {
-          $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_CHANGE;
+        $indexNames = array_unique(
+          array_merge($expectedStructure->indizes->keys(), $currentStructure->indizes->keys())
+        );
+        /** @var string $indexName */
+        foreach ($indexNames as $indexName) {
+          /** @var \Papaya\Database\Schema\Structure\IndexStructure $expectedIndex */
+          $expectedIndex = isset($expectedStructure->indizes[$indexName]) ? $expectedStructure->indizes[$indexName]
+            : NULL;
+          /** @var \Papaya\Database\Schema\Structure\IndexStructure $currentIndex */
+          $currentIndex = isset($currentStructure->indizes[$indexName]) ? $currentStructure->indizes[$indexName] : NULL;
+          if (isset($expectedIndex) && !isset($currentIndex)) {
+            $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_ADD;
+          } elseif (!isset($expectedIndex) && isset($currentIndex)) {
+            $requiredChanges['indizes'][$currentIndex->name] = self::ACTION_INDEX_REMOVE;
+            // remove
+          } elseif ($this->getSchema()->isIndexDifferent($expectedIndex, $currentIndex)) {
+            $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_CHANGE;
+          }
         }
+      } catch (\Papaya\Database\Exception\QueryFailed $exception) {
+        $currentStructure = NULL;
       }
-
       return [
         'name' => $expectedStructure->name,
         'expected' => $expectedStructure,
