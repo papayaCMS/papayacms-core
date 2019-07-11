@@ -200,9 +200,7 @@ namespace Papaya\Administration {
         $cacheTime = $this->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
           ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
         $this->_route = new Route\Group(
-          // enforce https (if configured)
-          new UI\Route\Templated\SecureProtocol($template),
-          // installer and logout need to work without login/authentication
+          // logout and layout files need to work without login/authentication
           new Route\Choice(
             [
               self::LOGOUT => new UI\Route\LogOut(),
@@ -237,7 +235,6 @@ namespace Papaya\Administration {
                   )
                 );
               },
-              self::INSTALLER => new UI\Route\Templated\Installer($template),
               self::SCRIPTS => function() use ($localPath, $cacheTime) {
                 $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
                 $files = \array_map(
@@ -278,6 +275,15 @@ namespace Papaya\Administration {
               )
             ]
           ),
+          // enforce https (if configured)
+          new UI\Route\Templated\SecureProtocol($template),
+          // installer before authentication
+          new Route\Choice(
+            [
+              self::INSTALLER => new UI\Route\Templated\Installer($template)
+            ]
+          ),
+          // redirect broken installs
           new UI\Route\ValidateInstall(),
           // Authentication needed
           new UI\Route\Templated\Authenticated(

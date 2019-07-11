@@ -39,9 +39,12 @@ class Messages implements Application\Profile {
     $messages->addDispatcher(new Message\Dispatcher\Database());
     $messages->addDispatcher(new Message\Dispatcher\Wildfire());
     $messages->addDispatcher(new Message\Dispatcher\XHTML());
-    $database = $application->database;
     try {
-      if ($database->getConnector()->connect()) {
+      $database = $application->database;
+      if (
+        $application->options->get('PAPAYA_LOG_ENABLE_EXTERNAL', FALSE) &&
+        $database->getConnector()->connect()
+      ) {
         $plugins = $application->plugins;
         if (NULL !== $plugins) {
           foreach ($plugins->withType(Plugin\Types::LOGGER) as $plugin) {
