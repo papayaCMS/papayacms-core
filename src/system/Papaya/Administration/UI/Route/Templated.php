@@ -31,8 +31,14 @@ namespace Papaya\Administration\UI\Route {
      */
     private $_themeHandler;
 
-    public function __construct(\Papaya\Template $template) {
+    /**
+     * @var $_showUserStatus
+     */
+    private $_showUserStatus;
+
+    public function __construct(\Papaya\Template $template, $showUserStatus = TRUE) {
       $this->_template = $template;
+      $this->_showUserStatus = (bool)$showUserStatus;
     }
 
     public function getTemplate() {
@@ -64,7 +70,7 @@ namespace Papaya\Administration\UI\Route {
           'PAPAYA_MESSAGES_INBOX_NEW' => $this->getNewMessageCount()
         ]
       );
-      if ($application->administrationUser->isValid) {
+      if ($this->_showUserStatus && $application->administrationUser->isValid) {
         $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
         $template->add($application->administrationLanguage, 'title-menu');
         $template->add($application->administrationRichText, 'title-menu');

@@ -193,6 +193,7 @@ namespace Papaya\Database\Connection {
       $pattern = '(('.\implode('|', $patterns).'))';
       $parts = \preg_split($pattern, $sql, -1, PREG_SPLIT_DELIM_CAPTURE);
       $result = '';
+      $counter = 0;
       foreach ($parts as $part) {
         if (\in_array(\substr($part, 0, 1), $quoteCharacters, TRUE)) {
           $result .= $part;
@@ -200,9 +201,9 @@ namespace Papaya\Database\Connection {
         }
         $result .= \preg_replace_callback(
           '(\\?)',
-          static function() {
-            static $index = 1;
-            return '\$'.($index++);
+          static function() use (&$counter) {
+            $counter++;
+            return '$'.$counter;
           },
           $part
         );

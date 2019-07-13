@@ -18,6 +18,11 @@ namespace Papaya\Administration\UI\Route\Templated {
   use Papaya\Router;
 
   class Installer extends Templated {
+
+    public function __construct(\Papaya\Template $template) {
+      parent::__construct($template, FALSE);
+    }
+
     /**
      * @param Router $router
      * @param Router\Address $address

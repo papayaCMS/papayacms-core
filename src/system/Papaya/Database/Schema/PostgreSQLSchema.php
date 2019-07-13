@@ -38,7 +38,7 @@ namespace Papaya\Database\Schema {
                    pg_catalog.format_type(a.atttypid, a.atttypmod),
                    a.attlen AS fieldsize,
                    a.attnotNull AS not_null,
-                   (SELECT substring(d.adsrc for 128)
+                   (SELECT substring(d.adsrc FOR 128)
               FROM pg_catalog.pg_attrdef d
              WHERE d.adrelid = a.attrelid
                AND d.adnum = a.attnum
@@ -167,38 +167,38 @@ namespace Papaya\Database\Schema {
      * @return bool
      */
     public function createTable(TableStructure $tableStructure, $tablePrefix = '') {
-      if (is_array($tableStructure['fields']) && trim($tableStructure['name']) !== '') {
-        $table = $this->getIdentifier($tableStructure['name'], $tablePrefix);
-        $sql = 'CREATE TABLE "'.$table.'" ('."\n";
+      if (count($tableStructure->fields) > 0) {
+        $prefixedTableName = $this->getIdentifier($tableStructure->name, $tablePrefix);
+        $sql = 'CREATE TABLE '.$this->getQuotedIdentifier($prefixedTableName).' ('."\n";
         $parameters = [];
-        foreach ($tableStructure['fields'] as $field) {
+        /** @var FieldStructure $field */
+        foreach ($tableStructure->fields as $field) {
           $fieldType = $this->getFieldTypeSQL($field);
-          $sql .= '  "'.$this->getIdentifier($field['name']).'" '.
-            $fieldType[0].",\n";
-          array_push($parameters, ...$fieldType[1]);
+          $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$fieldType.",\n";
         }
-        if (isset($tableStructure['keys']) && is_array($tableStructure['keys'])) {
-          if (isset($tableStructure['keys']['PRIMARY'])) {
-            $sql .= 'CONSTRAINT "'.$this->getIdentifier(strtolower($table)).
-              '_primary_key" PRIMARY KEY ('.
-              implode(',', $tableStructure['keys']['PRIMARY']['fields'])."),\n";
-          }
-          foreach ($tableStructure['keys'] as $keyName => $key) {
-            if (
-              $keyName !== 'PRIMARY' &&
-              isset($key['unique']) && $key['unique'] === 'yes'
-            ) {
-              $sql .= 'CONSTRAINT "'.$this->getIdentifier(strtolower($table)).'_'.
-                $keyName.'" UNIQUE ';
-              $sql .= '('.implode(',', $key['fields'])."),\n";
-            }
+        if ($primary = $tableStructure->indizes->getPrimary()) {
+          $sql .= sprintf(
+            "CONSTRAINT %s PRIMARY KEY (%s),\n",
+            $this->getQuotedIdentifier(strtolower($prefixedTableName).'_primary_key'),
+            implode(',', $this->getQuotedIdentifiers($primary->fields->keys()))
+          );
+        }
+        /** @var IndexStructure $index */
+        foreach ($tableStructure->indizes as $indexName => $index) {
+          if (!$index->isPrimary && $index->isUnique) {
+            $sql .= sprintf(
+              "CONSTRAINT %s UNIQUE (%s),\n",
+              $this->getQuotedIdentifier(strtolower($prefixedTableName).'_'.$indexName),
+              implode(',', $this->getQuotedIdentifiers($index->fields->keys()))
+            );
           }
         }
         $sql = substr($sql, 0, -2)."\n)\n";
         if ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
-          if (isset($tableStructure['keys']) && is_array($tableStructure['keys'])) {
-            foreach ($tableStructure['keys'] as $key) {
-              $this->addIndex($table, $key);
+          /** @var IndexStructure $index */
+          foreach ($tableStructure->indizes as $index) {
+            if (!($index->isPrimary || $index->isUnique)) {
+              $this->addIndex($prefixedTableName, $index);
             }
           }
           return TRUE;
@@ -216,12 +216,9 @@ namespace Papaya\Database\Schema {
     private function getFieldTypeArray(FieldStructure $field) {
       if ($field->isAutoIncrement) {
         return [
-          [
-            'type' => ($field['size'] > 4) ? 'BIGINT' : 'INTEGER',
-            'not_null' => 'NOT NULL',
-            'default' => 'DEFAULT 1'
-          ],
-          []
+          'type' => ($field->size > 4) ? 'BIGINT' : 'INTEGER',
+          'not_null' => 'NOT NULL',
+          'default' => 'DEFAULT 1'
         ];
       }
       $parameters = [];
@@ -240,19 +237,19 @@ namespace Papaya\Database\Schema {
         $defaultStr = 'DEFAULT ?';
         switch ($field->type) {
         case FieldStructure::TYPE_INTEGER:
-          $parameters[] = (int)$default;
+          $defaultStr = 'DEFAULT '.((int)$default);
           break;
         case FieldStructure::TYPE_DECIMAL:
-          $parameters[] = (float)$default;
+          $defaultStr = 'DEFAULT '.((float)$default);
           break;
         default:
-          $parameters[] = (string)$default;
+          $defaultStr = 'DEFAULT '.$this->_connection->quoteString($default);
           break;
         }
       }
       switch ($field->size) {
       case FieldStructure::TYPE_INTEGER:
-        $size = ($field['size'] > 0) ? (int)$field['size'] : 1;
+        $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 2) {
           $result = 'SMALLINT';
         } elseif ($size <= 4) {
@@ -269,38 +266,29 @@ namespace Papaya\Database\Schema {
       default :
         $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 255) {
-          $result = 'VARCHAR('.$field->size.')';
+          $result = 'VARCHAR('.$size.')';
         } else {
           $result = 'TEXT';
         }
         break;
       }
       return [
-        [
-          'type' => $result,
-          'default' => $defaultStr,
-          'not_null' => $notNullStr
-        ],
-        $parameters
+        'type' => $result,
+        'default' => $defaultStr,
+        'not_null' => $notNullStr
       ];
     }
 
     /**
      * @param FieldStructure $field
-     * @return array|string
+     * @return string
      */
     public function getFieldTypeSQL(FieldStructure $field) {
       if ($field->isAutoIncrement) {
-        return [
-          ($field->size > 4) ? 'BIGSERIAL' : 'SERIAL',
-          []
-        ];
+        return ($field->size > 4) ? 'BIGSERIAL' : 'SERIAL';
       }
       $data = $this->getFieldTypeArray($field);
-      return [
-        $data['type'].' '.$data['default'].' '.$data['not_null'],
-        $data[1]
-      ];
+      return $data['type'].' '.$data['default'].' '.$data['not_null'];
     }
 
     /**
@@ -402,7 +390,7 @@ namespace Papaya\Database\Schema {
           ];
         }
         return [
-          'name' =>  $row['index_name'],
+          'name' => $row['index_name'],
           'primary' => FALSE
         ];
       }
@@ -429,24 +417,24 @@ namespace Papaya\Database\Schema {
       if ($databaseField = $this->getFieldInfo($tableName, $fieldStructure->name)) {
         if ($this->isFieldDifferent($fieldStructure, $databaseField)) {
           $alterSQL = sprintf(
-            /** @lang TEXT */
+          /** @lang TEXT */
             'ALTER TABLE %s ALTER COLUMN %s ',
             $this->getQuotedIdentifier($tableName),
             $this->getQuotedIdentifier($fieldName)
           );
-          list($sqlData, $parameters) = $this->getFieldTypeArray($fieldStructure);
+          $sqlData = $this->getFieldTypeArray($fieldStructure);
           $sql = '';
           if ($fieldStructure->isAutoIncrement) {
             $sql .= $alterSQL.sprintf(
-              "SET DEFAULT nextval(%s::text);\n",
-              $this->getQuotedIdentifier("public.{$tableName}_{$fieldName}_seq")
-            );
+                "SET DEFAULT nextval(%s::text);\n",
+                $this->getQuotedIdentifier("public.{$tableName}_{$fieldName}_seq")
+              );
           } elseif (!empty($sqlData['default'])) {
             $sql .= $alterSQL.sprintf("SET %s::%s;\n", $sqlData['default'], $sqlData['type']);
           }
           $sql .= $alterSQL.sprintf(
-            'TYPE %1$s USING %2$s::%1$s;'."\n", $sqlData['type'], $this->getQuotedIdentifier($fieldName)
-          );
+              'TYPE %1$s USING %2$s::%1$s;'."\n", $sqlData['type'], $this->getQuotedIdentifier($fieldName)
+            );
           $sql .= $alterSQL.(empty($sqlData['not_null']) ? ' DROP NOT NULL ' : ' SET NOT NULL ').";\n";
           return ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
         }
@@ -457,9 +445,9 @@ namespace Papaya\Database\Schema {
         "ALTER TABLE %s ADD COLUMN %s %s;\n",
         $this->getQuotedIdentifier($tableName),
         $this->getQuotedIdentifier($fieldName),
-        $fieldType[0]
+        $fieldType
       );
-      return ($this->_connection->execute($sql, $fieldType[1]) !== FALSE);
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**

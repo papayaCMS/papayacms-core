@@ -238,7 +238,7 @@ namespace Papaya\Database {
         $switchOption = $options->get('PAPAYA_DATABASE_CLUSTER_SWITCH', $switchOption);
       }
       switch ($switchOption) {
-      /** @noinspection PhpMissingBreakStatementInspection */
+        /** @noinspection PhpMissingBreakStatementInspection */
       case 2 : // connection context
         if ($this->_dataModified) {
           return Connector::MODE_WRITE;
@@ -319,7 +319,7 @@ namespace Papaya\Database {
       if (NULL !== $errorHandler) {
         $errorHandler($exception);
       } elseif (
-        $messages = $this->papaya()->getObject('messages', TRUE)
+      $messages = $this->papaya()->getObject('messages', TRUE)
       ) {
         $mapSeverity = [
           DatabaseException::SEVERITY_INFO => Message::SEVERITY_INFO,
@@ -759,7 +759,11 @@ namespace Papaya\Database {
      * @deprecated
      */
     public function emptyTable($tableName) {
-      return $this->deleteRecord($tableName, NULL);
+      $sql = sprintf(
+        'DELETE FROM %s',
+        $this->quoteIdentifier($tableName)
+      );
+      return $this->execute($sql, self::DISABLE_RESULT_CLEANUP | self::USE_WRITE_CONNECTION);
     }
 
     /**
