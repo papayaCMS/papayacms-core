@@ -84,7 +84,7 @@ namespace Papaya\Database\Schema\Structure {
       $this->setType($type);
       $this->setSize($size);
       $this->setIsAutoIncrement($isAutoIncement);
-      $this->setAllowsNull($allowsNull);
+      $this->setAllowsNull($allowsNull && !$isAutoIncement);
       if (isset($defaultValue)) {
         $this->setDefaultValue($defaultValue);
       }

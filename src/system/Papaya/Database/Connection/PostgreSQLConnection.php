@@ -162,8 +162,8 @@ namespace Papaya\Database\Connection {
       $dbmsResult = FALSE;
       if (empty($parameters)) {
         $dbmsResult = @pg_query($this->_postgresql, $sql);
-      } elseif ($dbmsStatement = @pg_prepare($this->_postgresql, '', $this->rewritePlaceholders($sql))) {
-        $dbmsResult = @pg_execute($this->_postgresql, $parameters);
+      } elseif ($dbmsStatement = pg_prepare($this->_postgresql, '', $this->rewritePlaceholders($sql))) {
+        $dbmsResult = pg_execute($this->_postgresql, '', $parameters);
       }
       if (is_resource($dbmsResult)) {
         return $dbmsResult;
@@ -300,15 +300,18 @@ namespace Papaya\Database\Connection {
      */
     private function updateAutoIncrementFields($table) {
       $structure = $this->schema()->describeTable($table);
-      $fields = $structure['fields'];
+      $fields = $structure->fields;
       if (isset($fields) && is_array($fields)) {
         foreach ($fields as $field) {
-          if ($field['autoinc'] === 'yes') {
+          if ($field->isAutoIncrement) {
             $tableName = $this->escapeString($table);
             $fieldName = $this->escapeString($field['name']);
-            $sql =
-              "SELECT SETVAL('".$tableName.'_'.$fieldName."_seq',".
-              '(SELECT MAX('.$fieldName.') FROM '.$tableName.'));';
+            $sql = sprintf(
+                'SELECT SETVAL(%s, (SELECT MAX(%s) FROM %s));',
+              $this->quoteIdentifier($tableName.'_'.$fieldName.'_seq'),
+              $this->quoteIdentifier($fieldName),
+              $this->quoteIdentifier($tableName)
+            );
             $this->process($sql);
           }
         }

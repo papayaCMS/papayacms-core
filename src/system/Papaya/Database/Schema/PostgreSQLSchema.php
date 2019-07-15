@@ -2,6 +2,7 @@
 
 namespace Papaya\Database\Schema {
 
+  use Papaya\Database\Exception;
   use Papaya\Database\Schema\Structure\FieldStructure;
   use Papaya\Database\Schema\Structure\IndexFieldStructure;
   use Papaya\Database\Schema\Structure\IndexStructure;
@@ -33,16 +34,18 @@ namespace Papaya\Database\Schema {
     public function describeTable($tableName, $tablePrefix = '') {
       $prefixedTableName = $this->getIdentifier($tableName, $tablePrefix);
       $table = new TableStructure($tableName, $tablePrefix !== '');
-      $sql = "SELECT a.attname AS fieldname,
-                   t.typname AS fieldtype,
+      $sql = "SELECT a.attname AS field_name,
+                   t.typname AS field_type,
                    pg_catalog.format_type(a.atttypid, a.atttypmod),
-                   a.attlen AS fieldsize,
+                   a.attlen AS field_size,
                    a.attnotNull AS not_null,
-                   (SELECT substring(d.adsrc FOR 128)
-              FROM pg_catalog.pg_attrdef d
-             WHERE d.adrelid = a.attrelid
-               AND d.adnum = a.attnum
-               AND a.atthasdef) AS defaultwert
+                   (
+                       SELECT substring(d.adsrc FOR 128)
+                         FROM pg_catalog.pg_attrdef d
+                        WHERE d.adrelid = a.attrelid
+                          AND d.adnum = a.attnum
+                          AND a.atthasdef
+                     ) AS default_value
               FROM pg_class c, pg_attribute a, pg_type t
              WHERE relkind = 'r'
                AND c.relname = ?
@@ -50,7 +53,8 @@ namespace Papaya\Database\Schema {
                AND a.atttypid = t.oid
                AND a.attrelid = c.oid
              ORDER BY a.attnum";
-      if ($result = $this->_connection->execute($sql, [$prefixedTableName])) {
+
+      if ($result = $this->_connection->execute(new SQLStatement($sql, [$prefixedTableName]))) {
         while ($row = $result->fetchAssoc()) {
           $table->fields[] = $this->parseFieldData($row);
         }
@@ -65,7 +69,7 @@ namespace Papaya\Database\Schema {
                AND a.attrelid = bc.oid
                AND bc.relname = ?
              ORDER BY a.attnum";
-      if ($result = $this->_connection->execute($sql, [$prefixedTableName])) {
+      if ($result = $this->_connection->execute(new SQLStatement($sql, [$prefixedTableName]))) {
         $indexFields = [];
         while ($row = $result->fetchAssoc()) {
           if ($row['primary_key'] === 't') {
@@ -134,7 +138,7 @@ namespace Papaya\Database\Schema {
         $size = 16777215;
       }
       $stringFieldPattern = '(^\'(([^\']+|\\\\)+)\'::(character varying|bpchar)$)i';
-      $numericFieldPattern = '(^(\d+)(::(smallint|integer|bigint|int|numeric))?$)i';
+      $numericFieldPattern = '(^\\(?(\d+)\\)?(::(smallint|integer|bigint|int|numeric))?$)i';
       $default = NULL;
       if (
         preg_match('(^nextval\(\'[\w\.]+\'::text\)$)i', $row['default_value'], $matches) ||
@@ -156,8 +160,8 @@ namespace Papaya\Database\Schema {
         $type,
         $size,
         $autoIncrement,
-        strtolower($row['not_null']) === 't',
-        !$autoIncrement ? $default : NULL
+        strtolower($row['not_null']) !== 't' && !$autoIncrement,
+        $default
       );
     }
 
@@ -221,7 +225,6 @@ namespace Papaya\Database\Schema {
           'default' => 'DEFAULT 1'
         ];
       }
-      $parameters = [];
       if ($field->allowsNull) {
         $default = NULL;
         $notNullStr = '';
@@ -234,7 +237,6 @@ namespace Papaya\Database\Schema {
       }
       $defaultStr = '';
       if (isset($default)) {
-        $defaultStr = 'DEFAULT ?';
         switch ($field->type) {
         case FieldStructure::TYPE_INTEGER:
           $defaultStr = 'DEFAULT '.((int)$default);
@@ -247,7 +249,7 @@ namespace Papaya\Database\Schema {
           break;
         }
       }
-      switch ($field->size) {
+      switch ($field->type) {
       case FieldStructure::TYPE_INTEGER:
         $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 2) {
@@ -259,10 +261,10 @@ namespace Papaya\Database\Schema {
         }
         break;
       case FieldStructure::TYPE_DECIMAL:
-        list($before, $after) = explode(',', $field->size);
+        list($before, $after) = $field->size;
         $result = 'NUMERIC('.$before.','.$after.')';
         break;
-      case 'FieldStructure::TYPE_TEXT':
+      case FieldStructure::TYPE_TEXT:
       default :
         $size = ($field->size > 0) ? (int)$field->size : 1;
         if ($size <= 255) {
@@ -436,7 +438,7 @@ namespace Papaya\Database\Schema {
               'TYPE %1$s USING %2$s::%1$s;'."\n", $sqlData['type'], $this->getQuotedIdentifier($fieldName)
             );
           $sql .= $alterSQL.(empty($sqlData['not_null']) ? ' DROP NOT NULL ' : ' SET NOT NULL ').";\n";
-          return ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
+          return ($this->_connection->execute($sql) !== FALSE);
         }
         return TRUE;
       }

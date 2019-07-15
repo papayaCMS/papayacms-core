@@ -15,12 +15,15 @@
 
 namespace Papaya\Administration\UI\Route\Templated {
 
-  use Papaya\Administration\UI;
+  use Papaya\Administration\UI as AdministrationUI;
   use Papaya\Administration\UI\Route\Templated;
   use Papaya\Database\Exception\ConnectionFailed;
-  use Papaya\Exception;
+  use Papaya\Message;
   use Papaya\Response;
   use Papaya\Router;
+  use Papaya\UI\Dialog;
+  use Papaya\UI\Dialog\Button\Submit as SubmitButton;
+  use Papaya\URL\Current as CurrentURL;
   use Papaya\Utility;
 
   /**
@@ -50,15 +53,15 @@ namespace Papaya\Administration\UI\Route\Templated {
       ) {
         try {
           $fetchPhrases = (
-            $address->getRouteString($level) !== UI::INSTALLER &&
+            $address->getRouteString($level) !== AdministrationUI::INSTALLER &&
             $this->papaya()->database->getConnector()->connect()
           );
         } catch (ConnectionFailed $exception) {
           $fetchPhrases = FALSE;
         }
 
-        $dialog = new \Papaya\UI\Dialog();
-        $url = new \Papaya\URL\Current();
+        $dialog = new Dialog();
+        $url = new CurrentURL();
         $url->setScheme('https');
         $dialog->action($url->getURL());
         $texts = [
@@ -73,9 +76,9 @@ namespace Papaya\Administration\UI\Route\Templated {
         }
         $dialog->caption = $texts[0];
         $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-          \Papaya\Message::SEVERITY_WARNING, $texts[1]
+          Message::SEVERITY_WARNING, $texts[1]
         );
-        $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit($texts[2]);
+        $dialog->buttons[] = new SubmitButton($texts[2]);
         $this->getTemplate()->add($dialog);
       }
       return NULL;
