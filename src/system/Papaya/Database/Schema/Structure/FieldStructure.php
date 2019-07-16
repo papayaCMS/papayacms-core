@@ -210,17 +210,21 @@ namespace Papaya\Database\Schema\Structure {
     private function setDefaultValue($value) {
       switch ($this->_type) {
       case self::TYPE_INTEGER :
-        $this->_defaultValue = (int)$value;
+        $this->_defaultValue = $this->ensureNumber((int)$value);
         break;
       case self::TYPE_DECIMAL :
-        $this->_defaultValue = (float)$value;
-        if (is_nan($this->_defaultValue)) {
-          $this->_defaultValue = 0;
-        }
+        $this->_defaultValue = $this->ensureNumber((float)$value);
         break;
       default:
         $this->_defaultValue = (string)$value;
       }
+    }
+
+    private function ensureNumber($value) {
+        if (is_nan($value) || is_infinite($value) || $value == (int)NAN) {
+          return 0;
+        }
+        return $value;
     }
 
     /**
