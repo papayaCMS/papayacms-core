@@ -22,8 +22,8 @@ namespace Papaya\Database\Schema\Structure {
 
   /**
    * @property string $name
-   * @property FieldsStructure $fields
-   * @property IndicesStructure $indices
+   * @property FieldsStructure|FieldStructure[] $fields
+   * @property IndicesStructure|IndexStructure[] $indices
    */
   class TableStructure implements Declared {
 
@@ -34,6 +34,9 @@ namespace Papaya\Database\Schema\Structure {
      */
     private $_tableName;
 
+    /**
+     * @var bool
+     */
     private $_usePrefix;
 
     /**
@@ -62,6 +65,9 @@ namespace Papaya\Database\Schema\Structure {
       $this->_indices = clone $this->_indices;
     }
 
+    /**
+     * @param string $name
+     */
     public function setName($name) {
       if (trim($name) === '') {
         throw new \UnexpectedValueException('Table name can not be empty.');
@@ -69,6 +75,10 @@ namespace Papaya\Database\Schema\Structure {
       $this->_tableName = $name;
     }
 
+    /**
+     * @param \DOMNode $node
+     * @return TableStructure
+     */
     public static function createFromXML(\DOMNode $node) {
       $xpath = new \DOMXpath($node instanceof \DOMDocument ? $node : $node->ownerDocument);
       /** @var \DOMElement|NULL $tableNode */
@@ -78,18 +88,18 @@ namespace Papaya\Database\Schema\Structure {
       }
       $table = new self(
         $tableNode->getAttribute('name'),
-        $tableNode->getAttribute('prefix') === 'yes'
+        $tableNode->getAttribute('prefix') === 'yes' || $tableNode->getAttribute('use-prefix') === 'yes'
       );
       foreach ($xpath->evaluate('//table/fields/field', $node) as $fieldNode) {
         $table->fields[] = FieldStructure::createFromXML($fieldNode);
       }
-      foreach ($xpath->evaluate('//table/keys/primary-key', $node) as $index => $fieldNode) {
+      foreach ($xpath->evaluate('//table/keys/primary-key|//table/indices/primary-index', $node) as $index => $fieldNode) {
         if ($index > 0) {
           throw new \UnexpectedValueException('Table has more then one primary key.');
         }
         $table->indices[] = IndexStructure::createFromXML($fieldNode);
       }
-      foreach ($xpath->evaluate('//table/keys/key', $node) as $index => $fieldNode) {
+      foreach ($xpath->evaluate('//table/keys/key|//table/indices/index', $node) as $index => $fieldNode) {
         $table->indices[] = IndexStructure::createFromXML($fieldNode);
       }
       return $table;
@@ -108,7 +118,7 @@ namespace Papaya\Database\Schema\Structure {
         $this->_indices
       );
       if ($this->_usePrefix) {
-        $node->setAttribute('prefix','yes');
+        $node->setAttribute('use-prefix','yes');
       }
       return $document;
     }

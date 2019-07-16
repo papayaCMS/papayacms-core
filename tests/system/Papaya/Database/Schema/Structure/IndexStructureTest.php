@@ -43,9 +43,9 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertSame('id_field', $index->fields['id_field']->name);
     }
 
-    public function testCreateKeyWithEmptyNameExpectingException() {
+    public function testCreateIndexWithEmptyNameExpectingException() {
       $this->expectException(\UnexpectedValueException::class);
-      $this->expectExceptionMessage('Key name can not be empty.');
+      $this->expectExceptionMessage('Index name can not be empty.');
       new IndexStructure('');
     }
     /**
@@ -64,13 +64,13 @@ namespace Papaya\Database\Schema\Structure {
       $index = new IndexStructure('test_key');
       $index->fields[] = new IndexFieldStructure('test_field');
       $document = new Document();
-      $document->appendElement('keys', $index);
+      $document->appendElement('indices', $index);
       $this->assertXmlStringEqualsXmlString(
-        '<keys>
-            <key name="test_key">
+        '<indices>
+            <index name="test_key">
               <field>test_field</field>
-            </key>
-          </keys>',
+            </index>
+          </indices>',
         $document->saveXML()
       );
     }
@@ -79,13 +79,13 @@ namespace Papaya\Database\Schema\Structure {
       $index = new IndexStructure(IndexStructure::PRIMARY);
       $index->fields[] = new IndexFieldStructure('id_field');
       $document = new Document();
-      $document->appendElement('keys', $index);
+      $document->appendElement('indices', $index);
       $this->assertXmlStringEqualsXmlString(
-        '<keys>
-            <primary-key>
+        '<indices>
+            <primary-index>
               <field>id_field</field>
-            </primary-key>
-          </keys>',
+            </primary-index>
+          </indices>',
         $document->saveXML()
       );
     }
@@ -93,11 +93,11 @@ namespace Papaya\Database\Schema\Structure {
     public function testAppendToWithUniqueKey() {
       $index = new IndexStructure('foo', TRUE);
       $document = new Document();
-      $document->appendElement('keys', $index);
+      $document->appendElement('indices', $index);
       $this->assertXmlStringEqualsXmlString(
-        '<keys>
-            <key name="foo" unique="yes"/>
-          </keys>',
+        '<indices>
+            <index name="foo" unique="yes"/>
+          </indices>',
         $document->saveXML()
       );
     }
@@ -105,11 +105,11 @@ namespace Papaya\Database\Schema\Structure {
     public function testAppendToWithFullTextKey() {
       $index = new IndexStructure('foo', FALSE, TRUE);
       $document = new Document();
-      $document->appendElement('keys', $index);
+      $document->appendElement('indices', $index);
       $this->assertXmlStringEqualsXmlString(
-        '<keys>
-            <key name="foo" fulltext="yes"/>
-          </keys>',
+        '<indices>
+            <index name="foo" fulltext="yes"/>
+          </indices>',
         $document->saveXML()
       );
     }
@@ -120,15 +120,29 @@ namespace Papaya\Database\Schema\Structure {
           new IndexStructure(IndexStructure::PRIMARY),
           '<primary-key/>'
         ],
+        'primary index' => [
+          new IndexStructure(IndexStructure::PRIMARY),
+          '<primary-index/>'
+        ],
         'named key' => [
           new IndexStructure('foo'),
           '<key name="foo"/>'
+        ],
+        'named index' => [
+          new IndexStructure('foo'),
+          '<index name="foo"/>'
         ],
         'primary key with field' => [
           self::createKeyWithFields(
             IndexStructure::PRIMARY, [new IndexFieldStructure('id_field')]
           ),
           '<primary-key><field>id_field</field></primary-key>'
+        ],
+        'primary index with field' => [
+          self::createKeyWithFields(
+            IndexStructure::PRIMARY, [new IndexFieldStructure('id_field')]
+          ),
+          '<primary-index><field>id_field</field></primary-index>'
         ]
       ];
     }

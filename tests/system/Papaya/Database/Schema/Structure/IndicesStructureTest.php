@@ -47,10 +47,10 @@ namespace Papaya\Database\Schema\Structure {
       $document->appendElement('table', $indices);
       $this->assertXmlStringEqualsXmlString(
         '<table>
-            <keys>
-              <primary-key/>
-              <key name="test_key"/>
-            </keys>
+            <indices>
+              <primary-index/>
+              <index name="test_key"/>
+            </indices>
           </table>',
         $document->saveXML()
       );

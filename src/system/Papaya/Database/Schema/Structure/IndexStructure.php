@@ -39,7 +39,7 @@ namespace Papaya\Database\Schema\Structure {
 
     public function __construct($name, $isUnique = FALSE, $isFullText = FALSE) {
       if (trim($name) === '') {
-        throw new \UnexpectedValueException('Key name can not be empty.');
+        throw new \UnexpectedValueException('Index name can not be empty.');
       }
       $this->_name = strtoupper($name) === self::PRIMARY ? self::PRIMARY : $name;
       $this->_isUnique =  $this->isPrimary() || ($isUnique && !$isFullText);
@@ -61,7 +61,8 @@ namespace Papaya\Database\Schema\Structure {
     public static function createFromXML(\DOMElement $node) {
       $xpath = new \DOMXpath($node instanceof \DOMDocument ? $node : $node->ownerDocument);
       $key = new self(
-        $node->localName === 'primary-key' ? self::PRIMARY : $node->getAttribute('name'),
+        $node->localName === 'primary-index' || $node->localName === 'primary-key'
+          ? self::PRIMARY : $node->getAttribute('name'),
         $node->getAttribute('unique') === 'yes',
         $node->getAttribute('fulltext') === 'yes'
       );
@@ -76,7 +77,7 @@ namespace Papaya\Database\Schema\Structure {
      */
     public function appendTo(Element $parent) {
       $node = $parent->appendElement(
-        $this->isPrimary() ? 'primary-key' : 'key',
+        $this->isPrimary() ? 'primary-index' : 'index',
         $this->_fields
       );
       if (!$this->isPrimary()) {

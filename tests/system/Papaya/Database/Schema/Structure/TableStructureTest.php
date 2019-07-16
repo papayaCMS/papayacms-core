@@ -25,7 +25,26 @@ namespace Papaya\Database\Schema\Structure {
    */
   class TableStructureTest extends TestCase {
 
-    const VALID_XML_TABLE_STRUCTURE = '<table name="test_table" prefix="yes">
+    const VALID_XML_TABLE_STRUCTURE =
+      /** @lang XML */
+      '<table name="test_table" use-prefix="yes">
+          <fields>
+            <field name="test_id" type="integer" size="4" auto-increment="yes"/>
+            <field name="test_field" type="text" size="255" default="default_value"/>
+          </fields>
+          <indices>
+            <primary-index>
+              <field>test_id</field>
+            </primary-index>
+            <index name="test_field">
+              <field>test_field</field>
+            </index>
+           </indices>
+        </table>';
+
+    const VALID_XML_TABLE_STRUCTURE_OLD =
+        /** @lang XML */
+        '<table name="test_table" prefix="yes">
           <fields>
             <field name="test_id" type="integer" size="4" auto-increment="yes"/>
             <field name="test_field" type="text" size="255" default="default_value"/>
@@ -53,6 +72,16 @@ namespace Papaya\Database\Schema\Structure {
     public function testGetXMLCreatesLoadedXML() {
       $document = new Document();
       $document->loadXML(self::VALID_XML_TABLE_STRUCTURE);
+      $structure = TableStructure::createFromXML($document);
+
+      $this->assertXmlStringEqualsXmlString(
+        self::VALID_XML_TABLE_STRUCTURE, $structure->getXMLDocument()->saveXML()
+      );
+    }
+
+    public function testGetXMLCreatesNewFromOld() {
+      $document = new Document();
+      $document->loadXML(self::VALID_XML_TABLE_STRUCTURE_OLD);
       $structure = TableStructure::createFromXML($document);
 
       $this->assertXmlStringEqualsXmlString(

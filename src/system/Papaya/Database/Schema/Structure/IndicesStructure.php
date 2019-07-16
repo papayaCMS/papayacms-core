@@ -40,7 +40,7 @@ namespace Papaya\Database\Schema\Structure {
      * @param \Papaya\XML\Element $parent
      */
     public function appendTo(Element $parent) {
-      $parent->appendElement('keys', ...iterator_to_array($this, FALSE));
+      $parent->appendElement('indices', ...iterator_to_array($this, FALSE));
     }
 
     /**
