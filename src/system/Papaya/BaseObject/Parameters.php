@@ -79,7 +79,7 @@ class Parameters
    * Empty the internal array.
    */
   public function clear() {
-    parent::exchangeArray([]);
+    $this->exchangeArray([]);
   }
 
   /**
@@ -89,7 +89,7 @@ class Parameters
    */
   public function merge($value) {
     Utility\Constraints::assertArrayOrTraversable($value);
-    parent::exchangeArray(Utility\Arrays::merge($this, $value));
+    $this->exchangeArray(Utility\Arrays::merge($this, $value));
   }
 
   /**
