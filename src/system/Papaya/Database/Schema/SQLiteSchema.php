@@ -259,7 +259,7 @@ namespace Papaya\Database\Schema {
       foreach ($tableStructure->fields as $field) {
         $fieldType = $this->getFieldType(
           $field,
-          $field->name === $primaryKeyField->name
+          isset($primaryKeyField) && $field->name === $primaryKeyField->name
         );
         $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$fieldType[0].",\n";
         array_push($parameters, ...$fieldType[1]);
