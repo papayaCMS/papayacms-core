@@ -168,13 +168,11 @@ namespace Papaya\Database\Schema {
     public function createTable(TableStructure $tableStructure, $tablePrefix = '') {
       if (count($tableStructure->fields) > 0) {
         $sql = '';
-        $parameters = [];
         $autoIncrementField = FALSE;
         /** @var FieldStructure $field */
         foreach ($tableStructure->fields as $field) {
           $extra = $this->getFieldExtrasSQL($field, !$autoIncrementField);
-          $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$this->getFieldTypeSQL($field).$extra[0].",\n";
-          array_push($parameters, ...$extra[1]);
+          $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$this->getFieldTypeSQL($field).$extra.",\n";
         }
         if (count($tableStructure->indizes) > 0) {
           if ($primary = $tableStructure->indizes->getPrimary()) {
@@ -215,7 +213,7 @@ namespace Papaya\Database\Schema {
         }
         $sql = 'CREATE TABLE '.$this->getQuotedIdentifier($tableStructure->name, $tablePrefix).
           ' ( '.substr($sql, 0, -2).' ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci';
-        return ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE);
+        return ($this->_connection->execute($sql) !== FALSE);
       }
       return FALSE;
     }
@@ -238,7 +236,7 @@ namespace Papaya\Database\Schema {
         }
         break;
       case FieldStructure::TYPE_DECIMAL:
-        list($before, $after) = explode(',', $field->size);
+        list($before, $after) = $field->size;
         $result = 'DECIMAL('.$before.','.$after.')';
         break;
       case FieldStructure::TYPE_TEXT:
@@ -265,10 +263,9 @@ namespace Papaya\Database\Schema {
      *
      * @param FieldStructure $field
      * @param bool $allowAutoIncrement
-     * @return array SQL instruction and parameters
+     * @return string SQL instruction
      */
     private function getFieldExtrasSQL($field, $allowAutoIncrement = FALSE) {
-      $parameters = [];
       $defaultStr = '';
       if ($field->allowsNull) {
         $default = NULL;
@@ -305,10 +302,7 @@ namespace Papaya\Database\Schema {
       } else {
         $autoIncrementString = '';
       }
-      return [
-        $defaultStr.$notNullStr.$autoIncrementString,
-        $parameters
-      ];
+      return $defaultStr.$notNullStr.$autoIncrementString;
     }
 
     /**
@@ -317,14 +311,13 @@ namespace Papaya\Database\Schema {
      * @return bool
      */
     public function addField($tableName, FieldStructure $fieldStructure) {
-      list($extrasSQL, $parameters) = $this->getFieldExtrasSQL($fieldStructure);
       $sql = sprintf(
       /** @lang text */
         'ALTER TABLE %s ADD COLUMN %s %s %s',
         $this->getQuotedIdentifier($tableName),
         $this->getQuotedIdentifier($fieldStructure->name),
         $this->getFieldTypeSQL($fieldStructure),
-        $extrasSQL
+        $this->getFieldExtrasSQL($fieldStructure)
       );
       return ($this->_connection->execute($sql) !== FALSE);
     }
@@ -359,29 +352,27 @@ namespace Papaya\Database\Schema {
           }
           $result->free();
           if (isset($oldAutoIncrementField)) {
-            list($extrasSQL, $parameters) = $this->getFieldExtrasSQL($oldAutoIncrementField, FALSE);
             $sql = sprintf(
               /** @lang text */
               'ALTER TABLE %s MODIFY COLUMN %s %s %s',
               $this->getQuotedIdentifier($tableName),
               $this->getQuotedIdentifier($oldAutoIncrementField->name),
               $this->getFieldTypeSQL($oldAutoIncrementField),
-              $extrasSQL
+              $this->getFieldExtrasSQL($oldAutoIncrementField)
             );
-            $this->_connection->execute($sql, $parameters);
+            $this->_connection->execute($sql);
           }
         }
       }
-      list($extrasSQL, $parameters) = $this->getFieldExtrasSQL($fieldStructure, $allowAutoIncrement);
       $sql = sprintf(
       /** @lang text */
         'ALTER TABLE %s MODIFY COLUMN %s %s %s',
         $this->getQuotedIdentifier($tableName),
         $this->getQuotedIdentifier($fieldStructure->name),
         $this->getFieldTypeSQL($fieldStructure),
-        $extrasSQL
+        $this->getFieldExtrasSQL($fieldStructure, $allowAutoIncrement)
       );
-      return ($this->_connection->execute($sql, $parameters) !== FALSE);
+      return ($this->_connection->execute($sql) !== FALSE);
     }
 
     /**
