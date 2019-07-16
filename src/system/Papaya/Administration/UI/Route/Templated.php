@@ -66,12 +66,12 @@ namespace Papaya\Administration\UI\Route {
           'PAPAYA_RICHTEXT_LINK_TARGET' =>
           $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
           'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
-          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK'),
-          'PAPAYA_MESSAGES_INBOX_NEW' => $this->getNewMessageCount()
+          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
         ]
       );
       if ($this->_showUserStatus && $application->administrationUser->isValid) {
         $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
+        $template->parameters()->set('PAPAYA_MESSAGES_INBOX_NEW',  $this->getNewMessageCount());
         $template->add($application->administrationLanguage, 'title-menu');
         $template->add($application->administrationRichText, 'title-menu');
         $template->add(new UI\Navigation\Main(), 'menus');

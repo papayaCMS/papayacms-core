@@ -38,6 +38,7 @@ namespace Papaya\Administration\UI\Route\Templated {
      */
     public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
+      $this->papaya()->options->load();
       if (
         $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
         !Utility\Server\Protocol::isSecure()
