@@ -76,10 +76,9 @@ namespace Papaya\Database\Schema\Structure {
       new FieldStructure('foo', FieldStructure::TYPE_TEXT, 1, TRUE);
     }
 
-    public function testCreateWithAutoIncrementAndAllowsNullExpectingException() {
-      $this->expectException(\UnexpectedValueException::class);
-      $this->expectExceptionMessage('Auto increment field can not be NULL.');
-      new FieldStructure('foo', FieldStructure::TYPE_INTEGER, 1, TRUE, TRUE);
+    public function testCreateWithAutoIncrementAndAllowsNullIgnoresAllowsNull() {
+      $field = new FieldStructure('foo', FieldStructure::TYPE_INTEGER, 1, TRUE, TRUE);
+      $this->assertFalse($field->allowsNull);
     }
 
     public function testCreateIntegerWithNaNDefaultValueExpectingZero() {
