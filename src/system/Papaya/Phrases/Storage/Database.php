@@ -48,6 +48,11 @@ class Database
   private $_messages;
 
   /**
+   * @var bool $_disabledOnError access to database will be disabled on error - store the state
+   */
+  private $_disabledOnError = FALSE;
+
+  /**
    * @param string $identifier
    * @param string $group
    * @param int $languageId
@@ -59,6 +64,9 @@ class Database
     $phrase = NULL;
     if (!isset($this->_loadedGroups[$languageId][$group])) {
       $this->loadGroup($group, $languageId);
+    }
+    if ($this->_disabledOnError) {
+      return (string)$identifier;
     }
     if (!isset($this->_cache[$languageId][$key])) {
       $phrase = $this->loadPhrase($key, $languageId);
@@ -98,6 +106,9 @@ class Database
 
   private function loadGroup($group, $languageId) {
     $group = \strtolower(\trim($group));
+    if ($this->_disabledOnError) {
+      return;
+    }
     $phrases = $this->phrases();
     $loaded = $phrases->load(
       [
@@ -114,6 +125,8 @@ class Database
         }
         $this->_cache[$languageId][$key]['GROUPS'][$group] = TRUE;
       }
+    } else {
+      $this->_disabledOnError = TRUE;
     }
   }
 
