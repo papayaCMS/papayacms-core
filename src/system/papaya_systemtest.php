@@ -64,6 +64,7 @@ class papaya_systemtest {
     'MySQL Client' => 'infoMySQLVersion',
     'MySQLi Client' => 'infoMySQLiVersion',
     'SQlite Library' => 'infoSQLiteVersion',
+    'PostgreSQL Client' => 'infoPostgreSQLVersion',
     'GD Version' => 'infoGDVersion',
     'libXSLT Version' => 'infoLibXSLTVersion',
     'Memory limits' => 'infoMemoryLimits'
@@ -363,9 +364,26 @@ class papaya_systemtest {
   * @return string
   */
   function infoSQLiteVersion() {
-    if (function_exists('sqlite_libversion')) {
+    if (is_callable('sqlite_libversion')) {
       $result = sqlite_libversion();
       return $result['client'];
+    }
+    if (is_callable('sqlite3::version')) {
+      $result = sqlite3::version();
+      return $result['versionString'];
+    }
+    return 'None';
+  }
+
+  /**
+  * get SQLite library version
+  *
+  * @access private
+  * @return string
+  */
+  private function infoPostgreSQLVersion() {
+    if (defined('PGSQL_LIBPQ_VERSION_STR')) {
+      return constant('PGSQL_LIBPQ_VERSION_STR');
     }
     return 'None';
   }
