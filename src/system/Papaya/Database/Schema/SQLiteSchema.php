@@ -119,16 +119,16 @@ namespace Papaya\Database\Schema {
         while ($row = $dbResult->fetchAssoc()) {
           $table->fields[] = $this->parseFieldData($row);
           if ($row['pk'] > 0) {
-            $primaryIndex = $table->indizes->getPrimary();
+            $primaryIndex = $table->indices->getPrimary();
             if (!$primaryIndex) {
-              $table->indizes[] = $primaryIndex = new IndexStructure(IndexStructure::PRIMARY, TRUE);
+              $table->indices[] = $primaryIndex = new IndexStructure(IndexStructure::PRIMARY, TRUE);
             }
             $primaryIndex->fields[] = new IndexFieldStructure($row['name']);
           }
         }
         // remove autoincrement if the primary key has more then one field
         if (
-          ($primaryIndex = $table->indizes->getPrimary()) &&
+          ($primaryIndex = $table->indices->getPrimary()) &&
           count($primaryIndex->fields) > 1
         ) {
           foreach ($table->fields as $fieldName => $field) {
@@ -152,7 +152,7 @@ namespace Papaya\Database\Schema {
             $keyName = $row['name'];
           }
           $internalKeyNames[$keyName] = $row['name'];
-          $table->indizes[] = new IndexStructure(
+          $table->indices[] = new IndexStructure(
             $keyName, (string)$row['unique'] === '1', false
           );
         }
@@ -160,7 +160,7 @@ namespace Papaya\Database\Schema {
           $sql = 'PRAGMA index_info('.$this->getQuotedIdentifier($internalKeyName).')';
           if ($dbResult = $this->_connection->execute($sql)) {
             while ($row = $dbResult->fetchAssoc()) {
-              $table->indizes[$keyName]->fields[] = new IndexFieldStructure($row['name']);
+              $table->indices[$keyName]->fields[] = new IndexFieldStructure($row['name']);
             }
           }
         }
@@ -247,7 +247,7 @@ namespace Papaya\Database\Schema {
       $table = $this->getIdentifier($tableStructure->name, $tablePrefix);
       /** @var IndexFieldStructure $primaryKeyField */
       if (
-        ($primaryIndex = $tableStructure->indizes->getPrimary()) && count($primaryIndex->fields) === 1
+        ($primaryIndex = $tableStructure->indices->getPrimary()) && count($primaryIndex->fields) === 1
       ) {
         $primaryKeyField = $primaryIndex->fields->first();
       } else {
@@ -265,7 +265,7 @@ namespace Papaya\Database\Schema {
         array_push($parameters, ...$fieldType[1]);
       }
       /** @var IndexStructure $index */
-      foreach ($tableStructure->indizes as $index) {
+      foreach ($tableStructure->indices as $index) {
         if (
           $index->isPrimary() && count($index->fields) > 1
         ) {
@@ -278,7 +278,7 @@ namespace Papaya\Database\Schema {
       $sql = substr($sql, 0, -2)."\n)\n";
       if ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
         /** @var IndexStructure $index */
-        foreach ($tableStructure->indizes as $index) {
+        foreach ($tableStructure->indices as $index) {
           $this->addIndex($table, $index);
         }
         return TRUE;

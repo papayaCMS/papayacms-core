@@ -79,8 +79,8 @@ namespace Papaya\Database\Schema {
           } else {
             $keyName = $row['index_name'];
           }
-          if (!isset($table->indizes[$keyName])) {
-            $table->indizes[$keyName] = new IndexStructure(
+          if (!isset($table->indices[$keyName])) {
+            $table->indices[$keyName] = new IndexStructure(
               $keyName,
               $row['unique_key'] === 't'
             );
@@ -90,7 +90,7 @@ namespace Papaya\Database\Schema {
         foreach ($indexFields as $indexName => $fields) {
           ksort($fields);
           foreach ($fields as $field) {
-            $table->indizes[$indexName]->fields[] = new IndexFieldStructure($field['column_name']);
+            $table->indices[$indexName]->fields[] = new IndexFieldStructure($field['column_name']);
           }
         }
       }
@@ -180,7 +180,7 @@ namespace Papaya\Database\Schema {
           $fieldType = $this->getFieldTypeSQL($field);
           $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$fieldType.",\n";
         }
-        if ($primary = $tableStructure->indizes->getPrimary()) {
+        if ($primary = $tableStructure->indices->getPrimary()) {
           $sql .= sprintf(
             "CONSTRAINT %s PRIMARY KEY (%s),\n",
             $this->getQuotedIdentifier(strtolower($prefixedTableName).'_primary_key'),
@@ -188,7 +188,7 @@ namespace Papaya\Database\Schema {
           );
         }
         /** @var IndexStructure $index */
-        foreach ($tableStructure->indizes as $indexName => $index) {
+        foreach ($tableStructure->indices as $indexName => $index) {
           if (!$index->isPrimary && $index->isUnique) {
             $sql .= sprintf(
               "CONSTRAINT %s UNIQUE (%s),\n",
@@ -200,7 +200,7 @@ namespace Papaya\Database\Schema {
         $sql = substr($sql, 0, -2)."\n)\n";
         if ($this->_connection->execute(new SQLStatement($sql, $parameters)) !== FALSE) {
           /** @var IndexStructure $index */
-          foreach ($tableStructure->indizes as $index) {
+          foreach ($tableStructure->indices as $index) {
             if (!($index->isPrimary || $index->isUnique)) {
               $this->addIndex($prefixedTableName, $index);
             }

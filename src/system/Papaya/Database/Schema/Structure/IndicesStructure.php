@@ -21,7 +21,7 @@ namespace Papaya\Database\Schema\Structure {
   /**
    * @property string $name
    */
-  class IndizesStructure extends Collection implements Appendable {
+  class IndicesStructure extends Collection implements Appendable {
 
     public function __construct() {
       parent::__construct(IndexStructure::class, self::MODE_ASSOCIATIVE);

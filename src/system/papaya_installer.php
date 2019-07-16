@@ -932,7 +932,7 @@ class papaya_installer extends base_db {
     $tableFileName = $this->getTableStructuresPath().'table_'.$table.'.xml';
     $result = TRUE;
     if ($struct = $this->moduleManager->loadTableStructure($tableFileName)) {
-      if (isset($struct['changes']) && (count($struct['changes']['fields']) > 0 || count($struct['changes']['indizes']) > 0)) {
+      if (isset($struct['changes']) && (count($struct['changes']['fields']) > 0 || count($struct['changes']['indices']) > 0)) {
         $result = FALSE;
       }
       unset($struct);

@@ -47,7 +47,7 @@ namespace Papaya\Database\Schema\Structure {
       $this->assertSame('test_table', $structure->name);
       $this->assertTrue($structure->usePrefix);
       $this->assertCount(2, $structure->fields);
-      $this->assertCount(2, $structure->indizes);
+      $this->assertCount(2, $structure->indices);
     }
 
     public function testGetXMLCreatesLoadedXML() {
@@ -104,7 +104,7 @@ namespace Papaya\Database\Schema\Structure {
       $clonedStructure = clone $structure;
       $this->assertEquals($structure, $clonedStructure);
       $this->assertNotSame($structure->fields, $clonedStructure->fields);
-      $this->assertNotSame($structure->indizes, $clonedStructure->indizes);
+      $this->assertNotSame($structure->indices, $clonedStructure->indices);
     }
   }
 

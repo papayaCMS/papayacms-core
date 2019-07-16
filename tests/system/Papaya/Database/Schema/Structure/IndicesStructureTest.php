@@ -21,30 +21,30 @@ namespace Papaya\Database\Schema\Structure {
   require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Database\Schema\Structure\IndizesStructure
+   * @covers \Papaya\Database\Schema\Structure\IndicesStructure
    */
-  class IndizesStructureTest extends TestCase {
+  class IndicesStructureTest extends TestCase {
 
     public function testAddValidKey() {
-      $indizes = new IndizesStructure();
-      $indizes[] = new IndexStructure('test_key');
-      $this->assertTrue(isset($indizes['test_key']));
-      $this->assertNull($indizes->getPrimary());
+      $indices = new IndicesStructure();
+      $indices[] = new IndexStructure('test_key');
+      $this->assertTrue(isset($indices['test_key']));
+      $this->assertNull($indices->getPrimary());
     }
 
     public function testAddValidPrimaryKey() {
-      $indizes = new IndizesStructure();
-      $indizes[] = new IndexStructure(IndexStructure::PRIMARY);
-      $this->assertTrue(isset($indizes[IndexStructure::PRIMARY]));
-      $this->assertInstanceOf(IndexStructure::class, $indizes->getPrimary());
+      $indices = new IndicesStructure();
+      $indices[] = new IndexStructure(IndexStructure::PRIMARY);
+      $this->assertTrue(isset($indices[IndexStructure::PRIMARY]));
+      $this->assertInstanceOf(IndexStructure::class, $indices->getPrimary());
     }
 
     public function testAppendTo() {
-      $indizes = new IndizesStructure();
-      $indizes[] = new IndexStructure(IndexStructure::PRIMARY);
-      $indizes[] = new IndexStructure('test_key');
+      $indices = new IndicesStructure();
+      $indices[] = new IndexStructure(IndexStructure::PRIMARY);
+      $indices[] = new IndexStructure('test_key');
       $document = new Document();
-      $document->appendElement('table', $indizes);
+      $document->appendElement('table', $indices);
       $this->assertXmlStringEqualsXmlString(
         '<table>
             <keys>

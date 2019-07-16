@@ -23,7 +23,7 @@ namespace Papaya\Database\Schema\Structure {
   /**
    * @property string $name
    * @property FieldsStructure $fields
-   * @property IndizesStructure $indizes
+   * @property IndicesStructure $indices
    */
   class TableStructure implements Declared {
 
@@ -42,9 +42,9 @@ namespace Papaya\Database\Schema\Structure {
     private $_fields;
 
     /**
-     * @var IndizesStructure
+     * @var IndicesStructure
      */
-    private $_indizes;
+    private $_indices;
 
     /**
      * @param string $name
@@ -54,12 +54,12 @@ namespace Papaya\Database\Schema\Structure {
       $this->setName($name);
       $this->_usePrefix = (bool)$usePrefix;
       $this->_fields = new FieldsStructure();
-      $this->_indizes = new IndizesStructure();
+      $this->_indices = new IndicesStructure();
     }
 
     public function __clone() {
       $this->_fields = clone $this->_fields;
-      $this->_indizes = clone $this->_indizes;
+      $this->_indices = clone $this->_indices;
     }
 
     public function setName($name) {
@@ -87,10 +87,10 @@ namespace Papaya\Database\Schema\Structure {
         if ($index > 0) {
           throw new \UnexpectedValueException('Table has more then one primary key.');
         }
-        $table->indizes[] = IndexStructure::createFromXML($fieldNode);
+        $table->indices[] = IndexStructure::createFromXML($fieldNode);
       }
       foreach ($xpath->evaluate('//table/keys/key', $node) as $index => $fieldNode) {
-        $table->indizes[] = IndexStructure::createFromXML($fieldNode);
+        $table->indices[] = IndexStructure::createFromXML($fieldNode);
       }
       return $table;
     }
@@ -105,7 +105,7 @@ namespace Papaya\Database\Schema\Structure {
         'table',
         [ 'name' => $this->_tableName],
         $this->_fields,
-        $this->_indizes
+        $this->_indices
       );
       if ($this->_usePrefix) {
         $node->setAttribute('prefix','yes');
@@ -121,7 +121,7 @@ namespace Papaya\Database\Schema\Structure {
         'name' => ['_tableName', 'setName'],
         'usePrefix' => ['_usePrefix'],
         'fields' => ['_fields'],
-        'indizes' => ['_indizes']
+        'indices' => ['_indices']
       ];
     }
   }

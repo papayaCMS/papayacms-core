@@ -390,8 +390,8 @@ class papaya_modulemanager extends base_db {
             $xmlFileName = $path.'table_'.$this->params['table'].'.xml';
             if ($struct = $this->loadTableStructure($xmlFileName, $this->params['pkg_id'])) {
               $tableFullName = $this->getTableFullName($this->params['table']);
-              if (isset($struct['expected']->indizes[$this->params['index']])) {
-                $index = $struct['expected']->indizes[$this->params['index']];
+              if (isset($struct['expected']->indices[$this->params['index']])) {
+                $index = $struct['expected']->indices[$this->params['index']];
                 switch ($this->params['cmd']) {
                 case self::ACTION_INDEX_ADD:
                   if ($this->getSchema()->addIndex($tableFullName, $index)) {
@@ -908,7 +908,7 @@ class papaya_modulemanager extends base_db {
       isset($this->_tableStructure['changes']) &&
       (
         count($this->_tableStructure['changes']['fields']) > 0 ||
-        count($this->_tableStructure['changes']['indizes']) > 0
+        count($this->_tableStructure['changes']['indices']) > 0
       )
     ) {
       $menubar->addButton(
@@ -1577,7 +1577,7 @@ class papaya_modulemanager extends base_db {
           isset($this->_tableStructure['changes']) &&
           (
             count($this->_tableStructure['changes']['fields']) > 0 ||
-            count($this->_tableStructure['changes']['indizes']) > 0
+            count($this->_tableStructure['changes']['indices']) > 0
           )
         ) {
           $this->setTableStatus($path, $table, TRUE);
@@ -1609,7 +1609,7 @@ class papaya_modulemanager extends base_db {
 
       $requiredChanges = [
         'fields' => [],
-        'indizes' => []
+        'indices' => []
       ];
       try {
         $currentStructure = $this->getSchema()->describeTable(
@@ -1638,22 +1638,22 @@ class papaya_modulemanager extends base_db {
         }
 
         $indexNames = array_unique(
-          array_merge($expectedStructure->indizes->keys(), $currentStructure->indizes->keys())
+          array_merge($expectedStructure->indices->keys(), $currentStructure->indices->keys())
         );
         /** @var string $indexName */
         foreach ($indexNames as $indexName) {
           /** @var \Papaya\Database\Schema\Structure\IndexStructure $expectedIndex */
-          $expectedIndex = isset($expectedStructure->indizes[$indexName]) ? $expectedStructure->indizes[$indexName]
+          $expectedIndex = isset($expectedStructure->indices[$indexName]) ? $expectedStructure->indices[$indexName]
             : NULL;
           /** @var \Papaya\Database\Schema\Structure\IndexStructure $currentIndex */
-          $currentIndex = isset($currentStructure->indizes[$indexName]) ? $currentStructure->indizes[$indexName] : NULL;
+          $currentIndex = isset($currentStructure->indices[$indexName]) ? $currentStructure->indices[$indexName] : NULL;
           if (isset($expectedIndex) && !isset($currentIndex)) {
-            $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_ADD;
+            $requiredChanges['indices'][$expectedIndex->name] = self::ACTION_INDEX_ADD;
           } elseif (!isset($expectedIndex) && isset($currentIndex)) {
-            $requiredChanges['indizes'][$currentIndex->name] = self::ACTION_INDEX_REMOVE;
+            $requiredChanges['indices'][$currentIndex->name] = self::ACTION_INDEX_REMOVE;
             // remove
           } elseif ($this->getSchema()->isIndexDifferent($expectedIndex, $currentIndex)) {
-            $requiredChanges['indizes'][$expectedIndex->name] = self::ACTION_INDEX_CHANGE;
+            $requiredChanges['indices'][$expectedIndex->name] = self::ACTION_INDEX_CHANGE;
           }
         }
       } catch (\Papaya\Database\Exception\QueryFailed $exception) {
@@ -1718,10 +1718,10 @@ class papaya_modulemanager extends base_db {
         break;
       }
     }
-    foreach ($tableStruct['changes']['indizes'] as $keyName => $action) {
+    foreach ($tableStruct['changes']['indices'] as $keyName => $action) {
       switch ($action) {
       case self::ACTION_INDEX_ADD:
-        if ($this->getSchema()->addIndex($tableFullName,  $tableStruct['expected']->indizes[$keyName])) {
+        if ($this->getSchema()->addIndex($tableFullName,  $tableStruct['expected']->indices[$keyName])) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index added.').' '.$keyName
           );
@@ -1745,7 +1745,7 @@ class papaya_modulemanager extends base_db {
         }
         break;
       case self::ACTION_INDEX_CHANGE:
-        if ($this->getSchema()->changeIndex($tableFullName,  $tableStruct['expected']->indizes[$keyName])) {
+        if ($this->getSchema()->changeIndex($tableFullName,  $tableStruct['expected']->indices[$keyName])) {
           $this->addMsg(
             MSG_INFO, $this->_gt('Index modified.').' '.$keyName
           );
@@ -2663,12 +2663,12 @@ class papaya_modulemanager extends base_db {
       );
 
       $indexNames = array_unique(
-        array_merge($structure['expected']->indizes->keys(), $structure['current']->indizes->keys())
+        array_merge($structure['expected']->indices->keys(), $structure['current']->indices->keys())
       );
       foreach ($indexNames as $indexName) {
         /** @var \Papaya\Database\Schema\Structure\IndexStructure $index */
-        $index = isset($structure['expected']->indizes[$indexName])
-          ? $structure['expected']->indizes[$indexName] : $structure['current']->indizes[$indexName];
+        $index = isset($structure['expected']->indices[$indexName])
+          ? $structure['expected']->indices[$indexName] : $structure['current']->indices[$indexName];
         $listView->items[] = $item = new UI\ListView\Item('', $index->name);
         $item->subitems[] = new UI\ListView\SubItem\Text(implode(', ',$index->fields->keys()));
         $item->subitems[] = new UI\ListView\SubItem\Image(
@@ -2677,7 +2677,7 @@ class papaya_modulemanager extends base_db {
         $item->subitems[] = new UI\ListView\SubItem\Image(
           $index->isFullText ? $images['status-node-checked-disabled'] : $images['status-node-empty-disabled']
         );
-        $action = isset($structure['changes']['indizes'][$index->name]) ? $structure['changes']['indizes'][$index->name] : NULL;
+        $action = isset($structure['changes']['indices'][$index->name]) ? $structure['changes']['indices'][$index->name] : NULL;
         switch ($action) {
         case self::ACTION_INDEX_ADD:
           $item->subitems[] = new Papaya\UI\ListView\SubItem\Image(
@@ -2813,7 +2813,7 @@ class papaya_modulemanager extends base_db {
    */
   function getIndexDialog() {
     if (
-      isset($this->params['cmd'], $this->params['index'], $this->_tableStructure['changes']['indizes'][$this->params['index']]) &&
+      isset($this->params['cmd'], $this->params['index'], $this->_tableStructure['changes']['indices'][$this->params['index']]) &&
       in_array($this->params['cmd'], array(self::ACTION_INDEX_ADD, self::ACTION_INDEX_REMOVE, self::ACTION_INDEX_CHANGE), TRUE)
     ) {
       $hidden = array(

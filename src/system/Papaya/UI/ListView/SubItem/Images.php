@@ -31,21 +31,21 @@ use Papaya\XML;
  */
 class Images extends Image\Toggle {
   /**
-   * Validate the icon indizes using the values of the selection array
+   * Validate the icon indices using the values of the selection array
    *
    * @var int
    */
   const VALIDATE_VALUES = 1;
 
   /**
-   * Validate the icon indizes using the keys of the selection array
+   * Validate the icon indices using the keys of the selection array
    *
    * @var int
    */
   const VALIDATE_KEYS = 2;
 
   /**
-   * Validate the icon indizes using the selection value as an bitmask. The icon indizes need to be
+   * Validate the icon indices using the selection value as an bitmask. The icon indices need to be
    * integers for that.
    *
    * @var int

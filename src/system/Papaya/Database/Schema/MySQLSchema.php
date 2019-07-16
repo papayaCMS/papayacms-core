@@ -40,8 +40,8 @@ namespace Papaya\Database\Schema {
         $indexFields = [];
         while ($row = $result->fetchAssoc()) {
           $keyName = $row['Key_name'];
-          if (!isset($table->indizes[$keyName])) {
-            $table->indizes[] = new IndexStructure(
+          if (!isset($table->indices[$keyName])) {
+            $table->indices[] = new IndexStructure(
               $keyName,
               (int)$row['Non_unique'] === 0,
               (isset($row['Index_type']) && $row['Index_type'] === 'FULLTEXT') || $row['Comment'] === 'FULLTEXT'
@@ -49,7 +49,7 @@ namespace Papaya\Database\Schema {
           }
           $indexFields[$keyName][(int)$row['Seq_in_index']] = $row;
         }
-        foreach ($table->indizes as $index) {
+        foreach ($table->indices as $index) {
           $fields = $indexFields[$index->name];
           ksort($fields);
           foreach ($fields as $row) {
@@ -174,8 +174,8 @@ namespace Papaya\Database\Schema {
           $extra = $this->getFieldExtrasSQL($field, !$autoIncrementField);
           $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$this->getFieldTypeSQL($field).$extra.",\n";
         }
-        if (count($tableStructure->indizes) > 0) {
-          if ($primary = $tableStructure->indizes->getPrimary()) {
+        if (count($tableStructure->indices) > 0) {
+          if ($primary = $tableStructure->indices->getPrimary()) {
             $fieldsString = '(';
             foreach ($primary->fields as $field) {
               if ($field->size > 0) {
@@ -188,7 +188,7 @@ namespace Papaya\Database\Schema {
             }
             $sql .= 'PRIMARY KEY '.substr($fieldsString, 0, -2).'), ';
           }
-          foreach ($tableStructure->indizes as $index) {
+          foreach ($tableStructure->indices as $index) {
             if (!$index->isPrimary) {
               if ($index->isUnique) {
                 $sql .= '  UNIQUE ';
