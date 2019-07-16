@@ -15,6 +15,8 @@
 namespace Papaya\Database\Statement {
 
   use Papaya\Database;
+  use Papaya\Database\Connection;
+  use Papaya\Database\Statement;
 
   /**
    * A client side prepared statement. All parameters have to be named.
@@ -35,7 +37,7 @@ namespace Papaya\Database\Statement {
    * @package Papaya\Database\Statement
    */
   class Prepared
-    extends Database\Statement {
+    extends ExecutableStatement {
 
     /**
      * @var string
@@ -47,28 +49,52 @@ namespace Papaya\Database\Statement {
      */
     private $_parameters = [];
 
-    public function __construct(Database\Access $databaseAccess, $sql) {
-      parent::__construct($databaseAccess);
+    /**
+     * @var NULL|array
+     */
+    private $_compiled = [
+      'prepared' => NULL,
+      'replaced' => NULL
+    ];
+
+    public function __construct(Connection $databaseConnection, $sql) {
+      parent::__construct($databaseConnection);
       $this->_sql = $sql;
     }
 
     public function __toString() {
       try {
-        return $this->getSQL();
-      } catch (\Exception $e) {
-        return '';
+        return $this->getSQLString(FALSE);
+      } catch (\Exception $exception) {
       }
+      return '';
     }
 
-    public function getSQL() {
-      return (string)$this->compile(FALSE)[0];
+    /**
+     * @param bool $allowPrepared
+     * @return string
+     */
+    public function getSQLString($allowPrepared = TRUE) {
+      return $this->compile($allowPrepared)->getSQLString($allowPrepared);
     }
 
-    public function getPreparedSQL() {
-      return $this->compile(TRUE);
+    /**
+     * @param bool $allowPrepared
+     * @return array
+     */
+    public function getSQLParameters($allowPrepared = TRUE) {
+      return $this->compile($allowPrepared)->getSQLParameters($allowPrepared);
     }
 
+    /**
+     * @param bool $allowPrepared
+     * @return \Papaya\Database\Statement
+     */
     private function compile($allowPrepared) {
+      $mode = $allowPrepared ? 'prepared' : 'replaced';
+      if (isset($this->_compiled[$mode])) {
+        return $this->_compiled[$mode];
+      }
       $quoteCharacters = ["'", '"', '`'];
       $patterns = [];
       foreach ($quoteCharacters as $quoteCharacter) {
@@ -84,7 +110,7 @@ namespace Papaya\Database\Statement {
           continue;
         }
         $sql .= \preg_replace_callback(
-          '(:(?<name>[a-zA-Z][a-zA-Z\d_]*))',
+          '(:(?<name>[a-zA-Z][a-zA-Z\\d_]*))',
           function($match) use ($allowPrepared, &$values) {
             $parameterName = \strtolower($match['name']);
             if (!\array_key_exists($parameterName, $this->_parameters)) {
@@ -100,17 +126,17 @@ namespace Papaya\Database\Statement {
               }
               if (is_array($parameter['value'])) {
                 array_push($values,...$parameterValue);
-                return '('.implode(', ', array_fill(0, count($parameterValue), ':?')).')';
+                return '('.implode(', ', array_fill(0, count($parameterValue), '?')).')';
               }
               $values[] = $parameterValue;
-              return ':?';
+              return '?';
             }
             return $this->encodeParameterValue($parameter['value'], $parameter['filter']);
           },
           $part
         );
       }
-      return [$sql, $values];
+      return $this->_compiled[$mode] = new Database\SQLStatement($sql, $values);
     }
 
     /**
@@ -147,6 +173,7 @@ namespace Papaya\Database\Statement {
      * @param bool $allowPrepared Allow parameter to be used in a server side prepared statement
      */
     private function addValue($parameterName, $value, callable $filterFunction, $allowPrepared) {
+      $this->_compiled = NULL;
       $parameterName = $this->validateParameterName($parameterName);
       $this->_parameters[$parameterName] = [
         'value' => $value,
@@ -215,7 +242,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $value,
         function($value) {
-          return $this->_databaseAccess->quoteString((string)$value);
+          return $this->getDatabaseConnection()->quoteString((string)$value);
         },
         TRUE
       );
@@ -232,7 +259,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $values,
         function($value) {
-          return $this->_databaseAccess->quoteString((string)$value);
+          return $this->getDatabaseConnection()->quoteString((string)$value);
         },
         TRUE
       );
@@ -322,7 +349,7 @@ namespace Papaya\Database\Statement {
         $parameterName,
         NULL,
         function() use ($limit, $offset) {
-          return $this->_databaseAccess->getSqlSource('LIMIT', [$limit, $offset]);
+          return $this->getDatabaseConnection()->syntax()->limit($limit, $offset);
         },
         FALSE
       );
@@ -340,8 +367,8 @@ namespace Papaya\Database\Statement {
         $parameterName,
         $tableName,
         function($tableName) use ($usePrefix) {
-          return $this->_databaseAccess->quoteIdentifier(
-            $this->_databaseAccess->getTableName($tableName, $usePrefix)
+          return $this->getDatabaseConnection()->quoteIdentifier(
+            $this->getDatabaseConnection()->getTableName($tableName, $usePrefix)
           );
         },
         FALSE

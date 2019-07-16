@@ -24,10 +24,7 @@ class AccessTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $owner = new \stdClass();
-    $access = new Access($owner, 'read', 'write');
-    $this->assertAttributeSame(
-      $owner, '_owner', $access
-    );
+    $access = new Access('read', 'write');
     $this->assertAttributeEquals(
       'read', '_uriRead', $access
     );
@@ -40,9 +37,9 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getDatabaseConnector
    */
   public function testGetDatabaseConnector() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertEquals(
       $connector,
       $access->getDatabaseConnector()
@@ -53,7 +50,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getDatabaseConnector
    */
   public function testGetDatabaseConnectorWithoutManagerExistingExpectingNull() {
-    $access = new Access(new \stdClass, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->papaya($this->mockPapaya()->application());
     $this->assertNull(
       $access->getDatabaseConnector()
@@ -65,163 +62,14 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::setDatabaseConnector
    */
   public function testGetDatabaseConnectorAfterSetDatabaseConnector() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $access = new Access(new \stdClass, 'read', 'write');
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
+    $access = new Access('read', 'write');
     $access->setDatabaseConnector($connector);
     $this->assertEquals(
       $connector,
       $access->getDatabaseConnector()
     );
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   * @dataProvider getDelegationMethodData
-   * @param string $functionName
-   * @param bool $isWriteFunction
-   * @param array $arguments
-   */
-  public function testDelegation($functionName, $isWriteFunction, array $arguments = array()) {
-    $owner = new \stdClass;
-    // set a random id for equal check
-    $owner->randomObjectId = mt_rand();
-    $connector = $this
-      ->getMockBuilder(\db_simple::class)
-      ->setMethods(array($functionName))
-      ->getMockForAbstractClass();
-    $delegationCallbackArguments = array_merge(array($owner), $arguments);
-    $connector
-      ->expects($this->once())
-      ->method($functionName)
-      ->withAnyParameters()
-      ->willReturnCallback(
-        function ($owner) use ($delegationCallbackArguments) {
-          foreach (func_get_args() as $index => $argument) {
-            $this->assertEquals(
-              $delegationCallbackArguments[$index],
-              $argument,
-              'Argument #'.$index.' is not the same.'
-            );
-          }
-          return TRUE;
-        }
-      );
-    $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    $this->assertTrue(
-      call_user_func_array(array($access, $functionName), $arguments)
-    );
-    $this->assertAttributeEquals(
-      $isWriteFunction,
-      '_dataModified',
-      $access
-    );
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   */
-  public function testDelegationWithUpperCaseFunctionName() {
-    $owner = new \stdClass;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $connector
-      ->expects($this->once())
-      ->method('queryFmt')
-      ->withAnyParameters()
-      ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    /** @noinspection CallableReferenceNameMismatchInspection */
-    $this->assertTrue(
-      $access->QUERYFMT('SELECT ... ', array())
-    );
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   * @covers \Papaya\Database\Access::_handleDatabaseException
-   */
-  public function testDelegationWithDatabaseErrorExpectingMessage() {
-    $owner = new \stdClass;
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $connector
-      ->expects($this->once())
-      ->method('queryFmt')
-      ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'callbackThrowDatabaseError')));
-    $access = new Access($owner, 'read', 'write');
-    $databaseManager = $this->createMock(Manager::class);
-    $databaseManager
-      ->expects($this->atLeastOnce())
-      ->method('getConnector')
-      ->with($this->equalTo('read'), $this->equalTo('write'))
-      ->will($this->returnValue($connector));
-    $messageManager = $this->createMock(\Papaya\Message\Manager::class);
-    $messageManager
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Log::class));
-    $application = $this->mockPapaya()->application(
-      array(
-        'Database' => $databaseManager,
-        'Messages' => $messageManager
-      )
-    );
-    $access->papaya($application);
-    $this->assertFalse($access->queryFmt('SELECT ... ', array()));
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   * @covers \Papaya\Database\Access::_handleDatabaseException
-   */
-  public function testDelegationWithDatabaseErrorExpectingMessageOnErrorHandler() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
-    $connector
-      ->expects($this->once())
-      ->method('queryFmt')
-      ->withAnyParameters()
-      ->will($this->returnCallback(array($this, 'callbackThrowDatabaseError')));
-    $databaseManager = $this->createMock(Manager::class);
-    $databaseManager
-      ->expects($this->atLeastOnce())
-      ->method('getConnector')
-      ->with($this->equalTo('read'), $this->equalTo('write'))
-      ->will($this->returnValue($connector));
-    $application = $this->mockPapaya()->application(
-      array(
-        'Database' => $databaseManager
-      )
-    );
-    $access = new Access(NULL, 'read', 'write');
-    $access->errorHandler(function (Exception $databaseException) {
-    });
-    $access->papaya($application);
-    $this->assertFalse($access->queryFmt('SELECT ... ', array()));
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   */
-  public function testDelegationInvalidConnector() {
-    $owner = new \stdClass();
-    $connector = new \stdClass();
-    $access = $this->getFixtureDatabaseAccess($owner, $connector);
-    $this->expectException(\BadMethodCallException::class);
-    $access->query('SQL');
-  }
-
-  /**
-   * @covers \Papaya\Database\Access::__call
-   */
-  public function testDelegationInvalidFunction() {
-    $owner = new \stdClass();
-    $access = new Access($owner, 'read', 'write');
-    $this->expectException(\BadMethodCallException::class);
-    /** @noinspection PhpUndefinedMethodInspection */
-    $access->invalidMethodName();
   }
 
   /**
@@ -234,7 +82,7 @@ class AccessTest extends \Papaya\TestCase {
       ->method('get')
       ->with('table', TRUE)
       ->will($this->returnValue('papaya_table'));
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $access->tables($tables);
     $this->assertEquals('papaya_table', $access->getTableName('table'));
   }
@@ -249,7 +97,7 @@ class AccessTest extends \Papaya\TestCase {
       ->method('get')
       ->with('table', FALSE)
       ->will($this->returnValue('table'));
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $access->tables($tables);
     $this->assertEquals('table', $access->getTableName('table', FALSE));
   }
@@ -258,7 +106,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getTimestamp
    */
   public function testGetTimestamp() {
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $timestamp = $access->getTimestamp();
     $this->assertGreaterThan(0, $timestamp);
     $this->assertLessThanOrEqual(time(), $timestamp);
@@ -269,7 +117,7 @@ class AccessTest extends \Papaya\TestCase {
    */
   public function testTablesGetAfterSet() {
     $tables = $this->createMock(\Papaya\Content\Tables::class);
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertSame($tables, $access->tables($tables));
   }
 
@@ -277,7 +125,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::tables
    */
   public function testTablesImplicitCreate() {
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertInstanceOf(\Papaya\Content\Tables::class, $access->tables());
   }
 
@@ -285,7 +133,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::masterOnly
    */
   public function testMasterOnlySetForObject() {
-    $access = new Access(new \stdClass(), 'read', 'write');
+    $access = new Access('read', 'write');
     $this->assertTrue($access->masterOnly(TRUE));
   }
 
@@ -293,13 +141,13 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::masterOnly
    */
   public function testMasterOnlySetForObjectAndConnection() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
       ->with($this->equalTo(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertTrue($access->masterOnly(TRUE, TRUE));
   }
 
@@ -307,105 +155,105 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::masterOnly
    */
   public function testMasterOnlyReadConnection() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $this->assertTrue($access->masterOnly());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyNoContextExpectingTrue() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
-    $this->assertTrue($access->readOnly(TRUE));
+    $access = $this->getFixtureDatabaseAccess( $connector);
+    $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyNoContextExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
-    $this->assertFalse($access->readOnly(TRUE));
+    $access = $this->getFixtureDatabaseAccess($connector);
+    $this->assertSame(Connector::MODE_WRITE, $access->getConnectionMode());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlySetObjectContextExpectingFalse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('setDataModified');
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
-    $this->assertFalse($access->readOnly(FALSE));
+    $access = $this->getFixtureDatabaseAccess($connector);
+    $this->assertSame(Connector::MODE_WRITE, $access->getConnectionMode(Connector::MODE_WRITE));
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyGetObjectContextExpectingTrue() {
     $options = $this->mockPapaya()->options(
       array('PAPAYA_DATABASE_CLUSTER_SWITCH' => 1)
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector, $options);
-    $this->assertTrue($access->readOnly(TRUE));
+    $access = $this->getFixtureDatabaseAccess($connector, $options);
+    $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
   /**
-   * @covers \Papaya\Database\Access::readOnly
+   * @covers \Papaya\Database\Access::getConnectionMode
    */
   public function testReadOnlyGetConnectionContextExpectingTrue() {
     $options = $this->mockPapaya()->options(
       array('PAPAYA_DATABASE_CLUSTER_SWITCH' => 2)
     );
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('masterOnly')
       ->will($this->returnValue(FALSE));
     $connector
       ->expects($this->once())
-      ->method('readOnly')
-      ->will($this->returnValue(TRUE));
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector, $options);
-    $this->assertTrue($access->readOnly(TRUE));
+      ->method('getConnectionMode')
+      ->will($this->returnValue(Connector::MODE_READ));
+    $access = $this->getFixtureDatabaseAccess($connector, $options);
+    $this->assertSame(Connector::MODE_READ, $access->getConnectionMode());
   }
 
   /**
    * @covers \Papaya\Database\Access::setDataModified
    */
   public function testSetDataModified() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\db_simple $connector */
-    $connector = $this->createMock(\db_simple::class);
+    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Connector $connector */
+    $connector = $this->createMock(\Papaya\Database\Connector::class);
     $connector
       ->expects($this->once())
       ->method('setDataModified');
-    $access = $this->getFixtureDatabaseAccess(new \stdClass, $connector);
+    $access = $this->getFixtureDatabaseAccess($connector);
     $access->setDataModified();
     $this->assertAttributeSame(
       TRUE, '_dataModified', $access
@@ -416,7 +264,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::errorHandler
    */
   public function testErrorHandlerGetAfterSet() {
-    $access = new Access(NULL, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->errorHandler(array($this, 'callbackStubErrorHandler'));
     $this->assertEquals(array($this, 'callbackStubErrorHandler'), $access->errorHandler());
   }
@@ -425,7 +273,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::errorHandler
    */
   public function testErrorHandlerRemoveAfterSet() {
-    $access = new Access(NULL, 'read', 'write');
+    $access = new Access('read', 'write');
     $access->errorHandler(array($this, 'callbackStubErrorHandler'));
     $access->errorHandler(FALSE);
     $this->assertNull($access->errorHandler());
@@ -435,7 +283,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::errorHandler
    */
   public function testErrorHandlerSetExpectingException() {
-    $access = new Access(NULL, 'read', 'write');
+    $access = new Access('read', 'write');
     try {
       $access->errorHandler('INVALID_METHOD_NAME');
     } catch (\InvalidArgumentException $e) {
@@ -456,12 +304,12 @@ class AccessTest extends \Papaya\TestCase {
 
   /**
    * @param object $owner
-   * @param \db_simple|object $connector
+   * @param \Papaya\Database\Connector|object $connector
    * @param \Papaya\Configuration|NULL $options
    * @return Access
    */
-  public function getFixtureDatabaseAccess($owner, $connector, $options = NULL) {
-    $access = new Access($owner, 'read', 'write');
+  public function getFixtureDatabaseAccess($connector, $options = NULL) {
+    $access = new Access('read', 'write');
     $databaseManager = $this->createMock(Manager::class);
     $databaseManager
       ->expects($this->atLeastOnce())
@@ -487,28 +335,6 @@ class AccessTest extends \Papaya\TestCase {
   public function callbackThrowDatabaseError() {
     throw new Exception\QueryFailed(
       'Simulated Error', 23, NULL, 'SELECT simulation'
-    );
-  }
-
-  /************************************
-   * Data Provider
-   ************************************/
-
-  public static function getDelegationMethodData() {
-    //$functionName, $isWriteFunction, $arguments
-    return array(
-      'query' => array(
-        'query', FALSE, array('SQL', 20, 10, NULL)
-      ),
-      'queryFmt' => array(
-        'queryFmt', FALSE, array('SQL', array(), 20, 10, NULL),
-      ),
-      'queryFmtWrite' => array(
-        'queryFmtWrite', TRUE, array('SQL', array())
-      ),
-      'queryWrite' => array(
-        'queryWrite', TRUE, array('SQL'),
-      )
     );
   }
 }

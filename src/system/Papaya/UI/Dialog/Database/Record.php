@@ -239,13 +239,13 @@ class Record extends UI\Dialog {
   }
 
   /**
-   * Get the database access object, create a default object if nessesary.
+   * Get the database access object, create a default object if necessary.
    *
    * @return \Papaya\Database\Access
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = new \Papaya\Database\Access($this);
+      $this->_databaseAccessObject = new \Papaya\Database\Access();
       $this->_databaseAccessObject->papaya($this->papaya());
     }
     return $this->_databaseAccessObject;

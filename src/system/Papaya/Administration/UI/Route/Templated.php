@@ -31,8 +31,14 @@ namespace Papaya\Administration\UI\Route {
      */
     private $_themeHandler;
 
-    public function __construct(\Papaya\Template $template) {
+    /**
+     * @var $_showUserStatus
+     */
+    private $_showUserStatus;
+
+    public function __construct(\Papaya\Template $template, $showUserStatus = TRUE) {
       $this->_template = $template;
+      $this->_showUserStatus = (bool)$showUserStatus;
     }
 
     public function getTemplate() {
@@ -60,12 +66,12 @@ namespace Papaya\Administration\UI\Route {
           'PAPAYA_RICHTEXT_LINK_TARGET' =>
           $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
           'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
-          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK'),
-          'PAPAYA_MESSAGES_INBOX_NEW' => $this->getNewMessageCount()
+          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
         ]
       );
-      if ($application->administrationUser->isValid) {
+      if ($this->_showUserStatus && $application->administrationUser->isValid) {
         $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
+        $template->parameters()->set('PAPAYA_MESSAGES_INBOX_NEW',  $this->getNewMessageCount());
         $template->add($application->administrationLanguage, 'title-menu');
         $template->add($application->administrationRichText, 'title-menu');
         $template->add(new UI\Navigation\Main(), 'menus');

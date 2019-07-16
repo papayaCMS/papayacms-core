@@ -33,13 +33,13 @@ class Generator {
   ];
 
   /**
-   * @param \Papaya\Database\Interfaces\Access|\Papaya\Database\Access $parent
+   * @param \Papaya\Database\Accessible|\Papaya\Database\Access $parent
    * @param \Papaya\Database\Interfaces\Mapping $mapping
    *
    * @throws \InvalidArgumentException
    */
   public function __construct($parent, \Papaya\Database\Interfaces\Mapping $mapping = NULL) {
-    if ($parent instanceof \Papaya\Database\Interfaces\Access) {
+    if ($parent instanceof \Papaya\Database\Accessible) {
       $this->_databaseAccess = $parent->getDatabaseAccess();
     } elseif ($parent instanceof \Papaya\Database\Access) {
       $this->_databaseAccess = $parent;
@@ -74,7 +74,7 @@ class Generator {
       } elseif ('not' == $condition && \is_array($value)) {
         $this->appendConditions($group->logicalNot(), $value, $limit - 1);
       } elseif (isset($this->_functions[$condition])) {
-        \call_user_func([$group, $this->_functions[$condition]], $field, $value);
+        $group->{$this->_functions[$condition]}($field, $value);
       }
     }
   }

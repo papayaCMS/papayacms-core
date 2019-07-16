@@ -138,6 +138,8 @@ class Tables extends \Papaya\Application\BaseObject {
 
   const THEME_SKINS = 'theme_sets';
 
+  const LOG_DATABASE_QUERIES = 'log_queries';
+
   /**
    * Return tablename with optional prefix.
    *
@@ -206,7 +208,7 @@ class Tables extends \Papaya\Application\BaseObject {
     'PAPAYA_DB_TBL_LINKTYPES' => self::PAGE_LINK_TYPES,
     'PAPAYA_DB_TBL_LNG' => self::LANGUAGES,
     'PAPAYA_DB_TBL_LOG' => 'log',
-    'PAPAYA_DB_TBL_LOG_QUERIES' => 'log_queries',
+    'PAPAYA_DB_TBL_LOG_QUERIES' => self::LOG_DATABASE_QUERIES,
     'PAPAYA_DB_TBL_TODOS' => 'todos',
     'PAPAYA_DB_TBL_MEDIA_LINKS' => 'media_links',
     'PAPAYA_DB_TBL_MESSAGES' => 'messages',

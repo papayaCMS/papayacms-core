@@ -12,11 +12,18 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Administration\UI\Route\Templated {
 
+  use Papaya\Administration\UI as AdministrationUI;
   use Papaya\Administration\UI\Route\Templated;
+  use Papaya\Database\Exception\ConnectionFailed;
+  use Papaya\Message;
   use Papaya\Response;
   use Papaya\Router;
+  use Papaya\UI\Dialog;
+  use Papaya\UI\Dialog\Button\Submit as SubmitButton;
+  use Papaya\URL\Current as CurrentURL;
   use Papaya\Utility;
 
   /**
@@ -31,6 +38,7 @@ namespace Papaya\Administration\UI\Route\Templated {
      */
     public function __invoke(Router $router, Router\Address $address, $level = 0) {
       $application = $router->papaya();
+      $this->papaya()->options->load();
       if (
         $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
         !Utility\Server\Protocol::isSecure()
@@ -44,20 +52,34 @@ namespace Papaya\Administration\UI\Route\Templated {
           \preg_match('(^localhost(:\d+)?$)i', Utility\Server\Name::get())
         )
       ) {
-        $dialog = new \Papaya\UI\Dialog();
-        $dialog->caption = new \Papaya\UI\Text\Translated('Warning');
-        $url = new \Papaya\URL\Current();
+        try {
+          $fetchPhrases = (
+            $address->getRouteString($level) !== AdministrationUI::INSTALLER &&
+            $this->papaya()->database->getConnector()->connect()
+          );
+        } catch (ConnectionFailed $exception) {
+          $fetchPhrases = FALSE;
+        }
+
+        $dialog = new Dialog();
+        $url = new CurrentURL();
         $url->setScheme('https');
         $dialog->action($url->getURL());
+        $texts = [
+          'Warning',
+          'If possible, please use https to access the administration interface.',
+          'Use https'
+        ];
+        if ($fetchPhrases) {
+          $texts = iterator_to_array(
+            $this->papaya()->administrationPhrases->getList($texts)
+          );
+        }
+        $dialog->caption = $texts[0];
         $dialog->fields[] = new \Papaya\UI\Dialog\Field\Message(
-          \Papaya\Message::SEVERITY_WARNING,
-          new \Papaya\UI\Text\Translated(
-            'If possible, please use https to access the administration interface.'
-          )
+          Message::SEVERITY_WARNING, $texts[1]
         );
-        $dialog->buttons[] = new \Papaya\UI\Dialog\Button\Submit(
-          new \Papaya\UI\Text\Translated('Use https')
-        );
+        $dialog->buttons[] = new SubmitButton($texts[2]);
         $this->getTemplate()->add($dialog);
       }
       return NULL;

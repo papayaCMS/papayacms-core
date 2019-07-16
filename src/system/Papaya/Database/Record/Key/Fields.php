@@ -107,7 +107,7 @@ class Fields implements Database\Interfaces\Key {
       return FALSE;
     }
     $databaseAccess = $this->_record->getDatabaseAccess();
-    $condition = $databaseAccess->getSqlCondition($filter);
+    $condition = $databaseAccess->getSQLCondition($filter);
     $sql = "SELECT COUNT(*) FROM %s WHERE $condition";
     $parameters = [
       $databaseAccess->getTableName($this->_tableName)

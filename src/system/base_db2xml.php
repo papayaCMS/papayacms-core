@@ -38,82 +38,19 @@ class base_database2xml extends base_db {
    * @param null $fileName
    * @access public
    * @return boolean
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   function table2xml($tableName, $fileName = NULL) {
-    $data = $this->databaseQueryTableStructure($tableName);
-    if (isset($data['type'])) {
-      $typeStr = ' type="'.papaya_strings::escapeHTMLChars($data['type']).'"';
-    } else {
-      $typeStr = '';
-    }
-    if (strpos($tableName, PAPAYA_DB_TABLEPREFIX) === 0) {
-      $xml = '<table name="'.
-        papaya_strings::escapeHTMLChars(substr($tableName, strlen(PAPAYA_DB_TABLEPREFIX) + 1)).
-        '" prefix="yes"'.$typeStr.'>'.LF;
-    } else {
-      $xml = '<table name="'.papaya_strings::escapeHTMLChars($tableName).'"'.$typeStr.'>'.LF;
-    }
-    $xml .= '  <fields>'.LF;
-    foreach ($data['fields'] as $field) {
-      $xml .= sprintf(
-        '    <field name="%s" type="%s" size="%s"%s%s%s/>'.LF,
-        papaya_strings::escapeHTMLChars($field['name']),
-        papaya_strings::escapeHTMLChars($field['type']),
-        papaya_strings::escapeHTMLChars($field['size']),
-        ($field['null'] == 'yes') ? ' null="yes"' : ' null="no"',
-        ($field['autoinc'] == 'yes') ? ' autoinc="yes"' : '',
-        ($field['default'])
-          ? ' default="'.papaya_strings::escapeHTMLChars($field['default']).'"' : ''
-      );
-    }
-    $xml .= '  </fields>'.LF;
-    $xml .= '  <keys>'.LF;
-    if (isset($data['keys']['PRIMARY'])) {
-      $xml .= '    <primary-key>'.LF;
-      ksort($data['keys']['PRIMARY']['fields']);
-      foreach ($data['keys']['PRIMARY']['fields'] as $field) {
-        if (isset($data['keys']['PRIMARY']['keysize'][$field]) &&
-            $data['keys']['PRIMARY']['keysize'][$field] > 0) {
-          $xml .= '      <field size="'.(int)$data['keys']['PRIMARY']['keysize'][$field].'">'.
-            papaya_strings::escapeHTMLChars($field).'</field>'.LF;
-        } else {
-          $xml .= '      <field>'.papaya_strings::escapeHTMLChars($field).'</field>'.LF;
-        }
-      }
-      $xml .= '    </primary-key>'.LF;
-      unset($data['keys']['PRIMARY']);
-    }
-    foreach ($data['keys'] as $key) {
-      $fulltext = ($key['fulltext'] == 'yes') ? ' fulltext="yes"' : '';
-      $unique = ($key['unique'] == 'yes') ? ' unique="yes"' : '';
-      $xml .= sprintf(
-        '    <key name="%s"%s%s>'.LF,
-        papaya_strings::escapeHTMLChars($key['name']),
-        $unique,
-        $fulltext
-      );
-      ksort($key['fields']);
-      foreach ($key['fields'] as $field) {
-        if (isset($key['keysize'][$field]) && $key['keysize'][$field] > 0) {
-          $xml .= '      <field size="'.(int)$key['keysize'][$field].'">'.
-            papaya_strings::escapeHTMLChars($field).'</field>'.LF;
-        } else {
-          $xml .= '      <field>'.papaya_strings::escapeHTMLChars($field).'</field>'.LF;
-        }
-      }
-      $xml .= '    </key>'.LF;
-    }
-    $xml .= '  </keys>'.LF;
-    $xml .= '</table>'.LF;
-
+    $data = $this->getDatabaseAccess()->schema()->describeTable($tableName);
+    $xml = $data->getXMLDocument()->saveXML();
     if (isset($fileName)) {
-      if ($fh = fopen($fileName, 'w')) {
-        fwrite($fh, '<?xml version="1.0" encoding="UTF-8" ?>'.LF.$xml);
+      if ($fh = fopen($fileName, 'wb')) {
+        fwrite($fh, $xml);
         fclose($fh);
         return TRUE;
       }
     } else {
-      return '<?xml version="1.0" encoding="UTF-8" ?>'.LF.$xml;
+      return $xml;
     }
     return FALSE;
   }
@@ -127,11 +64,12 @@ class base_database2xml extends base_db {
    * @param null $dataTables
    * @access public
    * @return boolean
+   * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   function exportTables2XML(
     $path = './', $prefix = 'table_', $callbackFunc = NULL, $dataTables = NULL
   ) {
-    $tables = $this->databaseQueryTableNames();
+    $tables = $this->getDatabaseAccess()->schema()->getTables();
     $this->dataTables = $dataTables;
     $rPath = realpath($path).'/';
     if (file_exists($rPath)) {

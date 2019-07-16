@@ -289,7 +289,7 @@ class papaya_installer extends base_db {
       'login_exists' => FALSE
     );
     if ($result['database_connected'] && $result['optiontable_defined']) {
-      $this->existingTables = array_flip($this->databaseQueryTableNames());
+      $this->existingTables = array_flip($this->getDatabaseAccess()->schema()->getTables());
       $result['optiontable_exists'] = $this->checkTableExists(PAPAYA_DB_TBL_OPTIONS);
       $optionFileName = $this->getTableStructuresPath().'table_options.xml';
       if (file_exists($optionFileName) &&
@@ -900,7 +900,7 @@ class papaya_installer extends base_db {
   function checkDatabase() {
     try {
       $database = $this->getDatabaseAccess()->getDatabaseConnector();
-      if ($database->connect($this, FALSE)) {
+      if ($database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
         return TRUE;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
@@ -932,7 +932,7 @@ class papaya_installer extends base_db {
     $tableFileName = $this->getTableStructuresPath().'table_'.$table.'.xml';
     $result = TRUE;
     if ($struct = $this->moduleManager->loadTableStructure($tableFileName)) {
-      if (isset($struct['actions']) && (int)$struct['actions'] > 0) {
+      if (isset($struct['changes']) && (count($struct['changes']['fields']) > 0 || count($struct['changes']['indizes']) > 0)) {
         $result = FALSE;
       }
       unset($struct);
@@ -1013,8 +1013,8 @@ class papaya_installer extends base_db {
   function createTable($xmlFileName, $tableName) {
     $result = FALSE;
     if ($struct = $this->moduleManager->loadTableStructure($xmlFileName)) {
-      $struct['name'] = $tableName;
-      if ($this->databaseCreateTable($struct, NULL)) {
+      $struct['expected']->name = $tableName;
+      if ($this->getDatabaseAccess()->schema()->createTable($struct['expected'], NULL)) {
         unset($this->params['cmd']);
         $this->addMsg(MSG_INFO, $this->_gt('Table created.'));
         $result = TRUE;

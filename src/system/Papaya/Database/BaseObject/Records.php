@@ -27,7 +27,7 @@ use Papaya\Utility;
  * @subpackage Database
  */
 abstract class Records
-   implements Application\Access, Database\Interfaces\Access, \IteratorAggregate, \Countable {
+   implements Application\Access, Database\Accessible, \IteratorAggregate, \Countable {
   use Database\Interfaces\Access\Delegation;
 
   /**

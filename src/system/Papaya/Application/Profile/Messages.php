@@ -15,6 +15,7 @@
 namespace Papaya\Application\Profile;
 
 use Papaya\Application;
+use Papaya\Database\Exception\ConnectionFailed;
 use Papaya\Message;
 use Papaya\Plugin;
 
@@ -38,16 +39,25 @@ class Messages implements Application\Profile {
     $messages->addDispatcher(new Message\Dispatcher\Database());
     $messages->addDispatcher(new Message\Dispatcher\Wildfire());
     $messages->addDispatcher(new Message\Dispatcher\XHTML());
-    $plugins = $application->plugins;
-    if (NULL !== $plugins) {
-      foreach ($plugins->withType(Plugin\Types::LOGGER) as $plugin) {
-        if (
-          $plugin instanceof Plugin\LoggerFactory &&
-          ($dispatcher = $plugin->createLogger())
-        ) {
-          $messages->addDispatcher($dispatcher);
+    try {
+      $database = $application->database;
+      if (
+        $application->options->get('PAPAYA_LOG_ENABLE_EXTERNAL', FALSE) &&
+        $database->getConnector()->connect()
+      ) {
+        $plugins = $application->plugins;
+        if (NULL !== $plugins) {
+          foreach ($plugins->withType(Plugin\Types::LOGGER) as $plugin) {
+            if (
+              $plugin instanceof Plugin\LoggerFactory &&
+              ($dispatcher = $plugin->createLogger())
+            ) {
+              $messages->addDispatcher($dispatcher);
+            }
+          }
         }
       }
+    } catch (ConnectionFailed $exception) {
     }
     return $messages;
   }

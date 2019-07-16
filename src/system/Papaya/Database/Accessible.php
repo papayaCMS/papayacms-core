@@ -12,21 +12,18 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Database\Interfaces {
+namespace Papaya\Database;
 
-  interface Connection {
-    public function execute(Statement $statement);
+use Papaya\Database;
 
-    public function escapeString($value);
+interface Accessible {
+  /**
+   * @return Database\Access
+   */
+  public function getDatabaseAccess();
 
-    public function quoteString($value);
-
-    public function quoteIdentifier($value);
-
-    public function createSQL($featureName, ...$arguments);
-
-    public function insertRecord($table, $identifierField, $values);
-
-    public function insertRecords($table, $values);
-  }
+  /**
+   * @param Database\Access $access
+   */
+  public function setDatabaseAccess(Database\Access $access);
 }

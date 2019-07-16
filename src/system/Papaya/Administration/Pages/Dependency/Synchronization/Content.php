@@ -78,7 +78,7 @@ class Content
    */
   protected function getExistingTargetTranslations(array $targetIds, array $languageIds) {
     $databaseAccess = $this->translations()->getDatabaseAccess();
-    $filter = $databaseAccess->getSqlCondition(
+    $filter = $databaseAccess->getSQLCondition(
       [
         'topic_id' => $targetIds,
         'lng_id' => $languageIds

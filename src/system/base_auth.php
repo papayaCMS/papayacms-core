@@ -418,7 +418,7 @@ class base_auth extends base_db {
   function load($uid, $login = FALSE) {
     unset($this->user);
     $this->isValid = FALSE;
-    $active = ($login) ? ' AND active = 1' : '';
+    $active = ($login) ? " AND active = '1'" : '';
     $sql = "SELECT user_id, group_id, username, surname, givenname,
                    user_password, email, start_node, sub_level, active, userperm, handoff_group_id
               FROM %s

@@ -382,4 +382,14 @@ class CollectionTest extends \Papaya\TestCase {
       $list
     );
   }
+
+  public function testCloneDuplicatesItems() {
+    $item = new \stdClass();
+    $list = new Collection(\stdClass::class);
+    $list[] = $item;
+    $clonedList = clone $list;
+    $this->assertEquals($list, $clonedList);
+    $this->assertSame($item, $list[0]);
+    $this->assertNotSame($item, $clonedList[0]);
+  }
 }

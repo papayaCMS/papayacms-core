@@ -48,18 +48,18 @@ class Phrases extends Database\Records {
       $group = $filter['group'];
       unset($filter['group']);
       $sql = "SELECT $fields
-                FROM (%s AS p, %s AS g, %s AS grel)
-                LEFT JOIN %s AS pt ON (pt.phrase_id = p.phrase_id AND pt.lng_id = '%d')
-               WHERE g.module_title_lower = '%s'
-                 AND grel.module_id = g.module_id
-                 AND p.phrase_id = grel.phrase_id";
+                FROM %s AS p
+                INNER JOIN %s AS grel ON (grel.phrase_id = p.phrase_id)
+                INNER JOIN %s AS g ON (g.module_id = grel.module_id)
+                LEFT OUTER JOIN %s AS pt ON ((pt.phrase_id = p.phrase_id) AND (pt.lng_id = '%d'))
+               WHERE g.module_title_lower = '%s'";
       $sql .= Utility\Text::escapeForPrintf(
         $this->_compileCondition($filter, ' AND ').$this->_compileOrderBy()
       );
       $parameters = [
         $databaseAccess->getTableName(Tables::PHRASES),
-        $databaseAccess->getTableName(Tables::PHRASE_GROUPS),
         $databaseAccess->getTableName(Tables::PHRASE_GROUP_LINKS),
+        $databaseAccess->getTableName(Tables::PHRASE_GROUPS),
         $databaseAccess->getTableName(Tables::PHRASE_TRANSLATIONS),
         Utility\Arrays::get($filter, 'language_id', 0),
         $group

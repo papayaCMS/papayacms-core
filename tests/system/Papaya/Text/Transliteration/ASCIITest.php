@@ -20,7 +20,6 @@ class ASCIITest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Text\Transliteration\ASCII::transliterate
-   * @covers \Papaya\Text\Transliteration\ASCII::mapCharacterMatch
    * @dataProvider provideTransliterationExamples
    * @param string $expected
    * @param string $string

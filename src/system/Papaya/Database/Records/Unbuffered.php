@@ -19,7 +19,7 @@ use Papaya\Database;
 use Papaya\Utility;
 
 abstract class Unbuffered
-  implements Application\Access, Database\Interfaces\Access, \IteratorAggregate, \Countable {
+  implements Application\Access, Database\Accessible, \IteratorAggregate, \Countable {
   use Application\Access\Aggregation;
 
   /**
@@ -336,7 +336,7 @@ abstract class Unbuffered
    */
   public function getDatabaseAccess() {
     if (NULL === $this->_databaseAccessObject) {
-      $this->_databaseAccessObject = $this->papaya()->database->createDatabaseAccess($this);
+      $this->_databaseAccessObject = $this->papaya()->database->createDatabaseAccess();
     }
     return $this->_databaseAccessObject;
   }

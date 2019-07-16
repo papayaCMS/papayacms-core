@@ -43,7 +43,6 @@ namespace Papaya\Filter {
 
     /**
      * @covers \Papaya\Filter\Callback::validate
-     * @covers \Papaya\Filter\Callback::_isCallback
      */
     public function testValidateExpectingTrue() {
       $filter = new Callback(
@@ -59,7 +58,6 @@ namespace Papaya\Filter {
 
     /**
      * @covers \Papaya\Filter\Callback::validate
-     * @covers \Papaya\Filter\Callback::_isCallback
      */
     public function testValidateWithInvalidCallbackExpectingException() {
       $filter = new Callback('INVALID_CALLBACK_NAME');

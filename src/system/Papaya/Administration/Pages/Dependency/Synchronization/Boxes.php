@@ -64,7 +64,7 @@ class Boxes
    */
   private function setInheritanceStatus(array $targetIds, $status) {
     $databaseAccess = $this->page()->getDatabaseAccess();
-    $filter = $databaseAccess->getSqlCondition(['topic_id' => $targetIds]);
+    $filter = $databaseAccess->getSQLCondition(['topic_id' => $targetIds]);
     $sql = "UPDATE %s SET box_useparent = '%d' WHERE $filter";
     $parameters = [
       $databaseAccess->getTableName(Content\Tables::PAGES),

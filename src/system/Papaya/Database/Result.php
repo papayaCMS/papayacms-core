@@ -14,49 +14,42 @@
  */
 namespace Papaya\Database;
 
+use Papaya\Message\Context as MessageContext;
+
 /**
- * Papaya Database Result, this will be a new result interface for database queries
- *
- * For now it provides constants to specifiy the fetch mode.
- *
  * @package Papaya-Library
  * @subpackage Database
  */
-interface Result extends \IteratorAggregate {
+interface Result extends \IteratorAggregate, \Countable {
   /**
    * Fetch numeric and named keys
-   *
    * @var int
    */
   const FETCH_BOTH = 0;
 
   /**
    * Fetch numeric keys
-   *
    * @var int
    */
   const FETCH_ORDERED = 1;
 
   /**
    * Fetch named keys
-   *
    * @var int
    */
   const FETCH_ASSOC = 2;
 
   /**
    * Fetch row from result
-   *
    * @param int $mode
-   *
-   * @return array
+   * @return array|NULL
    */
   public function fetchRow($mode = self::FETCH_ORDERED);
 
   /**
    * Fetch row from result into associative array
    *
-   * @return array
+   * @return array|NULL
    */
   public function fetchAssoc();
 
@@ -64,8 +57,7 @@ interface Result extends \IteratorAggregate {
    * Fetch field from result
    *
    * @param int|string $column
-   *
-   * @return mixed
+   * @return string|number|boolean|NULL
    */
   public function fetchField($column = 0);
 
@@ -73,10 +65,23 @@ interface Result extends \IteratorAggregate {
    * Seek internal pointer to the given row
    *
    * @param int $index
-   *
-   * @return array
+   * @return bool
    */
   public function seek($index);
+
+  /**
+   * Seek internal pointer to the given row
+   *
+   * @return bool
+   */
+  public function seekFirst();
+
+  /**
+   * Seek internal pointer to the given row
+   *
+   * @return bool
+   */
+  public function seekLast();
 
   /**
    * return count of records in compiled result with limit
@@ -88,7 +93,7 @@ interface Result extends \IteratorAggregate {
   /**
    * return count of records in compiled result without limit
    *
-   * @return int
+   * @return int|NULL
    */
   public function absCount();
 
@@ -98,7 +103,12 @@ interface Result extends \IteratorAggregate {
   public function free();
 
   /**
-   * @return null|\Papaya\Message\Context\Data
+   * @return bool
+   */
+  public function isValid();
+
+  /**
+   * @return null|MessageContext\Data
    */
   public function getExplain();
 }

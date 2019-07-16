@@ -36,11 +36,14 @@ class Manager implements Application\Access {
   private $_connectors = [];
 
   /**
-   * get current configuration object
+   * get current configuration object, fetch from application object if needed
    *
    * @return \Papaya\Configuration
    */
   public function getConfiguration() {
+    if (!isset($this->_configuration)) {
+      $this->_configuration = $this->papaya()->options;
+    }
     return $this->_configuration;
   }
 
@@ -56,14 +59,13 @@ class Manager implements Application\Access {
   /**
    * Create an database access instance and return it.
    *
-   * @param object $owner
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
    *
    * @return Access
    */
-  public function createDatabaseAccess($owner, $readUri = NULL, $writeUri = NULL) {
-    $result = new Access($owner, $readUri, $writeUri);
+  public function createDatabaseAccess($readUri = NULL, $writeUri = NULL) {
+    $result = new Access($readUri, $writeUri);
     $result->papaya($this->papaya());
     return $result;
   }
@@ -74,18 +76,14 @@ class Manager implements Application\Access {
    * @param string|null $readUri URI for read connection, use options if empty
    * @param string|null $writeUri URI for write connection, use $readUri if empty
    *
-   * @return \db_simple
+   * @return \Papaya\Database\Connector
    */
   public function getConnector($readUri = NULL, $writeUri = NULL) {
     list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
     $identifier = $readUri."\n".$writeUri;
     if (!isset($this->_connectors[$identifier])) {
-      $connector = new \db_simple();
+      $connector = new \Papaya\Database\Connector($readUri, $writeUri);
       $connector->papaya($this->papaya());
-      $connector->databaseURIs = [
-        'read' => $readUri,
-        'write' => $writeUri
-      ];
       $this->_connectors[$identifier] = $connector;
     }
     return $this->_connectors[$identifier];
@@ -94,12 +92,11 @@ class Manager implements Application\Access {
   /**
    * Get connector for given URIs, existing connector will be overwritten
    *
-   * @param \db_simple $connector connector object
-   * @param string|null $readUri URI for read connection, use options if empty
-   * @param string|null $writeUri URI for write connection, use $readUri if empty
+   * @param \Papaya\Database\Connector $connector connector object
    */
-  public function setConnector($connector, $readUri = NULL, $writeUri = NULL) {
-    list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
+  public function setConnector($connector) {
+    $readUri = $connector->getDatabaseURI();
+    $writeUri = $connector->getDatabaseURI(Connector::MODE_WRITE);
     $identifier = $readUri."\n".$writeUri;
     $this->_connectors[$identifier] = $connector;
   }
@@ -131,9 +128,9 @@ class Manager implements Application\Access {
    * Close all open connections to database servers
    */
   public function close() {
-    /** @var \db_simple $connector */
+    /** @var \Papaya\Database\Connector $connector */
     foreach ($this->_connectors as $connector) {
-      $connector->close();
+      $connector->disconnect();
     }
   }
 }

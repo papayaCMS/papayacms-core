@@ -14,140 +14,139 @@
  */
 
 /**
-* Object class for database access
-*
-* all other classes which have database access must be inherited from this one
-*
-* @package Papaya
-* @subpackage Database
-*
-* @method boolean databaseAddField(string $table, array $fieldData)
-* @method boolean databaseAddIndex(string $table, array $index)
-* @method boolean databaseChangeField(string $table, array $fieldData)
-* @method boolean databaseChangeIndex(string $table, array $index)
-* @method void databaseClose()
-* @method true databaseCompareFieldStructure(array $xmlField, array $databaseField)
-* @method boolean databaseCompareKeyStructure()
-* @method boolean databaseCreateTable(string $tableData, string $tablePrefix)
-* @method void databaseDebugNextQuery(integer $count = 1)
-* @method integer databaseDeleteRecord(string $table, $filter, mixed $value = NULL)
-* @method boolean databaseDropField(string $table, string $field)
-* @method boolean databaseDropIndex(string $table, string $name)
-* @method void databaseEnableAbsoluteCount()
-* @method mixed databaseEmptyTable(string $table)
-* @method string databaseEscapeString(mixed $value)
-* @method string databaseGetProtocol()
-* @method string databaseGetSqlSource(string $function, array $params = NULL)
-* @method string databaseGetSqlCondition(array $filter, $value = NULL)
-* @method integer|NULL databaseInsertRecord(string $table, $idField, array $values = NULL)
-* @method integer|boolean databaseInsertRecords(string $table, array $values)
-* @method boolean|integer|\Papaya\Database\Result databaseQuery(string $sql, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
-* @method boolean|integer|\Papaya\Database\Result databaseQueryFmt(string $sql, array $values, integer $max = NULL, integer $offset = NULL, boolean $readOnly = TRUE)
-* @method boolean|integer|\Papaya\Database\Result databaseQueryFmtWrite(string $sql, array $values)
-* @method boolean|integer|\Papaya\Database\Result databaseQueryWrite(string $sql)
-* @method integer|boolean databaseUpdateRecord(string $table, array $values, $filter, mixed $value = NULL)
-* @method array databaseQueryTableNames()
-* @method array databaseQueryTableStructure(string $tableName)
-* @method string databaseGetTableName(string $tablename, $usePrefix = TRUE)
-*/
-class base_db extends base_object {
+ * @package Papaya
+ * @subpackage Database
+ * @deprecated
+ */
+class base_db extends base_object implements \Papaya\Database\Accessible {
+
+  use \Papaya\Database\Accessible\Aggregation;
 
   /**
-  * Database access object
-  *
-  * @var \Papaya\Database\Access $_databaseAccessObject
-  */
-  var $_databaseAccessObject = NULL;
-
-  /**
-  * Database URI, default value ist the option PAPAYA_DB_URI
-  * @var string $databaseURI
-  */
-  var $databaseURI = NULL;
-  /**
-  * Database URI for insert/update/..., default value ist the option PAPAYA_DB_URI_WRITE
-  * @var string $databaseURIWrite
-  */
-  var $databaseURIWrite = NULL;
-
-  /**
-   * Set database access object
+   * Database URI, default value ist the option PAPAYA_DB_URI
    *
-   * @param \Papaya\Database\Access $databaseAccessObject
-   * @return \Papaya\Database\Access
+   * @var string $databaseURI
    */
-  public function setDatabaseAccess(\Papaya\Database\Access $databaseAccessObject) {
-    $this->_databaseAccessObject = $databaseAccessObject;
-  }
-
+  protected $databaseURI;
   /**
-  * Get database access object
-  *
-   * @return \Papaya\Database\Access
-  */
-  public function getDatabaseAccess() {
-    if (!isset($this->_databaseAccessObject)) {
-      $this->_databaseAccessObject = new \Papaya\Database\Access(
-        $this, $this->databaseURI, $this->databaseURIWrite
-      );
-      $this->_databaseAccessObject->papaya($this->papaya());
-    }
-    return $this->_databaseAccessObject;
-  }
-
-  /**
-   * Delegate calls to "database*" methods to the database access object
+   * Database URI for insert/update/..., default value ist the option PAPAYA_DB_URI_WRITE
    *
-   * @param string $functionName
-   * @param array $arguments
-   * @throws BadMethodCallException
-   * @return mixed
+   * @var string $databaseURIWrite
    */
-  public function __call($functionName, $arguments) {
-    if (substr($functionName, 0, 8) == 'database') {
-      $delegateFunction = strtolower($functionName[8]).substr($functionName, 9);
-      $access = $this->getDatabaseAccess();
-      return call_user_func_array(array($access, $delegateFunction), $arguments);
-    } else {
-      throw new BadMethodCallException(
-        sprintf(
-          'Invalid function call. Method %s::%s does not exist.',
-          get_class($this),
-          $functionName
-        )
-      );
-    }
+  protected $databaseURIWrite;
+
+  /**
+   * Override database object create to accommodate old properties.
+   *
+   * @return Papaya\Database\Access
+   */
+  private function createDatabaseAccess() {
+    $databaseAccess = new \Papaya\Database\Access(
+      $this->databaseURI, $this->databaseURIWrite
+    );
+    $databaseAccess->papaya($this->papaya());
+    return $databaseAccess;
   }
 
   /**
-  * Old function name for backwards compatibility
-  *
-  * @param mixed $value Value to escape
-  * @access public
-  * @return string escaped value.
-  */
-  function escapeStr($value) {
-    return $this->databaseEscapeString($value);
+   * Old function name for backwards compatibility
+   *
+   * @param mixed $value Value to escape
+   * @access public
+   * @return string escaped value.
+   * @deprecated
+   */
+  public function escapeStr($value) {
+    return $this->getDatabaseAccess()->escapeString($value);
   }
 
   /**
-  * Compare new values with current values (from db)
-  *
-  * @param array $newValues
-  * @param array $dbValues
-  * @access public
-  * @return boolean
-  */
-  function checkDataModified($newValues, $dbValues) {
+   * Compare new values with current values (from db)
+   *
+   * @param array $newValues
+   * @param array $dbValues
+   * @access public
+   * @return boolean
+   */
+  public function checkDataModified($newValues, $dbValues) {
     if (isset($newValues) && is_array($newValues)) {
       foreach ($newValues as $key => $val) {
-        if (isset($dbValues[$key]) && $dbValues[$key] != $newValues[$key]) {
+        if (isset($dbValues[$key]) && $dbValues[$key] !== $newValues[$key]) {
           return TRUE;
-        } elseif (!isset($dbValues[$key])) {
+        }
+        if (!isset($dbValues[$key])) {
           return TRUE;
         }
       }
     }
     return FALSE;
+  }
+
+  public function databaseGetTableName($tableName, $usePrefix = TRUE) {
+    return $this->getDatabaseAccess()->getTableName($tableName, $usePrefix);
+  }
+
+  public function databaseQuery($sql, $limit = NULL, $offset = NULL, $readOnly = TRUE) {
+    return $this->getDatabaseAccess()->query($sql, $limit, $offset, $readOnly);
+  }
+
+  public function databaseQueryFmt($sql, $values, $limit = NULL, $offset = NULL, $readOnly = TRUE) {
+    return $this->getDatabaseAccess()->queryFmt($sql, $values, $limit, $offset, $readOnly);
+  }
+
+  public function databaseQueryFmtWrite($sql, $values) {
+    return $this->databaseQueryFmt($sql, $values, NULL, NULL, FALSE);
+  }
+
+  public function databaseQueryWrite($sql) {
+    return $this->databaseQuery($sql, NULL, NULL, FALSE);
+  }
+
+  public function databaseClose() {
+    $this->getDatabaseAccess()->disconnect();
+  }
+
+  public function databaseDebugNextQuery($count = 1) {
+    $this->getDatabaseAccess()->debugNextQuery($count);
+  }
+
+  public function databaseEnableAbsoluteCount() {
+    $this->getDatabaseAccess()->enableAbsoluteCount();
+  }
+
+  public function databaseDeleteRecord($tableName, $filter, $filterValue = NULL) {
+    return $this->getDatabaseAccess()->deleteRecord($tableName, $filter, $filterValue);
+  }
+
+  public function databaseEmptyTable($tableName) {
+    return $this->getDatabaseAccess()->emptyTable($tableName);
+  }
+
+  public function databaseEscapeString($literal) {
+    return $this->getDatabaseAccess()->escapeString($literal);
+  }
+
+  public function databaseGetProtocol() {
+    return $this->getDatabaseAccess()->getProtocol();
+  }
+
+  public function databaseGetSQLSource($functionName, array $parameters = NULL) {
+    return $this->getDatabaseAccess()->getSQLSource($functionName, $parameters);
+  }
+
+  public function databaseGetSQLCondition($filter, $value = NULL) {
+    return $this->getDatabaseAccess()->getSQLCondition($filter, $value);
+  }
+
+  public function databaseInsertRecord($tableName, $idField, array $values = NULL) {
+    return $this->getDatabaseAccess()->insertRecord($tableName, $idField, $values);
+  }
+
+  public function databaseInsertRecords($tableName, array $values) {
+    return $this->getDatabaseAccess()->insertRecords($tableName, $values);
+  }
+
+  public function databaseUpdateRecord($tableName, array $values, $filter, $filterValue = NULL) {
+    return $this->getDatabaseAccess()->updateRecord($tableName, $values, $filter, $filterValue);
   }
 }

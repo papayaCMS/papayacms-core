@@ -69,7 +69,6 @@ class DirectoryTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\File\System\Directory::getEntries
-   * @covers \Papaya\File\System\Directory::callbackFileInfoIsFile
    */
   public function testGetEntriesOnlyFiles() {
     $directory = new Directory(__DIR__.'/TestData/Directory');
@@ -87,7 +86,6 @@ class DirectoryTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\File\System\Directory::getEntries
-   * @covers \Papaya\File\System\Directory::callbackFileInfoIsFile
    */
   public function testGetEntriesWithFilter() {
     $directory = new Directory(__DIR__.'/TestData/Directory');
@@ -103,7 +101,6 @@ class DirectoryTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\File\System\Directory::getEntries
-   * @covers \Papaya\File\System\Directory::callbackFileInfoIsDirectory
    */
   public function testGetEntriesOnlyDirectories() {
     $directory = new Directory(__DIR__.'/TestData');

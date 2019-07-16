@@ -21,6 +21,6 @@ namespace Papaya\Database;
  * @subpackage Database
  */
 class BaseObject
-  implements \Papaya\Application\Access, Interfaces\Access {
+  implements \Papaya\Application\Access, \Papaya\Database\Accessible {
   use Interfaces\Access\Delegation;
 }

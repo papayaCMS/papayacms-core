@@ -1240,16 +1240,16 @@ class papaya_page extends base_object {
   * @access public
   */
   function getStatus() {
-    /** @var dbcon_base $database */
+    /** @var \Papaya\Database\Connector $database */
     $database = $this->papaya()->getObject('Database')->getConnector();
     $allStatus = TRUE;
-    if (@$database->connect($this, TRUE)) {
+    if (@$database->connect()) {
       $status['DATABASE'] = TRUE;
     } else {
       $status['DATABASE'] = FALSE;
       $allStatus = FALSE;
     }
-    if (@$database->connect($this, FALSE)) {
+    if (@$database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
       $status['DATABASE_WRITE'] = TRUE;
     } else {
       $status['DATABASE_WRITE'] = FALSE;

@@ -64,6 +64,7 @@ class papaya_systemtest {
     'MySQL Client' => 'infoMySQLVersion',
     'MySQLi Client' => 'infoMySQLiVersion',
     'SQlite Library' => 'infoSQLiteVersion',
+    'PostgreSQL Client' => 'infoPostgreSQLVersion',
     'GD Version' => 'infoGDVersion',
     'libXSLT Version' => 'infoLibXSLTVersion',
     'Memory limits' => 'infoMemoryLimits'
@@ -363,9 +364,26 @@ class papaya_systemtest {
   * @return string
   */
   function infoSQLiteVersion() {
-    if (function_exists('sqlite_libversion')) {
+    if (is_callable('sqlite_libversion')) {
       $result = sqlite_libversion();
       return $result['client'];
+    }
+    if (is_callable('sqlite3::version')) {
+      $result = sqlite3::version();
+      return $result['versionString'];
+    }
+    return 'None';
+  }
+
+  /**
+  * get SQLite library version
+  *
+  * @access private
+  * @return string
+  */
+  private function infoPostgreSQLVersion() {
+    if (defined('PGSQL_LIBPQ_VERSION_STR')) {
+      return constant('PGSQL_LIBPQ_VERSION_STR');
     }
     return 'None';
   }
@@ -434,8 +452,9 @@ class papaya_systemtest {
   */
   function testDatabase() {
     try {
-      $uriData = new \Papaya\Database\Source\Name(PAPAYA_DB_URI);
-      if (extension_loaded($uriData->api)) {
+      $application = \Papaya\Application::getInstance();
+      $connection = $application->database->getConnector()->getConnection();
+      if ($connection->isExtensionAvailable()) {
         return TESTRESULT_OK;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
@@ -455,7 +474,7 @@ class papaya_systemtest {
     $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
-      if ($database->connect($this, TRUE) && $database->connect($this, FALSE)) {
+      if ($database->connect() && $database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
         return TESTRESULT_OK;
       }
     } catch (\Papaya\Database\Exception\ConnectionFailed $e) {
@@ -475,7 +494,7 @@ class papaya_systemtest {
       /** @var \Papaya\Application\CMS $application */
       $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
-      if ($database->connect($this, FALSE)) {
+      if ($database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
         $dbSyntax = $database->getProtocol();
         switch ($dbSyntax) {
         case 'mysql' :
@@ -489,8 +508,8 @@ class papaya_systemtest {
             'DROP' => FALSE,
             'ALTER' => FALSE
           );
-          if ($res = $database->query($this, 'SHOW GRANTS')) {
-            $dbName = strtolower($database->databaseConfiguration['write']->database);
+          if ($res = $database->execute('SHOW GRANTS')) {
+            $dbName = strtolower($database->getDSN('write')->database);
             $dbNameSlashed = strtr($dbName, array('_' => '\\_'));
             while ($row = $res->fetchRow()) {
               $sqlStr = strtolower($row[0]);

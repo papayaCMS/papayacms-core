@@ -2,7 +2,7 @@
 /**
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2019 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -12,18 +12,16 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Database\Interfaces;
 
-use Papaya\Database;
+namespace Papaya\Database\Interfaces {
 
-interface Access {
-  /**
-   * @return Database\Access
-   */
-  public function getDatabaseAccess();
+  use Papaya\Database\Accessible;
 
   /**
-   * @param Database\Access $access
+   * @deprecated renamed to Papaya\Database\Accessible
    */
-  public function setDatabaseAccess(Database\Access $access);
+  interface Access extends Accessible {
+
+  }
 }
+
