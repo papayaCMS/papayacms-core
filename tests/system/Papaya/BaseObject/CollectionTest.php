@@ -392,4 +392,27 @@ class CollectionTest extends \Papaya\TestCase {
     $this->assertSame($item, $list[0]);
     $this->assertNotSame($item, $clonedList[0]);
   }
+  public function testKeys() {
+    $list = new Collection(\stdClass::class, Collection::MODE_ASSOCIATIVE);
+    $list['one'] = new \stdClass();
+    $list['two'] = new \stdClass();
+    $list['three'] = new \stdClass();
+    $this->assertSame(['one', 'two', 'three'], $list->keys());
+  }
+
+  public function testFirst() {
+    $list = new Collection(\stdClass::class);
+    $list[] = $item = new \stdClass();
+    $list[] = new \stdClass();
+    $list[] = new \stdClass();
+    $this->assertSame($item, $list->first());
+  }
+
+  public function testLast() {
+    $list = new Collection(\stdClass::class);
+    $list[] = new \stdClass();
+    $list[] = new \stdClass();
+    $list[] = $item = new \stdClass();
+    $this->assertSame($item, $list->last());
+  }
 }

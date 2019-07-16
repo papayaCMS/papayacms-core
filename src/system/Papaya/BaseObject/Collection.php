@@ -226,8 +226,7 @@ class Collection
    * ArrayAccess interface: get item specified by index
    *
    * @param int|string $index
-   *
-   * @return mixed
+   * @return object|NULL
    */
   public function offsetGet($index) {
     $index = $this->prepareKey($index);
