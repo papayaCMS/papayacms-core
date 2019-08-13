@@ -75,6 +75,12 @@ class base_sitemap extends base_db {
   var $tableLanguages = PAPAYA_DB_TBL_LNG;
 
   /**
+  * Papaya database table view
+  * @var string $tableViews
+  */
+  var $tableViews = PAPAYA_DB_TBL_VIEWS;
+
+  /**
   * Papaya database table view links
   * @var string $tableViewLinks
   */
@@ -622,10 +628,11 @@ class base_sitemap extends base_db {
   function loadTreeInternal($lngId, $filter, $navigationFilter, $sort) {
     $trashFilter = ($this->tableTopics == PAPAYA_DB_TBL_TOPICS)
       ? ' AND t.is_deleted = 0' : '';
-    $sql = "SELECT t.topic_id, tt.topic_title, t.prev, t.prev_path,
+    $sql = "SELECT t.topic_id, tt.topic_title, tt.view_id, t.prev, t.prev_path,
                    t.topic_weight, t.topic_created, t.topic_protocol, t.linktype_id,
-                   t.topic_changefreq, t.topic_priority, t.topic_modified
+                   t.topic_changefreq, t.topic_priority, t.topic_modified, v.view_name
               FROM %s t, %s tt
+              LEFT OUTER JOIN %s as v ON (v.view_id = tt.view_id)
              WHERE tt.topic_id = t.topic_id
                AND tt.lng_id = %d
                AND ".str_replace('%', '%%', $filter)."
@@ -633,8 +640,14 @@ class base_sitemap extends base_db {
                $trashFilter
              ORDER BY t.topic_weight %s, t.topic_created %s";
     $sortString = (($sort == 'DESC') ? 'DESC' : 'ASC');
-    $params = array($this->tableTopics, $this->tableTopicsTrans,
-      $lngId, $sortString, $sortString);
+    $params = array(
+      $this->tableTopics,
+      $this->tableTopicsTrans,
+      $this->tableViews,
+      $lngId,
+      $sortString,
+      $sortString
+    );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       $rows = array();
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -1121,10 +1134,11 @@ class base_sitemap extends base_db {
         );
       }
       $result .= sprintf(
-        '<mapitem id="%d" %s title="%s" enctitle="%s" children="%d"'.
+        '<mapitem id="%d" %s %s title="%s" enctitle="%s" children="%d"'.
           ' allchildren="%d" visible="%d" gens="%d" is_popup="%s" %s %s %s %s'.
           ' changefreq="%s" priority="%s" lastmod="%s" %s>'.LF,
         $id,
+        empty($row['view_name']) ? '' : ' view="'.papaya_strings::escapeHTMLChars($row['view_name']).'"',
         empty($href) ? '' : ' href="'.papaya_strings::escapeHTMLChars($href).'"',
         papaya_strings::escapeHTMLChars($row['topic_title']),
         papaya_strings::escapeHTMLChars(rawurlencode($row['topic_title'])),
