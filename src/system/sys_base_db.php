@@ -27,13 +27,13 @@ class base_db extends base_object implements \Papaya\Database\Accessible {
    *
    * @var string $databaseURI
    */
-  protected $databaseURI;
+  public $databaseURI;
   /**
    * Database URI for insert/update/..., default value ist the option PAPAYA_DB_URI_WRITE
    *
    * @var string $databaseURIWrite
    */
-  protected $databaseURIWrite;
+  public $databaseURIWrite;
 
   /**
    * Override database object create to accommodate old properties.
@@ -42,7 +42,7 @@ class base_db extends base_object implements \Papaya\Database\Accessible {
    */
   private function createDatabaseAccess() {
     $databaseAccess = new \Papaya\Database\Access(
-      $this->databaseURI, $this->databaseURIWrite
+      $this, $this->databaseURI, $this->databaseURIWrite
     );
     $databaseAccess->papaya($this->papaya());
     return $databaseAccess;

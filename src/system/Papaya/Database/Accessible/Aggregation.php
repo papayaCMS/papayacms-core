@@ -73,7 +73,7 @@ trait Aggregation {
    * @return \Papaya\Database\Access
    */
   private function createDatabaseAccess() {
-    $databaseAccess = new Database\Access($this->_databaseURIs['read'], $this->_databaseURIs['write']);
+    $databaseAccess = new Database\Access($this, $this->_databaseURIs['read'], $this->_databaseURIs['write']);
     if ($this instanceof Application\Access) {
       $databaseAccess->papaya($this->papaya());
     }

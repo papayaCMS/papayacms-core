@@ -40,6 +40,8 @@ namespace Papaya\Database {
      */
     private $_tables;
 
+    private $_owner;
+
     /**
      * Database connection URI for read queries
      *
@@ -88,7 +90,14 @@ namespace Papaya\Database {
      * @param string|null $readUri
      * @param string|null $writeUri
      */
-    public function __construct($readUri = NULL, $writeUri = NULL) {
+    public function __construct($owner = NULL, $readUri = NULL, $writeUri = NULL) {
+      $this->_owner = $owner;
+      if (isset($readUri)) {
+        \Papaya\Utility\Constraints::assertString($readUri);
+      }
+      if (isset($writeUri)) {
+        \Papaya\Utility\Constraints::assertString($writeUri);
+      }
       $this->_uriRead = $readUri;
       $this->_uriWrite = $writeUri;
     }
