@@ -295,7 +295,7 @@ class papaya_editmodules extends base_db {
     if (trim($tableString) != '') {
       $tables = explode(',', $tableString);
       if (isset($tables) && is_array($tables) && count($tables) > 0 &&
-          is_array($dbTables = $this->databaseQueryTableNames())) {
+          is_array($dbTables = $this->getDatabaseAccess()->schema()->getTables())) {
         $dbTables = array_flip($dbTables);
         foreach ($tables as $tableName) {
           if (!isset($dbTables[PAPAYA_DB_TABLEPREFIX.'_'.$tableName])) {
