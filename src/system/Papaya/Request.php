@@ -478,7 +478,7 @@ class Request
    * @return bool
    */
   public function getMagicQuotesStatus() {
-    return (\get_magic_quotes_gpc() || \get_magic_quotes_runtime());
+    return is_callable('get_magic_quotes_gpc') ? @(\get_magic_quotes_gpc() || \get_magic_quotes_runtime()) : FALSE;
   }
 
   /**
