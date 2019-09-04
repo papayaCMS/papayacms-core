@@ -278,4 +278,20 @@ class Parameters
     Utility\Arrays::normalize($data);
     return \md5(\serialize($data));
   }
+
+  /**
+   * Clones the current object and fills non-existing/NULL values
+   *
+   * @param array|\Traversable $defaults
+   */
+  public function withDefaults($defaults) {
+    Utility\Constraints::assertArrayOrTraversable($defaults);
+    $result = clone $this;
+    foreach ($defaults as $default => $defaultValue) {
+      if (!isset($result[$default])) {
+        $result[$default] = $defaultValue;
+      }
+    }
+    return $result;
+  }
 }
