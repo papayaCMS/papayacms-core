@@ -29,7 +29,7 @@ class ImageTest extends \Papaya\TestCase {
     /** @lang XML */
       '<container>
          <papaya:media 
-           xmlns:papaya="http://www.papaya-cms.com/namespace/papaya" 
+           xmlns:papaya="http://www.papaya-cms.com/ns/papayacms" 
            src="d74f6d0324f5d90b23bb3771200ddf7d" width="60" height="96" resize="max"/>
        </container>',
       $document->saveHTML()
@@ -50,7 +50,7 @@ class ImageTest extends \Papaya\TestCase {
     /** @lang XML */
       '<container>
          <papaya:media 
-           xmlns:papaya="http://www.papaya-cms.com/namespace/papaya" 
+           xmlns:papaya="http://www.papaya-cms.com/ns/papayacms" 
            src="d74f6d0324f5d90b23bb3771200ddf7d" width="60" height="96" resize="max"/>
        </container>',
       $document->saveHTML()
