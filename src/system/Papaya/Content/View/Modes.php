@@ -42,4 +42,6 @@ class Modes extends Database\Records\Lazy {
   protected $_tableName = Content\Tables::VIEW_MODES;
 
   protected $_identifierProperties = ['extension'];
+
+  protected $_orderByProperties = ['extension' => Database\Interfaces\Order::ASCENDING];
 }

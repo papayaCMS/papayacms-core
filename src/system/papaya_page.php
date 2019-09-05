@@ -1760,7 +1760,7 @@ class papaya_page extends base_object {
     );
     $boxes = new papaya_boxes;
     if ($boxes->load($this->boxId, $this->topic->topic['TRANSLATION']['lng_id'])) {
-      $result = $boxes->parsedBox($this->topic);
+      $result = Papaya\Utility\Text\UTF8::ensure($boxes->parsedBox($this->topic));
       if (!\Papaya\XML\Document::createFromXML($result, TRUE)) {
         $result = '<box><![CDATA['.str_replace(']]>', ']]&gt;', $result).']]></box>';
       }

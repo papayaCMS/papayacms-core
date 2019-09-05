@@ -90,9 +90,12 @@ namespace Papaya\Database\Connection {
       );
       if ($connection) {
         $this->_mysqli = $connection;
-        if (defined('PAPAYA_DATABASE_COLLATION')) {
-          $this->process(
-            new SQLStatement("SET NAMES 'utf8' COLLATE ?'", [PAPAYA_DATABASE_COLLATION])
+        if (
+          defined('PAPAYA_DATABASE_COLLATION') &&
+          preg_match('(^[[a-z]\d_-]+$)Di', PAPAYA_DATABASE_COLLATION)
+        ) {
+          $this->_mysqli->query(
+            sprintf("SET NAMES 'utf8' COLLATE '%s'", PAPAYA_DATABASE_COLLATION)
           );
         } else {
           $this->_mysqli->set_charset('utf8');

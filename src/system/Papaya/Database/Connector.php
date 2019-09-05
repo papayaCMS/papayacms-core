@@ -138,6 +138,12 @@ namespace Papaya\Database {
      * @param null|string $writeURI
      */
     public function __construct($readURI, $writeURI = NULL) {
+      if (isset($readURI)) {
+        \Papaya\Utility\Constraints::assertString($readURI);
+      }
+      if (isset($writeURI)) {
+        \Papaya\Utility\Constraints::assertString($writeURI);
+      }
       $this->_databaseURIs = [
         self::MODE_READ => $readURI,
         self::MODE_WRITE => $writeURI

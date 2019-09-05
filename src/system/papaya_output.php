@@ -267,7 +267,11 @@ class papaya_output extends base_db {
             $link .= $queryString;
           }
         }
-        if (isset($this->viewMode) && $this->viewMode['viewmode_ext'] == $mode['viewmode_ext']) {
+        if (
+          isset($this->viewMode) &&
+          $this->viewMode &&
+          $this->viewMode['viewmode_ext'] === $mode['viewmode_ext']
+        ) {
           $selected = ' selected="selected"';
         } else {
           $selected = '';

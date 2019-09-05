@@ -65,7 +65,7 @@ class Manager implements Application\Access {
    * @return Access
    */
   public function createDatabaseAccess($readUri = NULL, $writeUri = NULL) {
-    $result = new Access($readUri, $writeUri);
+    $result = new Access($this, $readUri, $writeUri);
     $result->papaya($this->papaya());
     return $result;
   }
@@ -78,11 +78,13 @@ class Manager implements Application\Access {
    *
    * @return \Papaya\Database\Connector
    */
-  public function getConnector($readUri = NULL, $writeUri = NULL) {
-    list($readUri, $writeUri) = $this->_getConnectorUris($readUri, $writeUri);
-    $identifier = $readUri."\n".$writeUri;
+  public function getConnector($readURI = NULL, $writeURI = NULL) {
+    list($readURI, $writeURI) = $this->_getConnectorUris($readURI, $writeURI);
+    \Papaya\Utility\Constraints::assertString($readURI);
+    \Papaya\Utility\Constraints::assertString($writeURI);
+    $identifier = $readURI."\n".$writeURI;
     if (!isset($this->_connectors[$identifier])) {
-      $connector = new \Papaya\Database\Connector($readUri, $writeUri);
+      $connector = new \Papaya\Database\Connector($readURI, $writeURI);
       $connector->papaya($this->papaya());
       $this->_connectors[$identifier] = $connector;
     }
@@ -112,8 +114,8 @@ class Manager implements Application\Access {
   protected function _getConnectorUris($readUri = NULL, $writeUri = NULL) {
     if (NULL === $readUri) {
       $configuration = $this->getConfiguration();
-      $readUri = $configuration->get('PAPAYA_DB_URI');
-      $writeUri = $configuration->get('PAPAYA_DB_URI_WRITE');
+      $readUri = $configuration->get('PAPAYA_DB_URI', '');
+      $writeUri = $configuration->get('PAPAYA_DB_URI_WRITE', '');
     }
     if (empty($writeUri)) {
       $writeUri = $readUri;

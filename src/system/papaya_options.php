@@ -390,13 +390,6 @@ class papaya_options extends base_options {
             }
           }
           break;
-        case 'PAPAYA_PATH_WEB':
-          $optValue = dirname(dirname($this->getBaseLink())).'/';
-          if (substr($optValue, 0, 1) == '.') {
-            $optValue = substr($optValue, 1);
-          }
-          $optValue = strtr($optValue, array('//' => '/', '\\/' => '/', '\\\\/' => '/'));
-          break;
         case 'PAPAYA_XSLT_EXTENSION' :
           $optValue = '';
           if (extension_loaded('xsl')) {
