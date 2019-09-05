@@ -12,23 +12,28 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Plugin;
+namespace Papaya\Plugin {
 
-/**
- * An interface to define that an object is editable.
- *
- * The two methods provide access to the stored/edited content and the editor subsubject.
- *
- * @package Papaya-Library
- * @subpackage Plugins
- */
-interface Editable {
+  use Papaya\Application\Access as ApplicationAccess;
+
   /**
-   * Getter/Setter for the content.
+   * An interface to define that an object is editable.
    *
-   * @param Editable\Content $content
+   * The two methods provide access to the stored/edited content and the editor subsubject. This
+   * extends `Papaya\Application\Access` because the editor/dialog should have access to the
+   * application object.
    *
-   * @return Editable\Content
+   * @package Papaya-Library
+   * @subpackage Plugins
    */
-  public function content(Editable\Content $content = NULL);
+  interface Editable extends ApplicationAccess {
+    /**
+     * Getter/Setter for the content.
+     *
+     * @param Editable\Content $content
+     *
+     * @return Editable\Content
+     */
+    public function content(Editable\Content $content = NULL);
+  }
 }

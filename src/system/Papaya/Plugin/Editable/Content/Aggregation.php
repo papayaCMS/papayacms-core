@@ -12,54 +12,59 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Plugin\Editable\Content;
+namespace Papaya\Plugin\Editable\Content {
 
-use Papaya\Plugin;
-
-/**
- * This a standard implementation for editable plugin content. It
- * makes implements the \Papaya\Plugin\Editable interface and
- * expects an implementation of the abstract method "createEditor".
- *
- * The method needs to return a \Papaya\Plugin\Editor instance.
- *
- * @package Papaya-Library
- * @subpackage Plugins
- */
-trait Aggregation {
-  /**
-   * @var Plugin\Editable\Content
-   */
-  private $_content;
+  use Papaya\Application\Access as ApplicationAccess;
+  use Papaya\Plugin;
 
   /**
-   * The content is an {@see ArrayObject} child class containing the stored data.
+   * This a standard implementation for editable plugin content. It
+   * makes implements the \Papaya\Plugin\Editable interface and
+   * expects an implementation of the abstract method "createEditor".
    *
-   * @see \Papaya\Plugin\Editable::content()
+   * The method needs to return a \Papaya\Plugin\Editor instance.
    *
-   * @param Plugin\Editable\Content $content
-   *
-   * @return Plugin\Editable\Content
+   * @package Papaya-Library
+   * @subpackage Plugins
    */
-  public function content(Plugin\Editable\Content $content = NULL) {
-    if (NULL !== $content) {
-      $this->_content = $content;
-    } elseif (NULL === $this->_content) {
-      $this->_content = new Plugin\Editable\Content();
-      $this->_content->callbacks()->onCreateEditor = function(
-        /** @noinspection PhpUnusedParameterInspection */
-        $callbackContext, Plugin\Editable\Content $content
-      ) {
-        return $this->createEditor($content);
-      };
+  trait Aggregation {
+
+    use ApplicationAccess\Aggregation;
+
+    /**
+     * @var Plugin\Editable\Content
+     */
+    private $_content;
+
+    /**
+     * The content is an {@see ArrayObject} child class containing the stored data.
+     *
+     * @param Plugin\Editable\Content $content
+     *
+     * @return Plugin\Editable\Content
+     * @see \Papaya\Plugin\Editable::content()
+     *
+     */
+    public function content(Plugin\Editable\Content $content = NULL) {
+      if (NULL !== $content) {
+        $this->_content = $content;
+      } elseif (NULL === $this->_content) {
+        $this->_content = new Plugin\Editable\Content();
+        $this->_content->callbacks()->onCreateEditor = function (
+          /** @noinspection PhpUnusedParameterInspection */
+          $callbackContext, Plugin\Editable\Content $content
+        ) {
+          return $this->createEditor($content);
+        };
+      }
+      return $this->_content;
     }
-    return $this->_content;
-  }
 
-  /**
-   * @param Plugin\Editable\Content $content
-   *
-   * @return \Papaya\Plugin\Editor
-   */
-  abstract public function createEditor(Plugin\Editable\Content $content);
+    /**
+     * @param Plugin\Editable\Content $content
+     *
+     * @return \Papaya\Plugin\Editor
+     */
+    abstract public function createEditor(Plugin\Editable\Content $content);
+  }
 }

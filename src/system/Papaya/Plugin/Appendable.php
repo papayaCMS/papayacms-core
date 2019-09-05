@@ -12,18 +12,19 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Plugin;
+namespace Papaya\Plugin {
 
-use Papaya\XML;
+  use Papaya\XML\Appendable as XMLAppendable;
 
-/**
- * An interface to define that an object is a plugin appendable to an DOM element. This
- * extends \Papaya\XML\Appendable to provide the additional information that it is an content plugin.
- *
- * Appends XML nodes to the given parent. Used by pages and boxes.
- *
- * @package Papaya-Library
- * @subpackage Plugins
- */
-interface Appendable extends XML\Appendable {
+  /**
+   * An interface to define that an object is a plugin appendable to an DOM element. This
+   * extends \Papaya\XML\Appendable to provide the additional information that it is an content plugin.
+   *
+   * Appends XML nodes to the given parent. Used by pages and boxes.
+   *
+   * @package Papaya-Library
+   * @subpackage Plugins
+   */
+  interface Appendable extends XMLAppendable {
+  }
 }
