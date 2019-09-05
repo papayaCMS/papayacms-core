@@ -27,6 +27,8 @@ use Papaya\Utility;
 class Document
   extends \DOMDocument
   implements Node {
+  
+  const XMLNS_PAPAYA = 'http://www.papaya-cms.com/ns/papayacms';
   /**
    * Avoid loosing the overloaded class
    * @var self
@@ -192,7 +194,8 @@ class Document
     }
     $fragment = $this->createDocumentFragment();
     $content = \sprintf(
-      '<papaya:content xmlns:papaya="http://www.papaya-cms.com/ns/papayacms">%s</papaya:content>',
+      '<papaya:content xmlns:papaya="%s">%s</papaya:content>',
+      Utility\Text\XML::escapeAttribute(self::XMLNS_PAPAYA),
       Utility\Text\XML::removeControlCharacters(Utility\Text\UTF8::ensure($content))
     );
     $fragment->appendXML($content);
