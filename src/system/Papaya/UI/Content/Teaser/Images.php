@@ -91,7 +91,7 @@ class Images extends UI\Control {
     $targetDocument = $parent->ownerDocument;
     $targetDocument->registerNamespaces(
       [
-        'papaya' => 'http://www.papaya-cms.com/ns/papayacms'
+        'papaya' => XML\Document::XMLNS_PAPAYA
       ]
     );
     /** @var \Papaya\XML\Document $dom */

@@ -17,6 +17,7 @@ namespace Papaya\Template\Tag {
 
   use Papaya\Template\Tag as TemplateTag;
   use Papaya\Utility\Arrays as ArrayUtilities;
+  use Papaya\XML\Document as XMLDocument;
   use Papaya\XML\Element as XMLElement;
 
   class Image extends TemplateTag {
@@ -139,7 +140,7 @@ namespace Papaya\Template\Tag {
         $attributes['subtitle'] = $this->_subtitle;
       }
       $document = $parent->ownerDocument;
-      $imageTag = $document->createElementNS('http://www.papaya-cms.com/namespace/papaya', 'papaya:media');
+      $imageTag = $document->createElementNS(XMLDocument::XMLNS_PAPAYA, 'papaya:media');
       foreach ($attributes as $name => $value) {
         $imageTag->setAttribute($name, $value);
       }
