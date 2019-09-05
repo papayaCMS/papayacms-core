@@ -462,34 +462,7 @@ class base_plugin extends base_object {
   function getPapayaImageTag(
     $str, $width = 0, $height = 0, $alt = '', $resize = NULL, $subTitle = ''
   ) {
-    if (preg_match($this->papayaTagPattern, $str, $regs)) {
-      return $regs[0];
-    } elseif (preg_match('~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i', $str, $regs)) {
-      $result = '<papaya:media src="'.papaya_strings::escapeHTMLChars($regs[1]).'"';
-      if ($width > 0) {
-        $result .= ' width="'.(int)$width.'"';
-      } elseif (isset($regs[4])) {
-        $result .= ' width="'.(int)$regs[4].'"';
-      }
-      if ($height > 0) {
-        $result .= ' height="'.(int)$height.'"';
-      } elseif (isset($regs[6])) {
-        $result .= ' height="'.(int)$regs[6].'"';
-      }
-      if (isset($resize)) {
-        $result .= ' resize="'.papaya_strings::escapeHTMLChars($resize).'"';
-      } elseif (isset($regs[8])) {
-        $result .= ' resize="'.papaya_strings::escapeHTMLChars($regs[8]).'"';
-      }
-      if (isset($alt) && trim($alt) != '') {
-        $result .= ' alt="'.papaya_strings::escapeHTMLChars($alt).'"';
-      }
-      if (!empty($subTitle)) {
-        $result .= ' subtitle="'.papaya_strings::escapeHTMLChars($subTitle).'"';
-      }
-      return $result.'/>';
-    }
-    return '';
+    return (string) new \Papaya\Template\Tag\Image($str, $width, $height, $alt, $resize, $subTitle);
   }
 
   /**

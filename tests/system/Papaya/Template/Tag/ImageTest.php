@@ -35,4 +35,25 @@ class ImageTest extends \Papaya\TestCase {
       $document->saveHTML()
     );
   }
+
+  /**
+   * @covers \Papaya\Template\Tag\Image::appendTo
+   */
+  public function testAppendToWithExistingTag() {
+    $image = new Image(
+      '<papaya:media src="d74f6d0324f5d90b23bb3771200ddf7d" width="60" height="96" resize="max"/>'
+    );
+    $document = new \Papaya\XML\Document();
+    $container = $document->appendElement('container');
+    $image->appendTo($container);
+    $this->assertXmlStringEqualsXmlString(
+    /** @lang XML */
+      '<container>
+         <papaya:media 
+           xmlns:papaya="http://www.papaya-cms.com/namespace/papaya" 
+           src="d74f6d0324f5d90b23bb3771200ddf7d" width="60" height="96" resize="max"/>
+       </container>',
+      $document->saveHTML()
+    );
+  }
 }

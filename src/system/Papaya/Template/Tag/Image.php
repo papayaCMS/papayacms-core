@@ -12,133 +12,159 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Template\Tag;
 
-class Image extends \Papaya\Template\Tag {
-  /**
-   * @var string
-   */
-  private $_mediaPropertyString;
+namespace Papaya\Template\Tag {
 
-  /**
-   * @var string
-   */
-  private $_source = '';
+  use Papaya\Template\Tag as TemplateTag;
+  use Papaya\Utility\Arrays as ArrayUtilities;
+  use Papaya\XML\Element as XMLElement;
 
-  /**
-   * @var int
-   */
-  private $_width;
+  class Image extends TemplateTag {
 
-  /**
-   * @var int
-   */
-  private $_height;
+    /**
+     * @var string
+     */
+    private $_source;
 
-  /**
-   * @var string
-   */
-  private $_alt;
+    /**
+     * @var int
+     */
+    private $_width;
 
-  /**
-   * @var string
-   */
-  private $_resize;
+    /**
+     * @var int
+     */
+    private $_height;
 
-  /**
-   * @var string
-   */
-  private $_subTitle;
+    /**
+     * @var string
+     */
+    private $_alternativeText;
 
-  /**
-   * Papaya tag pattern
-   *
-   * @var string
-   */
-  private $_papayaTagPattern = '(<(papaya|ndim):([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?)im';
+    /**
+     * @var string
+     */
+    private $_resize;
 
-  /**
-   * Constructor
-   *
-   * @param string $mediaPropertyString this is the string the dialog type image(?)
-   *                                    contains like "32242...,max,200,300"
-   * @param int $width optional, default value 0
-   * @param int $height optional, default value 0
-   * @param string $alt optional, default value ''
-   * @param string $resize optional, default value NULL
-   * @param string $subTitle optional, default value ''
-   */
-  public function __construct(
-    $mediaPropertyString, $width = 0, $height = 0, $alt = '', $resize = NULL, $subTitle = ''
-  ) {
-    $this->_mediaPropertyString = $mediaPropertyString;
-    $this->_width = (int)$width;
-    $this->_height = (int)$height;
-    $this->_alt = $alt;
-    $this->_resize = $resize;
-    $this->_subTitle = $subTitle;
-  }
+    /**
+     * @var string
+     */
+    private $_subtitle;
 
-  /**
-   * Append the generated papaya:media element to a parent node
-   *
-   * @param \Papaya\XML\Element $parent
-   */
-  public function appendTo(\Papaya\XML\Element $parent) {
-    $this->parseImageData();
-    $attributes = [];
-    if (!empty($this->_source)) {
-      $attributes['src'] = $this->_source;
-    } else {
-      return;
-    }
-    if ($this->_width > 0) {
-      $attributes['width'] = $this->_width;
-    }
-    if ($this->_height > 0) {
-      $attributes['height'] = $this->_height;
-    }
-    if ('' !== \trim($this->_alt)) {
-      $attributes['alt'] = $this->_alt;
-    }
-    if ('' !== \trim($this->_resize)) {
-      $attributes['resize'] = $this->_resize;
-    }
-    if ('' !== \trim($this->_subTitle)) {
-      $attributes['subtitle'] = $this->_subTitle;
-    }
-    $document = $parent->ownerDocument;
-    $imageTag = $document->createElementNS('http://www.papaya-cms.com/namespace/papaya', 'papaya:media');
-    foreach ($attributes as $name => $value) {
-      $imageTag->setAttribute($name, $value);
-    }
-    $parent->appendChild($imageTag);
-  }
+    /**
+     * @var string
+     */
+    private $_tagPattern = '(
+      <(?<tag>(?:papaya|ndim):(?:[a-z]\w+))
+      \\s*?
+      (?<parameters>[^>]*)/?>
+    )x';
 
-  private function parseImageData() {
-    if (\preg_match($this->_papayaTagPattern, $this->_mediaPropertyString, $regs)) {
-      $this->parseMediaTag($this->_mediaPropertyString);
-    } elseif (
-    \preg_match(
-      '~^([^.,]+(\.\w+)?)(,(\d+)(,(\d+)(,(\w+))?)?)?$~i',
-      $this->_mediaPropertyString,
-      $regs
-    )
+    /**
+     * @var string
+     */
+    private $_tagParametersPattern = '(
+      (?<name>\w+)=(?<quote>[\'"])(?<value>.*?)\g{quote}
+    )x';
+
+    /**
+     * @var string
+     */
+    private $_mediaPropertyPattern = '(
+      ^(?<src>[^.,]+(?:\.\w+)?)
+      (?:,
+        (?<width>\d+)
+        (?:,
+          (?<height>\d+)
+          (?:,
+            (?<resize>\w+)
+          )?
+        )?
+      )?$
+    )x';
+
+    /**
+     * Constructor
+     *
+     * @param string $mediaPropertyString this is the string the dialog type image(?)
+     *                                    contains like "32242...,max,200,300"
+     * @param int $width optional, default value 0
+     * @param int $height optional, default value 0
+     * @param string $alt optional, default value ''
+     * @param string $resize optional, default value ''
+     * @param string $subtitle optional, default value ''
+     */
+    public function __construct(
+      $mediaPropertyString, $width = 0, $height = 0, $alt = '', $resize = '', $subtitle = ''
     ) {
-      $this->_source = \papaya_strings::escapeHTMLChars($regs[1]);
-      if (0 === $this->_width && isset($regs[4])) {
-        $this->_width = (int)$regs[4];
+      if (!($data = $this->parseMediaTag($mediaPropertyString))) {
+        $matches = [];
+        if (preg_match($this->_mediaPropertyPattern, $mediaPropertyString, $matches)) {
+          $data = $matches;
+        }
       }
-      if (0 === $this->_height && isset($regs[6])) {
-        $this->_height = (int)$regs[6];
-      }
-      if (isset($regs[8]) && '' === \trim($this->_resize)) {
-        $this->_resize = \papaya_strings::escapeHTMLChars($regs[8]);
-      }
+      $this->_source = ArrayUtilities::get($data, 'src', $mediaPropertyString);
+      $this->_width = ($width > 0) ? $width : ArrayUtilities::get($data, 'width', 0);
+      $this->_height = ($height > 0) ? $height : ArrayUtilities::get($data, 'height', 0);
+      $this->_resize = trim($resize) !== '' ? $resize : ArrayUtilities::get($data, 'resize', '');
+      $this->_alternativeText = trim($alt) !== '' ? $alt : ArrayUtilities::get($data, 'alt', '');
+      $this->_subtitle = trim($alt) !== '' ? $alt : ArrayUtilities::get($data, 'subtitle', '');
     }
-  }
 
-  private function parseMediaTag($mediaTag) {
-    // TO DO: parse an existing papaya:* tag
+    /**
+     * Append the generated papaya:media element to a parent node
+     *
+     * @param XMLElement $parent
+     */
+    public function appendTo(XMLElement $parent) {
+      $attributes = [];
+      if (!empty($this->_source)) {
+        $attributes['src'] = $this->_source;
+      } else {
+        return;
+      }
+      if ($this->_width > 0) {
+        $attributes['width'] = $this->_width;
+      }
+      if ($this->_height > 0) {
+        $attributes['height'] = $this->_height;
+      }
+      if ('' !== \trim($this->_alternativeText)) {
+        $attributes['alt'] = $this->_alternativeText;
+      }
+      if ('' !== \trim($this->_resize)) {
+        $attributes['resize'] = $this->_resize;
+      }
+      if ('' !== \trim($this->_subtitle)) {
+        $attributes['subtitle'] = $this->_subtitle;
+      }
+      $document = $parent->ownerDocument;
+      $imageTag = $document->createElementNS('http://www.papaya-cms.com/namespace/papaya', 'papaya:media');
+      foreach ($attributes as $name => $value) {
+        $imageTag->setAttribute($name, $value);
+      }
+      $parent->appendChild($imageTag);
+    }
+
+    /**
+     * Parse parameters into an array if this is a papaya tag.
+     *
+     * @param string $mediaTag
+     * @return array|NULL
+     */
+    private function parseMediaTag($mediaTag) {
+      $matches = [];
+      $data = [];
+      if (
+        preg_match($this->_tagPattern, $mediaTag, $matches) &&
+        preg_match_all($this->_tagParametersPattern, $matches['parameters'], $matches, PREG_SET_ORDER)
+      ) {
+        foreach ($matches as $match) {
+          $data[$match['name']] = $match['value'];
+        }
+        return $data;
+      }
+      return NULL;
+    }
   }
 }
