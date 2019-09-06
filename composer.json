@@ -16,14 +16,16 @@
     "psr/log": "1.*"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-master",
+
     "papaya/cms-administration": "dev-master",
     "papaya/test-framework": "dev-master",
 
-    "papaya/theme-dynamic": "1.*",
+    "papaya/theme-dynamic": "dev-master",
 
-    "papaya/module-default": "1.*",
-    "papaya/module-standard": "1.*",
-    "papaya/module-domains": "1.*",
-    "papaya/module-default-cronjobs": "1.*"
+    "papaya/module-default": "dev-master",
+    "papaya/module-standard": "dev-master",
+    "papaya/module-domains": "dev-master",
+    "papaya/module-default-cronjobs": "dev-master"
   }
 }
