@@ -78,8 +78,16 @@ class Browser
         /* @noinspection PhpUnusedParameterInspection */
         $context, UI\ListView\Items $items, Theme\Definition $theme
       ) use ($dialog) {
+        $image = '-';
+        if (trim($theme->thumbnails['medium']) !== '') {
+          $image = $this->papaya()->options['PAPAYA_PATH_THEMES'].'/'.$theme->name.'/'.$theme->thumbnails['medium'];
+        }
         $items[] = $item = new UI\ListView\Item\Radio(
-          $theme->thumbnails['medium'], $theme->title, $dialog, $this->_optionName, $theme->name
+          $image,
+          $theme->title,
+          $dialog,
+          $this->_optionName,
+          $theme->name
         );
         $item->text = $theme->templatePath;
       };
