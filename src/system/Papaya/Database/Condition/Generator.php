@@ -27,6 +27,7 @@ class Generator {
     'less' => 'isLessThan',
     'lessorequal' => 'isLessThanOrEqual',
     'contains' => 'contains',
+    'like' => 'like',
     'match' => 'match',
     'match-boolean' => 'matchBoolean',
     'match-contains' => 'matchContains'
@@ -74,6 +75,7 @@ class Generator {
       } elseif ('not' == $condition && \is_array($value)) {
         $this->appendConditions($group->logicalNot(), $value, $limit - 1);
       } elseif (isset($this->_functions[$condition])) {
+        var_dump($field, $condition);
         $group->{$this->_functions[$condition]}($field, $value);
       }
     }
