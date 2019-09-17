@@ -112,7 +112,7 @@ abstract class Unbuffered
   /**
    * Execute the sql query and store the result object
    *
-   * @param string $sql
+   * @param string|Database\Statement $sql
    * @param array $parameters
    * @param int|null $limit
    * @param int|null $offset
