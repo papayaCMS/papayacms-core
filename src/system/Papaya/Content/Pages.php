@@ -37,6 +37,7 @@ class Pages extends Database\Records\Lazy {
     'position' => 't.topic_weight',
     'title' => 'tt.topic_title',
     'view_id' => 'tt.view_id',
+    'view_name' => 'v.view_name',
     'module_guid' => 'v.module_guid',
     'content' => 'tt.topic_content',
     'scheme' => 't.topic_protocol',
@@ -144,7 +145,7 @@ class Pages extends Database\Records\Lazy {
               tt.lng_id, tt.topic_title, tt.topic_content,
               t.author_id, au.givenname, au.surname,
               t.topic_created, t.topic_modified, tp.topic_modified topic_published,
-              tt.view_id, v.module_guid, vm.viewmode_id
+              tt.view_id, v.module_guid, v.view_name, vm.viewmode_id
          FROM %s AS t
          $joinMode JOIN %s AS tt ON (tt.topic_id = t.topic_id AND tt.lng_id = '%d')
          LEFT JOIN %s AS tp ON (tp.topic_id = t.topic_id)
