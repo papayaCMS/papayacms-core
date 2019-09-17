@@ -575,7 +575,9 @@ namespace Papaya\Database {
         $values = [$values];
       }
       return $this->execute(
-        new LimitedStatement($this, new FormattedStatement($this, $sql, $values), $max, $offset),
+        new LimitedStatement(
+          $this, $sql instanceof Statement ? $sql : new FormattedStatement($this, $sql, $values), $max, $offset
+        ),
         $readOnly ? self::USE_WRITE_CONNECTION : self::EMPTY_OPTIONS
       );
     }
