@@ -31,6 +31,11 @@ namespace Papaya\Database\Syntax {
       $this->assertSame("LENGTH('text')", $syntax->length('text'));
     }
 
+    public function testCharacterLength() {
+      $syntax = new MySQLSyntax($this->createConnectionFixture());
+      $this->assertSame("CHAR_LENGTH('text')", $syntax->characterLength('text'));
+    }
+
     public function testLocate() {
       $syntax = new MySQLSyntax($this->createConnectionFixture());
       $this->assertSame(

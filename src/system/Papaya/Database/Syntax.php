@@ -2,7 +2,9 @@
 
 namespace Papaya\Database {
 
+  use Papaya\Database\Syntax\Identifier;
   use Papaya\Database\Syntax\Parameter;
+  use Papaya\Database\Syntax\Placeholder;
 
   interface Syntax {
 
@@ -13,15 +15,21 @@ namespace Papaya\Database {
 
     /**
      * @param string $name
-     * @return \Papaya\Database\Syntax\Identifier
+     * @return Identifier
      */
     public function identifier($name);
 
     /**
      * @param string $name
-     * @return \Papaya\Database\Syntax\Placeholder
+     * @return Placeholder
      */
     public function placeholder($name);
+
+    /**
+     * @param string|Parameter $text
+     * @return string
+     */
+    public function characterLength($text);
 
     /**
      * @param string|Parameter ...$arguments
@@ -68,12 +76,27 @@ namespace Papaya\Database {
     public function random();
 
     /**
+     * @param string|Parameter$haystack
+     * @param string|Parameter$needle
+     * @param string|Parameter$thread
+     * @return string
+     */
+    public function replace($haystack, $needle, $thread);
+
+    /**
      * @param string|Parameter $haystack
      * @param int|Parameter $offset
      * @param null|int|Parameter $length
      * @return string
      */
     public function substring($haystack, $offset, $length = NULL);
+
+    /**
+     * @param string|Parameter $haystack
+     * @param string|Parameter $needle
+     * @return string
+     */
+    public function substringCount($haystack, $needle);
 
     /**
      * @param string|Parameter $text

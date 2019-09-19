@@ -12,6 +12,14 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
+     * @param string|Parameter $text
+     * @return string
+     */
+    public function characterLength($text) {
+      return 'CHAR_LENGTH('.$this->compileParameter($text).')';
+    }
+
+    /**
      * @param string|Parameter ...$arguments
      * @return string
      */
@@ -89,6 +97,21 @@ namespace Papaya\Database\Syntax {
      */
     public function random() {
       return 'RANDOM()';
+    }
+
+    /**
+     * @param string|Parameter $haystack
+     * @param string|Parameter $needle
+     * @param string|Parameter $replaceWith
+     * @return string
+     */
+    public function replace($haystack, $needle, $replaceWith) {
+      return sprintf(
+        'REPLACE(%s, %s, %s)',
+        $this->compileParameter($haystack),
+        $this->compileParameter($needle),
+        $this->compileParameter($replaceWith)
+      );
     }
 
     /**

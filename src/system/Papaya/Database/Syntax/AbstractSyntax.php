@@ -57,5 +57,17 @@ namespace Papaya\Database\Syntax {
       }
       return $this->_connection->quoteString($parameter);
     }
+
+    /**
+     * @param string|Parameter $haystack
+     * @param string|Parameter $needle
+     * @return string
+     */
+    public function substringCount($haystack, $needle) {
+      $replace = new SQLSource(
+        $this->replace($haystack, $needle, '')
+      );
+      return '('.$this->characterLength($haystack).' - '.$this->characterLength($replace).')';
+    }
   }
 }
