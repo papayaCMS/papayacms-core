@@ -75,7 +75,6 @@ class Generator {
       } elseif ('not' == $condition && \is_array($value)) {
         $this->appendConditions($group->logicalNot(), $value, $limit - 1);
       } elseif (isset($this->_functions[$condition])) {
-        var_dump($field, $condition);
         $group->{$this->_functions[$condition]}($field, $value);
       }
     }
