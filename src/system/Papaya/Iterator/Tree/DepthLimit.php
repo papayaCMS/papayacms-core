@@ -32,19 +32,54 @@ class DepthLimit implements \OuterIterator, \RecursiveIterator {
   private $_iterator;
 
   /**
+   * @var Items
+   */
+  private $_innerIterator;
+  /**
+   * @var int
+   */
+  private $_offset;
+
+  /**
    * @param \RecursiveIterator $iterator
    * @param int $maximumDepth
+   * @param int $offset
    */
-  public function __construct(\RecursiveIterator $iterator, $maximumDepth) {
+  public function __construct(\RecursiveIterator $iterator, $maximumDepth, $offset = 0) {
     $this->_iterator = $iterator;
     $this->_maximumDepth = (int)$maximumDepth;
+    $this->_offset = (int)$offset;
   }
 
   /**
    * return Iterator
    */
   public function getInnerIterator() {
-    return $this->_iterator;
+    if (NULL === $this->_innerIterator) {
+      if ($this->_offset < 1) {
+        $this->_innerIterator = $this->_iterator;
+      } else {
+        $offsetItemsIterator = new \RecursiveIteratorIterator(
+          $this->_iterator, \RecursiveIteratorIterator::SELF_FIRST
+        );
+        $offsetItemsIterator->setMaxDepth($this->_offset);
+        $items = [];
+        $children = [];
+        foreach ($offsetItemsIterator as $key => $value) {
+          if ($this->_offset === $offsetItemsIterator->getDepth()) {
+            $items[$key] = $value;
+            if ($offsetItemsIterator->callHasChildren()) {
+              $children[$key] =  $offsetItemsIterator->callGetChildren();
+            }
+          }
+        }
+        $this->_innerIterator = new Items(new \ArrayIterator($items), Items::ATTACH_TO_KEYS);
+        foreach ($children as $key => $itemChildren) {
+          $this->_innerIterator->attachItemIterator($key, $itemChildren);
+        }
+      }
+    }
+    return $this->_innerIterator;
   }
 
   /**
@@ -69,7 +104,7 @@ class DepthLimit implements \OuterIterator, \RecursiveIterator {
    */
   public function getChildren() {
     if ($this->hasChildren()) {
-      return new self($this->getInnerIterator()->getChildren(), $this->_maximumDepth - 1);
+      return new self($this->getInnerIterator()->getChildren(), $this->_maximumDepth - 1, $this->_offset - 1);
     }
     return new \RecursiveArrayIterator([]);
   }

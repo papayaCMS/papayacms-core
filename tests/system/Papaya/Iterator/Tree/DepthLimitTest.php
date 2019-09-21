@@ -69,6 +69,22 @@ class DepthLimitTest extends \Papaya\TestCase {
     );
   }
 
+  /**
+   * @covers \Papaya\Iterator\Tree\DepthLimit
+   */
+  public function testWithLimitThreeOffsetOne() {
+    $iterator = new \RecursiveIteratorIterator(
+      new DepthLimit($this->getIteratorFixture(), 3, 1), \RecursiveIteratorIterator::SELF_FIRST
+    );
+    $this->assertEquals(
+      [
+        3 => 'A.1',
+        4 => 'A.1.1'
+      ],
+      iterator_to_array($iterator)
+    );
+  }
+
 
 
   /**
