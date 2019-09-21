@@ -60,7 +60,10 @@ class Generator {
 
   private function appendConditions(\Papaya\Database\Condition\Group $group, $filter, $limit = 42) {
     foreach ($filter as $key => $value) {
-      if (\preg_match('((?<type>[\w-]+):(?<fields>.*))', $key, $match)) {
+      $lowercaseKey = strtolower($key);
+      if (in_array($lowercaseKey, ['and', 'or', 'not'])) {
+        $condition = $lowercaseKey;
+      } elseif (\preg_match('((?<type>[\w-]+):(?<fields>.*))', $key, $match)) {
         $condition = \strtolower($match['type']);
         $field = FALSE !== \strpos($match['fields'], ',') ? \explode(',', $match['fields']) : $match['fields'];
       } else {
