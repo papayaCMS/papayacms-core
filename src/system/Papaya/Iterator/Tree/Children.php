@@ -35,20 +35,26 @@ class Children implements \RecursiveIterator {
   /**
    * @var array
    */
-  private $_list;
+  private $_list = [];
 
   /**
    * Create iterator, store elements, tree and child-ids
    *
    * @param array $elements
    * @param array[] $tree
-   * @param int|string $id
+   * @param int|string|int[]|string[] $ids
    */
-  public function __construct(array $elements, array $tree, $id = 0) {
+  public function __construct(array $elements, array $tree, $ids = 0) {
     $this->_elements = $elements;
     $this->_tree = $tree;
-    $this->_list = (FALSE !== $id && isset($this->_tree[$id]))
-      ? $this->_tree[$id] : [];
+    if (!is_array($ids)) {
+      $ids = [$ids];
+    }
+    foreach ($ids as $id) {
+      if (FALSE !== $id && isset($this->_tree[$id])) {
+        array_push($this->_list, ...$this->_tree[$id]);
+      }
+    }
   }
 
   /**

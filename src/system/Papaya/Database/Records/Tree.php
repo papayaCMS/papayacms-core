@@ -45,6 +45,8 @@ abstract class Tree extends Lazy {
    */
   protected $_children = [];
 
+  private $_rootIdentifiers = [];
+
   /**
    * Load the records, read them from database and create the children buffer.
    *
@@ -62,6 +64,7 @@ abstract class Tree extends Lazy {
     $this->_children = [];
     $this->_records = [];
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {
+      $this->_rootIdentifiers = [];
       foreach ($this->getResultIterator() as $values) {
         $identifier = $this->getIdentifier($values, $idProperties);
         $parentIdentifier = $this->getIdentifier($values, $this->_parentIdentifierProperties);
@@ -71,6 +74,11 @@ abstract class Tree extends Lazy {
         if (NULL !== $identifier) {
           $this->_records[$identifier] = $values;
           $this->_children[$parentIdentifier][] = $identifier;
+          if (!isset($this->_records[$parentIdentifier])) {
+            $this->_rootIdentifiers[$parentIdentifier] = TRUE;
+          } elseif (isset($this->_rootIdentifiers[$parentIdentifier])) {
+            unset($this->_rootIdentifiers[$parentIdentifier]);
+          }
         } else {
           throw new \LogicException(
             'Identifier properties needed to link children to parents.'
@@ -86,10 +94,14 @@ abstract class Tree extends Lazy {
    * Return a tree iterator for the loaded records starting with the children of the virtual
    * element zero.
    *
-   * @return Iterator\Tree\Children
+   * @return \Iterator
    */
   public function getIterator() {
     $this->lazyLoad();
-    return new Iterator\Tree\Children($this->_records, $this->_children);
+    $identifiers = array_keys($this->_rootIdentifiers);
+    if (count($identifiers) < 1) {
+      return new Iterator\Tree\Children($this->_records, $this->_children, 0);
+    }
+    return new Iterator\Tree\Children($this->_records, $this->_children, $identifiers);
   }
 }
