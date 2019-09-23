@@ -15,104 +15,108 @@ namespace Papaya\Database\Syntax {
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function characterLength($text) {
-      return 'CHAR_LENGTH('.$this->compileParameter($text).')';
+      return new SQLSource('CHAR_LENGTH('.$this->compileParameter($text).')');
     }
 
     /**
      * @param string|Parameter ...$arguments
-     * @return string
+     * @return SQLSource
      */
     public function concat(...$arguments) {
       $serialized = implode(
         ', ',
         array_map(
-          function($argument) {
+          function ($argument) {
             return $this->compileParameter($argument);
           },
           $arguments
         )
       );
-      return 'CONCAT('.$serialized.')';
+      return new SQLSource('CONCAT('.$serialized.')');
     }
 
     /**
      * @param string|Parameter $text
-     * @return int
+     * @return SQLSource
      */
     public function length($text) {
-      return 'LENGTH('.$this->compileParameter($text).')';
+      return new SQLSource('LENGTH('.$this->compileParameter($text).')');
     }
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function like($text) {
-      return 'LIKE '.$this->compileParameter($text);
+      return new SQLSource('LIKE '.$this->compileParameter($text));
     }
 
     /**
      * @param string|Parameter haystack
      * @param string|Parameter $needle
      * @param int|Parameter $offset
-     * @return string
+     * @return SQLSource
      */
     public function locate($haystack, $needle, $offset = 0) {
-      return sprintf(
-        'LOCATE(%s, %s, %s)',
-        $this->compileParameter($haystack),
-        $this->compileParameter($needle),
-        $this->compileParameter($offset)
+      return new SQLSource(
+        sprintf(
+          'LOCATE(%s, %s, %s)',
+          $this->compileParameter($haystack),
+          $this->compileParameter($needle),
+          $this->compileParameter($offset)
+        )
       );
     }
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function lower($text) {
-      return 'LOWER('.$this->compileParameter($text).')';
+      return new SQLSource('LOWER('.$this->compileParameter($text).')');
     }
 
     /**
      * @param int $limit
      * @param int $offset
-     * @return string
+     * @return SQLSource
      */
     public function limit($limit, $offset = 0) {
       $limit = (int)$limit;
       $offset = (int)$offset;
       if ($limit > 0) {
         if ($offset > 0) {
-          return sprintf(' LIMIT %d,%d', $offset, $limit);
+          return new SQLSource(sprintf(' LIMIT %d,%d', $offset, $limit));
         }
-        return sprintf(' LIMIT %d', $limit);
+        return new SQLSource(sprintf(' LIMIT %d', $limit));
       }
-      return '';
+      return new SQLSource('');
     }
 
     /**
-     * @return string
+     * @return SQLSource
      */
     public function random() {
-      return 'RANDOM()';
+      return new SQLSource('RANDOM()');
     }
 
     /**
      * @param string|Parameter $haystack
      * @param string|Parameter $needle
      * @param string|Parameter $replaceWith
-     * @return string
+     * @return SQLSource
      */
     public function replace($haystack, $needle, $replaceWith) {
-      return sprintf(
-        'REPLACE(%s, %s, %s)',
-        $this->compileParameter($haystack),
-        $this->compileParameter($needle),
-        $this->compileParameter($replaceWith)
+      return new SQLSource(
+        sprintf(
+          'REPLACE(%s, %s, %s)',
+          $this->compileParameter($haystack),
+          $this->compileParameter($needle),
+          $this->compileParameter($replaceWith)
+        )
       );
     }
 
@@ -120,30 +124,34 @@ namespace Papaya\Database\Syntax {
      * @param string|Parameter $haystack
      * @param int|Parameter $offset
      * @param int|Parameter $length
-     * @return string
+     * @return SQLSource
      */
     public function substring($haystack, $offset = 0, $length = 0) {
       if ($length instanceof SQLSource || $length > 0) {
-        return sprintf(
-          'SUBSTRING(%s, %s, %s)',
-          $this->compileParameter($haystack),
-          $this->compileParameter($offset),
-          $this->compileParameter($length)
+        return new SQLSource(
+          sprintf(
+            'SUBSTRING(%s, %s, %s)',
+            $this->compileParameter($haystack),
+            $this->compileParameter($offset),
+            $this->compileParameter($length)
+          )
         );
       }
-      return sprintf(
-        'SUBSTRING(%s, %s)',
-        $this->compileParameter($haystack),
-        $this->compileParameter($offset)
+      return new SQLSource(
+        sprintf(
+          'SUBSTRING(%s, %s)',
+          $this->compileParameter($haystack),
+          $this->compileParameter($offset)
+        )
       );
     }
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function upper($text) {
-      return 'UPPER('.$this->compileParameter($text).')';
+      return new SQLSource('UPPER('.$this->compileParameter($text).')');
     }
   }
 }

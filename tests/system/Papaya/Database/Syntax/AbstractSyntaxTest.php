@@ -105,21 +105,21 @@ namespace Papaya\Database\Syntax {
 
     /**
      * @param string|Parameter ...$arguments
-     * @return string
+     * @return SQLSource
      */
     public function concat(...$arguments) {
     }
 
     /**
      * @param string|Parameter $text
-     * @return int
+     * @return SQLSource
      */
     public function length($text) {
     }
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function like($text) {
     }
@@ -127,7 +127,7 @@ namespace Papaya\Database\Syntax {
     /**
      * @param int $limit
      * @param int $offset
-     * @return string
+     * @return SQLSource
      */
     public function limit($limit, $offset = 0) {
     }
@@ -136,20 +136,20 @@ namespace Papaya\Database\Syntax {
      * @param string|Parameter haystack
      * @param string|Parameter $needle
      * @param int|Parameter $offset
-     * @return string
+     * @return SQLSource
      */
     public function locate($haystack, $needle, $offset = 0) {
     }
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function lower($text) {
     }
 
     /**
-     * @return string
+     * @return SQLSource
      */
     public function random() {
     }
@@ -158,16 +158,34 @@ namespace Papaya\Database\Syntax {
      * @param string|Parameter $haystack
      * @param int|Parameter $offset
      * @param null|int|Parameter $length
-     * @return string
+     * @return SQLSource
      */
     public function substring($haystack, $offset, $length = NULL) {
     }
 
     /**
      * @param string|Parameter $text
-     * @return string
+     * @return SQLSource
      */
     public function upper($text) {
+    }
+
+    /**
+     * @param string|Parameter $text
+     * @return SQLSource
+     */
+    public function characterLength($text) {
+      // TODO: Implement characterLength() method.
+    }
+
+    /**
+     * @param string|Parameter $haystack
+     * @param string|Parameter $needle
+     * @param string|Parameter $thread
+     * @return SQLSource
+     */
+    public function replace($haystack, $needle, $thread) {
+      // TODO: Implement replace() method.
     }
   }
 }

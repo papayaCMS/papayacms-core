@@ -64,10 +64,8 @@ namespace Papaya\Database\Syntax {
      * @return string
      */
     public function substringCount($haystack, $needle) {
-      $replace = new SQLSource(
-        $this->replace($haystack, $needle, '')
-      );
-      return '('.$this->characterLength($haystack).' - '.$this->characterLength($replace).')';
+      $replace = $this->replace($haystack, $needle, $this->substring($needle, 2));
+      return new SQLSource('('.$this->characterLength($haystack).' - '.$this->characterLength($replace).')');
     }
   }
 }

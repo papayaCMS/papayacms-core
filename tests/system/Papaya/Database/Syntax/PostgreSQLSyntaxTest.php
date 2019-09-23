@@ -27,14 +27,14 @@ namespace Papaya\Database\Syntax {
 
     public function testLength() {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
-      $this->assertSame("LENGTH('text')", $syntax->length('text'));
+      $this->assertSame("LENGTH('text')", (string)$syntax->length('text'));
     }
 
     public function testLocate() {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "LOCATE('haystack', 'needle', '0')",
-        $syntax->locate('haystack', 'needle')
+        (string)$syntax->locate('haystack', 'needle')
       );
     }
 
@@ -42,7 +42,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "LOCATE('haystack', 'needle', '10')",
-        $syntax->locate('haystack', 'needle', 10)
+        (string)$syntax->locate('haystack', 'needle', 10)
       );
     }
 
@@ -50,7 +50,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "CONCAT('one', 'two', 'three', 'four')",
-        $syntax->concat('one', 'two', 'three', 'four')
+        (string)$syntax->concat('one', 'two', 'three', 'four')
       );
     }
 
@@ -58,7 +58,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "SUBSTRING('Hello World!', '6')",
-        $syntax->substring('Hello World!', 6)
+        (string)$syntax->substring('Hello World!', 6)
       );
     }
 
@@ -66,7 +66,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "SUBSTRING('Hello World!', '6', '2')",
-        $syntax->substring('Hello World!', 6, 2)
+        (string)$syntax->substring('Hello World!', 6, 2)
       );
     }
 
@@ -74,7 +74,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         "LIKE 'value' ESCAPE '\\\\'",
-        $syntax->like('value')
+        (string)$syntax->like('value')
       );
     }
 
@@ -82,7 +82,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'LIKE `field` ESCAPE \'\\\\\'',
-        $syntax->like($syntax->identifier('field'))
+        (string)$syntax->like($syntax->identifier('field'))
       );
     }
 
@@ -90,7 +90,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'LOWER(`field`)',
-        $syntax->lower($syntax->identifier('field'))
+        (string)$syntax->lower($syntax->identifier('field'))
       );
     }
 
@@ -98,7 +98,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'UPPER(`field`)',
-        $syntax->upper($syntax->identifier('field'))
+        (string)$syntax->upper($syntax->identifier('field'))
       );
     }
 
@@ -106,7 +106,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         ' LIMIT 10',
-        $syntax->limit(10)
+        (string)$syntax->limit(10)
       );
     }
 
@@ -114,7 +114,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         '',
-        $syntax->limit(0)
+        (string)$syntax->limit(0)
       );
     }
 
@@ -122,7 +122,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         ' OFFSET 20 LIMIT 10',
-        $syntax->limit(10, 20)
+        (string)$syntax->limit(10, 20)
       );
     }
 
@@ -130,7 +130,7 @@ namespace Papaya\Database\Syntax {
       $syntax = new PostgreSQLSyntax($this->createConnectionFixture());
       $this->assertSame(
         'RANDOM()',
-        $syntax->random()
+        (string)$syntax->random()
       );
 
     }
