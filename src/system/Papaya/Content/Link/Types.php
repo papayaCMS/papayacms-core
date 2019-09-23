@@ -30,7 +30,7 @@ class Types extends Database\Records\Lazy {
     'is_visible' => 'linktype_is_visible',
     'class' => 'linktype_class',
     'target' => 'linktype_target',
-    'is_popup' => 'linktype_popup',
+    'is_popup' => 'linktype_is_popup',
     'popup_options' => 'linktype_popup_config'
   ];
 
@@ -39,7 +39,7 @@ class Types extends Database\Records\Lazy {
   protected $_identifierProperties = ['id'];
 
   protected $_orderByFields = [
-    'name' => Database\Interfaces\Order::ASCENDING
+    'linktype_name' => Database\Interfaces\Order::ASCENDING
   ];
 
   /**
