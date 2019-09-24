@@ -155,9 +155,9 @@ class Selector extends UI\Control\Interactive {
         $this->_current = $languages->getLanguage($id);
       } elseif (
         ($user = $application->administrationUser) &&
-        ($id = $user->options->get('PAPAYA_CONTENT_LANGUAGE'))
+        ($id = $user->options->get('PAPAYA_CONTENT_LANGUAGE')) &&
+        ($this->_current = $languages->getLanguage($id))
       ) {
-        $this->_current = $languages->getLanguage($id);
         $application->session->values()->set([$this, 'CONTENT_LANGUAGE'], $this->_current->id);
       } elseif ($id = $application->options->get('PAPAYA_CONTENT_LANGUAGE')) {
         $this->_current = $languages->getLanguage($id);
