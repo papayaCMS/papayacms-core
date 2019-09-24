@@ -32,7 +32,6 @@ namespace Papaya\Modules\Core {
 
   class Navigation implements ApplicationAccess, AppendablePlugin, EditablePlugin {
 
-    use ApplicationAccess\Aggregation;
     use EditableContent\Aggregation;
 
     const FIELD_MODE = 'sitemap-mode';
