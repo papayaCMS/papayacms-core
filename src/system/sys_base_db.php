@@ -130,7 +130,7 @@ class base_db extends base_object implements \Papaya\Database\Accessible {
     return $this->getDatabaseAccess()->getProtocol();
   }
 
-  public function databaseGetSQLSource($functionName, array $parameters = NULL) {
+  public function databaseGetSQLSource($functionName, ...$parameters) {
     return $this->getDatabaseAccess()->getSQLSource($functionName, $parameters);
   }
 

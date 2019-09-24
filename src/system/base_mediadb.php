@@ -837,7 +837,7 @@ class base_mediadb extends base_db {
   * @return array|bool
   */
   function getRandomImages($folderId, $lngId, $number = 1) {
-    $randFunc = $this->databaseGetSQLSource('RANDOM', array());
+    $randFunc = $this->databaseGetSQLSource('RANDOM');
     $sql = "SELECT f.file_id, f.folder_id, f.file_name, f.file_date, f.file_created, f.file_size,
                    f.file_sort, f.current_version_id, f.surfer_id, f.file_source, f.file_source_url,
                    ft.file_title, ft.file_description,
