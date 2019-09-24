@@ -300,7 +300,7 @@ class base_selectview extends base_db {
                   '</subitem>'.LF,
                   papaya_strings::escapeHTMLChars($href),
                   papaya_strings::escapeHTMLChars($images['actions-list-add']),
-                  papaya_strings::escapeHTMLChars('Edit view')
+                  papaya_strings::escapeHTMLChars('Select view')
                 );
               } else {
                 $result .= '<subitem/>'.LF;
