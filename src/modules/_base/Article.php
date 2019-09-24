@@ -1,6 +1,6 @@
 <?php
 
-namespace dimensional\WebSite {
+namespace Papaya\Modules\Core {
 
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Plugin\Appendable as AppendablePlugin;
