@@ -102,6 +102,8 @@ namespace Papaya\Template\Tag {
         $matches = [];
         if (preg_match($this->_mediaPropertyPattern, $mediaPropertyString, $matches)) {
           $data = $matches;
+        } else {
+          $data = [];
         }
       }
       $this->_source = ArrayUtilities::get($data, 'src', $mediaPropertyString);
