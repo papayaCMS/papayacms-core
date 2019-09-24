@@ -254,7 +254,8 @@ class Autoloader {
     }
     $fileName = self::prepareFileName($className);
     if (0 !== \strpos($fileName, '/Papaya/') ||
-        0 === \strpos($fileName, '/Papaya/Module/')) {
+        0 === \strpos($fileName, '/Papaya/Module/') ||
+        0 === \strpos($fileName, '/Papaya/Modules/')) {
       foreach (self::$_paths as $prefix => $path) {
         if (0 === \strpos($fileName, $prefix)) {
           return $path.\substr($fileName, \strlen($prefix)).'.php';

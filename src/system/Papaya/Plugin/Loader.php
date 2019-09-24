@@ -347,6 +347,9 @@ class Loader
       if (0 === \strpos($path, $prefix)) {
         $basePath = $documentRoot.$mapPath;
         $relativePath = \substr($path, \strlen($prefix));
+        if (substr($basePath, -1) === '/' && substr($relativePath, 0, 1) === '/') {
+          $relativePath = substr($relativePath, 1);
+        }
         return Utility\File\Path::cleanup(
           $basePath.$relativePath, TRUE
         );
