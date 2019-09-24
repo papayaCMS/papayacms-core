@@ -108,16 +108,15 @@ namespace Papaya\UI\Content {
      * @param XMLElement $parent
      */
     public function appendTo(XMLElement $parent) {
-      $sitemap = $parent->appendElement('sitemap', ['mode' => $this->_mode]);
       $path = $this->getPathIds();
       if (count($this->staticPageTree()) > 0) {
        $this->appendPagesTo(
-          $sitemap,
+          $parent,
           new DepthLimit($this->staticPageTree()->getIterator(), $this->_staticDepth, $this->_staticOffset),
           $path
         );
       } else {
-        $this->appendPagesTo($sitemap, $this->dynamicPageTree()->getIterator(), $path);
+        $this->appendPagesTo($parent, $this->dynamicPageTree()->getIterator(), $path);
       }
     }
 
