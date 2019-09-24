@@ -922,7 +922,7 @@ namespace Papaya\Database {
     public function getSQLCondition($filter, $value = NULL, $operator = '=') {
       try {
         if (
-          ((string)$filter === '1' && (string)$value === 1) ||
+          (is_scalar($filter) && (string)$filter === '1' && (string)$value === 1) ||
           (is_array($filter) && isset($filter['1']) && (string)$filter['1'] === '1')
         ) {
           return '(1 = 1)';
