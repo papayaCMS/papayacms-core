@@ -734,7 +734,7 @@ namespace Papaya\Database {
      * @param mixed $value sql condition array
      * @param string $operator
      * @param string $mode
-     * @return mixed sql string or FALSE
+     * @return string|NULL
      * @throws \Papaya\Database\Exception\ConnectionFailed
      */
     public function getSQLCondition($filter, $value = NULL, $operator = '=', $mode = self::MODE_READ) {
@@ -747,7 +747,7 @@ namespace Papaya\Database {
           return (string)$condition;
         }
       }
-      return FALSE;
+      return NULL;
     }
 
     /**

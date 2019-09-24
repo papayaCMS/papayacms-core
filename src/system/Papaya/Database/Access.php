@@ -328,7 +328,7 @@ namespace Papaya\Database {
       if (NULL !== $errorHandler) {
         $errorHandler($exception);
       } elseif (
-      $messages = $this->papaya()->getObject('messages', TRUE)
+        $messages = $this->papaya()->getObject('messages', TRUE)
       ) {
         $mapSeverity = [
           DatabaseException::SEVERITY_INFO => Message::SEVERITY_INFO,
@@ -853,11 +853,17 @@ namespace Papaya\Database {
           }
         }
         if (!empty($sql)) {
+          $condition = $this->getSQLCondition($filter, $value);
+          if (!empty($filter) && trim($condition) === '') {
+            throw new \UnexpectedValueException(
+              'Filter argument could not be compiled to a valid atabase condition.'
+            );
+          }
           $sql = sprintf(
-            'UPDATE %s SET %s WHERE %s',
+            'UPDATE %s SET %s %s',
             $this->quoteIdentifier($tableName),
             substr($sql, 0, -2),
-            $this->getSQLCondition($filter, $value)
+            trim($condition) !== '' ? ' WHERE '.$condition : ''
           );
           return $this->execute($sql, self::USE_WRITE_CONNECTION);
         }
@@ -910,11 +916,17 @@ namespace Papaya\Database {
      * @param array|string $filter
      * @param mixed $value
      * @param string $operator
-     * @return string
+     * @return string|NULL
      * @deprecated
      */
     public function getSQLCondition($filter, $value = NULL, $operator = '=') {
       try {
+        if (
+          ((string)$filter === '1' && (string)$value === 1) ||
+          (is_array($filter) && isset($filter['1']) && (string)$filter['1'] === '1')
+        ) {
+          return '(1 = 1)';
+        }
         $mode = $this->getConnectionMode();
         if ($connector = $this->getDatabaseConnector($mode)) {
           return $connector->getSqlCondition($filter, $value, $operator, $mode);

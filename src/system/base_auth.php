@@ -1173,12 +1173,12 @@ class base_auth extends base_db {
             'author_id' => $userId,
             'author_group' => -1
           );
-          $this->databaseUpdateRecord(PAPAYA_DB_TBL_TOPICS, $data, array(1 => 1));
-          $this->databaseUpdateRecord(PAPAYA_DB_TBL_TOPICS_PUBLIC, $data, array(1 => 1));
+          $this->databaseUpdateRecord(PAPAYA_DB_TBL_TOPICS, $data, NULL);
+          $this->databaseUpdateRecord(PAPAYA_DB_TBL_TOPICS_PUBLIC, $data, NULL);
           $data = array(
             'version_author_id' => $userId
           );
-          $this->databaseUpdateRecord(PAPAYA_DB_TBL_TOPICS_VERSIONS, $data, array(1 => 1));
+          $this->databaseUpdateRecord(PAPAYA_DB_TBL_TOPICS_VERSIONS, $data, NULL);
           return TRUE;
         }
       }
