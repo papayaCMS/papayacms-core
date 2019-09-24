@@ -416,18 +416,18 @@ namespace Papaya\Database\Schema {
         }
       }
       $fields = substr($fields, 0, -2).')';
-      $drop = $dropCurrent ? ' DROP INDEX '.$this->getQuotedIdentifier($indexStructure['name']).',' : '';
+      $drop = $dropCurrent ? ' DROP INDEX '.$this->getQuotedIdentifier($indexStructure->name).',' : '';
       if ($indexStructure->isPrimary) {
         $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.' ADD PRIMARY KEY '.$fields;
       } elseif ($indexStructure->isFullText) {
         $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.
-          ' ADD FULLTEXT '.$this->getQuotedIdentifier($indexStructure['name']).' '.$fields;
+          ' ADD FULLTEXT '.$this->getQuotedIdentifier($indexStructure->name).' '.$fields;
       } elseif ($indexStructure->isUnique) {
         $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.
-          ' ADD UNIQUE '.$this->getQuotedIdentifier($indexStructure['name']).' '.$fields;
+          ' ADD UNIQUE '.$this->getQuotedIdentifier($indexStructure->name).' '.$fields;
       } else {
         $sql = 'ALTER TABLE '.$this->getQuotedIdentifier($tableName).$drop.
-          ' ADD INDEX '.$this->getQuotedIdentifier($indexStructure['name']).' '.$fields;
+          ' ADD INDEX '.$this->getQuotedIdentifier($indexStructure->name).' '.$fields;
       }
       return ($this->_connection->execute($sql) !== FALSE);
     }
