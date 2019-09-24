@@ -42,6 +42,27 @@ class Types extends Database\Records\Lazy {
     'linktype_name' => Database\Interfaces\Order::ASCENDING
   ];
 
+  private static $_internalLinkTypes = [
+    1 => [
+      'id' => 1,
+      'name' => 'visible',
+      'is_visible' => TRUE,
+      'class' => '',
+      'target' => '_self',
+      'is_popup' => FALSE,
+      'popup_options' => []
+    ],
+    2 => [
+      'id' => 2,
+      'name' => 'hidden',
+      'is_visible' => FALSE,
+      'class' => '',
+      'target' => '_self',
+      'is_popup' => FALSE,
+      'popup_options' => []
+    ]
+  ];
+
   /**
    * Here are some default link types that does not need to be stored in the database,
    * they are added to the result before using it.
@@ -50,28 +71,7 @@ class Types extends Database\Records\Lazy {
    */
   protected function getResultIterator() {
     return new \Papaya\Iterator\Union(
-      new \ArrayIterator(
-        [
-          [
-            'id' => 1,
-            'name' => 'visible',
-            'is_visible' => TRUE,
-            'class' => '',
-            'target' => '_self',
-            'is_popup' => FALSE,
-            'popup_options' => []
-          ],
-          [
-            'id' => 2,
-            'name' => 'hidden',
-            'is_visible' => FALSE,
-            'class' => '',
-            'target' => '_self',
-            'is_popup' => FALSE,
-            'popup_options' => []
-          ]
-        ]
-      ),
+      new \ArrayIterator(self::$_internalLinkTypes),
       parent::getResultIterator()
     );
   }
@@ -100,5 +100,16 @@ class Types extends Database\Records\Lazy {
       return $value;
     };
     return $mapping;
+  }
+
+  public function offsetExists($offset) {
+    return isset(self::$_internalLinkTypes[$offset]) || parent::offsetExists($offset);
+  }
+
+  public function offsetGet($offset) {
+    if (isset(self::$_internalLinkTypes[$offset])) {
+      return self::$_internalLinkTypes[$offset];
+    }
+    return parent::offsetGet($offset);
   }
 }
