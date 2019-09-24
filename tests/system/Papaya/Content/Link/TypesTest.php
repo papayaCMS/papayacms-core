@@ -52,8 +52,8 @@ class TypesTest extends \Papaya\TestCase {
     $linkTypes->load();
     $this->assertEquals(
       array(
-        -1 => array(
-          'id' => -1,
+        1 => array(
+          'id' => 1,
           'name' => 'visible',
           'is_visible' => TRUE,
           'class' => '',
@@ -61,8 +61,8 @@ class TypesTest extends \Papaya\TestCase {
           'is_popup' => FALSE,
           'popup_options' => array()
         ),
-        -2 => array(
-          'id' => -2,
+        2 => array(
+          'id' => 2,
           'name' => 'hidden',
           'is_visible' => FALSE,
           'class' => '',
