@@ -132,14 +132,14 @@ namespace Papaya\UI\Content {
           $this->papaya()->request->languageIdentifier,
           $pageId
         );
-        $focus = ($pageId === $this->_currentPageId);
-        $focusWithin = in_array($pageId, $paths->focus, FALSE);
+        $active = ($pageId === $this->_currentPageId);
+        $activeWithin = in_array($pageId, $paths->active, FALSE);
         $pageNode = $parent->appendElement(
           'page',
           [
             'id' => $pageId,
-            'focus' => $focus ? 'true' : NULL,
-            'focus-within' => (!$focus) && $focusWithin ? 'true' : NULL,
+            'active' => $active ? 'true' : NULL,
+            'active-within' => (!$active) && $activeWithin ? 'true' : NULL,
             'title' => $page['title'],
             'view' => trim($page['view_name']) !== '' ? $page['view_name'] : NULL,
             'href' => $reference->valid() ? (string)$reference->getRelative() : NULL,
@@ -231,7 +231,7 @@ namespace Papaya\UI\Content {
         } elseif ($this->_mode === self::MODE_BREADCRUMB) {
           $filter = [
             'language_id' => [$this->_languageId],
-            'id' => $this->getPathIds()->focus
+            'id' => $this->getPathIds()->active
           ];
           $this->_dynamicPageTree->activateLazyLoad($filter);
         }
@@ -262,20 +262,20 @@ namespace Papaya\UI\Content {
 
     private function getPathIds($fullPath = TRUE) {
       $result = new \stdClass();
-      $result->focus = [];
+      $result->active = [];
       $result->dynamic = [];
       $result->dynamicAncestor = NULL;
       $pages = $this->pages();
       if (isset($pages[$this->_ancestorPageId], $pages[$this->_currentPageId])) {
         // build path including current page id
-        $result->focus = $pages[$this->_currentPageId]['path'];
-        $result->focus[] = $pages[$this->_currentPageId]['parent'];
-        $result->focus[] = $pages[$this->_currentPageId]['id'];
+        $result->active = $pages[$this->_currentPageId]['path'];
+        $result->active[] = $pages[$this->_currentPageId]['parent'];
+        $result->active[] = $pages[$this->_currentPageId]['id'];
         // validate ancestor is in path of current page
-        if (in_array($this->_ancestorPageId, $result->focus, FALSE)) {
+        if (in_array($this->_ancestorPageId, $result->active, FALSE)) {
           // remove static part
           $result->dynamic = array_slice(
-            $result->focus, count($this->getAncestorIds()) + $this->_staticOffset + $this->_staticDepth
+            $result->active, count($this->getAncestorIds()) + $this->_staticOffset + $this->_staticDepth
           );
           $result->dynamicAncestor = (int)reset($result->dynamic);
         }
