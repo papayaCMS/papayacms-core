@@ -17,7 +17,7 @@
   <name>_Base</name>
   <description>This package provides the main table structures for the CMS.</description>
   <modules>
-    <module type="output" guid="20e80c718e5991d59e938bcdf4e020f2" name="XSLT Output Filter" class="filter_xslt">
+    <module type="output" guid="20e80c718e5991d59e938bcdf4e020f2" name="XSLT Output Filter" class="filter_xslt" file="filter_xslt.php">
       This module is the standard output formatter using XSLT (ext/xslt, ext/xsl or ext/dom_xml).
     </module>
     <module type="page" guid="d3e02980a82da4f552fa3dbc804a521f" name="Article" file="Article.php" class="Papaya\Modules\Core\Article">
