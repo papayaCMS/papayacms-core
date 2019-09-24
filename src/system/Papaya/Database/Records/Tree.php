@@ -94,7 +94,7 @@ abstract class Tree extends Lazy {
    * Return a tree iterator for the loaded records starting with the children of the virtual
    * element zero.
    *
-   * @return \Iterator
+   * @return \RecursiveIterator
    */
   public function getIterator() {
     $this->lazyLoad();
