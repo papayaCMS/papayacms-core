@@ -17,14 +17,14 @@ namespace dimensional\WebSite {
 
     use EditablePlugin\Aggregation;
 
-    private const FIELD_TITLE = 'title';
-    private const FIELD_SUBTITLE = 'subtitle';
-    private const FIELD_OVERLINE = 'overline';
-    private const FIELD_IMAGE = 'image';
-    private const FIELD_TEASER = 'teaser';
-    private const FIELD_TEXT = 'text';
+    const FIELD_TITLE = 'title';
+    const FIELD_SUBTITLE = 'subtitle';
+    const FIELD_OVERLINE = 'overline';
+    const FIELD_IMAGE = 'image';
+    const FIELD_TEASER = 'teaser';
+    const FIELD_TEXT = 'text';
 
-    private const _DEFAULTS = [
+    const _DEFAULTS = [
       self::FIELD_TITLE => '',
       self::FIELD_SUBTITLE => '',
       self::FIELD_OVERLINE => '',
