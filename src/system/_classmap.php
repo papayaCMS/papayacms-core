@@ -103,7 +103,6 @@ return array(
   'papaya_import' => '/papaya_import.php',
   'papaya_installer' => '/papaya_installer.php',
   'papaya_javaobject' => '/papaya_javaobject.php',
-  'papaya_linktypes' => '/papaya_linktypes.php',
   'papaya_locking' => '/papaya_locking.php',
   'papaya_log' => '/papaya_log.php',
   'papaya_mediadb' => '/papaya_mediadb.php',

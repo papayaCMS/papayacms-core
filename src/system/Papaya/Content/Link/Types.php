@@ -43,8 +43,8 @@ class Types extends Database\Records\Lazy {
   ];
 
   private static $_internalLinkTypes = [
-    1 => [
-      'id' => 1,
+    -1 => [
+      'id' => -1,
       'name' => 'visible',
       'is_visible' => TRUE,
       'class' => '',
@@ -52,8 +52,8 @@ class Types extends Database\Records\Lazy {
       'is_popup' => FALSE,
       'popup_options' => []
     ],
-    2 => [
-      'id' => 2,
+    -2 => [
+      'id' => -2,
       'name' => 'hidden',
       'is_visible' => FALSE,
       'class' => '',

@@ -14,6 +14,7 @@
  */
 namespace Papaya\Administration {
 
+  use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
   use Papaya\Response;
   use Papaya\Router\Route;
   use Papaya\Template;
@@ -386,7 +387,7 @@ namespace Papaya\Administration {
                         $template, $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
                       ),
                       self::ADMINISTRATION_LINK_TYPES => new UI\Route\Templated\Page(
-                        $template, $images['items-link'], ['Administration', 'Settings', 'Link types'], \papaya_linktypes::class, Permissions::SYSTEM_LINKTYPES_MANAGE
+                        $template, $images['items-link'], ['Administration', 'Settings', 'Link types'], LinkTypeEditor::class, Permissions::SYSTEM_LINKTYPES_MANAGE
                       ),
                       self::ADMINISTRATION_MIME_TYPES => new UI\Route\Templated\Page(
                         $template, $images['items-option'], ['Administration', 'Settings', 'Mime types'], \papaya_mediadb_mime::class, Permissions::SYSTEM_MIMETYPES_MANAGE

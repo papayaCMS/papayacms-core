@@ -53,7 +53,7 @@ class base_topic_edit extends base_topic {
    * @var base_dialog
    */
   private $dialogProperties = NULL;
-  
+
   /**
    * @var base_dialog
    */
@@ -1519,7 +1519,7 @@ class base_topic_edit extends base_topic {
         'author_id' => $authUser->userId,
         'author_group' => $authUser->user['group_id'],
         'author_perm' => '777',
-        'linktype_id' => 1,
+        'linktype_id' => -1,
         'topic_protocol' => 0,
         'prev' => 0,
         'prev_path' => ';',
