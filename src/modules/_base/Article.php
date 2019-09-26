@@ -86,7 +86,7 @@ namespace Papaya\Modules\Core {
     public function appendTo(XMLElement $parent) {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
       $parent->appendElement('title', $content[self::FIELD_TITLE]);
-      $parent->appendElement('subtitle', $content[self::FIELD_TITLE]);
+      $parent->appendElement('subtitle', $content[self::FIELD_SUBTITLE]);
       $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('teaser')->appendXML($content[self::FIELD_TEASER]);
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEXT]);
