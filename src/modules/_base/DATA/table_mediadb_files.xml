@@ -3,7 +3,7 @@
   <fields>
     <field name="file_id" type="string" size="32" null="no"/>
     <field name="folder_id" type="integer" size="4" null="no"/>
-    <field name="surfer_id" type="string" size="32" null="no"/>
+    <field name="surfer_id" type="string" size="32" null="yes"/>
     <field name="file_name" type="string" size="200" null="no"/>
     <field name="file_date" type="integer" size="4" null="no"/>
     <field name="file_created" type="string" size="20" null="no"/>

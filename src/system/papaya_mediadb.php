@@ -3844,10 +3844,6 @@ class papaya_mediadb extends base_mediadb_edit {
   */
   function processUpload() {
     $result = FALSE;
-    // we need the surfer id to save the file owner
-    if (!$this->loadSurferData()) {
-      return FALSE;
-    }
     $files = array();
     if (isset($this->params['folder_id']) && isset($_FILES) && is_array($_FILES) &&
         isset($_FILES[$this->paramName]) && is_array($_FILES[$this->paramName])) {
@@ -3941,7 +3937,7 @@ class papaya_mediadb extends base_mediadb_edit {
             $file['tempname'],
             $file['name'],
             empty($this->params['folder_id']) ? 0 : (int)$this->params['folder_id'],
-            $this->surfer['surfer_id'],
+            $this->surfer ? $this->surfer['surfer_id'] : NULL,
             $file['type'],
             'uploaded_file'
           );
@@ -3980,7 +3976,7 @@ class papaya_mediadb extends base_mediadb_edit {
       $this->params['file_id'],
       $fileLocation,
       $fileName,
-      $this->surfer['surfer_id'],
+      $this->surfer ? $this->surfer['surfer_id'] : NULL,
       $fileType,
       'uploaded_file'
     );
@@ -4094,8 +4090,6 @@ class papaya_mediadb extends base_mediadb_edit {
         } else {
           $this->addMsg(MSG_ERROR, $this->_gt('Could not load surfer details.'));
         }
-      } else {
-        $this->addMsg(MSG_ERROR, $this->_gt('Could not determine surfer id for this user.'));
       }
       return FALSE;
     } else {
@@ -4420,13 +4414,6 @@ class papaya_mediadb extends base_mediadb_edit {
   */
   function cropImageRpc() {
     $result = '';
-    // we need the surfer id to save the file owner
-    if (!$this->loadSurferData()) {
-      return sprintf(
-        '<error>%s</error>'.LF,
-        papaya_strings::escapeHTMLChars($this->_gt('Surfer not found.'))
-      );
-    }
     if ($file = $this->getFile($this->params['file_id'])) {
       $thumbnail = new base_thumbnail;
       // otherwise the filename would have an extension, which the temp filename hasn't
@@ -4455,7 +4442,7 @@ class papaya_mediadb extends base_mediadb_edit {
           $tempFileName,
           $newFileName,
           -1,
-          $this->surfer['surfer_id'],
+          $this->surfer ? $this->surfer['surfer_id'] : NULL,
           '',
           'local_file',
           $file
@@ -4565,9 +4552,6 @@ class papaya_mediadb extends base_mediadb_edit {
   * @return string|FALSE
   */
   function convertImage($fileId, $targetFormat) {
-    if (!$this->loadSurferData()) {
-      return FALSE;
-    }
     $file = $this->getFile($fileId);
     $srcFileName = $this->getFileName($fileId, $file['current_version_id']);
     $srcFormat = $this->imageConverter->getFileFormat($srcFileName);
@@ -4584,7 +4568,7 @@ class papaya_mediadb extends base_mediadb_edit {
           $tempFileName,
           $fileName,
           -1,
-          $this->surfer['surfer_id'],
+          $this->surfer ? $this->surfer['surfer_id'] : NULL,
           '',
           'local_file',
           $this->currentFile

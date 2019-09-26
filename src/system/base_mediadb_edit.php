@@ -94,7 +94,7 @@ class base_mediadb_edit extends base_mediadb {
           $data = array(
             'file_id' => $fileId,
             'folder_id' => empty($folderId) ? 0 : (int)$folderId,
-            'surfer_id' => $surferId,
+            'surfer_id' => isset($surferId) ? $surferId : '',
             'file_name' => $fileName,
             'file_date' => time(),
             'file_created' => date('Y-m-d H:i:s'),
@@ -243,7 +243,7 @@ class base_mediadb_edit extends base_mediadb {
       $data = array(
         'file_id' => $fileId,
         'file_name' => $file['file_name'],
-        'surfer_id' => $file['surfer_id'],
+        'surfer_id' => (string)$file['surfer_id'],
         'version_time' => $time,
         'version_id' => $file['current_version_id'],
         'file_size' => $file['file_size'],
@@ -301,7 +301,7 @@ class base_mediadb_edit extends base_mediadb {
               $condition = array('file_id' => $fileId);
               $data = array(
                 'folder_id' => $file['folder_id'],
-                'surfer_id' => $surferId,
+                'surfer_id' => (string)$surferId,
                 'file_name' => $fileName,
                 'file_date' => $time,
                 'file_created' => date('Y-m-d H:i:s'),
