@@ -22,10 +22,12 @@
       This module is the standard output formatter using XSLT (ext/xslt, ext/xsl or ext/dom_xml).
     </module>
     <module type="page" guid="d3e02980a82da4f552fa3dbc804a521f" name="Article" file="Article.php" class="Papaya\Modules\Core\Article">
-      Simple article page with teaser and image
+      Simple article page with teaser and image.
+    </module>
+    <module type="page" guid="a5181cb1aea14fd97f65ecd017adf262" name="Category" file="Category.php" class="Papaya\Modules\Core\Category">
+      Category showing child page teasers.
     </module>
     <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">Shows child pages of given page id as navigation
-
     </module>
   </modules>
   <tables>
