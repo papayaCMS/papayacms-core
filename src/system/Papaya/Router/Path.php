@@ -25,7 +25,7 @@ namespace Papaya\Router {
    *
    * @package Papaya\Router\Route
    */
-  abstract class Address implements \IteratorAggregate, \Countable, \ArrayAccess {
+  abstract class Path implements \IteratorAggregate, \Countable, \ArrayAccess {
     /**
      * Lazy parsing for the route path
      *

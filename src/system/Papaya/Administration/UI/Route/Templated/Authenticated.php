@@ -37,11 +37,11 @@ namespace Papaya\Administration\UI\Route\Templated {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $application = $router->papaya();
       $user = $application->administrationUser;
       $user->layout = $this->getTemplate();

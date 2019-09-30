@@ -35,14 +35,14 @@ namespace Papaya\Router\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
-     * @param int $level
-     * @return callable|null|\Papaya\Response|true
+     * @param NULL|object $context
+     * @param mixed[] $arguments
+     * @return null|Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $context = NULL, ...$arguments) {
       $route = $this->_route;
       do {
-        $route = $route($router, $address, $level);
+        $route = $route($router, $context, ...$arguments);
         if ($route instanceof Response) {
           if ($this->canUseOutputCompression() && $route->content()->length() > 0) {
             $response = clone $route;

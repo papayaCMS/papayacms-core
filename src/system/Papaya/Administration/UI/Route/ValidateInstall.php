@@ -24,11 +24,11 @@ namespace Papaya\Administration\UI\Route {
   class ValidateInstall implements Router\Route {
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $application = $router->papaya();
       if (!$application->options->loadAndDefine() && UI::INSTALLER !== $address->getRouteString(0)) {
         return new Response\Redirect(UI::INSTALLER);

@@ -20,7 +20,7 @@ namespace Papaya\Router\Route {
   /**
    * Select and execute route by path.
    */
-  class Choice implements Router\Route, \ArrayAccess {
+  class PathChoice implements Router\PathRoute, \ArrayAccess {
     /**
      * @var array
      */
@@ -60,11 +60,11 @@ namespace Papaya\Router\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|true|\Papaya\Response|callable
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $command = $address->getRouteString($this->_baseLevel + $level, $this->_offset) ?: $this->_defaultChoice;
       if (!isset($this[$command])) {
         return NULL;

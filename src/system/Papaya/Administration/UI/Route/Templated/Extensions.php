@@ -48,11 +48,11 @@ namespace Papaya\Administration\UI\Route\Templated {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $this->setTitle($this->_image, $this->_caption);
       $pluginGuid = NULL;
       if (($c = \count($address)) > 0) {

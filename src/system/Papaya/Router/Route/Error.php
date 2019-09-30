@@ -117,11 +117,10 @@ namespace Papaya\Router\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
-     * @param int $level
-     * @return \Papaya\Response
+     * @param NULL|object $context
+     * @return null|Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $context = NULL) {
       $response = new Response();
       $response->setStatus($this->_status);
       $response->setContentType('text/html');

@@ -22,9 +22,9 @@ class Response implements Application\Access {
   use Application\Access\Aggregation;
 
 
+  const CACHE_NONE = 'no-cache';
   const CACHE_PRIVATE = 'private';
   const CACHE_PUBLIC = 'public';
-
   /**
    * Status codes
    *
@@ -115,9 +115,13 @@ class Response implements Application\Access {
     if (NULL !== $content) {
       $this->_content = $content;
     } elseif (NULL === $this->_content) {
-      $this->_content = new Response\Content\Text('');
+      $this->_content = $this->createContent();
     }
     return $this->_content;
+  }
+
+  protected function createContent() {
+    return new Response\Content\Text('');
   }
 
   /**

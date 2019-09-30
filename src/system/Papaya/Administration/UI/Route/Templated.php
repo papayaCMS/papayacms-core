@@ -18,7 +18,7 @@ namespace Papaya\Administration\UI\Route {
   use Papaya\Response;
   use Papaya\Router;
 
-  abstract class Templated implements Router\Route, \Papaya\Application\Access {
+  abstract class Templated implements Router\PathRoute, \Papaya\Application\Access {
     use \Papaya\Application\Access\Aggregation;
 
     /**

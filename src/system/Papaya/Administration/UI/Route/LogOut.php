@@ -17,14 +17,14 @@ namespace Papaya\Administration\UI\Route {
   use Papaya\Response;
   use Papaya\Router;
 
-  class LogOut implements Router\Route {
+  class LogOut implements Router\PathRoute {
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|\Papaya\Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $application = $router->papaya();
       $locking = \papaya_locking::getInstance();
       $locking->removeLocks($application->session->id);

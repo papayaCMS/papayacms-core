@@ -15,13 +15,14 @@
 /** @noinspection PhpComposerExtensionStubsInspection */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI\Path;
   use Papaya\BaseObject\Interactive;
   use Papaya\Response;
   use Papaya\Router;
   use Papaya\Utility;
   use Papaya\XML\Document;
 
-  class Icon extends Interactive implements Router\Route {
+  class Icon extends Interactive implements Router\PathRoute {
 
     /**
      * @var array
@@ -37,7 +38,13 @@ namespace Papaya\Administration\UI\Route {
       $this->_path = $path;
     }
 
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    /**
+     * @param Router $router
+     * @param null|Path $address
+     * @param int $level
+     * @return callable|Response|Router\Route\Error|true|null
+     */
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $size = $this->parameters()->get(
         'size', 16, new \Papaya\Filter\ArrayElement(self::SIZES)
       );

@@ -14,6 +14,7 @@
  */
 namespace Papaya\Router\Route {
 
+  use Papaya\Response;
   use Papaya\Router;
   use Papaya\Utility;
 
@@ -37,13 +38,13 @@ namespace Papaya\Router\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
-     * @param int $level
-     * @return null|true|\Papaya\Response|callable
+     * @param NULL|object $context
+     * @param mixed[] $arguments
+     * @return null|Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $context = NULL, ...$arguments) {
       foreach ($this->_routes as $route) {
-        if ($response = $route($router, $address, $level)) {
+        if ($response = $route($router, $context, ...$arguments)) {
           return $response;
         }
       }

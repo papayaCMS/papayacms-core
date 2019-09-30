@@ -21,7 +21,7 @@ namespace Papaya\Administration\UI\Route {
   /**
    * Cache Response
    */
-  class Cache implements Router\Route, Access {
+  class Cache implements Router\PathRoute, Access {
     use Access\Aggregation;
 
     const CACHE_PRIVATE = Response::CACHE_PRIVATE;
@@ -86,11 +86,11 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $application = $this->papaya($router->papaya());
       $route = $this->_route;
       if ($this->_cacheTime < 1) {

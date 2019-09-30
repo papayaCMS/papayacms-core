@@ -64,11 +64,10 @@ namespace Papaya\Router\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
-     * @param int $level
+     * @param NULL|object $context
      * @return null|Response
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $context = NULL) {
       return $this->createResponse($this->getFilesContent());
     }
 

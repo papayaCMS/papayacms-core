@@ -14,21 +14,23 @@
  */
 namespace Papaya\Administration\UI\Route {
 
+  use Papaya\Administration\UI;
   use Papaya\Filter;
   use Papaya\Response;
   use Papaya\Router;
+  use Papaya\Utility\Constraints;
 
   /**
    * Output one or more files
    */
-  class TinyMCE extends \Papaya\BaseObject\Interactive implements Router\Route {
+  class TinyMCE extends \Papaya\BaseObject\Interactive implements Router\PathRoute {
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return callable|null|\Papaya\Response|Router\Route|true
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $isJS = $this->parameters()->get('js', TRUE);
       $core = $this->parameters()->get('core', TRUE);
       $filter = new Filter\Text\Explode(',', new Filter\NotEmpty());
@@ -37,6 +39,8 @@ namespace Papaya\Administration\UI\Route {
       $themes = $this->parameters()->get('themes', [], $filter);
       $suffix = '_src' === $this->parameters()->get('suffix', '_src') ? '_src' : '';
 
+      Constraints::assertInstanceOf(UI::class, $router);
+      /** @var UI $router */
       if (!$isJS) {
         return new Router\Route\JavaScript(
           $router->getLocalPath().'/script/tiny_mce3/tiny_mce_gzip.js',

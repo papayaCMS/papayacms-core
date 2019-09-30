@@ -25,7 +25,7 @@ namespace Papaya\Administration\UI\Route {
    *
    * @package Papaya\Router\Route
    */
-  class Popup implements \Papaya\Router\Route {
+  class Popup implements \Papaya\Router\PathRoute {
     const XMLNS = 'http://papaya-cms.com/administration/popup';
 
     /**
@@ -49,11 +49,11 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * @param Router $router
-     * @param Router\Address $address
+     * @param Router\Path $address
      * @param int $level
      * @return null|Response|\Papaya\Router\Route
      */
-    public function __invoke(Router $router, Router\Address $address, $level = 0) {
+    public function __invoke(Router $router, $address = NULL, $level = 0) {
       $xslDocument = new \Papaya\XML\Document();
       $xslDocument->load($this->_file);
       $xslDocument->registerNamespace('popup', self::XMLNS);

@@ -25,7 +25,7 @@ namespace Papaya\Administration\UI {
    *
    * @package Papaya\Router\Route
    */
-  class Address extends \Papaya\Router\Address {
+  class Path extends \Papaya\Router\Path {
     /**
      * @var \Papaya\URL\Current
      */

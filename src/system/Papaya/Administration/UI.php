@@ -18,7 +18,7 @@ namespace Papaya\Administration {
   use Papaya\Application;
   use Papaya\Response;
   use Papaya\Router;
-  use Papaya\Router\Address as RouterAddress;
+  use Papaya\Router\Path as RouterAddress;
   use Papaya\Router\Route;
   use Papaya\Template;
 
@@ -204,7 +204,7 @@ namespace Papaya\Administration {
       if (NULL !== $address) {
         $this->_address = $address;
       } elseif (NULL === $this->_address) {
-        $this->_address = new UI\Address(
+        $this->_address = new UI\Path(
           $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '')
         );
       }
@@ -222,7 +222,7 @@ namespace Papaya\Administration {
         ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
       return new Route\Group(
         // logout and layout files need to work without login/authentication
-        new Route\Choice(
+        new Route\PathChoice(
           [
             self::LOGOUT => new UI\Route\LogOut(),
             self::STYLES => function(self $ui) use ($localPath, $cacheTime) {
@@ -233,9 +233,9 @@ namespace Papaya\Administration {
                 : $_GET['theme'];
               return new Route\Gzip(
                 new UI\Route\Cache(
-                  new Route\Choice(
+                  new Route\PathChoice(
                     [
-                      self::STYLES_CSS => new Route\Choice(
+                      self::STYLES_CSS => new Route\PathChoice(
                         [
                           self::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
                           self::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
@@ -276,9 +276,9 @@ namespace Papaya\Administration {
                 UI\Route\Cache::CACHE_PUBLIC
               );
             },
-            self::SCRIPTS_RTE => new Route\Choice(
+            self::SCRIPTS_RTE => new Route\PathChoice(
               [
-                self::SCRIPTS_TINYMCE => new Route\Choice(
+                self::SCRIPTS_TINYMCE => new Route\PathChoice(
                   [
                     self::SCRIPTS_TINYMCE_FILES => new UI\Route\TinyMCE()
                   ]
@@ -299,7 +299,7 @@ namespace Papaya\Administration {
         // enforce https (if configured)
         new UI\Route\Templated\SecureProtocol($template),
         // installer before authentication
-        new Route\Choice(
+        new Route\PathChoice(
           [
             self::INSTALLER => new UI\Route\Templated\Installer($template)
           ]
@@ -312,13 +312,13 @@ namespace Papaya\Administration {
           new Route\Group(
             // validate options and add warnings
             new UI\Route\ValidateOptions(),
-            new Route\Choice(
+            new Route\PathChoice(
               [
                 // General
                 self::OVERVIEW => new UI\Route\Templated\Page(
                   $template, $images['places-home'], ['General', 'Overview'], \papaya_overview::class
                 ),
-                self::MESSAGES => new Route\Choice(
+                self::MESSAGES => new Route\PathChoice(
                   [
                     self::MESSAGES => new UI\Route\Templated\Page(
                       $template, $images['status-mail-open'], ['General', 'Messages'], \papaya_messages::class
@@ -330,7 +330,7 @@ namespace Papaya\Administration {
                 ),
 
                 // Pages
-                self::PAGES => new Route\Choice(
+                self::PAGES => new Route\PathChoice(
                   [
                     self::PAGES_SITEMAP => new UI\Route\Templated\Page(
                       $template, $images['categories-sitemap'], ['Pages', 'Sitemap'], \papaya_topic_tree::class, Permissions::PAGE_MANAGE
@@ -345,12 +345,12 @@ namespace Papaya\Administration {
                 ),
 
                 // Additional Content
-                self::CONTENT => new Route\Choice(
+                self::CONTENT => new Route\PathChoice(
                   [
                     self::CONTENT_BOXES => new UI\Route\Templated\Page(
                       $template, $images['items-box'], ['Content', 'Boxes'], \papaya_boxes::class, Permissions::BOX_MANAGE
                     ),
-                    self::CONTENT_FILES => new Route\Choice(
+                    self::CONTENT_FILES => new Route\PathChoice(
                       [
                         self::CONTENT_FILES => new UI\Route\Templated\Page(
                           $template, $images['items-folder'], ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
@@ -376,7 +376,7 @@ namespace Papaya\Administration {
                   $template, $images['categories-applications'], 'Applications'
                 ),
                 // Administration
-                self::ADMINISTRATION => new Route\Choice(
+                self::ADMINISTRATION => new Route\PathChoice(
                   [
                     self::ADMINISTRATION_USERS => new UI\Route\Templated\Page(
                       $template, $images['items-user-group'], ['Administration', 'Users'], \papaya_user::class, Permissions::USER_MANAGE
@@ -390,7 +390,7 @@ namespace Papaya\Administration {
                     self::ADMINISTRATION_THEMES => new UI\Route\Templated\Page(
                       $template, $images['items-theme'], ['Administration', 'Themes', 'Skins'], Theme\Editor::class, Permissions::SYSTEM_THEME_SKIN_MANAGE
                     ),
-                    self::ADMINISTRATION_PROTOCOL => new Route\Choice(
+                    self::ADMINISTRATION_PROTOCOL => new Route\PathChoice(
                       [
                         self::ADMINISTRATION_PROTOCOL => new UI\Route\Templated\Page(
                           $template, $images['categories-protocol'], ['Administration', 'Protocol'], \papaya_log::class, Permissions::SYSTEM_PROTOCOL
@@ -430,7 +430,7 @@ namespace Papaya\Administration {
                 // Popups
                 self::POPUP => function() use ($cacheTime, $localPath) {
                   return new UI\Route\Cache(
-                    new Route\Choice(
+                    new Route\PathChoice(
                       [
                         self::POPUP_COLOR => new UI\Route\Popup($localPath.'/popup/color.xsl'),
                         self::POPUP_GOOGLE_MAPS => new UI\Route\Popup($localPath.'/popup/googlemaps.xsl'),
@@ -452,7 +452,7 @@ namespace Papaya\Administration {
                 // TinyMCE popups
                 self::SCRIPTS_RTE => function() use ($localPath) {
                   $pluginPath = $localPath.'/script/tiny_mce3/plugins/papaya';
-                  return new Route\Choice(
+                  return new Route\PathChoice(
                     [
                       self::SCRIPTS_TINYMCE_POPUP_LINK => new UI\Route\Popup($pluginPath.'/link.xsl'),
                       self::SCRIPTS_TINYMCE_POPUP_IMAGE => new UI\Route\Popup(
