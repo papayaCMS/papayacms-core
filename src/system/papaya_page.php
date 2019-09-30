@@ -18,6 +18,7 @@ use Papaya\Cache;
 use Papaya\Content;
 use Papaya\Controller;
 use Papaya\Request;
+use Papaya\Response;
 
 /**
  * Some of the old bootstraps use the this class/file as the starting point,
@@ -496,7 +497,7 @@ class papaya_page extends base_object {
     }
     if ($status != 404) {
       $pathData = $this->papaya()->request->getParameters(Request::SOURCE_PATH);
-      $isPageMode = $pathData['mode'] == '' || $pathData['mode'] == 'page';
+      $isPageMode = trim($pathData['mode']) === '' || $pathData['mode'] === 'page';
       $isStartPage = isset($pathData['is_startpage']) && $pathData['is_startpage'];
       if (!$isPageMode || $isStartPage) {
         return FALSE;
@@ -1411,11 +1412,20 @@ class papaya_page extends base_object {
     if ($this->validateDomain()) {
       if ($this->topic->checkPublishPeriod($this->topicId)) {
         if ($this->validateAccess($this->topicId)) {
+          $pageModule = $this->getPageModule($this->topic);
+          if ($pageModule instanceof Papaya\Plugin\Routable) {
+            $router = new Papaya\Router($this->papaya(), $pageModule);
+            $response = $router->execute();
+            if ($response instanceof Response) {
+              $response->send(TRUE);
+            }
+          }
+
           $viewId = $this->topic->getViewId();
           if ($viewId > 0) {
             if ($this->filter = $this->output->getFilter($viewId)) {
               $sandbox = $this->papaya()->messages->encapsulate(array($this, 'generatePage'));
-              if (!call_user_func($sandbox, $this->filter->data)) {
+              if (!$sandbox($this->filter->data)) {
                 $this->getError(500, 'Service Unavailable', PAPAYA_PAGE_ERROR_PAGE);
                 return '';
               }
@@ -1981,14 +1991,14 @@ class papaya_page extends base_object {
         (
          (
            (?:.*?([a-fA-F\d]{32})) # title, mode and id
-           v([0-9]+) # version
+           v(\d+) # version
          )
          (?:\.[0-9a-zA-Z]+)?
          (?:_([a-z]+))?_ #resize mode
          (\d+)x(\d+) #resize size
          (?:_([\da-fA-F]{32}))? # optional params
         )
-        (\.[\w\d]+)? # extension
+        (\.[\w]+)? # extension
         $~x';
       if (preg_match($mediaFilePattern, $mediaId, $matches)) {
         // is thumbnail
@@ -2771,11 +2781,22 @@ class papaya_page extends base_object {
   /**
   * Return the current domain id, this can be set after handleDomain() and changed id
   * a preview domain is found in the session.
-  *
-   * @return bool
+  * @return bool
   */
   public function getCurrentDomainId() {
     return $this->_currentDomainId;
+  }
+
+  /**
+   * @param papaya_topic $page
+   * @return Object|null
+   */
+  private function getPageModule($page) {
+    return $this->papaya()->plugins->get(
+      $page->topic['TRANSLATION']['module_guid'],
+      $page,
+      $page->topic['TRANSLATION']['topic_content']
+    );
   }
 }
 
