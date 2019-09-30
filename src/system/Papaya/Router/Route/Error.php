@@ -16,7 +16,6 @@ namespace Papaya\Router\Route {
 
   use Papaya\Response;
   use Papaya\Router;
-  use Papaya\Utility;
 
   /**
    * Return error document
@@ -44,67 +43,6 @@ namespace Papaya\Router\Route {
     private $_errorIdentifier;
 
     /**
-     * Error template
-     *
-     * @var string
-     */
-    private $_template =
-      '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-     <html>
-       <head>
-         <title>{%status%} - {%message%}</title>
-         <style type="text/css">
-         <!--
-         body {
-           background-color: #FFF;
-           font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-         }
-         th, td {
-           font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-         }
-         pre {
-           color: gray;
-           font-weight: bold;
-           font-size: 1.4em;
-         }
-         a {
-           color: #95A41A;
-           white-space: nowrap;
-           font-size: 0.8em;
-         }
-         //-->
-         </style>
-       </head>
-       <body>
-         <div align="center">
-         <br />
-         <br />
-         <br />
-         <table cellpadding="4" border="0" width="400">
-           <tr>
-             <th colspan="2">Error in page request!</th>
-           </tr>
-           <tr valign="top">
-             <td align="center"><pre>{%artwork%}</pre></td>
-           </tr>
-           <tr>
-             <th><h3>{%message%}</h3></th>
-           </tr>
-           <tr>
-             <th>{%status%} {%identifier%}</th>
-           </tr>
-           <tr valign="top">
-             <th>
-               <hr style="border: none; border-bottom: 1px solid black;">
-               <h4><a href="http://{%host%}/">http://{%host%}/</a></h4>
-             </th>
-           </tr>
-         </table>
-       </div>
-       </body>
-     </html>';
-
-    /**
      * @param string $message
      * @param int $status
      * @param null|int|string $identifier
@@ -121,33 +59,7 @@ namespace Papaya\Router\Route {
      * @return null|Response
      */
     public function __invoke(Router $router, $context = NULL) {
-      $response = new Response();
-      $response->setStatus($this->_status);
-      $response->setContentType('text/html');
-      $response->content(
-        new Response\Content\Text($this->_getOutput())
-      );
-      return $response;
-    }
-
-    /**
-     * Generate error output
-     *
-     * @return string
-     */
-    private function _getOutput() {
-      $replace = [
-        '{%status%}' => Utility\Text\XML::escape($this->_status),
-        '{%artwork%}' => Utility\Text\ASCII\Artwork::get($this->_status),
-        '{%identifier%}' => Utility\Text\XML::escape($this->_errorIdentifier),
-        '{%message%}' => Utility\Text\XML::escape($this->_errorMessage),
-        '{%host%}' => Utility\Text\XML::escape(Utility\Server\Name::get()),
-      ];
-      return \str_replace(
-        \array_keys($replace),
-        \array_values($replace),
-        $this->_template
-      );
+      return new Response\Failure($this->_errorMessage, $this->_errorIdentifier, $this->_status);
     }
   }
 }
