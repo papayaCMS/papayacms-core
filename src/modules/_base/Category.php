@@ -30,11 +30,10 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Cacheable as CacheablePlugin;
   use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
-  use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\Plugin\Filter as PluginFilter;
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
-  use Papaya\UI\Dialog\Field\Select\Radio as RadioGroupField;
+  use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;
@@ -46,6 +45,7 @@ namespace Papaya\Modules\Core {
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
 
+    const FIELD_TEASER_ORDER = 'teaser-order';
     const FIELD_TEASER_LIMIT = 'teaser-limit';
     const FIELD_TEASER_IMAGE_RESIZE = 'teaser-image-resize-mode';
     const FIELD_TEASER_IMAGE_WIDTH = 'teaser-image-width';
@@ -58,6 +58,7 @@ namespace Papaya\Modules\Core {
       self::FIELD_IMAGE => '',
       self::FIELD_TEASER => '',
       self::FIELD_TEXT => '',
+      self::FIELD_TEASER_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
       self::FIELD_TEASER_LIMIT => 10,
       self::FIELD_TEASER_IMAGE_RESIZE => 'max',
       self::FIELD_TEASER_IMAGE_WIDTH => 0,
@@ -102,9 +103,33 @@ namespace Papaya\Modules\Core {
       $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
       $dialog->fields[] = $group = new DialogField\Group(
+        new TranslatedText('Teasers')
+      );
+      $group->fields[] = $field = new DialogField\Select(
+        new TranslatedText('Order'),
+        self::FIELD_TEASER_ORDER,
+        new TranslatedList(
+          [
+            PageTeaserFactory::ORDER_POSITION_ASCENDING => 'Position Ascending',
+            PageTeaserFactory::ORDER_POSITION_DESCENDING => 'Position Descending',
+            PageTeaserFactory::ORDER_CREATED_ASCENDING => 'Created Ascending',
+            PageTeaserFactory::ORDER_CREATED_DESCENDING => 'Created Descending',
+            PageTeaserFactory::ORDER_MODIFIED_ASCENDING => 'Modified/Published Ascending',
+            PageTeaserFactory::ORDER_MODIFIED_DESCENDING => 'Modified/Published Descending'
+          ]
+        ),
+        TRUE
+      );
+      $field->setDefaultValue(self::_DEFAULTS[self::FIELD_TEASER_ORDER]);
+      $group->fields[] = new DialogField\Input\Number(
+        new TranslatedText('Limit'),
+        self::FIELD_TEASER_LIMIT,
+        self::_DEFAULTS[self::FIELD_TEASER_LIMIT]
+      );
+      $dialog->fields[] = $group = new DialogField\Group(
         new TranslatedText('Teaser Images')
       );
-      $group->fields[] = $field = new RadioGroupField(
+      $group->fields[] = $field = new DialogField\Select\Radio(
         new TranslatedText('Resize Mode'),
         self::FIELD_TEASER_IMAGE_RESIZE,
         new TranslatedList(
@@ -117,6 +142,7 @@ namespace Papaya\Modules\Core {
         ),
         TRUE
       );
+      $field->setDefaultValue(self::_DEFAULTS[self::FIELD_TEASER_IMAGE_RESIZE]);
       $group->fields[] = new DialogField\Input\Number(
         new TranslatedText('Width'),
         self::FIELD_TEASER_IMAGE_WIDTH,

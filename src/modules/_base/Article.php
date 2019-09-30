@@ -2,6 +2,7 @@
 
 namespace Papaya\Modules\Core {
 
+  use Papaya\Administration\Plugin\Editor\Dialog;
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Cache\Identifier\Definition\BooleanValue;
   use Papaya\Plugin\Appendable as AppendablePlugin;
@@ -41,7 +42,7 @@ namespace Papaya\Modules\Core {
     /**
      * @param EditablePlugin\Content $content
      *
-     * @return PluginEditor
+     * @return PluginEditor|PluginDialog
      */
     public function createEditor(EditablePlugin\Content $content) {
       $editor = new PluginDialog($content);
