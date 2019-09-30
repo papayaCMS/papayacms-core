@@ -15,19 +15,17 @@
 
 namespace Papaya\Modules\Core {
 
+  use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Response;
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
-  use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Editable\Content as PluginContent;
-  use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
-  use Papaya\Template\Tag\Image as ImageTag;
 
-  class PageRedirect implements AppendablePlugin, EditablePlugin, QuotablePlugin {
+  class PageRedirect implements EditablePlugin, QuotablePlugin, RoutablePlugin {
 
     use EditablePlugin\Aggregation;
 
@@ -40,7 +38,7 @@ namespace Papaya\Modules\Core {
     /**
      * @param PluginContent $content
      *
-     * @return PluginEditor
+     * @return PluginDialog
      */
     public function createEditor(PluginContent $content) {
       $editor = new PluginDialog($content);
@@ -49,27 +47,28 @@ namespace Papaya\Modules\Core {
       $dialog->fields[] = new DialogField\Input(
         new TranslatedText('Page Id'), self::FIELD_PAGE_ID, 255, self::_DEFAULTS[self::FIELD_PAGE_ID]
       );
+      return $editor;
     }
 
     /**
      * Create dom node structure of the given object and append it to the given xml
      * element node.
      *
-     * @param XMLElement $parent
+     * @param \Papaya\Router $router
+     * @param NULL|object $context
+     * @param int $level
+     * @return Response\Failure|Response\Redirect
      */
-    public function appendTo(XMLElement $parent) {
+    public function __invoke(\Papaya\Router $router, $context = NULL, $level = 0) {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
       $reference = $this->papaya()->pageReferences->get(
         $this->papaya()->request->languageIdentifier,
         $content['target-page_id']
       );
-      if ($reference->valid()) {
-        $response = new Response\Redirect((string)$reference);
-        $response->send(TRUE);
-      } else {
-        $response = new Response\Failure('Invalid Redirect Target.');
-        $response->send(TRUE);
+      if ($content['target-page_id'] > 0 && $reference->valid()) {
+        return new Response\Redirect((string)$reference);
       }
+      return new Response\Failure('Invalid Redirect Target.');
     }
 
     /**

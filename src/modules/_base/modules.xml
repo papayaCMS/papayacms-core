@@ -27,6 +27,9 @@
     <module type="page" guid="a5181cb1aea14fd97f65ecd017adf262" name="Category" file="Category.php" class="Papaya\Modules\Core\Category">
       Category showing child page teasers.
     </module>
+    <module type="page" guid="f24326f60d7d0aad73f28d1bd6693902" name="Page Redirect" file="PageRedirect.php" class="Papaya\Modules\Core\PageRedirect" outputfilter="no">
+      Redirect to another page, passthrough teaser of target page
+    </module>
     <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">Shows child pages of given page id as navigation
     </module>
   </modules>
