@@ -14,13 +14,10 @@
  */
 namespace Papaya {
 
-  abstract class Router implements Application\Access {
-    use Application\Access\Aggregation;
+  use Papaya\Application\Access as ApplicationAccess;
 
-    /**
-     * @var string
-     */
-    private $_path;
+  class Router implements ApplicationAccess {
+    use ApplicationAccess\Aggregation;
 
     /**
      * @var callable|Router\Route
@@ -30,19 +27,14 @@ namespace Papaya {
     /**
      * UI constructor.
      *
-     * @param string $path
-     * @param \Papaya\Application $application
+     * @param Application $application
+     * @param callable|null $route
      */
-    public function __construct($path, Application $application) {
-      $this->_path = \str_replace(DIRECTORY_SEPARATOR, '/', $path);
+    public function __construct(
+      Application $application, callable $route = NULL
+    ) {
       $this->papaya($application);
-    }
-
-    /**
-     * @return string Local path to administration directory
-     */
-    public function getLocalPath() {
-      return $this->_path;
+      $this->_route = $route;
     }
 
     /**
@@ -54,13 +46,13 @@ namespace Papaya {
      *   NULL - not handled, continue route execution
      *   callable - new route, execute
      *
-     * @return null|\Papaya\Response
+     * @return null|Response
      */
     public function execute() {
-      $address = $this->address();
+      $context = $this->getRouteContext();
       $route = $this->route();
       do {
-        $route = $route($this, $address);
+        $route = $route($this, $context);
         if ($route instanceof Response) {
           return $route;
         }
@@ -68,16 +60,28 @@ namespace Papaya {
       return NULL;
     }
 
-    /**
-     * @param Router\Address|null $address
-     * @return Router\Address
-     */
-    abstract public function address(Router\Address $address = NULL);
+    public function getRouteContext() {
+      return NULL;
+    }
 
     /**
-     * @param callable|null|Router\Route $route
-     * @return mixed
+     * @param callable|NULL|Router\Route $route
+     * @return callable|Router\Route
      */
-    abstract public function route(callable $route = NULL);
+    public function route(callable $route = NULL) {
+      if (NULL !== $route) {
+        $this->_route = $route;
+      } elseif (NULL === $this->_route) {
+        $this->_route = $this->createRoute();
+      }
+      return $this->_route;
+    }
+
+    /**
+     * @return callable|Router\Route
+     */
+    protected function createRoute() {
+      throw new \LogicException('No route defined.');
+    }
   }
 }
