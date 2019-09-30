@@ -2,7 +2,6 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Administration\Plugin\Editor\Dialog;
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Cache\Identifier\Definition\BooleanValue;
   use Papaya\Plugin\Appendable as AppendablePlugin;
@@ -16,18 +15,12 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
-  class Article implements AppendablePlugin, EditablePlugin, ContextAwarePlugin, CacheablePlugin {
+  class Article extends Teaser implements AppendablePlugin, ContextAwarePlugin, CacheablePlugin {
 
     use ContextAwarePlugin\Aggregation;
-    use EditablePlugin\Aggregation;
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
 
-    const FIELD_TITLE = 'title';
-    const FIELD_SUBTITLE = 'subtitle';
-    const FIELD_OVERLINE = 'overline';
-    const FIELD_IMAGE = 'image';
-    const FIELD_TEASER = 'teaser';
     const FIELD_TEXT = 'text';
 
     const _DEFAULTS = [
@@ -45,35 +38,8 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor|PluginDialog
      */
     public function createEditor(EditablePlugin\Content $content) {
-      $editor = new PluginDialog($content);
-      $editor->papaya($this->papaya());
+      $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
-      $dialog->fields[] = new DialogField\Input(
-        new TranslatedText('Title'), self::FIELD_TITLE, 255, self::_DEFAULTS[self::FIELD_TITLE]
-      );
-      $dialog->fields[] = new DialogField\Input(
-        new TranslatedText('Subtitle'),
-        self::FIELD_SUBTITLE,
-        255,
-        self::_DEFAULTS[self::FIELD_SUBTITLE]
-      );
-      $dialog->fields[] = new DialogField\Input(
-        new TranslatedText('Overline'),
-        self::FIELD_OVERLINE,
-        255,
-        self::_DEFAULTS[self::FIELD_OVERLINE]
-      );
-      $dialog->fields[] = new DialogField\Input\Media\ImageResized(
-        new TranslatedText('Image'), self::FIELD_IMAGE
-      );
-      $dialog->fields[] = new DialogField\Textarea\Richtext(
-        new TranslatedText('Teaser'),
-        self::FIELD_TEASER,
-        8,
-        self::_DEFAULTS[self::FIELD_TEASER],
-        NULL,
-        DialogField\Textarea\Richtext::RTE_SIMPLE
-      );
       $dialog->fields[] = new DialogField\Textarea\Richtext(
         new TranslatedText('Text'),
         self::FIELD_TEXT,

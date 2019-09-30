@@ -2,7 +2,7 @@
 /**
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2019 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -12,7 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Plugin\Filter {
+namespace Papaya\Plugin\PageModule {
 
   /**
    * This a standard implementation for content/data filters usage in a plugin.
@@ -28,25 +28,27 @@ namespace Papaya\Plugin\Filter {
    */
   trait Aggregation {
 
-    use \Papaya\Plugin\PageModule\Aggregation;
-
     /**
-     * @var Content\Records
+     * @var \base_topic|\Papaya\UI\Content\Page
      */
-    private $_contentFilters;
+    private $_page;
 
     /**
-     * @param Content|null $filters
+     * @param $page
+     */
+    public function __construct($page) {
+      $this->_page = $page;
+    }
+
+    /**
+     * Page modules get the page object as their constructor argument.
+     * This implementation expects that it was stored in the private
+     * field $_page.
      *
-     * @return Content
+     * @return \base_topic|\Papaya\UI\Content\Page
      */
-    public function filters(Content $filters = NULL) {
-      if (NULL !== $filters) {
-        $this->_contentFilters = $filters;
-      } elseif (NULL === $this->_contentFilters) {
-        $this->_contentFilters = new Content\Records($this->getPage());
-      }
-      return $this->_contentFilters;
+    public function getPage() {
+      return $this->_page;
     }
   }
 }

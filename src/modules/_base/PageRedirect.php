@@ -15,25 +15,32 @@
 
 namespace Papaya\Modules\Core {
 
+  use Papaya\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Response;
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Plugin\Editable\Content as PluginContent;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
+  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
-  class PageRedirect implements EditablePlugin, QuotablePlugin, RoutablePlugin {
+  class PageRedirect implements PageModule, EditablePlugin, QuotablePlugin, RoutablePlugin {
 
     use EditablePlugin\Aggregation;
+    use PageModule\Aggregation;
 
     const FIELD_PAGE_ID = 'target-page_id';
 
     const _DEFAULTS = [
       self::FIELD_PAGE_ID => 0
     ];
+    /**
+     * @var PageTeaserFactory
+     */
+    private $_contentTeasers;
 
     /**
      * @param PluginContent $content
@@ -51,8 +58,7 @@ namespace Papaya\Modules\Core {
     }
 
     /**
-     * Create dom node structure of the given object and append it to the given xml
-     * element node.
+     * Redirect to target page if provided.
      *
      * @param \Papaya\Router $router
      * @param NULL|object $context
@@ -80,8 +86,29 @@ namespace Papaya\Modules\Core {
      */
     public function appendQuoteTo(XMLElement $parent) {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
-
+      if (
+        ($pageId = $content['target-page_id']) > 0 &&
+        ($teasers = $this->teaserFactory()->byPageId($pageId)) &&
+        isset($teasers[$pageId])
+      ) {
+        $teasers->appendTeaserTo($parent, $teasers->pages()[$pageId]);
+      }
       return $parent;
+    }
+
+    /**
+     * Get/set the \Papaya\UI\Content\Teasers\Factory Object
+     *
+     * @param PageTeaserFactory $teasers
+     * @return PageTeaserFactory
+     */
+    public function teaserFactory(PageTeaserFactory $teasers = NULL) {
+      if (NULL !== $teasers) {
+        $this->_contentTeasers = $teasers;
+      } elseif (NULL === $this->_contentTeasers) {
+        $this->_contentTeasers = new PageTeaserFactory(0, 0, 'max');
+      }
+      return $this->_contentTeasers;
     }
   }
 }

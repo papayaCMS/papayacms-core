@@ -148,7 +148,7 @@ class Teasers extends UI\Control {
   public function appendTo(XML\Element $parent) {
     $teasers = $parent->appendElement('teasers');
     foreach ($this->pages() as $record) {
-      $this->appendTeaser($teasers, $record);
+      $this->appendTeaserTo($teasers, $record);
     }
     $this->appendThumbnails($teasers);
   }
@@ -159,7 +159,7 @@ class Teasers extends UI\Control {
    * @param XML\Element $parent
    * @param array $pageData
    */
-  private function appendTeaser(XML\Element $parent, array $pageData) {
+  public function appendTeaserTo(XML\Element $parent, array $pageData) {
     if (!empty($pageData['module_guid'])) {
       $page = new Page(
         $pageData['id'], $pageData['language_id'], $this->pages()->isPublic()

@@ -70,10 +70,6 @@ namespace Papaya\Modules\Core {
      */
     private $_contentTeasers;
 
-    public function __construct($page) {
-      $this->_page = $page;
-    }
-
     /**
      * Append the page output xml to the DOM.
      *

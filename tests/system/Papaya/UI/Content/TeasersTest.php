@@ -79,7 +79,7 @@ namespace Papaya\UI\Content {
 
     /**
      * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaser
+     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
      * @covers \Papaya\UI\Content\Teasers::appendThumbnails
      */
     public function testAppendToWithPluginImplementingInterfaces() {
@@ -123,7 +123,7 @@ namespace Papaya\UI\Content {
 
     /**
      * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaser
+     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
      * @covers \Papaya\UI\Content\Teasers::appendThumbnails
      */
     public function testAppendToWithPluginHavingGetParsedTeaser() {
@@ -168,7 +168,7 @@ namespace Papaya\UI\Content {
 
     /**
      * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaser
+     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
      * @covers \Papaya\UI\Content\Teasers::appendThumbnails
      */
     public function testAppendToWithNonExistingPlugin() {
@@ -208,7 +208,7 @@ namespace Papaya\UI\Content {
 
     /**
      * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaser
+     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
      * @covers \Papaya\UI\Content\Teasers::appendThumbnails
      */
     public function testAppendToWithPluginAddingThumbnails() {
