@@ -23,6 +23,9 @@ namespace Papaya\Modules\Core {
 
     const FIELD_TEXT = 'text';
 
+    const FIELD_CATCH_LINE_TITLE = 'catch-line-title';
+    const FIELD_CATCH_LINE_TEXT = 'catch-line-text';
+
     const _DEFAULTS = [
       self::FIELD_TITLE => '',
       self::FIELD_SUBTITLE => '',
@@ -30,6 +33,8 @@ namespace Papaya\Modules\Core {
       self::FIELD_IMAGE => '',
       self::FIELD_TEASER => '',
       self::FIELD_TEXT => '',
+      self::FIELD_CATCH_LINE_TITLE => '',
+      self::FIELD_CATCH_LINE_TEXT => ''
     ];
 
     /**
@@ -45,6 +50,19 @@ namespace Papaya\Modules\Core {
         self::FIELD_TEXT,
         20,
         self::_DEFAULTS[self::FIELD_TEXT]
+      );
+      $dialog->fields[] = $group = new DialogField\Group(new TranslatedText('Catch-Line'));
+      $group->fields[] = new DialogField\Input(
+        new TranslatedText('Title'),
+        self::FIELD_CATCH_LINE_TITLE,
+        -1,
+        self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
+      );
+      $group->fields[] = new DialogField\Input(
+        new TranslatedText('Text'),
+        self::FIELD_CATCH_LINE_TITLE,
+        -1,
+        self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
       );
       return $editor;
     }
@@ -70,6 +88,9 @@ namespace Papaya\Modules\Core {
         $filters->applyTo($content[self::FIELD_TEXT])
       );
       $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
+      $catchLine = $parent->appendElement('catch-line');
+      $catchLine->appendElement('title', $content[self::FIELD_CATCH_LINE_TITLE]);
+      $catchLine->appendElement('text', $content[self::FIELD_CATCH_LINE_TEXT]);
       $parent->append($filters);
     }
 
