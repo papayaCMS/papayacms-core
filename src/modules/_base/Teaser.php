@@ -92,7 +92,7 @@ namespace Papaya\Modules\Core {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
       $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('title', $content[self::FIELD_TITLE]);
-      $parent->appendElement('subtitle', $content[self::FIELD_TITLE]);
+      $parent->appendElement('subtitle', $content[self::FIELD_SUBTITLE]);
       $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEASER]);
       return $parent;
