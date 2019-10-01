@@ -89,9 +89,9 @@ namespace Papaya\Modules\Core {
      */
     public function appendQuoteTo(XMLElement $parent) {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('title', $content[self::FIELD_TITLE]);
       $parent->appendElement('subtitle', $content[self::FIELD_TITLE]);
-      $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEASER]);
       return $parent;
     }

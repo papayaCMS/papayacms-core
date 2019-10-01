@@ -4,27 +4,34 @@ namespace Papaya\Modules\Core {
 
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Cache\Identifier\Definition\BooleanValue;
+  use Papaya\Plugin;
   use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Cacheable as CacheablePlugin;
   use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
+  use Papaya\Plugin\Configurable\Options as ConfigurableOptionsPlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Template\Tag\Image as ImageTag;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\Plugin\Filter as PluginFilter;
   use Papaya\UI\Text\Translated as TranslatedText;
+  use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;
 
-  class Article extends Teaser implements AppendablePlugin, ContextAwarePlugin, CacheablePlugin {
+  class Article
+    extends Teaser
+    implements AppendablePlugin, ContextAwarePlugin, CacheablePlugin, ConfigurableOptionsPlugin {
 
     use ContextAwarePlugin\Aggregation;
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
+    use EditablePlugin\Options\Aggregation;
 
     const FIELD_TEXT = 'text';
-
     const FIELD_CATCH_LINE_TITLE = 'catch-line-title';
     const FIELD_CATCH_LINE_TEXT = 'catch-line-text';
+
+    const OPTION_CATCH_LINE_ENABLED = 'OPTION_CATCH_LINE_ENABLED';
 
     const _DEFAULTS = [
       self::FIELD_TITLE => '',
@@ -51,19 +58,21 @@ namespace Papaya\Modules\Core {
         20,
         self::_DEFAULTS[self::FIELD_TEXT]
       );
-      $dialog->fields[] = $group = new DialogField\Group(new TranslatedText('Catch-Line'));
-      $group->fields[] = new DialogField\Input(
-        new TranslatedText('Title'),
-        self::FIELD_CATCH_LINE_TITLE,
-        -1,
-        self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
-      );
-      $group->fields[] = new DialogField\Input(
-        new TranslatedText('Text'),
-        self::FIELD_CATCH_LINE_TITLE,
-        -1,
-        self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
-      );
+      if ($this->options()->get(self::OPTION_CATCH_LINE_ENABLED, FALSE)) {
+        $dialog->fields[] = $group = new DialogField\Group(new TranslatedText('Catch-Line'));
+        $group->fields[] = new DialogField\Input(
+          new TranslatedText('Title'),
+          self::FIELD_CATCH_LINE_TITLE,
+          -1,
+          self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
+        );
+        $group->fields[] = new DialogField\Input(
+          new TranslatedText('Text'),
+          self::FIELD_CATCH_LINE_TITLE,
+          -1,
+          self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
+        );
+      }
       return $editor;
     }
 
@@ -80,38 +89,42 @@ namespace Papaya\Modules\Core {
         $content[self::FIELD_TEXT],
         $this->configuration()
       );
+      $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('title', $content[self::FIELD_TITLE]);
       $parent->appendElement('subtitle', $content[self::FIELD_SUBTITLE]);
-      $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('teaser')->appendXML($content[self::FIELD_TEASER]);
+      $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
+      if ($this->options()->get(self::OPTION_CATCH_LINE_ENABLED, FALSE)) {
+        $catchLine = $parent->appendElement('catch-line');
+        $catchLine->appendElement('title', $content[self::FIELD_CATCH_LINE_TITLE]);
+        $catchLine->appendElement('text', $content[self::FIELD_CATCH_LINE_TEXT]);
+      }
       $parent->appendElement('text')->appendXML(
         $filters->applyTo($content[self::FIELD_TEXT])
       );
-      $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
-      $catchLine = $parent->appendElement('catch-line');
-      $catchLine->appendElement('title', $content[self::FIELD_CATCH_LINE_TITLE]);
-      $catchLine->appendElement('text', $content[self::FIELD_CATCH_LINE_TEXT]);
       $parent->append($filters);
-    }
-
-    /**
-     * Append short content (aka "quote") to the parent xml element.
-     *
-     * @param XMLElement $parent
-     *
-     * @return XMLElement
-     */
-    public function appendQuoteTo(XMLElement $parent) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
-      $parent->appendElement('title', $content[self::FIELD_TITLE]);
-      $parent->appendElement('subtitle', $content[self::FIELD_TITLE]);
-      $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
-      $parent->appendElement('text')->appendXML($content[self::FIELD_TEASER]);
-      return $parent;
     }
 
     public function createCacheDefinition() {
       return new BooleanValue(TRUE);
+    }
+
+    /**
+     * @param EditablePlugin\Options $options
+     *
+     * @return PluginEditor
+     */
+    public function createOptionsEditor(Plugin\Editable\Options $options) {
+      $editor = new PluginDialog($options);
+      $dialog = $editor->dialog();
+      $dialog->fields[] = $field = new DialogField\Select\Radio(
+        new TranslatedText('Enable Catch-Line'),
+        self::OPTION_CATCH_LINE_ENABLED,
+          new TranslatedList([TRUE => 'Yes', FALSE => 'No']
+        )
+      );
+      $field->setDefaultValue(FALSE);
+      return $editor;
     }
   }
 }

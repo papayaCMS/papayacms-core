@@ -56,11 +56,11 @@ trait Aggregation {
   }
 
   /**
-   * @param Plugin\Editable\Options $content
+   * @param Plugin\Editable\Options $options
    *
    * @return \Papaya\Plugin\Editor
    */
-  abstract public function createOptionsEditor(Plugin\Editable\Options $content);
+  abstract public function createOptionsEditor(Plugin\Editable\Options $options);
 
   /**
    * The plugin guid will be set as a public property by the plugin manager.
