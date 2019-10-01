@@ -19,6 +19,7 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\PageModule;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
+  use Papaya\Template\Tag\Image as ImageTag;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\UI\Text\Translated as TranslatedText;
@@ -92,6 +93,7 @@ namespace Papaya\Modules\Core {
       $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('title', $content[self::FIELD_TITLE]);
       $parent->appendElement('subtitle', $content[self::FIELD_TITLE]);
+      $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEASER]);
       return $parent;
     }
