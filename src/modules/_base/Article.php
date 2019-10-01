@@ -68,9 +68,9 @@ namespace Papaya\Modules\Core {
         );
         $group->fields[] = new DialogField\Input(
           new TranslatedText('Text'),
-          self::FIELD_CATCH_LINE_TITLE,
+          self::FIELD_CATCH_LINE_TEXT,
           -1,
-          self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
+          self::_DEFAULTS[self::FIELD_CATCH_LINE_TEXT]
         );
       }
       return $editor;
