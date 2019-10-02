@@ -16,6 +16,7 @@
 namespace Papaya\Content\Page {
 
   use Papaya\Content\Tables as ContentTables;
+  use Papaya\Database\Interfaces\Order as DatabaseRecordOrder;
   use Papaya\Database\Records\Tree as RecordsTree;
 
   class Tree extends RecordsTree {
@@ -32,6 +33,11 @@ namespace Papaya\Content\Page {
       'change_frequency' => 'pages.topic_changefreq',
       'priority' => 'pages.topic_priority',
       'link_type_id' => 'pages.linktype_id'
+    ];
+
+    protected $_orderByProperties = [
+      'position' => DatabaseRecordOrder::ASCENDING,
+      'created' => DatabaseRecordOrder::ASCENDING
     ];
 
     private $_isPreview;
