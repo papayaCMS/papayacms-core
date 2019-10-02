@@ -1,20 +1,16 @@
 <?php
 /**
- * A simple CMS box for loading a page teaser
+ * papaya CMS
  *
- * @copyright  2013 by papaya Software GmbH - All rights reserved.
- * @link       http://www.papaya-cms.com/
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @copyright 2000-2019 by papayaCMS project - All rights reserved.
+ * @link http://www.papaya-cms.com/
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
- * You can redistribute and/or modify this script under the terms of the GNU General Public
- * License (GPL) version 2, provided that the copyright and license notes, including these
- * lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.
- *
- * @package    Papaya-Library
- * @subpackage Modules-Standard
- * @version    $Id: Box.php 39795 2014-05-06 15:35:52Z weinert $
+ *  You can redistribute and/or modify this script under the terms of the GNU General Public
+ *  License (GPL) version 2, provided that the copyright and license notes, including these
+ *  lines, remain unmodified. papaya is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ *  FOR A PARTICULAR PURPOSE.
  */
 
 namespace Papaya\Modules\Core {
@@ -25,7 +21,6 @@ namespace Papaya\Modules\Core {
   * @package Papaya-Library
   * @subpackage Modules-Standard
   */
-
   use Papaya\Plugin\Cacheable as CacheablePlugin;
   use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
@@ -37,15 +32,19 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;
 
-  class Category extends Article {
+  class CategoryGroup extends Article {
 
     use ContextAwarePlugin\Aggregation;
     use EditablePlugin\Content\Aggregation;
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
 
+    const FIELD_CATEGORY_ORDER = 'category-order';
+    const FIELD_CATEGORY_LIMIT = 'category-limit';
+
     const FIELD_TEASER_ORDER = 'teaser-order';
     const FIELD_TEASER_LIMIT = 'teaser-limit';
+
     const FIELD_TEASER_IMAGE_RESIZE = 'teaser-image-resize-mode';
     const FIELD_TEASER_IMAGE_WIDTH = 'teaser-image-width';
     const FIELD_TEASER_IMAGE_HEIGHT = 'teaser-image-height';
@@ -57,6 +56,8 @@ namespace Papaya\Modules\Core {
       self::FIELD_IMAGE => '',
       self::FIELD_TEASER => '',
       self::FIELD_TEXT => '',
+      self::FIELD_CATEGORY_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
+      self::FIELD_CATEGORY_LIMIT => 10,
       self::FIELD_TEASER_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
       self::FIELD_TEASER_LIMIT => 10,
       self::FIELD_TEASER_IMAGE_RESIZE => 'max',
@@ -80,12 +81,23 @@ namespace Papaya\Modules\Core {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
       $pageId = $this->_page->getPageId();
       if ($pageId !== '') {
-        $teasers = $this->teaserFactory()->byParent(
+        $groups = $this->teaserFactory()->byParent(
           $pageId,
-          $content[self::FIELD_TEASER_ORDER],
-          $content[self::FIELD_TEASER_LIMIT]
+          $content[self::FIELD_CATEGORY_ORDER],
+          $content[self::FIELD_CATEGORY_LIMIT]
         );
-        $parent->append($teasers);
+        foreach ($groups->pages() as $page) {
+          $teasers = $this->teaserFactory()->byParent(
+            $page['id'],
+            $content[self::FIELD_TEASER_ORDER],
+            $content[self::FIELD_TEASER_LIMIT]
+          );
+          $group = $parent->appendElement(
+            'category'
+          );
+          $groups->appendTeaserTo($group, $page);
+          $group->append($teasers);
+        }
       }
     }
 
@@ -99,24 +111,40 @@ namespace Papaya\Modules\Core {
      * @see PapayaPluginEditableContent::editor()
      */
     public function createEditor(EditablePlugin\Content $content) {
+      $pageOrderOptions = new TranslatedList(
+        [
+          PageTeaserFactory::ORDER_POSITION_ASCENDING => 'Position Ascending',
+          PageTeaserFactory::ORDER_POSITION_DESCENDING => 'Position Descending',
+          PageTeaserFactory::ORDER_CREATED_ASCENDING => 'Created Ascending',
+          PageTeaserFactory::ORDER_CREATED_DESCENDING => 'Created Descending',
+          PageTeaserFactory::ORDER_MODIFIED_ASCENDING => 'Modified/Published Ascending',
+          PageTeaserFactory::ORDER_MODIFIED_DESCENDING => 'Modified/Published Descending'
+        ]
+      );
       $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
+      $dialog->fields[] = $group = new DialogField\Group(
+        new TranslatedText('Categories')
+      );
+      $group->fields[] = $field = new DialogField\Select(
+        new TranslatedText('Order'),
+        self::FIELD_CATEGORY_ORDER,
+        $pageOrderOptions,
+        TRUE
+      );
+      $field->setDefaultValue(self::_DEFAULTS[self::FIELD_CATEGORY_ORDER]);
+      $group->fields[] = new DialogField\Input\Number(
+        new TranslatedText('Limit'),
+        self::FIELD_CATEGORY_LIMIT,
+        self::_DEFAULTS[self::FIELD_CATEGORY_LIMIT]
+      );
       $dialog->fields[] = $group = new DialogField\Group(
         new TranslatedText('Teasers')
       );
       $group->fields[] = $field = new DialogField\Select(
         new TranslatedText('Order'),
         self::FIELD_TEASER_ORDER,
-        new TranslatedList(
-          [
-            PageTeaserFactory::ORDER_POSITION_ASCENDING => 'Position Ascending',
-            PageTeaserFactory::ORDER_POSITION_DESCENDING => 'Position Descending',
-            PageTeaserFactory::ORDER_CREATED_ASCENDING => 'Created Ascending',
-            PageTeaserFactory::ORDER_CREATED_DESCENDING => 'Created Descending',
-            PageTeaserFactory::ORDER_MODIFIED_ASCENDING => 'Modified/Published Ascending',
-            PageTeaserFactory::ORDER_MODIFIED_DESCENDING => 'Modified/Published Descending'
-          ]
-        ),
+        $pageOrderOptions,
         TRUE
       );
       $field->setDefaultValue(self::_DEFAULTS[self::FIELD_TEASER_ORDER]);
