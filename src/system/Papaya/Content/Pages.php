@@ -52,7 +52,7 @@ class Pages extends Database\Records\Lazy {
   ];
 
   protected $_orderByProperties = [
-    'title' => Database\Interfaces\Order::ASCENDING,
+    'position' => Database\Interfaces\Order::ASCENDING,
     'created' => Database\Interfaces\Order::ASCENDING
   ];
 
