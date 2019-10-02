@@ -33,7 +33,10 @@
     <module type="page" guid="2474f2780ded96e785c6e231b7fbd091" name="Teaser Redirect" file="TeaserRedirect.php" class="Papaya\Modules\Core\TeaserRedirect" outputfilter="no">
       Redirect to another URL, provide teaser
     </module>
-    <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">Shows child pages of given page id as navigation
+    <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">
+      Shows child pages of given page id as navigation
+    </module>
+    <module type="box" guid="07f5292f1053124da9a067a61ef0e85f" name="RichText" file="RichtextBox.php" class="Papaya\Modules\Core\RichtextBox">
     </module>
   </modules>
   <tables>
