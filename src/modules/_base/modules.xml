@@ -41,6 +41,8 @@
     </module>
     <module type="box" guid="07f5292f1053124da9a067a61ef0e85f" name="RichText" file="RichtextBox.php" class="Papaya\Modules\Core\RichtextBox">
     </module>
+    <module type="box" guid="9836d06e9b83172dfd5cad0e063e99b0" name="Teasers" file="TeasersBox.php" class="Papaya\Modules\Core\TeasersBox">
+    </module>
   </modules>
   <tables>
     <table name="auth_groups"/>
