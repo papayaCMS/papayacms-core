@@ -32,23 +32,15 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\Plugin\Filter as PluginFilter;
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
-  use Papaya\UI\Dialog\Field as DialogField;
-  use Papaya\UI\Text\Translated as TranslatedText;
-  use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;
 
-  class Category extends Article {
+  class Category extends Article implements Partials\Teasers {
 
     use ContextAwarePlugin\Aggregation;
     use EditablePlugin\Content\Aggregation;
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
-
-    const FIELD_TEASER_ORDER = 'teaser-order';
-    const FIELD_TEASER_LIMIT = 'teaser-limit';
-    const FIELD_TEASER_IMAGE_RESIZE = 'teaser-image-resize-mode';
-    const FIELD_TEASER_IMAGE_WIDTH = 'teaser-image-width';
-    const FIELD_TEASER_IMAGE_HEIGHT = 'teaser-image-height';
+    use Partials\TeasersAggregation;
 
     const _DEFAULTS = [
       self::FIELD_TITLE => '',
@@ -56,12 +48,7 @@ namespace Papaya\Modules\Core {
       self::FIELD_OVERLINE => '',
       self::FIELD_IMAGE => '',
       self::FIELD_TEASER => '',
-      self::FIELD_TEXT => '',
-      self::FIELD_TEASER_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
-      self::FIELD_TEASER_LIMIT => 10,
-      self::FIELD_TEASER_IMAGE_RESIZE => 'max',
-      self::FIELD_TEASER_IMAGE_WIDTH => 0,
-      self::FIELD_TEASER_IMAGE_HEIGHT => 0
+      self::FIELD_TEXT => ''
     ];
 
     /**
@@ -77,7 +64,7 @@ namespace Papaya\Modules\Core {
      */
     public function appendTo(XMLElement $parent) {
       parent::appendTo($parent);
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $content = $this->content()->withDefaults(self::_TEASER_DEFAULTS);
       $pageId = $this->_page->getPageId();
       if ($pageId !== '') {
         $teasers = $this->teaserFactory()->byParent(
@@ -100,76 +87,8 @@ namespace Papaya\Modules\Core {
      */
     public function createEditor(EditablePlugin\Content $content) {
       $editor = parent::createEditor($content);
-      $dialog = $editor->dialog();
-      $dialog->fields[] = $group = new DialogField\Group(
-        new TranslatedText('Teasers')
-      );
-      $group->fields[] = $field = new DialogField\Select(
-        new TranslatedText('Order'),
-        self::FIELD_TEASER_ORDER,
-        new TranslatedList(
-          [
-            PageTeaserFactory::ORDER_POSITION_ASCENDING => 'Position Ascending',
-            PageTeaserFactory::ORDER_POSITION_DESCENDING => 'Position Descending',
-            PageTeaserFactory::ORDER_CREATED_ASCENDING => 'Created Ascending',
-            PageTeaserFactory::ORDER_CREATED_DESCENDING => 'Created Descending',
-            PageTeaserFactory::ORDER_MODIFIED_ASCENDING => 'Modified/Published Ascending',
-            PageTeaserFactory::ORDER_MODIFIED_DESCENDING => 'Modified/Published Descending'
-          ]
-        ),
-        TRUE
-      );
-      $field->setDefaultValue(self::_DEFAULTS[self::FIELD_TEASER_ORDER]);
-      $group->fields[] = new DialogField\Input\Number(
-        new TranslatedText('Limit'),
-        self::FIELD_TEASER_LIMIT,
-        self::_DEFAULTS[self::FIELD_TEASER_LIMIT]
-      );
-      $dialog->fields[] = $group = new DialogField\Group(
-        new TranslatedText('Teaser Images')
-      );
-      $group->fields[] = $field = new DialogField\Select\Radio(
-        new TranslatedText('Resize Mode'),
-        self::FIELD_TEASER_IMAGE_RESIZE,
-        new TranslatedList(
-          [
-            'max' => 'Maximum',
-            'min' => 'Minimum',
-            'mincrop' => 'Minimum crop',
-            'abs' => 'Absolute',
-          ]
-        ),
-        TRUE
-      );
-      $field->setDefaultValue(self::_DEFAULTS[self::FIELD_TEASER_IMAGE_RESIZE]);
-      $group->fields[] = new DialogField\Input\Number(
-        new TranslatedText('Width'),
-        self::FIELD_TEASER_IMAGE_WIDTH,
-        self::_DEFAULTS[self::FIELD_TEASER_IMAGE_WIDTH]
-      );
-      $group->fields[] = new DialogField\Input\Number(
-        new TranslatedText('Height'),
-        self::FIELD_TEASER_IMAGE_HEIGHT,
-        self::_DEFAULTS[self::FIELD_TEASER_IMAGE_HEIGHT]
-      );
+      $this->appendTeaserFieldsToDialog($editor->dialog(), $content);
       return $editor;
-    }
-
-    /**
-     * Get/set the \Papaya\UI\Content\Teasers\Factory Object
-     *
-     * @param PageTeaserFactory $teasers
-     * @return PageTeaserFactory
-     */
-    public function teaserFactory(PageTeaserFactory $teasers = NULL) {
-      if (NULL !== $teasers) {
-        $this->_contentTeasers = $teasers;
-      } elseif (NULL === $this->_contentTeasers) {
-        $imageHeight = $this->content()->get('teaser_image_height', 0);
-        $imageWidth = $this->content()->get('teaser_image_width', 0);
-        $this->_contentTeasers = new PageTeaserFactory($imageWidth, $imageHeight, 'max');
-      }
-      return $this->_contentTeasers;
     }
   }
 }

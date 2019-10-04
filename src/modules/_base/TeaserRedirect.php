@@ -24,7 +24,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\Response;
 
-  class TeaserRedirect extends Teaser implements RoutablePlugin {
+  class TeaserRedirect extends Partials\Teaser implements RoutablePlugin {
 
     use PageModule\Aggregation;
 

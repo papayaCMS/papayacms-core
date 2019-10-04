@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Modules\Core {
+namespace Papaya\Modules\Core\Partials {
 
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Plugin\Editable as EditablePlugin;

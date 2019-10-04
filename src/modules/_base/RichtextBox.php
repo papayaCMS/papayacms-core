@@ -17,7 +17,7 @@ namespace Papaya\Modules\Core {
 
   use Papaya\Administration\Plugin\Editor\Dialog as EditorDialog;
   use Papaya\Application\Access as ApplicationAccess;
-  use Papaya\Plugin\Quoteable as QuotablePlugin;
+  use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editable\Content as EditableContent;
   use Papaya\Plugin\Editor as PluginEditor;
@@ -26,7 +26,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
-  class RichtextBox implements ApplicationAccess, QuotablePlugin, EditablePlugin {
+  class RichtextBox implements ApplicationAccess, AppendablePlugin, EditablePlugin {
 
     use EditableContent\Aggregation;
 
@@ -60,7 +60,7 @@ namespace Papaya\Modules\Core {
     /**
      * @param XMLElement $parent
      */
-    public function appendQuoteTo(XMLElement $parent) {
+    public function appendTo(XMLElement $parent) {
       $content = $this->content()->withDefaults(self::_DEFAULTS);
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEXT]);
     }

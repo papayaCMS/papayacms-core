@@ -19,7 +19,7 @@ namespace Papaya\Modules\Core {
   use Papaya\XML\Element as XMLElement;
 
   class Article
-    extends Teaser
+    extends Partials\Teaser
     implements AppendablePlugin, ContextAwarePlugin, CacheablePlugin, ConfigurableOptionsPlugin {
 
     use ContextAwarePlugin\Aggregation;

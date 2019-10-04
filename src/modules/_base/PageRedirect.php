@@ -32,7 +32,7 @@ namespace Papaya\Modules\Core {
     use EditablePlugin\Aggregation;
     use PageModule\Aggregation;
 
-    const FIELD_PAGE_ID = 'target-page_id';
+    const FIELD_PAGE_ID = 'target-page-id';
 
     const _DEFAULTS = [
       self::FIELD_PAGE_ID => 0

@@ -64,6 +64,15 @@ class Factory implements Application\Access {
 
   const ORDER_MODIFIED_DESCENDING = 'modified_desc';
 
+  const ORDER_POSSIBILITIES = [
+    self::ORDER_POSITION_ASCENDING => 'Position Ascending',
+    self::ORDER_POSITION_DESCENDING => 'Position Descending',
+    self::ORDER_CREATED_ASCENDING => 'Created Ascending',
+    self::ORDER_CREATED_DESCENDING => 'Created Descending',
+    self::ORDER_MODIFIED_ASCENDING => 'Modified/Published Ascending',
+    self::ORDER_MODIFIED_DESCENDING => 'Modified/Published Descending'
+  ];
+
   private $_orderByDefinitions = [
     self::ORDER_TITLE_ASCENDING => [
       'title' => Database\Interfaces\Order::ASCENDING,
