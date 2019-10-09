@@ -3,7 +3,7 @@
 namespace Papaya\Modules\Core {
 
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
-  use Papaya\Cache\Identifier\Definition\BooleanValue;
+  use Papaya\Cache\Identifier\Definition\Page as PageCacheDefinition;
   use Papaya\Plugin;
   use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Cacheable as CacheablePlugin;
@@ -106,7 +106,7 @@ namespace Papaya\Modules\Core {
     }
 
     public function createCacheDefinition() {
-      return new BooleanValue(TRUE);
+      return new PageCacheDefinition();
     }
 
     /**
