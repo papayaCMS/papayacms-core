@@ -39,7 +39,7 @@
     <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">
       Shows child pages of given page id as navigation
     </module>
-    <module type="box" guid="07f5292f1053124da9a067a61ef0e85f" name="RichText" file="RichtextBox.php" class="Papaya\Modules\Core\RichtextBox">
+    <module type="box" guid="07f5292f1053124da9a067a61ef0e85f" name="RichText" file="RichTextBox.php" class="Papaya\Modules\Core\RichTextBox">
     </module>
     <module type="box" guid="9836d06e9b83172dfd5cad0e063e99b0" name="Teasers" file="TeasersBox.php" class="Papaya\Modules\Core\TeasersBox">
     </module>

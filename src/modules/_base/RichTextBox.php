@@ -26,7 +26,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
-  class RichtextBox implements ApplicationAccess, AppendablePlugin, EditablePlugin {
+  class RichTextBox implements ApplicationAccess, AppendablePlugin, EditablePlugin {
 
     use EditableContent\Aggregation;
 
