@@ -1741,7 +1741,7 @@ class papaya_boxes extends base_boxes {
         'boxgroup_title' => array('Title', 'isNoHTML', TRUE, 'input', 100, ''),
         'boxgroup_name' => array('Name', 'isAlphaChar', TRUE, 'input', 100, '')
       );
-      if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', FALSE)) {
+      if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', TRUE)) {
         $fields['boxgroup_linkable'] = array('Linkable', 'isNum', TRUE, 'yesno', NULL, '', 0);
       }
       $this->dialogGroup = new base_dialog($this, $this->paramName, $fields, $data, $hidden);

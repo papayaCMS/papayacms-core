@@ -299,7 +299,7 @@ class CMS extends GlobalValues {
     'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY' => NULL,
 
     // feature toggles
-    'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => FALSE
+    'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => TRUE
   ];
 
   /**

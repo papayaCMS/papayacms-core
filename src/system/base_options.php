@@ -435,7 +435,7 @@ class base_options extends base_db {
       18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
     ),
     'PAPAYA_FEATURE_BOXGROUPS_LINKABLE' => array(
-      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 0
+      18, 'isNum', 'combo', array(TRUE => 'on', FALSE => 'off'), 1
     ),
 
     // experimental features
