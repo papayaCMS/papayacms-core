@@ -17,55 +17,40 @@ namespace Papaya\UI\Content {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
+    /**
+     * @covers \Papaya\UI\Content\Teasers
+     */
   class TeasersTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::__construct
-     */
     public function testConstructor() {
       $pages = $this->getPagesFixture();
       $teasers = new Teasers($pages);
       $this->assertSame($pages, $teasers->pages());
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::__construct
-     */
     public function testConstructorWithAllParameters() {
       $pages = $this->getPagesFixture();
       $teasers = new Teasers($pages, 200, 100, 'mincrop');
       $this->assertSame($pages, $teasers->pages());
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::reference
-     */
     public function testReferenceGetAfterSet() {
       $teasers = new Teasers($this->getPagesFixture());
       $teasers->reference($reference = $this->createMock(\Papaya\UI\Reference\Page::class));
       $this->assertSame($reference, $teasers->reference());
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::reference
-     */
     public function testReferenceGetImplicitCreate() {
       $teasers = new Teasers($this->getPagesFixture());
       $this->assertInstanceOf(\Papaya\UI\Reference\Page::class, $teasers->reference());
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::pages
-     */
     public function testPagesGetAfterSet() {
       $teasers = new Teasers($this->getPagesFixture());
       $teasers->pages($pages = $this->getPagesFixture());
       $this->assertSame($pages, $teasers->pages());
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::appendTo
-     */
     public function testAppendToWithEmptyList() {
       $teasers = new Teasers($this->getPagesFixture());
       $teasers->papaya($this->mockPapaya()->application());
@@ -77,11 +62,6 @@ namespace Papaya\UI\Content {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
-     * @covers \Papaya\UI\Content\Teasers::appendThumbnails
-     */
     public function testAppendToWithPluginImplementingInterfaces() {
       $pages = $this->getPagesFixture(
         array(
@@ -121,11 +101,6 @@ namespace Papaya\UI\Content {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
-     * @covers \Papaya\UI\Content\Teasers::appendThumbnails
-     */
     public function testAppendToWithPluginHavingGetParsedTeaser() {
       $pages = $this->getPagesFixture(
         array(
@@ -166,11 +141,6 @@ namespace Papaya\UI\Content {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
-     * @covers \Papaya\UI\Content\Teasers::appendThumbnails
-     */
     public function testAppendToWithNonExistingPlugin() {
       $pages = $this->getPagesFixture(
         array(
@@ -206,11 +176,6 @@ namespace Papaya\UI\Content {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Content\Teasers::appendTo
-     * @covers \Papaya\UI\Content\Teasers::appendTeaserTo
-     * @covers \Papaya\UI\Content\Teasers::appendThumbnails
-     */
     public function testAppendToWithPluginAddingThumbnails() {
       $pages = $this->getPagesFixture(
         array(
@@ -265,6 +230,58 @@ namespace Papaya\UI\Content {
               height='100'/>
           </thumbnail>
         </teaser-thumbnails>
+      </teasers>",
+        $teasers->getXML()
+      );
+    }
+
+
+    public function testAppendToWithPluginReplacingThumbnails() {
+      $pages = $this->getPagesFixture(
+        array(
+          array(
+            'id' => 42,
+            'language_id' => 1,
+            'title' => 'callback and thumbnails',
+            'module_guid' => '12345678901234567890123456789042',
+            'content' => 'data',
+            'created' => strtotime('2017-01-16T12:21Z'),
+            'modified' => strtotime('2017-01-16T12:21Z'),
+            'view_id' => 1,
+            'viewmode_id' => 1
+          )
+        )
+      );
+
+      $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
+      $plugins
+        ->expects($this->once())
+        ->method('get')
+        ->with('12345678901234567890123456789042')
+        ->will($this->returnValue(new Teasers_PagePluginMockClass()));
+
+      $teasers = new Teasers($pages, 200, 100, 'mincrop', TRUE);
+      $teasers->viewConfigurations($this->createMock(\Papaya\Content\View\Configurations::class));
+      $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
+
+      $date = \Papaya\Utility\Date::timestampToString(strtotime('2017-01-16T12:21Z'));
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        "<teasers>
+        <teaser
+          created='$date'
+          published='$date'
+          page-id='42'
+          plugin-guid='12345678901234567890123456789042'
+          plugin='Papaya\UI\Content\Teasers_PagePluginMockClass'>
+          <title>sample title</title>
+          <image>
+            <papaya:media 
+              xmlns:papaya='http://www.papaya-cms.com/ns/papayacms' 
+              height='100' width='200' resize='mincrop' src='sample.png'/>
+          </image>
+          <text>sample teaser</text>
+        </teaser>
       </teasers>",
         $teasers->getXML()
       );

@@ -91,7 +91,8 @@ namespace Papaya\Modules\Core\Partials {
         $this->_teaserFactory = new PageTeaserFactory(
           $content[Teasers::FIELD_TEASER_IMAGE_WIDTH],
           $content[Teasers::FIELD_TEASER_IMAGE_HEIGHT],
-          $content[Teasers::FIELD_TEASER_IMAGE_RESIZE]
+          $content[Teasers::FIELD_TEASER_IMAGE_RESIZE],
+          TRUE
         );
       }
       return $this->_teaserFactory;

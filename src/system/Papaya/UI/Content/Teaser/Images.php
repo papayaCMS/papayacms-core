@@ -18,8 +18,8 @@ use Papaya\UI;
 use Papaya\XML;
 
 /**
- * Extract teaser image information from the given subtopic elements and creates a list
- * of scaled teaser image tags.
+ * Extract teaser image information from the given subtopic elements, creates a list
+ * of scaled teaser image tags or replaces the teaser images.
  *
  * @package Papaya-Library
  * @subpackage UI-Content
@@ -47,13 +47,6 @@ class Images extends UI\Control {
   private $_resizeMode = 'max';
 
   /**
-   * teasers parent element node
-   *
-   * @var XML\Element
-   */
-  private $_teasers;
-
-  /**
    * Xpath expressions used to find and iterate the teaser images
    *
    * @var array
@@ -72,11 +65,42 @@ class Images extends UI\Control {
    * @param int $height
    * @param string $resizeMode
    */
-  public function __construct(XML\Element $teasers, $width, $height, $resizeMode = 'max') {
-    $this->_teasers = $teasers;
+  public function __construct($width, $height, $resizeMode = 'max') {
     $this->_width = $width;
     $this->_height = $height;
     $this->_resizeMode = $resizeMode;
+  }
+
+  public function replaceIn(XML\Element $parent) {
+    /** @var \Papaya\XML\Document $document */
+    $document = $parent->ownerDocument;
+    $document->registerNamespaces(
+      [
+        'papaya' => XML\Document::XMLNS_PAPAYA
+      ]
+    );
+    $images = $document->xpath()->evaluate($this->_pattern['teaser_images'], $parent);
+    if ($images->length < 1) {
+      $images = $document->xpath()->evaluate($this->_pattern['subtopic_images'], $parent);
+    }
+    /** @var \DOMElement $imageNode */
+    foreach ($images as $imageNode) {
+      $imageNode
+        ->parentNode
+        ->insertBefore(
+          $thumbNode = $document->createElement('papaya:media'),
+          $imageNode
+        );
+      $imageNode->parentNode->removeChild($imageNode);
+      $thumbNode->setAttribute('src', $imageNode->getAttribute('src'));
+      $thumbNode->setAttribute('resize', $this->_resizeMode);
+      if ($this->_width > 0) {
+        $thumbNode->setAttribute('width', (int)$this->_width);
+      }
+      if ($this->_height > 0) {
+        $thumbNode->setAttribute('height', (int)$this->_height);
+      }
+    }
   }
 
   /**
@@ -87,23 +111,21 @@ class Images extends UI\Control {
    * @return XML\Element|null
    */
   public function appendTo(XML\Element $parent) {
-    /** @var \Papaya\XML\Document $targetDocument */
-    $targetDocument = $parent->ownerDocument;
-    $targetDocument->registerNamespaces(
+    /** @var \Papaya\XML\Document $document */
+    $document = $parent->ownerDocument;
+    $document->registerNamespaces(
       [
         'papaya' => XML\Document::XMLNS_PAPAYA
       ]
     );
-    /** @var \Papaya\XML\Document $dom */
-    $dom = $this->_teasers->ownerDocument;
-    $images = $dom->xpath()->evaluate($this->_pattern['teaser_images'], $this->_teasers);
+    $images = $document->xpath()->evaluate($this->_pattern['teaser_images'], $parent);
     $names = [
       'list' => 'teaser-thumbnails',
       'item' => 'thumbnail',
       'attribute' => 'page-id'
     ];
     if ($images->length < 1) {
-      $images = $dom->xpath()->evaluate($this->_pattern['subtopic_images'], $this->_teasers);
+      $images = $document->xpath()->evaluate($this->_pattern['subtopic_images'], $parent);
       $names = [
         'list' => 'subtopicthumbs',
         'item' => 'thumb',
@@ -118,7 +140,7 @@ class Images extends UI\Control {
           ->appendElement(
             $names['item'],
             [
-              $names['attribute'] => $dom->xpath()->evaluate(
+              $names['attribute'] => $document->xpath()->evaluate(
                 $this->_pattern['page_id'], $imageNode
               )
             ]

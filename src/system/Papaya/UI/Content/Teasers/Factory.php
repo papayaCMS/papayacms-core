@@ -111,6 +111,10 @@ class Factory implements Application\Access {
       'title' => Database\Interfaces\Order::ASCENDING
     ]
   ];
+  /**
+   * @var bool
+   */
+  private $_replaceTeaserImages;
 
   /**
    * Factory constructor.
@@ -119,10 +123,11 @@ class Factory implements Application\Access {
    * @param int $height
    * @param string $resizeMode
    */
-  public function __construct($width = 0, $height = 0, $resizeMode = 'mincrop') {
+  public function __construct($width = 0, $height = 0, $resizeMode = 'mincrop', $replaceTeaserImages = FALSE) {
     $this->_width = $width;
     $this->_height = $height;
     $this->_resizeMode = $resizeMode;
+    $this->_replaceTeaserImages = $replaceTeaserImages;
   }
 
   /**
@@ -146,7 +151,9 @@ class Factory implements Application\Access {
       $filter['viewmode_id'] = $this->papaya()->request->modeId;
     }
     $pages->activateLazyLoad($filter, $limit, $offset);
-    return new \Papaya\UI\Content\Teasers($pages, $this->_width, $this->_height, $this->_resizeMode);
+    return new \Papaya\UI\Content\Teasers(
+      $pages, $this->_width, $this->_height, $this->_resizeMode, $this->_replaceTeaserImages
+    );
   }
 
   /**

@@ -61,6 +61,14 @@ class Teasers extends UI\Control {
    * @var \Papaya\Content\Views
    */
   private $_viewConfigurations;
+  /**
+   * @var bool
+   */
+  private $_replaceImageTags;
+  /**
+   * @var Teaser\Images
+   */
+  private $_teaserImages;
 
   /**
    * Create list, store pages and optional thumbnail configuration
@@ -69,14 +77,16 @@ class Teasers extends UI\Control {
    * @param int $width
    * @param int $height
    * @param string $resizeMode
+   * @param bool $replaceImageTags Replace the existing image tags inside the teaser (or append new ones, next to the teasers)
    */
   public function __construct(
-    Content\Pages $pages, $width = 0, $height = 0, $resizeMode = 'mincrop'
+    Content\Pages $pages, $width = 0, $height = 0, $resizeMode = 'mincrop', $replaceImageTags = FALSE
   ) {
     $this->pages($pages);
     $this->_width = $width;
     $this->_height = $height;
     $this->_resizeMode = $resizeMode;
+    $this->_replaceImageTags = $replaceImageTags;
   }
 
   /**
@@ -150,7 +160,9 @@ class Teasers extends UI\Control {
     foreach ($this->pages() as $record) {
       $this->appendTeaserTo($teasers, $record);
     }
-    $this->appendThumbnails($teasers);
+    if (!$this->_replaceImageTags && ($this->_width > 0 || $this->_height > 0)) {
+      $teasers->append($this->teaserImages());
+    }
   }
 
   /**
@@ -174,21 +186,21 @@ class Teasers extends UI\Control {
         $viewData = ['id' => -1, 'mode_id' => -1, 'type' => Content\View\Configurations::TYPE_OUTPUT];
       }
       $page->appendQuoteTo($parent, [], $viewData);
+      if ($this->_replaceImageTags && ($this->_width > 0 || $this->_height > 0)) {
+        $this->teaserImages()->replaceIn($parent);
+      }
     }
   }
 
-  /**
-   * Append thumbnail xml for the generated teasers
-   *
-   * @param XML\Element $parent
-   */
-  private function appendThumbnails(XML\Element $parent) {
-    if ($this->_width > 0 || $this->_height > 0) {
-      $thumbnails = new Teaser\Images(
-        $parent, $this->_width, $this->_height, $this->_resizeMode
+  public function teaserImages(Teaser\Images $teaserImages = NULL) {
+    if (NULL !== $teaserImages) {
+      $this->_teaserImages = $teaserImages;
+    } elseif (NULL === $this->_teaserImages) {
+      $this->_teaserImages = new Teaser\Images(
+        $this->_width, $this->_height, $this->_resizeMode
       );
-      $thumbnails->papaya($this->papaya());
-      $parent->append($thumbnails);
+      $this->_teaserImages->papaya($this->papaya());
     }
+    return $this->_teaserImages;
   }
 }
