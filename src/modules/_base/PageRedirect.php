@@ -15,6 +15,7 @@
 
 namespace Papaya\Modules\Core {
 
+  use Papaya\Modules\Core\Partials\QueryString;
   use Papaya\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Response;
@@ -24,13 +25,15 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
+  use Papaya\UI\Text\Placeholders as PlaceholdersText;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
-  class PageRedirect implements PageModule, EditablePlugin, QuotablePlugin, RoutablePlugin {
+  class PageRedirect implements PageModule, EditablePlugin, QuotablePlugin, RoutablePlugin, Partials\QueryString {
 
-    use EditablePlugin\Aggregation;
+    use EditablePlugin\Content\Aggregation;
     use PageModule\Aggregation;
+    use Partials\QueryStringAggregation;
 
     const FIELD_PAGE_ID = 'target-page-id';
 
@@ -52,8 +55,12 @@ namespace Papaya\Modules\Core {
       $editor->papaya($this->papaya());
       $dialog = $editor->dialog();
       $dialog->fields[] = new DialogField\Input(
-        new TranslatedText('Page Id'), self::FIELD_PAGE_ID, 255, self::_DEFAULTS[self::FIELD_PAGE_ID]
+        new TranslatedText('Page Id'),
+        self::FIELD_PAGE_ID,
+        255,
+        self::_DEFAULTS[self::FIELD_PAGE_ID]
       );
+      $this->appendQueryStringFieldsToDialog($dialog, $content);
       return $editor;
     }
 
@@ -72,7 +79,7 @@ namespace Papaya\Modules\Core {
         $content['target-page_id']
       );
       if ($content['target-page_id'] > 0 && $reference->valid()) {
-        return new Response\Redirect((string)$reference);
+        return new Response\Redirect($this->appendQueryStringToURL($reference));
       }
       return new Response\Failure('Invalid Redirect Target.');
     }

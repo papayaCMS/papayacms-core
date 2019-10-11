@@ -24,9 +24,10 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\Response;
 
-  class TeaserRedirect extends Partials\Teaser implements RoutablePlugin {
+  class TeaserRedirect extends Partials\Teaser implements RoutablePlugin, Partials\QueryString {
 
     use PageModule\Aggregation;
+    use Partials\QueryStringAggregation;
 
     const FIELD_TARGET_URL = 'target-url';
 
@@ -52,6 +53,7 @@ namespace Papaya\Modules\Core {
         self::FIELD_TARGET_URL,
         self::_DEFAULTS[self::FIELD_TARGET_URL]
       );
+      $this->appendQueryStringFieldsToDialog($dialog, $content);
       return $editor;
     }
 
@@ -73,7 +75,7 @@ namespace Papaya\Modules\Core {
         );
         $targetURL = (string)$reference;
       }
-      return new Response\Redirect($targetURL);
+      return new Response\Redirect($this->appendQueryStringToURL($targetURL));
     }
   }
 }
