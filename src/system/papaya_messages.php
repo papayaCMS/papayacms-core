@@ -477,7 +477,7 @@ class papaya_messages extends base_messages {
                 'bid' => $this->message['msg_rel_box_id']
               ),
               'bb',
-              'boxes.php'
+              Papaya\Administration\UI::CONTENT_BOXES
             ),
             $this->papaya()->images['items-box'],
             papaya_strings::escapeHTMLChars($this->_gt('Goto box'))

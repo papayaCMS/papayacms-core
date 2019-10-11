@@ -405,7 +405,7 @@ class papaya_boxeslinks extends base_boxeslinks {
                   )
                 );
                 $subitem->reference(clone $listview->reference);
-                $subitem->reference()->setRelative('boxes.php');
+                $subitem->reference()->setRelative(Papaya\Administration\UI::CONTENT_BOXES);
               } else {
                 $item->columnSpan = 2;
               }
@@ -514,7 +514,7 @@ class papaya_boxeslinks extends base_boxeslinks {
                     )
                   );
                   $subitem->reference(clone $listview->reference);
-                  $subitem->reference()->setRelative('boxes.php');
+                  $subitem->reference()->setRelative(Papaya\Administration\UI::CONTENT_BOXES);
                 } else {
                   $item->columnSpan = 2;
                 }
