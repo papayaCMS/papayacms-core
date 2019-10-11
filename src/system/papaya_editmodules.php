@@ -100,49 +100,6 @@ class papaya_editmodules extends base_db {
   }
 
   /**
-  * Get button array
-  *
-  * @access public
-  * @return mixed
-  */
-  function getButtonArray() {
-    $result = NULL;
-    if (isset($this->modules) && is_array($this->modules)) {
-      $administrationUser = $this->papaya()->administrationUser;
-      foreach ($this->modules as $id => $module) {
-        if (isset($administrationUser->userModules) &&
-            is_array($administrationUser->userModules) &&
-            in_array($id, $administrationUser->userModules)) {
-          if ($administrationUser->isAdmin() || $administrationUser->hasModulePerm(1, $id)) {
-            if (trim($module['module_glyph']) != '') {
-              $glyph = \Papaya\Administration\UI::EXTENSIONS_IMAGE.'?module='.urlencode($module['module_guid']);
-            } else {
-              $glyph = '';
-            }
-            $result[] = array($module['module_title'], $module['module_title'],
-              $glyph, 0,
-              'module_'.$module['module_guid'].'.php', '_self',
-              $this->_moduleGuid == $module['module_guid'], NULL, TRUE);
-          }
-        }
-
-      }
-      $result[] = array(
-        $this->_gt('Applications'),
-        $this->_gt('Applications list'),
-        $this->papaya()->images['categories-applications'],
-        0,
-        'module.php',
-        '_self',
-        FALSE,
-        NULL,
-        TRUE
-      );
-    }
-    return $result;
-  }
-
-  /**
   * Load module
   *
   * @access public
