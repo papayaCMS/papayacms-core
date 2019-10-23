@@ -15,6 +15,7 @@
 namespace Papaya\Database\Condition;
 
 use Papaya\Database;
+use Papaya\Database\Access as DatabaseAccess;
 
 class Element {
   private $_parent;
@@ -45,7 +46,7 @@ class Element {
   }
 
   /**
-   * @return \Papaya\Database\Access
+   * @return DatabaseAccess
    */
   public function getDatabaseAccess() {
     return $this->getParent()->getDatabaseAccess();

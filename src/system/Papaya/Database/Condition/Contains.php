@@ -18,7 +18,7 @@ class Contains extends Element {
   /**
    * Contains constructor.
    *
-   * @param \Papaya\Database\Condition\Group $parent
+   * @param Group $parent
    * @param string $field
    * @param string $value
    */
