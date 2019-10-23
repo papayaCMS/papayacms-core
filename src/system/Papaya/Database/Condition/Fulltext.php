@@ -14,12 +14,9 @@
  */
 namespace Papaya\Database\Condition;
 
-use Papaya\Database\Access as DatabaseAccess;
-use Papaya\Database\Interfaces\Mapping as DatabaseMapping;
 use Papaya\Parser\Search\Text as SearchTextParser;
 
-abstract class Fulltext {
-  private $_parent;
+abstract class Fulltext extends Condition {
 
   protected $_fields = '';
 
@@ -35,7 +32,7 @@ abstract class Fulltext {
   public function __construct(
     Group $parent, $fields, $searchFor
   ) {
-    $this->_parent = $parent;
+    parent::__construct($parent);
     $this->_fields = \is_array($fields) ? $fields : [$fields];
     $this->_searchFor = $searchFor;
   }
@@ -47,27 +44,6 @@ abstract class Fulltext {
    * @return string
    */
   abstract protected function getFullTextCondition(SearchTextParser $tokens, array $fields);
-
-  /**
-   * @return DatabaseAccess
-   */
-  public function getDatabaseAccess() {
-    return $this->getParent()->getDatabaseAccess();
-  }
-
-  /**
-   * @return null|DatabaseMapping
-   */
-  public function getMapping() {
-    return ($parent = $this->getParent()) ? $parent->getMapping() : NULL;
-  }
-
-  /**
-   * @return Group
-   */
-  public function getParent() {
-    return $this->_parent;
-  }
 
   /**
    * @param bool $silent
@@ -83,38 +59,5 @@ abstract class Fulltext {
       }
       return '';
     }
-  }
-
-  /**
-   * @return string
-   */
-  public function __toString() {
-    return $this->getSql(TRUE);
-  }
-
-  /**
-   * @param string $name
-   * @return false|string
-   */
-  private function mapFieldName($name) {
-    if (empty($name)) {
-      throw new \LogicException(
-        'Can not generate condition, provided name was empty.'
-      );
-    }
-    if ($mapping = $this->getMapping()) {
-      $field = $mapping->getField($name);
-    } else {
-      $field = $name;
-    }
-    if (empty($field)) {
-      throw new \LogicException(
-        \sprintf(
-          'Can not generate condition, given name "%s" could not be mapped to a field.',
-          $name
-        )
-      );
-    }
-    return $field;
   }
 }

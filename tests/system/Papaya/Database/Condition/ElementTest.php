@@ -15,26 +15,15 @@
 
 namespace Papaya\Database\Condition {
 
+  use Papaya\TestCase;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class ElementTest extends \Papaya\TestCase {
+  /**
+   * @covers \Papaya\Database\Condition\Element
+   */
+  class ElementTest extends TestCase {
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testConstructor() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $element = new Element_TestProxy($group);
-      $this->assertSame($group, $element->getParent());
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testConstructorWithField() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
       $group = $this
@@ -45,9 +34,6 @@ namespace Papaya\Database\Condition {
       $this->assertEquals('sample', $element->getField());
     }
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testConstructorWithOperator() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
       $group = $this
@@ -56,162 +42,6 @@ namespace Papaya\Database\Condition {
         ->getMock();
       $element = new Element_TestProxy($group, NULL, '=');
       $this->assertAttributeEquals('=', '_operator', $element);
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testGetDatabaseAccess() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $group
-        ->expects($this->once())
-        ->method('getDatabaseAccess')
-        ->willReturn($databaseAccess);
-      $element = new Element_TestProxy($group);
-      $this->assertSame($databaseAccess, $element->getDatabaseAccess());
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testGetMapping() {
-      $mapping = $this
-        ->getMockBuilder(\Papaya\Database\Interfaces\Mapping::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $group
-        ->expects($this->once())
-        ->method('getMapping')
-        ->willReturn($mapping);
-      $element = new Element_TestProxy($group);
-      $this->assertSame($mapping, $element->getMapping());
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testGetMappingExpectingNull() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $element = new Element_TestProxy($group);
-      $this->assertNull($element->getMapping());
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testMagicMethodToString() {
-      $databaseAccess = $this->mockPapaya()->databaseAccess();
-      $databaseAccess
-        ->expects($this->once())
-        ->method('getSqlCondition')
-        ->willReturn('sql string');
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $group
-        ->expects($this->once())
-        ->method('getDatabaseAccess')
-        ->willReturn($databaseAccess);
-      $element = new Element_TestProxy($group, 'field');
-      $this->assertEquals(
-        'sql string', (string)$element
-      );
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testMapFieldName() {
-      $mapping = $this
-        ->getMockBuilder(\Papaya\Database\Interfaces\Mapping::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $mapping
-        ->expects($this->once())
-        ->method('getField')
-        ->with('field')
-        ->willReturn('mapped_field');
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $group
-        ->expects($this->once())
-        ->method('getMapping')
-        ->willReturn($mapping);
-      $element = new Element_TestProxy($group);
-      $this->assertEquals('mapped_field', $element->mapFieldName('field'));
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testMapFieldNameWithoutMapping() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $element = new Element_TestProxy($group);
-      $this->assertEquals('field', $element->mapFieldName('field'));
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testMapFieldNameWithInvalidMappingExpectingException() {
-      $mapping = $this
-        ->getMockBuilder(\Papaya\Database\Interfaces\Mapping::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $mapping
-        ->expects($this->once())
-        ->method('getField')
-        ->with('field')
-        ->willReturn('');
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $group
-        ->expects($this->once())
-        ->method('getMapping')
-        ->willReturn($mapping);
-      $element = new Element_TestProxy($group);
-      $this->expectException(\LogicException::class);
-      $element->mapFieldName('field');
-    }
-
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
-    public function testMapFieldNameWithEmptyFieldNameException() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
-      $group = $this
-        ->getMockBuilder(Group::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-      $element = new Element_TestProxy($group);
-      $this->expectException(\LogicException::class);
-      $element->mapFieldName('');
     }
 
     /**

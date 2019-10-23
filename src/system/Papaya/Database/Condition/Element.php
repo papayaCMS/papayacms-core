@@ -14,11 +14,7 @@
  */
 namespace Papaya\Database\Condition;
 
-use Papaya\Database;
-use Papaya\Database\Access as DatabaseAccess;
-
-class Element {
-  private $_parent;
+class Element extends Condition {
 
   private $_field;
 
@@ -37,33 +33,12 @@ class Element {
   public function __construct(
     Group $parent, $field = '', $value = NULL, $operator = NULL
   ) {
-    $this->_parent = $parent;
+    parent::__construct($parent);
     $this->_field = $field;
     $this->_value = $value;
     if (NULL !== $operator) {
       $this->_operator = $operator;
     }
-  }
-
-  /**
-   * @return DatabaseAccess
-   */
-  public function getDatabaseAccess() {
-    return $this->getParent()->getDatabaseAccess();
-  }
-
-  /**
-   * @return null|Database\Interfaces\Mapping
-   */
-  public function getMapping() {
-    return ($parent = $this->getParent()) ? $parent->getMapping() : NULL;
-  }
-
-  /**
-   * @return Group
-   */
-  public function getParent() {
-    return $this->_parent;
   }
 
   /**
@@ -105,38 +80,5 @@ class Element {
       }
       return '';
     }
-  }
-
-  /**
-   * @return string
-   */
-  public function __toString() {
-    return $this->getSql(TRUE) ?: '';
-  }
-
-  /**
-   * @param $name
-   * @return false|string
-   */
-  protected function mapFieldName($name) {
-    if (empty($name)) {
-      throw new \LogicException(
-        'Can not generate condition, provided name was empty.'
-      );
-    }
-    if ($mapping = $this->getMapping()) {
-      $field = $mapping->getField($name);
-    } else {
-      $field = $name;
-    }
-    if (empty($field)) {
-      throw new \LogicException(
-        \sprintf(
-          'Can not generate condition, given name "%s" could not be mapped to a field.',
-          $name
-        )
-      );
-    }
-    return $field;
   }
 }
