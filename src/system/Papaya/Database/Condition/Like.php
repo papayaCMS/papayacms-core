@@ -20,7 +20,7 @@ class Like extends Element {
   /**
    * Like constructor.
    *
-   * @param \Papaya\Database\Condition\Group $parent
+   * @param Group $parent
    * @param string $field
    * @param null $value
    */

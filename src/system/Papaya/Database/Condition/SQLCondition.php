@@ -58,7 +58,7 @@ namespace Papaya\Database\Condition {
     const NOT_EQUAL = '!=';
 
     /**
-     * @var \Papaya\Database\Connection
+     * @var Connection
      */
     private $_connection;
     /**
@@ -71,7 +71,7 @@ namespace Papaya\Database\Condition {
     private $_operator;
 
     /**
-     * @param \Papaya\Database\Connection $connection
+     * @param Connection $connection
      * @param NULL|array $filter
      * @param string $operator
      */
@@ -91,18 +91,16 @@ namespace Papaya\Database\Condition {
      * @param string $operator
      * @return string
      */
-    private function getCondition($filter, $operator) {
-      if (is_array($filter)) {
+    private function getCondition(array $filter = NULL, $operator = self::EQUAL) {
+      if (NULL !== $filter) {
         $str = '';
         if (count($filter) > 0) {
           $op = '';
           foreach ($filter as $field => $value) {
-           if (empty($value) || is_array($value) || strlen($value) > 10) {
+           if (empty($value) || is_array($value) || strlen($value) >= 10) {
               $conditionValue = '';
-            } elseif (strlen($value) < 10) {
-              $conditionValue = strtoupper(trim($value));
             } else {
-              $conditionValue = '';
+              $conditionValue = strtoupper(trim($value));
             }
             if (is_int($field) && ($conditionValue === 'OR' || $conditionValue === 'AND')) {
               if ($str !== '') {
@@ -123,10 +121,7 @@ namespace Papaya\Database\Condition {
         }
         return '1=0';
       }
-      if (!isset($filter)) {
-        return '1=1';
-      }
-      return '1=0';
+      return '1=1';
     }
 
     protected function getConditionElement($field, $value, $operator) {

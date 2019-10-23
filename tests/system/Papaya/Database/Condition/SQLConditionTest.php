@@ -42,13 +42,20 @@ namespace Papaya\Database\Condition {
     public static function getConditionData() {
       return [
         ["\"col\" = ''", ['col' => '']],
+        ["\"col\" != ''", ['col' => ''], SQLCondition::NOT_EQUAL],
+        ["\"col\" IN ('1', '2')", ['col' => [1, 2]]],
+        ["NOT(\"col\" IN ('1', '2'))", ['col' => [1, 2]], SQLCondition::NOT_EQUAL],
         ["\"col\" = '0'", ['col' => FALSE]],
         ["\"col\" = ''", ['col' => '']],
         ['"col" IS NULL', ['col' => NULL]],
         ["\"col\" > '42'", ['col' => 42], '>'],
         ["(\"col\" > '21' OR \"col\" > '42')", ['col'=> [21, 42]], '>'],
         ["(\"col\" < '21' OR \"col\" < '42')", ['col'=> [21, 42]], '<'],
-        ['1 = 0', ['col' => []]]
+        ['1 = 0', ['col' => []]],
+        ['"field1" = \'1\' OR "field2" = \'2\'', ['field1' => 1, 'or', 'field2' => 2]],
+        ['"field" = \'or\'', ['field' => 'or']],
+        ['1=1', NULL],
+        ['1=0', []]
       ];
     }
   }

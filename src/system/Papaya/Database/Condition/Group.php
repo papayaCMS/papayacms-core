@@ -17,21 +17,13 @@ namespace Papaya\Database\Condition;
 use Papaya\Database;
 
 /**
- * @method self logicalAnd()
- * @method self logicalOr()
- * @method self logicalNot()
- * @method $this isEqual(string $field, mixed $value)
- * @method $this isNotEqual(string $field, mixed $value)
- * @method $this isNull(string $field, mixed $value)
- * @method $this isGreaterThan(string $field, mixed $value)
- * @method $this isGreaterThanOrEqual(string $field, mixed $value)
- * @method $this isLessThan(string $field, mixed $value)
- * @method $this isLessThanOrEqual(string $field, mixed $value)
- * @method $this contains(string $field, mixed $value)
- * @method $this like(string $field, mixed $value)
- * @method $this match(string $field, mixed $value)
- * @method $this matchBoolean(string $field, mixed $value)
- * @method $this matchContains(string $field, mixed $value)
+ * @method Group isEqual(string $field, mixed $value)
+ * @method Group isNotEqual(string $field, mixed $value)
+ * @method Group isNull(string $field, mixed $value)
+ * @method Group isGreaterThan(string $field, mixed $value)
+ * @method Group isGreaterThanOrEqual(string $field, mixed $value)
+ * @method Group isLessThan(string $field, mixed $value)
+ * @method Group isLessThanOrEqual(string $field, mixed $value)
  */
 class Group
   extends Element
@@ -56,7 +48,7 @@ class Group
   ];
 
   /**
-   * @param self|Database\Access|\Papaya\Database\Accessible $parent
+   * @param self|Database\Access|Database\Accessible $parent
    * @param Database\Interfaces\Mapping $mapping
    * @param string $operator
    *
@@ -111,38 +103,11 @@ class Group
    */
   public function __call($methodName, $arguments) {
     $name = \strtolower($methodName);
-    switch ($name) {
-      case 'logicaland' :
-        $this->_conditions[] = $condition = new self($this, NULL, 'AND');
-        return $condition;
-      case 'logicalor' :
-        $this->_conditions[] = $condition = new self($this, NULL, 'OR');
-        return $condition;
-      case 'logicalnot' :
-        $this->_conditions[] = $condition = new self($this, NULL, 'NOT');
-        return $condition;
-      case 'contains' :
-        $this->_conditions[] = $condition = new Contains($this, ...$arguments);
-        return $this;
-      case 'like' :
-        $this->_conditions[] = $condition = new Like($this, ...$arguments);
-        return $this;
-      case 'match' :
-        $this->_conditions[] = $condition = new Fulltext\Match($this, ...$arguments);
-        return $this;
-      case 'matchboolean' :
-        $this->_conditions[] = $condition = new Fulltext\Boolean($this, ...$arguments);
-        return $this;
-      case 'matchcontains' :
-        $this->_conditions[] = $condition = new Fulltext\Contains($this, ...$arguments);
-        return $this;
-      default :
-        if (isset($this->_classes[$name])) {
-          list($field, $value) = $arguments;
-          list($className, $operator) = $this->_classes[$name];
-          $this->_conditions[] = new $className($this, $field, $value, $operator);
-          return $this;
-        }
+    if (isset($this->_classes[$name])) {
+      list($field, $value) = $arguments;
+      list($className, $operator) = $this->_classes[$name];
+      $this->_conditions[] = new $className($this, $field, $value, $operator);
+      return $this;
     }
     throw new \BadMethodCallException(
       \sprintf('Invalid condition create method %s::%s().', \get_class($this), $methodName)
@@ -192,5 +157,79 @@ class Group
       return 'NOT('.$result.')';
     }
     return '('.$result.')';
+  }
+
+  /**
+   * @return Group
+   */
+  public function logicalAnd() {
+    $this->_conditions[] = $condition = new self($this, NULL, 'AND');
+    return $condition;
+  }
+
+  /**
+   * @return Group
+   */
+  public function logicalOr() {
+    $this->_conditions[] = $condition = new self($this, NULL, 'OR');
+    return $condition;
+  }
+
+  /**
+   * @return Group
+   */
+  public function logicalNot() {
+    $this->_conditions[] = $condition = new self($this, NULL, 'NOT');
+    return $condition;
+  }
+
+  /**
+   * @param string|string[] $field
+   * @param mixed $value
+   * @return $this
+   */
+  public function contains($field, $value) {
+    $this->_conditions[] = new Contains($this, $field, $value);
+    return $this;
+  }
+
+  /**
+   * @param string|string[] $field
+   * @param mixed $value
+   * @return $this
+   */
+  public function like($field, $value) {
+    $this->_conditions[] = new Like($this, $field, $value);
+    return $this;
+  }
+
+  /**
+   * @param string|string[] $field
+   * @param mixed $searchFor
+   * @return $this
+   */
+  public function match($field, $searchFor) {
+    $this->_conditions[] = new Fulltext\Match($this, $field, $searchFor);
+    return $this;
+  }
+
+  /**
+   * @param string|string[] $field
+   * @param mixed $searchFor
+   * @return $this
+   */
+  public function matchBoolean($field, $searchFor) {
+    $this->_conditions[] = new Fulltext\Boolean($this, $field, $searchFor);
+    return $this;
+  }
+
+  /**
+   * @param string|string[] $field
+   * @param mixed $searchFor
+   * @return $this
+   */
+  public function matchContains($field, $searchFor) {
+    $this->_conditions[] = new Fulltext\Contains($this, $field, $searchFor);
+    return $this;
   }
 }

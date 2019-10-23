@@ -14,6 +14,10 @@
  */
 namespace Papaya\Database\Condition;
 
+use Papaya\Database\Access as DatabaseAccess;
+use Papaya\Database\Interfaces\Mapping as DatabaseMapping;
+use Papaya\Parser\Search\Text as SearchTextParser;
+
 abstract class Fulltext {
   private $_parent;
 
@@ -24,7 +28,7 @@ abstract class Fulltext {
   /**
    * Fulltext constructor.
    *
-   * @param \Papaya\Database\Condition\Group $parent
+   * @param Group $parent
    * @param string|string[] $fields
    * @param string $searchFor
    */
@@ -37,29 +41,29 @@ abstract class Fulltext {
   }
 
   /**
-   * @param \Papaya\Parser\Search\Text $tokens
+   * @param SearchTextParser $tokens
    * @param array|\Traversable $fields
    *
    * @return string
    */
-  abstract protected function getFullTextCondition(\Papaya\Parser\Search\Text $tokens, array $fields);
+  abstract protected function getFullTextCondition(SearchTextParser $tokens, array $fields);
 
   /**
-   * @return \Papaya\Database\Access
+   * @return DatabaseAccess
    */
   public function getDatabaseAccess() {
     return $this->getParent()->getDatabaseAccess();
   }
 
   /**
-   * @return null|\Papaya\Database\Interfaces\Mapping
+   * @return null|DatabaseMapping
    */
   public function getMapping() {
     return ($parent = $this->getParent()) ? $parent->getMapping() : NULL;
   }
 
   /**
-   * @return \Papaya\Database\Condition\Group
+   * @return Group
    */
   public function getParent() {
     return $this->_parent;
@@ -71,7 +75,7 @@ abstract class Fulltext {
    */
   public function getSql($silent = FALSE) {
     try {
-      $tokens = new \Papaya\Parser\Search\Text($this->_searchFor);
+      $tokens = new SearchTextParser($this->_searchFor);
       return $this->getFullTextCondition($tokens, \array_map([$this, 'mapFieldName'], $this->_fields));
     } catch (\LogicException $e) {
       if (!$silent) {

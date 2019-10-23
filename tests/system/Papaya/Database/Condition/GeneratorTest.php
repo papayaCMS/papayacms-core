@@ -25,7 +25,7 @@ class GeneratorTest extends \Papaya\TestCase {
   public function testConstructor() {
     $databaseAccess = $this->mockPapaya()->databaseAccess();
     $generator = new Generator($databaseAccess);
-    $condition = $generator->fromArray(array());
+    $condition = $generator->fromArray([]);
     $this->assertInstanceOf(Group::class, $condition);
     $this->assertSame($databaseAccess, $condition->getDatabaseAccess());
   }
@@ -42,7 +42,7 @@ class GeneratorTest extends \Papaya\TestCase {
       ->method('getDatabaseAccess')
       ->will($this->returnValue($databaseAccess));
     $generator = new Generator($parent);
-    $condition = $generator->fromArray(array());
+    $condition = $generator->fromArray([]);
     $this->assertNull($condition->getParent());
     $this->assertSame($databaseAccess, $condition->getDatabaseAccess());
   }
@@ -64,11 +64,11 @@ class GeneratorTest extends \Papaya\TestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
-      ->with(array('field' => 'value'))
+      ->with(['field' => 'value'])
       ->will($this->returnValue("field = 'value'"));
     $generator = new Generator($databaseAccess);
 
-    $condition = $generator->fromArray(array('field' => 'value'));
+    $condition = $generator->fromArray(['field' => 'value']);
     $this->assertEquals(
       "(field = 'value')", (string)$condition
     );
@@ -88,12 +88,12 @@ class GeneratorTest extends \Papaya\TestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
-      ->with(array('mapped_field' => 'value'))
+      ->with(['mapped_field' => 'value'])
       ->will($this->returnValue("mapped_field = 'value'"));
 
     $generator = new Generator($databaseAccess, $mapping);
 
-    $condition = $generator->fromArray(array('field' => 'value'));
+    $condition = $generator->fromArray(['field' => 'value']);
     $this->assertEquals(
       "(mapped_field = 'value')", $condition->getSql()
     );
@@ -116,7 +116,7 @@ class GeneratorTest extends \Papaya\TestCase {
 
     $generator = new Generator($databaseAccess, $mapping);
 
-    $condition = $generator->fromArray(array('field' => 'value'));
+    $condition = $generator->fromArray(['field' => 'value']);
     $this->assertEquals(
       '', (string)$condition
     );
@@ -132,21 +132,21 @@ class GeneratorTest extends \Papaya\TestCase {
       ->method('getSqlCondition')
       ->will(
         $this->returnValueMap(
-          array(
-            array(array('field_one' => 'value'), NULL, '=', "field_one = 'value'"),
-            array(array('field_two' => 'value'), NULL, '=', "field_two = 'value'")
-          )
+          [
+            [['field_one' => 'value'], NULL, '=', "field_one = 'value'"],
+            [['field_two' => 'value'], NULL, '=', "field_two = 'value'"]
+          ]
         )
       );
     $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(
-      array(
-        ',and' => array(
+      [
+        ',and' => [
           'field_one' => 'value',
           'field_two' => 'value'
-        )
-      )
+        ]
+      ]
     );
     $this->assertEquals(
       "((field_one = 'value' AND field_two = 'value'))", (string)$condition
@@ -163,21 +163,50 @@ class GeneratorTest extends \Papaya\TestCase {
       ->method('getSqlCondition')
       ->will(
         $this->returnValueMap(
-          array(
-            array(array('field_one' => 'value'), NULL, '=', "field_one = 'value'"),
-            array(array('field_two' => 'value'), NULL, '=', "field_two = 'value'")
-          )
+          [
+            [['field_one' => 'value'], NULL, '=', "field_one = 'value'"],
+            [['field_two' => 'value'], NULL, '=', "field_two = 'value'"]
+          ]
         )
       );
     $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(
-      array(
-        ',or' => array(
+      [
+        ',or' => [
           'field_one,equal' => 'value',
           'field_two' => 'value'
-        )
-      )
+        ]
+      ]
+    );
+    $this->assertEquals(
+      "((field_one = 'value' OR field_two = 'value'))", (string)$condition
+    );
+  }
+
+  /**
+   * @covers \Papaya\Database\Condition\Generator
+   */
+  public function testFromArrayWithConditionConnectedByOr() {
+    $databaseAccess = $this->mockPapaya()->databaseAccess();
+    $databaseAccess
+      ->expects($this->any())
+      ->method('getSqlCondition')
+      ->willReturnMap(
+        [
+          [['field_one' => 'value'], NULL, '=', "field_one = 'value'"],
+          [['field_two' => 'value'], NULL, '=', "field_two = 'value'"]
+        ]
+      );
+    $generator = new Generator($databaseAccess);
+
+    $condition = $generator->fromArray(
+      [
+        'or' => [
+          'field_one,equal' => 'value',
+          'field_two' => 'value'
+        ]
+      ]
     );
     $this->assertEquals(
       "((field_one = 'value' OR field_two = 'value'))", (string)$condition
@@ -194,21 +223,21 @@ class GeneratorTest extends \Papaya\TestCase {
       ->method('getSqlCondition')
       ->will(
         $this->returnValueMap(
-          array(
-            array(array('field_one' => 'value'), NULL, '=', "field_one = 'value'"),
-            array(array('field_two' => 'value'), NULL, '=', "field_two = 'value'")
-          )
+          [
+            [['field_one' => 'value'], NULL, '=', "field_one = 'value'"],
+            [['field_two' => 'value'], NULL, '=', "field_two = 'value'"]
+          ]
         )
       );
     $generator = new Generator($databaseAccess);
 
     $condition = $generator->fromArray(
-      array(
-        ',not' => array(
+      [
+        ',not' => [
           'field_one,equal' => 'value',
           'field_two' => 'value'
-        )
-      )
+        ]
+      ]
     );
     $this->assertEquals(
       "(NOT(field_one = 'value' AND field_two = 'value'))", (string)$condition
@@ -216,7 +245,7 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Database\Condition\Generator
+   * @covers       \Papaya\Database\Condition\Generator
    * @dataProvider provideFilterSamples
    * @param string $expected
    * @param array $filter
@@ -226,7 +255,7 @@ class GeneratorTest extends \Papaya\TestCase {
     $databaseAccess
       ->expects($this->any())
       ->method('getSqlCondition')
-      ->will($this->returnCallback(array($this, 'callbackGetSqlCondition')));
+      ->will($this->returnCallback([$this, 'callbackGetSqlCondition']));
     $generator = new Generator($databaseAccess);
     $this->assertEquals($expected, (string)$generator->fromArray($filter));
   }
@@ -239,25 +268,25 @@ class GeneratorTest extends \Papaya\TestCase {
   }
 
   public static function provideFilterSamples() {
-    return array(
-      array('(foo = bar)', array('foo' => 'bar')),
-      array('(foo > bar)', array('foo,greater' => 'bar')),
-      array('(foo < bar)', array('foo,less' => 'bar')),
-      array('(foo >= bar)', array('foo,greaterOrEqual' => 'bar')),
-      array('(foo <= bar)', array('foo,lessOrEqual' => 'bar')),
-      array('(foo != bar)', array('foo,notEqual' => 'bar')),
-      array('(foo != bar)', array('notEqual:foo' => 'bar')),
-      array('(((MATCH (foo) AGAINST (\'bar\'))))', array('match:foo' => 'bar')),
-      array('(((MATCH (f1,f2) AGAINST (\'bar\'))))', array('match:f1,f2' => 'bar')),
-      array(
+    return [
+      ['(foo = bar)', ['foo' => 'bar']],
+      ['(foo > bar)', ['foo,greater' => 'bar']],
+      ['(foo < bar)', ['foo,less' => 'bar']],
+      ['(foo >= bar)', ['foo,greaterOrEqual' => 'bar']],
+      ['(foo <= bar)', ['foo,lessOrEqual' => 'bar']],
+      ['(foo != bar)', ['foo,notEqual' => 'bar']],
+      ['(foo != bar)', ['notEqual:foo' => 'bar']],
+      ['(((MATCH (foo) AGAINST (\'bar\'))))', ['match:foo' => 'bar']],
+      ['(((MATCH (f1,f2) AGAINST (\'bar\'))))', ['match:f1,f2' => 'bar']],
+      [
         '(((MATCH (field) AGAINST (\'foo\')) AND (MATCH (field) AGAINST (\'bar\'))))',
-        array('match:field' => 'foo bar')
-      ),
-      array(
-        '((MATCH (foo) AGAINST (\' ( +bar) \' IN BOOLEAN MODE)))', array('match-boolean:foo' => 'bar')
-      ),
-      array('((((foo LIKE \'%foo%\') OR (bar LIKE \'%foo%\'))))', array('match-contains:foo,bar' => 'foo'))
-    );
+        ['match:field' => 'foo bar']
+      ],
+      [
+        '((MATCH (foo) AGAINST (\' ( +bar) \' IN BOOLEAN MODE)))', ['match-boolean:foo' => 'bar']
+      ],
+      ['((((foo LIKE \'%foo%\') OR (bar LIKE \'%foo%\'))))', ['match-contains:foo,bar' => 'foo']]
+    ];
   }
 
 }

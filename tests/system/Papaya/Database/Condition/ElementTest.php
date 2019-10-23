@@ -71,7 +71,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->once())
         ->method('getDatabaseAccess')
-        ->will($this->returnValue($databaseAccess));
+        ->willReturn($databaseAccess);
       $element = new Element_TestProxy($group);
       $this->assertSame($databaseAccess, $element->getDatabaseAccess());
     }
@@ -92,7 +92,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->once())
         ->method('getMapping')
-        ->will($this->returnValue($mapping));
+        ->willReturn($mapping);
       $element = new Element_TestProxy($group);
       $this->assertSame($mapping, $element->getMapping());
     }
@@ -118,7 +118,7 @@ namespace Papaya\Database\Condition {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->will($this->returnValue('sql string'));
+        ->willReturn('sql string');
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
       $group = $this
         ->getMockBuilder(Group::class)
@@ -127,7 +127,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->once())
         ->method('getDatabaseAccess')
-        ->will($this->returnValue($databaseAccess));
+        ->willReturn($databaseAccess);
       $element = new Element_TestProxy($group, 'field');
       $this->assertEquals(
         'sql string', (string)$element
@@ -146,7 +146,7 @@ namespace Papaya\Database\Condition {
         ->expects($this->once())
         ->method('getField')
         ->with('field')
-        ->will($this->returnValue('mapped_field'));
+        ->willReturn('mapped_field');
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
       $group = $this
         ->getMockBuilder(Group::class)
@@ -155,7 +155,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->once())
         ->method('getMapping')
-        ->will($this->returnValue($mapping));
+        ->willReturn($mapping);
       $element = new Element_TestProxy($group);
       $this->assertEquals('mapped_field', $element->mapFieldName('field'));
     }
@@ -185,7 +185,7 @@ namespace Papaya\Database\Condition {
         ->expects($this->once())
         ->method('getField')
         ->with('field')
-        ->will($this->returnValue(''));
+        ->willReturn('');
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
       $group = $this
         ->getMockBuilder(Group::class)
@@ -194,7 +194,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->once())
         ->method('getMapping')
-        ->will($this->returnValue($mapping));
+        ->willReturn($mapping);
       $element = new Element_TestProxy($group);
       $this->expectException(\LogicException::class);
       $element->mapFieldName('field');
@@ -222,12 +222,10 @@ namespace Papaya\Database\Condition {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->will(
-          $this->returnValueMap(
-            array(
-              array(array('parent_field' => 21), NULL, '=', 'parent_field = 21')
-            )
-          )
+        ->willReturnMap(
+          [
+            [['parent_field' => 21], NULL, '=', 'parent_field = 21']
+          ]
         );
 
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -238,7 +236,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->any())
         ->method('getDatabaseAccess')
-        ->will($this->returnValue($databaseAccess));
+        ->willReturn($databaseAccess);
 
       $condition = new Element_TestProxy($group, 'parent_field', 21, '=');
 
@@ -251,19 +249,16 @@ namespace Papaya\Database\Condition {
     /**
      * @covers \Papaya\Database\Condition\Element
      */
-    public function testGetSqlWithList() {
+    public function testGetSqlWithMultipleFields() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
-        ->expects($this->once())
+        ->expects($this->exactly(2))
         ->method('getSqlCondition')
-        ->will(
-          $this->returnValueMap(
-            array(
-              array(
-                array('parent_field' => array(21, 42)), NULL, '=', 'parent_field IN (21, 42)'
-              )
-            )
-          )
+        ->willReturnMap(
+          [
+            [['field_one' => 21], NULL, '=', 'field_one = 21'],
+            [['field_two' => 21], NULL, '=', 'field_two = 21']
+          ]
         );
 
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
@@ -274,10 +269,44 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->any())
         ->method('getDatabaseAccess')
-        ->will($this->returnValue($databaseAccess));
+        ->willReturn($databaseAccess);
+
+      $condition = new Element_TestProxy($group, ['field_one', 'field_two'], 21, '=');
+
+      $this->assertEquals(
+        ' (field_one = 21 AND field_two = 21) ',
+        $condition->getSql()
+      );
+    }
+
+    /**
+     * @covers \Papaya\Database\Condition\Element
+     */
+    public function testGetSqlWithList() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('getSqlCondition')
+        ->willReturnMap(
+          [
+            [
+              ['parent_field' => [21, 42]], NULL, '=', 'parent_field IN (21, 42)'
+            ]
+          ]
+        );
+
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */
+      $group = $this
+        ->getMockBuilder(Group::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+      $group
+        ->expects($this->any())
+        ->method('getDatabaseAccess')
+        ->willReturn($databaseAccess);
 
       $condition = new Element_TestProxy(
-        $group, 'parent_field', array(21, 42), '='
+        $group, 'parent_field', [21, 42], '='
       );
 
       $this->assertEquals(
@@ -303,7 +332,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->any())
         ->method('getDatabaseAccess')
-        ->will($this->returnValue($databaseAccess));
+        ->willReturn($databaseAccess);
 
       $condition = new Element_TestProxy($group, '', NULL, '=');
       $this->expectException(\LogicException::class);
@@ -327,7 +356,7 @@ namespace Papaya\Database\Condition {
       $group
         ->expects($this->any())
         ->method('getDatabaseAccess')
-        ->will($this->returnValue($databaseAccess));
+        ->willReturn($databaseAccess);
 
       $condition = new Element_TestProxy($group, '', NULL);
 

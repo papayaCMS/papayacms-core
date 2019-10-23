@@ -15,9 +15,11 @@
 
 namespace Papaya\Database\Condition;
 
+use Papaya\TestCase;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class RootTest extends \Papaya\TestCase {
+class RootTest extends TestCase {
 
   /**
    * @covers \Papaya\Database\Condition\Root
@@ -27,12 +29,10 @@ class RootTest extends \Papaya\TestCase {
     $databaseAccess
       ->expects($this->once())
       ->method('getSqlCondition')
-      ->will(
-        $this->returnValueMap(
-          array(
-            array(array('foo' => 'bar'), NULL, '=', "foo = 'bar'")
-          )
-        )
+      ->willReturnMap(
+        [
+          [['foo' => 'bar'], NULL, '=', "foo = 'bar'"]
+        ]
       );
     $element = new Root($databaseAccess);
     $element->isEqual('foo', 'bar');

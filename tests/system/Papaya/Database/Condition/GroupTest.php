@@ -125,7 +125,7 @@ namespace Papaya\Database\Condition {
     public function testGetIteratorWhileEmpty() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $group = new Group_TestProxy($databaseAccess);
-      $this->assertEquals(array(), iterator_to_array($group));
+      $this->assertEquals([], iterator_to_array($group));
     }
 
     /**
@@ -147,7 +147,7 @@ namespace Papaya\Database\Condition {
       $databaseAccess
         ->expects($this->once())
         ->method('getSqlCondition')
-        ->with(array('field' => 'value'))
+        ->with(['field' => 'value'])
         ->will($this->returnValue("field = 'value'"));
 
       $group = new Group_TestProxy($databaseAccess);
@@ -163,7 +163,7 @@ namespace Papaya\Database\Condition {
       $databaseAccess
         ->expects($this->any())
         ->method('getSqlCondition')
-        ->with(array('field' => 'value'))
+        ->with(['field' => 'value'])
         ->will($this->returnValue("field = 'value'"));
 
       $group = new Group_TestProxy($databaseAccess);
@@ -185,8 +185,8 @@ namespace Papaya\Database\Condition {
       $databaseAccess
         ->expects($this->any())
         ->method('getSqlCondition')
-        ->with(array('field' => 'value'))
-        ->will($this->returnValue("field = 'value'"));
+        ->with(['field' => 'value'])
+        ->willReturn("field = 'value'");
 
       $group = new Group_TestProxy($databaseAccess);
       $group
@@ -195,6 +195,76 @@ namespace Papaya\Database\Condition {
         ->isEqual('field', 'value');
 
       $this->assertEquals("(NOT(field = 'value' AND field = 'value'))", $group->getSql());
+    }
+
+    /**
+     * @covers \Papaya\Database\Condition\Group
+     */
+    public function testGetSqlWithLike() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->any())
+        ->method('getSqlCondition')
+        ->with(['field' => ['%value%']], NULL, 'LIKE')
+        ->willReturn("field LIKE 'value'");
+
+      $group = new Group_TestProxy($databaseAccess);
+      $group->like('field', '*value*');
+
+      $this->assertEquals("( (field LIKE 'value') )", $group->getSql());
+    }
+
+    /**
+     * @covers \Papaya\Database\Condition\Group
+     */
+    public function testGetSqlWithMatch() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $group = new Group_TestProxy($databaseAccess);
+      $group->match('field', 'value');
+
+      $this->assertEquals("(((MATCH (field) AGAINST ('value'))))", $group->getSql());
+    }
+
+    /**
+     * @covers \Papaya\Database\Condition\Group
+     */
+    public function testGetSqlWithMatchBoolean() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $group = new Group_TestProxy($databaseAccess);
+      $group->matchBoolean('field', 'value');
+
+      $this->assertEquals("((MATCH (field) AGAINST (' ( +value) ' IN BOOLEAN MODE)))", $group->getSql());
+    }
+
+    /**
+     * @covers \Papaya\Database\Condition\Group
+     */
+    public function testGetSqlWithMatchContains() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+
+      $group = new Group_TestProxy($databaseAccess);
+      $group->matchContains('field', 'value');
+
+      $this->assertEquals("((((field LIKE '%value%'))))", $group->getSql());
+    }
+
+    /**
+     * @covers \Papaya\Database\Condition\Group
+     */
+    public function testGetSqlWithContains() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->any())
+        ->method('getSqlCondition')
+        ->with(['field' => '%value%'], NULL, 'LIKE')
+        ->willReturn("field LIKE '%value%'");
+
+      $group = new Group_TestProxy($databaseAccess);
+      $group->contains('field', 'value');
+
+      $this->assertEquals("(field LIKE '%value%')", $group->getSql());
     }
 
     /**
