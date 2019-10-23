@@ -22,9 +22,9 @@ namespace Papaya\Database\Condition\Fulltext {
 
   /**
    * @covers \Papaya\Database\Condition\Fulltext
-   * @covers \Papaya\Database\Condition\Fulltext\Match
+   * @covers \Papaya\Database\Condition\Fulltext\Boolean
    */
-  class MatchTest extends TestCase {
+  class BooleanTest extends TestCase {
 
     /**
      * @param $expected
@@ -37,20 +37,22 @@ namespace Papaya\Database\Condition\Fulltext {
 
       $this->assertSame(
         $expected,
-        (string)new Match(new Group($databaseAccess), $field, $searchFor)
+        (string)new Boolean(new Group($databaseAccess), $field, $searchFor)
       ) ;
     }
 
     public static function getConditionData() {
       return [
-        ['', 'col', ''],
-        ["((MATCH (col) AGAINST ('search')))", 'col', 'search'],
-        ["((NOT(MATCH (col) AGAINST ('search'))))", 'col', '-search'],
-        ["((MATCH (col) AGAINST ('search')) AND (MATCH (col) AGAINST ('for')))", 'col', 'search for'],
-        ["((MATCH (col) AGAINST ('search')) AND (MATCH (col) AGAINST ('for')))", 'col', 'search and for'],
-        ["((MATCH (col1,col2) AGAINST ('search')))", ['col1', 'col2'], 'search'],
-        ["((MATCH (table1.col1) AGAINST ('search'))) AND ((MATCH (table2.col2) AGAINST ('search')))", ['table1.col1', 'table2.col2'], 'search'],
-        ["(((MATCH (col) AGAINST ('search'))))", 'col', '(search'],
+        ['(MATCH (col) AGAINST (\'\' IN BOOLEAN MODE))', 'col', ''],
+        ["(MATCH (col) AGAINST (' ( +search) ' IN BOOLEAN MODE))", 'col', 'search'],
+        ["(MATCH (col) AGAINST (' ( -search) ' IN BOOLEAN MODE))", 'col', '-search'],
+        ["(MATCH (col) AGAINST (' ( +\"search for\") ' IN BOOLEAN MODE))", 'col', '"search for"'],
+        ["(MATCH (col) AGAINST (' ( -\"search for\") ' IN BOOLEAN MODE))", 'col', '-"search for"'],
+        ["(MATCH (col) AGAINST (' ( +search +for) ' IN BOOLEAN MODE))", 'col', 'search for'],
+        ["(MATCH (col) AGAINST (' ( +search +for) ' IN BOOLEAN MODE))", 'col', 'search and for'],
+        ["(MATCH (col1,col2) AGAINST (' ( +search) ' IN BOOLEAN MODE))", ['col1', 'col2'], 'search'],
+        ["(MATCH (table1.col1) AGAINST (' ( +search) ' IN BOOLEAN MODE))(MATCH (table2.col2) AGAINST (' ( +search) ' IN BOOLEAN MODE))", ['table1.col1', 'table2.col2'], 'search'],
+        ["(MATCH (col) AGAINST (' ( ( +search)  )' IN BOOLEAN MODE))", 'col', '(search'],
       ];
     }
   }

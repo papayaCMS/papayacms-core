@@ -44,9 +44,6 @@ namespace Papaya\Database\Condition {
       $this->assertAttributeEquals('=', '_operator', $element);
     }
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testGetSqlWithScalar() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
@@ -76,9 +73,6 @@ namespace Papaya\Database\Condition {
       );
     }
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testGetSqlWithMultipleFields() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
@@ -109,9 +103,6 @@ namespace Papaya\Database\Condition {
       );
     }
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testGetSqlWithList() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
@@ -145,9 +136,6 @@ namespace Papaya\Database\Condition {
       );
     }
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testGetSqlWithInvalidFieldNameExpectingException() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
@@ -169,9 +157,6 @@ namespace Papaya\Database\Condition {
       $condition->getSql();
     }
 
-    /**
-     * @covers \Papaya\Database\Condition\Element
-     */
     public function testGetSqlWithExceptionInSilentMode() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess

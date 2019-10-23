@@ -16,32 +16,33 @@ namespace Papaya\Database\Condition\Fulltext;
 
 use Papaya\Database;
 use Papaya\Parser;
+use Papaya\Parser\Search\Text as SearchStringParser;
 
 class Contains extends Database\Condition\Fulltext {
   /**
    * Get filters for a LIKE condition
    *
-   * @param Parser\Search\Text $tokens
+   * @param SearchStringParser $tokens
    * @param array $fields
    *
    * @return string
    */
-  protected function getFulltextCondition(Parser\Search\Text $tokens, array $fields) {
+  protected function getFulltextCondition(SearchStringParser $tokens, array $fields) {
     $result = '';
     $connector = '';
     $indent = 0;
     foreach ($tokens as $token) {
       switch ($token['mode']) {
-      case '(':
+      case SearchStringParser::TOKEN_PARENTHESIS_START:
         $indent++;
         $result .= $connector.'(';
         $connector = '';
         break;
-      case ')':
+      case SearchStringParser::TOKEN_PARENTHESIS_END:
         $indent--;
         $result .= ')';
         break;
-      case '+':
+      case SearchStringParser::TOKEN_INCLUDE:
         $result .= $connector.'(';
         $s = '';
         foreach ($fields as $field) {
@@ -55,7 +56,7 @@ class Contains extends Database\Condition\Fulltext {
         $result .= ')';
         $connector = "\n AND \n";
         break;
-      case '-':
+      case SearchStringParser::TOKEN_EXCLUDE:
         $result .= $connector.'(NOT(';
         $s = '';
         foreach ($fields as $field) {
@@ -69,7 +70,7 @@ class Contains extends Database\Condition\Fulltext {
         $result .= '))';
         $connector = "\n AND \n";
         break;
-      case ':':
+      case SearchStringParser::TOKEN_OPERATOR:
         $connector = "\n ".$token['value'];
         break;
       }

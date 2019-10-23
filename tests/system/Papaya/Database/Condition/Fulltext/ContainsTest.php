@@ -22,9 +22,9 @@ namespace Papaya\Database\Condition\Fulltext {
 
   /**
    * @covers \Papaya\Database\Condition\Fulltext
-   * @covers \Papaya\Database\Condition\Fulltext\Match
+   * @covers \Papaya\Database\Condition\Fulltext\Contains
    */
-  class MatchTest extends TestCase {
+  class ContainsTest extends TestCase {
 
     /**
      * @param $expected
@@ -37,20 +37,20 @@ namespace Papaya\Database\Condition\Fulltext {
 
       $this->assertSame(
         $expected,
-        (string)new Match(new Group($databaseAccess), $field, $searchFor)
+        (string)new Contains(new Group($databaseAccess), $field, $searchFor)
       ) ;
     }
 
     public static function getConditionData() {
       return [
         ['', 'col', ''],
-        ["((MATCH (col) AGAINST ('search')))", 'col', 'search'],
-        ["((NOT(MATCH (col) AGAINST ('search'))))", 'col', '-search'],
-        ["((MATCH (col) AGAINST ('search')) AND (MATCH (col) AGAINST ('for')))", 'col', 'search for'],
-        ["((MATCH (col) AGAINST ('search')) AND (MATCH (col) AGAINST ('for')))", 'col', 'search and for'],
-        ["((MATCH (col1,col2) AGAINST ('search')))", ['col1', 'col2'], 'search'],
-        ["((MATCH (table1.col1) AGAINST ('search'))) AND ((MATCH (table2.col2) AGAINST ('search')))", ['table1.col1', 'table2.col2'], 'search'],
-        ["(((MATCH (col) AGAINST ('search'))))", 'col', '(search'],
+        ["(((col LIKE '%search%')))", 'col', 'search'],
+        ["((NOT((col LIKE '%search%'))))", 'col', '-search'],
+        ["(((col LIKE '%search%'))\n AND \n((col LIKE '%for%')))", 'col', 'search for'],
+        ["(((col LIKE '%search%'))\n AND((col LIKE '%for%')))", 'col', 'search and for'],
+        ["(((col1 LIKE '%search%') OR (col2 LIKE '%search%')))", ['col1', 'col2'], 'search'],
+        ["(((table1.col1 LIKE '%search%') OR (table2.col2 LIKE '%search%')))", ['table1.col1', 'table2.col2'], 'search'],
+        ["((((col LIKE '%search%')))\n)", 'col', '(search'],
       ];
     }
   }

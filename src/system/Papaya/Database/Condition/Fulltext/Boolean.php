@@ -16,17 +16,18 @@ namespace Papaya\Database\Condition\Fulltext;
 
 use Papaya\Database;
 use Papaya\Parser;
+use Papaya\Parser\Search\Text as SearchStringParser;
 
 class Boolean extends Database\Condition\Fulltext {
   /**
    * Get filters for MySQL MATCH command
    *
-   * @param Parser\Search\Text $tokens
+   * @param SearchStringParser $tokens
    * @param array $fields
    *
    * @return string
    */
-  protected function getFulltextCondition(Parser\Search\Text $tokens, array $fields) {
+  protected function getFulltextCondition(SearchStringParser $tokens, array $fields) {
     $fieldGroups = [];
     foreach ($fields as $field) {
       if (FALSE !== \strpos($field, '.')) {
@@ -49,34 +50,34 @@ class Boolean extends Database\Condition\Fulltext {
   /**
    * Get Filters for MySQL MATCH Command in Boolean Mode (MySQL > 4.1)
    *
-   * @param Parser\Search\Text $tokens
+   * @param SearchStringParser $tokens
    * @param string $fieldString
    *
    * @return string
    */
-  private function getBooleanFilterLine(Parser\Search\Text $tokens, $fieldString) {
+  private function getBooleanFilterLine(SearchStringParser $tokens, $fieldString) {
     $connector = '';
     $indent = 0;
     $matchString = '';
     foreach ($tokens as $token) {
       switch ($token['mode']) {
-      case '(':
+      case SearchStringParser::TOKEN_PARENTHESIS_START:
         $indent++;
         $matchString .= $connector.' (';
         $connector = '';
         break;
-      case ')':
+      case SearchStringParser::TOKEN_PARENTHESIS_END:
         $indent--;
         $matchString .= ') ';
         break;
-      case '+':
+      case SearchStringParser::TOKEN_INCLUDE:
         if ($token['quotes']) {
           $matchString .= ' +"'.\addslashes($token['value']).'"';
         } else {
           $matchString .= ' +'.\addslashes($token['value']);
         }
         break;
-      case '-':
+      case SearchStringParser::TOKEN_EXCLUDE:
         if ($token['quotes']) {
           $matchString .= ' -"'.\addslashes($token['value']).'"';
         } else {
