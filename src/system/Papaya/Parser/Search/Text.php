@@ -15,6 +15,12 @@
 namespace Papaya\Parser\Search;
 
 class Text implements \IteratorAggregate {
+
+  const TOKEN_OPERATOR = ':';
+  const TOKEN_INCLUDE = '+';
+  const TOKEN_EXCLUDE = '-';
+  const TOKEN_PARENTHESIS_START = '(';
+  const TOKEN_PARENTHESIS_END = ')';
   /**
    * @var string
    */
@@ -61,7 +67,7 @@ class Text implements \IteratorAggregate {
           } elseif ($inToken) {
             $token['value'] .= $c;
           } else {
-            $token['mode'] = '+';
+            $token['mode'] = self::TOKEN_INCLUDE;
           }
         break;
         case '-':
@@ -71,7 +77,7 @@ class Text implements \IteratorAggregate {
           } elseif ($inToken) {
             $token['value'] .= $c;
           } else {
-            $token['mode'] = '-';
+            $token['mode'] = self::TOKEN_EXCLUDE;
           }
         break;
         case '"':
@@ -160,36 +166,36 @@ class Text implements \IteratorAggregate {
   private function addToken($token) {
     if (NULL !== $token && \is_array($token)) {
       if (!$token['quotes']) {
-        $str = \strtolower(\trim($token['value']));
+        $searchString = \strtolower(\trim($token['value']));
         if ($this->_ignoreConnector) {
           if (
-            ('or' !== $str) &&
-            ('and' !== $str) &&
-            (\strlen($str) > 0)
+            ('or' !== $searchString) &&
+            ('and' !== $searchString) &&
+            ('' !== $searchString)
           ) {
             $this->addElementToken($token);
             $this->_ignoreConnector = FALSE;
             return 1;
           }
         } else {
-          switch ($str) {
+          switch ($searchString) {
             case 'and':
-              $this->_tokens[] = ['mode' => ':', 'value' => 'AND'];
+              $this->_tokens[] = ['mode' => self::TOKEN_OPERATOR, 'value' => 'AND'];
               $this->_ignoreConnector = TRUE;
             break;
             case 'or':
-              $this->_tokens[] = ['mode' => ':', 'value' => 'OR'];
+              $this->_tokens[] = ['mode' => self::TOKEN_OPERATOR, 'value' => 'OR'];
               $this->_ignoreConnector = TRUE;
             break;
             default:
-              if (\strlen($str) > 0) {
+              if ('' !== $searchString) {
                 $this->addElementToken($token);
                 $this->_ignoreConnector = FALSE;
                 return 1;
               }
           }
         }
-      } elseif (\strlen($token['value']) > 0) {
+      } elseif ('' !== (string)$token['value']) {
         $this->addElementToken($token);
         $this->_ignoreConnector = FALSE;
         return 1;
@@ -204,7 +210,7 @@ class Text implements \IteratorAggregate {
    * @return array
    */
   private function createToken() {
-    return ['mode' => '+', 'value' => '', 'quotes' => FALSE];
+    return ['mode' => self::TOKEN_INCLUDE, 'value' => '', 'quotes' => FALSE];
   }
 
   /**
@@ -215,7 +221,7 @@ class Text implements \IteratorAggregate {
    * @return int
    */
   public function openTokenGroup($level) {
-    $this->_tokens[] = ['mode' => '(', 'value' => $level + 1];
+    $this->_tokens[] = ['mode' => self::TOKEN_PARENTHESIS_START, 'value' => $level + 1];
     return $level + 1;
   }
 
@@ -231,15 +237,15 @@ class Text implements \IteratorAggregate {
       $lastToken = \end($this->_tokens);
       if (
         NULL !== $lastToken &&
-        ('(' !== $lastToken['mode']) &&
-        (':' !== $lastToken['mode'])
+        (self::TOKEN_PARENTHESIS_START !== $lastToken['mode']) &&
+        (self::TOKEN_OPERATOR !== $lastToken['mode'])
       ) {
-        $this->_tokens[] = ['mode' => ')', 'value' => $level];
+        $this->_tokens[] = ['mode' => self::TOKEN_PARENTHESIS_END, 'value' => $level];
         return $level - 1;
       }
       if (NULL !== $lastToken) {
         \array_pop($this->_tokens);
-        if ('(' === $lastToken['mode']) {
+        if (self::TOKEN_PARENTHESIS_START === $lastToken['mode']) {
           return $this->closeTokenGroup($level - 1);
         }
         return $this->closeTokenGroup($level);
