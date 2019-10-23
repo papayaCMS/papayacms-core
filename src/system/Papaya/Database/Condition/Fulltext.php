@@ -52,7 +52,15 @@ abstract class Fulltext extends Condition {
   public function getSql($silent = FALSE) {
     try {
       $tokens = new SearchTextParser($this->_searchFor);
-      return $this->getFullTextCondition($tokens, \array_map([$this, 'mapFieldName'], $this->_fields));
+      return $this->getFullTextCondition(
+        $tokens,
+        \array_map(
+          function($fieldName) {
+            return $this->mapFieldName($fieldName);
+          },
+          $this->_fields
+        )
+      );
     } catch (\LogicException $e) {
       if (!$silent) {
         throw $e;

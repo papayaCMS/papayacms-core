@@ -16,17 +16,18 @@ namespace Papaya\Database\Condition\Fulltext;
 
 use Papaya\Database;
 use Papaya\Parser;
+use Papaya\Parser\Search\Text as SearchTextParser;
 
 class Match extends Database\Condition\Fulltext {
   /**
    * Get filters for MySQL MATCH command
    *
-   * @param Parser\Search\Text $tokens
+   * @param SearchTextParser $tokens
    * @param array $fields
    *
    * @return string
    */
-  protected function getFulltextCondition(Parser\Search\Text $tokens, array $fields) {
+  protected function getFulltextCondition(SearchTextParser $tokens, array $fields) {
     $fieldGroups = [];
     foreach ($fields as $field) {
       if (FALSE !== \strpos($field, '.')) {
@@ -37,6 +38,7 @@ class Match extends Database\Condition\Fulltext {
       $fieldGroups[$table][] = $field;
     }
     return \implode(
+      ' AND ',
       \array_map(
         function(array $fieldGroup) use ($tokens) {
           return $this->getMatchFilterLine($tokens, \implode(',', $fieldGroup));
@@ -49,27 +51,27 @@ class Match extends Database\Condition\Fulltext {
   /**
    * Get filter line for MySQL MATCH command
    *
-   * @param Parser\Search\Text $tokens
+   * @param SearchTextParser $tokens
    * @param string $fieldString
    *
    * @return string
    */
-  private function getMatchFilterLine(Parser\Search\Text $tokens, $fieldString) {
+  private function getMatchFilterLine(SearchTextParser $tokens, $fieldString) {
     $result = '';
     $connector = '';
     $indent = 0;
     foreach ($tokens as $token) {
       switch ($token['mode']) {
-      case '(':
+      case SearchTextParser::TOKEN_PARENTHESIS_START:
         $indent++;
         $result .= $connector.'(';
         $connector = '';
         break;
-      case ')':
+      case SearchTextParser::TOKEN_PARENTHESIS_END:
         $indent--;
         $result .= ')';
         break;
-      case '+':
+      case SearchTextParser::TOKEN_INCLUDE:
         $result .= \sprintf(
           "%s(MATCH (%s) AGAINST ('%s'))",
           $connector,
@@ -78,7 +80,7 @@ class Match extends Database\Condition\Fulltext {
         );
         $connector = ' AND ';
         break;
-      case '-':
+      case SearchTextParser::TOKEN_EXCLUDE:
         $result .= \sprintf(
           "%s(NOT(MATCH (%s) AGAINST ('%s')))",
           $connector,
@@ -87,8 +89,8 @@ class Match extends Database\Condition\Fulltext {
         );
         $connector = ' AND';
         break;
-      case ':':
-        $connector = ' '.$token['value'];
+      case SearchTextParser::TOKEN_OPERATOR:
+        $connector = ' '.$token['value'].' ';
           break;
       }
     }
