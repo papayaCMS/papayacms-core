@@ -216,7 +216,7 @@ namespace Papaya\Database\Connection {
      * @return string escaped value.
      */
     public function escapeString($value) {
-      $value = parent::escapeString($value);
+      $value = $this->ensureString($value);
       return pg_escape_string($this->_postgresql, $value);
     }
 

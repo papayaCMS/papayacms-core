@@ -193,7 +193,7 @@ class SQLite3Connection extends AbstractConnection {
    * @return string escaped value.
    */
   public function escapeString($value) {
-    $value = parent::escapeString($value);
+    $value = $this->ensureString($value);
     return SQLite3Extension::escapeString(str_replace("\x00", '', $value));
   }
 

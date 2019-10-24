@@ -66,8 +66,16 @@ namespace Papaya\Database\Connection {
      * @return string escaped value.
      */
     public function escapeString($literal) {
+      return str_replace("'", "''", $this->ensureString($literal));
+    }
+
+    /**
+     * @param mixed $literal
+     * @return string
+     */
+    protected function ensureString($literal) {
       if (is_bool($literal)) {
-        return $literal ? 1 : 0;
+        return $literal ? '1' : '0';
       }
       if (isset($literal)) {
         return (string)$literal;
@@ -76,7 +84,7 @@ namespace Papaya\Database\Connection {
     }
 
     /**
-     * Eascpae and quote a string for the database sql
+     * Escape and quote a string for the database sql
      *
      * @param mixed $literal Value to escape
      * @return string escaped value.

@@ -241,7 +241,7 @@ namespace Papaya\Database\Connection {
      * @return string
      */
     public function escapeString($value) {
-      $value = parent::escapeString($value);
+      $value = $this->ensureString($value);
       return $this->_mysqli->escape_string($value);
     }
 
