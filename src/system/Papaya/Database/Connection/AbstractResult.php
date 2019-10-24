@@ -108,7 +108,7 @@ namespace Papaya\Database\Connection {
     public function absCount() {
       if ($this->_absoluteCount === -1) {
         $absoluteCount = $this->queryRecordCount();
-        $this->_absoluteCount = (FALSE === $absoluteCount) ? FALSE : (int)$absoluteCount;
+        $this->_absoluteCount = (NULL === $absoluteCount) ? NULL : (int)$absoluteCount;
       }
       return $this->_absoluteCount;
     }
