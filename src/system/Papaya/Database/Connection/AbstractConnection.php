@@ -158,7 +158,7 @@ namespace Papaya\Database\Connection {
         $this->_buffer instanceof DatabaseResult
       ) {
         $this->_buffer->free();
-        $this->_buffer = FALSE;
+        $this->_buffer = NULL;
       }
     }
 
