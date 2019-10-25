@@ -74,10 +74,10 @@ class Radio extends UI\ListView\Item {
   public function isChecked() {
     if (NULL === $this->_checked) {
       $this->_checked = FALSE;
-      if ($this->_dialog->parameters()->get($this->_fieldName, '') === (string)$this->_value) {
-        $this->_checked = TRUE;
-      } elseif ($this->_dialog->data()->get($this->_fieldName, '') === (string)$this->_value) {
-        $this->_checked = TRUE;
+      if ($this->_dialog->parameters()->has($this->_fieldName)) {
+        $this->_checked = $this->_dialog->parameters()->get($this->_fieldName, '') === (string)$this->_value;
+      } elseif ($this->_dialog->data()->has($this->_fieldName)) {
+        $this->_checked = $this->_dialog->data()->get($this->_fieldName, '') === (string)$this->_value;
       }
     }
     return $this->_checked;
