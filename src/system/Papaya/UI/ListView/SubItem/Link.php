@@ -29,12 +29,6 @@ use Papaya\XML;
  * @property UI\Reference $reference
  */
 abstract class Link extends UI\ListView\SubItem {
-  /**
-   * buffer for text variable
-   *
-   * @var string|\Papaya\UI\Text
-   */
-  protected $_text = '';
 
   /**
    * Basic reference/link
