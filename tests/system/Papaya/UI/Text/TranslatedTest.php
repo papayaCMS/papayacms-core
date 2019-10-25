@@ -13,46 +13,79 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Text;
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Text {
 
-class TranslatedTest extends \Papaya\TestCase {
+  use Papaya\Phrases;
+  use Papaya\TestCase;
+  use \LogicException;
 
-  /**
-   * @covers \Papaya\UI\Text\Translated::__toString
-   * @covers \Papaya\UI\Text\Translated::translate
-   */
-  public function testMagicMethodToString() {
-    $phrases = $this
-      ->getMockBuilder(\Papaya\Phrases::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $phrases
-      ->expects($this->once())
-      ->method('getText')
-      ->with($this->equalTo('Hello %s!'))
-      ->will($this->returnValue('Hi %s!'));
-    $string = new Translated('Hello %s!', array('World'));
-    $string->papaya(
-      $this->mockPapaya()->application(array('AdministrationPhrases' => $phrases))
-    );
-    $this->assertEquals(
-      'Hi World!', (string)$string
-    );
-  }
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Text\Translated::__toString
-   * @covers \Papaya\UI\Text\Translated::translate
+   * @covers \Papaya\UI\Text\Translated
    */
-  public function testMagicMethodToStringWithoutTranslationEngine() {
-    $string = new Translated('Hello %s!', array('World'));
-    $string->papaya(
-      $this->mockPapaya()->application()
-    );
-    $this->assertEquals(
-      'Hello World!', (string)$string
-    );
-  }
+  class TranslatedTest extends TestCase {
 
+    public function testMagicMethodToString() {
+      $phrases = $this
+        ->getMockBuilder(Phrases::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+      $phrases
+        ->expects($this->once())
+        ->method('getText')
+        ->with($this->equalTo('Hello %s!'))
+        ->willReturn('Hi %s!');
+      $string = new Translated('Hello %s!', ['World']);
+      $string->papaya(
+        $this->mockPapaya()->application(['AdministrationPhrases' => $phrases])
+      );
+      $this->assertEquals(
+        'Hi World!', (string)$string
+      );
+    }
+
+    public function testMagicMethodToStringWithoutTranslationEngine() {
+      $string = new Translated('Hello %s!', ['World']);
+      $string->papaya(
+        $this->mockPapaya()->application()
+      );
+      $this->assertEquals(
+        'Hello World!', (string)$string
+      );
+    }
+
+    public function testMagicMethodToStringWithTranslationEngine() {
+      $phrases = $this
+        ->getMockBuilder(Phrases::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+      $phrases
+        ->expects($this->once())
+        ->method('getText')
+        ->with($this->equalTo('Hello %s!'))
+        ->willReturn('Hi %s!');
+      $string = new Translated('Hello %s!', ['World'], $phrases);
+      $this->assertEquals(
+        'Hi World!', (string)$string
+      );
+    }
+
+    public function testMagicMethodToStringCatchesExceptions() {
+      $phrases = $this
+        ->getMockBuilder(Phrases::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+      $phrases
+        ->expects($this->once())
+        ->method('getText')
+        ->with($this->equalTo('Hello %s!'))
+        ->willThrowException(new LogicException());
+      $string = new Translated('Hello %s!', ['World'], $phrases);
+      $this->assertEquals(
+        'Hello World!', (string)$string
+      );
+    }
+
+  }
 }
