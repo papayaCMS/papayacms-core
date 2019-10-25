@@ -15,6 +15,8 @@
 
 namespace Papaya\UI\ListView {
 
+  use Papaya\XML;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
   class SubItemTest extends \Papaya\TestCase {
@@ -134,11 +136,20 @@ namespace Papaya\UI\ListView {
         array('foo'), '_actionParameters', $subitem
       );
     }
+
+    public function testSubItemAppend() {
+      $subitem = new SubItem_TestProxy();
+      $this->assertXmlStringEqualsXmlString(
+        '<subitem align="left"/>',
+        $subitem->getXML()
+      );
+    }
   }
 
   class SubItem_TestProxy extends SubItem {
 
     public function appendTo(\Papaya\XML\Element $parent) {
+      return $this->_appendSubItemTo($parent);
     }
   }
 }
