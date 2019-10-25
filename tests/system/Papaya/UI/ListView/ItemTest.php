@@ -16,11 +16,11 @@
 namespace Papaya\UI\ListView;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\ListView\Item
+ */
 class ItemTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::__construct
-   */
   public function testConstructor() {
     $item = new Item('image', 'caption');
     $this->assertAttributeEquals(
@@ -31,9 +31,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::__construct
-   */
   public function testConstructorWithOptionalParameters() {
     $item = new Item('image', 'caption', array('id' => '42'));
     $this->assertAttributeEquals(
@@ -41,9 +38,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::setActionParameters
-   */
   public function testPropertyActionParameters() {
     $item = new Item('', '');
     $item->actionParameters = array('id' => '42');
@@ -52,9 +46,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::setIndentation
-   */
   public function testPropertyIndentation() {
     $item = new Item('', '');
     $item->indentation = 2;
@@ -63,9 +54,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::setIndentation
-   */
   public function testPropertyIndentationWithNegativeValueExpectingException() {
     $item = new Item('', '');
     $this->expectException(\InvalidArgumentException::class);
@@ -73,9 +61,6 @@ class ItemTest extends \Papaya\TestCase {
     $item->indentation = -2;
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::getListView
-   */
   public function testGetListView() {
     $listview = $this->createMock(\Papaya\UI\ListView::class);
     $items = $this
@@ -93,9 +78,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::collection
-   */
   public function testCollectionGetAfterSet() {
     $items = $this
       ->getMockBuilder(Items::class)
@@ -108,9 +90,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::subitems
-   */
   public function testSubitemsGetAfterSet() {
     $item = new Item('', '');
     $subitems = $this
@@ -126,9 +105,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::subitems
-   */
   public function testSubitemsImplicitCreate() {
     $item = new Item('', '');
     $this->assertInstanceOf(
@@ -139,9 +115,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::node
-   */
   public function testNodeGetAfterSet() {
     $item = new Item('', '');
     $node = $this
@@ -153,9 +126,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::node
-   */
   public function testNodeImplicitCreate() {
     $item = new Item('', '');
     $this->assertInstanceOf(
@@ -166,9 +136,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::reference
-   */
   public function testReferenceGetAfterSet() {
     $item = new Item('', '');
     $item->reference($reference = $this->createMock(\Papaya\UI\Reference::class));
@@ -176,9 +143,6 @@ class ItemTest extends \Papaya\TestCase {
   }
 
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::reference
-   */
   public function testReferenceGetImplicitCreate() {
     $item = new Item('', '', array('foo' => 'bar'));
     $item->papaya($this->mockPapaya()->application());
@@ -211,9 +175,6 @@ class ItemTest extends \Papaya\TestCase {
     $this->assertNotSame($reference, $item->reference());
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendTo() {
     $item = new Item('image', 'caption');
     $node = $this
@@ -244,9 +205,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendToWithEmptyImage() {
     $item = new Item('image', 'caption');
     $subitems = $this
@@ -268,9 +226,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendToWithActionParameters() {
     $listview = $this->createMock(\Papaya\UI\ListView::class);
     $listview
@@ -311,9 +266,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendToWithIndentation() {
     $item = new Item('image', 'caption');
     $item->indentation = 3;
@@ -327,10 +279,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   * @covers \Papaya\UI\ListView\Item::getColumnSpan
-   */
   public function testAppendToWithColumnSpan() {
     $item = new Item('image', 'caption');
     $item->columnSpan = 3;
@@ -344,9 +292,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendToWithSelected() {
     $item = new Item('image', 'caption');
     $item->selected = TRUE;
@@ -360,9 +305,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendToWithEmphasized() {
     $item = new Item('image', 'caption');
     $item->emphased = TRUE;
@@ -376,10 +318,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   * @covers \Papaya\UI\ListView\Item::getColumnSpan
-   */
   public function testAppendToWithColumnSpanReadFromListView() {
     $columns = $this
       ->getMockBuilder(Columns::class)
@@ -415,9 +353,6 @@ class ItemTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Item::appendTo
-   */
   public function testAppendToWithText() {
     $item = new Item('image', 'caption');
     $item->text = 'sample text';
@@ -427,6 +362,19 @@ class ItemTest extends \Papaya\TestCase {
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<listitem title="caption" image="test.gif" subtitle="sample text"/>',
+      $item->getXML()
+    );
+  }
+
+  public function testAppendToWithHint() {
+    $item = new Item('image', 'caption');
+    $item->hint = 'sample hint';
+    $item->papaya(
+      $this->mockPapaya()->application(array('Images' => array('image' => 'test.gif')))
+    );
+    $this->assertXmlStringEqualsXmlString(
+    /** @lang XML */
+      '<listitem title="caption" image="test.gif" hint="sample hint"/>',
       $item->getXML()
     );
   }

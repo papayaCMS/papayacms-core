@@ -99,14 +99,14 @@ class Item extends UI\Control\Collection\Item {
   protected $_reference;
 
   /**
-   * listview items can be indented, the property stpres the level of indentation
+   * listview items can be indented, the property stores the level of indentation
    *
    * @var int indentation
    */
   protected $_indentation = 0;
 
   /**
-   * listview items can be emphased, meaning the title will have a different formatting
+   * listview items can be emphasised, meaning the title will have a different formatting
    *
    * @var int indentation
    */
@@ -222,7 +222,7 @@ class Item extends UI\Control\Collection\Item {
   }
 
   /**
-   * Getter/Setter for the item subitems. Subitems represent addiitonal data.
+   * Getter/Setter for the item subitems. Subitems represent additional data.
    *
    * @param SubItems $subitems
    *
@@ -239,7 +239,7 @@ class Item extends UI\Control\Collection\Item {
   }
 
   /**
-   * Getter/Setter for the reference subobject, if not explit set. The reference from the collection
+   * Getter/Setter for the reference subobject, if not explicit set. The reference from the collection
    * is cloned or a new one is created (if no collection is available).
    *
    * @param UI\Reference $reference
