@@ -51,7 +51,7 @@ class Translated extends UI\Text {
    *
    * @param string $pattern
    * @param array $values
-   * @param \Papaya\Phrases|null $phrases
+   * @param Phrases|null $phrases
    * @param null|string $groupName
    */
   public function __construct(
