@@ -60,7 +60,8 @@ namespace Papaya\Session {
       $session = $this->getSessionFixture(FALSE);
       $session
         ->wrapper()
-        ->expects($this->never());
+        ->expects($this->never())
+        ->method('storeValue');
       $values = new Values($session);
       $values['sample'] = 'fallback';
       $this->assertSame('fallback', $values['sample']);
@@ -133,6 +134,31 @@ namespace Papaya\Session {
       $this->assertSame(0, $values->get('sample', 21));
     }
 
+    public function testGetWithArrayDefaultValueToIgnoringScalarValue() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'fail']);
+      $values = new Values($session);
+      $this->assertSame(['sample' => 'success'], $values->get('sample', ['sample' => 'success']));
+    }
+
+    public function testGetWithValueObjectCastableToString() {
+      $valueObject = $this->createMock(StringCastable_TestFixture::class);
+      $valueObject
+        ->expects($this->once())
+        ->method('__toString')
+        ->willReturn('success');
+
+      $session = $this->getSessionFixture(TRUE, ['sample' => []]);
+      $values = new Values($session);
+      $this->assertSame('success', $values->get('sample', $valueObject));
+    }
+
+    public function testGetWithNonCastableObjectAsDefaultValue() {
+      $valueObject = new \stdClass();
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'fail']);
+      $values = new Values($session);
+      $this->assertSame($valueObject, $values->get('sample', $valueObject));
+    }
+
     public function testGetWithFilterReturnDefaultValue() {
       $session = $this->getSessionFixture(TRUE, ['sample' => 'fail']);
       $values = new Values($session);
@@ -200,6 +226,13 @@ namespace Papaya\Session {
         'array with object' => ['stdClass_bar', [new \stdClass(), 'bar']],
         'array with array' => ['5b448a7bdbeea0be7d7f758f5f8ee90b_bar', [[''], 'bar']]
       ];
+    }
+
+  }
+
+  class StringCastable_TestFixture {
+    public function __toString() {
+      return 'success';
     }
   }
 }
