@@ -16,19 +16,20 @@ namespace Papaya\Router\Route {
 
   use Papaya\Response;
   use Papaya\Router;
+  use Papaya\Router\Route;
   use Papaya\Utility;
 
   /**
    * A list of routes that will be executed one after each other until
    * one of them returns an response.
    */
-  class Group implements Router\Route, \ArrayAccess {
+  class Group implements Route, \ArrayAccess {
     private $_routes = [];
 
     /**
      * Group constructor.
      *
-     * @param callable|Router\Route ...$routes
+     * @param callable|Route ...$routes
      */
     public function __construct(...$routes) {
       foreach ($routes as $route) {
@@ -61,7 +62,7 @@ namespace Papaya\Router\Route {
 
     /**
      * @param int $offset
-     * @param callable|Router\Route $route
+     * @param callable|Route $route
      */
     public function offsetSet($offset, $route) {
       Utility\Constraints::assertCallable($route);
@@ -76,7 +77,7 @@ namespace Papaya\Router\Route {
 
     /**
      * @param int $offset
-     * @return callable|\Papaya\Router\Route $route
+     * @return callable|Route $route
      */
     public function offsetGet($offset) {
       return $this->_routes[$offset];
