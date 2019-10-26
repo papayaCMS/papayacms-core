@@ -65,7 +65,10 @@ namespace Papaya\Router\Route {
      * @return null|true|\Papaya\Response|callable
      */
     public function __invoke(Router $router, $address = NULL, $level = 0) {
-      $command = $address->getRouteString($this->_baseLevel + $level, $this->_offset) ?: $this->_defaultChoice;
+      $command = $this->_defaultChoice;
+      if ($address instanceof Router\Path) {
+        $command = $address->getRouteString($this->_baseLevel + $level, $this->_offset) ?: $this->_defaultChoice;
+      }
       if (!isset($this[$command])) {
         return NULL;
       }
