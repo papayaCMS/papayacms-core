@@ -18,7 +18,7 @@ use Papaya\Filter;
 
 /**
  * Provide an array like access to session values. Allow to use complex identifiers. Handle
- * sessions that are not startet yet.
+ * sessions that are not started.
  *
  * @package Papaya-Library
  * @subpackage Session
@@ -51,8 +51,7 @@ class Values implements \ArrayAccess {
    */
   public function offsetExists($identifier) {
     $key = $this->_compileKey($identifier);
-    /** @noinspection UnSafeIsSetOverArrayInspection */
-    if (isset($_SESSION) && \is_array($_SESSION) && \array_key_exists($key, $_SESSION)) {
+    if ($this->_session->wrapper()->hasValue($key)) {
       return TRUE;
     }
     return \array_key_exists($key, $this->_fallback);
@@ -67,8 +66,8 @@ class Values implements \ArrayAccess {
    */
   public function offsetGet($identifier) {
     $key = $this->_compileKey($identifier);
-    if (isset($_SESSION[$key])) {
-      return $_SESSION[$key];
+    if ($this->_session->isActive()) {
+      return $this->_session->wrapper()->hasValue($key) ? $this->_session->wrapper()->readValue($key) : NULL;
     }
     if (isset($this->_fallback[$key])) {
       return $this->_fallback[$key];
@@ -119,7 +118,7 @@ class Values implements \ArrayAccess {
   public function offsetSet($identifier, $value) {
     $key = $this->_compileKey($identifier);
     if ($this->_session->isActive()) {
-      $_SESSION[$key] = $value;
+      $this->_session->wrapper()->storeValue($key, $value);
     }
     $this->_fallback[$key] = $value;
   }
@@ -142,11 +141,10 @@ class Values implements \ArrayAccess {
   public function offsetUnset($identifier) {
     $key = $this->_compileKey($identifier);
     if (
-      \is_array($_SESSION) &&
-      \array_key_exists($key, $_SESSION) &&
-      $this->_session->isActive()
+      $this->_session->isActive() &&
+      $this->_session->wrapper()->hasValue($key)
     ) {
-      unset($_SESSION[$key]);
+      $this->_session->wrapper()->removeValue($key);
     }
     if (\array_key_exists($key, $this->_fallback)) {
       unset($this->_fallback[$key]);

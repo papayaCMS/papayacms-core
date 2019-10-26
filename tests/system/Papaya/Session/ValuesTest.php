@@ -13,236 +13,193 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Session;
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\Session {
 
-class ValuesTest extends \Papaya\TestCase {
+  use Papaya\Session;
 
-  /**
-   * @covers \Papaya\Session\Values::__construct
-   */
-  public function testConstructor() {
-    $session = $this->getSessionFixture();
-    $values = new Values($session);
-    $this->assertAttributeSame(
-      $session, '_session', $values
-    );
-  }
-
-  /**
-   * @covers \Papaya\Session\Values::offsetExists
-   */
-  public function testOffsetExistsIfSessionActiveExpectingFalse() {
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertFalse(isset($values['sample']));
-  }
-
-  /**
-   * @backupGlobals enabled
-   * @covers \Papaya\Session\Values::offsetExists
-   */
-  public function testOffsetExistsIfSessionActiveExpectingTrue() {
-    $_SESSION = array('sample' => 'TRUE');
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertTrue(isset($values['sample']));
-  }
-
-  /**
-   * @covers \Papaya\Session\Values::offsetGet
-   */
-  public function testOffsetGetIfSessionActiveExpectingNull() {
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertNull($values['sample']);
-  }
-
-  /**
-   * @backupGlobals enabled
-   * @covers \Papaya\Session\Values::offsetGet
-   */
-  public function testOffsetGetIfSessionActiveExpectingValue() {
-    $_SESSION = array('sample' => 'success');
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertEquals('success', $values['sample']);
-  }
-
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::offsetSet
-   */
-  public function testOffsetSetIfSessionInactive() {
-    $_SESSION = array();
-    $session = $this->getSessionFixture(FALSE);
-    $values = new Values($session);
-    $values['sample'] = 'failed';
-    $this->assertEquals(array(), $_SESSION);
-  }
-
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::offsetSet
-   */
-  public function testOffsetSetIfSessionActive() {
-    $_SESSION = array();
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $values['sample'] = 'success';
-    $this->assertEquals(array('sample' => 'success'), $_SESSION);
-  }
-
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::offsetUnset
-   */
-  public function testOffsetUnsetIfSessionActive() {
-    $_SESSION = array('sample' => 'failed');
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    unset($values['sample']);
-    $this->assertEquals(array(), $_SESSION);
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
    * @covers \Papaya\Session\Values
    */
-  public function testGetAfterSetWithInactiveSessionUsingFallback() {
-    $session = $this->getSessionFixture(FALSE);
-    $values = new Values($session);
-    $values['sample'] = 'success';
-    $this->assertEquals('success', $values['sample']);
-  }
+  class ValuesTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Session\Values
-   */
-  public function testIssetAfterSetWithInactiveSessionUsingFallback() {
-    $session = $this->getSessionFixture(FALSE);
-    $values = new Values($session);
-    $values['sample'] = 'success';
-    $this->assertTrue(isset($values['sample']));
-  }
+    public function testConstructor() {
+      $session = $this->getSessionFixture();
+      $values = new Values($session);
+      $this->assertAttributeSame(
+        $session, '_session', $values
+      );
+    }
 
-  /**
-   * @covers \Papaya\Session\Values
-   */
-  public function testGetAfterUnsetWithInactiveSessionUsingFallback() {
-    $session = $this->getSessionFixture(FALSE);
-    $values = new Values($session);
-    $values['sample'] = 'fail';
-    unset($values['sample']);
-    $this->assertNull($values['sample']);
-  }
+    public function testOffsetExistsIfSessionActiveExpectingFalse() {
+      $session = $this->getSessionFixture(TRUE);
+      $values = new Values($session);
+      $this->assertFalse(isset($values['sample']));
+    }
 
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::_compileKey
-   * @dataProvider provideIdentifierData
-   * @param $expected
-   * @param $identifierData
-   */
-  public function testIdentifierHandlingBySettingValues($expected, $identifierData) {
-    $_SESSION = array();
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $values[$identifierData] = TRUE;
-    $this->assertEquals(
-      array($expected => TRUE),
-      $_SESSION
-    );
-  }
+    public function testOffsetExistsIfSessionActiveExpectingTrue() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 42]);
+      $values = new Values($session);
+      $this->assertTrue(isset($values['sample']));
+    }
 
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::set
-   */
-  public function testSet() {
-    $_SESSION = array();
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $values->set('sample', 'success');
-    $this->assertEquals(array('sample' => 'success'), $_SESSION);
-  }
+    public function testOffsetGetIfSessionActiveExpectingNull() {
+      $session = $this->getSessionFixture(TRUE);
+      $values = new Values($session);
+      $this->assertNull($values['sample']);
+    }
 
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::get
-   */
-  public function testGet() {
-    $_SESSION = array('sample' => 'success');
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertEquals('success', $values->get('sample'));
-  }
+    public function testOffsetGetIfSessionActiveExpectingValue() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'success']);
+      $values = new Values($session);
+      $this->assertEquals('success', $values['sample']);
+    }
 
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::get
-   */
-  public function testGetWithCastToDefaultValueType() {
-    $_SESSION = array('sample' => 'fail');
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertSame(0, $values->get('sample', 21));
-  }
+    public function testOffsetSetIfSessionInactive() {
+      $session = $this->getSessionFixture(FALSE);
+      $session
+        ->wrapper()
+        ->expects($this->never());
+      $values = new Values($session);
+      $values['sample'] = 'fallback';
+      $this->assertSame('fallback', $values['sample']);
+    }
 
-  /**
-   * @backupGlobals
-   * @covers \Papaya\Session\Values::get
-   */
-  public function testGetWithFilterReturnDefaultValue() {
-    $_SESSION = array('sample' => 'fail');
-    $session = $this->getSessionFixture(TRUE);
-    $values = new Values($session);
-    $this->assertSame(
-      21,
-      $values->get('sample', 21, new \Papaya\Filter\IntegerValue(3))
-    );
-  }
+    public function testOffsetSetIfSessionActive() {
+      $session = $this->getSessionFixture(TRUE);
+      $session
+        ->wrapper()
+        ->expects($this->once())
+        ->method('storeValue')
+        ->with('sample', 'success');
+      $values = new Values($session);
+      $values['sample'] = 'success';
+    }
 
+    public function testOffsetUnsetIfSessionActive() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'failed']);
+      $session
+        ->wrapper()
+        ->expects($this->once())
+        ->method('removeValue')
+        ->with('sample');
+      $values = new Values($session);
+      unset($values['sample']);
+    }
 
-  /**
-   * @covers \Papaya\Session\Values::getKey
-   * @dataProvider provideIdentifierData
-   * @param mixed $expected
-   * @param mixed $identifierData
-   */
-  public function testGetKey($expected, $identifierData) {
-    $values = new Values($this->getSessionFixture(TRUE));
-    $this->assertSame($expected, $values->getKey($identifierData));
-  }
+    public function testGetAfterSetWithInactiveSessionUsingFallback() {
+      $session = $this->getSessionFixture(FALSE);
+      $values = new Values($session);
+      $values['sample'] = 'success';
+      $this->assertEquals('success', $values['sample']);
+    }
 
-  /************************
-   * Fixtures
-   ************************/
+    public function testIssetAfterSetWithInactiveSessionUsingFallback() {
+      $session = $this->getSessionFixture(FALSE);
+      $values = new Values($session);
+      $values['sample'] = 'success';
+      $this->assertTrue(isset($values['sample']));
+    }
 
-  /**
-   * @param bool $isActive
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Session
-   */
-  public function getSessionFixture($isActive = FALSE) {
-    $session = $this->createMock(\Papaya\Session::class);
-    $session
-      ->expects($this->any())
-      ->method('isActive')
-      ->will($this->returnValue($isActive));
-    return $session;
-  }
+    public function testGetAfterUnsetWithInactiveSessionUsingFallback() {
+      $session = $this->getSessionFixture(FALSE);
+      $values = new Values($session);
+      $values['sample'] = 'fail';
+      unset($values['sample']);
+      $this->assertNull($values['sample']);
+    }
 
-  /************************
-   * Data Provider
-   *************************/
+    public function testSet() {
+      $session = $this->getSessionFixture(TRUE);
+      $session
+        ->wrapper()
+        ->expects($this->once())
+        ->method('storeValue')
+        ->with('sample', 'success');
+      $values = new Values($session);
+      $values->set('sample', 'success');
+    }
 
-  public static function provideIdentifierData() {
-    return array(
-      'string' => array('sample', 'sample'),
-      'number' => array('123', 123),
-      'object' => array(\stdClass::class, new \stdClass()),
-      'array of strings' => array('foo_bar', array('foo', 'bar')),
-      'array with object' => array('stdClass_bar', array(new \stdClass(), 'bar')),
-      'array with array' => array('5b448a7bdbeea0be7d7f758f5f8ee90b_bar', array(array(''), 'bar'))
-    );
+    public function testGet() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'success']);
+      $values = new Values($session);
+      $this->assertEquals('success', $values->get('sample'));
+    }
+
+    public function testGetWithCastToDefaultValueType() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'fail']);
+      $values = new Values($session);
+      $this->assertSame(0, $values->get('sample', 21));
+    }
+
+    public function testGetWithFilterReturnDefaultValue() {
+      $session = $this->getSessionFixture(TRUE, ['sample' => 'fail']);
+      $values = new Values($session);
+      $this->assertSame(
+        21,
+        $values->get('sample', 21, new \Papaya\Filter\IntegerValue(3))
+      );
+    }
+
+    /**
+     * @dataProvider provideIdentifierData
+     * @param mixed $expected
+     * @param mixed $identifierData
+     */
+    public function testGetKey($expected, $identifierData) {
+      $values = new Values($this->getSessionFixture(TRUE));
+      $this->assertSame($expected, $values->getKey($identifierData));
+    }
+
+    /************************
+     * Fixtures
+     ************************/
+
+    /**
+     * @param bool $isActive
+     * @param array $data
+     * @return \PHPUnit_Framework_MockObject_MockObject|Session
+     */
+    public function getSessionFixture($isActive = FALSE, $data = []) {
+      $wrapper = $this->createMock(Wrapper::class);
+      $wrapper
+        ->method('hasValue')
+        ->willReturnCallback(
+          static function ($key) use ($data) {
+            return array_key_exists($key, $data);
+          }
+        );
+      $wrapper
+        ->method('readValue')
+        ->willReturnCallback(
+          static function ($key) use ($data) {
+            return $data[$key];
+          }
+        );
+      $session = $this->createMock(Session::class);
+      $session
+        ->method('isActive')
+        ->willReturn($isActive);
+      $session
+        ->method('wrapper')
+        ->willReturn($wrapper);
+      return $session;
+    }
+
+    /************************
+     * Data Provider
+     *************************/
+
+    public static function provideIdentifierData() {
+      return [
+        'string' => ['sample', 'sample'],
+        'number' => ['123', 123],
+        'object' => [\stdClass::class, new \stdClass()],
+        'array of strings' => ['foo_bar', ['foo', 'bar']],
+        'array with object' => ['stdClass_bar', [new \stdClass(), 'bar']],
+        'array with array' => ['5b448a7bdbeea0be7d7f758f5f8ee90b_bar', [[''], 'bar']]
+      ];
+    }
   }
 }

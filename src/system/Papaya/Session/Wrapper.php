@@ -205,4 +205,37 @@ class Wrapper {
   public function setCacheLimiter($cacheLimiter) {
     return \session_cache_limiter($cacheLimiter);
   }
+
+  /**
+   * @param string $name
+   * @return bool
+   */
+  public function hasValue($name) {
+    return (isset($_SESSION) && \is_array($_SESSION) && \array_key_exists($name, $_SESSION));
+  }
+
+  /**
+   * @param string $name
+   * @return mixed
+   */
+  public function readValue($name) {
+    return isset($_SESSION[$name]) ? $_SESSION[$name] : NULL;
+  }
+
+  /**
+   * @param string $name
+   * @param mixed $value
+   */
+  public function storeValue($name, $value) {
+    $_SESSION[$name] = $value;
+  }
+
+  /**
+   * @param $name
+   */
+  public function removeValue($name) {
+    if (isset($_SESSION[$name])) {
+      unset($_SESSION[$name]);
+    }
+  }
 }
