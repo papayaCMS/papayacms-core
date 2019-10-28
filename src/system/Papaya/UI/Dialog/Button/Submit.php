@@ -14,8 +14,10 @@
  */
 namespace Papaya\UI\Dialog\Button;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\UI;
 use Papaya\XML;
+use Papaya\XML\Element as XMLElement;
 
 /**
  * A simple submit button with a caption and without a name.
@@ -25,7 +27,7 @@ use Papaya\XML;
  *
  *   $dialog->buttons()->add(
  *     new \Papaya\UI\Dialog\Button\Submit(
- *       new \Papaya\UI\Text\Translated('Save')
+ *       new StringCastable\Translated('Save')
  *     ),
  *     \Papaya\UI\Dialog\Button::ALIGN_LEFT
  *   );
@@ -37,20 +39,20 @@ class Submit extends UI\Dialog\Button {
   /**
    * Button caption
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   protected $_caption = 'Submit';
   /**
    * Button hint
    *
-   * @var string|\Papaya\UI\Text
+   * @var string|StringCastable
    */
   private $_hint = '';
 
   /**
    * Initialize object, set caption and alignment
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|StringCastable $caption
    * @param int $align
    */
   public function __construct($caption, $align = UI\Dialog\Button::ALIGN_RIGHT) {
@@ -61,9 +63,9 @@ class Submit extends UI\Dialog\Button {
   /**
    * Append button output to DOM
    *
-   * @param XML\Element $parent
+   * @param XMLElement $parent
    */
-  public function appendTo(XML\Element $parent) {
+  public function appendTo(XMLElement $parent) {
     $parent->appendElement(
       'button',
       [

@@ -13,74 +13,52 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Dialog\Button;
-require_once __DIR__.'/../../../../../bootstrap.php';
-
-class SubmitTest extends \Papaya\TestCase {
+namespace Papaya\UI\Dialog\Button {
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Dialog\Button\Submit::__construct
+   * @covers \Papaya\UI\Dialog\Button\Submit
    */
-  public function testConstructor() {
-    $button = new Submit('Test Caption');
-    $this->assertAttributeEquals(
-      'Test Caption',
-      '_caption',
-      $button
-    );
-  }
+  class SubmitTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\Submit::__construct
-   */
-  public function testConstructorWithAlignment() {
-    $button = new Submit(
-      'Test Caption', \Papaya\UI\Dialog\Button::ALIGN_LEFT
-    );
-    $this->assertAttributeEquals(
-      \Papaya\UI\Dialog\Button::ALIGN_LEFT,
-      '_align',
-      $button
-    );
-  }
+    public function testAppendTo() {
+      $button = new Submit('Test Caption');
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<button type="submit" align="right">Test Caption</button>',
+        $button->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
-   */
-  public function testAppendTo() {
-    $document = new \Papaya\XML\Document();
-    $document->appendElement('test');
-    $button = new Submit('Test Caption');
-    $button->appendTo($document->documentElement);
-    $this->assertEquals(
-    /** @lang XML */
-      '<test><button type="submit" align="right">Test Caption</button></test>',
-      $document->saveXML($document->documentElement)
-    );
-  }
+    public function testAppendToWithInterfaceStringObject() {
+      $caption = $this
+        ->getMockBuilder(\Papaya\UI\Text::class)
+        ->setConstructorArgs(['.'])
+        ->getMock();
+      $caption
+        ->expects($this->once())
+        ->method('__toString')
+        ->willReturn('Test Caption');
+      $button = new Submit(
+        $caption, \Papaya\UI\Dialog\Button::ALIGN_LEFT
+      );
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<button type="submit" align="left">Test Caption</button>',
+        $button->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\Submit::appendTo
-   */
-  public function testAppendToWithInterfaceStringObject() {
-    $caption = $this
-      ->getMockBuilder(\Papaya\UI\Text::class)
-      ->setConstructorArgs(array('.'))
-      ->getMock();
-    $caption
-      ->expects($this->once())
-      ->method('__toString')
-      ->will($this->returnValue('Test Caption'));
-    $document = new \Papaya\XML\Document();
-    $document->appendElement('test');
-    $button = new Submit(
-      $caption, \Papaya\UI\Dialog\Button::ALIGN_LEFT
-    );
-    $button->appendTo($document->documentElement);
-    $this->assertEquals(
-    /** @lang XML */
-      '<test><button type="submit" align="left">Test Caption</button></test>',
-      $document->saveXML($document->documentElement)
-    );
+    public function testAppendToWithHint() {
+      $button = new Submit(
+        'Test Caption', \Papaya\UI\Dialog\Button::ALIGN_LEFT
+      );
+      $button->setHint('test hint');
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<button type="submit" align="left" hint="test hint">Test Caption</button>',
+        $button->getXML()
+      );
+    }
   }
 }
