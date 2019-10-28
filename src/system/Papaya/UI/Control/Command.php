@@ -52,10 +52,7 @@ abstract class Command extends Interactive {
    */
   public function validateCondition() {
     $condition = $this->condition();
-    if ($condition instanceof Command\Condition) {
-      return $condition->validate();
-    }
-    return (bool)$condition;
+    return $condition->validate();
   }
 
   /**

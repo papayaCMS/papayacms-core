@@ -15,8 +15,10 @@
 
 namespace Papaya\UI\Control {
 
+  use Papaya\TestCase;
+
   require_once __DIR__.'/../../../../bootstrap.php';
-  \Papaya\TestCase::defineConstantDefaults(
+  TestCase::defineConstantDefaults(
     'PAPAYA_DB_TBL_AUTHOPTIONS',
     'PAPAYA_DB_TBL_AUTHUSER',
     'PAPAYA_DB_TBL_AUTHGROUPS',
@@ -27,91 +29,67 @@ namespace Papaya\UI\Control {
     'PAPAYA_DB_TBL_SURFER'
   );
 
-  class CommandTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\UI\Control\Command::condition
-     * @covers \Papaya\UI\Control\Command::createCondition
-     */
+  /**
+   * @covers \Papaya\UI\Control\Command
+   */
+  class CommandTest extends TestCase {
+
     public function testConditionGetExpectingTrue() {
       $command = new Command_TestProxy();
       $this->assertInstanceOf(Command\Condition\Value::class, $command->condition());
       $this->assertTrue($command->condition()->validate());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::condition
-     */
     public function testConditionGetAfterSet() {
       $command = new Command_TestProxy();
       $command->condition($condition = $this->createMock(Command\Condition::class));
       $this->assertEquals($condition, $command->condition());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validateCondition
-     */
     public function testValidateConditionWithoutConditionExpectingTrue() {
       $command = new Command_TestProxy();
       $this->assertTrue($command->validateCondition());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validateCondition
-     */
     public function testValidateConditionWithConditionExpectingTrue() {
       $condition = $this->createMock(Command\Condition::class);
       $condition
         ->expects($this->once())
         ->method('validate')
-        ->will($this->returnValue(TRUE));
+        ->willReturn(TRUE);
       $command = new Command_TestProxy();
       $command->condition($condition);
       $this->assertTrue($command->validateCondition());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validateCondition
-     */
     public function testValidateConditionWithConditionExpectingFalse() {
       $condition = $this->createMock(Command\Condition::class);
       $condition
         ->expects($this->once())
         ->method('validate')
-        ->will($this->returnValue(FALSE));
+        ->willReturn(FALSE);
       $command = new Command_TestProxy();
       $command->condition($condition);
       $this->assertFalse($command->validateCondition());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::permission
-     */
     public function testPermissionGetExpectingNull() {
       $command = new Command_TestProxy();
       $this->assertNull($command->permission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::permission
-     */
     public function testPermissionGetAfterSet() {
       $command = new Command_TestProxy();
       $command->permission(42);
       $this->assertEquals(42, $command->permission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validatePermission
-     */
     public function testValidatePermissionWithoutPermissionExpectingTrue() {
       $command = new Command_TestProxy();
       $this->assertTrue($command->validatePermission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validatePermission
-     */
     public function testValidatePermissionWithInvalidPermissionExpectingException() {
       $command = new Command_TestProxy();
       $command->permission(new \stdClass());
@@ -120,16 +98,13 @@ namespace Papaya\UI\Control {
       $command->validatePermission();
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validatePermission
-     */
     public function testValidatePermissionWithPermissionExpectingFalse() {
       $user = $this->createMock(\base_auth::class);
       $user
         ->expects($this->once())
         ->method('hasPerm')
         ->with(42)
-        ->will($this->returnValue(FALSE));
+        ->willReturn(FALSE);
       $command = new Command_TestProxy();
       $command->papaya(
         $this->mockPapaya()->application(
@@ -142,16 +117,13 @@ namespace Papaya\UI\Control {
       $this->assertFalse($command->validatePermission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validatePermission
-     */
     public function testValidatePermissionWithPermissionExpectingTrue() {
       $user = $this->createMock(\base_auth::class);
       $user
         ->expects($this->once())
         ->method('hasPerm')
         ->with(42)
-        ->will($this->returnValue(TRUE));
+        ->willReturn(TRUE);
       $command = new Command_TestProxy();
       $command->papaya(
         $this->mockPapaya()->application(
@@ -164,16 +136,13 @@ namespace Papaya\UI\Control {
       $this->assertTrue($command->validatePermission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validatePermission
-     */
     public function testValidatePermissionWithModulePermissionExpectingFalse() {
       $user = $this->createMock(\base_auth::class);
       $user
         ->expects($this->once())
         ->method('hasPerm')
         ->with(42, '1234')
-        ->will($this->returnValue(FALSE));
+        ->willReturn(FALSE);
       $command = new Command_TestProxy();
       $command->papaya(
         $this->mockPapaya()->application(
@@ -186,16 +155,13 @@ namespace Papaya\UI\Control {
       $this->assertFalse($command->validatePermission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::validatePermission
-     */
     public function testValidatePermissionWithModulePermissionExpectingTrue() {
       $user = $this->createMock(\base_auth::class);
       $user
         ->expects($this->once())
         ->method('hasPerm')
         ->with(42, '1234')
-        ->will($this->returnValue(TRUE));
+        ->willReturn(TRUE);
       $command = new Command_TestProxy();
       $command->papaya(
         $this->mockPapaya()->application(
@@ -208,25 +174,19 @@ namespace Papaya\UI\Control {
       $this->assertTrue($command->validatePermission());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::owner
-     */
     public function testOwnerGetAfterSet() {
       $application = $this->mockPapaya()->application();
       $owner = $this->createMock(Interactive::class);
       $owner
         ->expects($this->once())
         ->method('papaya')
-        ->will($this->returnValue($application));
+        ->willReturn($application);
       $command = new Command_TestProxy();
       $command->papaya();
       $this->assertSame($owner, $command->owner($owner));
       $this->assertEquals($application, $command->papaya());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::owner
-     */
     public function testOwnerGetExpectingException() {
       $command = new Command_TestProxy();
       $this->expectException(\LogicException::class);
@@ -234,9 +194,6 @@ namespace Papaya\UI\Control {
       $command->owner();
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::hasOwner
-     */
     public function testHasOwnerExpectingTrue() {
       $owner = $this->createMock(Interactive::class);
       $command = new Command_TestProxy();
@@ -244,17 +201,11 @@ namespace Papaya\UI\Control {
       $this->assertTrue($command->hasOwner());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::hasOwner
-     */
     public function testHasOwnerExpectingFalse() {
       $command = new Command_TestProxy();
       $this->assertFalse($command->hasOwner());
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::parameterMethod
-     */
     public function testParameterMethodGetAfterSet() {
       $command = new Command_TestProxy();
       $this->assertEquals(
@@ -263,9 +214,6 @@ namespace Papaya\UI\Control {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::parameterMethod
-     */
     public function testParameterMethodGetAfterSetWithOwner() {
       $owner = $this->createMock(Interactive::class);
       $owner
@@ -281,9 +229,6 @@ namespace Papaya\UI\Control {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::parameterGroup
-     */
     public function testParameterGroupGetAfterSet() {
       $command = new Command_TestProxy();
       $this->assertEquals(
@@ -292,9 +237,6 @@ namespace Papaya\UI\Control {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::parameterGroup
-     */
     public function testParameterGroupGetAfterSetWithOwner() {
       $owner = $this->createMock(Interactive::class);
       $owner
@@ -310,9 +252,6 @@ namespace Papaya\UI\Control {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::parameters
-     */
     public function testParametersGetAfterSet() {
       $parameters = $this->createMock(\Papaya\Request\Parameters::class);
       $command = new Command_TestProxy();
@@ -322,9 +261,6 @@ namespace Papaya\UI\Control {
       );
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Command::parameters
-     */
     public function testParametersGetAfterSetWithOwner() {
       $parameters = $this->createMock(\Papaya\Request\Parameters::class);
       $owner = $this->createMock(Interactive::class);
