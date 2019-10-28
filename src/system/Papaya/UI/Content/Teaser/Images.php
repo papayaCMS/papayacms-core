@@ -30,14 +30,14 @@ class Images extends UI\Control {
    *
    * @var int
    */
-  private $_width = 0;
+  private $_width;
 
   /**
    * thumbnail height
    *
    * @var int
    */
-  private $_height = 0;
+  private $_height;
 
   /**
    * thumbnail resize mode (abs, max, min, mincrop)
@@ -52,6 +52,7 @@ class Images extends UI\Control {
    * @var array
    */
   private $_pattern = [
+    'images' => '*[self::teaser or self::subtopic]/image//*[self::img or local-name() = "media"]',
     'teaser_images' => 'teaser/image//*[name() = "img" or local-name() = "media"]',
     'subtopic_images' => 'subtopic/image//*[name() = "img" or local-name() = "media"]',
     'page_id' => 'string(ancestor::subtopic/@no|ancestor::teaser/@page-id)'
@@ -66,8 +67,8 @@ class Images extends UI\Control {
    * @param string $resizeMode
    */
   public function __construct($width, $height, $resizeMode = 'max') {
-    $this->_width = $width;
-    $this->_height = $height;
+    $this->_width = (int)$width;
+    $this->_height = (int)$height;
     $this->_resizeMode = $resizeMode;
   }
 
@@ -79,10 +80,7 @@ class Images extends UI\Control {
         'papaya' => XML\Document::XMLNS_PAPAYA
       ]
     );
-    $images = $document->xpath()->evaluate($this->_pattern['teaser_images'], $parent);
-    if ($images->length < 1) {
-      $images = $document->xpath()->evaluate($this->_pattern['subtopic_images'], $parent);
-    }
+    $images = $document->xpath()->evaluate($this->_pattern['images'], $parent);
     /** @var \DOMElement $imageNode */
     foreach ($images as $imageNode) {
       $imageNode
