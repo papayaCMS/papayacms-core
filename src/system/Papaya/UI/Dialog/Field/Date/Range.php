@@ -14,6 +14,7 @@
  */
 namespace Papaya\UI\Dialog\Field\Date;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\Filter;
 use Papaya\UI;
 use Papaya\Utility;
@@ -33,7 +34,7 @@ class Range extends UI\Dialog\Field {
   /**
    * Creates dialog field for date range, two inputs for a start and an end value
    *
-   * @param string|\Papaya\UI\Text $caption
+   * @param string|StringCastable $caption
    * @param string $name
    * @param bool $mandatory
    * @param int $includeTime
@@ -113,7 +114,8 @@ class Range extends UI\Dialog\Field {
       'input',
       [
         'type' => (Filter\Date::DATE_NO_TIME === $this->_includeTime) ? 'date' : 'datetime',
-        'name' => $this->_getParameterName($fieldName.'/start')
+        'name' => $this->_getParameterName($fieldName.'/start'),
+        'value' => $start
       ],
       $this->formatDateTime(
         $start, Filter\Date::DATE_NO_TIME !== $this->_includeTime
@@ -181,21 +183,18 @@ class Range extends UI\Dialog\Field {
    */
   public function getFilter() {
     $filter = parent::getFilter();
-    if (NULL !== $filter && $this->getMandatory()) {
+    if ($this->getMandatory()) {
       return $filter;
     }
-    if (NULL !== $filter) {
-      return new Filter\LogicalOr(
-        new Filter\AssociativeArray(
-          [
-            'start' => new Filter\EmptyValue(),
-            'end' => new Filter\EmptyValue(),
-            'mode' => new Filter\EmptyValue()
-          ]
-        ),
-        $filter
-      );
-    }
-    return NULL;
+    return new Filter\LogicalOr(
+      new Filter\AssociativeArray(
+        [
+          'start' => new Filter\EmptyValue(),
+          'end' => new Filter\EmptyValue(),
+          'mode' => new Filter\EmptyValue()
+        ]
+      ),
+      $filter
+    );
   }
 }
