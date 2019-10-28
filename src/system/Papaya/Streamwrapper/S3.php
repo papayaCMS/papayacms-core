@@ -23,7 +23,7 @@ namespace Papaya\Streamwrapper;
 class S3 {
   const SECRET_PATTERN = '(^[^@\r\n]{40}$)';
 
-  const PATH_PATTERN = '(^
+  const PATH_PATTERN = /** @lang PhpRegExp */'(^
     [a-zA-Z\d]+:(?://)?
     (?P<id>[A-Z\d]{20}):
     (?P<secret>([^@\r\n]{40})?)@
@@ -288,7 +288,7 @@ class S3 {
       $this->_position < $this->_size) {
       /* use a bigger buffer internally because
          php will only ever do reads of max size 8K */
-      if ($this->_bufferStartPosition === $this->_position && \strlen($this->_buffer) > 0) {
+      if ($this->_bufferStartPosition === $this->_position && '' !== $this->_buffer) {
         $result = \substr($this->_buffer, 0, $count);
         $this->_buffer = \substr($this->_buffer, $count);
       } else {
