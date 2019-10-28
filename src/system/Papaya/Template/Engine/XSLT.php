@@ -35,6 +35,10 @@ class XSLT extends Template\Engine {
    * @var string
    */
   private $_result = '';
+  /**
+   * @var string
+   */
+  private $_templateString;
 
   /**
    * Transformation xslt template file
@@ -77,8 +81,9 @@ class XSLT extends Template\Engine {
    * @param string $string
    */
   public function setTemplateString($string) {
-    $this->_template = $string;
-    $this->_templateFile = FALSE;
+    $this->_template = NULL;
+    $this->_templateFile = NULL;
+    $this->_templateString = $string;
     $this->useCache(FALSE);
   }
 
@@ -89,8 +94,21 @@ class XSLT extends Template\Engine {
    */
   public function setTemplateDocument(\DOMDocument $document) {
     $this->_template = $document;
-    $this->_templateFile = FALSE;
+    $this->_templateFile = NULL;
+    $this->_templateString = NULL;
     $this->useCache(FALSE);
+  }
+
+  public function getTemplateDocument() {
+    if (NULL === $this->_template) {
+      $this->_template = new XML\Document();
+      if (NULL !== $this->_templateString) {
+        $this->_template->loadXML($this->_templateString);
+      } elseif (NULL !== $this->_templateFile) {
+        $this->_template->load($this->_templateFile);
+      }
+    }
+    return $this->_template;
   }
 
   /**
@@ -106,6 +124,8 @@ class XSLT extends Template\Engine {
       \is_file($fileName) &&
       \is_readable($fileName)
     ) {
+      $this->_template = NULL;
+      $this->_templateString = NULL;
       $this->_templateFile = $fileName;
     } else {
       throw new \InvalidArgumentException(
@@ -210,18 +230,8 @@ class XSLT extends Template\Engine {
     $processor = $this->getProcessor();
     if ($processor instanceof \XsltCache) {
       $processor->importStylesheet($this->_templateFile, $this->_useCache);
-    } elseif ($this->_template instanceof \DOMDocument) {
-      $processor->importStylesheet($this->_template);
-    } elseif ($this->_templateFile) {
-      $xslDom = new \DOMDocument('1.0', 'UTF-8');
-      $xslDom->load($this->_templateFile);
-      $processor->importStylesheet($xslDom);
-      unset($xslDom);
     } else {
-      $xslDom = new \DOMDocument('1.0', 'UTF-8');
-      $xslDom->loadXML($this->_template);
-      $processor->importStylesheet($xslDom);
-      unset($xslDom);
+      $processor->importStylesheet($this->getTemplateDocument());
     }
     $errors->emit();
     $errors->deactivate();
@@ -282,7 +292,7 @@ class XSLT extends Template\Engine {
   public static function parseXML($xmlString) {
     $errors = new XML\Errors();
     return $errors->encapsulate(
-      function($xmlString) {
+      static function($xmlString) {
         $document = new XML\Document();
         $document->loadXML($xmlString);
         return $document;

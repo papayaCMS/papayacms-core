@@ -15,9 +15,17 @@
 
 namespace Papaya\Template\Engine {
 
+  use Papaya\TestCase;
+  use Papaya\XML\Document;
+  use Papaya\XML\Errors as XMLErrors;
+  use Papaya\XML\Exception as XMLException;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class XSLTTest extends \Papaya\TestCase {
+  /**
+   * @covers \Papaya\Template\Engine\XSLT
+   */
+  class XSLTTest extends TestCase {
 
     private $_internalErrors;
 
@@ -27,46 +35,43 @@ namespace Papaya\Template\Engine {
       }
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setTemplateString
-     */
     public function testSetTemplateString() {
       $engine = new XSLT();
       $engine->setTemplateString($string = file_get_contents(__DIR__.'/TestData/valid.xsl'));
-      $this->assertAttributeEquals(
-        $string, '_template', $engine
-      );
-      $this->assertAttributeEquals(
-        FALSE, '_templateFile', $engine
+      $this->assertXmlStringEqualsXmlString(
+        $string,
+        $engine->getTemplateDocument()->saveXML()
       );
       $this->assertFalse($engine->useCache());
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setTemplateFile
-     */
     public function testSetTemplateFile() {
       $engine = new XSLT();
+      $string = file_get_contents(__DIR__.'/TestData/valid.xsl');
       $engine->setTemplateFile(__DIR__.'/TestData/valid.xsl');
-      $this->assertAttributeEquals(
-        __DIR__.'/TestData/valid.xsl',
-        '_templateFile',
-        $engine
+      $this->assertXmlStringEqualsXmlString(
+        $string,
+        $engine->getTemplateDocument()->saveXML()
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setTemplateFile
-     */
+    public function testSetTemplateDocument() {
+      $document = new Document();
+      $document->load(__DIR__.'/TestData/valid.xsl');
+      $engine = new XSLT();
+      $engine->setTemplateDocument($document);
+      $this->assertSame(
+        $document,
+        $engine->getTemplateDocument()
+      );
+    }
+
     public function testSetTemplateFileWithInvalidFileNameExpectingException() {
       $engine = new XSLT();
       $this->expectException(\InvalidArgumentException::class);
-      $engine->setTemplateFile('NONEXISTING_FILENAME.XSL');
+      $engine->setTemplateFile('NON_EXISTING_FILENAME.XSL');
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::useCache
-     */
     public function testUseCacheSetToTrue() {
       $engine = new XSLT();
       $this->assertTrue(
@@ -79,9 +84,6 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::useCache
-     */
     public function testUseCacheSetToFalse() {
       $engine = new XSLT();
       $this->assertFalse(
@@ -94,9 +96,6 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::useCache
-     */
     public function testUseCacheSetToTrueWithXsltProcessorObject() {
       $engine = new XSLT();
       $engine->setProcessor($this->getProcessorMock());
@@ -108,9 +107,6 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::useCache
-     */
     public function testUseCacheSetToFalseWithXsltCacheObject() {
       $engine = new XSLT();
       $engine->setProcessor($this->getProcessorMock('XsltCache'));
@@ -122,9 +118,6 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setProcessor
-     */
     public function testSetProcessorWithXsltProcessor() {
       $processor = $this->getProcessorMock('XsltProcessor');
       $engine = new XSLT();
@@ -136,9 +129,6 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setProcessor
-     */
     public function testSetProcessorWithXsltCache() {
       $processor = $this->getProcessorMock('XsltCache');
       $engine = new XSLT();
@@ -150,9 +140,6 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setProcessor
-     */
     public function testSetProcessorWithInvalidProcessorExpectingException() {
       $engine = new XSLT();
       $this->expectException(\UnexpectedValueException::class);
@@ -160,9 +147,6 @@ namespace Papaya\Template\Engine {
       $engine->setProcessor(new \stdClass);
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::getProcessor
-     */
     public function testGetProcessor() {
       $processor = $this->getProcessorMock();
       $engine = new XSLT();
@@ -173,10 +157,7 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::getProcessor
-     */
-    public function testGetProcessorWithImplizitCreateXsltProccessor() {
+    public function testGetProcessorWithImplicitCreateXsltProcessor() {
       $engine = new XSLT();
       $engine->useCache(FALSE);
       $this->assertInstanceOf(
@@ -185,10 +166,7 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::getProcessor
-     */
-    public function testGetProcessorWithImplizitCreateXsltCache() {
+    public function testGetProcessorWithImplicitCreateXsltCache() {
       $engine = new XSLT();
       $engine->useCache(TRUE);
       $this->assertInstanceOf(
@@ -197,12 +175,9 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::setErrorHandler
-     */
     public function testSetErrorHandler() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $engine = new XSLT();
       $engine->setErrorHandler($errors);
       $this->assertAttributeSame(
@@ -212,12 +187,9 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::getErrorHandler
-     */
     public function testGetErrorHandler() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $engine = new XSLT();
       $engine->setErrorHandler($errors);
       $this->assertSame(
@@ -226,19 +198,16 @@ namespace Papaya\Template\Engine {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine\XSLT::getErrorHandler
-     */
     public function testGetErrorHandlerWithImplicitCreate() {
       $engine = new XSLT();
       $this->assertInstanceOf(
-        \Papaya\XML\Errors::class,
+        XMLErrors::class,
         $engine->getErrorHandler()
       );
     }
 
     /**
-     * @covers \Papaya\Template\Engine\XSLT::prepare
+     * @throws XMLException
      */
     public function testPrepareWithXsltCache() {
       $templateFile = __DIR__.'/TestData/valid.xsl';
@@ -247,9 +216,9 @@ namespace Papaya\Template\Engine {
         ->expects($this->once())
         ->method('importStylesheet')
         ->with($this->equalTo($templateFile), $this->equalTo(TRUE))
-        ->will($this->returnValue(TRUE));
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+        ->willReturn(TRUE);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
         ->expects($this->once())
         ->method('activate');
@@ -266,7 +235,7 @@ namespace Papaya\Template\Engine {
     }
 
     /**
-     * @covers \Papaya\Template\Engine\XSLT::prepare
+     * @throws XMLException
      */
     public function testPrepareWithXsltProcessorOnFile() {
       $templateFile = __DIR__.'/TestData/valid.xsl';
@@ -275,9 +244,9 @@ namespace Papaya\Template\Engine {
         ->expects($this->once())
         ->method('importStylesheet')
         ->with($this->isInstanceOf(\DOMDocument::class))
-        ->will($this->returnValue(TRUE));
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+        ->willReturn(TRUE);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
         ->expects($this->once())
         ->method('activate');
@@ -294,7 +263,7 @@ namespace Papaya\Template\Engine {
     }
 
     /**
-     * @covers \Papaya\Template\Engine\XSLT::prepare
+     * @throws XMLException
      */
     public function testPrepareWithXsltProcessorOnString() {
       $templateString = file_get_contents(__DIR__.'/TestData/valid.xsl');
@@ -303,9 +272,9 @@ namespace Papaya\Template\Engine {
         ->expects($this->once())
         ->method('importStylesheet')
         ->with($this->isInstanceOf(\DOMDocument::class))
-        ->will($this->returnValue(TRUE));
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+        ->willReturn(TRUE);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
         ->expects($this->once())
         ->method('activate');
@@ -322,33 +291,32 @@ namespace Papaya\Template\Engine {
     }
 
     /**
-     * @covers \Papaya\Template\Engine\XSLT::prepare
+     * @throws XMLException
      */
     public function testPrepareWithXsltProcessorAndEmptyFileExpectingException() {
       $this->_internalErrors = libxml_use_internal_errors(TRUE);
       $templateFile = __DIR__.'/TestData/empty.txt';
       $processor = $this->getProcessorMock('XsltProcessor');
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
         ->expects($this->once())
         ->method('activate');
       $errors
         ->expects($this->once())
         ->method('emit')
-        ->will($this->returnCallback(array($this, 'throwXmlException')));
+        ->willReturnCallback([$this, 'throwXmlException']);
       $engine = new XSLT();
       $engine->setProcessor($processor);
       $engine->setErrorHandler($errors);
       $engine->setTemplateFile($templateFile);
 
-      $this->expectException(\Papaya\XML\Exception::class);
+      $this->expectException(XMLException::class);
       $engine->prepare();
     }
 
     /**
-     * @covers \Papaya\Template\Engine\XSLT::run
-     * @covers \Papaya\Template\Engine\XSLT::getResult
+     * @throws XMLException
      */
     public function testRunSuccessful() {
       $processor = $this->getProcessorMock('XsltProcessor');
@@ -356,14 +324,14 @@ namespace Papaya\Template\Engine {
         ->expects($this->once())
         ->method('setParameter')
         ->with($this->equalTo(''), $this->equalTo('SAMPLE'), $this->equalTo(42))
-        ->will($this->returnValue(TRUE));
+        ->willReturn(TRUE);
       $processor
         ->expects($this->once())
         ->method('transformToXML')
         ->with($this->isInstanceOf(\DOMDocument::class))
-        ->will($this->returnValue('success'));
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+        ->willReturn('success');
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
         ->expects($this->once())
         ->method('activate');
@@ -387,8 +355,7 @@ namespace Papaya\Template\Engine {
     }
 
     /**
-     * @covers \Papaya\Template\Engine\XSLT::run
-     * @covers \Papaya\Template\Engine\XSLT::getResult
+     * @throws XMLException
      */
     public function testRunExpectingException() {
       $processor = $this->getProcessorMock('XsltProcessor');
@@ -396,9 +363,9 @@ namespace Papaya\Template\Engine {
         ->expects($this->once())
         ->method('transformToXML')
         ->with($this->isInstanceOf(\DOMDocument::class))
-        ->will($this->returnCallback(array($this, 'throwXmlException')));
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+        ->willReturnCallback([$this, 'throwXmlException']);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
         ->expects($this->once())
         ->method('activate');
@@ -420,6 +387,9 @@ namespace Papaya\Template\Engine {
       );
     }
 
+    /**
+     * @throws XMLException
+     */
     public function throwXmlException() {
       $error = new \libXMLError();
       $error->level = LIBXML_ERR_WARNING;
@@ -428,7 +398,7 @@ namespace Papaya\Template\Engine {
       $error->file = '';
       $error->line = 23;
       $error->column = 21;
-      throw new \Papaya\XML\Exception($error);
+      throw new XMLException($error);
     }
 
     /**
@@ -455,7 +425,7 @@ namespace Papaya\Template\Engine {
      *  ["single quote '", "single quote '"]
      *  ["double quote \"", "double quote \""]
      *  ["both quotes \"’", "both quotes \"'"]
-     * @throws \Papaya\Xml\Exception
+     * @throws XMLException
      */
     public function testSetParameterInRun($expectedValue, $value) {
       $processor = $this->getProcessorMock('XsltProcessor');
@@ -463,22 +433,18 @@ namespace Papaya\Template\Engine {
         ->expects($this->once())
         ->method('setParameter')
         ->with('', 'SAMPLE', $expectedValue)
-        ->will($this->returnValue(TRUE));
+        ->willReturn(TRUE);
       $processor
-        ->expects($this->any())
         ->method('transformToXML')
         ->with($this->isInstanceOf(\DOMDocument::class))
-        ->will($this->returnValue('success'));
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\XML\Errors $errors */
-      $errors = $this->createMock(\Papaya\XML\Errors::class);
+        ->willReturn('success');
+      /** @var \PHPUnit_Framework_MockObject_MockObject|XMLErrors $errors */
+      $errors = $this->createMock(XMLErrors::class);
       $errors
-        ->expects($this->any())
         ->method('activate');
       $errors
-        ->expects($this->any())
         ->method('emit');
       $errors
-        ->expects($this->any())
         ->method('deactivate');
 
       $engine = new XSLT();
@@ -486,6 +452,14 @@ namespace Papaya\Template\Engine {
       $engine->setProcessor($processor);
       $engine->setErrorHandler($errors);
       $this->assertTrue($engine->run());
+    }
+
+    public function testParseXMLCallback() {
+      $result = XSLT::parseXML('<foo/>');
+      $this->assertXmlStringEqualsXmlString(
+        '<foo/>',
+        $result->saveXML()
+      );
     }
   }
 }
