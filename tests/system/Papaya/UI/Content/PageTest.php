@@ -13,206 +13,329 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Content;
+namespace Papaya\UI\Content {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  use Papaya\Content\Page\Translation as PageTranslationContent;
+  use Papaya\Plugin\Appendable as AppendablePlugin;
+  use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
+  use Papaya\Plugin\Editable as EditablePlugin;
+  use Papaya\Plugin\Loader as PluginLoader;
+  use Papaya\Plugin\PageModule;
+  use Papaya\Plugin\Quoteable as QuotablePlugin;
+  use Papaya\Request\Parameters;
+  use Papaya\TestCase;
+  use Papaya\UI\Reference;
+  use Papaya\XML\Document;
+  use Papaya\XML\Element as XMLElement;
 
-class PageTest extends \Papaya\TestCase {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
    * @covers \Papaya\UI\Content\Page
    */
-  public function testConstructor() {
-    $page = new Page(
-      42, $language = $this->createMock(\Papaya\Content\Language::class)
-    );
-    $this->assertEquals(42, $page->getPageId());
-    $this->assertSame($language, $page->getPageLanguage());
-    $this->assertTrue($page->isPublic());
+  class PageTest extends TestCase {
+
+    public function testConstructor() {
+      $page = new Page(
+        42, $language = $this->createMock(\Papaya\Content\Language::class)
+      );
+      $this->assertEquals(42, $page->getPageId());
+      $this->assertSame($language, $page->getPageLanguage());
+      $this->assertTrue($page->isPublic());
+    }
+
+    public function testConstructorWithAllArguments() {
+      $page = new Page(
+        42, $language = $this->createMock(\Papaya\Content\Language::class), FALSE
+      );
+      $this->assertEquals(42, $page->getPageId());
+      $this->assertSame($language, $page->getPageLanguage());
+      $this->assertFalse($page->isPublic());
+    }
+
+    public function testAssign() {
+      $contentPage = $this->createMock(\Papaya\Content\Page::class);
+      $contentPage
+        ->expects($this->once())
+        ->method('assign')
+        ->with(['page_id' => 42]);
+      $contentTranslation = $this->createMock(\Papaya\Content\Page\Translation::class);
+      $contentTranslation
+        ->expects($this->once())
+        ->method('assign')
+        ->with(['page_id' => 42]);
+      $page = new Page(
+        42, $this->createMock(\Papaya\Content\Language::class)
+      );
+      $page->page($contentPage);
+      $page->translation($contentTranslation);
+      $page->assign(['page_id' => 42]);
+    }
+
+    /**
+     * @covers \Papaya\UI\Content\Page
+     */
+    public function testPageGetAfterSet() {
+      $contentPage = $this->createMock(\Papaya\Content\Page::class);
+      $page = new Page(
+        42, $this->createMock(\Papaya\Content\Language::class)
+      );
+      $page->page($contentPage);
+      $this->assertSame($contentPage, $page->page());
+    }
+
+    public function testPageImplicitCreatePublicPageContent() {
+      $page = new Page(
+        42, $this->createMock(\Papaya\Content\Language::class)
+      );
+      $pageContent = $page->page();
+      $this->assertInstanceOf(\Papaya\Content\Page\Publication::class, $pageContent);
+      $this->assertEquals([42], $pageContent->getLazyLoadParameters());
+    }
+
+    public function testPageImplicitCreatePreviewPageContent() {
+      $page = new Page(
+        42, $this->createMock(\Papaya\Content\Language::class), FALSE
+      );
+      $pageContent = $page->page();
+      $this->assertInstanceOf(\Papaya\Content\Page::class, $pageContent);
+      $this->assertNotInstanceOf(\Papaya\Content\Page\Publication::class, $pageContent);
+      $this->assertEquals([42], $pageContent->getLazyLoadParameters());
+    }
+
+    public function testTranslationGetAfterSet() {
+      $contentTranslation = $this->createMock(\Papaya\Content\Page\Translation::class);
+      $page = new Page(
+        42, $this->createMock(\Papaya\Content\Language::class)
+      );
+      $page->translation($contentTranslation);
+      $this->assertSame($contentTranslation, $page->translation());
+    }
+
+    public function testPageImplicitCreatePublicTranslationContent() {
+      $language = $this->createMock(\Papaya\Content\Language::class);
+      $language
+        ->expects($this->once())
+        ->method('offsetGet')
+        ->with('id')
+        ->willReturn(21);
+      $page = new Page(
+        42, $language
+      );
+      $contentTranslation = $page->translation();
+      $this->assertInstanceOf(\Papaya\Content\Page\Publication\Translation::class, $contentTranslation);
+      $this->assertEquals(
+        [
+          [
+            'id' => 42,
+            'language_id' => 21
+          ]
+        ],
+        $contentTranslation->getLazyLoadParameters()
+      );
+    }
+
+    public function testPageImplicitCreatePreviewTranslationContent() {
+      $language = $this->createMock(\Papaya\Content\Language::class);
+      $language
+        ->expects($this->once())
+        ->method('offsetGet')
+        ->with('id')
+        ->willReturn(21);
+      $page = new Page(
+        42, $language, FALSE
+      );
+      $contentTranslation = $page->translation();
+      $this->assertInstanceOf(\Papaya\Content\Page\Translation::class, $contentTranslation);
+      $this->assertNotInstanceOf(\Papaya\Content\Page\Publication\Translation::class, $contentTranslation);
+      $this->assertEquals(
+        [
+          [
+            'id' => 42,
+            'language_id' => 21
+          ]
+        ],
+        $contentTranslation->getLazyLoadParameters()
+      );
+    }
+
+    /**
+     * @covers \Papaya\UI\Content\Page
+     */
+    public function testGetPageViewId() {
+      $contentTranslation = $this->createMock(\Papaya\Content\Page\Translation::class);
+      $contentTranslation
+        ->expects($this->once())
+        ->method('offsetGet')
+        ->with('view_id')
+        ->willReturn(23);
+      $page = new Page(
+        42, $this->createMock(\Papaya\Content\Language::class)
+      );
+      $page->translation($contentTranslation);
+      $this->assertEquals(23, $page->getPageViewId());
+    }
+
+    public function testGetPageLanguageFromApplication() {
+      $languages = $this->createMock(\Papaya\Content\Languages::class);
+      $languages
+        ->expects($this->once())
+        ->method('getLanguage')
+        ->with('de')
+        ->willReturn($this->createMock(\Papaya\Content\Language::class));
+      $page = new Page(42, 'de');
+      $page->papaya($this->mockPapaya()->application(['languages' => $languages]));
+      $this->assertInstanceOf(\Papaya\Content\Language::class, $page->getPageLanguage());
+      $this->assertSame($page->getPageLanguage(), $page->getPageLanguage());
+    }
+
+    public function testGetPageLanguageFromApplicationFailed() {
+      $languages = $this->createMock(\Papaya\Content\Languages::class);
+      $languages
+        ->expects($this->once())
+        ->method('getLanguage')
+        ->with('de')
+        ->willReturn(NULL);
+      $page = new Page(42, 'de');
+      $page->papaya($this->mockPapaya()->application(['languages' => $languages]));
+      $this->assertNull($page->getPageLanguage());
+      $this->assertNull($page->getPageLanguage());
+    }
+
+    public function testGetReferenceAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Reference\Page $reference */
+      $reference = $this->createMock(Reference\Page::class);
+      $page = new Page(42, 'de');
+      $this->assertSame($reference, $page->reference($reference));
+    }
+
+    public function testGetReferenceImplicitCreate() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Reference\Page $reference */
+      $reference = $this->createMock(Reference\Page::class);
+      $page = new Page(42, 'de');
+      $page->papaya($papaya = $this->mockPapaya()->application());
+      $this->assertSame($papaya, $page->reference()->papaya());
+    }
+
+    public function testAppendQuoteTo() {
+      $page = new Page(42, 'de');
+
+      $pluginContext = $this->createMock(Parameters::class);
+      $pluginContext
+        ->expects($this->once())
+        ->method('merge')
+        ->with(['query_string' => 'some=data']);
+
+      $pagePlugin = $this->createMock(PagePlugin_TestDummy::class);
+      $pagePlugin
+        ->method('configuration')
+        ->willReturn($pluginContext);
+      $pagePlugin
+        ->expects($this->once())
+        ->method('appendQuoteTo')
+        ->withAnyParameters()
+        ->willReturnCallback(
+          static function(XMLElement $parent) {
+            $parent->appendElement('some-content');
+          }
+        );
+
+      $plugins = $this->createMock(PluginLoader::class);
+      $plugins
+        ->expects($this->once())
+        ->method('get')
+        ->with('guid1234', $page, 'content')
+        ->willReturn($pagePlugin);
+
+      $translation = $this->createMock(PageTranslationContent::class);
+      $translation
+        ->method('__get')
+        ->willReturnMap(
+          [
+            ['moduleGuid', 'guid1234'],
+            ['content', 'content'],
+            ['viewName', 'test-view']
+          ]
+        );
+
+      $page->papaya($this->mockPapaya()->application(['plugins' => $plugins]));
+      $page->translation($translation);
+
+      $document = new Document();
+      $document->appendElement('test');
+      $page->appendQuoteTo($document->documentElement, ['query_string' => 'some=data'], ['name' => 'test-view']);
+
+      $this->assertXmlStringEqualsXmlString(
+        '<test>
+          <teaser 
+            page-id="42" 
+            href="http://www.test.tld/index.42.html?some=data"
+            plugin="Mock_PagePlugin_TestDummy" 
+            plugin-guid="guid1234" 
+            view="test-view"
+            created="1970-01-01 00:00:00+0000 Thu" 
+            published="1970-01-01 00:00:00+0000 Thu">
+            <some-content/>
+          </teaser>
+        </test>',
+        preg_replace('((Mock_PagePlugin_TestDummy)(_[a-z\d]+))', '$1', $document->saveXML())
+      );
+    }
+
+    public function testAppendQuoteToWithEmptyQuote() {
+      $page = new Page(42, 'de');
+
+      $pluginContext = $this->createMock(Parameters::class);
+      $pluginContext
+        ->expects($this->once())
+        ->method('merge')
+        ->with(['query_string' => 'some=data']);
+
+      $pagePlugin = $this->createMock(PagePlugin_TestDummy::class);
+      $pagePlugin
+        ->method('configuration')
+        ->willReturn($pluginContext);
+      $pagePlugin
+        ->expects($this->once())
+        ->method('appendQuoteTo')
+        ->withAnyParameters();
+
+      $plugins = $this->createMock(PluginLoader::class);
+      $plugins
+        ->expects($this->once())
+        ->method('get')
+        ->with('guid1234', $page, 'content')
+        ->willReturn($pagePlugin);
+
+      $translation = $this->createMock(PageTranslationContent::class);
+      $translation
+        ->method('__get')
+        ->willReturnMap(
+          [
+            ['moduleGuid', 'guid1234'],
+            ['content', 'content'],
+            ['viewName', 'test-view']
+          ]
+        );
+
+      $page->papaya($this->mockPapaya()->application(['plugins' => $plugins]));
+      $page->translation($translation);
+
+      $document = new Document();
+      $document->appendElement('test');
+      $page->appendQuoteTo($document->documentElement, ['query_string' => 'some=data']);
+
+      $this->assertXmlStringEqualsXmlString(
+        '<test/>',
+        preg_replace('((Mock_PagePlugin_TestDummy)(_[a-z\d]+))', '$1', $document->saveXML())
+      );
+    }
   }
 
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testConstructorWithAllArguments() {
-    $page = new Page(
-      42, $language = $this->createMock(\Papaya\Content\Language::class), FALSE
-    );
-    $this->assertEquals(42, $page->getPageId());
-    $this->assertSame($language, $page->getPageLanguage());
-    $this->assertFalse($page->isPublic());
-  }
+  abstract class PagePlugin_TestDummy implements
+    PageModule,
+    EditablePlugin, ContextAwarePlugin,
+    AppendablePlugin, QuotablePlugin {
 
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testAssign() {
-    $contentPage = $this->createMock(\Papaya\Content\Page::class);
-    $contentPage
-      ->expects($this->once())
-      ->method('assign')
-      ->with(array('page_id' => 42));
-    $contentTranslation = $this->createMock(\Papaya\Content\Page\Translation::class);
-    $contentTranslation
-      ->expects($this->once())
-      ->method('assign')
-      ->with(array('page_id' => 42));
-    $page = new Page(
-      42, $this->createMock(\Papaya\Content\Language::class)
-    );
-    $page->page($contentPage);
-    $page->translation($contentTranslation);
-    $page->assign(array('page_id' => 42));
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testPageGetAfterSet() {
-    $contentPage = $this->createMock(\Papaya\Content\Page::class);
-    $page = new Page(
-      42, $this->createMock(\Papaya\Content\Language::class)
-    );
-    $page->page($contentPage);
-    $this->assertSame($contentPage, $page->page());
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testPageImpliciteCreatePublicPageContent() {
-    $page = new Page(
-      42, $this->createMock(\Papaya\Content\Language::class)
-    );
-    $pageContent = $page->page();
-    $this->assertInstanceOf(\Papaya\Content\Page\Publication::class, $pageContent);
-    $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testPageImpliciteCreatePreviewPageContent() {
-    $page = new Page(
-      42, $this->createMock(\Papaya\Content\Language::class), FALSE
-    );
-    $pageContent = $page->page();
-    $this->assertInstanceOf(\Papaya\Content\Page::class, $pageContent);
-    $this->assertNotInstanceOf(\Papaya\Content\Page\Publication::class, $pageContent);
-    $this->assertEquals(array(42), $pageContent->getLazyLoadParameters());
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testTranslationGetAfterSet() {
-    $contentTranslation = $this->createMock(\Papaya\Content\Page\Translation::class);
-    $page = new Page(
-      42, $this->createMock(\Papaya\Content\Language::class)
-    );
-    $page->translation($contentTranslation);
-    $this->assertSame($contentTranslation, $page->translation());
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testPageImplicCreatePublicTranslationContent() {
-    $language = $this->createMock(\Papaya\Content\Language::class);
-    $language
-      ->expects($this->once())
-      ->method('offsetGet')
-      ->with('id')
-      ->will($this->returnValue(21));
-    $page = new Page(
-      42, $language
-    );
-    $contentTranslation = $page->translation();
-    $this->assertInstanceOf(\Papaya\Content\Page\Publication\Translation::class, $contentTranslation);
-    $this->assertEquals(
-      array(
-        array(
-          'id' => 42,
-          'language_id' => 21
-        )
-      ),
-      $contentTranslation->getLazyLoadParameters()
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testPageImplicCreatePreviewTranslationContent() {
-    $language = $this->createMock(\Papaya\Content\Language::class);
-    $language
-      ->expects($this->once())
-      ->method('offsetGet')
-      ->with('id')
-      ->will($this->returnValue(21));
-    $page = new Page(
-      42, $language, FALSE
-    );
-    $contentTranslation = $page->translation();
-    $this->assertInstanceOf(\Papaya\Content\Page\Translation::class, $contentTranslation);
-    $this->assertNotInstanceOf(\Papaya\Content\Page\Publication\Translation::class, $contentTranslation);
-    $this->assertEquals(
-      array(
-        array(
-          'id' => 42,
-          'language_id' => 21
-        )
-      ),
-      $contentTranslation->getLazyLoadParameters()
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testGetPageViewId() {
-    $contentTranslation = $this->createMock(\Papaya\Content\Page\Translation::class);
-    $contentTranslation
-      ->expects($this->once())
-      ->method('offsetGet')
-      ->with('view_id')
-      ->will($this->returnValue(23));
-    $page = new Page(
-      42, $this->createMock(\Papaya\Content\Language::class)
-    );
-    $page->translation($contentTranslation);
-    $this->assertEquals(23, $page->getPageViewId());
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testGetPageLanguageFromApplication() {
-    $languages = $this->createMock(\Papaya\Content\Languages::class);
-    $languages
-      ->expects($this->once())
-      ->method('getLanguage')
-      ->with('de')
-      ->will($this->returnValue($this->createMock(\Papaya\Content\Language::class)));
-    $page = new Page(42, 'de');
-    $page->papaya($this->mockPapaya()->application(array('languages' => $languages)));
-    $this->assertInstanceOf(\Papaya\Content\Language::class, $page->getPageLanguage());
-    $this->assertSame($page->getPageLanguage(), $page->getPageLanguage());
-  }
-
-  /**
-   * @covers \Papaya\UI\Content\Page
-   */
-  public function testGetPageLanguageFromApplicationFailed() {
-    $languages = $this->createMock(\Papaya\Content\Languages::class);
-    $languages
-      ->expects($this->once())
-      ->method('getLanguage')
-      ->with('de')
-      ->will($this->returnValue(NULL));
-    $page = new Page(42, 'de');
-    $page->papaya($this->mockPapaya()->application(array('languages' => $languages)));
-    $this->assertNull($page->getPageLanguage());
-    $this->assertNull($page->getPageLanguage());
   }
 }

@@ -15,12 +15,14 @@
 namespace Papaya\UI\Content;
 
 use Papaya\Application;
+use Papaya\BaseObject\Parameters;
 use Papaya\Content;
 use Papaya\Plugin;
 use Papaya\Request;
 use Papaya\UI;
 use Papaya\Utility;
 use Papaya\XML;
+use Papaya\XML\Document as XMLDocument;
 
 class Page implements Application\Access {
   use Application\Access\Aggregation;
@@ -149,7 +151,7 @@ class Page implements Application\Access {
    * Append the page teaser
    *
    * @param XML\Element $parent
-   * @param array|\Papaya\BaseObject\Parameters $configuration
+   * @param array|Parameters $configuration
    * @param array $viewData
    */
   public function appendQuoteTo(XML\Element $parent, $configuration = [], array $viewData = NULL) {
@@ -170,7 +172,7 @@ class Page implements Application\Access {
           ]
         );
         if ($plugin instanceof Plugin\Quoteable) {
-          if ($plugin instanceof Plugin\Configurable) {
+          if ($plugin instanceof Plugin\Configurable\Context) {
             $plugin->configuration()->merge($configuration);
           }
           $plugin->appendQuoteTo($teaser);
@@ -178,7 +180,7 @@ class Page implements Application\Access {
           \method_exists($plugin, 'getParsedTeaser')) {
           $teaser->appendXML((string)$plugin->getParsedTeaser((array)$configuration));
         }
-        /** @var \Papaya\XML\Document $document */
+        /** @var XMLDocument $document */
         $document = $teaser->ownerDocument;
         if (0 === (int)$document->xpath()->evaluate('count(node())', $teaser)) {
           $teaser->parentNode->removeChild($teaser);
