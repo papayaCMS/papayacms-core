@@ -93,7 +93,7 @@ abstract class Engine implements BaseObject\Interfaces\Properties {
   abstract public function setTemplateFile($fileName);
 
   /**
-   * Combined getter/setter for paramters
+   * Combined getter/setter for parameters
    *
    * @param BaseObject\Options\Collection|array $parameters
    *

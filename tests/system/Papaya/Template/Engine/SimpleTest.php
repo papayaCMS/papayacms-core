@@ -13,150 +13,163 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Template\Engine;
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Template\Engine {
 
-class SimpleTest extends \Papaya\TestCase {
+  use Papaya\Template\Simple\AST as SimpleTemplateAST;
+  use Papaya\Template\Simple\Exception as SimpleTemplateException;
+  use Papaya\Template\Simple\Visitor as SimpleTemplateVisitor;
+  use Papaya\TestCase;
+  use Papaya\XML\Document as XMLDocument;
 
-  /**
-   * Integration test - block code coverage
-   *
-   * @covers \stdClass
-   */
-  public function testTemplateEngineRun() {
-    $engine = new Simple();
-    $engine->setTemplateString('Hello /*$foo*/ World!');
-    $values = new \Papaya\XML\Document();
-    $values->appendElement('values')->appendElement('foo', array(), 'Universe');
-    $engine->values($values->documentElement);
-    $engine->prepare();
-    $engine->run();
-    $this->assertEquals('Hello Universe!', $engine->getResult());
-  }
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Template\Engine\Simple::prepare
+   * @covers \Papaya\Template\Engine\Simple
    */
-  public function testPrepare() {
-    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
-    $visitor
-      ->expects($this->once())
-      ->method('clear');
+  class SimpleTest extends TestCase {
 
-    $engine = new Simple();
-    $engine->visitor($visitor);
-    $engine->prepare();
-  }
+    public function testTemplateEngineRun() {
+      $engine = new Simple();
+      $engine->setTemplateString('Hello /*$foo*/ World!');
+      $values = new XMLDocument();
+      $values->appendElement('values')->appendElement('foo', [], 'Universe');
+      $engine->values($values->documentElement);
+      $engine->prepare();
+      $engine->run();
+      $this->assertEquals('Hello Universe!', $engine->getResult());
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::run
-   */
-  public function testRun() {
-    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
-    $ast = $this->createMock(\Papaya\Template\Simple\AST::class);
-    $ast
-      ->expects($this->once())
-      ->method('accept')
-      ->with($visitor);
+    public function testPrepare() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|SimpleTemplateVisitor $visitor */
+      $visitor = $this->createMock(SimpleTemplateVisitor::class);
+      $visitor
+        ->expects($this->once())
+        ->method('clear');
 
-    $engine = new Simple();
-    $engine->visitor($visitor);
-    $engine->ast($ast);
-    $engine->run();
-  }
+      $engine = new Simple();
+      $engine->visitor($visitor);
+      $engine->prepare();
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::getResult
-   */
-  public function testGetResult() {
-    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
-    $visitor
-      ->expects($this->once())
-      ->method('__toString')
-      ->will($this->returnValue('success'));
+    /**
+     * @throws SimpleTemplateException
+     */
+    public function testRun() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|SimpleTemplateVisitor $visitor */
+      $visitor = $this->createMock(SimpleTemplateVisitor::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|SimpleTemplateAST $ast */
+      $ast = $this->createMock(SimpleTemplateAST::class);
+      $ast
+        ->expects($this->once())
+        ->method('accept')
+        ->with($visitor);
 
-    $engine = new Simple();
-    $engine->visitor($visitor);
-    $this->assertEquals('success', $engine->getResult());
-  }
+      $engine = new Simple();
+      $engine->visitor($visitor);
+      $engine->ast($ast);
+      $engine->run();
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::setTemplateString
-   */
-  public function testSetTemplateString() {
-    $engine = new Simple();
-    $engine->setTemplateString('div { color: /*$FG_COLOR*/ #FFF; }');
-    $this->assertAttributeEquals(
-      'div { color: /*$FG_COLOR*/ #FFF; }',
-      '_template',
-      $engine
-    );
-    $this->assertAttributeEquals(
-      FALSE,
-      '_templateFile',
-      $engine
-    );
-  }
+    public function testGetResult() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|SimpleTemplateVisitor $visitor */
+      $visitor = $this->createMock(SimpleTemplateVisitor::class);
+      $visitor
+        ->expects($this->once())
+        ->method('__toString')
+        ->willReturn('success');
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::setTemplateFile
-   */
-  public function testSetTemplateFile() {
-    $engine = new Simple();
-    $engine->setTemplateFile(__DIR__.'/TestData/valid.css');
-    $this->assertAttributeNotEmpty(
-      '_template',
-      $engine
-    );
-    $this->assertAttributeEquals(
-      __DIR__.'/TestData/valid.css',
-      '_templateFile',
-      $engine
-    );
-  }
+      $engine = new Simple();
+      $engine->visitor($visitor);
+      $this->assertEquals('success', $engine->getResult());
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::setTemplateFile
-   */
-  public function testSetTemplateFileWithInvalidFileNameExpectingException() {
-    $engine = new Simple();
-    $this->expectException(\InvalidArgumentException::class);
-    $engine->setTemplateFile('NONEXISTING_FILENAME.CSS');
-  }
+    public function testSetTemplateString() {
+      $engine = new Simple();
+      $engine->setTemplateString('div { color: /*$FG_COLOR*/ #FFF; }');
+      $this->assertAttributeEquals(
+        'div { color: /*$FG_COLOR*/ #FFF; }',
+        '_template',
+        $engine
+      );
+      $this->assertAttributeEquals(
+        FALSE,
+        '_templateFile',
+        $engine
+      );
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::ast
-   */
-  public function testAstGetAfterSet() {
-    $ast = $this->createMock(\Papaya\Template\Simple\AST::class);
-    $engine = new Simple();
-    $engine->ast($ast);
-    $this->assertSame($ast, $engine->ast());
-  }
+    public function testSetTemplateFile() {
+      $engine = new Simple();
+      $engine->setTemplateFile(__DIR__.'/TestData/valid.css');
+      $this->assertAttributeNotEmpty(
+        '_template',
+        $engine
+      );
+      $this->assertAttributeEquals(
+        __DIR__.'/TestData/valid.css',
+        '_templateFile',
+        $engine
+      );
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::ast
-   */
-  public function testAstGetImplicitCreate() {
-    $engine = new Simple();
-    $this->assertInstanceOf(\Papaya\Template\Simple\AST::class, $engine->ast());
-  }
+    public function testSetTemplateFileWithInvalidFileNameExpectingException() {
+      $engine = new Simple();
+      $this->expectException(\InvalidArgumentException::class);
+      $engine->setTemplateFile('NON_EXISTING_FILENAME.CSS');
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::visitor
-   */
-  public function testVisitorGetAfterSet() {
-    $visitor = $this->createMock(\Papaya\Template\Simple\Visitor::class);
-    $engine = new Simple();
-    $engine->visitor($visitor);
-    $this->assertSame($visitor, $engine->visitor());
-  }
+    /**
+     * @throws SimpleTemplateException
+     */
+    public function testAstGetAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|SimpleTemplateAST $ast */
+      $ast = $this->createMock(SimpleTemplateAST::class);
+      $engine = new Simple();
+      $engine->ast($ast);
+      $this->assertSame($ast, $engine->ast());
+    }
 
-  /**
-   * @covers \Papaya\Template\Engine\Simple::visitor
-   */
-  public function testVisitorGetImplicitCreate() {
-    $engine = new Simple();
-    $this->assertInstanceOf(\Papaya\Template\Simple\Visitor::class, $engine->visitor());
+    /**
+     * @throws SimpleTemplateException
+     */
+    public function testAstGetImplicitCreate() {
+      $engine = new Simple();
+      $this->assertInstanceOf(SimpleTemplateAST::class, $engine->ast());
+    }
+
+    public function testVisitorGetAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|SimpleTemplateVisitor $visitor */
+      $visitor = $this->createMock(SimpleTemplateVisitor::class);
+      $engine = new Simple();
+      $engine->visitor($visitor);
+      $this->assertSame($visitor, $engine->visitor());
+    }
+
+    public function testVisitorGetImplicitCreate() {
+      $engine = new Simple();
+      $this->assertInstanceOf(SimpleTemplateVisitor::class, $engine->visitor());
+    }
+
+    public function testIntegration() {
+      $values = new XMLDocument();
+      $values->appendElement('_')->appendElement('who', 'World');
+      $engine = new Simple();
+      $engine->setTemplateString('Hello /*$who*/ default!');
+      $engine->values($values->documentElement);
+      $engine->prepare();
+      $engine->run();
+      $this->assertSame('Hello World!', $engine->getResult());
+    }
+
+    public function testIntegrationWithXpath() {
+      $values = new XMLDocument();
+      $values->appendElement('_')->appendElement('who', 'World');
+      $engine = new Simple();
+      $engine->setTemplateString('Hello /*$xpath(./who)*/ default!');
+      $engine->values($values->documentElement);
+      $engine->prepare();
+      $engine->run();
+      $this->assertSame('Hello World!', $engine->getResult());
+    }
   }
 }
