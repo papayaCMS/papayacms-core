@@ -19,6 +19,11 @@ namespace Papaya\Template\Engine\Values {
   use Papaya\XML\Element;
 
   class ArrayLoader implements Loadable {
+
+    /**
+     * @param array|\Traversable $values
+     * @return false|Document|Element
+     */
     public function load($values) {
       Constraints::assertArrayOrTraversable($values);
       $document = new Document();
@@ -26,6 +31,10 @@ namespace Papaya\Template\Engine\Values {
       return $document->documentElement;
     }
 
+    /**
+     * @param Element $parent
+     * @param mixed $data
+     */
     private function appendArray(Element $parent, $data) {
       foreach ($data as $key => $value) {
         $nodeName = \preg_replace('([^A-Za-z_-])', '', $key) ?: NULL;
