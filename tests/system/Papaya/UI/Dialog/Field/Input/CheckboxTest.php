@@ -13,221 +13,276 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Dialog\Field\Input;
-require_once __DIR__.'/../../../../../../bootstrap.php';
+namespace Papaya\UI\Dialog\Field\Input {
 
-class CheckboxTest extends \Papaya\TestCase {
+  use Papaya\Request\Parameters;
+  use Papaya\UI\Dialog;
+  use Papaya\UI\Dialog\Fields;
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::__construct
-   */
-  public function testConstructor() {
-    $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
-    $this->assertEquals(
-      TRUE, $checkbox->getMandatory()
-    );
-  }
+  require_once __DIR__.'/../../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getFilter
+   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox
    */
-  public function testGetFilterWithMandatoryTrue() {
-    $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
-    $this->assertInstanceOf(\Papaya\Filter::class, $checkbox->getFilter());
-  }
+  class CheckboxTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getFilter
-   */
-  public function testGetFilterWithMandatoryFalse() {
-    $checkbox = new Checkbox('caption', 'name', TRUE, FALSE);
-    $this->assertNull($checkbox->getFilter());
-  }
+    public function testConstructor() {
+      $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
+      $this->assertEquals(
+        TRUE, $checkbox->getMandatory()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-   */
-  public function testAppendToWithCheckedCheckbox() {
-    $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
-    $checkbox->papaya($this->mockPapaya()->application());
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
+    public function testGetFilterWithMandatoryTrue() {
+      $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
+      $this->assertInstanceOf(\Papaya\Filter::class, $checkbox->getFilter());
+    }
+
+    public function testGetFilterWithMandatoryFalse() {
+      $checkbox = new Checkbox('caption', 'name', TRUE, FALSE);
+      $this->assertNull($checkbox->getFilter());
+    }
+
+    public function testAppendToWithCheckedCheckbox() {
+      $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);
+      $checkbox->papaya($this->mockPapaya()->application());
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
         <input type="checkbox" name="name" checked="checked">1</input>
       </field>',
-      $checkbox->getXML()
-    );
-  }
+        $checkbox->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-   */
-  public function testAppendToWithUncheckedCheckbox() {
-    $checkbox = new Checkbox('caption', 'name', FALSE, TRUE);
-    $checkbox->papaya($this->mockPapaya()->application());
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<field caption="caption" class="DialogFieldInputCheckbox" error="yes" mandatory="yes">
+    public function testAppendToWithUncheckedCheckbox() {
+      $checkbox = new Checkbox('caption', 'name', FALSE, TRUE);
+      $checkbox->papaya($this->mockPapaya()->application());
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<field caption="caption" class="DialogFieldInputCheckbox" error="yes" mandatory="yes">
         <input type="checkbox" name="name">1</input>
       </field>',
-      $checkbox->getXML()
-    );
-  }
+        $checkbox->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-   */
-  public function testAppendToWithUncheckedCheckboxNotMandatory() {
-    $checkbox = new Checkbox('caption', 'name', FALSE, FALSE);
-    $checkbox->papaya($this->mockPapaya()->application());
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
+    public function testAppendToWithUncheckedCheckboxNotMandatory() {
+      $checkbox = new Checkbox('caption', 'name', FALSE, FALSE);
+      $checkbox->papaya($this->mockPapaya()->application());
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
         <input type="checkbox" name="name">1</input>
       </field>',
-      $checkbox->getXML()
-    );
-  }
+        $checkbox->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-   */
-  public function testAppendToWithChangedValuesCheckbox() {
-    $checkbox = new Checkbox('caption', 'name', 'yes', TRUE);
-    $checkbox->setValues('yes', 'no');
-    $checkbox->papaya($this->mockPapaya()->application());
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
+    public function testAppendToWithChangedValuesCheckbox() {
+      $checkbox = new Checkbox('caption', 'name', 'yes', TRUE);
+      $checkbox->setValues('yes', 'no');
+      $checkbox->papaya($this->mockPapaya()->application());
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<field caption="caption" class="DialogFieldInputCheckbox" error="no" mandatory="yes">
         <input type="checkbox" name="name" checked="checked">yes</input>
       </field>',
-      $checkbox->getXML()
-    );
-  }
+        $checkbox->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::appendTo
-   */
-  public function testAppendToWithChangedValuesAndUncheckedCheckbox() {
-    $checkbox = new Checkbox('caption', 'name', 'no', FALSE);
-    $checkbox->setValues('yes', 'no');
-    $checkbox->papaya($this->mockPapaya()->application());
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
+    public function testAppendToWithChangedValuesAndUncheckedCheckbox() {
+      $checkbox = new Checkbox('caption', 'name', 'no', FALSE);
+      $checkbox->setValues('yes', 'no');
+      $checkbox->papaya($this->mockPapaya()->application());
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<field caption="caption" class="DialogFieldInputCheckbox" error="no">
         <input type="checkbox" name="name">yes</input>
       </field>',
-      $checkbox->getXML()
-    );
-  }
+        $checkbox->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-   */
-  public function testSetValues() {
-    $checkbox = new Checkbox('caption', 'name', TRUE);
-    $checkbox->setValues('yes', 'no');
-    $this->assertAttributeEquals(
-      array('active' => 'yes', 'inactive' => 'no'), '_values', $checkbox
-    );
-  }
+    public function testSetValues() {
+      $checkbox = new Checkbox('caption', 'name', TRUE);
+      $checkbox->setValues('yes', 'no');
+      $this->assertAttributeEquals(
+        ['active' => 'yes', 'inactive' => 'no'], '_values', $checkbox
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-   */
-  public function testSetValuesWithEmptyActiveValueExpectingException() {
-    $checkbox = new Checkbox('caption', 'name', TRUE);
-    $this->expectException(\InvalidArgumentException::class);
-    $this->expectExceptionMessage('The active value can not be empty.');
-    $checkbox->setValues('', 'false');
-  }
+    public function testSetValuesWithEmptyActiveValueExpectingException() {
+      $checkbox = new Checkbox('caption', 'name', TRUE);
+      $this->expectException(\InvalidArgumentException::class);
+      $this->expectExceptionMessage('The active value can not be empty.');
+      $checkbox->setValues('', 'false');
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-   */
-  public function testSetValuesWithEqualValuesExpectingException() {
-    $checkbox = new Checkbox('caption', 'name', TRUE);
-    $this->expectException(\InvalidArgumentException::class);
-    $this->expectExceptionMessage('The active value and the inactive value must be different.');
-    $checkbox->setValues('yes', 'yes');
-  }
+    public function testSetValuesWithEqualValuesExpectingException() {
+      $checkbox = new Checkbox('caption', 'name', TRUE);
+      $this->expectException(\InvalidArgumentException::class);
+      $this->expectExceptionMessage('The active value and the inactive value must be different.');
+      $checkbox->setValues('yes', 'yes');
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-   * @dataProvider provideValidCheckboxInputs
-   * @param mixed $value
-   * @param bool $mandatory
-   */
-  public function testImplicitFilterExpectingTrue($value, $mandatory) {
-    $checkbox = new Checkbox('caption', 'name', $value, $mandatory);
-    $checkbox->setValues('yes', 'no');
-    $this->assertTrue(
-      $checkbox->validate()
-    );
-  }
+    /**
+     * @dataProvider provideValidCheckboxInputs
+     * @param mixed $value
+     * @param bool $mandatory
+     */
+    public function testImplicitFilterExpectingTrue($value, $mandatory) {
+      $checkbox = new Checkbox('caption', 'name', $value, $mandatory);
+      $checkbox->setValues('yes', 'no');
+      $this->assertTrue(
+        $checkbox->validate()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::setValues
-   * @dataProvider provideInvalidCheckboxInputs
-   * @param mixed $value
-   * @param bool $mandatory
-   */
-  public function testImplicitFilterExpectingFalse($value, $mandatory) {
-    $checkbox = new Checkbox('caption', 'name', $value, $mandatory);
-    $checkbox->setValues('yes', 'no');
-    $this->assertFalse(
-      $checkbox->validate()
-    );
-  }
+    /**
+     * @dataProvider provideInvalidCheckboxInputs
+     * @param mixed $value
+     * @param bool $mandatory
+     */
+    public function testImplicitFilterExpectingFalse($value, $mandatory) {
+      $checkbox = new Checkbox('caption', 'name', $value, $mandatory);
+      $checkbox->setValues('yes', 'no');
+      $this->assertFalse(
+        $checkbox->validate()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Checkbox::getCurrentValue
-   * @dataProvider provideCheckboxValues
-   * @param mixed $expected
-   * @param mixed $default
-   * @param mixed $active
-   * @param mixed $inactive
-   */
-  public function testGetCurrentValue($expected, $default, $active, $inactive) {
-    $checkbox = new Checkbox('caption', 'name', $default);
-    $checkbox->setValues($active, $inactive);
-    $this->assertSame(
-      $expected, $checkbox->getCurrentValue()
-    );
-  }
+    /**
+     * @dataProvider provideCheckboxValues
+     * @param mixed $expected
+     * @param mixed $default
+     * @param mixed $active
+     * @param mixed $inactive
+     */
+    public function testGetCurrentValue($expected, $default, $active, $inactive) {
+      $checkbox = new Checkbox('caption', 'name', $default);
+      $checkbox->setValues($active, $inactive);
+      $this->assertSame(
+        $expected, $checkbox->getCurrentValue()
+      );
+    }
 
-  /***************************
-   * Data Provider
-   ***************************/
+    public function testGetCurrentValueIfDisabled() {
+      $dialog = $this->createMock(Dialog::class);
+      $fields = $this->createMock(Fields::class);
+      $fields
+        ->method('hasOwner')
+        ->willReturn(TRUE);
+      $fields
+        ->method('owner')
+        ->willReturn($dialog);
 
-  public static function provideValidCheckboxInputs() {
-    return array(
-      array('yes', TRUE),
-      array('no', FALSE),
-      array('1', FALSE),
-      array(NULL, FALSE),
-      array('foo', FALSE),
-    );
-  }
+      $checkbox = new Checkbox('caption', 'a-name', true);
+      $checkbox->collection($fields);
+      $checkbox->setDisabled(TRUE);
+      $this->assertTrue($checkbox->getCurrentValue());
+    }
 
-  public static function provideInvalidCheckboxInputs() {
-    return array(
-      array('no', TRUE),
-      array(NULL, TRUE),
-      array('foo', TRUE)
-    );
-  }
+    public function testGetCurrentValueIfDialogIsNotSubmitted() {
+      $parameters = new Parameters(['a-name' => 1]);
+      $dialog = $this->createMock(Dialog::class);
+      $dialog
+        ->method('isSubmitted')
+        ->willReturn(FALSE);
+      $dialog
+        ->method('data')
+        ->willReturn($parameters);
+      $fields = $this->createMock(Fields::class);
+      $fields
+        ->method('hasOwner')
+        ->willReturn(TRUE);
+      $fields
+        ->method('owner')
+        ->willReturn($dialog);
 
-  public static function provideCheckboxValues() {
-    return array(
-      array(TRUE, TRUE, TRUE, FALSE),
-      array(FALSE, FALSE, TRUE, FALSE),
-      array('yes', 'yes', 'yes', 'no'),
-      array('no', 'no', 'yes', 'no'),
-      array('no', NULL, 'yes', 'no'),
-      array('no', '', 'yes', 'no'),
-      array(1, '1', 1, 0),
-      array('no', 'unknown', 'yes', 'no'),
-    );
+      $checkbox = new Checkbox('caption', 'a-name', true);
+      $checkbox->collection($fields);
+      $this->assertTrue($checkbox->getCurrentValue());
+    }
+
+    public function testGetCurrentValueIfDialogIsNotSubmittedAndEmptyData() {
+      $parameters = new Parameters();
+      $dialog = $this->createMock(Dialog::class);
+      $dialog
+        ->method('isSubmitted')
+        ->willReturn(FALSE);
+      $dialog
+        ->method('data')
+        ->willReturn($parameters);
+      $fields = $this->createMock(Fields::class);
+      $fields
+        ->method('hasOwner')
+        ->willReturn(TRUE);
+      $fields
+        ->method('owner')
+        ->willReturn($dialog);
+
+      $checkbox = new Checkbox('caption', 'a-name', true);
+      $checkbox->collection($fields);
+      $this->assertTrue($checkbox->getCurrentValue());
+    }
+
+    public function testGetCurrentValueIfDialogIsSubmitted() {
+      $parameters = new Parameters(['a-name' => 1]);
+      $dialog = $this->createMock(Dialog::class);
+      $dialog
+        ->method('isSubmitted')
+        ->willReturn(TRUE);
+      $dialog
+        ->method('parameters')
+        ->willReturn($parameters);
+      $fields = $this->createMock(Fields::class);
+      $fields
+        ->method('hasOwner')
+        ->willReturn(TRUE);
+      $fields
+        ->method('owner')
+        ->willReturn($dialog);
+
+      $checkbox = new Checkbox('caption', 'a-name', true);
+      $checkbox->collection($fields);
+      $this->assertTrue($checkbox->getCurrentValue());
+    }
+
+    /***************************
+     * Data Provider
+     ***************************/
+
+    public static function provideValidCheckboxInputs() {
+      return [
+        ['yes', TRUE],
+        ['no', FALSE],
+        ['1', FALSE],
+        [NULL, FALSE],
+        ['foo', FALSE],
+      ];
+    }
+
+    public static function provideInvalidCheckboxInputs() {
+      return [
+        ['no', TRUE],
+        [NULL, TRUE],
+        ['foo', TRUE]
+      ];
+    }
+
+    public static function provideCheckboxValues() {
+      return [
+        [TRUE, TRUE, TRUE, FALSE],
+        [FALSE, FALSE, TRUE, FALSE],
+        ['yes', 'yes', 'yes', 'no'],
+        ['no', 'no', 'yes', 'no'],
+        ['no', NULL, 'yes', 'no'],
+        ['no', '', 'yes', 'no'],
+        [1, '1', 1, 0],
+        ['no', 'unknown', 'yes', 'no'],
+      ];
+    }
   }
 }

@@ -14,6 +14,7 @@
  */
 namespace Papaya\UI\Dialog\Field\Input;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\Filter;
 use Papaya\UI;
 use Papaya\XML;
@@ -24,7 +25,7 @@ use Papaya\XML;
  * @package Papaya-Library
  * @subpackage UI
  *
- * @property string|\Papaya\UI\Text $caption
+ * @property string|StringCastable $caption
  * @property string $name
  * @property string $hint
  * @property string|null $defaultValue
@@ -150,7 +151,7 @@ class Checkbox extends UI\Dialog\Field\Input {
       } elseif ($dialog->data()->has($name)) {
         $isActive = (string)$dialog->data()->get($name) === (string)$this->_values['active'];
       } else {
-        $isActive = $this->getDefaultValue() === (string)$this->_values['active'];
+        $isActive = (string)$this->getDefaultValue() === (string)$this->_values['active'];
       }
       return $this->_values[$isActive ? 'active' : 'inactive'];
     }
