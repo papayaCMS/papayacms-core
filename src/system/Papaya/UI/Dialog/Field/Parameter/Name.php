@@ -12,53 +12,54 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\UI\Dialog\Field\Parameter;
+namespace Papaya\UI\Dialog\Field\Parameter {
 
-use Papaya\Request;
-use Papaya\UI;
+  use Papaya\Request;
+  use Papaya\UI;
 
-class Name {
-  /**
-   * @var UI\Dialog|null
-   */
-  private $_dialog;
+  class Name {
+    /**
+     * @var UI\Dialog|null
+     */
+    private $_dialog;
 
-  /**
-   * @var string|array
-   */
-  private $_fieldName;
+    /**
+     * @var string|array
+     */
+    private $_fieldName;
 
-  /**
-   * @param $fieldName
-   * @param UI\Dialog|null $dialog
-   */
-  public function __construct($fieldName, UI\Dialog $dialog = NULL) {
-    $this->_dialog = $dialog;
-    $this->_fieldName = $fieldName;
-  }
-
-  /**
-   * @param bool $withGroup
-   *
-   * @return string
-   */
-  public function get($withGroup = TRUE) {
-    if ($withGroup && $this->_dialog instanceof UI\Dialog) {
-      $name = $this->_dialog->getParameterName($this->_fieldName);
-      $prefix = $this->_dialog->parameterGroup();
-      if (NULL !== $prefix) {
-        $name->prepend($prefix);
-      }
-    } else {
-      $name = new Request\Parameters\Name($this->_fieldName);
+    /**
+     * @param $fieldName
+     * @param UI\Dialog|null $dialog
+     */
+    public function __construct($fieldName, UI\Dialog $dialog = NULL) {
+      $this->_dialog = $dialog;
+      $this->_fieldName = $fieldName;
     }
-    return (string)$name;
-  }
 
-  /**
-   * @return string
-   */
-  public function __toString() {
-    return $this->get();
+    /**
+     * @param bool $withGroup
+     *
+     * @return string
+     */
+    public function get($withGroup = TRUE) {
+      if ($withGroup && $this->_dialog instanceof UI\Dialog) {
+        $name = $this->_dialog->getParameterName($this->_fieldName);
+        $prefix = $this->_dialog->parameterGroup();
+        if (NULL !== $prefix) {
+          $name->prepend($prefix);
+        }
+      } else {
+        $name = new Request\Parameters\Name($this->_fieldName);
+      }
+      return (string)$name;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString() {
+      return $this->get();
+    }
   }
 }
