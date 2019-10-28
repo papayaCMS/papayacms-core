@@ -15,34 +15,27 @@
 
 namespace Papaya\UI\Control {
 
+  use Papaya\TestCase;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class PartTest extends \Papaya\TestCase {
+  /**
+   * @covers \Papaya\UI\Control\Part
+   */
+  class PartTest extends TestCase {
 
-
-    /**
-     * @covers \Papaya\UI\Control\Part::__get
-     * @covers \Papaya\UI\Control\Part::__set
-     */
     public function testPropertyGetAfterSetByName() {
       $control = new Part_TestProxy();
       $control->propertyOne = 'success';
       $this->assertEquals('success', $control->propertyOne);
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Part::__get
-     * @covers \Papaya\UI\Control\Part::__set
-     */
     public function testPropertyGetAfterSetByMethods() {
       $control = new Part_TestProxy();
       $control->propertyTwo = 'success';
       $this->assertEquals('success', $control->propertyTwo);
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Part::__get
-     */
     public function testPropertyGetUnknownExpectingException() {
       $control = new Part_TestProxy();
       $this->expectException(\UnexpectedValueException::class);
@@ -51,9 +44,6 @@ namespace Papaya\UI\Control {
       $control->propertyUnknown;
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Part::__get
-     */
     public function testPropertyGetInvalidExpectingException() {
       $control = new Part_TestProxy();
       $this->expectException(\UnexpectedValueException::class);
@@ -61,9 +51,6 @@ namespace Papaya\UI\Control {
       $control->propertyFour;
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Part::__set
-     */
     public function testPropertyReadOnlyExpectingException() {
       $control = new Part_TestProxy();
       $this->expectException(\UnexpectedValueException::class);
@@ -74,9 +61,6 @@ namespace Papaya\UI\Control {
       $control->propertyThree = 'fail';
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Part::__set
-     */
     public function testPropertySetUnknownExpectingException() {
       $control = new Part_TestProxy();
       $this->expectException(\UnexpectedValueException::class);
@@ -85,9 +69,6 @@ namespace Papaya\UI\Control {
       $control->propertyUnknown = 'success';
     }
 
-    /**
-     * @covers \Papaya\UI\Control\Part::__set
-     */
     public function testPropertySetInvalidExpectingException() {
       $control = new Part_TestProxy();
       $this->expectException(\UnexpectedValueException::class);
