@@ -306,11 +306,11 @@ namespace Papaya\UI\Content {
         $result['left'] = $left;
       }
       $result['scollBars'] = $hasScrollBars;
-      $result['resizable'] = (int)in_array($isResizable, $disabledStates);
-      $result['toolBar'] = (int)in_array($hasToolbar, $disabledStates);
-      $result['menuBar'] = (int)in_array($hasMenubar, $disabledStates);
-      $result['locationBar'] = (int)in_array($hasLocationInput, $disabledStates);
-      $result['statusBar'] = (int)in_array($hasStatusBar, $disabledStates);
+      $result['resizable'] = (int)in_array($isResizable, $disabledStates, FALSE);
+      $result['toolBar'] = (int)in_array($hasToolbar, $disabledStates, FALSE);
+      $result['menuBar'] = (int)in_array($hasMenubar, $disabledStates, FALSE);
+      $result['locationBar'] = (int)in_array($hasLocationInput, $disabledStates, FALSE);
+      $result['statusBar'] = (int)in_array($hasStatusBar, $disabledStates, FALSE);
       return $result;
     }
   }
