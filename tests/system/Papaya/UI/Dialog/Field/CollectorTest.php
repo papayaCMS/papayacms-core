@@ -13,24 +13,25 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Dialog\Field\Textarea {
+namespace Papaya\UI\Dialog\Field {
 
+  use Papaya\Filter;
   use Papaya\Test\TestCase;
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Textarea\Lines
+   * @covers \Papaya\UI\Dialog\Field\Collector
    */
-  class LinesTest extends TestCase {
+  class CollectorTest extends TestCase {
 
-    public function testAppendTo() {
-      $lines = new Lines('a caption', 'a-name');
-      $this->assertXmlStringEqualsXmlString(
-        '<?xml version="1.0"?>
-        <field caption="a caption" class="DialogFieldTextareaLines" error="no">
-          <textarea lines="10" name="a-name" type="lines"/>
-        </field>',
-        $lines->getXML()
-      );
+    public function testCollector() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Filter $filter */
+      $filter = $this->createMock(Filter::class);
+      $collector = new Collector('a-name', 'default', $filter);
+      $collector->setMandatory(TRUE);
+      $this->assertSame('a-name', $collector->getName());
+      $this->assertSame('default', $collector->getDefaultValue());
+      $this->assertSame($filter, $collector->getFilter());
+      $this->assertEmpty($collector->getXML());
     }
   }
 
