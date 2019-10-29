@@ -13,61 +13,76 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI;
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\UI {
 
-class TextTest extends \Papaya\TestCase {
+  use Papaya\BaseObject\Interfaces\StringCastable;
+  use Papaya\TestCase;
 
-  /**
-   * @covers \Papaya\UI\Text::__construct
-   */
-  public function testConstructor() {
-    $string = new Text('Hello %s!', array('World'));
-    $this->assertAttributeEquals(
-      'Hello %s!', '_pattern', $string
-    );
-    $this->assertAttributeEquals(
-      array('World'), '_values', $string
-    );
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Text::__construct
+   * @covers \Papaya\UI\Text
    */
-  public function testConstructorWithPatternOnly() {
-    $string = new Text('Hello World!');
-    $this->assertAttributeEquals(
-      'Hello World!', '_pattern', $string
-    );
-    $this->assertAttributeEquals(
-      array(), '_values', $string
-    );
-  }
+  class TextTest extends TestCase {
 
-  /**
-   * @covers \Papaya\UI\Text::__toString
-   * @covers \Papaya\UI\Text::compile
-   * @dataProvider provideExamplesForToString
-   * @param string $expected
-   * @param string $pattern
-   * @param array $values
-   */
-  public function testMagicMethodToString($expected, $pattern, array $values = array()) {
-    $string = new Text($pattern, $values);
-    $this->assertEquals(
-      $expected, (string)$string
-    );
-  }
+    public function testConstructor() {
+      $string = new Text('Hello %s!', ['World']);
+      $this->assertAttributeEquals(
+        'Hello %s!', '_pattern', $string
+      );
+      $this->assertAttributeEquals(
+        ['World'], '_values', $string
+      );
+    }
 
-  /**************************
-   * Data Provider
-   **************************/
+    public function testConstructorWithStringCastable() {
+      $pattern = $this->createMock(StringCastable::class);
+      $pattern
+        ->method('__toString')
+        ->willReturn('Hello %s!');
 
-  public static function provideExamplesForToString() {
-    return array(
-      'string only' => array('Hello World!', 'Hello World!', array()),
-      'single value' => array('Hello World!', 'Hello %s!', array('World')),
-      'two values' => array('Hello 2. World!', 'Hello %d. %s!', array(2, 'World'))
-    );
+      $string = new Text($pattern, ['World']);
+      $this->assertAttributeEquals(
+        'Hello %s!', '_pattern', $string
+      );
+      $this->assertAttributeEquals(
+        ['World'], '_values', $string
+      );
+    }
+
+    public function testConstructorWithPatternOnly() {
+      $string = new Text('Hello World!');
+      $this->assertAttributeEquals(
+        'Hello World!', '_pattern', $string
+      );
+      $this->assertAttributeEquals(
+        [], '_values', $string
+      );
+    }
+
+    /**
+     * @dataProvider provideExamplesForToString
+     * @param string $expected
+     * @param string $pattern
+     * @param array $values
+     */
+    public function testMagicMethodToString($expected, $pattern, array $values = []) {
+      $string = new Text($pattern, $values);
+      $this->assertEquals(
+        $expected, (string)$string
+      );
+    }
+
+    /**************************
+     * Data Provider
+     **************************/
+
+    public static function provideExamplesForToString() {
+      return [
+        'string only' => ['Hello World!', 'Hello World!', []],
+        'single value' => ['Hello World!', 'Hello %s!', ['World']],
+        'two values' => ['Hello 2. World!', 'Hello %d. %s!', [2, 'World']]
+      ];
+    }
   }
 }

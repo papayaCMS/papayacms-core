@@ -54,8 +54,8 @@ class Text implements Application\Access, StringCastable {
   /**
    * Create object and store arguments into variables
    *
-   * @param $pattern
-   * @param $values
+   * @param string|StringCastable $pattern
+   * @param string[] $values
    */
   public function __construct($pattern, array $values = []) {
     if (is_object($pattern) && method_exists($pattern, '__toString')) {
