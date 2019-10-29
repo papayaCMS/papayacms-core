@@ -287,7 +287,7 @@ class Factory implements Application\Access {
 
   /**
    * A callback to filter out all domain with wildcards in the hostname. These domains
-   * are ambigous and can not be used as target. However it can be the current domain, so they
+   * are ambiguous and can not be used as target. However it can be the current domain, so they
    * can not be filtered on loading.
    *
    * @param array $domain
@@ -298,7 +298,12 @@ class Factory implements Application\Access {
     return FALSE === \strpos($domain['host'], '*');
   }
 
-  private function isDomainWithLanguage($domain, $languageId) {
+  /**
+   * @param array $domain
+   * @param int $languageId
+   * @return bool
+   */
+  public function isDomainWithLanguage($domain, $languageId) {
     return (
       0 === (int)$domain['language_id'] ||
       (int)$domain['language_id'] === (int)$languageId
@@ -396,7 +401,7 @@ class Factory implements Application\Access {
   }
 
   /**
-   * The pages subobject is used to load the acutal page data
+   * The pages subobject is used to load the actual page data
    *
    * @param Content\Pages $pages
    *
@@ -465,7 +470,7 @@ class Factory implements Application\Access {
   }
 
   /**
-   * Validate language identifer. If the given language identifer is not valid, try to get it from
+   * Validate language identifier. If the given language identifier is not valid, try to get it from
    * the request object and if that is empty from the option. Store it in a member variable
    * for a repeated call.
    *
