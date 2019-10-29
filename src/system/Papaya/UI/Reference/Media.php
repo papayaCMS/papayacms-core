@@ -138,17 +138,14 @@ class Media extends UI\Reference {
   }
 
   /**
-   * Set mode
-   *
    * @param string $mode
-   *
    * @return $this
    */
   public function setMode($mode) {
     $this->prepare();
-    if (\in_array($mode, ['media', 'download'])) {
+    if (in_array($mode, ['media', 'download'], TRUE)) {
       $this->_pageData['mode'] = (string)$mode;
-    } elseif (\in_array($mode, ['thumb', 'thumbnail'])) {
+    } elseif (in_array($mode, ['thumb', 'thumbnail'], TRUE)) {
       $this->_pageData['mode'] = 'media';
     }
     return $this;
