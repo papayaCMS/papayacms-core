@@ -12,62 +12,63 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\UI\Toolbar\Select;
+namespace Papaya\UI\Toolbar\Select {
 
-use Papaya\Request;
-use Papaya\UI;
-use Papaya\Utility;
-use Papaya\XML;
+  use Papaya\BaseObject\Interfaces\StringCastable;
+  use Papaya\Request;
+  use Papaya\UI;
+  use Papaya\Utility;
+  use Papaya\XML\Element as XMLElement;
 
-/**
- * A menu/toolbar button list to select a single value out of a list.
- *
- * @package Papaya-Library
- * @subpackage UI
- *
- * @property UI\Reference $reference
- * @property string $parameterName
- * @property string|\Papaya\UI\Text $caption
- * @property \Traversable|array $options
- * @property string|\Papaya\UI\Text $defaultOption
- * @property string|int|bool $currentValue
- */
-class Buttons extends UI\Toolbar\Select {
   /**
-   * Append button xml elemens to parent element.
+   * A menu/toolbar button list to select a single value out of a list.
    *
-   * @param XML\Element $parent
+   * @package Papaya-Library
+   * @subpackage UI
    *
-   * @return XML\Element
+   * @property UI\Reference $reference
+   * @property string $parameterName
+   * @property string|StringCastable $caption
+   * @property \Traversable|array $options
+   * @property string|StringCastable $defaultOption
+   * @property string|int|bool $currentValue
    */
-  public function appendTo(XML\Element $parent) {
-    $currentValue = (string)$this->getCurrentValue();
-    $parameterName = new Request\Parameters\Name($this->_parameterName);
-    foreach ($this->_options as $value => $data) {
-      if (\is_array($data)) {
-        if (\array_key_exists('enabled', $data) && !$data['enabled']) {
-          continue;
+  class Buttons extends UI\Toolbar\Select {
+    /**
+     * Append button xml elements to parent element.
+     *
+     * @param XMLElement $parent
+     * @return XMLElement
+     */
+    public function appendTo(XMLElement $parent) {
+      $currentValue = (string)$this->getCurrentValue();
+      $parameterName = new Request\Parameters\Name($this->_parameterName);
+      foreach ($this->_options as $value => $data) {
+        if (\is_array($data)) {
+          if (\array_key_exists('enabled', $data) && !$data['enabled']) {
+            continue;
+          }
+          $caption = Utility\Arrays::get($data, ['caption', 0], '');
+          $image = Utility\Arrays::get($data, ['image', 1], '');
+        } else {
+          $caption = $data;
+          $image = '';
         }
-        $caption = Utility\Arrays::get($data, ['caption', 0], '');
-        $image = Utility\Arrays::get($data, ['image', 1], '');
-      } else {
-        $caption = $data;
-        $image = '';
+        $reference = clone $this->reference();
+        $reference->getParameters()->set((string)$parameterName, $value);
+        $button = $parent->appendElement(
+          'button',
+          [
+            'href' => $reference->getRelative(),
+            'title' => (string)$caption,
+            'image' => empty($image) ? '' : (string)$this->papaya()->images[$image]
+          ]
+        );
+        if ($currentValue === (string)$value) {
+          $button->setAttribute('down', 'down');
+        }
       }
-      $reference = clone $this->reference();
-      $reference->getParameters()->set((string)$parameterName, $value);
-      $button = $parent->appendElement(
-        'button',
-        [
-          'href' => $reference->getRelative(),
-          'title' => (string)$caption,
-          'image' => empty($image) ? '' : (string)$this->papaya()->images[$image]
-        ]
-      );
-      if ($currentValue === (string)$value) {
-        $button->setAttribute('down', 'down');
-      }
+      return $parent;
     }
-    return $parent;
   }
 }

@@ -13,77 +13,97 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Toolbar\Select;
-require_once __DIR__.'/../../../../../bootstrap.php';
+namespace Papaya\UI\Toolbar\Select {
 
-class ButtonsTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
+
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
+   * @covers \Papaya\UI\Toolbar\Select\Buttons
    */
-  public function testAppendToWithCurrentValue() {
-    $document = new \Papaya\XML\Document;
-    $document->appendElement('sample');
-    $select = new Buttons('foo', array(10 => '10', 20 => '20', 50 => '50'));
-    $select->papaya($this->mockPapaya()->application());
-    $select->currentValue = 20;
-    $select->appendTo($document->documentElement);
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<sample>
+  class ButtonsTest extends TestCase {
+
+    public function testAppendToWithCurrentValue() {
+      $document = new \Papaya\XML\Document();
+      $document->appendElement('sample');
+      $select = new Buttons('foo', [10 => '10', 20 => '20', 50 => '50']);
+      $select->papaya($this->mockPapaya()->application());
+      $select->currentValue = 20;
+      $select->appendTo($document->documentElement);
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<sample>
         <button href="http://www.test.tld/test.html?foo=10" title="10"/>
         <button href="http://www.test.tld/test.html?foo=20" title="20" down="down"/>
         <button href="http://www.test.tld/test.html?foo=50" title="50"/>
         </sample>',
-      $document->saveXML($document->documentElement)
-    );
-  }
+        $document->saveXML($document->documentElement)
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select\Buttons::appendTo
-   */
-  public function testAppendToWithAdditionalParameters() {
-    $document = new \Papaya\XML\Document;
-    $document->appendElement('sample');
-    $select = new Buttons(
-      'foo/size', array(10 => '10', 20 => '20', 50 => '50')
-    );
-    $select->papaya($this->mockPapaya()->application());
-    $select->reference->setParameters(array('page' => 3), 'foo');
-    $select->appendTo($document->documentElement);
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<sample>
+    public function testAppendToWithAdditionalParameters() {
+      $document = new \Papaya\XML\Document();
+      $document->appendElement('sample');
+      $select = new Buttons(
+        'foo/size', [10 => '10', 20 => '20', 50 => '50']
+      );
+      $select->papaya($this->mockPapaya()->application());
+      $select->reference->setParameters(['page' => 3], 'foo');
+      $select->appendTo($document->documentElement);
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<sample>
         <button href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=10" title="10"/>
         <button href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=20" title="20"/>
         <button href="http://www.test.tld/test.html?foo[page]=3&amp;foo[size]=50" title="50"/>
         </sample>',
-      $document->saveXML($document->documentElement)
-    );
-  }
+        $document->saveXML($document->documentElement)
+      );
+    }
 
-  public function testAppendToWithImages() {
-    $select = new Buttons(
-      'foo/size',
-      array(
-        'first' => array('caption' => 'First', 'image' => 'first-image'),
-        'second' => array('caption' => 'Second', 'image' => 'second-image')
-      )
-    );
-    $select->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'images' => array('first-image' => 'first.png', 'second-image' => 'second.png')
+    public function testAppendToWithImages() {
+      $select = new Buttons(
+        'foo/size',
+        [
+          'first' => ['caption' => 'First', 'image' => 'first-image'],
+          'second' => ['caption' => 'Second', 'image' => 'second-image']
+        ]
+      );
+      $select->papaya(
+        $this->mockPapaya()->application(
+          [
+            'images' => ['first-image' => 'first.png', 'second-image' => 'second.png']
+          ]
         )
-      )
-    );
-    $this->assertAppendedXmlEqualsXmlFragment(
+      );
+      $this->assertAppendedXmlEqualsXmlFragment(
       // language=XML prefix=<fragment> suffix=</fragment>
-      '<button href="http://www.test.tld/test.html?foo[size]=first"
+        '<button href="http://www.test.tld/test.html?foo[size]=first"
         title="First" image="first.png"/>
        <button href="http://www.test.tld/test.html?foo[size]=second"
         title="Second" image="second.png"/>',
-      $select
-    );
+        $select
+      );
+    }
+
+    public function testAppendToWithDisabledItems() {
+      $select = new Buttons(
+        'foo/size',
+        [
+          'first' => ['caption' => 'First', 'enabled' => TRUE],
+          'second' => ['caption' => 'Second', 'enabled' => FALSE]
+        ]
+      );
+      $select->papaya(
+        $this->mockPapaya()->application()
+      );
+      $this->assertAppendedXmlEqualsXmlFragment(
+      // language=XML prefix=<fragment> suffix=</fragment>
+        '<button href="http://www.test.tld/test.html?foo[size]=first"
+        title="First"/>',
+        $select
+      );
+    }
   }
 }
