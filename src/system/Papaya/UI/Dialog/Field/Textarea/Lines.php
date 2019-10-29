@@ -12,48 +12,49 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\UI\Dialog\Field\Textarea;
+namespace Papaya\UI\Dialog\Field\Textarea {
 
-use Papaya\Filter;
-use Papaya\UI;
-use Papaya\XML;
-
-/**
- * A textarea (multiple line input) field, that will use the filter on each line
- *
- * @package Papaya-Library
- * @subpackage UI
- */
-class Lines extends UI\Dialog\Field\Textarea {
-  protected $_type = 'lines';
-
-  public function __construct(
-    $caption, $name, $lines = 10, $default = NULL, Filter $filter = NULL
-  ) {
-    parent::__construct(
-      $caption,
-      $name,
-      $lines,
-      $default,
-      new Filter\Lines($filter)
-    );
-  }
+  use Papaya\Filter;
+  use Papaya\UI;
+  use Papaya\XML;
 
   /**
-   * Append field and textarea output to DOM
+   * A textarea (multiple line input) field, that will use the filter on each line
    *
-   * @param XML\Element $parent
+   * @package Papaya-Library
+   * @subpackage UI
    */
-  public function appendTo(XML\Element $parent) {
-    $field = $this->_appendFieldTo($parent);
-    $field->appendElement(
-      'textarea',
-      [
-        'type' => $this->_type,
-        'name' => $this->_getParameterName($this->getName()),
-        'lines' => $this->_lineCount
-      ],
-      (string)$this->getCurrentValue()
-    );
+  class Lines extends UI\Dialog\Field\Textarea {
+    protected $_type = 'lines';
+
+    public function __construct(
+      $caption, $name, $lines = 10, $default = NULL, Filter $filter = NULL
+    ) {
+      parent::__construct(
+        $caption,
+        $name,
+        $lines,
+        $default,
+        $filter ? new Filter\Lines($filter) : NULL
+      );
+    }
+
+    /**
+     * Append field and textarea output to DOM
+     *
+     * @param XML\Element $parent
+     */
+    public function appendTo(XML\Element $parent) {
+      $field = $this->_appendFieldTo($parent);
+      $field->appendElement(
+        'textarea',
+        [
+          'type' => $this->_type,
+          'name' => $this->_getParameterName($this->getName()),
+          'lines' => $this->_lineCount
+        ],
+        (string)$this->getCurrentValue()
+      );
+    }
   }
 }
