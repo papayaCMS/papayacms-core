@@ -15,12 +15,13 @@
 
 namespace Papaya\Template\Tag {
 
+  use Papaya\BaseObject\Interfaces\StringCastable;
   use Papaya\Template\Tag as TemplateTag;
   use Papaya\Utility\Arrays as ArrayUtilities;
   use Papaya\XML\Document as XMLDocument;
   use Papaya\XML\Element as XMLElement;
 
-  class Image extends TemplateTag {
+  class Image extends TemplateTag implements StringCastable {
 
     /**
      * @var string
@@ -112,6 +113,19 @@ namespace Papaya\Template\Tag {
       $this->_resize = trim($resize) !== '' ? $resize : ArrayUtilities::get($data, 'resize', '');
       $this->_alternativeText = trim($alt) !== '' ? $alt : ArrayUtilities::get($data, 'alt', '');
       $this->_subtitle = trim($alt) !== '' ? $alt : ArrayUtilities::get($data, 'subtitle', '');
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString() {
+      if (empty($this->_source)) {
+        return '';
+      }
+      $document = new XMLDocument();
+      $fragment = $document->appendElement('fragment');
+      $this->appendTo($fragment);
+      return $fragment->saveFragment();
     }
 
     /**

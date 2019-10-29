@@ -1145,7 +1145,7 @@ class base_sitemap extends base_db {
         isset($this->topicTree[$id]['childcount'])
           ? (int)$this->topicTree[$id]['childcount'] : 0,
         $subCounter,
-        $this->linkTypes[$row['linktype_id']] ["linktype_is_visible"] ? 1 : 0,
+        $this->linkTypes[$row['linktype_id']] ["is_visible"] ? 1 : 0,
         $gen,
         $isPopup,
         $popupData,
