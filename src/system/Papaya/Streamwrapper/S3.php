@@ -289,12 +289,12 @@ class S3 {
       /* use a bigger buffer internally because
          php will only ever do reads of max size 8K */
       if ($this->_bufferStartPosition === $this->_position && '' !== $this->_buffer) {
-        $result = \substr($this->_buffer, 0, $count);
-        $this->_buffer = \substr($this->_buffer, $count);
+        $result = (string)substr($this->_buffer, 0, $count);
+        $this->_buffer = (string)substr($this->_buffer, $count);
       } else {
         $this->fillBuffer();
-        $result = \substr($this->_buffer, 0, $count);
-        $this->_buffer = \substr($this->_buffer, $count);
+        $result = (string)substr($this->_buffer, 0, $count);
+        $this->_buffer = (string)substr($this->_buffer, $count);
       }
       if (!empty($result)) {
         $this->_position += \strlen($result);
