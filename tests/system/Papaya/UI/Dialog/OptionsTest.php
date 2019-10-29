@@ -13,32 +13,36 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Dialog;
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Dialog {
 
-class OptionsTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
+  use Papaya\XML\Document as XMLDocument;
+
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Dialog\Options::appendTo
-   * @covers \Papaya\UI\Dialog\Options::_valueToString
+   * @covers \Papaya\UI\Dialog\Options
    */
-  public function testAppendTo() {
-    $document = new \Papaya\XML\Document();
-    $document->appendChild($document->createElement('sample'));
-    $options = new \Papaya\UI\Dialog\Options();
-    $options->appendTo($document->documentElement);
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<options>
-        <option name="USE_CONFIRMATION" value="yes"/>
-        <option name="USE_TOKEN" value="yes"/>
-        <option name="PROTECT_CHANGES" value="yes"/>
-        <option name="CAPTION_STYLE" value="1"/>
-        <option name="DIALOG_WIDTH" value="m"/>
-        <option name="TOP_BUTTONS" value="no"/>
-        <option name="BOTTOM_BUTTONS" value="yes"/>
+  class OptionsTest extends TestCase {
+
+    public function testAppendTo() {
+      $document = new XMLDocument();
+      $document->appendChild($document->createElement('sample'));
+      $options = new Options();
+      $options->appendTo($document->documentElement);
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<options>
+          <option name="USE_CONFIRMATION" value="yes"/>
+          <option name="USE_TOKEN" value="yes"/>
+          <option name="PROTECT_CHANGES" value="yes"/>
+          <option name="CAPTION_STYLE" value="1"/>
+          <option name="DIALOG_WIDTH" value="m"/>
+          <option name="TOP_BUTTONS" value="no"/>
+          <option name="BOTTOM_BUTTONS" value="yes"/>
         </options>',
-      $document->saveXML($document->documentElement->firstChild)
-    );
+        $document->saveXML($document->documentElement->firstChild)
+      );
+    }
   }
 }
