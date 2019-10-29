@@ -13,78 +13,152 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI;
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\UI {
 
-class SheetTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
+  use Papaya\UI\Sheet\Subtitles;
+  use Papaya\XML\Appendable as XMLAppendable;
+  use Papaya\XML\Document;
+  use Papaya\XML\Element as XMLElement;
 
-  /**
-   * @covers \Papaya\UI\Panel::appendTo
-   */
-  public function testAppendTo() {
-    $sheet = new Sheet();
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<sheet><text/></sheet>',
-      $sheet->getXML()
-    );
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Panel::appendTo
+   * @covers \Papaya\UI\Sheet
    */
-  public function testAppendToWithTitle() {
-    $sheet = new Sheet();
-    $sheet->title('Sample Title');
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<?xml version="1.0"?>
+  class SheetTest extends TestCase {
+
+    public function testAppendTo() {
+      $sheet = new Sheet();
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<sheet><text/></sheet>',
+        $sheet->getXML()
+      );
+    }
+
+    public function testAppendToWithTitle() {
+      $sheet = new Sheet();
+      $sheet->title('Sample Title');
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
        <sheet>
          <header>
            <title>Sample Title</title>
          </header>
          <text/>
        </sheet>',
-      $sheet->getXML()
-    );
-  }
+        $sheet->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Panel::appendTo
-   */
-  public function testAppendToWithSubtitle() {
-    $sheet = new Sheet();
-    $sheet->subtitles()->add(new Sheet\Subtitle('Sample Title'));
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<?xml version="1.0"?>
+    public function testAppendToWithSubtitle() {
+      $sheet = new Sheet();
+      $sheet->subtitles()->add(new Sheet\Subtitle('Sample Title'));
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
        <sheet>
          <header>
            <subtitle>Sample Title</subtitle>
          </header>
          <text/>
        </sheet>',
-      $sheet->getXML()
-    );
-  }
+        $sheet->getXML()
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Panel::appendTo
-   */
-  public function testAppendToWithContent() {
-    $sheet = new Sheet();
-    $sheet
-      ->content()
-      ->appendElement('div', array('class' => 'simple'), 'Content');
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<?xml version="1.0"?>
+    public function testAppendToWithSubtitlesArray() {
+      $sheet = new Sheet();
+      $sheet->subtitles(['One', 'Two']);
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
+        <sheet>
+          <header>
+            <subtitle>One</subtitle>
+            <subtitle>Two</subtitle>
+          </header>
+          <text/>
+        </sheet>',
+        $sheet->getXML()
+      );
+    }
+
+    public function testAppendToWithSubtitlesObject() {
+      $sheet = new Sheet();
+      $sheet->subtitles(new Subtitles(['One', 'Two']));
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
+        <sheet>
+          <header>
+            <subtitle>One</subtitle>
+            <subtitle>Two</subtitle>
+          </header>
+          <text/>
+        </sheet>',
+        $sheet->getXML()
+      );
+    }
+
+    public function testAppendToWithContent() {
+      $sheet = new Sheet();
+      $sheet
+        ->content()
+        ->appendElement('div', ['class' => 'simple'], 'Content');
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
        <sheet>
          <text>
            <div class="simple">Content</div>
          </text>
        </sheet>',
-      $sheet->getXML()
-    );
+        $sheet->getXML()
+      );
+    }
+
+    public function testAppendToWithContentElement() {
+      $document = new Document();
+      $document->appendElement('success');
+      $sheet = new Sheet();
+      $sheet
+        ->content($document->documentElement);
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
+       <sheet>
+         <success/>
+       </sheet>',
+        $sheet->getXML()
+      );
+    }
+
+    public function testAppendToWithContentAppendable() {
+      $element = $this->createMock(XMLAppendable::class);
+      $element
+        ->expects($this->once())
+        ->method('appendTo')
+        ->willReturnCallback(
+          static function(XMLElement $parent) {
+            $parent->appendElement('success');
+          }
+        );
+      $sheet = new Sheet();
+      $sheet
+        ->content($element);
+      $this->assertXmlStringEqualsXmlString(
+      /** @lang XML */
+        '<?xml version="1.0"?>
+       <sheet>
+         <text>
+           <success/>
+         </text>
+       </sheet>',
+        $sheet->getXML()
+      );
+    }
   }
 }
