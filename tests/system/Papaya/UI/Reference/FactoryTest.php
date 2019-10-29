@@ -13,39 +13,45 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI\Reference;
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\UI\Reference {
 
-class FactoryTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
+
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
    * @covers \Papaya\UI\Reference\Factory
-   * @dataProvider provideStringsAndExpectedUrls
-   * @param string $expected
-   * @param string $string
    */
-  public function testByString($expected, $string) {
-    $factory = new Factory();
-    $factory->papaya($this->mockPapaya()->application());
-    $reference = $factory->byString($string);
-    $this->assertEquals($expected, (string)$reference);
-  }
+  class FactoryTest extends TestCase {
 
-  /*******************************
-   * Data Provider
-   ******************************/
+    /**
+     * @dataProvider provideStringsAndExpectedUrls
+     * @param string $expected
+     * @param string $string
+     */
+    public function testByString($expected, $string) {
+      $factory = new Factory();
+      $factory->papaya($this->mockPapaya()->application());
+      $reference = $factory->byString($string);
+      $this->assertEquals($expected, (string)$reference);
+    }
 
-  public static function provideStringsAndExpectedUrls() {
-    return array(
-      array('http://www.test.tld/test.html', ''),
-      array('http://www.papaya-cms.com', 'http://www.papaya-cms.com'),
-      array('http://www.test.tld/foo/bar', '/foo/bar'),
-      array('http://www.test.tld/foo/bar', 'foo/bar'),
-      array('http://www.test.tld/index.42.html', '42'),
-      array('http://www.test.tld/index.21.42.html', '21.42'),
-      array('http://www.test.tld/index.21.42.en.html', '21.42.en'),
-      array('http://www.test.tld/index.21.42.en.atom', '21.42.en.atom'),
-      array('http://www.test.tld/21.42.en.atom?foo=bar', '/21.42.en.atom?foo=bar')
-    );
+    /*******************************
+     * Data Provider
+     ******************************/
+
+    public static function provideStringsAndExpectedUrls() {
+      return [
+        ['http://www.test.tld/test.html', ''],
+        ['http://www.papaya-cms.com', 'http://www.papaya-cms.com'],
+        ['http://www.test.tld/foo/bar', '/foo/bar'],
+        ['http://www.test.tld/foo/bar', 'foo/bar'],
+        ['http://www.test.tld/index.42.html', '42'],
+        ['http://www.test.tld/index.21.42.html', '21.42'],
+        ['http://www.test.tld/index.21.42.en.html', '21.42.en'],
+        ['http://www.test.tld/index.21.42.en.atom', '21.42.en.atom'],
+        ['http://www.test.tld/21.42.en.atom?foo=bar', '/21.42.en.atom?foo=bar']
+      ];
+    }
   }
 }
