@@ -102,7 +102,7 @@ class base_linktypes extends base_db {
   public function getLinkTypesVisibility() {
     $result = new \Papaya\Iterator\Callback(
       $this->linkTypes(),
-      static function(array $linkType) { return $linkType['visibility']; }
+      static function(array $linkType) { return $linkType['is_visible']; }
     );
     return iterator_to_array($result);
   }
@@ -118,7 +118,7 @@ class base_linktypes extends base_db {
     $result = new \Papaya\Iterator\Callback(
       new Filter\Callback(
         $this->linkTypes(),
-        static function(array $linkType) use ($visible) { return $visible === (bool)$linkType['visible']; }
+        static function(array $linkType) use ($visible) { return $visible === (bool)$linkType['is_visible']; }
       ),
       $minimal
         ? static function(array $linkType) { return $linkType['name']; }
