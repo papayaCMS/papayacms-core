@@ -13,138 +13,110 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\UI;
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\UI {
 
-class ImagesTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
 
-  /**
-   * @covers \Papaya\UI\Images::__construct
-   */
-  public function testConstructorAddsImages() {
-    $images = new Images(array('test' => 'test.png'));
-    $this->assertAttributeEquals(
-      array('test' => 'test.png'),
-      '_images',
-      $images
-    );
-
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\UI\Images::add
+   * @covers \Papaya\UI\Images
    */
-  public function testAdd() {
-    $images = new Images();
-    $images->add(array('test' => 'test.png'));
-    $this->assertAttributeEquals(
-      array('test' => 'test.png'),
-      '_images',
-      $images
-    );
-  }
+  class ImagesTest extends TestCase {
 
-  /**
-   * @covers \Papaya\UI\Images::add
-   */
-  public function testAddIgnoreExisting() {
-    $images = new Images();
-    $images->add(array('test' => 'success.png'));
-    $images->add(array('test' => 'fail.png'), Images::DUPLICATES_IGNORE);
-    $this->assertAttributeEquals(
-      array('test' => 'success.png'),
-      '_images',
-      $images
-    );
-  }
+    public function testConstructorAddsImages() {
+      $images = new Images(['test' => 'test.png']);
+      $this->assertEquals(
+        ['test' => 'test.png'],
+        iterator_to_array($images)
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::add
-   */
-  public function testAddOverwriteExisting() {
-    $images = new Images();
-    $images->add(array('test' => 'fail.png'));
-    $images->add(array('test' => 'success.png'), Images::DUPLICATES_OVERWRITE);
-    $this->assertAttributeEquals(
-      array('test' => 'success.png'),
-      '_images',
-      $images
-    );
-  }
+    public function testAdd() {
+      $images = new Images();
+      $images->add(['test' => 'test.png']);
+      $this->assertAttributeEquals(
+        ['test' => 'test.png'],
+        '_images',
+        $images
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::remove
-   */
-  public function testRemove() {
-    $images = new Images();
-    $images->add(array('test' => 'test.png'));
-    $images->remove(array('test'));
-    $this->assertAttributeEquals(
-      array(),
-      '_images',
-      $images
-    );
-  }
+    public function testAddIgnoreExisting() {
+      $images = new Images();
+      $images->add(['test' => 'success.png']);
+      $images->add(['test' => 'fail.png'], Images::DUPLICATES_IGNORE);
+      $this->assertAttributeEquals(
+        ['test' => 'success.png'],
+        '_images',
+        $images
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::offsetExists
-   */
-  public function testOffsetExistsExpectingTrue() {
-    $images = new Images();
-    $images->add(array('test' => 'test.png'));
-    $this->assertTrue(isset($images['test']));
-  }
+    public function testAddOverwriteExisting() {
+      $images = new Images();
+      $images->add(['test' => 'fail.png']);
+      $images->add(['test' => 'success.png'], Images::DUPLICATES_OVERWRITE);
+      $this->assertAttributeEquals(
+        ['test' => 'success.png'],
+        '_images',
+        $images
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::offsetExists
-   */
-  public function testOffsetExistsExpectingFalse() {
-    $images = new Images();
-    $this->assertFalse(isset($images['test']));
-  }
+    public function testRemove() {
+      $images = new Images();
+      $images->add(['test' => 'test.png']);
+      $images->remove(['test']);
+      $this->assertAttributeEquals(
+        [],
+        '_images',
+        $images
+      );
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::offsetGet
-   */
-  public function testOffsetGet() {
-    $images = new Images();
-    $images->add(array('test' => 'test.png'));
-    $this->assertEquals('test.png', $images['test']);
-  }
+    public function testOffsetExistsExpectingTrue() {
+      $images = new Images();
+      $images->add(['test' => 'test.png']);
+      $this->assertTrue(isset($images['test']));
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::offsetGet
-   */
-  public function testOffsetGetWithNonExistingOffsetExpectingGivenOffset() {
-    $images = new Images();
-    $this->assertSame('test', $images['test']);
-  }
+    public function testOffsetExistsExpectingFalse() {
+      $images = new Images();
+      $this->assertFalse(isset($images['test']));
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::offsetSet
-   */
-  public function testOffsetSet() {
-    $images = new Images();
-    $images->add(array('test' => 'fail.png'));
-    $images['test'] = 'success.png';
-    $this->assertAttributeEquals(
-      array('test' => 'success.png'),
-      '_images',
-      $images
-    );
-  }
+    public function testOffsetGet() {
+      $images = new Images();
+      $images->add(['test' => 'test.png']);
+      $this->assertEquals('test.png', $images['test']);
+    }
 
-  /**
-   * @covers \Papaya\UI\Images::offsetUnset
-   */
-  public function testOffsetUnset() {
-    $images = new Images();
-    $images->add(array('test' => 'test.png'));
-    unset($images['test']);
-    $this->assertAttributeEquals(
-      array(),
-      '_images',
-      $images
-    );
+    public function testOffsetGetWithNonExistingOffsetExpectingGivenOffset() {
+      $images = new Images();
+      $this->assertSame('test', $images['test']);
+    }
+
+    public function testOffsetSet() {
+      $images = new Images();
+      $images->add(['test' => 'fail.png']);
+      $images['test'] = 'success.png';
+      $this->assertAttributeEquals(
+        ['test' => 'success.png'],
+        '_images',
+        $images
+      );
+    }
+
+    public function testOffsetUnset() {
+      $images = new Images();
+      $images->add(['test' => 'test.png']);
+      unset($images['test']);
+      $this->assertAttributeEquals(
+        [],
+        '_images',
+        $images
+      );
+    }
   }
 }
