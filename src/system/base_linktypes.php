@@ -47,7 +47,7 @@ class base_linktypes extends base_db {
       'linktype_class' => $values['class'],
       'linktype_target' => $values['target'],
       'linktype_is_popup' => $values['is_popup'],
-      'linktype_popup_config' => $values['popup_options']
+      'popup_config' => $values['popup_options']
     ];
   }
 
@@ -68,7 +68,7 @@ class base_linktypes extends base_db {
         : $this->linkTypes(),
       $minimal
         ? static function(array $linkType) { return $linkType['name']; }
-        : static function(array $linkType) { return $this->mapPropertiesToFields($linkType); }
+        : function(array $linkType) { return $this->mapPropertiesToFields($linkType); }
     );
     return iterator_to_array($result);
   }
@@ -84,7 +84,7 @@ class base_linktypes extends base_db {
     if ($forceLoading) {
       $this->linkTypes()->load();
     }
-    return $this->loadLinkTypes($linkTypeIds);
+    return $this->loadLinkTypes(FALSE, $linkTypeIds);
   }
 
   /**
