@@ -19,7 +19,7 @@ use Papaya\Utility;
 use Papaya\XML;
 
 /**
- * A listview can have up to four toolbars, at the different corners. This class provides
+ * A list view can have up to four toolbars, at the different corners. This class provides
  * access to them. The toolbars can be access using dynamic properties e.g. "$toolbars->topLeft".
  *
  * @package Papaya-Library
@@ -34,7 +34,7 @@ class Toolbars extends Control implements Properties {
   /**
    * The internal toolbar list
    *
-   * @var \Papaya\UI\Toolbar[]
+   * @var Toolbar[]
    */
   private $_toolbars = [];
 
@@ -51,7 +51,7 @@ class Toolbars extends Control implements Properties {
   ];
 
   /**
-   * Append the existing toolbar to the parent xml eleemnt and set the position attribute.
+   * Append the existing toolbar to the parent xml element and set the position attribute.
    * Toolbars without elements will not be added.
    *
    * @param XML\Element $parent

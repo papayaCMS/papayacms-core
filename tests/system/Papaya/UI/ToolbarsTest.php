@@ -15,11 +15,13 @@
 
 namespace Papaya\UI {
 
-  class ToolbarsTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
 
-    /**
-     * @covers \Papaya\UI\Toolbars::appendTo
-     */
+  /**
+   * @covers \Papaya\UI\Toolbars
+   */
+  class ToolbarsTest extends TestCase {
+
     public function testAppendTo() {
       $document = new \Papaya\XML\Document();
       $document->appendElement('sample');
@@ -34,31 +36,22 @@ namespace Papaya\UI {
     }
 
     /**
-     * @covers \Papaya\UI\Toolbars::__set
-     * @covers \Papaya\UI\Toolbars::__get
      * @dataProvider provideToolbarPositions
      * @param string $position
      */
     public function testGetAfterSet($position) {
       $toolbars = new Toolbars();
       $toolbars->$position = $toolbar = $this->createMock(Toolbar::class);
-      $this->assertSame(
-        $toolbar, $toolbars->$position
-      );
+      $this->assertTrue(isset($toolbars->$position));
+      $this->assertSame($toolbar, $toolbars->$position);
     }
 
-    /**
-     * @covers \Papaya\UI\Toolbars::__get
-     */
     public function testGetWithImplicitCreate() {
       $toolbars = new Toolbars();
       $this->assertInstanceOf(Toolbar::class, $toolbar = $toolbars->topLeft);
       $this->assertSame($toolbar, $toolbars->topLeft);
     }
 
-    /**
-     * @covers \Papaya\UI\Toolbars::__set
-     */
     public function testSetWithInvalidPositionExpectionExcpetion() {
       $toolbars = new Toolbars();
       $this->expectException(\UnexpectedValueException::class);
@@ -67,9 +60,6 @@ namespace Papaya\UI {
       $toolbars->invalidPosition = $this->createMock(Toolbar::class);
     }
 
-    /**
-     * @covers \Papaya\UI\Toolbars::__get
-     */
     public function testGetWithInvalidPositionExpectionExcpetion() {
       $toolbars = new Toolbars();
       $this->expectException(\UnexpectedValueException::class);
