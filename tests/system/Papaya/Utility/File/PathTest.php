@@ -76,6 +76,7 @@ class PathTest extends \Papaya\TestCase {
    * @backupGlobals
    */
   public function testGetBasePathIncludingDocumentRoot() {
+    $_SERVER['DOCUMENT_ROOT'] = NULL;
     $_SERVER['SCRIPT_FILENAME'] = '/path/to/file';
     $this->assertEquals(
       '/path/to/',

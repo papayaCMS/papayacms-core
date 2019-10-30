@@ -31,9 +31,10 @@ class Handler implements Application\Access {
    *
    * @param string|null $themeName
    * @param string|null $fileName
+   * @param bool $validateFileExists
    * @return string
    */
-  public function getURL($themeName = NULL, $fileName = NULL) {
+  public function getURL($themeName = NULL, $fileName = NULL, $validateFileExists = TRUE) {
     $options = $this->papaya()->options;
     $baseURL = '';
     if (Utility\Server\Protocol::isSecure()) {
@@ -58,7 +59,7 @@ class Handler implements Application\Access {
       $url = $baseURL.$themeName.'/';
     }
     if (NULL !== $fileName) {
-      return '' !== $this->getLocalThemeFile($themeName, $fileName) ? $url.$fileName : '';
+      return '' !== $this->getLocalThemeFile($themeName, $fileName, $validateFileExists) ? $url.$fileName : '';
     }
     return $url;
   }
@@ -100,23 +101,23 @@ class Handler implements Application\Access {
    *
    * @param string $fileName
    * @param string $themeName
-   *
-   * @return string
+   * @param bool $validateFileExists
+   * @return string|NULL
    */
-  public function getLocalThemeFile($fileName, $themeName = NULL) {
+  public function getLocalThemeFile($fileName, $themeName = NULL, $validateFileExists = TRUE) {
     if ('' === \trim($fileName)) {
-      return FALSE;
+      return NULL;
     }
     if ('' === \trim($themeName)) {
       $themeName = $this->getTheme();
     }
     $fileName = Utility\File\Path::cleanup(
-      $this->getLocalPath().$themeName.'/'.$fileName
+      $this->getLocalPath().$themeName.'/'.$fileName, FALSE
     );
-    if (\file_exists($fileName) && \is_file($fileName)) {
+    if ((!$validateFileExists) || (file_exists($fileName) && is_file($fileName))) {
       return $fileName;
     }
-    return '';
+    return NULL;
   }
 
   /**
