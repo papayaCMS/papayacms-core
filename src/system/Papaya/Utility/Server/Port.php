@@ -12,40 +12,41 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Utility\Server;
+namespace Papaya\Utility\Server {
 
-/**
- * Static utility class to check if thttp or http is used.
- *
- * @package Papaya-Library
- * @subpackage Util
- */
-class Port {
   /**
-   * Static utility class to get the current port
+   * Static utility class to get the current port depending on the environment
    *
-   * If the custom header X-PAPAYA-HTTPS is provided it is compared to the constant
-   * PAPAYA_HEADER_HTTPS_TOKEN. If the header equals the token and the token is 32 bytes the
-   * default https port (443) is returned.
-   *
-   * @return bool
+   * @package Papaya-Library
+   * @subpackage Util
    */
-  public static function get() {
-    if (isset($_SERVER['X_PAPAYA_HTTPS'])) {
-      $header = $_SERVER['X_PAPAYA_HTTPS'];
-    } elseif (isset($_SERVER['HTTP_X_PAPAYA_HTTPS'])) {
-      $header = $_SERVER['HTTP_X_PAPAYA_HTTPS'];
-    } else {
-      $header = NULL;
+  class Port {
+    /**
+     * Static utility class to get the current port
+     *
+     * If the custom header X-PAPAYA-HTTPS is provided it is compared to the constant
+     * PAPAYA_HEADER_HTTPS_TOKEN. If the header equals the token and the token is 32 bytes the
+     * default https port (443) is returned.
+     *
+     * @return bool
+     */
+    public static function get() {
+      if (isset($_SERVER['X_PAPAYA_HTTPS'])) {
+        $header = $_SERVER['X_PAPAYA_HTTPS'];
+      } elseif (isset($_SERVER['HTTP_X_PAPAYA_HTTPS'])) {
+        $header = $_SERVER['HTTP_X_PAPAYA_HTTPS'];
+      } else {
+        $header = NULL;
+      }
+      if (
+        NULL !== $header &&
+        \defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
+        PAPAYA_HEADER_HTTPS_TOKEN === $header &&
+        32 === \strlen(PAPAYA_HEADER_HTTPS_TOKEN)
+      ) {
+        return 443;
+      }
+      return empty($_SERVER['SERVER_PORT']) ? 80 : (int)$_SERVER['SERVER_PORT'];
     }
-    if (
-      NULL !== $header &&
-      \defined('PAPAYA_HEADER_HTTPS_TOKEN') &&
-      PAPAYA_HEADER_HTTPS_TOKEN === $header &&
-      32 === \strlen(PAPAYA_HEADER_HTTPS_TOKEN)
-    ) {
-      return 443;
-    }
-    return empty($_SERVER['SERVER_PORT']) ? 80 : (int)$_SERVER['SERVER_PORT'];
   }
 }
