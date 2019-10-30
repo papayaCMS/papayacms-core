@@ -77,6 +77,25 @@ class RelativeTest extends \Papaya\TestCase {
   }
 
   /**
+   * @covers \Papaya\URL\Transformer\Relative::transform
+   * @covers \Papaya\URL\Transformer\Relative::_comparePorts
+   * @dataProvider transformDataProvider
+   * @param string $currentUrl
+   * @param string $targetUrl
+   * @param string $expected
+   */
+  public function testTransformWithStringArguments($currentUrl, $targetUrl, $expected) {
+    $transformer = new Relative();
+    $this->assertSame(
+      $expected,
+      $transformer->transform(
+        $currentUrl,
+        $targetUrl
+      )
+    );
+  }
+
+  /**
    * @covers \Papaya\URL\Transformer\Relative::getRelativePath
    * @dataProvider getRelativePathDataProvider
    * @param string $currentPath
