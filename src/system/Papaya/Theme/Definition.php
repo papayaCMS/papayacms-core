@@ -50,7 +50,7 @@ class Definition extends Content\Structure {
   ];
 
   /**
-   * Theme thunbnails
+   * Theme thumbnails
    *
    * @var array
    */

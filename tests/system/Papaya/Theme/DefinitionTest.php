@@ -13,75 +13,103 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Theme;
+namespace Papaya\Theme {
 
-use Papaya\Content\Structure\Pages;
+  use Papaya\Content\Structure\Pages as ContentPagesStructure;
+  use Papaya\TestCase;
+  use Papaya\XML\Element as XMLElement;
 
-require_once __DIR__.'/../../../bootstrap.php';
-
-class DefinitionTest extends \Papaya\TestCase {
-
-  /**
-   * @covers \Papaya\Theme\Definition::load
-   */
-  public function testLoad() {
-    $pages = $this->createMock(Pages::class);
-    $pages
-      ->expects($this->once())
-      ->method('load')
-      ->with($this->isInstanceOf(\Papaya\XML\Element::class));
-
-    $definition = new Definition();
-    $definition->pages($pages);
-    $definition->load(__DIR__.'/TestData/theme.xml');
-    $this->assertAttributeEquals(
-      array(
-        'name' => 'TestData',
-        'title' => 'Sample Papaya Theme',
-        'version' => '1.0',
-        'version_date' => '2012-07-23',
-        'author' => 'papaya Software GmbH',
-        'description' => 'Sample description',
-        'template_path' => 'template-path'
-      ),
-      '_properties',
-      $definition
-    );
-    $this->assertAttributeEquals(
-      array(
-        'medium' => 'default48.jpg',
-        'large' => 'default100.jpg'
-      ),
-      '_thumbnails',
-      $definition
-    );
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Theme\Definition::__get
+   * @covers \Papaya\Theme\Definition
    */
-  public function testMagicMethodGet() {
-    $definition = new Definition();
-    $definition->load(__DIR__.'/TestData/theme.xml');
-    $this->assertEquals(
-      'Sample Papaya Theme', $definition->title
-    );
-    $this->assertEquals(
-      array(
-        'medium' => 'default48.jpg',
-        'large' => 'default100.jpg'
-      ),
-      $definition->thumbnails
-    );
-  }
+  class DefinitionTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Theme\Definition::__get
-   */
-  public function testMagicMethodGetExpectingException() {
-    $definition = new Definition();
-    $this->expectException(\UnexpectedValueException::class);
-    /** @noinspection PhpUndefinedFieldInspection */
-    $definition->invalidProperty;
+    public function testLoad() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|ContentPagesStructure $pages */
+      $pages = $this->createMock(ContentPagesStructure::class);
+      $pages
+        ->expects($this->once())
+        ->method('load')
+        ->with($this->isInstanceOf(XMLElement::class));
+
+      $definition = new Definition();
+      $definition->pages($pages);
+      $definition->load(__DIR__.'/TestData/theme.xml');
+      $this->assertAttributeEquals(
+        [
+          'name' => 'TestData',
+          'title' => 'Sample Papaya Theme',
+          'version' => '1.0',
+          'version_date' => '2012-07-23',
+          'author' => 'papaya Software GmbH',
+          'description' => 'Sample description',
+          'template_path' => 'template-path'
+        ],
+        '_properties',
+        $definition
+      );
+      $this->assertAttributeEquals(
+        [
+          'medium' => 'default48.jpg',
+          'large' => 'default100.jpg'
+        ],
+        '_thumbnails',
+        $definition
+      );
+    }
+
+    public function testMagicMethodIssetExpectingTrue() {
+      $definition = new Definition();
+      $definition->load(__DIR__.'/TestData/theme.xml');
+      $this->assertTrue(
+        isset($definition->thumbnails)
+      );
+    }
+
+    public function testMagicMethodIssetExpectingFalse() {
+      $definition = new Definition();
+      $definition->load(__DIR__.'/TestData/theme.xml');
+      $this->assertFalse(
+        isset($definition->invalidProperty)
+      );
+    }
+
+    public function testMagicMethodGet() {
+      $definition = new Definition();
+      $definition->load(__DIR__.'/TestData/theme.xml');
+      $this->assertEquals(
+        'Sample Papaya Theme', $definition->title
+      );
+      $this->assertEquals(
+        [
+          'medium' => 'default48.jpg',
+          'large' => 'default100.jpg'
+        ],
+        $definition->thumbnails
+      );
+    }
+
+    public function testMagicMethodGetExpectingException() {
+      $definition = new Definition();
+      $this->expectException(\UnexpectedValueException::class);
+      /** @noinspection PhpUndefinedFieldInspection */
+      $definition->invalidProperty;
+    }
+
+    public function testMagicMethodSetExpectingException() {
+      $definition = new Definition();
+      $definition->load(__DIR__.'/TestData/theme.xml');
+      $this->expectException(\UnexpectedValueException::class);
+      $definition->thumbnails = 'fail';
+    }
+
+    public function testMagicMethodUnsetExpectingException() {
+      $definition = new Definition();
+      $definition->load(__DIR__.'/TestData/theme.xml');
+      $this->expectException(\UnexpectedValueException::class);
+      unset($definition->thumbnails);
+    }
   }
 }
