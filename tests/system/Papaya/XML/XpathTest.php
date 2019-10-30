@@ -13,123 +13,120 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\XML;
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\XML {
 
-class XpathTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
 
-  /**
-   * @covers \Papaya\XML\Xpath::__construct
-   */
-  public function testConstructor() {
-    $xpath = new Xpath($document = new Document());
-    $this->assertSame($document, $xpath->document);
-    $this->assertEquals(
-      version_compare(PHP_VERSION, '<', '5.3.3'),
-      $xpath->registerNodeNamespaces()
-    );
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\XML\Xpath::registerNodeNamespaces
+   * @covers \Papaya\XML\Xpath
    */
-  public function testRegisterNodeNamespaceExpectingTrue() {
-    $xpath = new Xpath($document = new Document());
-    $xpath->registerNodeNamespaces(TRUE);
-    $this->assertTrue($xpath->registerNodeNamespaces());
-  }
+  class XpathTest extends TestCase {
 
-  /**
-   * @covers \Papaya\XML\Xpath::registerNodeNamespaces
-   */
-  public function testRegisterNodeNamespaceExpectingFalse() {
-    $xpath = new Xpath($document = new Document());
-    $xpath->registerNodeNamespaces(FALSE);
-    $this->assertFalse($xpath->registerNodeNamespaces());
-  }
-
-  /**
-   * @covers \Papaya\XML\Xpath::registerNamespace
-   */
-  public function testRegisterNamespacewithAssociatedDOMDocument() {
-    $document = new Document();
-    $xpath = new Xpath($document);
-    $this->assertTrue(
-      $xpath->registerNamespace('atom', 'http://www.w3.org/2005/Atom')
-    );
-  }
-
-  /**
-   * @covers \Papaya\XML\Xpath::registerNamespace
-   */
-  public function testRegisterNamespaceRegisterNamespaceOnDocument() {
-    $document = new Document();
-    $xpath = new Xpath($document);
-    $xpath->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
-    $this->assertEquals(
-      'http://www.w3.org/2005/Atom', $document->getNamespace('atom')
-    );
-  }
-
-  /**
-   * @covers \Papaya\XML\Xpath::evaluate
-   */
-  public function testEvaluate() {
-    if (version_compare(PHP_VERSION, '<', '5.3.3')) {
-      $this->markTestSkipped('PHP Version >= 5.3.3 needed for this test.');
+    public function testConstructor() {
+      $xpath = new Xpath($document = new Document());
+      $this->assertSame($document, $xpath->document);
+      $this->assertEquals(
+        version_compare(PHP_VERSION, '<', '5.3.3'),
+        $xpath->registerNodeNamespaces()
+      );
     }
-    $document = new Document();
-    $document->loadXML(/** @lang XML */
-      '<sample attr="success"/>');
-    $xpath = new Xpath($document);
-    $this->assertEquals('success', $xpath->evaluate('string(/sample/@attr)'));
-  }
 
-  /**
-   * @covers \Papaya\XML\Xpath::evaluate
-   */
-  public function testEvaluateWithContext() {
-    if (version_compare(PHP_VERSION, '<', '5.3.3')) {
-      $this->markTestSkipped('PHP Version >= 5.3.3 needed for this test.');
+    public function testRegisterNodeNamespaceExpectingTrue() {
+      $xpath = new Xpath($document = new Document());
+      $xpath->registerNodeNamespaces(TRUE);
+      $this->assertTrue($xpath->registerNodeNamespaces());
     }
-    $document = new Document();
-    $document->loadXML(/** @lang XML */
-      '<sample attr="success"/>');
-    $xpath = new Xpath($document);
-    $this->assertEquals('success', $xpath->evaluate('string(@attr)', $document->documentElement));
-  }
 
-  /**
-   * @covers \Papaya\XML\Xpath::evaluate
-   */
-  public function testEvaluateWithNamespaceRegistrationActivated() {
-    $document = new Document();
-    $document->loadXML(/** @lang XML */
-      '<sample attr="success"/>');
-    $xpath = new Xpath($document);
-    $xpath->registerNodeNamespaces(TRUE);
-    $this->assertEquals('success', $xpath->evaluate('string(/sample/@attr)'));
-  }
+    public function testRegisterNodeNamespaceExpectingFalse() {
+      $xpath = new Xpath($document = new Document());
+      $xpath->registerNodeNamespaces(FALSE);
+      $this->assertFalse($xpath->registerNodeNamespaces());
+    }
 
-  /**
-   * @covers \Papaya\XML\Xpath::evaluate
-   */
-  public function testEvaluateWithNamespaceRegistrationActivatedAndContext() {
-    $document = new Document();
-    $document->loadXML(/** @lang XML */
-      '<sample attr="success"/>');
-    $xpath = new Xpath($document);
-    $xpath->registerNodeNamespaces(TRUE);
-    $this->assertEquals('success', $xpath->evaluate('string(@attr)', $document->documentElement));
-  }
+    public function testRegisterNamespaceWithAssociatedDOMDocument() {
+      $document = new Document();
+      $xpath = new Xpath($document);
+      $this->assertTrue(
+        $xpath->registerNamespace('atom', 'http://www.w3.org/2005/Atom')
+      );
+    }
 
-  /**
-   * @covers \Papaya\XML\Xpath::query
-   */
-  public function testQueryExpectingException() {
-    $xpath = new Xpath($document = new Document());
-    $this->expectException(\LogicException::class);
-    /** @noinspection PhpDeprecationInspection */
-    $xpath->query('');
+    public function testRegisterNamespaceRegisterNamespaceOnDocument() {
+      $document = new Document();
+      $xpath = new Xpath($document);
+      $xpath->registerNamespace('atom', 'http://www.w3.org/2005/Atom');
+      $this->assertEquals(
+        'http://www.w3.org/2005/Atom', $document->getNamespace('atom')
+      );
+    }
+
+    public function testEvaluate() {
+      if (version_compare(PHP_VERSION, '<', '5.3.3')) {
+        $this->markTestSkipped('PHP Version >= 5.3.3 needed for this test.');
+      }
+      $document = new Document();
+      $document->loadXML(
+      /** @lang XML */
+        '<sample attr="success"/>'
+      );
+      $xpath = new Xpath($document);
+      $this->assertEquals('success', $xpath->evaluate('string(/sample/@attr)'));
+    }
+
+    public function testEvaluateWithContext() {
+      if (version_compare(PHP_VERSION, '<', '5.3.3')) {
+        $this->markTestSkipped('PHP Version >= 5.3.3 needed for this test.');
+      }
+      $document = new Document();
+      $document->loadXML(
+      /** @lang XML */
+        '<sample attr="success"/>'
+      );
+      $xpath = new Xpath($document);
+      $this->assertEquals('success', $xpath->evaluate('string(@attr)', $document->documentElement));
+    }
+
+    public function testEvaluateWithContextDoesReturnZeroForNaN() {
+      $document = new Document();
+      $document->loadXML(
+      /** @lang XML */
+        '<sample>42</sample>'
+      );
+      $xpath = new Xpath($document);
+      $this->assertEquals(42, $xpath->evaluate('number(/sample)'));
+      $this->assertNotEquals(NAN, $xpath->evaluate('number(/non-existing)'));
+      $this->assertEquals(0.0, $xpath->evaluate('number(/non-existing)'));
+    }
+
+    public function testEvaluateWithNamespaceRegistrationActivated() {
+      $document = new Document();
+      $document->loadXML(
+      /** @lang XML */
+        '<sample attr="success"/>'
+      );
+      $xpath = new Xpath($document);
+      $xpath->registerNodeNamespaces(TRUE);
+      $this->assertEquals('success', $xpath->evaluate('string(/sample/@attr)'));
+    }
+
+    public function testEvaluateWithNamespaceRegistrationActivatedAndContext() {
+      $document = new Document();
+      $document->loadXML(
+      /** @lang XML */
+        '<sample attr="success"/>'
+      );
+      $xpath = new Xpath($document);
+      $xpath->registerNodeNamespaces(TRUE);
+      $this->assertEquals('success', $xpath->evaluate('string(@attr)', $document->documentElement));
+    }
+
+    public function testQueryExpectingException() {
+      $xpath = new Xpath($document = new Document());
+      $this->expectException(\LogicException::class);
+      /** @noinspection PhpDeprecationInspection */
+      $xpath->query('');
+    }
   }
 }
