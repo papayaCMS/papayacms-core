@@ -153,6 +153,58 @@ class PathTest extends \Papaya\TestCase {
     );
   }
 
+  /**
+   * @covers \Papaya\Utility\File\Path::getVendorPath
+   * @backupGlobals
+   */
+  public function testGetVendorPath() {
+    $_SERVER['DOCUMENT_ROOT'] = __DIR__;
+    $_SERVER['SCRIPT_FILENAME'] = NULL;
+    $this->assertEquals(
+      'vendor/',
+      Path::getVendorPath()
+    );
+  }
+
+  /**
+   * @covers \Papaya\Utility\File\Path::getVendorPath
+   * @backupGlobals
+   */
+  public function testGetVendorPathWithPathNextToDocumentRoot() {
+    $_SERVER['DOCUMENT_ROOT'] = realpath(__DIR__.'/../../../../');
+    $_SERVER['SCRIPT_FILENAME'] = NULL;
+    $this->assertEquals(
+      '../vendor/',
+      Path::getVendorPath()
+    );
+  }
+
+  /**
+   * @covers \Papaya\Utility\File\Path::getSourcePath
+   * @backupGlobals
+   */
+  public function testGetSourcePath() {
+    $_SERVER['DOCUMENT_ROOT'] = __DIR__;
+    $_SERVER['SCRIPT_FILENAME'] = NULL;
+    $this->assertEquals(
+      'src/',
+      Path::getSourcePath()
+    );
+  }
+
+  /**
+   * @covers \Papaya\Utility\File\Path::getSourcePath
+   * @backupGlobals
+   */
+  public function testGetSourcePathWithPathNextToDocumentRoot() {
+    $_SERVER['DOCUMENT_ROOT'] = realpath(__DIR__.'/../../../../');
+    $_SERVER['SCRIPT_FILENAME'] = NULL;
+    $this->assertEquals(
+      '../src/',
+      Path::getSourcePath()
+    );
+  }
+
   public function testClear() {
     $this->createTemporaryDirectory();
     $oldMask = umask(0);
