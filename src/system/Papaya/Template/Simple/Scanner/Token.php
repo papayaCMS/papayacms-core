@@ -146,9 +146,7 @@ class Token implements Properties {
       case 'length' :
         return TRUE;
     }
-    throw new \LogicException(
-      \sprintf('Unknown property: %s::$%s', __CLASS__, $name)
-    );
+    return FALSE;
   }
 
   /**

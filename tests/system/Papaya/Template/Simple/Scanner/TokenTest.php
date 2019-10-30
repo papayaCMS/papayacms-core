@@ -13,117 +13,106 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Template\Simple\Scanner;
-require_once __DIR__.'/../../../../../bootstrap.php';
+namespace Papaya\Template\Simple\Scanner {
 
-class TokenTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__construct
-   * @covers \Papaya\Template\Simple\Scanner\Token::__toString
-   */
-  public function testConstructorAndStringCasting() {
-    $token = new Token(
-      Token::TEXT,
-      21,
-      'foo'
-    );
-    $this->assertEquals(
-      'TEXT@21: "foo"',
-      (string)$token
-    );
-  }
+  require_once __DIR__.'/../../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__construct
+   * @covers \Papaya\Template\Simple\Scanner\Token
    */
-  public function testConstructorWithInvalidTypeExpectingException() {
-    $this->expectException(\InvalidArgumentException::class);
-    new Token(-23, 0, '');
-  }
+  class TokenTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::getTypeString
-   * @covers \Papaya\Template\Simple\Scanner\Token::getTokenTypes
-   */
-  public function testGetTypeStringExpectingText() {
-    $this->assertEquals(
-      'TEXT',
-      Token::getTypeString(Token::TEXT)
-    );
-  }
+    public function testConstructorAndStringCasting() {
+      $token = new Token(
+        Token::TEXT,
+        21,
+        'foo'
+      );
+      $this->assertEquals(
+        'TEXT@21: "foo"',
+        (string)$token
+      );
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::getTypeString
-   */
-  public function testGetTypeStringwithInvalidTokenTypeExpectingNull() {
-    $this->assertNull(
-      Token::getTypeString(-23)
-    );
-  }
+    public function testConstructorWithInvalidTypeExpectingException() {
+      $this->expectException(\InvalidArgumentException::class);
+      new Token(-23, 0, '');
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__get
-   */
-  public function testPropertyReadType() {
-    $token = new Token(
-      Token::VALUE_NAME, 0, ''
-    );
-    $this->assertEquals(Token::VALUE_NAME, $token->type);
-  }
+    public function testGetTypeStringExpectingText() {
+      $this->assertEquals(
+        'TEXT',
+        Token::getTypeString(Token::TEXT)
+      );
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__get
-   */
-  public function testPropertyReadOffset() {
-    $token = new Token(
-      Token::VALUE_NAME, 42, ''
-    );
-    $this->assertEquals(42, $token->offset);
-  }
+    public function testGetTypeStringWithInvalidTokenTypeExpectingNull() {
+      $this->assertNull(
+        Token::getTypeString(-23)
+      );
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__get
-   */
-  public function testPropertyReadContent() {
-    $token = new Token(
-      Token::VALUE_NAME, 0, 'foo'
-    );
-    $this->assertEquals('foo', $token->content);
-  }
+    public function testPropertyReadType() {
+      $token = new Token(
+        Token::VALUE_NAME, 0, ''
+      );
+      $this->assertTrue(isset($token->type));
+      $this->assertEquals(Token::VALUE_NAME, $token->type);
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__get
-   */
-  public function testPropertyReadLength() {
-    $token = new Token(
-      Token::VALUE_NAME, 0, 'foo'
-    );
-    $this->assertEquals(3, $token->length);
-  }
+    public function testPropertyReadOffset() {
+      $token = new Token(
+        Token::VALUE_NAME, 42, ''
+      );
+      $this->assertTrue(isset($token->offset));
+      $this->assertEquals(42, $token->offset);
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__get
-   */
-  public function testPropertyReadUnkownPropertyExpectingException() {
-    $token = new Token(
-      Token::VALUE_NAME, 0, 'foo'
-    );
-    $this->expectException(\LogicException::class);
-    $this->expectExceptionMessage('Unknown property: Papaya\Template\Simple\Scanner\Token::$UNKNOWN');
-    /** @noinspection PhpUndefinedFieldInspection */
-    $token->UNKNOWN;
-  }
+    public function testPropertyReadContent() {
+      $token = new Token(
+        Token::VALUE_NAME, 0, 'foo'
+      );
+      $this->assertTrue(isset($token->content));
+      $this->assertEquals('foo', $token->content);
+    }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner\Token::__set
-   */
-  public function testPropertyWriteThrowsException() {
-    $token = new Token(
-      Token::VALUE_NAME, 0, ''
-    );
-    $this->expectException(\LogicException::class);
-    /** @noinspection Annotator */
-    $token->offset = 23;
+    public function testPropertyReadLength() {
+      $token = new Token(
+        Token::VALUE_NAME, 0, 'foo'
+      );
+      $this->assertTrue(isset($token->length));
+      $this->assertEquals(3, $token->length);
+    }
+
+    public function testPropertyReadUnknownPropertyExpectingException() {
+      $token = new Token(
+        Token::VALUE_NAME, 0, 'foo'
+      );
+      $this->assertFalse(isset($token->UNKNOWN));
+      $this->expectException(\LogicException::class);
+      $this->expectExceptionMessage('Unknown property: Papaya\Template\Simple\Scanner\Token::$UNKNOWN');
+      /** @noinspection PhpUndefinedFieldInspection */
+      $token->UNKNOWN;
+    }
+
+    public function testPropertyWriteThrowsException() {
+      $token = new Token(
+        Token::VALUE_NAME, 0, ''
+      );
+      $this->expectException(\LogicException::class);
+      /** @noinspection Annotator */
+      $token->offset = 23;
+    }
+
+    public function testPropertyUnsetThrowsException() {
+      $token = new Token(
+        Token::VALUE_NAME, 0, ''
+      );
+      $this->expectException(\LogicException::class);
+      /** @noinspection Annotator */
+     unset($token->offset);
+    }
   }
 }
