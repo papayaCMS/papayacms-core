@@ -212,6 +212,24 @@ namespace Papaya\Utility {
     }
 
     /**
+     * @covers \Papaya\Utility\Constraints::assertInstanceOfOrNull
+     */
+    public function testAssertInstanceOfOrNullWithObject() {
+      $this->assertTrue(
+        Constraints::assertInstanceOfOrNull(array(\stdClass::class, \Papaya\TestCase::class), $this)
+      );
+    }
+
+    /**
+     * @covers \Papaya\Utility\Constraints::assertInstanceOfOrNull
+     */
+    public function testAssertInstanceOfOrNullWithNull() {
+      $this->assertTrue(
+        Constraints::assertInstanceOfOrNull(array(\stdClass::class, \Papaya\TestCase::class), NULL)
+      );
+    }
+
+    /**
      * @covers \Papaya\Utility\Constraints::assertInteger
      */
     public function testAssertInteger() {
