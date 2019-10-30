@@ -211,16 +211,14 @@ class UTF8 {
         if (\class_exists('Transliterator', FALSE)) {
           return \Transliterator::create('Any-Lower')->transliterate($string);
         }
+      case self::EXT_MBSTRING :
         if (\extension_loaded('mbstring')) {
           return \mb_strtolower($string, 'utf-8');
         }
-        break;
-      case self::EXT_MBSTRING :
-        return \mb_strtolower($string, 'utf-8');
     }
     return \preg_replace_callback(
       '([A-Z]+)u',
-      function($match) {
+      static function($match) {
         return \strtolower($match[0]);
       },
       $string
@@ -233,16 +231,14 @@ class UTF8 {
         if (\class_exists('Transliterator', FALSE)) {
           return \Transliterator::create('Any-Upper')->transliterate($string);
         }
+      case self::EXT_MBSTRING :
         if (\extension_loaded('mbstring')) {
           return \mb_strtoupper($string, 'utf-8');
         }
-        break;
-      case self::EXT_MBSTRING :
-        return \mb_strtoupper($string, 'utf-8');
     }
     return \preg_replace_callback(
       '([a-z]+)u',
-      function($match) {
+      static function($match) {
         return \strtoupper($match[0]);
       },
       $string

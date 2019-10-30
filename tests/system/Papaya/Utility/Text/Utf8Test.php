@@ -85,6 +85,34 @@ class Utf8Test extends \Papaya\TestCase {
   }
 
   /**
+   * @param string $expected
+   * @param string $input
+   * @covers \Papaya\Utility\Text\UTF8::toLowerCase
+   * @testWith
+   *   ["abc", "ABC"]
+   *   ["abcädef", "ABCÄDEF"]
+   */
+  public function testLowerCaseUsingIntl($expected, $input) {
+    $this->skipIfExtensionNotLoaded('intl');
+    UTF8::setExtension(UTF8::EXT_INTL);
+    $this->assertEquals($expected, UTF8::toLowerCase($input));
+  }
+
+  /**
+   * @param string $expected
+   * @param string $input
+   * @covers \Papaya\Utility\Text\UTF8::toUpperCase
+   * @testWith
+   *   ["ABC", "abc"]
+   *   ["ABCÄDEF", "abcädef"]
+   */
+  public function testUpperCaseUsingIntl($expected, $input) {
+    $this->skipIfExtensionNotLoaded('intl');
+    UTF8::setExtension(UTF8::EXT_INTL);
+    $this->assertEquals($expected, UTF8::toUpperCase($input));
+  }
+
+  /**
    * @covers \Papaya\Utility\Text\UTF8::length
    * @dataProvider provideLengthSamples
    * @param string $string
@@ -122,6 +150,34 @@ class Utf8Test extends \Papaya\TestCase {
     $this->skipIfExtensionNotLoaded('mbstring');
     UTF8::setExtension(UTF8::EXT_MBSTRING);
     $this->assertEquals($expected, UTF8::copy($haystack, $start, $length));
+  }
+
+  /**
+   * @param string $expected
+   * @param string $input
+   * @covers \Papaya\Utility\Text\UTF8::toLowerCase
+   * @testWith
+   *   ["abc", "ABC"]
+   *   ["abcädef", "ABCÄDEF"]
+   */
+  public function testLowerCaseUsingMBString($expected, $input) {
+    $this->skipIfExtensionNotLoaded('mbstring');
+    UTF8::setExtension(UTF8::EXT_MBSTRING);
+    $this->assertEquals($expected, UTF8::toLowerCase($input));
+  }
+
+  /**
+   * @param string $expected
+   * @param string $input
+   * @covers \Papaya\Utility\Text\UTF8::toUpperCase
+   * @testWith
+   *   ["ABC", "abc"]
+   *   ["ABCÄDEF", "abcädef"]
+   */
+  public function testUpperCaseUsingMBString($expected, $input) {
+    $this->skipIfExtensionNotLoaded('mbstring');
+    UTF8::setExtension(UTF8::EXT_MBSTRING);
+    $this->assertEquals($expected, UTF8::toUpperCase($input));
   }
 
   /**
