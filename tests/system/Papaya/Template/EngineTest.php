@@ -15,15 +15,21 @@
 
 namespace Papaya\Template {
 
+  use LogicException;
+  use Papaya\BaseObject\Collection;
+  use Papaya\BaseObject\Options\Collection as OptionsCollection;
+  use Papaya\TestCase;
+  use Papaya\XML\Document as XMLDocument;
+
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class EngineTest extends \Papaya\TestCase {
+  /**
+   * @covers \Papaya\Template\Engine
+   */
+  class EngineTest extends TestCase {
 
-    /**
-     * @covers \Papaya\Template\Engine::parameters
-     */
     public function testParametersSetter() {
-      $parameters = $this->createMock(\Papaya\BaseObject\Options\Collection::class);
+      $parameters = $this->createMock(OptionsCollection::class);
       $engine = new Engine_TestProxy();
       $engine->parameters($parameters);
       $this->assertAttributeSame(
@@ -33,11 +39,8 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::parameters
-     */
     public function testParametersGetter() {
-      $parameters = $this->createMock(\Papaya\BaseObject\Options\Collection::class);
+      $parameters = $this->createMock(OptionsCollection::class);
       $engine = new Engine_TestProxy();
       $engine->parameters($parameters);
       $this->assertSame(
@@ -46,49 +49,36 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::parameters
-     */
     public function testParametersImplicitCreate() {
       $engine = new Engine_TestProxy();
       $this->assertInstanceOf(
-        \Papaya\BaseObject\Options\Collection::class,
+        OptionsCollection::class,
         $engine->parameters()
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::parameters
-     */
     public function testParametersImplicitCreateWithArray() {
       $engine = new Engine_TestProxy();
       $this->assertInstanceOf(
-        \Papaya\BaseObject\Options\Collection::class,
-        $engine->parameters(array())
+        OptionsCollection::class,
+        $engine->parameters([])
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::parameters
-     */
     public function testParametersWithInvalidArgument() {
       $engine = new Engine_TestProxy();
       $this->expectException(\InvalidArgumentException::class);
       $engine->parameters(23);
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::loaders
-     */
     public function testLoadersSetter() {
       $loaders = $this
-        ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-        ->setConstructorArgs(array(Engine\Values\Loadable::class))
+        ->getMockBuilder(Collection::class)
+        ->setConstructorArgs([Engine\Values\Loadable::class])
         ->getMock();
       $loaders
-        ->expects($this->any())
         ->method('getItemClass')
-        ->will($this->returnValue(Engine\Values\Loadable::class));
+        ->willReturn(Engine\Values\Loadable::class);
       $engine = new Engine_TestProxy();
       $engine->loaders($loaders);
       $this->assertAttributeSame(
@@ -98,36 +88,28 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::loaders
-     */
     public function testLoadersSetterWithInvalidObjectList() {
       $loaders = $this
-        ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-        ->setConstructorArgs(array(\stdClass::class))
+        ->getMockBuilder(Collection::class)
+        ->setConstructorArgs([\stdClass::class])
         ->getMock();
       $loaders
-        ->expects($this->any())
         ->method('getItemClass')
-        ->will($this->returnValue(\stdClass::class));
+        ->willReturn(\stdClass::class);
       $engine = new Engine_TestProxy();
 
       $this->expectException(\InvalidArgumentException::class);
       $engine->loaders($loaders);
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::loaders
-     */
     public function testLoadersGetter() {
       $loaders = $this
-        ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-        ->setConstructorArgs(array(Engine\Values\Loadable::class))
+        ->getMockBuilder(Collection::class)
+        ->setConstructorArgs([Engine\Values\Loadable::class])
         ->getMock();
       $loaders
-        ->expects($this->any())
         ->method('getItemClass')
-        ->will($this->returnValue(Engine\Values\Loadable::class));
+        ->willReturn(Engine\Values\Loadable::class);
       $engine = new Engine_TestProxy();
       $this->assertSame(
         $loaders,
@@ -135,13 +117,10 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::loaders
-     */
     public function testLoadersGetterWithImplicitCreate() {
       $engine = new Engine_TestProxy();
       $this->assertInstanceOf(
-        \Papaya\BaseObject\Collection::class,
+        Collection::class,
         $engine->loaders()
       );
       $this->assertEquals(
@@ -150,11 +129,8 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::values
-     */
     public function testValuesSetterWithDomDocument() {
-      $document = new \DOMDocument;
+      $document = new \DOMDocument();
       $document->appendChild($document->createElement('test'));
       $engine = new Engine_TestProxy();
       $engine->values($document);
@@ -165,11 +141,8 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::values
-     */
     public function testValuesSetterWithDomElement() {
-      $document = new \DOMDocument;
+      $document = new \DOMDocument();
       $document->appendChild($document->createElement('test'));
       $node = $document->createElement('sample');
       $document->documentElement->appendChild($node);
@@ -181,11 +154,8 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::values
-     */
     public function testValuesSetterWithXMLElement() {
-      $document = new \Papaya\XML\Document();
+      $document = new XMLDocument();
       $node = $document->appendElement('test');
       $engine = new Engine_TestProxy();
       $engine->values($node);
@@ -195,24 +165,21 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::values
-     */
     public function testValuesSetterUsingLoaderMechanism() {
-      $document = new \Papaya\XML\Document();
+      $document = new XMLDocument();
       $document->appendElement('test');
       $loaderFailure = $this->createMock(Engine\Values\Loadable::class);
       $loaderFailure
         ->expects($this->once())
         ->method('load')
         ->with($this->equalTo('DATA'))
-        ->will($this->returnValue(FALSE));
+        ->willReturn(FALSE);
       $loaderSuccess = $this->createMock(Engine\Values\Loadable::class);
       $loaderSuccess
         ->expects($this->once())
         ->method('load')
         ->with($this->equalTo('DATA'))
-        ->will($this->returnValue($document));
+        ->willReturn($document);
       $engine = new Engine_TestProxy();
       $engine
         ->loaders()
@@ -225,18 +192,12 @@ namespace Papaya\Template {
       $this->assertNull($engine->getContext());
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::values
-     */
     public function testValuesSetterWithInvalidValue() {
       $engine = new Engine_TestProxy();
       $this->expectException(\UnexpectedValueException::class);
       $engine->values('load');
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::values
-     */
     public function testValuesGetterWithImplicitCreate() {
       $engine = new Engine_TestProxy();
       $this->assertInstanceOf(
@@ -244,33 +205,25 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::getContext
-     */
     public function testGetContextExpectingNull() {
       $engine = new Engine_TestProxy();
       $this->assertNull($engine->getContext());
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::getContext
-     */
     public function testGetContextExpectingXmlElement() {
-      $document = new \Papaya\XML\Document();
+      $document = new XMLDocument();
       $node = $document->appendElement('test');
       $engine = new Engine_TestProxy();
       $engine->values($node);
       $this->assertSame($node, $engine->getContext());
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__get
-     */
     public function testMagicMethodGetForLoaders() {
       $engine = new Engine_TestProxy();
+      $this->assertTrue(isset($engine->loaders));
       $loaders = $engine->loaders;
       $this->assertInstanceOf(
-        \Papaya\BaseObject\Collection::class,
+        Collection::class,
         $loaders
       );
       $this->assertEquals(
@@ -279,18 +232,14 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__set
-     */
     public function testMagicMethodSetForLoaders() {
       $loaders = $this
-        ->getMockBuilder(\Papaya\BaseObject\Collection::class)
-        ->setConstructorArgs(array(Engine\Values\Loadable::class))
+        ->getMockBuilder(Collection::class)
+        ->setConstructorArgs([Engine\Values\Loadable::class])
         ->getMock();
       $loaders
-        ->expects($this->any())
         ->method('getItemClass')
-        ->will($this->returnValue(Engine\Values\Loadable::class));
+        ->willReturn(Engine\Values\Loadable::class);
       $engine = new Engine_TestProxy();
       $engine->loaders = $loaders;
       $this->assertAttributeSame(
@@ -298,22 +247,17 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__get
-     */
     public function testMagicMethodGetForParameters() {
       $engine = new Engine_TestProxy();
+      $this->assertTrue(isset($engine->parameters));
       $parameters = $engine->parameters;
       $this->assertInstanceOf(
-        \Papaya\BaseObject\Options\Collection::class, $parameters
+        OptionsCollection::class, $parameters
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__set
-     */
     public function testMagicMethodSetForParameters() {
-      $parameters = $this->createMock(\Papaya\BaseObject\Options\Collection::class);
+      $parameters = $this->createMock(OptionsCollection::class);
       $engine = new Engine_TestProxy();
       $engine->parameters = $parameters;
       $this->assertAttributeSame(
@@ -321,22 +265,17 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__get
-     */
     public function testMagicMethodGetForValues() {
       $engine = new Engine_TestProxy();
+      $this->assertTrue(isset($engine->values));
       $values = $engine->values;
       $this->assertInstanceOf(
         'DOMDocument', $values
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__set
-     */
     public function testMagicMethodSetForValues() {
-      $document = new \Papaya\XML\Document();
+      $document = new XMLDocument();
       $node = $document->appendElement('node');
       $document->appendChild($node);
       $engine = new Engine_TestProxy();
@@ -349,18 +288,13 @@ namespace Papaya\Template {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__get
-     */
     public function testMagicMethodsGetForUndefinedProperty() {
       $engine = new Engine_TestProxy();
+      $this->assertFalse(isset($engine->dynamic_property));
       $this->expectError(E_NOTICE);
       $engine->dynamic_property;
     }
 
-    /**
-     * @covers \Papaya\Template\Engine::__set
-     */
     public function testMagicMethodsSetForDynamicProperty() {
       $engine = new Engine_TestProxy();
       $engine->dynamic_property = 'dynamic_value';
@@ -369,10 +303,16 @@ namespace Papaya\Template {
         $engine->dynamic_property
       );
     }
+
+    public function testMagicMethodsUnsetExpectingException() {
+      $engine = new Engine_TestProxy();
+      $this->expectException(LogicException::class);
+      unset($engine->property);
+    }
   }
 
   /**
-   * @property \Papaya\BaseObject\Collection|\Papaya\BaseObject\Options\Collection|\Papaya\XML\Document dynamic_property
+   * @property Collection|OptionsCollection|XMLDocument dynamic_property
    */
   class Engine_TestProxy extends Engine {
 
