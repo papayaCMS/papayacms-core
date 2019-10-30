@@ -78,13 +78,13 @@ class XML {
     }
     $result = $string;
     $result = \preg_replace(
-      '/\&((amp)|(quot)|([gl]t)|(#((\d+)|(x[a-fA-F\d]{2,4}))))\;/i',
+      '(&((amp)|(quot)|([gl]t)|(#((\d+)|(x[a-fA-F\d]{2,4}))));)i',
       '#||\\1||#',
       $result
     );
     $result = \strtr($result, \is_array($translations) ? $translations : []);
     $result = \str_replace('&', '&amp;', $result);
-    $result = \preg_replace('/\#\|\|([a-z\d\#]+)\|\|\#/i', '&\\1;', $result);
+    $result = \preg_replace('(#\|\|([a-z\d#]+)\|\|#)i', '&\\1;', $result);
     $result = \str_replace('&amp;amp;', '&amp;', $result);
     return UTF8::ensure($result);
   }
@@ -150,12 +150,13 @@ class XML {
     if (FALSE === \strpos($xml, ' version="2">')) {
       $xml = UTF8::ensure(
         \preg_replace_callback(
+          /** @lang PHPRegExp */
           '(&\\#(
-            (?:1(?:2[6-9]|[3-9][0-9]))
+            (?:1(?:2[6-9]|[3-9]\\d))
             |
-            (?:2(?:[01][0-9]|2[0-7]))
+            (?:2(?:[01]\\d|2[0-7]))
            );)x',
-          function($match) {
+          static function($match) {
             return isset($match[1]) ? \chr($match[1]) : $match[0];
           },
           $xml
@@ -175,7 +176,7 @@ class XML {
           $dom->documentElement->nodeName,
           $dom->documentElement,
           $result,
-          function($value) {
+          static function($value) {
             return self::unescape($value);
           }
         );
@@ -187,7 +188,7 @@ class XML {
   }
 
   /**
-   * Unserialze array data from a node, this function is called recursive.
+   * Unserialize array data from a node, this function is called recursive.
    *
    * @param string $tagName
    * @param \DOMElement $parentNode
