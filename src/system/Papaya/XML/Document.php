@@ -27,7 +27,7 @@ use Papaya\Utility;
 class Document
   extends \DOMDocument
   implements Node {
-  
+
   const XMLNS_PAPAYA = 'http://www.papaya-cms.com/ns/papayacms';
   /**
    * Avoid loosing the overloaded class
@@ -121,7 +121,7 @@ class Document
   public function registerNamespace($prefix, $namespace, $registerOnXpath = TRUE) {
     if (
       isset($this->_reservedNamespaces[$prefix]) &&
-      !$this->_reservedNamespaces[$prefix] === $namespace
+      $this->_reservedNamespaces[$prefix] !== $namespace
     ) {
       throw new \InvalidArgumentException(
         \sprintf(
@@ -236,7 +236,13 @@ class Document
       \array_unshift($appendables, $content);
     }
     foreach ($appendables as $appendable) {
-      if ($appendable instanceof Appendable) {
+      if ($appendable instanceof \DOMNode) {
+        $node->appendChild(
+          $node->ownerDocument !== $appendable->ownerDocument
+            ? $node->ownerDocument->importNode($appendable, TRUE)
+            : $appendable
+        );
+      } elseif ($appendable instanceof Appendable) {
         $appendable->appendTo($node);
       } elseif (\is_array($appendable)) {
         foreach ($appendable as $attributeName => $attributeValue) {
@@ -330,13 +336,13 @@ class Document
    *
    * @param $xmlString
    * @param bool $silent
-   * @return null|\Papaya\XML\Document
+   * @return null|self
    */
   public static function createFromXML($xmlString, $silent = FALSE) {
     $errors = new Errors();
     $document = new self();
     $success = $errors->encapsulate(
-      function($source, $options = 0) use ($document) {
+      static function($source, $options = 0) use ($document) {
         return $document->loadXML($source, $options);
       },
       [$xmlString],
