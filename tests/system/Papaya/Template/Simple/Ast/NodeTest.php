@@ -15,41 +15,42 @@
 
 namespace Papaya\Template\Simple\AST {
 
+  use Papaya\TestCase;
+
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class NodeTest extends \Papaya\TestCase {
+  /**
+   * @covers \Papaya\Template\Simple\AST\Node
+   */
+  class NodeTest extends TestCase {
 
-    /**
-     * @covers \Papaya\Template\Simple\AST\Node::__get
-     */
     public function testReadProperty() {
       $node = new Node_TestProxy();
+      $this->assertTrue(isset($node->foo));
       $this->assertEquals('bar', $node->foo);
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\AST\Node::__get
-     */
     public function testPropertyReadUnknownPropertyExpectingException() {
       $node = new Node_TestProxy();
+      $this->assertFalse(isset($node->UNKNOWN));
       $this->expectException(\LogicException::class);
       $this->expectExceptionMessage('Unknown property: Papaya\Template\Simple\AST\Node_TestProxy::$UNKNOWN');
       /** @noinspection PhpUndefinedFieldInspection */
       $node->UNKNOWN;
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\AST\Node::__set
-     */
     public function testPropertyWriteThrowsException() {
       $node = new Node_TestProxy();
       $this->expectException(\LogicException::class);
       $node->foo = 23;
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\AST\Node::accept
-     */
+    public function testPropertyUnsetThrowsException() {
+      $node = new Node_TestProxy();
+      $this->expectException(\LogicException::class);
+      unset($node->foo);
+    }
+
     public function testAccept() {
       $node = new Node_TestProxy();
 
