@@ -112,7 +112,7 @@ namespace Papaya\Template\Tag {
       $this->_height = ($height > 0) ? $height : ArrayUtilities::get($data, 'height', 0);
       $this->_resize = trim($resize) !== '' ? $resize : ArrayUtilities::get($data, 'resize', '');
       $this->_alternativeText = trim($alt) !== '' ? $alt : ArrayUtilities::get($data, 'alt', '');
-      $this->_subtitle = trim($alt) !== '' ? $alt : ArrayUtilities::get($data, 'subtitle', '');
+      $this->_subtitle = trim($subtitle) !== '' ? $subtitle : ArrayUtilities::get($data, 'subtitle', '');
     }
 
     /**
