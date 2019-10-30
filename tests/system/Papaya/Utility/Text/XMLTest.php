@@ -223,7 +223,7 @@ class XMLTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Utility\Text\XML::isNCName
    */
-  public function testIsNcNameWithEmptyTagnameExpectingException() {
+  public function testIsNcNameWithEmptyTagNameExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:": Missing QName part.');
     XML::isNCName('nc:', 3);
@@ -232,7 +232,7 @@ class XMLTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Utility\Text\XML::isNCName
    */
-  public function testIsNcNameWithInvalidTagnameCharExpectingException() {
+  public function testIsNcNameWithInvalidTagNameCharExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:ta<g>": Invalid character at index 5.');
     XML::isNCName('nc:ta<g>', 3);
@@ -241,10 +241,22 @@ class XMLTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Utility\Text\XML::isNCName
    */
-  public function testIsNcNameWithInvalidTagnameStartingCharExpectingException() {
+  public function testIsNcNameWithInvalidTagNameStartingCharExpectingException() {
     $this->expectException(\UnexpectedValueException::class);
     $this->expectExceptionMessage('Invalid QName "nc:1tag": Invalid character at index 3.');
     XML::isNCName('nc:1tag', 3);
+  }
+
+  /**
+   * @covers \Papaya\Utility\Text\XML::removeControlCharacters
+   * @param string $expected
+   * @param string $input
+   * @testWith
+   *   ["foo-bar", "foo\f-bar"]
+   *   ["foo-bar", "foo\b-bar"]
+   */
+  public function testRemoveControlCharacters($expected, $input) {
+    $this->assertSame($expected, XML::removeControlCharacters($input));
   }
 
   /*********************************
