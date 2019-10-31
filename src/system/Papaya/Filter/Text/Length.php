@@ -15,6 +15,7 @@
 namespace Papaya\Filter\Text;
 
 use Papaya\Filter;
+use Papaya\Filter\Exception as FilterException;
 use Papaya\Utility;
 
 /**
@@ -70,11 +71,9 @@ class Length implements Filter {
   /**
    * Check the string length and throw an exception if it does not not match limits
    *
-   * @throws \Papaya\Filter\Exception
-   *
    * @param mixed $value
-   *
    * @return true
+   * @throws FilterException
    */
   public function validate($value) {
     if (\is_array($value)) {
