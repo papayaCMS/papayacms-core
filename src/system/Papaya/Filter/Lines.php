@@ -38,9 +38,9 @@ class Lines implements Filter {
   public function filter($value) {
     $lines = [];
     foreach ($this->getLines((string)$value) as $line) {
-      $line = $this->_filter->filter($line);
-      if (NULL !== $line && '' !== $line) {
-        $lines[] = $line;
+      $filteredLine = $this->_filter->filter($line);
+      if (NULL !== $filteredLine && '' !== $filteredLine) {
+        $lines[] = $filteredLine;
       }
     }
     return \implode("\n", $lines);
