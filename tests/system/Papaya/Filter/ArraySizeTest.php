@@ -13,39 +13,40 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Filter\Text {
+namespace system\Papaya\Filter {
 
+  use Papaya\Filter\ArraySize;
   use Papaya\Filter\Exception as FilterException;
   use Papaya\Test\TestCase;
   use RangeException;
 
   /**
-   * @covers \Papaya\Filter\Text\Length
+   * @covers \Papaya\Filter\ArraySize
    */
-  class LengthTest extends TestCase {
+  class ArraySizeTest extends TestCase {
 
     public function testConstructorWithMaximumSmallerMinimumExpectingException() {
       $this->expectException(RangeException::class);
-      new Length(5, 1);
+      new ArraySize(5, 1);
     }
 
     public function testConstructorWithMaximumButWithoutMinimumExpectingException() {
       $this->expectException(RangeException::class);
-      new Length(NULL, 1);
+      new ArraySize(NULL, 1);
     }
 
     /**
      * @param int $minimum
      * @param int $maximum
-     * @param string $input
+     * @param array $input
      * @throws FilterException
      * @testWith
-     *   [null, null, "foo"]
-     *   [1, 5, "foo"]
-     *   [3, 3, "foo"]
+     *   [null, null, ["foo"]]
+     *   [2, 5, ["foo", "bar"]]
+     *   [2, 2, ["foo", "bar"]]
      */
     public function testValidateExpectingTrue($minimum, $maximum, $input) {
-      $filter = new Length($minimum, $maximum);
+      $filter = new ArraySize($minimum, $maximum);
       $this->assertTrue($filter->validate($input));
     }
 
@@ -55,32 +56,41 @@ namespace Papaya\Filter\Text {
      * @param mixed $input
      * @throws FilterException
      * @testWith
-     *   [0, 2, "foo"]
-     *   [10, 10, "foo"]
-     *   [null, null, []]
+     *   [0, 2, ["foo", "bar", 42]]
+     *   [10, 10, ["foo"]]
+     *   [null, null, "test"]
      */
     public function testValidateExpectingException($minimum, $maximum, $input) {
-      $filter = new Length($minimum, $maximum);
+      $filter = new ArraySize($minimum, $maximum);
       $this->expectException(FilterException::class);
       $filter->validate($input);
     }
 
     /**
-     * @param mixed $expected
      * @param int $minimum
      * @param int $maximum
      * @param string $input
      * @testWith
-     *   ["foo", null, null, "foo"]
-     *   ["foo", 1, 5, "foo"]
-     *   ["foo", 3, 3, "foo"]
-     *   ["fo", 0, 2, "foo"]
-     *   [null, 10, 10, "foo"]
-     *   ["", null, null, []]
+     *   [null, null, ["foo"]]
+     *   [2, 5, ["foo", "bar"]]
+     *   [2, 2, ["foo", "bar"]]
      */
-    public function testFilter($expected, $minimum, $maximum, $input) {
-      $filter = new Length($minimum, $maximum);
-      $this->assertSame($expected, $filter->filter($input));
+    public function testFilterWithValidValues($minimum, $maximum, $input) {
+      $filter = new ArraySize($minimum, $maximum);
+      $this->assertSame($input, $filter->filter($input));
+    }
+
+    /**
+     * @param int $minimum
+     * @param int $maximum
+     * @param string $input
+     * @testWith
+     *   [0, 2, ["foo", "bar", 42]]
+     *   [10, 10, ["foo"]]
+     */
+    public function testFilterWithInvalidValues($minimum, $maximum, $input) {
+      $filter = new ArraySize($minimum, $maximum);
+      $this->assertSame([], $filter->filter($input));
     }
   }
 

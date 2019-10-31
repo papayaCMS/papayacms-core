@@ -17,9 +17,7 @@ namespace Papaya\Filter;
 use Papaya\Filter;
 
 /**
- * Papaya filter class for an array size, non arrays are zero size
- *
- * The filter function will cast the value to integer.
+ * Papaya filter class for an array size, non arrays throw an exception
  *
  * @package Papaya-Library
  * @subpackage Filter
@@ -40,7 +38,7 @@ class ArraySize implements Filter {
   private $_maximum;
 
   /**
-   * Construct object and initialize minimum and maximum limits for the integer value
+   * Construct object and initialize minimum and maximum limits
    *
    * @param int|null $minimum
    * @param int|null $maximum
@@ -65,37 +63,33 @@ class ArraySize implements Filter {
    * Check the array input and throw an exception if it does not match the condition.
    *
    * @throws Exception
-   *
    * @param mixed $value
-   *
    * @return true
    */
   public function validate($value) {
-    $size = \is_array($value) ? \count($value) : 0;
-    $value = (int)$value;
-    if (NULL !== $this->_minimum && $value < $this->_minimum) {
+    if (!is_array($value)) {
+      throw new Filter\Exception\UnexpectedType('array');
+    }
+    $size = count($value);
+    if (NULL !== $this->_minimum && $size < $this->_minimum) {
       throw new Exception\OutOfRange\ToSmall($this->_minimum, $size);
     }
-    if (NULL !== $this->_maximum && $value > $this->_maximum) {
+    if (NULL !== $this->_maximum && $size > $this->_maximum) {
       throw new Exception\OutOfRange\ToLarge($this->_maximum, $size);
     }
     return TRUE;
   }
 
   /**
-   * The filter function is used to read a input value if it is valid. The value is always converted
-   * into an integer before the validation. So only given limits are validated.
-   *
    * @param mixed $value
-   *
-   * @return array|null
+   * @return array
    */
   public function filter($value) {
     try {
       $this->validate($value);
       return $value;
     } catch (Exception $e) {
-      return NULL;
+      return [];
     }
   }
 }
