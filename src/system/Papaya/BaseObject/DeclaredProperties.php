@@ -21,6 +21,7 @@ namespace Papaya\BaseObject;
  * @subpackage Objects
  */
 trait DeclaredProperties {
+
   /**
    * Allows to declare dynamic properties with optional getter/setter methods. The read and write
    * options can be methods or properties. If no write option is provided the property is read only.
@@ -106,7 +107,7 @@ trait DeclaredProperties {
       );
     }
     if (
-      isset($this->_declaredProperties[$name][0])
+      isset($this->getPropertyDeclaration()[$name][0])
     ) {
       throw new \UnexpectedValueException(
         \sprintf(
