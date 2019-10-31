@@ -51,10 +51,10 @@ class FloatValue implements Filter {
    */
   public function __construct($minimum = NULL, $maximum = NULL) {
     if (NULL !== $minimum) {
-      $this->_minimum = $minimum;
+      $this->_minimum = (float)$minimum;
     }
     if (NULL !== $maximum) {
-      $this->_maximum = $maximum;
+      $this->_maximum = (float)$maximum;
     }
   }
 
