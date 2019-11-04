@@ -25,6 +25,19 @@ namespace Papaya\Message {
    */
   class ManagerTest extends TestCase {
 
+    /**
+     * @var int
+     */
+    private $_errorReporting;
+
+    public function setUp() {
+      $this->_errorReporting = error_reporting();
+    }
+
+    public function tearDown() {
+      error_reporting($this->_errorReporting);
+    }
+
     public function testAddDispatcher() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Dispatcher $dispatcher */
       $dispatcher = $this->createMock(Dispatcher::class);
@@ -241,13 +254,12 @@ namespace Papaya\Message {
       );
     }
 
-    public function testHooksReadHooksImplizitCreate() {
+    public function testHooksReadHooksImplicitCreate() {
       $manager = new Manager();
       $this->assertCount(2, $manager->hooks());
     }
 
     public function testSetUp() {
-      $errorReporting = error_reporting();
       $options = $this->mockPapaya()->options();
       $hookOne = $this->createMock(Hook::class);
       $hookOne
@@ -266,21 +278,23 @@ namespace Papaya\Message {
         0, '_startTime', Context\Runtime::class
       );
       $this->assertEquals(E_ALL & ~E_STRICT, error_reporting());
-
-      error_reporting($errorReporting);
     }
 
     public function testSetUpWithTemplate() {
-      $errorReporting = error_reporting();
-
       $template = $this->createMock(Template::class);
       $options = $this->mockPapaya()->options();
+      $hookOne = $this->createMock(Hook::class);
+      $hookOne
+        ->expects($this->once())
+        ->method('activate');
+      $hookTwo = $this->createMock(Hook::class);
+      $hookTwo
+        ->expects($this->once())
+        ->method('activate');
       $manager = new Manager();
+      $manager->hooks([$hookOne, $hookTwo]);
       $manager->setUp($options, $template);
-
       $this->assertSame($template, $manager->getTemplate());
-
-      error_reporting($errorReporting);
     }
 
     public function testDebug() {
