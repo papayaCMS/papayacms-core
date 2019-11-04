@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Context {
 
+  use Papaya\Message\Context\Backtrace as BacktraceContext;
+
   class Exception
     implements Interfaces\Items, Interfaces\Text, Interfaces\XHTML {
     /**
@@ -50,11 +52,11 @@ namespace Papaya\Message\Context {
     }
 
     /**
-     * @return \Papaya\Message\Context\Backtrace
+     * @return BacktraceContext
      */
     public function getBacktraceContext() {
       if (NULL === $this->_backtrace) {
-        $this->_backtrace = new Backtrace(0, $this->_exception->getTrace());
+        $this->_backtrace = new BacktraceContext(0, $this->_exception->getTrace());
       }
       return $this->_backtrace;
     }
