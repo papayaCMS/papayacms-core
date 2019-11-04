@@ -57,10 +57,11 @@ class Writer implements BaseObject\Interfaces\Properties {
       $this->_stream = $stream;
     }
     if ($addByteOrderMark) {
+      $bom = "\xEF\xBB\xBF";
       if (NULL !== $this->_stream) {
-        \fwrite($this->_stream, \chr(239).\chr(187).\chr(191));
+        \fwrite($this->_stream, $bom);
       } else {
-        echo \chr(239).\chr(187).\chr(191);
+        echo $bom;
       }
     }
   }
