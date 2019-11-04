@@ -217,10 +217,10 @@ class Text implements \IteratorAggregate {
    * Open token group
    *
    * @param int $level
-   *
+
    * @return int
    */
-  public function openTokenGroup($level) {
+  private function openTokenGroup($level) {
     $this->_tokens[] = ['mode' => self::TOKEN_PARENTHESIS_START, 'value' => $level + 1];
     return $level + 1;
   }
@@ -229,10 +229,9 @@ class Text implements \IteratorAggregate {
    * Close token group
    *
    * @param int $level
-   *
    * @return int
    */
-  public function closeTokenGroup($level) {
+  private function closeTokenGroup($level) {
     if ($level > 0) {
       $lastToken = \end($this->_tokens);
       if (

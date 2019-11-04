@@ -13,59 +13,220 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Parser\Search;
-require_once __DIR__.'/../../../../bootstrap.php';
-
-class TextTest extends \Papaya\TestCase {
+namespace Papaya\Parser\Search {
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
    * @covers \Papaya\Parser\Search\Text
-   * @param array $expected
-   * @param string $searchFor
-   * @dataProvider provideSearchStrings
    */
-  public function testParse($expected, $searchFor) {
-    $tokens = new Text($searchFor);
-    $this->assertEquals($expected, iterator_to_array($tokens));
-  }
+  class TextTest extends \Papaya\TestCase {
 
-  public static function provideSearchStrings() {
-    return [
-      [
-        [
-          ['mode' => '(', 'value' => 1],
-          ['mode' => '+', 'value' => 'foo', 'quotes' => FALSE],
-          ['mode' => ')', 'value' => 1]
-        ],
-        'foo'
-      ],
-      [
-        [
-          ['mode' => '(', 'value' => 1],
-          ['mode' => '+', 'value' => 'foo', 'quotes' => FALSE],
-          ['mode' => '+', 'value' => 'bar', 'quotes' => FALSE],
-          ['mode' => ')', 'value' => 1]
-        ],
-        'foo bar'
-      ],
-      [
-        [
-          ['mode' => '(', 'value' => 1],
-          ['mode' => '+', 'value' => 'foo', 'quotes' => FALSE],
-          ['mode' => '-', 'value' => 'bar', 'quotes' => FALSE],
-          ['mode' => ')', 'value' => 1]
-        ],
-        'foo -bar'
-      ],
-      [
-        [
-          ['mode' => '(', 'value' => 1],
-          ['mode' => '+', 'value' => 'foo bar', 'quotes' => TRUE],
-          ['mode' => ')', 'value' => 1]
-        ],
-        '"foo bar"'
-      ],
-    ];
-  }
+    /**
+     * @param array $expected
+     * @param string $searchFor
+     * @dataProvider provideSearchStrings
+     */
+    public function testParse($expected, $searchFor) {
+      $tokens = new Text($searchFor);
+      $this->assertEquals($expected, iterator_to_array($tokens));
+    }
 
+    public static function provideSearchStrings() {
+      return [
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '+foo'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_EXCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '-foo'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'bar', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo bar'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_EXCLUDE, 'value' => 'bar', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo -bar'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_OPERATOR, 'value' => 'AND'],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'bar', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo and bar'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_OPERATOR, 'value' => 'OR'],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'bar', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo or bar'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo bar', 'quotes' => TRUE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '"foo bar"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => '+foo -bar', 'quotes' => TRUE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '"+foo -bar"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => '-foo +bar', 'quotes' => TRUE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '"-foo +bar"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo"', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo " bar', 'quotes' => TRUE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '"foo \\" bar"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo \\ bar', 'quotes' => TRUE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '"foo \\\\ bar"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 2],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 2],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '(foo)'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => '(foo)', 'quotes' => true],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '"(foo)"'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 2],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 2],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '(foo)('
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 2],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 2],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '(foo) and'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 2],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'bar', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 2],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          'foo(bar)'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 2],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => 'foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 2],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '(foo))))'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => '(foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '\\(foo'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => '+foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '\\+foo'
+        ],
+        [
+          [
+            ['mode' => TEXT::TOKEN_PARENTHESIS_START, 'value' => 1],
+            ['mode' => TEXT::TOKEN_INCLUDE, 'value' => '-foo', 'quotes' => FALSE],
+            ['mode' => TEXT::TOKEN_PARENTHESIS_END, 'value' => 1]
+          ],
+          '\\-foo'
+        ],
+      ];
+    }
+  }
 }
