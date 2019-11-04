@@ -79,9 +79,7 @@ class Writer implements BaseObject\Interfaces\Properties {
       case 'quote' :
         return TRUE;
       default :
-        throw new \UnexpectedValueException(
-          \sprintf('Can not read undefined property "%s".', $name)
-        );
+        return FALSE;
     }
   }
 
