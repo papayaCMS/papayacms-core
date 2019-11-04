@@ -12,131 +12,96 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Message\Context;
+namespace Papaya\Message\Context {
 
-use Papaya\Utility;
-
-/**
- * Message string context containing a group of other context objects
- *
- * This class is used for debug and error mesages, to provide additional information about
- * the callstack.
- *
- * @package Papaya-Library
- * @subpackage Messages
- */
-class Group
-  implements Interfaces\Text, Interfaces\XHTML, \Iterator, \Countable {
-  /**
-   * context group elements
-   *
-   * @var array
-   */
-  private $_elements = [];
+  use Papaya\Utility;
 
   /**
-   * Append a new context element to group
+   * Message string context containing a group of other context objects
    *
-   * @param Data $context
+   * This class is used for debug and error messages, to provide additional information about
+   * the callstack.
    *
-   * @return \Papaya\Message\Context\Group $this
+   * @package Papaya-Library
+   * @subpackage Messages
    */
-  public function append(Data $context) {
-    $this->_elements[] = $context;
-    return $this;
-  }
+  class Group
+    implements Interfaces\Text, Interfaces\XHTML, \IteratorAggregate, \Countable {
+    /**
+     * context group elements
+     *
+     * @var array
+     */
+    private $_elements = [];
 
-  /**
-   * Get context elements as string output
-   *
-   * @return string
-   */
-  public function asString() {
-    $result = '';
-    foreach ($this as $element) {
-      if ($element instanceof Interfaces\Labeled) {
-        $result .= "\n\n".$element->getLabel();
-      }
-      if ($element instanceof Interfaces\Text) {
-        $result .= "\n\n".$element->asString();
-      } elseif ($element instanceof Interfaces\XHTML) {
-        $result .= "\n\n".Utility\Text\HTML::stripTags($element->asXhtml());
-      }
+    /**
+     * Append a new context element to group
+     *
+     * @param Data $context
+     *
+     * @return $this
+     */
+    public function append(Data $context) {
+      $this->_elements[] = $context;
+      return $this;
     }
-    return \substr($result, 2);
-  }
 
-  /**
-   * Get context elements as xhtml output
-   */
-  public function asXhtml() {
-    $result = '';
-    foreach ($this as $element) {
-      $result .= '<div class="group">';
-      if ($element instanceof Interfaces\Labeled) {
-        $result .= '<h3>'.Utility\Text\XML::escape($element->getLabel()).'</h3>';
+    /**
+     * Get context elements as string output
+     *
+     * @return string
+     */
+    public function asString() {
+      $result = '';
+      foreach ($this as $element) {
+        if ($element instanceof Interfaces\Labeled) {
+          $result .= "\n\n".$element->getLabel();
+        }
+        if ($element instanceof Interfaces\Text) {
+          $result .= "\n\n".$element->asString();
+        } elseif ($element instanceof Interfaces\XHTML) {
+          $result .= "\n\n".Utility\Text\HTML::stripTags($element->asXhtml());
+        }
       }
-      if ($element instanceof Interfaces\XHTML) {
-        $result .= $element->asXhtml();
-      } elseif ($element instanceof Interfaces\Text) {
-        $result .= \str_replace(
-          "\n", "\n<br />", Utility\Text\XML::escape($element->asString())
-        );
-      }
-      $result .= '</div>';
+      return \substr($result, 2);
     }
-    return $result;
-  }
 
-  /**
-   * Iterator: Rewind position
-   */
-  public function rewind() {
-    \reset($this->_elements);
-  }
+    /**
+     * Get context elements as xhtml output
+     */
+    public function asXhtml() {
+      $result = '';
+      foreach ($this as $element) {
+        $result .= '<div class="group">';
+        if ($element instanceof Interfaces\Labeled) {
+          $result .= '<h3>'.Utility\Text\XML::escape($element->getLabel()).'</h3>';
+        }
+        if ($element instanceof Interfaces\XHTML) {
+          $result .= $element->asXhtml();
+        } elseif ($element instanceof Interfaces\Text) {
+          $result .= \str_replace(
+            "\n", "\n<br />", Utility\Text\XML::escape($element->asString())
+          );
+        }
+        $result .= '</div>';
+      }
+      return $result;
+    }
 
-  /**
-   * Iterator: Get current element value
-   *
-   * @return false|Data
-   */
-  public function current() {
-    return \current($this->_elements);
-  }
+    /**
+     * @return \Traversable
+     */
+    public function getIterator() {
+      return new \ArrayIterator($this->_elements);
+    }
 
-  /**
-   * Iterator: Get current element key
-   *
-   * @return int|null
-   */
-  public function key() {
-    return \key($this->_elements);
-  }
-
-  /**
-   * Iterator: Move position to next element
-   *
-   * @return false|Data
-   */
-  public function next() {
-    return \next($this->_elements);
-  }
-
-  /**
-   * Iterator: Check if current position hold a valid element
-   *
-   * @return bool
-   */
-  public function valid() {
-    return FALSE !== $this->current();
-  }
-
-  /**
-   * Countable: return number of elements
-   *
-   * @return int
-   */
-  public function count() {
-    return \count($this->_elements);
+    /**
+     * Countable: return number of elements
+     *
+     * @return int
+     */
+    public function count() {
+      return \count($this->_elements);
+    }
   }
 }

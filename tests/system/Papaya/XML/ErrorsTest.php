@@ -175,7 +175,7 @@ class ErrorsTest extends \Papaya\TestCase {
     $errors = new Errors();
     $context = $errors->getMessageFromError($error)->context();
     $this->assertInstanceOf(
-      \Papaya\Message\Context\File::class, $context->current()
+      \Papaya\Message\Context\File::class, iterator_to_array($context)[0]
     );
   }
 
