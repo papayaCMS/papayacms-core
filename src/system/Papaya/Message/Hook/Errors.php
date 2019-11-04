@@ -16,31 +16,6 @@ namespace Papaya\Message\Hook;
 
 use Papaya\Message;
 
-if (!\defined('E_RECOVERABLE_ERROR')) {
-  /*
-   * Available since PHP 5.2, define if not here
-   *
-   * @ignore
-   */
-  \define('E_RECOVERABLE_ERROR', 4096);
-}
-if (!\defined('E_DEPRECATED')) {
-  /*
-   * Available since PHP 5.3, define if not here
-   *
-   * @ignore
-   */
-  \define('E_DEPRECATED', 8192);
-}
-if (!\defined('E_USER_DEPRECATED')) {
-  /*
-   * Available since PHP 5.3, define if not here
-   *
-   * @ignore
-   */
-  \define('E_USER_DEPRECATED', 16384);
-}
-
 /**
  * Papaya Message Hook Error, capture php error events and handle them
  *
