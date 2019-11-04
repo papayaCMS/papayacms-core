@@ -12,136 +12,129 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Message\Dispatcher;
+namespace Papaya\Message\Dispatcher {
 
-use Papaya\Application;
-use Papaya\Message;
-use Psr\Log;
-
-/**
- * Papaya Message Dispatcher PSR-3 implements the PHP-FIG interface for logging
- * defined in PSR-3.
- *
- * @package Papaya-Library
- * @subpackage Messages
- */
-class PSR3
-  implements Application\Access, Message\Dispatcher {
-  use Application\Access\Aggregation;
-
-  const LEVEL_DEBUG = 0;
-
-  const LEVEL_INFO = 0;
-
-  const LEVEL_NOTICE = 0;
-
-  const LEVEL_WARNING = 0;
-
-  const LEVEL_ERROR = 0;
-
-  const LEVEL_CRITICAL = 0;
-
-  const LEVEL_ALERT = 0;
-
-  const LEVEL_EMERGENCY = 0;
-
-  private static $_SEVERITY_LEVELS = [
-    Message::SEVERITY_DEBUG => Log\LogLevel::DEBUG,
-    Message::SEVERITY_INFO => Log\LogLevel::INFO,
-    Message::SEVERITY_NOTICE => Log\LogLevel::NOTICE,
-    Message::SEVERITY_WARNING => Log\LogLevel::WARNING,
-    Message::SEVERITY_ERROR => Log\LogLevel::ERROR,
-    Message::SEVERITY_CRITICAL => Log\LogLevel::CRITICAL,
-    Message::SEVERITY_ALERT => Log\LogLevel::ALERT,
-    Message::SEVERITY_EMERGENCY => Log\LogLevel::EMERGENCY
-  ];
-
-  private $_logger;
-
-  private $_enabled = TRUE;
-
-  public function __construct(Log\LoggerInterface $logger = NULL) {
-    $this->_logger = $logger;
-  }
+  use Papaya\Application;
+  use Papaya\Message;
+  use Psr\Log;
 
   /**
-   * Send log message to browser using the Wildfire protocol if possible
+   * Papaya Message Dispatcher PSR-3 implements the PHP-FIG interface for logging
+   * defined in PSR-3.
    *
-   * @param Message $message
-   *
-   * @return bool
-   *
-   * @throws \InvalidArgumentException
+   * @package Papaya-Library
+   * @subpackage Messages
    */
-  public function dispatch(Message $message) {
-    if (
-      $this->_enabled &&
-      $message instanceof Message\Logable
-    ) {
-      $this->send($message);
-    }
-    return FALSE;
-  }
+  class PSR3
+    implements Application\Access, Message\Dispatcher {
+    use Application\Access\Aggregation;
 
-  /**
-   * Send log message using the Wildfire protocol
-   *
-   * @param Message\Logable $message
-   *
-   * @throws \InvalidArgumentException
-   */
-  public function send(Message\Logable $message) {
-    try {
-      $this->_logger->log(
-        isset(self::$_SEVERITY_LEVELS[$message->getSeverity()])
-          ? self::$_SEVERITY_LEVELS[$message->getSeverity()] : Log\LogLevel::DEBUG,
-        $message->getMessage(),
-        $this->getContextAsArray($message->context()) ?: []
-      );
-    } catch (\Exception $e) {
-      $this->_enabled = FALSE;
-      $this->papaya()->messages->dispatch(
-        new Message\Exception($e)
-      );
-    }
-  }
+    private static $_SEVERITY_LEVELS = [
+      Message::SEVERITY_DEBUG => Log\LogLevel::DEBUG,
+      Message::SEVERITY_INFO => Log\LogLevel::INFO,
+      Message::SEVERITY_NOTICE => Log\LogLevel::NOTICE,
+      Message::SEVERITY_WARNING => Log\LogLevel::WARNING,
+      Message::SEVERITY_ERROR => Log\LogLevel::ERROR,
+      Message::SEVERITY_CRITICAL => Log\LogLevel::CRITICAL,
+      Message::SEVERITY_ALERT => Log\LogLevel::ALERT,
+      Message::SEVERITY_EMERGENCY => Log\LogLevel::EMERGENCY
+    ];
 
-  private function getContextAsArray(Message\Context\Group $group) {
-    $result = [];
-    $lists = [];
-    foreach ($group as $item) {
-      $label = NULL;
-      $value = NULL;
-      if ($item instanceof Message\Context\Exception) {
-        $label = 'exception';
-        $value = $item->getException();
+    private $_logger;
+
+    private $_enabled = TRUE;
+
+    public function __construct(Log\LoggerInterface $logger = NULL) {
+      $this->_logger = $logger;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled() {
+      return $this->_enabled;
+    }
+
+    /**
+     * Send log message to browser using the Wildfire protocol if possible
+     *
+     * @param Message $message
+     *
+     * @return bool
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function dispatch(Message $message) {
+      if (
+        $this->_enabled &&
+        $message instanceof Message\Logable
+      ) {
+        $this->send($message);
       }
-      if ($item instanceof Message\Context\Interfaces\Labeled) {
-        $label = $item->getLabel();
+      return FALSE;
+    }
+
+    /**
+     * Send log message using the Wildfire protocol
+     *
+     * @param Message\Logable $message
+     * @throws \InvalidArgumentException
+     */
+    public function send(Message\Logable $message) {
+      try {
+        $this->_logger->log(
+          isset(self::$_SEVERITY_LEVELS[$message->getSeverity()])
+            ? self::$_SEVERITY_LEVELS[$message->getSeverity()] : Log\LogLevel::DEBUG,
+          $message->getMessage(),
+          $this->getContextAsArray($message->context()) ?: []
+        );
+      } catch (\Exception $e) {
+        $this->_enabled = FALSE;
+        $this->papaya()->messages->dispatch(
+          new Message\Exception($e)
+        );
       }
-      if ($item instanceof Message\Context\Group) {
-        $value = $this->getContextAsArray($item);
-      } elseif ($item instanceof Message\Context\Interfaces\Items) {
-        $value = $item->asArray();
-      } elseif ($item instanceof Message\Context\Interfaces\Text) {
-        $value = $item->asString();
-      }
-      if (NULL !== $value) {
-        if (NULL !== $label) {
-          if (isset($result[$label])) {
-            if (isset($lists[$label])) {
-              $result[$label][] = $value;
+    }
+
+    private function getContextAsArray(Message\Context\Group $group) {
+      $result = [];
+      $lists = [];
+      foreach ($group as $item) {
+        $label = NULL;
+        $value = NULL;
+        if ($item instanceof Message\Context\Exception) {
+          $label = 'exception';
+          $value = $item->getException();
+        } else {
+          if ($item instanceof Message\Context\Interfaces\Labeled) {
+            $label = $item->getLabel();
+          }
+          if ($item instanceof Message\Context\Group) {
+            $value = $this->getContextAsArray($item);
+          } elseif ($item instanceof Message\Context\Interfaces\Items) {
+            $value = $item->asArray();
+          } elseif ($item instanceof Message\Context\Interfaces\Text) {
+            $value = $item->asString();
+          }
+        }
+        if (NULL !== $value) {
+          if (NULL !== $label) {
+            if (isset($result[$label])) {
+              if (isset($lists[$label])) {
+                $result[$label][] = $value;
+              } else {
+                $result[$label] = [$result[$label], $value];
+                $lists[$label] = TRUE;
+              }
             } else {
-              $result[$label] = [$result[$label], $value];
-              $lists[$label] = TRUE;
+              $result[$label] = $value;
             }
           } else {
-            $result[$label] = $value;
+            $result[] = $value;
           }
-        } else {
-          $result[] = $value;
         }
       }
+      return $result;
     }
   }
 }
