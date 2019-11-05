@@ -2,7 +2,7 @@
 /**
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2019 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -13,28 +13,27 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Plugin\Editable {
+namespace Papaya\Plugin\Editable\Content {
 
   use Papaya\Administration\Plugin\Editor\Dialog;
   use Papaya\Plugin\Editable as EditablePlugin;
+  use Papaya\Plugin\Editable\Content;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\TestCase;
-
-  require_once __DIR__.'/../../../../bootstrap.php';
+  use Papaya\Test\TestCase;
 
   /**
-   * @covers \Papaya\Plugin\Editable\Aggregation
+   * @covers \Papaya\Plugin\Editable\Content\Aggregation
    */
   class AggregationTest extends TestCase {
 
     public function testContentGetAfterSet() {
-      $plugin = new EditableAggregation_TestProxy();
+      $plugin = new Aggregation_TestProxy();
       $plugin->content($content = $this->createMock(Content::class));
       $this->assertSame($content, $plugin->content());
     }
 
     public function testContentGetWithImplicitCreate() {
-      $plugin = new EditableAggregation_TestProxy();
+      $plugin = new Aggregation_TestProxy();
       $content = $plugin->content();
       $this->assertInstanceOf(Content::class, $content);
       $this->assertSame($content, $plugin->content());
@@ -43,7 +42,7 @@ namespace Papaya\Plugin\Editable {
 
   }
 
-  class EditableAggregation_TestProxy implements EditablePlugin {
+  class Aggregation_TestProxy implements EditablePlugin {
 
     use Aggregation;
 
@@ -51,5 +50,5 @@ namespace Papaya\Plugin\Editable {
       return new Dialog($content);
     }
   }
-}
 
+}
