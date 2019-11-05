@@ -47,9 +47,9 @@ trait Aggregation {
       );
       $this->_options->callbacks()->onCreateEditor = function(
         /** @noinspection PhpUnusedParameterInspection */
-        $context, Plugin\Editable\Options $content
+        $context, Plugin\Editable\Options $options
       ) {
-        return $this->createOptionsEditor($content);
+        return $this->createOptionsEditor($options);
       };
     }
     return $this->_options;
