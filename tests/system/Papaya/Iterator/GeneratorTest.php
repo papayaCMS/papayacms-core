@@ -13,85 +13,93 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Iterator;
-require_once __DIR__.'/../../../bootstrap.php';
+namespace Papaya\Iterator {
 
-class GeneratorTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
+  use Papaya\XML\Document;
 
-  /**
-   * @covers \Papaya\Iterator\Generator::__construct
-   * @covers \Papaya\Iterator\Generator::getIterator
-   * @covers \Papaya\Iterator\Generator::createIterator
-   */
-  public function testGetIteratorWithoutData() {
-    $iterator = new Generator(
-      array($this, 'callbackReturnArgument')
-    );
-    $this->assertInstanceOf('EmptyIterator', $iterator->getIterator());
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Iterator\Generator::__construct
-   * @covers \Papaya\Iterator\Generator::getIterator
-   * @covers \Papaya\Iterator\Generator::createIterator
+   * @covers \Papaya\Iterator\Generator
    */
-  public function testGetIteratorWithArray() {
-    $iterator = new Generator(
-      array($this, 'callbackReturnArgument'), array(array('foo', 'bar'))
-    );
-    $this->assertEquals(
-      new \ArrayIterator(array('foo', 'bar')), $iterator->getIterator()
-    );
-  }
+  class GeneratorTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Iterator\Generator::__construct
-   * @covers \Papaya\Iterator\Generator::getIterator
-   * @covers \Papaya\Iterator\Generator::createIterator
-   */
-  public function testGetIteratorWithIterator() {
-    $iterator = new Generator(
-      array($this, 'callbackReturnArgument'), array($innerIterator = new \EmptyIterator)
-    );
-    $this->assertSame(
-      $innerIterator, $iterator->getIterator()
-    );
-  }
+    public function testGetIteratorWithoutData() {
+      $iterator = new Generator(
+        static function ($traversable = NULL) {
+          return $traversable;
+        },
+      );
+      $this->assertInstanceOf('EmptyIterator', $iterator->getIterator());
+    }
 
-  /**
-   * @covers \Papaya\Iterator\Generator::__construct
-   * @covers \Papaya\Iterator\Generator::getIterator
-   * @covers \Papaya\Iterator\Generator::createIterator
-   */
-  public function testGetIteratorWithIteratorAggregate() {
-    $wrapper = $this->createMock(\IteratorAggregate::class);
-    $wrapper
-      ->expects($this->once())
-      ->method('getIterator')
-      ->will($this->returnValue(new \ArrayIterator(array('foo'))));
+    public function testGetIteratorWithArray() {
+      $iterator = new Generator(
+        static function ($traversable = NULL) {
+          return $traversable;
+        },
+        [['foo', 'bar']]
+      );
+      $this->assertEquals(
+        new \ArrayIterator(['foo', 'bar']), $iterator->getIterator()
+      );
+    }
 
-    $iterator = new Generator(
-      array($this, 'callbackReturnArgument'),
-      array($wrapper)
-    );
-    $this->assertEquals(
-      array('foo'), iterator_to_array($iterator)
-    );
-  }
+    public function testGetIteratorWithIterator() {
+      $iterator = new Generator(
+        static function ($traversable = NULL) {
+          return $traversable;
+        },
+        [$innerIterator = new \EmptyIterator()]
+      );
+      $this->assertSame(
+        $innerIterator, $iterator->getIterator()
+      );
+    }
 
-  /**
-   * @covers \Papaya\Iterator\Generator::__construct
-   * @covers \Papaya\Iterator\Generator::getIterator
-   */
-  public function testMultipleCallsCreateIteratorOnlyOnce() {
-    $iterator = new Generator(
-      array($this, 'callbackReturnArgument')
-    );
-    $this->assertInstanceOf('EmptyIterator', $innerIterator = $iterator->getIterator());
-    $this->assertSame($innerIterator, $iterator->getIterator());
-  }
+    public function testGetIteratorWithIteratorAggregate() {
+      $wrapper = $this->createMock(\IteratorAggregate::class);
+      $wrapper
+        ->expects($this->once())
+        ->method('getIterator')
+        ->willReturn(new \ArrayIterator(['foo']));
 
-  public function callbackReturnArgument($traversable = NULL) {
-    return $traversable;
+      $iterator = new Generator(
+        static function ($traversable = NULL) {
+          return $traversable;
+        },
+        [$wrapper]
+      );
+      $this->assertEquals(
+        ['foo'], iterator_to_array($iterator)
+      );
+    }
+
+    public function testGetIteratorWithTraversable() {
+      $document = new Document();
+      $node = $document->appendElement('foo');
+
+      $iterator = new Generator(
+        static function ($traversable = NULL) {
+          return $traversable;
+        },
+        [$document->childNodes]
+      );
+      $this->assertEquals(
+        [$node], iterator_to_array($iterator, FALSE)
+      );
+    }
+
+    public function testMultipleCallsCreateIteratorOnlyOnce() {
+      $iterator = new Generator(
+        static function ($traversable = NULL) {
+          return $traversable;
+        }
+      );
+      $this->assertInstanceOf('EmptyIterator', $innerIterator = $iterator->getIterator());
+      $this->assertSame($innerIterator, $iterator->getIterator());
+    }
+
   }
 }
