@@ -15,47 +15,47 @@
 
 namespace Papaya\Plugin {
 
+  use Papaya\Request\Parameters;
+  use Papaya\TestCase;
+  use Papaya\XML\Element as XMLElement;
+
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class EditorTest extends \Papaya\TestCase {
-
     /**
-     * @covers \Papaya\Plugin\Editor::__construct
-     * @covers \Papaya\Plugin\Editor::getContent
+     * @covers \Papaya\Plugin\Editor
      */
+  class EditorTest extends TestCase {
+
     public function testConstructorAndGetContent() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
       $content = $this->createMock(Editable\Content::class);
       $editor = new Editor_TestProxy($content);
       $this->assertSame($content, $editor->getData());
+      $this->assertSame($content, $editor->getContent());
     }
 
-    /**
-     * @covers \Papaya\Plugin\Editor::context
-     */
     public function testContextGetAfterSet() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
       $content = $this->createMock(Editable\Content::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Parameters $context */
+      $context = $this->createMock(Parameters::class);
       $editor = new Editor_TestProxy($content);
-      $editor->context($context = $this->createMock(\Papaya\Request\Parameters::class));
+      $editor->context($context);
       $this->assertSame($context, $editor->context());
     }
 
-    /**
-     * @covers \Papaya\Plugin\Editor::context
-     */
     public function testContextGetImplicitCreate() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Editable\Content $content */
       $content = $this->createMock(Editable\Content::class);
       $editor = new Editor_TestProxy($content);
-      $this->assertInstanceOf(\Papaya\Request\Parameters::class, $editor->context());
+      $this->assertInstanceOf(Parameters::class, $editor->context());
     }
 
   }
 
   class Editor_TestProxy extends Editor {
 
-    public function appendTo(\Papaya\XML\Element $parent) {
+    public function appendTo(XMLElement $parent) {
 
     }
   }
