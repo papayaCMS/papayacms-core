@@ -55,7 +55,7 @@ class Storage
    * @return bool
    */
   public function load() {
-    return $this->options()->load(['guid' => $this->_guid]);
+    return $this->options()->activateLazyLoad(['guid' => $this->_guid]);
   }
 
   /**
@@ -72,7 +72,7 @@ class Storage
   }
 
   /**
-   * Getter/Setter: Options database encapsultation subobject
+   * Getter/Setter: Options database encapsulation subobject
    *
    * @param Content\Module\Options $options
    *

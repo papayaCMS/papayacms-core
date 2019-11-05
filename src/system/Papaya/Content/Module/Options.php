@@ -20,7 +20,7 @@ namespace Papaya\Content\Module;
  * @package Papaya-Library
  * @subpackage Content
  */
-class Options extends \Papaya\Database\Records {
+class Options extends \Papaya\Database\Records\Lazy {
   protected $_fields = [
     'guid' => 'module_guid',
     'name' => 'moduleoption_name',

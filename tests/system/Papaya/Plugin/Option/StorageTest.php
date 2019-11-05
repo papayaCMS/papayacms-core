@@ -36,12 +36,12 @@ class StorageTest extends \Papaya\TestCase {
     $options = $this->createMock(\Papaya\Content\Module\Options::class);
     $options
       ->expects($this->once())
-      ->method('load')
+      ->method('activateLazyLoad')
       ->with(array('guid' => 'ab123456789012345678901234567890'))
-      ->will($this->returnValue(TRUE));
+      ->willReturn(TRUE);
     $storage = new Storage('ab123456789012345678901234567890');
     $storage->options($options);
-    $this->assertTrue($storage->load());
+    $storage->load();
   }
 
   /**
@@ -52,16 +52,14 @@ class StorageTest extends \Papaya\TestCase {
     $options
       ->expects($this->once())
       ->method('getIterator')
-      ->will(
-        $this->returnValue(
-          new \ArrayIterator(
-            array(
-              array(
-                'name' => 'foo',
-                'value' => 'bar'
-              )
-            )
-          )
+      ->willReturn(
+        new \ArrayIterator(
+          [
+            [
+              'name' => 'foo',
+              'value' => 'bar'
+            ]
+          ]
         )
       );
     $storage = new Storage('ab123456789012345678901234567890');
