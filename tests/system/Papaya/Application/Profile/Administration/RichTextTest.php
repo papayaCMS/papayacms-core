@@ -2,7 +2,7 @@
 /**
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2019 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -12,29 +12,25 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Application\Profile\Administration {
 
   use Papaya\Administration\RichText\Toggle as RichTextToggle;
-  use Papaya\Application;
+  use Papaya\Test\TestCase;
 
   /**
-   * Application object profile for the phrase translations (used in Administration UI)
-   *
-   * @package Papaya-Library
-   * @subpackage Application
+   * @coverage \Papaya\Application\Profile\Administration\RichText
    */
-  class RichText implements Application\Profile {
-    /**
-     * Create the profile object and return it
-     *
-     * @param Application|Application\CMS $application
-     *
-     * @return RichTextToggle
-     */
-    public function createObject($application) {
-      $toggle = new RichTextToggle();
-      $toggle->papaya($application);
-      return $toggle;
+  class RichTextTest extends TestCase {
+
+    public function testCreateObject() {
+      $profile = new Richtext();
+      $toggle = $profile->createObject(
+        $papaya = $this->mockPapaya()->application()
+      );
+      $this->assertInstanceOf(RichTextToggle::class, $toggle);
+      $this->assertSame($papaya, $toggle->papaya());
     }
   }
+
 }
