@@ -27,7 +27,7 @@ class JSON implements Response\Content {
   /**
    * string content buffer
    *
-   * @var string|NULL
+   * @var string
    */
   private $_content;
 
@@ -39,7 +39,7 @@ class JSON implements Response\Content {
    * @param int $depth
    */
   public function __construct($data, $options = 0, $depth = 512) {
-    $this->_content = json_encode($data, $options, $depth);
+    $this->_content = (string)json_encode($data, $options, $depth);
   }
 
   /**
