@@ -43,10 +43,9 @@ namespace Papaya\Message {
       $dispatcher = $this->createMock(Dispatcher::class);
       $manager = new Manager();
       $manager->addDispatcher($dispatcher);
-      $this->assertAttributeEquals(
+      $this->assertSame(
         [$dispatcher],
-        '_dispatchers',
-        $manager
+        iterator_to_array($manager)
       );
     }
 
