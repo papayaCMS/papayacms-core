@@ -12,36 +12,36 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Application\Profile\Administration;
+namespace Papaya\Application\Profile\Administration {
 
-use Papaya\Application;
-use Papaya\Phrases as PhraseTranslations;
+  use Papaya\Application;
+  use Papaya\Phrases as PhraseTranslations;
 
-/**
- * Application object profile for the phrase translations (used in Administration UI)
- *
- * @package Papaya-Library
- * @subpackage Application
- */
-class Phrases implements Application\Profile {
   /**
-   * Create the profile object and return it
+   * Application object profile for the phrase translations (used in Administration UI)
    *
-   * @param Application|Application\CMS $application
-   *
-   * @return object
+   * @package Papaya-Library
+   * @subpackage Application
    */
-  public function createObject($application) {
-    $language = $application->languages->getLanguage(
-      isset($this->administrationUser)
-        ? $this->administrationUser->options['PAPAYA_UI_LANGUAGE']
-        : $application->options['PAPAYA_UI_LANGUAGE']
-    );
-    if (!$language) {
-      $language = new \Papaya\Content\Language();
+  class Phrases implements Application\Profile {
+    /**
+     * Create the profile object and return it
+     *
+     * @param Application|Application\CMS $application
+     * @return PhraseTranslations
+     */
+    public function createObject($application) {
+      $language = $application->languages->getLanguage(
+        isset($application->administrationUser)
+          ? $application->administrationUser->options['PAPAYA_UI_LANGUAGE']
+          : $application->options['PAPAYA_UI_LANGUAGE']
+      );
+      if (!$language) {
+        $language = new \Papaya\Content\Language();
+      }
+      return new PhraseTranslations(
+        new PhraseTranslations\Storage\Database(), $language
+      );
     }
-    return new PhraseTranslations(
-      new PhraseTranslations\Storage\Database(), $language
-    );
   }
 }
