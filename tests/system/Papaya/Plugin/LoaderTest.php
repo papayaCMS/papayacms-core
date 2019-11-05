@@ -13,571 +13,563 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Plugin;
+namespace Papaya\Plugin {
 
-require_once __DIR__.'/../../../bootstrap.php';
+  use Papaya\Autoloader;
+  use Papaya\Message\Log as LogMessage;
+  use Papaya\Message\Manager as MessageManager;
+  use Papaya\TestCase;
+  use PluginLoader_SampleClass;
 
-class LoaderTest extends \Papaya\TestCase {
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testPluginsGetAfterSet() {
-    $plugins = $this->createMock(Collection::class);
-    $loader = new Loader();
-    $this->assertSame(
-      $plugins, $loader->plugins($plugins)
-    );
-  }
+  require_once __DIR__.'/../../../bootstrap.php';
 
   /**
    * @covers \Papaya\Plugin\Loader
    */
-  public function testPluginsGetWithImplicitCreate() {
-    $loader = new Loader();
-    $this->assertInstanceOf(
-      Collection::class, $loader->plugins()
-    );
-  }
+  class LoaderTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testOptionsGetAfterSet() {
-    $options = $this->createMock(Option\Groups::class);
-    $loader = new Loader();
-    $this->assertSame(
-      $options, $loader->options($options)
-    );
-  }
+    public function testPluginsGetAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Collection $plugins */
+      $plugins = $this->createMock(Collection::class);
+      $loader = new Loader();
+      $this->assertSame(
+        $plugins, $loader->plugins($plugins)
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testOptionsGetWithImplicitCreate() {
-    $loader = new Loader();
-    $this->assertInstanceOf(
-      Option\Groups::class, $loader->options()
-    );
-  }
+    public function testPluginsGetWithImplicitCreate() {
+      $loader = new Loader();
+      $this->assertInstanceOf(
+        Collection::class, $loader->plugins()
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testMagicPropertyPlguinsGetAfterSet() {
-    $plugins = $this->createMock(Collection::class);
-    $loader = new Loader();
-    $loader->plugins = $plugins;
-    $this->assertSame(
-      $plugins, $loader->plugins
-    );
-  }
+    public function testOptionsGetAfterSet() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Option\Groups $options */
+      $options = $this->createMock(Option\Groups::class);
+      $loader = new Loader();
+      $this->assertSame(
+        $options, $loader->options($options)
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testMagicPropertyOptionsGetAfterSet() {
-    $options = $this->createMock(Option\Groups::class);
-    $loader = new Loader();
-    $loader->options = $options;
-    $this->assertSame(
-      $options, $loader->options
-    );
-  }
+    public function testOptionsGetWithImplicitCreate() {
+      $loader = new Loader();
+      $this->assertInstanceOf(
+        Option\Groups::class, $loader->options()
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testMagicMethodGetWithInvalidPropertyExpectingException() {
-    $loader = new Loader();
-    $this->expectException(\LogicException::class);
-    $this->expectExceptionMessage('Can not read unknown property Papaya\Plugin\Loader::$unkownProperty');
-    /** @noinspection PhpUndefinedFieldInspection */
-    $loader->unkownProperty;
-  }
+    public function testMagicPropertyPluginsGetAfterSet() {
+      $plugins = $this->createMock(Collection::class);
+      $loader = new Loader();
+      $this->assertTrue(isset($loader->plugins));
+      $loader->plugins = $plugins;
+      $this->assertSame(
+        $plugins, $loader->plugins
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testMagicMethodSetWithInvalidPropertyExpectingException() {
-    $loader = new Loader();
-    $this->expectException(\LogicException::class);
-    $this->expectExceptionMessage('Can not write unknown property Papaya\Plugin\Loader::$unkownProperty');
-    /** @noinspection PhpUndefinedFieldInspection */
-    $loader->unkownProperty = 'dummy';
-  }
+    public function testMagicPropertyOptionsGetAfterSet() {
+      $options = $this->createMock(Option\Groups::class);
+      $loader = new Loader();
+      $loader->options = $options;
+      $this->assertTrue(isset($loader->options));
+      $this->assertSame(
+        $options, $loader->options
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testHasExpectingTrue() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass'
+    public function testMagicMethodGetWithInvalidPropertyExpectingException() {
+      $loader = new Loader();
+      $this->assertFalse(isset($loader->unknownProperty));
+      $this->expectException(\LogicException::class);
+      $this->expectExceptionMessage('Can not read unknown property Papaya\Plugin\Loader::$unknownProperty');
+      /** @noinspection PhpUndefinedFieldInspection */
+      $loader->unknownProperty;
+    }
+
+    public function testMagicMethodSetWithInvalidPropertyExpectingException() {
+      $loader = new Loader();
+      $this->expectException(\LogicException::class);
+      $this->expectExceptionMessage('Can not write unknown property Papaya\Plugin\Loader::$unknownProperty');
+      /** @noinspection PhpUndefinedFieldInspection */
+      $loader->unknownProperty = 'dummy';
+    }
+
+    public function testHasExpectingTrue() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass'
+            ]
+          ]
         )
-      )
-    );
-    $this->assertTrue($loader->has('123'));
-  }
+      );
+      $this->assertTrue($loader->has('123'));
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testHasExpectingFalse() {
-    $plugins = $this->createMock(Collection::class);
-    $loader = new Loader();
-    $loader->plugins($plugins);
-    $this->assertFalse($loader->has('123'));
-  }
+    public function testHasExpectingFalse() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Collection $plugins */
+      $plugins = $this->createMock(Collection::class);
+      $loader = new Loader();
+      $loader->plugins($plugins);
+      $this->assertFalse($loader->has('123'));
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGet() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => __DIR__.'/TestData/',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass'
+    public function testGet() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => __DIR__.'/TestData/',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass'
+            ]
+          ]
         )
-      )
-    );
-    $this->assertInstanceOf(
-      'PluginLoader_SampleClass', $loader->get('123')
-    );
-  }
+      );
+      $this->assertInstanceOf(
+        'PluginLoader_SampleClass', $loader->get('123')
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetPluginInstance() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass'
+    public function testGetPluginInstance() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass'
+            ]
+          ]
         )
-      )
-    );
-    /** @noinspection PhpDeprecationInspection */
-    $this->assertInstanceOf(
-      'PluginLoader_SampleClass', $loader->getPluginInstance('123')
-    );
-  }
+      );
+      /** @noinspection PhpDeprecationInspection */
+      $this->assertInstanceOf(
+        'PluginLoader_SampleClass', $loader->getPluginInstance('123')
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithPluginData() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass'
+    public function testGetWithPluginData() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass'
+            ]
+          ]
         )
-      )
-    );
-    $samplePlugin = $loader->get('123', NULL, array('foo' => 'bar'));
-    $this->assertXmlStringEqualsXmlString(
-    /** @lang XML */
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
-      $samplePlugin->data
-    );
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithPluginDataAsString() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass'
-        )
-      )
-    );
-    $samplePlugin = $loader->get(
-      '123',
-      NULL,
+      );
+      $samplePlugin = $loader->get('123', NULL, ['foo' => 'bar']);
+      $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
-      '<data version="2"><data-element name="foo">bar</data-element></data>'
-    );
-    $this->assertEquals(
-    /** @lang XML */
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
-      $samplePlugin->data
-    );
-  }
+        '<data version="2"><data-element name="foo">bar</data-element></data>',
+        $samplePlugin->data
+      );
+    }
 
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetEditableWithPluginData() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClassEditable'
+    public function testGetWithPluginDataAsString() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass'
+            ]
+          ]
         )
-      )
-    );
-    $samplePlugin = $loader->get('123', NULL, array('foo' => 'bar'));
-    $this->assertEquals(
-    /** @lang XML */
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
-      $samplePlugin->content->getXml()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetEditableWithPluginDataAsString() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClassEditable'
-        )
-      )
-    );
-    $samplePlugin = $loader->get(
-      '123',
-      NULL,
+      );
+      $samplePlugin = $loader->get(
+        '123',
+        NULL,
+        /** @lang XML */
+        '<data version="2"><data-element name="foo">bar</data-element></data>'
+      );
+      $this->assertEquals(
       /** @lang XML */
-      '<data version="2"><data-element name="foo">bar</data-element></data>'
-    );
-    $this->assertEquals(
-    /** @lang XML */
-      '<data version="2"><data-element name="foo">bar</data-element></data>',
-      $samplePlugin->content->getXml()
-    );
-  }
+        '<data version="2"><data-element name="foo">bar</data-element></data>',
+        $samplePlugin->data
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithSingleInstance() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass'
+    public function testGetEditableWithPluginData() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClassEditable'
+            ]
+          ]
         )
-      )
-    );
-    $plugin = $loader->get('123', NULL, array(), TRUE);
-    $this->assertSame(
-      $plugin, $loader->get('123', NULL, array(), TRUE)
-    );
-  }
+      );
+      $samplePlugin = $loader->get('123', NULL, ['foo' => 'bar']);
+      $this->assertEquals(
+      /** @lang XML */
+        '<data version="2"><data-element name="foo">bar</data-element></data>',
+        $samplePlugin->content->getXml()
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithNonExistingPlugin() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        FALSE
-      )
-    );
-    $this->assertNull($loader->get('123'));
-  }
+    public function testGetEditableWithPluginDataAsString() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClassEditable'
+            ]
+          ]
+        )
+      );
+      $samplePlugin = $loader->get(
+        '123',
+        NULL,
+        /** @lang XML */
+        '<data version="2"><data-element name="foo">bar</data-element></data>'
+      );
+      $this->assertEquals(
+      /** @lang XML */
+        '<data version="2"><data-element name="foo">bar</data-element></data>',
+        $samplePlugin->content->getXml()
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithInvalidPluginFileExpectingMessage() {
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Log::class));
-    $loader = new Loader();
-    $loader->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'messages' => $messages
+    public function testGetWithSingleInstance() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass'
+            ]
+          ]
         )
-      )
-    );
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'InvalidFile.php',
-          'class' => 'PluginLoader_InvalidSampleClass'
-        )
-      )
-    );
-    $this->assertNull($loader->get('123'));
-  }
+      );
+      $plugin = $loader->get('123', NULL, [], TRUE);
+      $this->assertSame(
+        $plugin, $loader->get('123', NULL, [], TRUE)
+      );
+    }
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithAutloaderPrefix() {
-    \Papaya\Autoloader::clear();
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->any())
-      ->method('dispatch')
-      ->withAnyParameters();
-    $loader = new Loader();
-    $loader->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'messages' => $messages
+    public function testGetWithNonExistingPlugin() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture([])
+      );
+      $this->assertNull($loader->get('123'));
+    }
+
+    public function testGetWithInvalidPluginFileExpectingMessage() {
+      $messages = $this->createMock(MessageManager::class);
+      $messages
+        ->expects($this->once())
+        ->method('dispatch')
+        ->with($this->isInstanceOf(LogMessage::class));
+      $loader = new Loader();
+      $loader->papaya(
+        $this->mockPapaya()->application(
+          [
+            'messages' => $messages
+          ]
         )
-      )
-    );
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
+      );
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_InvalidSampleClass'
+            ]
+          ]
+        )
+      );
+      $this->assertNull($loader->get('123'));
+    }
+
+    public function testGetWithAutoloaderPrefix() {
+      Autoloader::clear();
+      $messages = $this->createMock(MessageManager::class);
+      $messages
+        ->method('dispatch')
+        ->withAnyParameters();
+      $loader = new Loader();
+      $loader->papaya(
+        $this->mockPapaya()->application(
+          [
+            'messages' => $messages
+          ]
+        )
+      );
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => str_replace('\\', '/', __DIR__).'/TestData/',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_InvalidSampleClass',
+              'prefix' => 'PluginLoaderAutoloadPrefix',
+              'classes' => ''
+            ]
+          ]
+        )
+      );
+      $this->assertNull($loader->get('123'));
+      $this->assertAttributeEquals(
+        [
+          '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', __DIR__).'/TestData/'
+        ],
+        '_paths',
+        Autoloader::class
+      );
+      Autoloader::clear();
+    }
+
+    public function testGetWithAutoloaderClassmap() {
+      Autoloader::clear();
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => str_replace('\\', '/', __DIR__).'/TestData/',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_SampleClass',
+              'prefix' => '',
+              'classes' => '_classmap.php'
+            ]
+          ]
+        )
+      );
+      $this->assertInstanceOf('PluginLoader_SampleClass', $loader->get('123'));
+      Autoloader::clear();
+    }
+
+    public function testGetWithInvalidPluginClassExpectingMessage() {
+      $messages = $this->createMock(MessageManager::class);
+      $messages
+        ->expects($this->once())
+        ->method('dispatch')
+        ->with($this->isInstanceOf(LogMessage::class));
+      $loader = new Loader();
+      $loader->papaya(
+        $this->mockPapaya()->application(
+          [
+            'messages' => $messages
+          ]
+        )
+      );
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '',
+              'file' => 'SampleClass.php',
+              'class' => 'PluginLoader_InvalidSampleClass'
+            ]
+          ]
+        )
+      );
+      $this->assertNull($loader->get('123'));
+    }
+
+    public function testGetFileName() {
+      Autoloader::clear();
+      $loader = new Loader();
+      $loader->papaya($this->mockPapaya()->application());
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => '/base/path/sample/path/',
+              'file' => 'sample.php',
+              'class' => 'SampleClass',
+              'prefix' => 'PluginLoaderAutoloadPrefix',
+            ]
+          ]
+        )
+      );
+      $this->assertEquals(
+        '/base/path/sample/path/sample.php', $loader->getFileName('123')
+      );
+      $this->assertAttributeEquals(
+        [
+          '/Plugin/Loader/Autoload/Prefix/' => '/base/path/sample/path/'
+        ],
+        '_paths',
+        Autoloader::class
+      );
+      Autoloader::clear();
+    }
+
+    public function testGetFileNameFromClassmap() {
+      Autoloader::clear();
+      $loader = new Loader();
+      $loader->papaya($this->mockPapaya()->application());
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => $path = str_replace('\\', '/', __DIR__).'/TestData/',
+              'file' => '',
+              'class' => 'PluginLoader_SampleClass',
+              'classes' => '_classmap.php',
+            ]
+          ]
+        )
+      );
+      $this->assertEquals(
+        $path.'SampleClass.php', $loader->getFileName('123')
+      );
+      Autoloader::clear();
+    }
+
+    public function testGetFileNameWithPathFromOptions() {
+      Autoloader::clear();
+      $loader = new Loader();
+      $loader->papaya(
+        $this->mockPapaya()->application(
+          [
+            'options' => $this->mockPapaya()->options(['PAPAYA_INCLUDE_PATH' => '/foo/bar'])
+          ]
+        )
+      );
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => 'sample/path/',
+              'file' => 'sample.php',
+              'class' => 'SampleClass',
+              'prefix' => 'PluginLoaderAutoloadPrefix',
+            ]
+          ]
+        )
+      );
+      $this->assertEquals(
+        '/foo/bar/modules/sample/path/sample.php', $loader->getFileName('123')
+      );
+      Autoloader::clear();
+    }
+
+    public function testGetFileNameWithComposerPath() {
+      Autoloader::clear();
+      $loader = new Loader();
+      $loader->papaya($this->mockPapaya()->application());
+      $loader->plugins(
+        $this->getPluginListFixture(
+          [
+            123 => [
+              'guid' => '123',
+              'path' => 'vendor:/sample/path/',
+              'file' => 'sample.php',
+              'class' => 'SampleClass',
+              'prefix' => 'PluginLoaderAutoloadPrefix',
+            ]
+          ]
+        )
+      );
+      $this->assertStringEndsWith(
+        '/vendor/sample/path/sample.php', $loader->getFileName('123')
+      );
+      Autoloader::clear();
+    }
+
+    public function testGetFileNameOfNonExistingPlugin() {
+      $loader = new Loader();
+      $loader->plugins(
+        $this->getPluginListFixture([])
+      );
+      $this->assertEquals('', $loader->getFileName('123'));
+    }
+
+    public function testPreloadReturnsTrue() {
+      $loader = new Loader();
+      $this->assertTrue($loader->preload());
+    }
+
+    public function testGetPluginInstancesFilteredByType() {
+      $data = [
+        123 => [
           'guid' => '123',
           'path' => str_replace('\\', '/', __DIR__).'/TestData/',
           'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_InvalidSampleClass',
-          'prefix' => 'PluginLoaderAutoloadPrefix',
-          'classes' => ''
-        )
-      )
-    );
-    $this->assertNull($loader->get('123'));
-    $this->assertAttributeEquals(
-      array(
-        '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', __DIR__).'/TestData/'
-      ),
-      '_paths',
-      \Papaya\Autoloader::class
-    );
-    \Papaya\Autoloader::clear();
-  }
+          'class' => 'PluginLoader_SampleClass'
+        ]
+      ];
+      $plugins = $this->getPluginListFixture($data);
+      $plugins
+        ->expects($this->once())
+        ->method('withType')
+        ->with(Types::LOGGER)
+        ->willReturn($data);
+      $loader = new Loader();
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithAutoloaderClassmap() {
-    \Papaya\Autoloader::clear();
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => str_replace('\\', '/', __DIR__).'/TestData/',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_SampleClass',
-          'prefix' => '',
-          'classes' => '_classmap.php'
-        )
-      )
-    );
-    $this->assertInstanceOf('PluginLoader_SampleClass', $loader->get('123'));
-    \Papaya\Autoloader::clear();
-  }
+      $loader->plugins($plugins);
+      $instances = iterator_to_array($loader->withType(Types::LOGGER));
+      $this->assertInstanceOf(PluginLoader_SampleClass::class, $instances[123]);
+    }
 
+    /*************************
+     * Fixtures
+     ************************/
 
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetWithInvalidPluginClassExpectingMessage() {
-    $messages = $this->createMock(\Papaya\Message\Manager::class);
-    $messages
-      ->expects($this->once())
-      ->method('dispatch')
-      ->with($this->isInstanceOf(\Papaya\Message\Log::class));
-    $loader = new Loader();
-    $loader->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'messages' => $messages
-        )
-      )
-    );
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '',
-          'file' => 'SampleClass.php',
-          'class' => 'PluginLoader_InvalidSampleClass'
-        )
-      )
-    );
-    $this->assertNull($loader->get('123'));
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetFileName() {
-    \Papaya\Autoloader::clear();
-    $loader = new Loader();
-    $loader->papaya($this->mockPapaya()->application());
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => '/base/path/sample/path/',
-          'file' => 'sample.php',
-          'class' => 'SampleClass',
-          'prefix' => 'PluginLoaderAutoloadPrefix',
-        )
-      )
-    );
-    $this->assertEquals(
-      '/base/path/sample/path/sample.php', $loader->getFileName('123')
-    );
-    $this->assertAttributeEquals(
-      array(
-        '/Plugin/Loader/Autoload/Prefix/' => '/base/path/sample/path/'
-      ),
-      '_paths',
-      \Papaya\Autoloader::class
-    );
-    \Papaya\Autoloader::clear();
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetFileNameFromClassmap() {
-    \Papaya\Autoloader::clear();
-    $loader = new Loader();
-    $loader->papaya($this->mockPapaya()->application());
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => $path = str_replace('\\', '/', __DIR__).'/TestData/',
-          'file' => '',
-          'class' => 'PluginLoader_SampleClass',
-          'classes' => '_classmap.php',
-        )
-      )
-    );
-    $this->assertEquals(
-      $path.'SampleClass.php', $loader->getFileName('123')
-    );
-    \Papaya\Autoloader::clear();
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetFileNameWithPathFromOptions() {
-    \Papaya\Autoloader::clear();
-    $loader = new Loader();
-    $loader->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'options' => $this->mockPapaya()->options(array('PAPAYA_INCLUDE_PATH' => '/foo/bar'))
-        )
-      )
-    );
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => 'sample/path/',
-          'file' => 'sample.php',
-          'class' => 'SampleClass',
-          'prefix' => 'PluginLoaderAutoloadPrefix',
-        )
-      )
-    );
-    $this->assertEquals(
-      '/foo/bar/modules/sample/path/sample.php', $loader->getFileName('123')
-    );
-    \Papaya\Autoloader::clear();
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetFileNameWithComposerPath() {
-    \Papaya\Autoloader::clear();
-    $loader = new Loader();
-    $loader->papaya($this->mockPapaya()->application());
-    $loader->plugins(
-      $this->getPluginListFixture(
-        array(
-          'guid' => '123',
-          'path' => 'vendor:/sample/path/',
-          'file' => 'sample.php',
-          'class' => 'SampleClass',
-          'prefix' => 'PluginLoaderAutoloadPrefix',
-        )
-      )
-    );
-    $this->assertStringEndsWith(
-      '/vendor/sample/path/sample.php', $loader->getFileName('123')
-    );
-    \Papaya\Autoloader::clear();
-  }
-
-  /**
-   * @covers \Papaya\Plugin\Loader
-   */
-  public function testGetFileNameOfNonExistingPlugin() {
-    $loader = new Loader();
-    $loader->plugins(
-      $this->getPluginListFixture(
-        FALSE
-      )
-    );
-    $this->assertEquals('', $loader->getFileName('123'));
-  }
-
-  /*************************
-   * Fixtures
-   ************************/
-
-  /**
-   * @param mixed $record
-   * @return \PHPUnit_Framework_MockObject_MockObject
-   */
-  private function getPluginListFixture($record) {
-    $plugins = $this->createMock(Collection::class);
-    $plugins
-      ->expects($this->any())
-      ->method('offsetExists')
-      ->will($this->returnValue(TRUE));
-    $plugins
-      ->expects($this->any())
-      ->method('offsetGet')
-      ->with($this->equalTo('123'))
-      ->will($this->returnValue($record));
-    return $plugins;
+    /**
+     * @param array $records
+     * @return \PHPUnit_Framework_MockObject_MockObject|Collection
+     */
+    private function getPluginListFixture(array $records) {
+      $plugins = $this->createMock(Collection::class);
+      $plugins
+        ->method('offsetExists')
+        ->willReturnCallback(
+          static function($offset) use ($records) {
+            return isset($records[$offset]);
+          }
+        );
+      $plugins
+        ->method('offsetGet')
+        ->willReturnCallback(
+          static function($offset) use ($records) {
+            return isset($records[$offset]) ? $records[$offset] : NULL;
+          }
+        );
+      return $plugins;
+    }
   }
 }
