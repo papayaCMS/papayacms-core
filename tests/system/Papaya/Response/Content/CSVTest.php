@@ -13,107 +13,121 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Response\Content;
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Response\Content {
 
-class CSVTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
 
-
-  /**
-   * @covers \Papaya\Response\Content\CSV::length
-   */
-  public function testLength() {
-    $content = new CSV(new \EmptyIterator(), []);
-    $this->assertEquals(-1, $content->length());
-  }
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Response\Content\File::output
+   * @covers \Papaya\Response\Content\CSV
+   * @covers \Papaya\Response\Content\CSV\Callbacks
    */
-  public function testOutputUsingNumericColumnIndex() {
-    $content = new CSV(
-      new \ArrayIterator(
-        [
-          ['1', '2'],
-          ['3', '4']
-        ]
-      ),
-      ['one', 'two']
-    );
-    ob_start();
-    $content->output();
-    $this->assertEquals(
-      "one,two\r\n1,2\r\n3,4\r\n",
-      ob_get_clean()
-    );
-  }
+  class CSVTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Response\Content\File::output
-   */
-  public function testOutputUsingNamedColumnIndex() {
-    $content = new CSV(
-      new \ArrayIterator(
-        [
-          ['one' => 'first value', 'two' => 'second value'],
-          ['two' => 4, 'one' => 3],
-          ['two' => 5],
-          ['one' => 6]
-        ]
-      ),
-      ['one' => 'First Column', 'two' => 'Second']
-    );
-    ob_start();
-    $content->output();
-    $this->assertEquals(
-      "First Column,Second\r\nfirst value,second value\r\n3,4\r\n,5\r\n6,\r\n",
-      ob_get_clean()
-    );
-  }
+    public function testCallbacksGetAfterSet() {
+      $callbacks = $this->createMock(CSV\Callbacks::class);
+      $content = new CSV(new \EmptyIterator(), []);
+      $this->assertSame($callbacks, $content->callbacks($callbacks));
+    }
 
-  /**
-   * @covers \Papaya\Response\Content\File::output
-   */
-  public function testOutputWithoutColumns() {
-    $content = new CSV(
-      new \ArrayIterator(
-        [
-          ['1', '2'],
-          ['3', '4']
-        ]
-      )
-    );
-    ob_start();
-    $content->output();
-    $this->assertEquals(
-      "1,2\r\n3,4\r\n",
-      ob_get_clean()
-    );
-  }
+    public function testLength() {
+      $content = new CSV(new \EmptyIterator(), []);
+      $this->assertEquals(-1, $content->length());
+    }
 
-  /**
-   * @covers \Papaya\Response\Content\File::output
-   */
-  public function testOutputMappingRowAndField() {
-    $content = new CSV(
-      new \ArrayIterator([1, 2])
-    );
-    $content->callbacks()->onMapRow = function ($original) {
-      $data = [
-        1 => ['one', $original],
-        2 => ['two', $original]
-      ];
-      return $data[$original];
-    };
-    $content->callbacks()->onMapField = function ($original) {
-      return strtoupper($original);
-    };
-    ob_start();
-    $content->output();
-    $this->assertEquals(
-      "ONE,1\r\nTWO,2\r\n",
-      ob_get_clean()
-    );
-  }
+    public function testOutputUsingNumericColumnIndex() {
+      $content = new CSV(
+        new \ArrayIterator(
+          [
+            ['1', '2'],
+            ['3', '4']
+          ]
+        ),
+        ['one', 'two']
+      );
+      ob_start();
+      $content->output();
+      $this->assertEquals(
+        "one,two\r\n1,2\r\n3,4\r\n",
+        ob_get_clean()
+      );
+    }
 
+    public function testOutputUsingNamedColumnIndex() {
+      $content = new CSV(
+        new \ArrayIterator(
+          [
+            ['one' => 'first value', 'two' => 'second value'],
+            ['two' => 4, 'one' => 3],
+            ['two' => 5],
+            ['one' => 6]
+          ]
+        ),
+        ['one' => 'First Column', 'two' => 'Second']
+      );
+      ob_start();
+      $content->output();
+      $this->assertEquals(
+        "First Column,Second\r\nfirst value,second value\r\n3,4\r\n,5\r\n6,\r\n",
+        ob_get_clean()
+      );
+    }
+
+    public function testOutputWithoutColumns() {
+      $content = new CSV(
+        new \ArrayIterator(
+          [
+            ['1', '2'],
+            ['3', '4']
+          ]
+        )
+      );
+      ob_start();
+      $content->output();
+      $this->assertEquals(
+        "1,2\r\n3,4\r\n",
+        ob_get_clean()
+      );
+    }
+
+    public function testOutputWithoutColumnsEscapingValues() {
+      $content = new CSV(
+        new \ArrayIterator(
+          [
+            ["foo\nbar", '"foo"'],
+            ['3', '4']
+          ]
+        )
+      );
+      ob_start();
+      $content->output();
+      $this->assertEquals(
+        "\"foo\\nbar\",\"\"\"foo\"\"\"\r\n3,4\r\n",
+        ob_get_clean()
+      );
+    }
+
+    public function testOutputMappingRowAndField() {
+      $content = new CSV(
+        new \ArrayIterator([1, 2])
+      );
+      $content->callbacks()->onMapRow = static function($original) {
+        $data = [
+          1 => ['one', $original],
+          2 => ['two', $original]
+        ];
+        return $data[$original];
+      };
+      $content->callbacks()->onMapField = static function($original) {
+        return strtoupper($original);
+      };
+      ob_start();
+      $content->output();
+      $this->assertEquals(
+        "ONE,1\r\nTWO,2\r\n",
+        ob_get_clean()
+      );
+    }
+  }
 }
