@@ -83,48 +83,6 @@ namespace Papaya\Iterator {
       return $this->getIteratorForTraversable(TRUE)->getDepth();
     }
 
-    /**
-     * @param int $level
-     * @return \RecursiveIterator
-     */
-    public function getSubIterator($level) {
-      return $this->getIteratorForTraversable(TRUE)->getSubIterator($level);
-    }
-
-    public function beginIteration() {
-      $this->getIteratorForTraversable(TRUE)->beginIteration();
-    }
-
-    public function endIteration() {
-      $this->getIteratorForTraversable(TRUE)->endIteration();
-    }
-
-    /**
-     * @return bool
-     */
-    public function callHasChildren() {
-      return $this->getIteratorForTraversable(TRUE)->callHasChildren();
-    }
-
-    /**
-     * @return \RecursiveIterator
-     */
-    public function callGetChildren() {
-      return $this->getIteratorForTraversable(TRUE)->callGetChildren();
-    }
-
-    public function beginChildren() {
-      $this->getIteratorForTraversable(TRUE)->beginChildren();
-    }
-
-    public function endChildren() {
-      $this->getIteratorForTraversable(TRUE)->endChildren();
-    }
-
-    public function nextElement() {
-      $this->getIteratorForTraversable(TRUE)->nextElement();
-    }
-
     public function setMaxDepth($maxDepth) {
       $this->getIteratorForTraversable(TRUE)->setMaxDepth($maxDepth);
     }
@@ -133,7 +91,15 @@ namespace Papaya\Iterator {
      * @return int
      */
     public function getMaxDepth() {
-      return $this->getIteratorForTraversable(TRUE)->getDepth();
+      return $this->getIteratorForTraversable(TRUE)->getMaxDepth();
+    }
+
+    /**
+     * @param int $level
+     * @return \RecursiveIterator
+     */
+    public function getSubIterator($level) {
+      return $this->getIteratorForTraversable(TRUE)->getSubIterator($level);
     }
   }
 }
