@@ -419,7 +419,7 @@ class Loader
 
   /**
    * @param $type
-   * @return Iterator\Callback
+   * @return \Traversable
    */
   public function withType($type) {
     return new Iterator\Callback(

@@ -13,33 +13,113 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Application\Profile;
+namespace Papaya\Application\Profile {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-class MessagesTest extends \Papaya\TestCase {
+  use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Database\Connector as DatabaseConnector;
+  use Papaya\Database\Exception\ConnectionFailed;
+  use Papaya\Database\Manager as DatabaseManager;
+  use Papaya\Message\Dispatcher;
+  use Papaya\Message\Manager as MessageManager;
+  use Papaya\Plugin\Loader as PluginLoader;
+  use Papaya\Plugin\LoggerFactory;
+  use Papaya\Plugin\Types as PluginTypes;
+  use Papaya\TestCase;
 
   /**
-   * @covers \Papaya\Application\Profile\Messages::createObject
+   * @covers \Papaya\Application\Profile\Messages
    */
-  public function testCreateObject() {
-    $profile = new Messages();
-    $messages = $profile->createObject($this->mockPapaya()->application());
-    $this->assertInstanceOf(
-      \Papaya\Message\Manager::class, $messages
-    );
-    $dispatchers = $this->readAttribute($messages, '_dispatchers');
-    $this->assertInstanceOf(
-      \Papaya\Message\Dispatcher\Template::class, $dispatchers[0]
-    );
-    $this->assertInstanceOf(
-      \Papaya\Message\Dispatcher\Database::class, $dispatchers[1]
-    );
-    $this->assertInstanceOf(
-      \Papaya\Message\Dispatcher\Wildfire::class, $dispatchers[2]
-    );
-    $this->assertInstanceOf(
-      \Papaya\Message\Dispatcher\XHTML::class, $dispatchers[3]
-    );
+  class MessagesTest extends TestCase {
+
+    public function testCreateObject() {
+      $profile = new Messages();
+      $messages = $profile->createObject($this->mockPapaya()->application());
+      $this->assertInstanceOf(
+        MessageManager::class, $messages
+      );
+      $dispatchers = iterator_to_array($messages);
+      $this->assertInstanceOf(
+        Dispatcher\Template::class, $dispatchers[0]
+      );
+      $this->assertInstanceOf(
+        Dispatcher\Database::class, $dispatchers[1]
+      );
+      $this->assertInstanceOf(
+        Dispatcher\Wildfire::class, $dispatchers[2]
+      );
+      $this->assertInstanceOf(
+        Dispatcher\XHTML::class, $dispatchers[3]
+      );
+    }
+
+    public function testCreateObjectCapturingDatabaseConnectionError() {
+      $databaseConnector = $this->createMock(DatabaseConnector::class);
+      $databaseConnector
+        ->expects($this->once())
+        ->method('connect')
+        ->willThrowException($this->createMock(ConnectionFailed::class));
+      $database = $this->createMock(DatabaseManager::class);
+      $database
+        ->method('getConnector')
+        ->willReturn($databaseConnector);
+
+      $profile = new Messages();
+      $messages = $profile->createObject(
+        $this->mockPapaya()->application(
+          [
+            'options' => $this->mockPapaya()->options(['PAPAYA_LOG_ENABLE_EXTERNAL' => TRUE]),
+            'database' => $database
+          ]
+        )
+      );
+      $this->assertInstanceOf(
+        MessageManager::class, $messages
+      );
+      $dispatchers = iterator_to_array($messages);
+      $this->assertCount(4, $dispatchers);
+    }
+
+    public function testCreateObjectWithDispatcherPlugins() {
+      $databaseConnector = $this->createMock(DatabaseConnector::class);
+      $databaseConnector
+        ->expects($this->once())
+        ->method('connect')
+        ->willReturn($this->createMock(DatabaseConnection::class));
+      $database = $this->createMock(DatabaseManager::class);
+      $database
+        ->method('getConnector')
+        ->willReturn($databaseConnector);
+
+      $loggerFactory = $this->createMock(LoggerFactory::class);
+      $loggerFactory
+        ->method('createLogger')
+        ->willReturn($loggerPlugin = $this->createMock(Dispatcher::class));
+      $plugins = $this->createMock(PluginLoader::class);
+      $plugins
+        ->expects($this->once())
+        ->method('withType')
+        ->with(PluginTypes::LOGGER)
+        ->willReturn([$loggerFactory]);
+
+      $profile = new Messages();
+      $messages = $profile->createObject(
+        $this->mockPapaya()->application(
+          [
+            'options' => $this->mockPapaya()->options(['PAPAYA_LOG_ENABLE_EXTERNAL' => TRUE]),
+            'database' => $database,
+            'plugins' => $plugins
+          ]
+        )
+      );
+      $this->assertInstanceOf(
+        MessageManager::class, $messages
+      );
+      $dispatchers = iterator_to_array($messages);
+      $this->assertSame(
+        $loggerPlugin, $dispatchers[4]
+      );
+    }
   }
 }

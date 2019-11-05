@@ -24,7 +24,7 @@ use Papaya\Message;
  * @subpackage Messages
  */
 class Manager
-  implements Application\Access {
+  implements Application\Access, \IteratorAggregate {
   use Application\Access\Aggregation;
 
   /**
@@ -53,6 +53,13 @@ class Manager
    */
   public function addDispatcher(Dispatcher $dispatcher) {
     $this->_dispatchers[] = $dispatcher;
+  }
+
+  /**
+   * @return \Traversable
+   */
+  public function getIterator() {
+    return new \ArrayIterator($this->_dispatchers);
   }
 
   /**
