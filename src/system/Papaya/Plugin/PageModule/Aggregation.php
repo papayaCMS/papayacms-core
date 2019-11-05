@@ -14,6 +14,8 @@
  */
 namespace Papaya\Plugin\PageModule {
 
+  use Papaya\UI\Content\Page;
+
   /**
    * This a standard implementation for content/data filters usage in a plugin.
    *
@@ -29,7 +31,7 @@ namespace Papaya\Plugin\PageModule {
   trait Aggregation {
 
     /**
-     * @var \base_topic|\Papaya\UI\Content\Page
+     * @var \base_topic|Page
      */
     private $_page;
 
@@ -45,7 +47,7 @@ namespace Papaya\Plugin\PageModule {
      * This implementation expects that it was stored in the private
      * field $_page.
      *
-     * @return \base_topic|\Papaya\UI\Content\Page
+     * @return \base_topic|Page
      */
     public function getPage() {
       return $this->_page;
