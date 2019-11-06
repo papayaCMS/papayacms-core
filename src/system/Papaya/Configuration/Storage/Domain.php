@@ -12,99 +12,100 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Configuration\Storage;
+namespace Papaya\Configuration\Storage {
 
-use Papaya\Application;
-use Papaya\Configuration;
-use Papaya\Content;
-use Papaya\Utility;
-
-/**
- * Loads the domain specific options from the database
- *
- * @package Papaya-Library
- * @subpackage Configuration
- */
-class Domain extends Application\BaseObject
-  implements Configuration\Storage {
-  /**
-   * member variable for the url scheme, set in constructor used in load()
-   *
-   * @var int
-   */
-  private $_scheme = Utility\Server\Protocol::BOTH;
+  use Papaya\Application;
+  use Papaya\Configuration;
+  use Papaya\Content;
+  use Papaya\Utility;
 
   /**
-   * member variable for the host name, set in constructor used in load()
+   * Loads the domain specific options from the database
    *
-   * @var string
+   * @package Papaya-Library
+   * @subpackage Configuration
    */
-  private $_host = '';
+  class Domain extends Application\BaseObject
+    implements Configuration\Storage {
+    /**
+     * member variable for the url scheme, set in constructor used in load()
+     *
+     * @var int
+     */
+    private $_scheme = Utility\Server\Protocol::BOTH;
 
-  /**
-   * The domain subobject, representing a domain record.
-   *
-   * @var Domain
-   */
-  private $_domain;
+    /**
+     * member variable for the host name, set in constructor used in load()
+     *
+     * @var string
+     */
+    private $_host = '';
 
-  /**
-   * Create storage object and store host name
-   *
-   * @param string $hostURL
-   */
-  public function __construct($hostURL) {
-    if (\preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))i', $hostURL, $match)) {
-      $this->_host = $match['host'];
-      $this->_scheme = ('https' === $match['scheme'])
-        ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP;
-    } else {
-      $this->_host = $hostURL;
+    /**
+     * The domain subobject, representing a domain record.
+     *
+     * @var Domain
+     */
+    private $_domain;
+
+    /**
+     * Create storage object and store host name
+     *
+     * @param string $hostURL
+     */
+    public function __construct($hostURL) {
+      if (\preg_match('((?P<scheme>http(?:s)?)://(?P<host>.*))i', $hostURL, $match)) {
+        $this->_host = $match['host'];
+        $this->_scheme = ('https' === $match['scheme'])
+          ? Utility\Server\Protocol::HTTPS : Utility\Server\Protocol::HTTP;
+      } else {
+        $this->_host = $hostURL;
+      }
     }
-  }
 
-  /**
-   * Getter/Setter for domain record object
-   *
-   * @param Content\Domain $domain
-   *
-   * @return Content\Domain
-   */
-  public function domain(Content\Domain $domain = NULL) {
-    if (NULL !== $domain) {
-      $this->_domain = $domain;
-    } elseif (NULL === $this->_domain) {
-      $this->_domain = new Content\Domain();
+    /**
+     * Getter/Setter for domain record object
+     *
+     * @param Content\Domain $domain
+     *
+     * @return Content\Domain
+     */
+    public function domain(Content\Domain $domain = NULL) {
+      if (NULL !== $domain) {
+        $this->_domain = $domain;
+      } elseif (NULL === $this->_domain) {
+        $this->_domain = new Content\Domain();
+      }
+      return $this->_domain;
     }
-    return $this->_domain;
-  }
 
-  /**
-   * Load domain record from database using the defined host name
-   *
-   * @return bool
-   */
-  public function load() {
-    return $this->domain()->load(
-      [
-        'host' => $this->_host,
-        'scheme' => [0, $this->_scheme]
-      ]
-    );
-  }
-
-  /**
-   * Get iterator for options array(name => value)
-   *
-   * @return \Iterator
-   */
-  public function getIterator() {
-    if (
-      Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
-      \is_array($this->domain()->options)
-    ) {
-      return new \ArrayIterator($this->domain()->options);
+    /**
+     * Load domain record from database using the defined host name
+     *
+     * @return bool
+     */
+    public function load() {
+      return $this->domain()->load(
+        [
+          'host' => $this->_host,
+          'scheme' => [0, $this->_scheme]
+        ]
+      );
     }
-    return new \EmptyIterator();
+
+    /**
+     * Get iterator for options array(name => value)
+     *
+     * @return \Iterator
+     */
+    public function getIterator() {
+      if (
+        Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
+        \is_array($this->domain()->options)
+      ) {
+        return new \ArrayIterator($this->domain()->options);
+      }
+      return new \EmptyIterator();
+    }
   }
 }
