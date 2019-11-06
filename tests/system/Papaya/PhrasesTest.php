@@ -74,6 +74,47 @@ namespace Papaya {
       $this->assertEquals('test.html', $phrases->defaultGroup());
     }
 
+    /**
+     * @backupGlobals
+     */
+    public function testDefaultGroupImplicitInitFromScriptFileName() {
+      $_SERVER['SCRIPT_FILENAME'] = '/path/html/directory/index.php';
+      $request = $this->mockPapaya()->request([], 'http://www.test.tld/');
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Phrases\Storage $storage */
+      $storage = $this->createMock(Phrases\Storage::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Content\Language $language */
+      $language = $this->createMock(Content\Language::class);
+      $phrases = new Phrases($storage, $language);
+      $phrases->papaya(
+        $this->mockPapaya()->application(
+          ['request' => $request]
+        )
+      );
+      $this->assertEquals('index.php', $phrases->defaultGroup());
+    }
+
+    /**
+     * @param string $expectedGroup
+     * @param string $href
+     * @testWith
+     *   ["administration.views", "http://example.com/papaya/administration.views"]
+     *   ["jquery.papayaDialogFieldColor.js", "http://example.com/papaya/script/jquery.papayaDialogFieldColor.js"]
+     */
+    public function testDefaultGroupFromRequestFile($expectedGroup, $href) {
+      $request = $this->mockPapaya()->request([], $href);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Phrases\Storage $storage */
+      $storage = $this->createMock(Phrases\Storage::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Content\Language $language */
+      $language = $this->createMock(Content\Language::class);
+      $phrases = new Phrases($storage, $language);
+      $phrases->papaya(
+        $this->mockPapaya()->application(
+          ['request' => $request]
+        )
+      );
+      $this->assertEquals($expectedGroup, $phrases->defaultGroup());
+    }
+
     public function testGetCreatesStringObject() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Content\Language $language */
       $language = $this->createMock(Content\Language::class);
