@@ -3,7 +3,7 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
-  use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\BaseObject\Interfaces\Properties;
   use Papaya\XML\Appendable;
   use Papaya\XML\Element;
 
@@ -14,7 +14,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property bool $isPrimary
    * @property bool $isFullText
    */
-  class IndexStructure implements Declared, Appendable {
+  class IndexStructure implements Properties, Appendable {
 
     const PRIMARY = 'PRIMARY';
 
@@ -93,7 +93,7 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @return array
      */
-    public static function getPropertyDeclaration() {
+    public function getPropertyDeclaration() {
       return [
         'name' => ['_name'],
         'isUnique' => ['_isUnique'],

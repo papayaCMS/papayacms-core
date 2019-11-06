@@ -16,7 +16,7 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
-  use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\BaseObject\Interfaces\Properties;
   use Papaya\XML\Appendable;
   use Papaya\XML\Element;
 
@@ -28,7 +28,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property bool $isAutoIncrement
    * @property string $defaultValue
    */
-  class FieldStructure implements Declared, Appendable {
+  class FieldStructure implements Properties, Appendable {
 
     use DeclaredProperties;
 
@@ -230,7 +230,7 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @return array
      */
-    public static function getPropertyDeclaration() {
+    public function getPropertyDeclaration() {
       return [
         'name' => ['_name'],
         'type' => ['_type'],

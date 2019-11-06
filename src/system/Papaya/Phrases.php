@@ -32,7 +32,7 @@ use Papaya\UI\Text\Translated\Collection as TranslatedTextsCollection;
  * @property PhraseStorage $storage
  * @property Content\Language $language
  */
-class Phrases implements Application\Access, Properties\Declared {
+class Phrases implements Application\Access, Properties {
   use Application\Access\Aggregation;
   use DeclaredProperties;
 
@@ -210,7 +210,7 @@ class Phrases implements Application\Access, Properties\Declared {
    *
    * @return array
    */
-  public static function getPropertyDeclaration() {
+  public function getPropertyDeclaration() {
     return [
       'storage' => ['getStorage'],
       'groups' => ['groups', 'groups'],

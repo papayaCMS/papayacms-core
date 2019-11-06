@@ -43,6 +43,16 @@ namespace Papaya\BaseObject {
       $this->assertFalse(isset($object->property));
     }
 
+    public function testReadWritePropertyWithClosures() {
+      $object = new DeclaredProperties_TestProxy();
+      $this->assertFalse(isset($object->closure));
+      $object->closure = 'success';
+      $this->assertTrue(isset($object->closure));
+      $this->assertSame('success', $object->closure);
+      unset($object->closure);
+      $this->assertFalse(isset($object->closure));
+    }
+
     public function testReadWriteReadOnlyProperty() {
       $object = new DeclaredProperties_TestProxy();
       $this->assertFalse(isset($object->readOnly));
@@ -97,7 +107,9 @@ namespace Papaya\BaseObject {
   /**
    * @property mixed $field
    * @property mixed $property
+   * @property mixed $closure
    * @property mixed $readOnly
+   * @property mixed $invalid
    */
   class DeclaredProperties_TestProxy implements Interfaces\Properties {
 
@@ -109,6 +121,7 @@ namespace Papaya\BaseObject {
       return [
         'field' => ['_field', '_field'],
         'property' => ['getField', 'setField'],
+        'closure' => [function() { return $this->getField(); }, function($value) { $this->setField($value); }],
         'readOnly' => ['_field'],
         'invalid' => ['_nonExisting', '_nonExisting']
       ];

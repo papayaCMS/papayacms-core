@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\BaseObject;
 
 /**
@@ -23,8 +24,13 @@ namespace Papaya\BaseObject;
 trait DeclaredProperties {
 
   /**
+   * @var array|NULL
+   */
+  private $_cachedPropertyDeclaration;
+
+  /**
    * Allows to declare dynamic properties with optional getter/setter methods. The read and write
-   * options can be methods or properties. If no write option is provided the property is read only.
+   * options can be closures, methods or properties. If no write option is provided the property is read only.
    *
    * [
    *   'propertyName' => ['read', 'write']
@@ -34,40 +40,104 @@ trait DeclaredProperties {
    */
   abstract public function getPropertyDeclaration();
 
+  private function _getResolvedPropertyDeclaration() {
+    if (NULL === $this->_cachedPropertyDeclaration) {
+      $this->_cachedPropertyDeclaration = [];
+      foreach ($this->getPropertyDeclaration() as $propertyName => $declaration) {
+        $definition = [
+          'get' => static function ($object) use ($propertyName) {
+            throw new \UnexpectedValueException(
+              \sprintf(
+                'Invalid declaration: Can not read property "%s::$%s".',
+                \get_class($object),
+                $propertyName
+              )
+            );
+          },
+          'set' => static function ($object) use ($propertyName) {
+            throw new \UnexpectedValueException(
+              \sprintf(
+                'Invalid declaration: Can not write property "%s::$%s".',
+                \get_class($object),
+                $propertyName
+              )
+            );
+          }
+        ];
+        if (isset($declaration[0])) {
+          $getter = $declaration[0];
+          if ($getter instanceof \Closure) {
+            $definition['get'] = static function($object) use ($getter) {
+              $closure = \Closure::bind($getter, $object);
+              return $closure();
+            };
+          } elseif (method_exists($this, $getter)) {
+            $definition['get'] = static function($object) use ($getter) {
+              return $object->$getter();
+            };
+          } elseif (property_exists(get_class($this), $getter)) {
+            $definition['get'] = static function($object) use ($getter) {
+              return $object->$getter;
+            };
+          }
+        }
+        if (isset($declaration[1])) {
+          $setter = $declaration[1];
+          if ($setter instanceof \Closure) {
+            $definition['set'] = static function($object, $value) use ($setter) {
+              $closure = \Closure::bind($setter, $object);
+              $closure($value);
+            };
+          } elseif (method_exists($this, $setter)) {
+            $definition['set'] = static function ($object, $value) use ($setter) {
+              $object->$setter($value);
+            };
+          } elseif (\property_exists(\get_class($this), $setter)) {
+            $definition['set'] = static function ($object, $value) use ($setter) {
+              $object->$setter = $value;
+            };
+          }
+        } elseif (NULL !== $declaration[0]) {
+          $definition['set'] = function () use ($propertyName) {
+            throw new \UnexpectedValueException(
+              \sprintf(
+                'Invalid declaration: Can not write readonly property "%s::$%s".',
+                \get_class($this),
+                $propertyName
+              )
+            );
+          };
+        }
+        $this->_cachedPropertyDeclaration[$propertyName] = $definition;
+      }
+    }
+    return $this->_cachedPropertyDeclaration;
+  }
+
   /**
    * @param string $name
    * @return bool
    */
   public function __isset($name) {
-    return isset($this->getPropertyDeclaration()[$name][0]) && NULL !== $this->__get($name);
+    $definition = $this->_getResolvedPropertyDeclaration();
+    return isset($definition[$name]['get']) && NULL !== $this->__get($name);
   }
 
   /**
    * Validate dynamic property against the declared properties array. Call getter method or read
    * protected property.
    *
-   * @throws \UnexpectedValueException
-   *
    * @param string $name
    *
    * @return mixed
+   * @throws \UnexpectedValueException
+   *
    */
   public function __get($name) {
-    if (isset($this->getPropertyDeclaration()[$name][0])) {
-      $read = $this->getPropertyDeclaration()[$name][0];
-      if (\method_exists($this, $read)) {
-        return $this->$read();
-      }
-      if (isset($this->$read) || \property_exists(\get_class($this), $read)) {
-        return $this->$read;
-      }
-      throw new \UnexpectedValueException(
-        \sprintf(
-          'Invalid declaration: Can not read property "%s::$%s".',
-          \get_class($this),
-          $name
-        )
-      );
+    $definition = $this->_getResolvedPropertyDeclaration();
+    if (isset($definition[$name]['get'])) {
+      $read = $definition[$name]['get'];
+      return $read($this);
     }
     throw new \UnexpectedValueException(
       \sprintf(
@@ -82,40 +152,17 @@ trait DeclaredProperties {
    * Validate dynamic property against the declared properties array. Call setter method or write
    * protected property.
    *
-   * @throws \UnexpectedValueException
-   *
    * @param string $name
    * @param mixed $value
+   * @throws \UnexpectedValueException
+   *
    */
   public function __set($name, $value) {
-    if (isset($this->getPropertyDeclaration()[$name][1])) {
-      $write = $this->getPropertyDeclaration()[$name][1];
-      if (\method_exists($this, $write)) {
-        $this->$write($value);
-        return;
-      }
-      if (isset($this->$write) || \property_exists(\get_class($this), $write)) {
-        $this->$write = $value;
-        return;
-      }
-      throw new \UnexpectedValueException(
-        \sprintf(
-          'Invalid declaration: Can not write property "%s::$%s".',
-          \get_class($this),
-          $name
-        )
-      );
-    }
-    if (
-      isset($this->getPropertyDeclaration()[$name][0])
-    ) {
-      throw new \UnexpectedValueException(
-        \sprintf(
-          'Invalid declaration: Can not write readonly property "%s::$%s".',
-          \get_class($this),
-          $name
-        )
-      );
+    $definition = $this->_getResolvedPropertyDeclaration();
+    if (isset($definition[$name]['set'])) {
+      $write = $definition[$name]['set'];
+      $write($this, $value);
+      return;
     }
     throw new \UnexpectedValueException(
       \sprintf(

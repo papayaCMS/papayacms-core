@@ -17,10 +17,11 @@ namespace Papaya\BaseObject\Interfaces\Properties;
 use Papaya\BaseObject\Interfaces\Properties;
 
 /**
- * Declare that the class implements dynamic properties that are readable
+ * Here is no need for a specific implementation of the property declarations.
  *
  * @package Papaya\BaseObject\Interfaces\Properties
+ * @deprecated
  */
 interface Declared extends Properties {
-  public static function getPropertyDeclaration();
+  public function getPropertyDeclaration();
 }

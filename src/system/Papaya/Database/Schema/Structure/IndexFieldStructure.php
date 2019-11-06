@@ -15,7 +15,7 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
-  use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\BaseObject\Interfaces\Properties;
   use Papaya\XML\Appendable;
   use Papaya\XML\Element;
 
@@ -23,7 +23,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property string $name
    * @property int $size
    */
-  class IndexFieldStructure implements Declared, Appendable {
+  class IndexFieldStructure implements Properties, Appendable {
 
     use DeclaredProperties;
 
@@ -72,7 +72,7 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @return array
      */
-    public static function getPropertyDeclaration() {
+    public function getPropertyDeclaration() {
       return [
         'name' => ['_name'],
         'size' => ['_size']

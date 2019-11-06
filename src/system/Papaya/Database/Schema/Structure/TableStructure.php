@@ -17,7 +17,7 @@
 namespace Papaya\Database\Schema\Structure {
 
   use Papaya\BaseObject\DeclaredProperties;
-  use Papaya\BaseObject\Interfaces\Properties\Declared;
+  use Papaya\BaseObject\Interfaces\Properties;
   use Papaya\XML\Document;
 
   /**
@@ -25,7 +25,7 @@ namespace Papaya\Database\Schema\Structure {
    * @property FieldsStructure|FieldStructure[] $fields
    * @property IndicesStructure|IndexStructure[] $indices
    */
-  class TableStructure implements Declared {
+  class TableStructure implements Properties {
 
     use DeclaredProperties;
 
@@ -126,7 +126,7 @@ namespace Papaya\Database\Schema\Structure {
     /**
      * @return array
      */
-    public static function getPropertyDeclaration() {
+    public function getPropertyDeclaration() {
       return [
         'name' => ['_tableName', 'setName'],
         'usePrefix' => ['_usePrefix'],

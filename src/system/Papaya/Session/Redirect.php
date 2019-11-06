@@ -14,6 +14,8 @@
  */
 namespace Papaya\Session;
 
+use Papaya\BaseObject\DeclaredProperties;
+use Papaya\BaseObject\Interfaces\Properties;
 use Papaya\Request;
 use Papaya\Response;
 use Papaya\URL;
@@ -24,8 +26,16 @@ use Papaya\URL;
  *
  * @package Papaya-Library
  * @subpackage Session
+ *
+ * @property-read string $sessionName
+ * @property-read string $sessionId
+ * @property-read int $transport
+ * @property-read string $reason
  */
-class Redirect extends Response {
+class Redirect extends Response implements Properties {
+
+  use DeclaredProperties;
+
   /**
    * session name - used as parameter name, too.
    *
@@ -75,6 +85,8 @@ class Redirect extends Response {
     $this->_transport = (int)$transport;
     $this->_reason = (string)$reason;
   }
+
+
 
   /**
    * Getter/Setter for the redirect target url object
@@ -158,5 +170,24 @@ class Redirect extends Response {
     } elseif ($include) {
       $url->setPath($replacement.$path);
     }
+  }
+
+  /**
+   * Allows to declare dynamic properties with optional getter/setter methods. The read and write
+   * options can be methods or properties. If no write option is provided the property is read only.
+   *
+   * [
+   *   'propertyName' => ['read', 'write']
+   * ]
+   *
+   * @return array
+   */
+  public function getPropertyDeclaration() {
+    return [
+      'sessionName' => ['_sessionName'],
+      'sessionId' => ['_sessionId'],
+      'transport' => ['_transport'],
+      'reason' => ['_reason']
+    ];
   }
 }
