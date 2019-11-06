@@ -271,7 +271,7 @@ class Autoloader {
    *
    * @return string|null
    */
-  private static function convertToNamespaceClass($className) {
+  public static function convertToNamespaceClass($className) {
     if (isset(self::$_mapClasses[$className])) {
       return self::$_mapClasses[$className];
     }
@@ -301,7 +301,7 @@ class Autoloader {
    *
    * @return null|string
    */
-  private static function convertToToOldClass($className) {
+  public static function convertToToOldClass($className) {
     if (NULL === self::$_mapClassesReverse) {
       self::$_mapClassesReverse = \array_flip(self::$_mapClasses);
     }
@@ -417,11 +417,14 @@ class Autoloader {
   }
 
   /**
-   * Clear all additional registered data about class and path mappings
+   * Clear all additional registered data about class and path mappings, reset lazy initialized
+   * caches
    */
   public static function clear() {
     self::$_paths = [];
     self::$_classMaps = [];
+    self::$_mapClassesReverse = NULL;
+    self::$_mapPartsReverse = NULL;
   }
 
   /**
