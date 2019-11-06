@@ -111,17 +111,15 @@ class Phrases implements Application\Access, Properties\Declared {
       $this->_defaultGroup = $name;
     }
     if (NULL === $this->_defaultGroup) {
-      $fileNamePattern = '(^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?)i';
       $pathNamePattern = '(^(([^\?]*)/)?([^?]+)(\?.*)?)';
       /** @var URL $url */
       $url = $this->papaya()->request->getURL();
       $requestUri = $url->getPath();
       $result = '';
-      if (\preg_match($fileNamePattern, $requestUri, $regs)) {
-        $result = \basename($regs[3].$regs[5]);
-      } elseif (\preg_match($pathNamePattern, $requestUri, $regs)) {
+      if (\preg_match($pathNamePattern, $requestUri, $regs)) {
         $result = \basename($regs[3]);
-      } elseif (isset($_SERVER['SCRIPT_FILENAME'])) {
+      }
+      if (empty($result) && isset($_SERVER['SCRIPT_FILENAME'])) {
         $result = \basename($_SERVER['SCRIPT_FILENAME']);
       }
       $this->_defaultGroup = empty($result) ? '#default' : $result;
