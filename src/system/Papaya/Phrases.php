@@ -12,7 +12,15 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya;
+
+use Papaya\BaseObject\DeclaredProperties;
+use Papaya\BaseObject\Interfaces\Properties;
+use Papaya\Phrases\Groups as PhraseGroups;
+use Papaya\Phrases\Storage as PhraseStorage;
+use Papaya\UI\Text\Translated as TranslatedText;
+use Papaya\UI\Text\Translated\Collection as TranslatedTextsCollection;
 
 /**
  * Phrase bases translations. If a phrase is not yet translated the phrase is returned and used.
@@ -20,18 +28,21 @@ namespace Papaya;
  * @package Papaya-Library
  * @subpackage Phrases
  *
- * @property \Papaya\Phrases\Groups groups
+ * @property PhraseGroups $groups
+ * @property PhraseStorage $storage
+ * @property Content\Language $language
  */
-class Phrases implements Application\Access {
+class Phrases implements Application\Access, Properties\Declared {
   use Application\Access\Aggregation;
+  use DeclaredProperties;
 
   /**
-   * @var \Papaya\Phrases\Groups
+   * @var PhraseGroups
    */
   private $_groups;
 
   /**
-   * @var \Papaya\Phrases\Storage
+   * @var PhraseStorage
    */
   private $_storage;
 
@@ -44,11 +55,11 @@ class Phrases implements Application\Access {
 
   public function __construct(Phrases\Storage $storage, Content\Language $language) {
     $this->_storage = $storage;
-    $this->_language = $language;
+    $this->setLanguage($language);
   }
 
   /**
-   * @return \Papaya\Phrases\Storage
+   * @return PhraseStorage
    */
   public function getStorage() {
     return $this->_storage;
@@ -69,53 +80,15 @@ class Phrases implements Application\Access {
   }
 
   /**
-   * @param string $name
-   *
-   * @return mixed
-   */
-  public function __get($name) {
-    switch ($name) {
-      case 'groups' :
-        return $this->groups();
-    }
-    return $this->$name;
-  }
-
-  /**
-   * @param string $name
-   *
-   * @return bool
-   */
-  public function __isset($name) {
-    switch ($name) {
-      case 'groups' :
-        return TRUE;
-    }
-    return FALSE;
-  }
-
-  /**
-   * @param string $name
-   * @param mixed $value
-   */
-  public function __set($name, $value) {
-    switch ($name) {
-      case 'groups' :
-        $this->groups($value);
-    }
-    $this->$name = $value;
-  }
-
-  /**
    * A list of phrase groups. This is a little syntax sugar so that you don't have to
    * provide the group name in each phrase request, but can just store the group object.
    *
    * $group = $phrases->groups()->get('GROUP_NAME');
    * $phrase = $group->get('PHRASE');
    *
-   * @param \Papaya\Phrases\Groups $groups
+   * @param PhraseGroups $groups
    *
-   * @return \Papaya\Phrases\Groups
+   * @return PhraseGroups
    */
   public function groups(Phrases\Groups $groups = NULL) {
     if (NULL !== $groups) {
@@ -138,9 +111,9 @@ class Phrases implements Application\Access {
       $this->_defaultGroup = $name;
     }
     if (NULL === $this->_defaultGroup) {
-      $fileNamePattern = '#^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?#i';
-      $pathNamePattern = '#^(([^\?]*)/)?([^?]+)(\?.*)?#';
-      /** @var \Papaya\URL $url */
+      $fileNamePattern = '(^(([^\?]*)/)?([^?]+)(\.\d+)(\.(php|html))(\?.*)?)i';
+      $pathNamePattern = '(^(([^\?]*)/)?([^?]+)(\?.*)?)';
+      /** @var URL $url */
       $url = $this->papaya()->request->getURL();
       $requestUri = $url->getPath();
       $result = '';
@@ -179,7 +152,7 @@ class Phrases implements Application\Access {
    * @param array $arguments
    * @param string|null $groupName
    *
-   * @return \Papaya\UI\Text\Translated
+   * @return TranslatedText
    */
   public function get($phrase, array $arguments = [], $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->get($phrase, $arguments);
@@ -191,7 +164,7 @@ class Phrases implements Application\Access {
    * @param array|\Traversable $phrases
    * @param array $groupName
    *
-   * @return \Papaya\UI\Text\Translated\Collection
+   * @return TranslatedTextsCollection
    */
   public function getList($phrases, $groupName = NULL) {
     return $this->groups()->get($this->getGroupName($groupName))->getList($phrases);
@@ -214,18 +187,36 @@ class Phrases implements Application\Access {
    *
    * This method is only implemented for backwards compatibility
    *
-   * @deprecated
-   *
    * @param string $phrase
    * @param array $values
    * @param string $groupName
    *
    * @return string
+   * @deprecated
+   *
    */
   public function getTextFmt($phrase, array $values = [], $groupName = NULL) {
     $result = new UI\Text(
       $this->_storage->get($phrase, $this->getGroupName($groupName), $this->_language->id), $values
     );
     return (string)$result;
+  }
+
+  /**
+   * Allows to declare dynamic properties with optional getter/setter methods. The read and write
+   * options can be methods or properties. If no write option is provided the property is read only.
+   *
+   * [
+   *   'propertyName' => ['read', 'write']
+   * ]
+   *
+   * @return array
+   */
+  public static function getPropertyDeclaration() {
+    return [
+      'storage' => ['getStorage'],
+      'groups' => ['groups', 'groups'],
+      'language' => ['getLanguage', 'setLanguage']
+    ];
   }
 }
