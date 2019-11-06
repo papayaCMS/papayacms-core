@@ -13,137 +13,122 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Configuration\Storage;
+namespace Papaya\Configuration\Storage {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  use Papaya\TestCase;
 
-class DatabaseTest extends \Papaya\TestCase {
-
-  /**
-   * @covers \Papaya\Configuration\Storage\Database::records
-   */
-  public function testRecordsGetAfterSet() {
-    $records = $this->createMock(\Papaya\Content\Configuration::class);
-    $storage = new Database();
-    $this->assertSame($records, $storage->records($records));
-  }
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Configuration\Storage\Database::records
+   * @covers \Papaya\Configuration\Storage\Database
    */
-  public function testRecordsGetImplicitCreate() {
-    $storage = new Database();
-    $this->assertInstanceOf(\Papaya\Content\Configuration::class, $storage->records());
-  }
+  class DatabaseTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Configuration\Storage\Database::load
-   */
-  public function testLoad() {
-    $databaseAccess = $this
-      ->getMockBuilder(\Papaya\Database\Access::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $databaseAccess
-      ->expects($this->once())
-      ->method('errorHandler')
-      ->with($this->isType('callable'));
+    public function testRecordsGetAfterSet() {
+      $records = $this->createMock(\Papaya\Content\Configuration::class);
+      $storage = new Database();
+      $this->assertSame($records, $storage->records($records));
+    }
 
-    $records = $this->createMock(\Papaya\Content\Configuration::class);
-    $records
-      ->expects($this->once())
-      ->method('getDatabaseAccess')
-      ->will($this->returnValue($databaseAccess));
-    $records
-      ->expects($this->once())
-      ->method('load')
-      ->will($this->returnValue(TRUE));
-    $storage = new Database();
-    $storage->records($records);
-    $this->assertTrue($storage->load());
-  }
+    public function testRecordsGetImplicitCreate() {
+      $storage = new Database();
+      $this->assertInstanceOf(\Papaya\Content\Configuration::class, $storage->records());
+    }
 
-  /**
-   * @covers \Papaya\Configuration\Storage\Database::handleError
-   */
-  public function testHandleErrorDevmode() {
-    $options = $this->mockPapaya()->options(
-      array(
-        'PAPAYA_DBG_DEVMODE' => TRUE
-      )
-    );
-    $response = $this->createMock(\Papaya\Response::class);
-    $response
-      ->expects($this->once())
-      ->method('sendHeader')
-      ->with('X-Papaya-Error: Papaya\Database\Exception\QueryFailed: Sample Error Message');
+    public function testLoad() {
+      $databaseAccess = $this
+        ->getMockBuilder(\Papaya\Database\Access::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('errorHandler')
+        ->with($this->isType('callable'));
 
-    $storage = new Database();
-    $storage->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'options' => $options,
-          'response' => $response
-        )
-      )
-    );
+      $records = $this->createMock(\Papaya\Content\Configuration::class);
+      $records
+        ->expects($this->once())
+        ->method('getDatabaseAccess')
+        ->willReturn($databaseAccess);
+      $records
+        ->expects($this->once())
+        ->method('load')
+        ->willReturn(TRUE);
+      $storage = new Database();
+      $storage->records($records);
+      $this->assertTrue($storage->load());
+    }
 
-    $exception = new \Papaya\Database\Exception\QueryFailed(
-      'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
-    );
-    $storage->handleError($exception);
-  }
+    public function testHandleErrorDevelopmentMode() {
+      $options = $this->mockPapaya()->options(
+        [
+          'PAPAYA_DBG_DEVMODE' => TRUE
+        ]
+      );
+      $response = $this->createMock(\Papaya\Response::class);
+      $response
+        ->expects($this->once())
+        ->method('sendHeader')
+        ->with('X-Papaya-Error: Papaya\Database\Exception\QueryFailed: Sample Error Message');
 
-  /**
-   * @covers \Papaya\Configuration\Storage\Database::handleError
-   */
-  public function testHandleErrorNoDevmodeSilent() {
-    $response = $this->createMock(\Papaya\Response::class);
-    $response
-      ->expects($this->never())
-      ->method('sendHeader');
-
-    $storage = new Database();
-    $storage->papaya(
-      $this->mockPapaya()->application(
-        array(
-          'response' => $response
-        )
-      )
-    );
-
-    $exception = new \Papaya\Database\Exception\QueryFailed(
-      'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
-    );
-    $storage->handleError($exception);
-  }
-
-  /**
-   * @covers \Papaya\Configuration\Storage\Database::getIterator
-   */
-  public function testGetIterator() {
-    $records = $this->createMock(\Papaya\Content\Configuration::class);
-    $records
-      ->expects($this->once())
-      ->method('getIterator')
-      ->will(
-        $this->returnValue(
-          new \ArrayIterator(
-            array(
-              'SAMPLE_NAME' => array(
-                'name' => 'SAMPLE_NAME',
-                'value' => 'sample value'
-              )
-            )
-          )
+      $storage = new Database();
+      $storage->papaya(
+        $this->mockPapaya()->application(
+          [
+            'options' => $options,
+            'response' => $response
+          ]
         )
       );
-    $storage = new Database();
-    $storage->records($records);
-    $this->assertEquals(
-      array('SAMPLE_NAME' => 'sample value'),
-      \Papaya\Utility\Arrays::ensure($storage)
-    );
-  }
 
+      $exception = new \Papaya\Database\Exception\QueryFailed(
+        'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
+      );
+      $storage->handleError($exception);
+    }
+
+    public function testHandleErrorNoDevelopmentModeSilent() {
+      $response = $this->createMock(\Papaya\Response::class);
+      $response
+        ->expects($this->never())
+        ->method('sendHeader');
+
+      $storage = new Database();
+      $storage->papaya(
+        $this->mockPapaya()->application(
+          [
+            'response' => $response
+          ]
+        )
+      );
+
+      $exception = new \Papaya\Database\Exception\QueryFailed(
+        'Sample Error Message', 0, \Papaya\Message::SEVERITY_ERROR, ''
+      );
+      $storage->handleError($exception);
+    }
+
+    public function testGetIterator() {
+      $records = $this->createMock(\Papaya\Content\Configuration::class);
+      $records
+        ->expects($this->once())
+        ->method('getIterator')
+        ->willReturn(
+          new \ArrayIterator(
+            [
+              'SAMPLE_NAME' => [
+                'name' => 'SAMPLE_NAME',
+                'value' => 'sample value'
+              ]
+            ]
+          )
+        );
+      $storage = new Database();
+      $storage->records($records);
+      $this->assertEquals(
+        ['SAMPLE_NAME' => 'sample value'],
+        \Papaya\Utility\Arrays::ensure($storage)
+      );
+    }
+  }
 }
