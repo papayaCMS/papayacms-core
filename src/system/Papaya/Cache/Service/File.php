@@ -56,14 +56,10 @@ class File extends Cache\Service {
    */
   public function setConfiguration(Cache\Configuration $configuration) {
     $this->_cacheDirectory = $configuration['FILESYSTEM_PATH'];
-    $this->_notifierScript =
-      empty($configuration['FILESYSTEM_NOTIFIER_SCRIPT'])
-        ? FALSE
-        : $configuration['FILESYSTEM_NOTIFIER_SCRIPT'];
-    $this->_allowUnlink =
-      isset($configuration['FILESYSTEM_DISABLE_CLEAR'])
-        ? !$configuration['FILESYSTEM_DISABLE_CLEAR']
-        : TRUE;
+    $this->_notifierScript = empty($configuration['FILESYSTEM_NOTIFIER_SCRIPT'])
+        ? FALSE : $configuration['FILESYSTEM_NOTIFIER_SCRIPT'];
+    $this->_allowUnlink = isset($configuration['FILESYSTEM_DISABLE_CLEAR'])
+        ? !$configuration['FILESYSTEM_DISABLE_CLEAR'] : TRUE;
   }
 
   /**
