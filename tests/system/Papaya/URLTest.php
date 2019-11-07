@@ -17,34 +17,30 @@ namespace Papaya {
 
   require_once __DIR__.'/../../bootstrap.php';
 
-  class URLTest extends \Papaya\TestCase {
+  /**
+   * @covers \Papaya\URL
+   */
+  class URLTest extends TestCase {
 
-    /**
-     * @covers \Papaya\URL::__construct
-     */
     public function testConstructor() {
       $urlObject = new URL();
-      $this->assertNull($this->readAttribute($urlObject, '_elements'));
+      $this->assertEquals([], iterator_to_array($urlObject));
     }
 
-    /**
-     * @covers \Papaya\URL::__construct
-     */
     public function testConstructorWithUrl() {
       $urlObject = new URL(
         'http://www.domain.tld'
       );
       $this->assertEquals(
-        array(
+        [
           'scheme' => 'http',
           'host' => 'www.domain.tld'
-        ),
+        ],
         $this->readAttribute($urlObject, '_elements')
       );
     }
 
     /**
-     * @covers \Papaya\URL::setURLString
      * @dataProvider setUrlDataProvider
      * @param string $url
      * @param array $expected
@@ -57,9 +53,6 @@ namespace Papaya {
       );
     }
 
-    /**
-     * @covers \Papaya\URL::__toString
-     */
     public function testToString() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
@@ -68,18 +61,12 @@ namespace Papaya {
       );
     }
 
-    /**
-     * @covers \Papaya\URL::__toString
-     */
     public function testToStringCapturesInvalidArgumentException() {
       $urlObject = new Url_TestProxy_ForToString();
       $urlObject->exception = new \InvalidArgumentException();
       $this->assertEquals('', (string)$urlObject);
     }
 
-    /**
-     * @covers \Papaya\URL::__toString
-     */
     public function testToStringCapturesBadMethodCallException() {
       $urlObject = new Url_TestProxy_ForToString();
       $urlObject->exception = new \BadMethodCallException();
@@ -88,7 +75,6 @@ namespace Papaya {
 
 
     /**
-     * @covers \Papaya\URL::getURL
      * @dataProvider getUrlDataProvider
      * @param string $url
      */
@@ -102,7 +88,6 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL::getPathURL
      * @dataProvider getUrlDataProvider
      */
     public function testGetPathUrl() {
@@ -115,7 +100,6 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL::getHostURL
      * @dataProvider getHostUrlDataProvider
      * @param string $url
      * @param string $hostUrl
@@ -129,18 +113,15 @@ namespace Papaya {
       );
     }
 
-    /**
-     * @covers \Papaya\URL::setScheme
-     */
     public function testSetScheme() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
       $urlObject->setScheme('ftp');
       $this->assertAttributeEquals(
-        array(
+        [
           'scheme' => 'ftp',
           'host' => 'www.domain.tld'
-        ),
+        ],
         '_elements',
         $urlObject
       );
@@ -149,9 +130,6 @@ namespace Papaya {
       );
     }
 
-    /**
-     * @covers \Papaya\URL::setScheme
-     */
     public function testSetSchemeExpectingException() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
@@ -160,7 +138,6 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL::setHost
      * @dataProvider setHostDataProvider
      * @param string $url
      * @param string $host
@@ -180,7 +157,6 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL::setHost
      * @expectedException \InvalidArgumentException
      * @dataProvider setHostDataProviderExceptions
      * @param string $host
@@ -191,19 +167,16 @@ namespace Papaya {
       $urlObject->setHost($host);
     }
 
-    /**
-     * @covers \Papaya\URL::setPort
-     */
     public function testSetPort() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld:80');
       $urlObject->setPort('8080');
       $this->assertAttributeEquals(
-        array(
+        [
           'scheme' => 'http',
           'host' => 'www.domain.tld',
           'port' => '8080',
-        ),
+        ],
         '_elements',
         $urlObject
       );
@@ -212,40 +185,30 @@ namespace Papaya {
       );
     }
 
-    /**
-     * @covers \Papaya\URL::setPort
-     * @expectedException \InvalidArgumentException
-     */
     public function testSetPortExpectingException() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
+      $this->expectException(\InvalidArgumentException::class);
       $urlObject->setPort('not-a-number-123');
     }
 
-    /**
-     * @covers \Papaya\URL::setPath
-     */
     public function testSetPath() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld/foo');
       $urlObject->setPath('/bar');
-      $this->assertAttributeEquals(
-        array(
+      $this->assertEquals(
+        [
           'scheme' => 'http',
           'host' => 'www.domain.tld',
           'path' => '/bar'
-        ),
-        '_elements',
-        $urlObject
+        ],
+        iterator_to_array($urlObject)
       );
       $this->assertEquals(
         'http://www.domain.tld/bar', $urlObject->getURL()
       );
     }
 
-    /**
-     * @covers \Papaya\URL::setPath
-     */
     public function testSetPathExpectingException() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
@@ -253,30 +216,23 @@ namespace Papaya {
       $urlObject->setPath('bar');
     }
 
-    /**
-     * @covers \Papaya\URL::setQuery
-     */
     public function testSetQuery() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
       $urlObject->setQuery('foo=bar');
-      $this->assertAttributeEquals(
-        array(
+      $this->assertEquals(
+        [
           'scheme' => 'http',
           'host' => 'www.domain.tld',
           'query' => 'foo=bar'
-        ),
-        '_elements',
-        $urlObject
+        ],
+        iterator_to_array($urlObject)
       );
       $this->assertEquals(
         'http://www.domain.tld?foo=bar', $urlObject->getURL()
       );
     }
 
-    /**
-     * @covers \Papaya\URL::setQuery
-     */
     public function testSetQueryExpectingException() {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
@@ -285,7 +241,6 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL::__call
      * @dataProvider provideValidDataForMagicMethodCall
      * @param mixed $expected
      * @param string $method
@@ -297,9 +252,6 @@ namespace Papaya {
       );
     }
 
-    /**
-     * @covers \Papaya\URL::__call
-     */
     public function testMagicMethodCallExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
       $this->expectException(\BadMethodCallException::class);
@@ -308,21 +260,18 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL::__get
      * @dataProvider provideValidDataForMagicMethodGet
      * @param mixed $expected
      * @param string $property
      */
     public function testMagicMethodGet($expected, $property) {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
+      $this->assertTrue(isset($urlObject->$property));
       $this->assertEquals(
         $expected, $urlObject->$property
       );
     }
 
-    /**
-     * @covers \Papaya\URL::__get
-     */
     public function testMagicMethodGetExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
       $this->expectException(\BadMethodCallException::class);
@@ -331,7 +280,6 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\URL
      * @dataProvider provideValidDataForMagicMethodSet
      * @param mixed $expected
      * @param string $property
@@ -339,35 +287,35 @@ namespace Papaya {
     public function testMagicMethodSet($expected, $property) {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
       $urlObject->$property = $expected;
+      $this->assertTrue(isset($urlObject->$property));
       $this->assertEquals(
         $expected, $urlObject->$property
       );
     }
 
     /**
-     * @covers \Papaya\URL
      * @dataProvider provideInvalidDataForMagicMethodSet
      * @param string $property
      * @param mixed $value
      */
-    public function testMagicMethodSetWithInvalidValueExpectionException($property, $value) {
+    public function testMagicMethodSetWithInvalidValueExpectingException($property, $value) {
       $urlObject = new URL('http://test.tld');
       $this->expectException(\InvalidArgumentException::class);
       $urlObject->$property = $value;
     }
 
-    /**
-     * @covers \Papaya\URL::__set
-     */
+    public function testMagicMethodUnsetExpectingException() {
+      $urlObject = new URL('http://test.tld');
+      $this->expectException(\BadMethodCallException::class);
+      unset($urlObject->password);
+    }
+
     public function testMagicMethodSetReadonlyExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
       $this->expectException(\BadMethodCallException::class);
       $urlObject->user = 'readonly';
     }
 
-    /**
-     * @covers \Papaya\URL::__set
-     */
     public function testMagicMethodSetInvalidExpectingException() {
       $urlObject = new URL('http://username:password@hostname:8080/path?arg=value#anchor');
       $this->expectException(\BadMethodCallException::class);
@@ -380,63 +328,63 @@ namespace Papaya {
      *************************************/
 
     public static function getUrlDataProvider() {
-      return array(
-        array('http://username:password@hostname/path?arg=value#anchor'),
-        array('http://username:password@hostname/path?arg=value'),
-        array('http://username:password@hostname/path'),
-        array('http://username:password@hostname')
-      );
+      return [
+        ['http://username:password@hostname/path?arg=value#anchor'],
+        ['http://username:password@hostname/path?arg=value'],
+        ['http://username:password@hostname/path'],
+        ['http://username:password@hostname']
+      ];
     }
 
     public static function getHostUrlDataProvider() {
-      return array(
-        array(
+      return [
+        [
           '',
           ''
-        ),
-        array(
+        ],
+        [
           'http://username:password@hostname:8080/path?arg=value#anchor',
           'http://username:password@hostname:8080'
-        ),
-        array(
+        ],
+        [
           'http://username:password@hostname/path?arg=value#anchor',
           'http://username:password@hostname'
-        ),
-        array(
+        ],
+        [
           'http://@hostname/path?arg=value#anchor',
           'http://hostname'
-        ),
-        array(
+        ],
+        [
           'http://127.0.0.1/index.html',
           'http://127.0.0.1',
-        )
-      );
+        ]
+      ];
     }
 
     public static function setUrlDataProvider() {
-      return array(
-        array(
+      return [
+        [
           '',
-          array()
-        ),
-        array(
+          []
+        ],
+        [
           'http://www.sample.tld',
-          array(
+          [
             'scheme' => 'http',
             'host' => 'www.sample.tld'
-          )
-        ),
-        array(
+          ]
+        ],
+        [
           'http://www.sample.tld:8080',
-          array(
+          [
             'scheme' => 'http',
             'host' => 'www.sample.tld',
             'port' => '8080'
-          )
-        ),
-        array(
+          ]
+        ],
+        [
           'http://username:password@hostname/path?arg=value#anchor',
-          array(
+          [
             'scheme' => 'http',
             'host' => 'hostname',
             'user' => 'username',
@@ -444,89 +392,89 @@ namespace Papaya {
             'path' => '/path',
             'query' => 'arg=value',
             'fragment' => 'anchor'
-          )
-        )
-      );
+          ]
+        ]
+      ];
     }
 
     public static function setHostDataProvider() {
-      return array(
-        'Valid: hostname' => array(
+      return [
+        'Valid: hostname' => [
           'http://www.domain.tld',
           'www.example.com',
-          array(
+          [
             'scheme' => 'http',
             'host' => 'www.example.com'
-          ),
+          ],
           'http://www.example.com',
-        ),
-        'Valid: IP' => array(
+        ],
+        'Valid: IP' => [
           'http://www.example.com',
           '127.0.0.1',
-          array(
+          [
             'scheme' => 'http',
             'host' => '127.0.0.1'
-          ),
+          ],
           'http://127.0.0.1',
-        ),
-        array(
+        ],
+        [
           'https://UPPERCASE.tld',
           'UPPERCASE.tld',
-          array(
+          [
             'scheme' => 'https',
             'host' => 'UPPERCASE.tld'
-          ),
+          ],
           'https://UPPERCASE.tld'
-        )
-      );
+        ]
+      ];
     }
 
     public static function setHostDataProviderExceptions() {
-      return array(
-        'no FQH' => array('invalidFQH'),
-        'no IP' => array('1.2.4'),
-        'numeric tld' => array('hostname.123'),
-      );
+      return [
+        'no FQH' => ['invalidFQH'],
+        'no IP' => ['1.2.4'],
+        'numeric tld' => ['hostname.123'],
+      ];
     }
 
     public static function provideValidDataForMagicMethodCall() {
-      return array(
-        array('http', 'getScheme'),
-        array('password', 'getPassword'),
-        array('password', 'getPass'),
-        array('hostname', 'getHost'),
-        array('8080', 'getPort'),
-        array('/path', 'getPath'),
-        array('arg=value', 'getQuery'),
-        array('anchor', 'getFragment')
-      );
+      return [
+        ['http', 'getScheme'],
+        ['password', 'getPassword'],
+        ['password', 'getPass'],
+        ['hostname', 'getHost'],
+        ['8080', 'getPort'],
+        ['/path', 'getPath'],
+        ['arg=value', 'getQuery'],
+        ['anchor', 'getFragment']
+      ];
     }
 
     public static function provideValidDataForMagicMethodGet() {
-      return array(
-        array('http', 'scheme'),
-        array('password', 'password'),
-        array('password', 'pass'),
-        array('hostname', 'host'),
-        array('8080', 'port'),
-        array('/path', 'path'),
-        array('arg=value', 'query'),
-        array('anchor', 'fragment')
-      );
+      return [
+        ['http', 'scheme'],
+        ['password', 'password'],
+        ['password', 'pass'],
+        ['hostname', 'host'],
+        ['8080', 'port'],
+        ['/path', 'path'],
+        ['arg=value', 'query'],
+        ['anchor', 'fragment']
+      ];
     }
 
     public static function provideValidDataForMagicMethodSet() {
-      return array(
-        array('https', 'scheme'),
-        array('anchor', 'fragment')
-      );
+      return [
+        ['https', 'scheme'],
+        ['anchor', 'fragment']
+      ];
     }
 
     public static function provideInvalidDataForMagicMethodSet() {
-      return array(
-        array('scheme', 'nöö'),
-        array('fragment', '#')
-      );
+      return [
+        ['scheme', 'nöö'],
+        ['fragment', '#']
+      ];
     }
   }
 
@@ -537,6 +485,10 @@ namespace Papaya {
      */
     public $exception;
 
+    /**
+     * @return string|void
+     * @throws \Exception
+     */
     public function getURL() {
       throw $this->exception;
     }
