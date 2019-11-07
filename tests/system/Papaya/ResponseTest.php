@@ -13,421 +13,338 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya;
-require_once __DIR__.'/../../bootstrap.php';
-
-class ResponseTest extends \Papaya\TestCase {
+namespace Papaya {
+  require_once __DIR__.'/../../bootstrap.php';
 
   /**
-   * @covers \Papaya\Response::helper
+   * @covers \Papaya\Response
    */
-  public function testHelperSetHelper() {
-    $response = new Response();
-    $helper = $this->createMock(Response\Helper::class);
-    $response->helper($helper);
-    $this->assertAttributeSame(
-      $helper, '_helper', $response
-    );
-  }
+  class ResponseTest extends TestCase {
 
-  /**
-   * @covers \Papaya\Response::helper
-   */
-  public function testHelperGetHelperAfterSet() {
-    $response = new Response();
-    $helper = $this->createMock(Response\Helper::class);
-    $this->assertSame(
-      $helper, $response->helper($helper)
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::helper
-   */
-  public function testHelperGetHelperImplizitCreate() {
-    $response = new Response();
-    $this->assertInstanceOf(
-      Response\Helper::class, $response->helper()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::headers
-   */
-  public function testHeadersSetHeaders() {
-    $response = new Response();
-    $headers = $this->createMock(Response\Headers::class);
-    $response->headers($headers);
-    $this->assertAttributeSame(
-      $headers, '_headers', $response
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::headers
-   */
-  public function testHeadersGetHeadersAfterSet() {
-    $response = new Response();
-    $headers = $this->createMock(Response\Headers::class);
-    $this->assertSame(
-      $headers, $response->headers($headers)
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::headers
-   */
-  public function testHeadersGetHeadersImplizitCreate() {
-    $response = new Response();
-    $this->assertInstanceOf(
-      Response\Headers::class, $response->headers()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::content
-   */
-  public function testContentSetContent() {
-    $response = new Response();
-    $content = $this->createMock(Response\Content::class);
-    $response->content($content);
-    $this->assertAttributeSame(
-      $content, '_content', $response
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::content
-   */
-  public function testContentGetContentAfterSet() {
-    $response = new Response();
-    $content = $this->createMock(Response\Content::class);
-    $this->assertSame(
-      $content, $response->content($content)
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::content
-   */
-  public function testContentGetContentImplizitCreate() {
-    $response = new Response();
-    $this->assertInstanceOf(
-      Response\Content::class, $response->content()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::setStatus
-   */
-  public function testSetStatus() {
-    $response = new Response();
-    $response->setStatus(404);
-    $this->assertAttributeEquals(
-      404, '_status', $response
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::setStatus
-   */
-  public function testSetStatusInvalidExpectingError() {
-    $response = new Response();
-    $this->expectException(\UnexpectedValueException::class);
-    $this->expectExceptionMessage('Unknown response status code: 999');
-    $response->setStatus(999);
-  }
-
-  /**
-   * @covers \Papaya\Response::getStatus
-   */
-  public function testGetStatusAfterSet() {
-    $response = new Response();
-    $response->setStatus(404);
-    $this->assertEquals(
-      404, $response->getStatus()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::setContentType
-   */
-  public function testSetContentType() {
-    $headers = $this->createMock(Response\Headers::class);
-    $headers
-      ->expects($this->once())
-      ->method('set')
-      ->with('Content-Type', 'text/plain; charset=UTF-8');
-    $response = new Response();
-    $response->headers($headers);
-    $response->setContentType('text/plain');
-  }
-
-  /**
-   * @covers \Papaya\Response::setContentType
-   */
-  public function testSetContentTypeAndEncoding() {
-    $headers = $this->createMock(Response\Headers::class);
-    $headers
-      ->expects($this->once())
-      ->method('set')
-      ->with('Content-Type', 'text/plain; charset=ISO-8859-15');
-    $response = new Response();
-    $response->headers($headers);
-    $response->setContentType('text/plain', 'ISO-8859-15');
-  }
-
-  /**
-   * @covers \Papaya\Response::setCache
-   * @dataProvider provideCacheHeaders
-   * @param array $expected
-   * @param int $cacheMode
-   * @param int $cachePeriod
-   * @param int $cacheStartTime
-   * @param int $now
-   */
-  public function testSetCache(array $expected, $cacheMode, $cachePeriod, $cacheStartTime, $now) {
-    $response = new Response();
-    $response->setCache($cacheMode, $cachePeriod, $cacheStartTime, $now);
-    $this->assertAttributeEquals(
-      $expected,
-      '_headers',
-      $response->headers()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::setCache
-   */
-  public function testSetCacheOneHourFromNow() {
-    $response = new Response();
-    $response->setCache('private', 3600);
-    $headers = $response->headers();
-    $this->assertEquals(
-      'private, max-age=3600, pre-check=3600, no-transform', $headers['Cache-Control']
-    );
-    $this->assertStringStartsWith(
-      gmdate('D, d M Y H:i', time() + 3600), $headers['Expires']
-    );
-  }
-
-  /**
-   * @covers \Papaya\Response::sendStatus
-   */
-  public function testSendStatus() {
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->once())
-      ->method('header')
-      ->with(
-        $this->equalTo('HTTP/1.1 204 No Content'),
-        $this->equalTo(TRUE),
-        $this->equalTo(204)
+    public function testHelperGetHelperAfterSet() {
+      $response = new Response();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $this->assertSame(
+        $helper, $response->helper($helper)
       );
-    $response = new Response();
-    $response->helper($helper);
-    $response->sendStatus(204);
-  }
+    }
 
-  /**
-   * @covers \Papaya\Response::sendStatus
-   */
-  public function testSendStatusAfterSetting() {
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->once())
-      ->method('header')
-      ->with(
-        $this->equalTo('HTTP/1.1 204 No Content'),
-        $this->equalTo(TRUE),
-        $this->equalTo(204)
+    public function testHelperGetHelperImplicitCreate() {
+      $response = new Response();
+      $this->assertInstanceOf(
+        Response\Helper::class, $response->helper()
       );
-    $response = new Response();
-    $response->helper($helper);
-    $response->setStatus(204);
-    $response->sendStatus();
-  }
+    }
 
-  /**
-   * @covers \Papaya\Response::sendStatus
-   */
-  public function testSendStatusInvalid() {
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->once())
-      ->method('header')
-      ->with(
-        $this->equalTo('HTTP/1.1 200 OK'),
-        $this->equalTo(TRUE),
-        $this->equalTo(200)
+    public function testHeadersGetHeadersAfterSet() {
+      $response = new Response();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Headers $headers */
+      $headers = $this->createMock(Response\Headers::class);
+      $this->assertSame(
+        $headers, $response->headers($headers)
       );
-    $response = new Response();
-    $response->helper($helper);
-    $response->sendStatus(999);
-  }
+    }
 
-  /**
-   * @covers \Papaya\Response::sendHeader
-   */
-  public function testSendHeader() {
-    $application = $this->mockPapaya()->application();
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->once())
-      ->method('headersSent')
-      ->will($this->returnValue(FALSE));
-    $helper
-      ->expects($this->once())
-      ->method('header')
-      ->with(
-        $this->equalTo('X-Unit-Test: true')
+    public function testHeadersGetHeadersImplicitCreate() {
+      $response = new Response();
+      $this->assertInstanceOf(
+        Response\Headers::class, $response->headers()
       );
-    $response = new Response();
-    $response->papaya($application);
-    $response->helper($helper);
-    $response->sendHeader('X-Unit-Test: true');
-  }
+    }
 
-  /**
-   * @covers \Papaya\Response::sendHeader
-   */
-  public function testSendHeaderBlockXHeader() {
-    $application = $this->mockPapaya()->application(
-      array(
-        'Options' => $this->mockPapaya()->options(
-          array('PAPAYA_DISABLE_XHEADERS' => TRUE)
-        )
-      )
-    );
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->once())
-      ->method('headersSent')
-      ->will($this->returnValue(FALSE));
-    $helper
-      ->expects($this->never())
-      ->method('header');
-    $response = new Response();
-    $response->papaya($application);
-    $response->helper($helper);
-    $response->sendHeader('X-Unit-Test: true');
-  }
+    public function testContentGetContentAfterSet() {
+      $response = new Response();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Content $content */
+      $content = $this->createMock(Response\Content::class);
+      $this->assertSame(
+        $content, $response->content($content)
+      );
+    }
 
-  /**
-   * @covers \Papaya\Response::send
-   */
-  public function testSend() {
-    $application = $this->mockPapaya()->application();
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->exactly(3))
-      ->method('header')
-      ->with(
-        $this->logicalOr(
+    public function testContentGetContentImplicitCreate() {
+      $response = new Response();
+      $this->assertInstanceOf(
+        Response\Content::class, $response->content()
+      );
+    }
+
+    public function testSetStatusInvalidExpectingError() {
+      $response = new Response();
+      $this->expectException(\UnexpectedValueException::class);
+      $this->expectExceptionMessage('Unknown response status code: 999');
+      $response->setStatus(999);
+    }
+
+    public function testGetStatusAfterSet() {
+      $response = new Response();
+      $response->setStatus(404);
+      $this->assertEquals(
+        404, $response->getStatus()
+      );
+    }
+
+    public function testSetContentType() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Headers $headers */
+      $headers = $this->createMock(Response\Headers::class);
+      $headers
+        ->expects($this->once())
+        ->method('set')
+        ->with('Content-Type', 'text/plain; charset=UTF-8');
+      $response = new Response();
+      $response->headers($headers);
+      $response->setContentType('text/plain');
+    }
+
+    public function testSetContentTypeAndEncoding() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Headers $headers */
+      $headers = $this->createMock(Response\Headers::class);
+      $headers
+        ->expects($this->once())
+        ->method('set')
+        ->with('Content-Type', 'text/plain; charset=ISO-8859-15');
+      $response = new Response();
+      $response->headers($headers);
+      $response->setContentType('text/plain', 'ISO-8859-15');
+      $this->assertSame('text/plain', $response->getContentType());
+      $this->assertSame('ISO-8859-15', $response->getContentEncoding());
+    }
+
+    /**
+     * @dataProvider provideCacheHeaders
+     * @param array $expected
+     * @param int $cacheMode
+     * @param int $cachePeriod
+     * @param int $cacheStartTime
+     * @param int $now
+     */
+    public function testSetCache(array $expected, $cacheMode, $cachePeriod, $cacheStartTime, $now) {
+      $response = new Response();
+      $response->setCache($cacheMode, $cachePeriod, $cacheStartTime, $now);
+      $this->assertAttributeEquals(
+        $expected,
+        '_headers',
+        $response->headers()
+      );
+    }
+
+    public function testSetCacheOneHourFromNow() {
+      $response = new Response();
+      $response->setCache('private', 3600);
+      $headers = $response->headers();
+      $this->assertEquals(
+        'private, max-age=3600, pre-check=3600, no-transform', $headers['Cache-Control']
+      );
+      $this->assertStringStartsWith(
+        gmdate('D, d M Y H:i', time() + 3600), $headers['Expires']
+      );
+    }
+
+    public function testSendStatus() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->once())
+        ->method('header')
+        ->with(
+          $this->equalTo('HTTP/1.1 204 No Content'),
+          $this->equalTo(TRUE),
+          $this->equalTo(204)
+        );
+      $response = new Response();
+      $response->helper($helper);
+      $response->sendStatus(204);
+    }
+
+    public function testSendStatusAfterSetting() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->once())
+        ->method('header')
+        ->with(
+          $this->equalTo('HTTP/1.1 204 No Content'),
+          $this->equalTo(TRUE),
+          $this->equalTo(204)
+        );
+      $response = new Response();
+      $response->helper($helper);
+      $response->setStatus(204);
+      $response->sendStatus();
+    }
+
+    public function testSendStatusInvalid() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->once())
+        ->method('header')
+        ->with(
           $this->equalTo('HTTP/1.1 200 OK'),
-          $this->equalTo('Content-Type: text/plain; charset=UTF-8'),
-          $this->equalTo('Content-Length: 6')
-        )
-      );
-    $response = new Response();
-    $response->papaya($application);
-    $response->helper($helper);
-    $response->setContentType('text/plain');
-    $response->content(new Response\Content\Text('SAMPLE'));
-    ob_start();
-    $response->send();
-    $this->assertEquals(
-      'SAMPLE',
-      ob_get_clean()
-    );
-  }
+          $this->equalTo(TRUE),
+          $this->equalTo(200)
+        );
+      $response = new Response();
+      $response->helper($helper);
+      $response->sendStatus(999);
+    }
 
-  /**
-   * @covers \Papaya\Response::send
-   */
-  public function testSendWithCustomHeaders() {
-    $headers = $this->createMock(Response\Headers::class);
-    $headers
-      ->expects($this->once())
-      ->method('getIterator')
-      ->will(
-        $this->returnValue(
-          new \ArrayIterator(
-            array(
-              'X-Simple' => '1',
-              'X-Complex' => array('2_1', '2_2')
-            )
+    public function testSendHeader() {
+      $application = $this->mockPapaya()->application();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->once())
+        ->method('headersSent')
+        ->willReturn(FALSE);
+      $helper
+        ->expects($this->once())
+        ->method('header')
+        ->with(
+          $this->equalTo('X-Unit-Test: true')
+        );
+      $response = new Response();
+      $response->papaya($application);
+      $response->helper($helper);
+      $response->sendHeader('X-Unit-Test: true');
+    }
+
+    public function testSendHeaderBlockXHeader() {
+      $application = $this->mockPapaya()->application(
+        [
+          'Options' => $this->mockPapaya()->options(
+            ['PAPAYA_DISABLE_XHEADERS' => TRUE]
           )
-        )
+        ]
       );
-    $helper = $this->createMock(Response\Helper::class);
-    $helper
-      ->expects($this->exactly(4))
-      ->method('header')
-      ->with(
-        $this->logicalOr(
-          $this->equalTo('HTTP/1.1 200 OK'),
-          $this->equalTo('X-Simple: 1'),
-          $this->equalTo('X-Complex: 2_1'),
-          $this->equalTo('X-Complex: 2_2')
-        )
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->once())
+        ->method('headersSent')
+        ->willReturn(FALSE);
+      $helper
+        ->expects($this->never())
+        ->method('header');
+      $response = new Response();
+      $response->papaya($application);
+      $response->helper($helper);
+      $response->sendHeader('X-Unit-Test: true');
+    }
+
+    public function testSend() {
+      $application = $this->mockPapaya()->application();
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->exactly(3))
+        ->method('header')
+        ->with(
+          $this->logicalOr(
+            $this->equalTo('HTTP/1.1 200 OK'),
+            $this->equalTo('Content-Type: text/plain; charset=UTF-8'),
+            $this->equalTo('Content-Length: 6')
+          )
+        );
+      $response = new Response();
+      $response->papaya($application);
+      $response->helper($helper);
+      $response->setContentType('text/plain');
+      $response->content(new Response\Content\Text('SAMPLE'));
+      $this->assertFalse($response->isSent());
+      ob_start();
+      $response->send();
+      $this->assertEquals(
+        'SAMPLE',
+        ob_get_clean()
       );
-    $response = new Response();
-    $response->papaya($this->mockPapaya()->application());
-    $response->helper($helper);
-    $response->headers($headers);
-    $response->setContentType('text/plain');
-    $response->content(new Response\Content\Text('SAMPLE'));
-    ob_start();
-    $response->send();
-    $this->assertEquals(
-      'SAMPLE',
-      ob_get_clean()
-    );
-  }
+      $this->assertTrue($response->isSent());
+    }
 
-  /*************************
-   * Data Provider
-   *************************/
+    public function testSendWithCustomHeaders() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Headers $headers */
+      $headers = $this->createMock(Response\Headers::class);
+      $headers
+        ->expects($this->once())
+        ->method('getIterator')
+        ->willReturn(
+          new \ArrayIterator(
+            [
+              'X-Simple' => '1',
+              'X-Complex' => ['2_1', '2_2']
+            ]
+          )
+        );
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Response\Helper $helper */
+      $helper = $this->createMock(Response\Helper::class);
+      $helper
+        ->expects($this->exactly(4))
+        ->method('header')
+        ->with(
+          $this->logicalOr(
+            $this->equalTo('HTTP/1.1 200 OK'),
+            $this->equalTo('X-Simple: 1'),
+            $this->equalTo('X-Complex: 2_1'),
+            $this->equalTo('X-Complex: 2_2')
+          )
+        );
+      $response = new Response();
+      $response->papaya($this->mockPapaya()->application());
+      $response->helper($helper);
+      $response->headers($headers);
+      $response->setContentType('text/plain');
+      $response->content(new Response\Content\Text('SAMPLE'));
+      ob_start();
+      $response->send();
+      $this->assertEquals(
+        'SAMPLE',
+        ob_get_clean()
+      );
+    }
 
-  public static function provideCacheHeaders() {
-    return array(
-      'nocache' => array(
-        array(
-          'Cache-Control' =>
-            'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transform',
-          'Pragma' => 'no-cache',
-          'Expires' => 'Thu, 19 Nov 1981 08:52:00 GMT'
-        ),
-        'nocache',
-        0,
-        NULL,
-        NULL
-      ),
-      'public, 1800 seconds' => array(
-        array(
-          'Cache-Control' => 'public, max-age=1800, pre-check=1800, no-transform',
-          'Expires' => 'Thu, 15 Jun 2000 12:30:00 GMT',
-          'Last-Modified' => 'Thu, 15 Jun 2000 12:00:00 GMT',
-          'Pragma' => ''
-        ),
-        'public',
-        1800,
-        gmmktime(12, 0, 0, 6, 15, 2000),
-        gmmktime(12, 0, 0, 6, 15, 2000)
-      ),
-      'private, 1800 seconds, 900 seconds gone' => array(
-        array(
-          'Cache-Control' => 'private, max-age=900, pre-check=900, no-transform',
-          'Expires' => 'Thu, 15 Jun 2000 12:30:00 GMT',
-          'Last-Modified' => 'Thu, 15 Jun 2000 12:00:00 GMT',
-          'Pragma' => ''
-        ),
-        'private',
-        1800,
-        gmmktime(12, 0, 0, 6, 15, 2000),
-        gmmktime(12, 15, 0, 6, 15, 2000)
-      )
-    );
+    /*************************
+     * Data Provider
+     *************************/
+
+    public static function provideCacheHeaders() {
+      return [
+        'nocache' => [
+          [
+            'Cache-Control' =>
+              'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transform',
+            'Pragma' => 'no-cache',
+            'Expires' => 'Thu, 19 Nov 1981 08:52:00 GMT'
+          ],
+          'nocache',
+          0,
+          NULL,
+          NULL
+        ],
+        'public, 1800 seconds' => [
+          [
+            'Cache-Control' => 'public, max-age=1800, pre-check=1800, no-transform',
+            'Expires' => 'Thu, 15 Jun 2000 12:30:00 GMT',
+            'Last-Modified' => 'Thu, 15 Jun 2000 12:00:00 GMT',
+            'Pragma' => ''
+          ],
+          'public',
+          1800,
+          gmmktime(12, 0, 0, 6, 15, 2000),
+          gmmktime(12, 0, 0, 6, 15, 2000)
+        ],
+        'private, 1800 seconds, 900 seconds gone' => [
+          [
+            'Cache-Control' => 'private, max-age=900, pre-check=900, no-transform',
+            'Expires' => 'Thu, 15 Jun 2000 12:30:00 GMT',
+            'Last-Modified' => 'Thu, 15 Jun 2000 12:00:00 GMT',
+            'Pragma' => ''
+          ],
+          'private',
+          1800,
+          gmmktime(12, 0, 0, 6, 15, 2000),
+          gmmktime(12, 15, 0, 6, 15, 2000)
+        ]
+      ];
+    }
   }
 }
