@@ -81,7 +81,7 @@ namespace Papaya {
      * @return callable|Router\Route
      */
     protected function createRoute() {
-      throw new \LogicException('No route defined.');
+      return new Router\Route\Error('No route defined.', 500);
     }
   }
 }
