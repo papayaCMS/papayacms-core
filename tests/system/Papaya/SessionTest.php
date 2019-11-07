@@ -423,6 +423,13 @@ namespace Papaya {
       );
     }
 
+    public function testSetIsAdministrationOnActiveSessionExpectingException() {
+      $session = $this->getActiveSessionFixture(Session\Id::SOURCE_COOKIE);
+      $this->expectException(\LogicException::class);
+      $this->expectExceptionMessage('Active sessions can not be changed.');
+      $session->isAdministration(TRUE);
+    }
+
     public function testClose() {
       $session = $this->getActiveSessionFixture(Session\Id::SOURCE_COOKIE);
       /** @var \PHPUnit_Framework_MockObject_MockObject|Session\Wrapper $wrapper */
