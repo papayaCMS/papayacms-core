@@ -42,7 +42,7 @@ use Papaya\BaseObject\Interfaces\Properties;
  * @method string getQuery()
  * @method string getFragment()
  */
-class URL implements Properties {
+class URL implements \IteratorAggregate, Properties {
   /**
    * Parsed url elements
    *
@@ -63,6 +63,13 @@ class URL implements Properties {
     if (!empty($url)) {
       $this->setURLString($url);
     }
+  }
+
+  /**
+   * @return \ArrayIterator|\Traversable
+   */
+  public function getIterator() {
+    return NULL !== $this->_elements ? new \ArrayIterator($this->_elements) : new \EmptyIterator();
   }
 
   /**
@@ -157,10 +164,9 @@ class URL implements Properties {
   public function __call($method, $arguments) {
     $action = \substr($method, 0, 3);
     if ('get' === $action) {
-      $property = \strtolower(\substr($method, 3));
-      if ('password' === $property) {
-        $property = 'pass';
-      }
+      $property = $this->mapPropertyName(
+        \strtolower(\substr($method, 3))
+      );
       return $this->$property;
     }
     throw new \BadMethodCallException(
@@ -169,10 +175,14 @@ class URL implements Properties {
   }
 
   public function __isset($name) {
+    return \in_array($this->mapPropertyName($name), $this->_parts, TRUE);
+  }
+
+  private function mapPropertyName($name) {
     if ('password' === $name) {
-      $name = 'pass';
+      return 'pass';
     }
-    return \in_array($name, $this->_parts, TRUE);
+    return $name;
   }
 
   /**
@@ -185,9 +195,7 @@ class URL implements Properties {
    * @return mixed
    */
   public function __get($name) {
-    if ('password' === $name) {
-      $name = 'pass';
-    }
+    $name = $this->mapPropertyName($name);
     if (\in_array($name, $this->_parts, TRUE)) {
       return empty($this->_elements[$name]) ? NULL : $this->_elements[$name];
     }
