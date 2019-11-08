@@ -321,8 +321,12 @@ namespace Papaya {
     }
 
     public function __clone() {
-      $this->_headers = clone $this->_headers;
-      $this->_content = clone $this->_content;
+      if (NULL !== $this->_headers) {
+        $this->_headers = clone $this->_headers;
+      }
+      if (NULL !== $this->_content) {
+        $this->_content = clone $this->_content;
+      }
     }
 
     //@codeCoverageIgnoreStart

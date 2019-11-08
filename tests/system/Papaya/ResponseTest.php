@@ -302,6 +302,38 @@ namespace Papaya {
       );
     }
 
+    public function testClone() {
+      $response = new Response();
+      $response->papaya($this->mockPapaya()->application());
+      $duplicate = clone $response;
+      $this->assertInstanceOf(Response::class, $duplicate);
+      $this->assertSame($response->papaya(), $duplicate->papaya());
+      $this->assertNotSame($response->headers(), $duplicate->headers());
+      $this->assertNotSame($response->content(), $duplicate->content());
+    }
+
+    public function testDuplicate() {
+      $response = new Response();
+      $response->papaya($this->mockPapaya()->application());
+      $duplicate = $response->duplicate();
+      $this->assertInstanceOf(Response::class, $duplicate);
+      $this->assertSame($response->papaya(), $duplicate->papaya());
+      $this->assertNotSame($response->headers(), $duplicate->headers());
+      $this->assertNotSame($response->content(), $duplicate->content());
+    }
+
+    public function testDuplicateAfterHeaderContentInitialization() {
+      $response = new Response();
+      $response->papaya($this->mockPapaya()->application());
+      $response->headers();
+      $response->content();
+      $duplicate = $response->duplicate();
+      $this->assertInstanceOf(Response::class, $duplicate);
+      $this->assertSame($response->papaya(), $duplicate->papaya());
+      $this->assertNotSame($response->headers(), $duplicate->headers());
+      $this->assertNotSame($response->content(), $duplicate->content());
+    }
+
     /*************************
      * Data Provider
      *************************/
