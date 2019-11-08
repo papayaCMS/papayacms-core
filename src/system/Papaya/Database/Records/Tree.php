@@ -60,7 +60,7 @@ abstract class Tree extends Lazy {
    *
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
+  protected function _loadRecords($sql, array $parameters, $limit, $offset, $idProperties = []) {
     $this->_children = [];
     $this->_records = [];
     if ($this->_loadSql($sql, $parameters, $limit, $offset)) {

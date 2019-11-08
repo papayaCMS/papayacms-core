@@ -141,7 +141,7 @@ abstract class Records
    * @return bool TRUE on success otherwise FALSE
    */
   protected function _loadRecords(
-    $sql, $parameters, $idField = NULL, $limit = NULL, $offset = NULL
+    $sql, array $parameters, $idField = NULL, $limit = NULL, $offset = NULL
   ) {
     $this->_records = [];
     $this->_recordCount = 0;

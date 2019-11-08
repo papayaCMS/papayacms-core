@@ -75,7 +75,7 @@ abstract class Lazy extends Database\Records {
    *
    * @return bool
    */
-  protected function _loadRecords($sql, $parameters, $limit, $offset, $idProperties = []) {
+  protected function _loadRecords($sql, array $parameters, $limit, $offset, $idProperties = []) {
     $this->_loadingParameters = NULL;
     return parent::_loadRecords($sql, $parameters, $limit, $offset, $idProperties);
   }
