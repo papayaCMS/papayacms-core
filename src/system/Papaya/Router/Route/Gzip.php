@@ -44,9 +44,10 @@ namespace Papaya\Router\Route {
       do {
         $route = $route($router, $context, ...$arguments);
         if ($route instanceof Response) {
-          if ($this->canUseOutputCompression() && $route->content()->length() > 0) {
-            $response = clone $route;
-            \ob_start();
+          $helper = $route->helper();
+          if ($helper->allowGzip() && !$helper->hasOutputBuffers() && $route->content()->length() > 0) {
+            $response = $route->duplicate();
+            ob_start();
             $route->content()->output();
             /** @noinspection PhpComposerExtensionStubsInspection */
             $response->content(
@@ -57,31 +58,8 @@ namespace Papaya\Router\Route {
           }
           return $route;
         }
-      } while (\is_callable($route));
+      } while (is_callable($route));
       return $route;
-    }
-
-    /**
-     * @return bool
-     */
-    private function canUseOutputCompression() {
-      if (
-        \function_exists('ob_gzhandler') &&
-        TRUE !== (bool)@\ini_get('zlib.output_compression') &&
-        !\headers_sent()
-      ) {
-        $status = \ob_get_status(TRUE);
-        \array_pop($status);
-        return 0 === \count(
-          \array_filter(
-            $status,
-            function($status) {
-              return !isset($status['buffer_used']) || 0 !== $status['buffer_used'];
-            }
-          )
-        );
-      }
-      return FALSE;
     }
   }
 }
