@@ -47,4 +47,25 @@ class Helper {
     }
     return self::$headerSent;
   }
+
+  public function allowGzip() {
+    return (
+      function_exists('ob_gzhandler') &&
+      TRUE !== (bool)@ini_get('zlib.output_compression') &&
+      !$this->headersSent()
+    );
+  }
+
+  public function hasOutputBuffers() {
+    $status = ob_get_status(TRUE);
+    array_pop($status);
+    return 0 !== \count(
+      array_filter(
+        $status,
+        static function($status) {
+          return !isset($status['buffer_used']) || 0 !== $status['buffer_used'];
+        }
+      )
+    );
+  }
 }

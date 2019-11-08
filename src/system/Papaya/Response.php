@@ -316,6 +316,15 @@ namespace Papaya {
       }
     }
 
+    public function duplicate() {
+      return clone $this;
+    }
+
+    public function __clone() {
+      $this->_headers = clone $this->_headers;
+      $this->_content = clone $this->_content;
+    }
+
     //@codeCoverageIgnoreStart
 
     /**
