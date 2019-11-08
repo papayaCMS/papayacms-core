@@ -24,7 +24,7 @@ namespace Papaya\Application\Profile\Administration {
   class RichTextTest extends TestCase {
 
     public function testCreateObject() {
-      $profile = new Richtext();
+      $profile = new RichText();
       $toggle = $profile->createObject(
         $papaya = $this->mockPapaya()->application()
       );
