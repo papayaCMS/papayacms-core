@@ -29,7 +29,7 @@ namespace Papaya\Iterator {
       $iterator = new Generator(
         static function ($traversable = NULL) {
           return $traversable;
-        },
+        }
       );
       $this->assertInstanceOf('EmptyIterator', $iterator->getIterator());
     }
