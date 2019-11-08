@@ -17,6 +17,7 @@ namespace Papaya\Router\Route {
   use Papaya\Response;
   use Papaya\Router;
   use Papaya\Template\Engine as TemplateEngine;
+  use Papaya\Utility\File\Path as FilePathUtility;
 
   /**
    * Execute the inner route if the session contains an authorized user.
@@ -73,8 +74,8 @@ namespace Papaya\Router\Route {
      */
     private function getThemeVariables() {
       if ('' !== $this->_themesPath && \preg_match('(^[a-z\d_]+)', $this->_themeName)) {
-        $fileName = \Papaya\Utility\File\Path::cleanup($this->_themesPath.'/').$this->_themeName;
-        if (!substr($fileName, -4) === '.ini') {
+        $fileName = FilePathUtility::cleanup($this->_themesPath.'/').$this->_themeName;
+        if (substr($fileName, -4) !== '.ini') {
           $fileName .= '.ini';
         }
         if (\file_exists($fileName) && \is_readable($fileName)) {
