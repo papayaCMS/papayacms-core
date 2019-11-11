@@ -12,48 +12,49 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Media\File;
+namespace Papaya\Media\File {
 
-class Properties extends Info {
-  private $_fetchers;
+  class Properties extends Info {
+    private $_fetchers;
 
-  /**
-   * @return array
-   */
-  protected function fetchProperties() {
-    $file = $this->getFile();
-    if (\file_exists($file) && \is_file($file) && \is_readable($file)) {
-      $properties = [];
-      foreach ($this->fetchers() as $fetcher) {
-        if ($fetcher->isSupported($properties)) {
-          /** @noinspection SlowArrayOperationsInLoopInspection */
-          $properties = \array_merge($properties, \iterator_to_array($fetcher));
-        }
-      }
-      return $properties;
-    }
-    return [
-      'is_valid' => FALSE
-    ];
-  }
-
-  /**
-   * @param \Papaya\Media\File\Info[] $fetchers
-   * @return array
-   */
-  public function fetchers(Info ...$fetchers) {
-    if (\count($fetchers) > 0) {
-      $this->_fetchers = $fetchers;
-    } elseif (NULL === $this->_fetchers) {
+    /**
+     * @return array
+     */
+    protected function fetchProperties() {
       $file = $this->getFile();
-      $originalName = $this->getOriginalFileName();
-      $this->_fetchers = [
-        new Info\Basic($file, $originalName),
-        new Info\Mimetype($file, $originalName),
-        new Info\Image($file, $originalName),
-        new Info\SVG($file, $originalName),
+      if (\file_exists($file) && \is_file($file) && \is_readable($file)) {
+        $properties = [];
+        foreach ($this->fetchers() as $fetcher) {
+          if ($fetcher->isSupported($properties)) {
+            /** @noinspection SlowArrayOperationsInLoopInspection */
+            $properties = \array_merge($properties, \iterator_to_array($fetcher));
+          }
+        }
+        return $properties;
+      }
+      return [
+        'is_valid' => FALSE
       ];
     }
-    return $this->_fetchers;
+
+    /**
+     * @param \Papaya\Media\File\Info[] $fetchers
+     * @return array
+     */
+    public function fetchers(Info ...$fetchers) {
+      if (\count($fetchers) > 0) {
+        $this->_fetchers = $fetchers;
+      } elseif (NULL === $this->_fetchers) {
+        $file = $this->getFile();
+        $originalName = $this->getOriginalFileName();
+        $this->_fetchers = [
+          new Info\Basic($file, $originalName),
+          new Info\Mimetype($file, $originalName),
+          new Info\Image($file, $originalName),
+          new Info\SVG($file, $originalName),
+        ];
+      }
+      return $this->_fetchers;
+    }
   }
 }

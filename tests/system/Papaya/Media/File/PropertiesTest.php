@@ -13,32 +13,47 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Media\File;
-require_once __DIR__.'/../../../../bootstrap.php';
+namespace Papaya\Media\File {
 
-class PropertiesTest extends \Papaya\TestCase {
+  use Papaya\TestCase;
 
-  public function testFetchPropertiesFromInfoImplementation() {
-    $infoMock = $this->createMock(\Papaya\Media\File\Info::class);
-    $infoMock
-      ->expects($this->once())
-      ->method('isSupported')
-      ->willReturn(TRUE);
-    $infoMock
-      ->expects($this->once())
-      ->method('getIterator')
-      ->willReturn(new \ArrayIterator(array('foo' => 'bar')));
-    $info = new Properties(__FILE__);
-    $info->fetchers($infoMock);
+  require_once __DIR__.'/../../../../bootstrap.php';
 
-    $this->assertEquals(
-      array('foo' => 'bar'),
-      iterator_to_array($info)
-    );
-  }
+  /**
+   * @covers \Papaya\Media\File\Properties
+   */
+  class PropertiesTest extends TestCase {
 
-  public function testLazyInitializationOfFetchers() {
-    $info = new Properties('example.file');
-    $this->assertCount(4, $info->fetchers());
+    public function testFetchPropertiesFromInfoImplementation() {
+      $infoMock = $this->createMock(\Papaya\Media\File\Info::class);
+      $infoMock
+        ->expects($this->once())
+        ->method('isSupported')
+        ->willReturn(TRUE);
+      $infoMock
+        ->expects($this->once())
+        ->method('getIterator')
+        ->willReturn(new \ArrayIterator(['foo' => 'bar']));
+      $info = new Properties(__FILE__);
+      $info->fetchers($infoMock);
+
+      $this->assertEquals(
+        ['foo' => 'bar'],
+        iterator_to_array($info)
+      );
+    }
+
+    public function testFetchPropertiesForInvalidFile() {
+      $info = new Properties(__DIR__.'/non-existing.file');
+      $this->assertEquals(
+        ['is_valid' => FALSE],
+        iterator_to_array($info)
+      );
+    }
+
+    public function testLazyInitializationOfFetchers() {
+      $info = new Properties('example.file');
+      $this->assertCount(4, $info->fetchers());
+    }
   }
 }
