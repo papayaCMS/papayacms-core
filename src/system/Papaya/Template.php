@@ -17,6 +17,7 @@ namespace Papaya {
   use Papaya\Template\Parameters as TemplateParameters;
   use Papaya\Template\Values as TemplateValues;
   use Papaya\XML\Appendable as XMLAppendable;
+  use Papaya\XML\Element;
   use Papaya\XML\Errors as XMLErrors;
 
   /**
@@ -107,6 +108,9 @@ namespace Papaya {
      * @return string
      */
     public function getXML() {
+      if (!($this->values()->document()->documentElement instanceof Element)) {
+        $this->values()->append(NULL, 'page');
+      }
       return $this->values()->document()->saveXML();
     }
 

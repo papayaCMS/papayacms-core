@@ -15,7 +15,23 @@
 
 namespace Papaya {
 
+  use Papaya\Response\Content\Text;
+  use Papaya\XML\Document;
+
   require_once __DIR__.'/../../bootstrap.php';
+
+  \Papaya\Test\TestCase::defineConstantDefaults(
+    [
+      'PAPAYA_DB_TBL_AUTHOPTIONS',
+      'PAPAYA_DB_TBL_AUTHUSER',
+      'PAPAYA_DB_TBL_AUTHGROUPS',
+      'PAPAYA_DB_TBL_AUTHLINK',
+      'PAPAYA_DB_TBL_AUTHPERM',
+      'PAPAYA_DB_TBL_AUTHMODPERMS',
+      'PAPAYA_DB_TBL_AUTHMODPERMLINKS',
+      'PAPAYA_DB_TBL_SURFER'
+    ]
+  );
 
   /**
    * @covers \Papaya\Template
@@ -62,23 +78,17 @@ namespace Papaya {
     }
 
     public function testGetXml() {
-      $document = $this->createMock(XML\Document::class);
-      $document
-        ->expects($this->once())
-        ->method('saveXml')
-        ->willReturn(
-          '<page/>'
-        );
+      $document = Document::createFromXML('<page/>');
+
       /** @var \PHPUnit_Framework_MockObject_MockObject|Template\Values $values */
       $values = $this->createMock(Template\Values::class);
       $values
-        ->expects($this->once())
         ->method('document')
         ->willReturn($document);
 
       $template = new Template_TestProxy();
       $template->values($values);
-      $this->assertEquals(
+      $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
         '<page/>', $template->getXML()
       );
@@ -230,27 +240,83 @@ namespace Papaya {
     }
 
     public function testXml() {
-      $document = $this->createMock(XML\Document::class);
-      $document
-        ->expects($this->once())
-        ->method('saveXml')
-        ->willReturn(
-          '<page/>'
-        );
+      $document = Document::createFromXML('<page/>');
       /** @var \PHPUnit_Framework_MockObject_MockObject|Template\Values $values */
       $values = $this->createMock(Template\Values::class);
       $values
-        ->expects($this->once())
         ->method('document')
         ->willReturn($document);
 
       $template = new Template_TestProxy();
       $template->values($values);
       /** @noinspection PhpDeprecationInspection */
-      $this->assertEquals(
+      $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
         '<page/>', $template->xml()
       );
+    }
+
+    public function testGetOutput() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
+      $template = $this->createPartialMock(Template_TestProxy::class, ['parse']);
+      $template
+        ->expects($this->once())
+        ->method('parse')
+        ->with(Template::STRIP_XML_EMPTY_NAMESPACE)
+        ->willReturn('success');
+      $template->papaya($this->mockPapaya()->application());
+      $this->assertSame(
+        'success',
+        $template->getOutput()
+      );
+    }
+
+    public function testXhtml() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
+      $template = $this->createPartialMock(Template_TestProxy::class, ['parse']);
+      $template
+        ->expects($this->once())
+        ->method('parse')
+        ->with(0)
+        ->willReturn('success');
+      $template->papaya($this->mockPapaya()->application());
+      $this->assertSame(
+        'success',
+        $template->xhtml()
+      );
+    }
+
+    public function testGetOutputGenerateDebugXML() {
+      $user = $this->createMock(\base_auth::class);
+      $user->method('isLoggedIn')->willReturn(TRUE);
+
+      $request = $this->mockPapaya()->request(['XML' => 1]);
+      $response = $this->mockPapaya()->response();
+      $response
+        ->expects($this->once())
+        ->method('setContentType')
+        ->with('text/xml', 'utf-8');
+      $response
+        ->expects($this->once())
+        ->method('content')
+        ->with(new Text("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<page/>\n"));
+      $response
+        ->expects($this->once())
+        ->method('send')
+        ->with(TRUE);
+
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Template $template */
+      $template = new Template_TestProxy();
+      $template->papaya(
+        $this->mockPapaya()->application(
+          [
+            'request' => $request,
+            'response' => $response,
+            'administrationUser' => $user
+          ]
+        )
+      );
+      $template->getOutput();
     }
 
     /**

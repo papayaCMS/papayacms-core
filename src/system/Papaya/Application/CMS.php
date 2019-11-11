@@ -26,7 +26,7 @@ namespace Papaya\Application;
  * @property \Papaya\Plugin\Loader $plugins
  * @property \Papaya\Profiler $profiler
  * @property \Papaya\Request $request
- * @property \Papaya\Response $response$response
+ * @property \Papaya\Response $response
  * @property \Papaya\Session $session
  * @property \base_surfer $surfer
  * @property \Papaya\UI\Reference\Factory $references
