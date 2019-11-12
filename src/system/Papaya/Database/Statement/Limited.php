@@ -46,7 +46,7 @@ namespace Papaya\Database\Statement {
      * @return array
      */
     public function getSQLParameters($allowPrepared = TRUE) {
-      return $this->_original->getSQLParameters();
+      return $this->_original->getSQLParameters($allowPrepared);
     }
   }
 }
