@@ -15,6 +15,7 @@
 namespace Papaya\Administration {
 
   use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
+  use Papaya\Administration\Media\MimeTypes\Editor as MimeTypesEditor;
   use Papaya\Application;
   use Papaya\Response;
   use Papaya\Router;
@@ -410,7 +411,7 @@ namespace Papaya\Administration {
                       $template, $images['items-link'], ['Administration', 'Settings', 'Link types'], LinkTypeEditor::class, Permissions::SYSTEM_LINKTYPES_MANAGE
                     ),
                     self::ADMINISTRATION_MIME_TYPES => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings', 'Mime types'], \papaya_mediadb_mime::class, Permissions::SYSTEM_MIMETYPES_MANAGE
+                      $template, $images['items-option'], ['Administration', 'Settings', 'Mime types'], MimeTypesEditor::class, Permissions::SYSTEM_MIMETYPES_MANAGE
                     ),
                     self::ADMINISTRATION_SPAM_FILTER => new UI\Route\Templated\Page(
                       $template, $images['items-option'], ['Administration', 'Settings', 'Spam filter'], \papaya_spamfilter::class, Permissions::SYSTEM_SETTINGS
