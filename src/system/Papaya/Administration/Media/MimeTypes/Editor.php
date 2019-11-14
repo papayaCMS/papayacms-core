@@ -24,7 +24,7 @@ class Editor extends \Papaya\Administration\Page {
   protected $_parameterGroup = 'mime-type';
 
   protected function createContent() {
-    //return new Editor\Commands();
+    return new Editor\Commands();
   }
 
   protected function createNavigation() {

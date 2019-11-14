@@ -140,8 +140,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
       $mimeTypeId = $this->parameters()->get('type_id', 0);
       if (isset($element['group_id'])) {
         $items[] = $item = new ListView\Item(
-          empty($element['icon'])
-            ? 'icon.items.mime-group' : 'icon.mimetypes.'.str_replace('.png', '', $element['icon']),
+          $this->getIconRoute($element['icon'], 'icon.items.mime-group'),
           $element['name'],
           [
             'group_id' => $element['group_id'],
@@ -152,9 +151,8 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
         $item->selected = (int)$element['id'] === $mimeTypeId;
       } else {
         $items[] = $item = new ListView\Item(
-          isset($element['icon'])
-            ? 'icon.items.mime-type' : 'icon.mimetypes.'.str_replace('.png', '', $element['icon']),
-          $element['title'],
+          $this->getIconRoute($element['icon'], 'icon.items.mime-type'),
+          empty($element['title']) ? '['.(new TranslatedText('Group')).']' : $element['title'],
           [
             'group_id' => $element['id'],
             'type_id' => 0
@@ -162,6 +160,12 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
         );
         $item->selected = (int)$element['id'] === $mimeGroupId && 0 === $mimeTypeId;
       }
+    }
+
+    private function getIconRoute($icon, $fallback) {
+      return empty($icon)
+        ? $fallback
+        : 'icon.mimetypes.'.str_replace(['.svg', '.png'], '', $icon);
     }
 
     public function mimeGroups(MimeTypeGroups $mimeGroups = NULL) {
