@@ -36,6 +36,7 @@ namespace Papaya\Content\Media\MimeType {
     protected $_tableAlias = 'groups';
     protected $_tableName = ContentTables::MEDIA_MIMETYPE_GROUPS;
     private $_tableNameTranslations = ContentTables::MEDIA_MIMETYPE_GROUP_TRANSLATIONS;
+    private $_tableNameMimeTypes = ContentTables::MEDIA_MIMETYPES;
 
     public function load($filter) {
       $languageId = 0;
@@ -62,7 +63,6 @@ namespace Papaya\Content\Media\MimeType {
     public function save() {
       if (FALSE !== parent::save()) {
         $translation = $this->getTranslation();
-        var_dump($this->toArray());
         $translation->assign($this);
         return $translation->save();
       }
@@ -78,6 +78,18 @@ namespace Papaya\Content\Media\MimeType {
         ]
       );
       return $translation;
+    }
+
+    public function getMimeTypeCount() {
+      $statement = $this->getDatabaseAccess()->prepare(
+        'SELECT COUNT(*) FROM :table_types WHERE mimegroup_id = :group_id'
+      );
+      $statement->addTableName('table_types', $this->_tableNameMimeTypes);
+      $statement->addInt('group_id', $this->id);
+      if ($databaseResult = $statement->execute()) {
+        return $databaseResult->fetchField();
+      }
+      return 0;
     }
   }
 }

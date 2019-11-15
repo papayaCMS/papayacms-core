@@ -42,9 +42,9 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
       $commands = new CommandsController('cmd', $default);
       $commands->owner($this);
       $commands['group_edit'] = new Commands\ChangeGroup($this->mimeTypeGroup(), $this->getLocalIconPath());
-      //$commands['group_delete'] = new Commands\RemoveGroup($this->mimeTypeGroup());
+      $commands['group_delete'] = new Commands\RemoveGroup($this->mimeTypeGroup());
       $commands['type_edit'] = new Commands\ChangeType($this->mimeType(), $this->getLocalIconPath());
-      //$commands['group_delete'] = new Commands\RemoveType($this->mimeType());
+      $commands['type_delete'] = new Commands\RemoveType($this->mimeType());
       return $commands;
     }
 
