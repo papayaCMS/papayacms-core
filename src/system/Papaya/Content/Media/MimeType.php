@@ -15,9 +15,22 @@
 
 namespace Papaya\Content\Media {
 
-  use Papaya\Database\Interfaces\Order as DatabaseOrder;
+  use Papaya\Content\Media\MimeType\Extensions;
+  use Papaya\Content\Tables as ContentTables;
+  use Papaya\Database\Record\Lazy as LazyDatabaseRecord;
 
-  class MimeTypes extends \Papaya\Database\Records\Lazy {
+  /**
+   * @property int $id
+   * @property int $groupId
+   * @property string $type
+   * @property string $icon
+   * @property string $extension
+   * @property int $supportsRanges
+   * @property int $enableShaping
+   * @property int $shapingLimit
+   * @property int $shapingOffset
+   */
+  class MimeType extends LazyDatabaseRecord {
 
     protected $_fields = [
       'id' => 'mimetype_id',
@@ -31,14 +44,23 @@ namespace Papaya\Content\Media {
       'shaping_offset' => 'shaping_offset'
     ];
 
-    protected $_tableName = \Papaya\Content\Tables::MEDIA_MIMETYPES;
+    protected $_tableName = ContentTables::MEDIA_MIMETYPES;
+    /**
+     * @var Extensions
+     */
+    private $_extensions;
 
-    protected $_identifierProperties = ['id'];
-    protected $_orderByProperties = [
-      'name' => DatabaseOrder::ASCENDING,
-      'id' => DatabaseOrder::ASCENDING,
-    ];
-
+    public function extensions(Extensions $extensions = NULL) {
+      if (NULL !== $extensions) {
+        $this->_extensions = $extensions;
+      } elseif (NULL === $this->_extensions) {
+        $this->_extensions = new MimeType\Extensions();
+        $this->_extensions->papaya($this->papaya());
+        $this->_extensions->activateLazyLoad(
+          ['id' => $this->id]
+        );
+      }
+      return $this->_extensions;
+    }
   }
 }
-

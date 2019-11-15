@@ -78,7 +78,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
         $button->image = 'icon.items.mime-type.add';
         $button->reference()->setParameters(
           [
-            'cmd' => 'group_edit',
+            'cmd' => 'type_edit',
             'group_id' => $mimeGroupId,
             'type_id' => 0
           ],
@@ -90,7 +90,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
           $button->image = 'icon.items.mime-type.remove';
           $button->reference()->setParameters(
             [
-              'cmd' => 'group_delete',
+              'cmd' => 'type_delete',
               'group_id' => $mimeGroupId,
               'type_id' => $mimeTypeId
             ],
@@ -141,8 +141,9 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
       if (isset($element['group_id'])) {
         $items[] = $item = new ListView\Item(
           $this->getIconRoute($element['icon'], 'icon.items.mime-group'),
-          $element['name'],
+          $element['type'],
           [
+            'cmd' => 'type_edit',
             'group_id' => $element['group_id'],
             'type_id' => $element['id']
           ]
@@ -154,6 +155,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
           $this->getIconRoute($element['icon'], 'icon.items.mime-type'),
           empty($element['title']) ? '['.(new TranslatedText('Group')).']' : $element['title'],
           [
+            'cmd' => 'group_edit',
             'group_id' => $element['id'],
             'type_id' => 0
           ]

@@ -23,6 +23,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor\Commands {
   use Papaya\UI\Dialog\Database\Save as DatabaseDialog;
   use Papaya\UI\Dialog\Field\Input as InputField;
   use Papaya\UI\Dialog\Field\Select as SelectField;
+  use Papaya\UI\Dialog\Options as DialogOptions;
   use Papaya\UI\Text\Translated as TranslatedText;
 
   /**
@@ -69,6 +70,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor\Commands {
           'type_id' => 0
         ]
       );
+      $dialog->options->dialogWidth = DialogOptions::SIZE_LARGE;
       $dialog->caption = new TranslatedText($dialogCaption);
       $dialog->fields[] = $field = new InputField(
         new TranslatedText('Title'), 'title', 200, '', new TextFilter()

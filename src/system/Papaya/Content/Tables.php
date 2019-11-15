@@ -126,6 +126,8 @@ class Tables extends \Papaya\Application\BaseObject {
 
   const MEDIA_MIMETYPES = 'mediadb_mimetypes';
 
+  const MEDIA_MIMETYPE_EXTENSIONS =  'mediadb_mimetypes_extensions';
+
   const MEDIA_MIMETYPE_GROUPS = 'mediadb_mimegroups';
 
   const MEDIA_MIMETYPE_GROUP_TRANSLATIONS = 'mediadb_mimegroups_trans';
