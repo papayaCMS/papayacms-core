@@ -107,7 +107,6 @@ return array(
   'papaya_log' => '/papaya_log.php',
   'papaya_mediadb' => '/papaya_mediadb.php',
   'papaya_mediadb_browser' => '/papaya_mediadb_browser.php',
-  'papaya_mediadb_mime' => '/papaya_mediadb_mime.php',
   'papaya_mediadb_rpc' => '/papaya_mediadb_rpc.php',
   'papaya_messages' => '/papaya_messages.php',
   'papaya_module_options' => '/papaya_module_options.php',
