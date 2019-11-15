@@ -27,7 +27,7 @@ class Save extends UI\Dialog\Database {
   /**
    * If the dialog is successfully executed the records is saved.
    *
-   * Before saving the record, the orignal object is cloned, gets the new data assigned and
+   * Before saving the record, the original object is cloned, gets the new data assigned and
    * a callback function is executed if defined.
    *
    * @return bool
