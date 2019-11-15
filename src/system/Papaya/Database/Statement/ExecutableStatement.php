@@ -38,7 +38,7 @@ namespace Papaya\Database\Statement {
      * @return FALSE|\Papaya\Database\Result
      */
     public function execute($options = 0) {
-      return $this->_databaseConnection->execute($options);
+      return $this->_databaseConnection->execute($this, $options);
     }
 
     public function __toString() {
