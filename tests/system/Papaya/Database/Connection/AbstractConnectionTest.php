@@ -17,6 +17,7 @@ namespace Papaya\Database\Connection {
 
   use InvalidArgumentException;
   use LogicException;
+  use Papaya\Database\Connection;
   use Papaya\Database\Result as DatabaseResult;
   use Papaya\Database\Statement as DatabaseStatement;
   use Papaya\Database\Source\Name as DataSourceName;
@@ -167,6 +168,20 @@ namespace Papaya\Database\Connection {
        $connection->cleanup();
        $this->assertNull($connection->buffer());
        $connection->cleanup();
+     }
+
+     public function testInsert() {
+       /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractConnection $connection */
+       $connection = $this->createPartialMock(
+         AbstractConnection_TestProxy::class,
+         ['execute']
+       );
+       $connection
+         ->expects($this->once())
+         ->method('execute')
+         ->with('INSERT INTO "a_table" ("a_field") VALUES (\'a_value\')', Connection::EMPTY_OPTIONS);
+
+       $connection->insert('a_table', [['a_field' => 'a_value']]);
      }
   }
 
