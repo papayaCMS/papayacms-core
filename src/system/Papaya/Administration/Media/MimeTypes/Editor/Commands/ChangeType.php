@@ -91,7 +91,11 @@ namespace Papaya\Administration\Media\MimeTypes\Editor\Commands {
       $dialog->caption = new TranslatedText($dialogCaption);
       $dialog->fields[] = $group = new DialogFieldGroup(new TranslatedText('Properties'));
       $group->fields[] = $field = new InputField(
-        new TranslatedText('Type'), 'type', 200, '', new TextFilter()
+        new TranslatedText('Type'),
+        'type',
+        200,
+        '',
+        new RegExFilter('(^[\\w\\d-]+/[\\w\\d-]+$)D')
       );
       $group->fields[] = $field = new SelectField(
         new TranslatedText('Icon'),
