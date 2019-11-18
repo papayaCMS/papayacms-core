@@ -82,7 +82,7 @@ namespace Papaya\Content\Page {
         $this->_isPreview ? ContentTables::PAGE_TRANSLATIONS : ContentTables::PAGE_PUBLICATION_TRANSLATIONS
       );
       $statement->addTableName('views', ContentTables::VIEWS);
-      return $this->_loadRecords($statement, NULL, $limit, $offset, $this->_identifierProperties);
+      return $this->_loadRecords($statement, [], $limit, $offset, $this->_identifierProperties);
     }
   }
 }
