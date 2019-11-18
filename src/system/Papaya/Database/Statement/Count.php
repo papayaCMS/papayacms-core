@@ -2,14 +2,14 @@
 
 namespace Papaya\Database\Statement {
 
-  use Papaya\Database\Connection;
-  use Papaya\Database\Statement;
+  use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Database\Statement as DatabaseStatement;
 
   class Count
     extends ExecutableStatement {
 
     /**
-     * @var \Papaya\Database\Statement
+     * @var DatabaseStatement
      */
     private $_original;
 
@@ -21,16 +21,16 @@ namespace Papaya\Database\Statement {
 
     /**
     * Patterns matching select queries for rewrite (absolute record count)
-    * @var array(string)
+    * @var string[]
     */
     private static $_sqlSelectPatterns = array(
-      '(^\s*(?:SELECT.*?)(\bFROM\b.*)(?:\bORDER\s+BY.*)$)si',
+      '(^\s*(?:SELECT.*?)(\bFROM\b.*)(?:\s+\bORDER\s+BY.*)$)si',
       '(^\s*(?:SELECT.*?)(\bFROM\b.*)$)si'
     );
 
     public function __construct(
-      Connection $databaseConnection,
-      Statement $original
+      DatabaseConnection $databaseConnection,
+      DatabaseStatement $original
     ) {
       parent::__construct($databaseConnection);
       $this->_original = $original;
@@ -42,8 +42,9 @@ namespace Papaya\Database\Statement {
      */
     public function getSQLString($allowPrepared = TRUE) {
       if (NULL === $this->_rewriteSQL) {
+        $sqlString = $this->_original->getSQLString($allowPrepared);
         foreach (self::$_sqlSelectPatterns as $pattern) {
-          if (preg_match($pattern, $this->_original->getSQLString($allowPrepared), $match)) {
+          if (preg_match($pattern, $sqlString, $match)) {
             return $this->_rewriteSQL = 'SELECT COUNT(*) '.$match[1];
           }
         }
