@@ -22,6 +22,25 @@ namespace Papaya\Database\Statement {
    */
   class FormattedTest extends \Papaya\TestCase {
 
+    public function testToString() {
+      $databaseAccess = $this->mockPapaya()->databaseAccess();
+      $databaseAccess
+        ->expects($this->once())
+        ->method('escapeString')
+        ->with('ab123')
+        ->willReturn('ab123');
+
+      $statement = new Formatted(
+        $databaseAccess,
+        "SELECT * FROM test WHERE id = '%s'",
+        ['ab123']
+      );
+      $this->assertSame(
+        "SELECT * FROM test WHERE id = 'ab123'",
+        (string)$statement
+      );
+    }
+
     public function testGetSQLInsertsEscapedParameters() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();
       $databaseAccess
@@ -35,9 +54,13 @@ namespace Papaya\Database\Statement {
         "SELECT * FROM test WHERE id = '%s'",
         ['ab123']
       );
-      $this->assertEquals(
+      $this->assertSame(
         "SELECT * FROM test WHERE id = 'ab123'",
-        (string)$statement
+        $statement->getSQLString(TRUE)
+      );
+      $this->assertSame(
+        [],
+        $statement->getSQLParameters(TRUE)
       );
     }
   }
