@@ -17,13 +17,15 @@ namespace Papaya\Database\Statement {
 
   use Papaya\Database\Connection;
   use Papaya\Database\Syntax;
+  use Papaya\TestCase;
+  use Papaya\Text\UTF8String;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
    * @covers \Papaya\Database\Statement\Prepared
    */
-  class PreparedTest extends \Papaya\TestCase {
+  class PreparedTest extends TestCase {
 
     public function testGetSQLWithTableAndStringParameter() {
       $connection = $this->mockPapaya()->databaseAccess();
@@ -76,13 +78,11 @@ namespace Papaya\Database\Statement {
       $connection
         ->expects($this->exactly(2))
         ->method('quoteString')
-        ->will(
-          $this->returnValueMap(
-            [
-              ['ab123', "'ab123'"],
-              ['ef456', "'ef456'"]
-            ]
-          )
+        ->willReturnMap(
+          [
+            ['ab123', "'ab123'"],
+            ['ef456', "'ef456'"]
+          ]
         );
 
       $statement = new Prepared(
@@ -124,6 +124,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLWithFloatParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -139,6 +140,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLStringWithFloatParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -158,6 +160,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLWithIntParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -173,6 +176,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLStringWithIntParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -192,6 +196,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLWithIntListParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -206,7 +211,24 @@ namespace Papaya\Database\Statement {
       );
     }
 
+    public function testGetSQLWithIntListParameterFromTraversable() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
+      $connection = $this->createMock(Connection::class);
+
+      $statement = new Prepared(
+        $connection,
+        'SELECT * FROM test WHERE id IN :IDs'
+      );
+      $statement->addIntList('IDs', new \ArrayIterator([21, 42]));
+
+      $this->assertEquals(
+        'SELECT * FROM test WHERE id IN (21, 42)',
+        (string)$statement
+      );
+    }
+
     public function testGetSQLStringWithIntListParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -226,13 +248,14 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLWithBoolParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
         $connection,
         'SELECT * FROM test WHERE field IS :bool'
       );
-      $statement->addBool('bool', true);
+      $statement->addBool('bool', TRUE);
 
       $this->assertEquals(
         'SELECT * FROM test WHERE field IS true',
@@ -241,6 +264,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLWithNULLParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -258,6 +282,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testGetSQLStringWithNULLParameter() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -285,6 +310,7 @@ namespace Papaya\Database\Statement {
         ->method('limit')
         ->with(12, 23)
         ->willReturn(' LIMIT 23,12');
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
       $connection
         ->expects($this->once())
@@ -305,6 +331,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testPlaceholdersInsideStringLiteralAreNotReplaced() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -320,6 +347,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testUnknownParameterThrowsException() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared(
@@ -333,6 +361,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testNULLInListIsIgnored() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared($connection, ':numbers');
@@ -345,6 +374,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testArrayInListThrowsException() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared($connection, ':numbers');
@@ -356,20 +386,19 @@ namespace Papaya\Database\Statement {
     }
 
     public function testObjectInListIsCastToString() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
       $connection
         ->expects($this->atLeastOnce())
         ->method('quoteString')
-        ->will(
-          $this->returnValueMap(
-             [
-               ['21', "'21'"],
-               ['string_value', "'string_value'"],
-             ]
-          )
+        ->willReturnMap(
+          [
+            ['21', "'21'"],
+            ['string_value', "'string_value'"],
+          ]
         );
 
-      $stringObject = $this->createMock(\Papaya\Text\UTF8String::class);
+      $stringObject = $this->createMock(UTF8String::class);
       $stringObject
         ->expects($this->once())
         ->method('__toString')
@@ -385,6 +414,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testHasExpectingTrue() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared($connection, '');
@@ -395,6 +425,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testHasAfterRemoveExpectingFalse() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
 
       $statement = new Prepared($connection, '');
@@ -412,6 +443,7 @@ namespace Papaya\Database\Statement {
      *  ["foo bar"]
      */
     public function testInvalidParameterNameThrowsException($parameterName) {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
       $statement = new Prepared($connection, '');
 
@@ -424,6 +456,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testDuplicateParameterNameThrowsException() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
       $statement = new Prepared($connection, '');
       $statement->addInt('field', 0);
@@ -437,6 +470,7 @@ namespace Papaya\Database\Statement {
     }
 
     public function testToStringReturnsEmptyStringOnInternalError() {
+      /** @var \PHPUnit_Framework_MockObject_MockObject|Connection $connection */
       $connection = $this->createMock(Connection::class);
       $statement = new Prepared($connection, ':trigger');
       $this->assertEmpty((string)$statement);

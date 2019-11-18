@@ -15,8 +15,8 @@
 namespace Papaya\Database\Statement {
 
   use Papaya\Database;
-  use Papaya\Database\Connection;
-  use Papaya\Database\Statement;
+  use Papaya\Database\Connection as DatabaseConnection;
+  use Papaya\Database\Statement as DatabaseStatement;
 
   /**
    * A client side prepared statement. All parameters have to be named.
@@ -57,7 +57,7 @@ namespace Papaya\Database\Statement {
       'replaced' => NULL
     ];
 
-    public function __construct(Connection $databaseConnection, $sql) {
+    public function __construct(DatabaseConnection $databaseConnection, $sql) {
       parent::__construct($databaseConnection);
       $this->_sql = $sql;
     }
@@ -88,7 +88,7 @@ namespace Papaya\Database\Statement {
 
     /**
      * @param bool $allowPrepared
-     * @return \Papaya\Database\Statement
+     * @return DatabaseStatement
      */
     private function compile($allowPrepared) {
       $mode = $allowPrepared ? 'prepared' : 'replaced';
@@ -119,11 +119,6 @@ namespace Papaya\Database\Statement {
             $parameter = $this->_parameters[$parameterName];
             if ($allowPrepared && $parameter['allow_prepared']) {
               $parameterValue = $parameter['value'];
-              if (
-                $parameterValue instanceof \Traversable
-              ) {
-                $parameterValue = iterator_to_array($parameter['value']);
-              }
               if (is_array($parameter['value'])) {
                 array_push($values,...$parameterValue);
                 return '('.implode(', ', array_fill(0, count($parameterValue), '?')).')';
@@ -251,7 +246,7 @@ namespace Papaya\Database\Statement {
 
     /**
      * @param string $parameterName
-     * @param string[]|string $values
+     * @param string[]|string|\Traversable $values
      * @return $this
      */
     public function addStringList($parameterName, $values) {
@@ -285,7 +280,7 @@ namespace Papaya\Database\Statement {
 
     /**
      * @param string $parameterName
-     * @param int[]|int $values
+     * @param int[]|int|\Traversable $values
      * @return $this
      */
     public function addIntList($parameterName, $values) {
@@ -342,7 +337,7 @@ namespace Papaya\Database\Statement {
      * @param string $parameterName
      * @param int $limit
      * @param int $offset
-     * @return \Papaya\Database\Statement\Prepared
+     * @return $this
      */
     public function addLimit($parameterName, $limit, $offset) {
       $this->addValue(
