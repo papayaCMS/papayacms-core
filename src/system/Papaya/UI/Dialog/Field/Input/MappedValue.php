@@ -44,7 +44,7 @@ namespace Papaya\UI\Dialog\Field\Input {
       if (!empty($name) && ($dialog = $this->getDialog())) {
         if (!$this->getDisabled() && $dialog->parameters()->has($name)) {
           $value = $dialog->parameters()->get($name);
-          if ($this->callbacks()->mapFromDisplay) {
+          if (isset($this->callbacks()->mapFromDisplay)) {
             return $this->callbacks()->mapFromDisplay($value);
           }
           return $value;
@@ -58,7 +58,7 @@ namespace Papaya\UI\Dialog\Field\Input {
 
     public function appendTo(XMLElement $parent) {
       $value = $this->getCurrentValue();
-      if ($this->callbacks()->mapToDisplay) {
+      if (isset($this->callbacks()->mapToDisplay)) {
         $value = $this->callbacks()->mapToDisplay($value);
       }
       $field = $this->_appendFieldTo($parent);
