@@ -87,7 +87,7 @@ namespace Papaya\Content\Media\MimeType {
       $statement->addTableName('table_types', $this->_tableNameMimeTypes);
       $statement->addInt('group_id', $this->id);
       if ($databaseResult = $statement->execute()) {
-        return $databaseResult->fetchField();
+        return (int)$databaseResult->fetchField();
       }
       return 0;
     }

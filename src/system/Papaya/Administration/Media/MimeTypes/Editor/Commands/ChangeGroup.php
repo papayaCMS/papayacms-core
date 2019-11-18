@@ -70,10 +70,15 @@ namespace Papaya\Administration\Media\MimeTypes\Editor\Commands {
           'type_id' => 0
         ]
       );
+      $dialog->data()->set('language_id', $languageId);
       $dialog->options->dialogWidth = DialogOptions::SIZE_LARGE;
       $dialog->caption = new TranslatedText($dialogCaption);
       $dialog->fields[] = $field = new InputField(
-        new TranslatedText('Title'), 'title', 200, '', new TextFilter()
+        new TranslatedText('Title'),
+        'title',
+        200,
+        '',
+        new TextFilter(TextFilter::ALLOW_SPACES | TextFilter::ALLOW_DIGITS)
       );
       $dialog->fields[] = $field = new SelectField(
         new TranslatedText('Icon'),
@@ -92,7 +97,9 @@ namespace Papaya\Administration\Media\MimeTypes\Editor\Commands {
       $dialog->buttons[] = new SubmitButton(
         new TranslatedText($buttonCaption)
       );
-      $this->callbacks()->onExecuteSuccessful = function () {
+      $this->callbacks()->onExecuteSuccessful = function () use ($dialog) {
+        $dialog->hiddenFields()->set('group_id', $this->record()->id);
+        $this->parameters()->set('group_id', $this->record()->id);
         $this->papaya()->messages->displayInfo('Mime type group saved.');
       };
       $this->callbacks()->onExecuteFailed = function (
