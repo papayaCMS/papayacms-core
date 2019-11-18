@@ -14,30 +14,34 @@
  */
 namespace Papaya\Database\Statement {
 
-  use Papaya\Database\Connection;
+  use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\Exception\ConnectionFailed;
-  use Papaya\Database\Statement;
+  use Papaya\Database\Result as DatabaseResult;
+  use Papaya\Database\Statement as DatabaseStatement;
 
-  abstract class ExecutableStatement implements Statement {
+  abstract class ExecutableStatement implements DatabaseStatement {
 
     /**
-     * @var \Papaya\Database\Connection
+     * @var DatabaseConnection
      */
     private $_databaseConnection;
 
-    public function __construct(Connection $databaseConnection) {
+    public function __construct(DatabaseConnection $databaseConnection) {
       $this->_databaseConnection = $databaseConnection;
     }
 
+    /**
+     * @return DatabaseConnection
+     */
     public function getDatabaseConnection() {
       return $this->_databaseConnection;
     }
 
     /**
      * @param int $options
-     * @return FALSE|\Papaya\Database\Result
+     * @return FALSE|int|DatabaseResult
      */
-    public function execute($options = 0) {
+    public function execute($options = DatabaseConnection::EMPTY_OPTIONS) {
       return $this->_databaseConnection->execute($this, $options);
     }
 
