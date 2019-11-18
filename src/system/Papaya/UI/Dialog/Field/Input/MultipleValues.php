@@ -35,16 +35,18 @@ namespace Papaya\UI\Dialog\Field\Input {
       $name = $this->getName();
       if (!empty($name) && ($dialog = $this->getDialog())) {
         if (!$this->getDisabled() && $dialog->parameters()->has($name)) {
-          return array_filter(
-            array_map(
+          return array_values(
+            array_filter(
+              array_map(
+                static function($value) {
+                  return trim($value);
+                },
+                explode($this->_separator, $dialog->parameters()->get($name, ''))
+              ),
               static function($value) {
-                return trim($value);
-              },
-              explode(',', $dialog->parameters()->get($name, ''))
-            ),
-            static function($value) {
-              return !empty($value);
-            }
+                return !empty($value);
+              }
+            )
           );
         }
         if ($dialog->data()->has($name) && NULL !== ($value = $dialog->data()->get($name))) {
