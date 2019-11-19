@@ -12,7 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Administration\UI {
+
+  use Papaya\URL;
+  use Papaya\URL\Current as CurrentURL;
 
   /**
    * Parse URL into a route address
@@ -27,7 +31,7 @@ namespace Papaya\Administration\UI {
    */
   class Path extends \Papaya\Router\Path {
     /**
-     * @var \Papaya\URL\Current
+     * @var URL
      */
     private $_url;
 
@@ -50,13 +54,11 @@ namespace Papaya\Administration\UI {
      * Address constructor.
      *
      * @param string $basePath
-     * @param \Papaya\URL|null $url
+     * @param URL|null $url
      */
-    public function __construct($basePath, \Papaya\URL $url = NULL) {
+    public function __construct($basePath, URL $url = NULL) {
       $this->_basePath = $basePath;
-      if (NULL === $url) {
-        $this->_url = new \Papaya\URL\Current();
-      }
+      $this->_url = (NULL !== $url) ? $url : new CurrentURL();
     }
 
     /**
@@ -66,6 +68,20 @@ namespace Papaya\Administration\UI {
      * @return array|null
      */
     public function getRouteArray($offset = 0) {
+      $this->lazyParse();
+      return \array_slice($this->_parts, $offset);
+    }
+
+    /**
+     * @param $offset
+     * @return mixed|string
+     */
+    public function getSeparator($offset) {
+      $this->lazyParse();
+      return isset($this->_separators[$offset]) ? $this->_separators[$offset] : '.';
+    }
+
+    private function lazyParse() {
       if (NULL === $this->_parts) {
         $pattern = '('.\preg_quote($this->_basePath, '(').'/(?<path>[^?#]*))';
         if (\preg_match($pattern, $this->_url->path, $matches)) {
@@ -73,7 +89,7 @@ namespace Papaya\Administration\UI {
           $this->_parts = \array_values(
             \array_filter(
               $values,
-              function($key) {
+              static function ($key) {
                 return !($key % 2);
               },
               ARRAY_FILTER_USE_KEY
@@ -82,7 +98,7 @@ namespace Papaya\Administration\UI {
           $this->_separators = \array_values(
             \array_filter(
               $values,
-              function($key) {
+              static function ($key) {
                 return $key % 2;
               },
               ARRAY_FILTER_USE_KEY
@@ -93,15 +109,6 @@ namespace Papaya\Administration\UI {
           $this->_separators = [];
         }
       }
-      return \array_slice($this->_parts, $offset);
-    }
-
-    /**
-     * @param $offset
-     * @return mixed|string
-     */
-    public function getSeparator($offset) {
-      return isset($this->_separators[$offset]) ? $this->_separators[$offset] : '.';
     }
   }
 }
