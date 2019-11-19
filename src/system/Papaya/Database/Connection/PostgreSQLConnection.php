@@ -25,6 +25,7 @@ namespace Papaya\Database\Connection {
   use Papaya\Database\Source\Name as DataSourceName;
   use Papaya\Database\Syntax\PostgreSQLSyntax;
   use Papaya\Utility\Bitwise;
+  use Papaya\Utility\Text\XML as XMLUtility;
 
   /**
    * @package Papaya-Library
@@ -109,7 +110,7 @@ namespace Papaya\Database\Connection {
      */
     private function handleConnectionError($code, $message) {
       throw new ConnectionFailed(
-        strip_tags(str_replace('&quot;', '"', $message)), $code
+        XMLUtility::stripTags(str_replace('&quot;', '"', $message)), $code
       );
     }
 

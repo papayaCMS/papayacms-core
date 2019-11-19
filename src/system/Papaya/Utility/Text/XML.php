@@ -15,6 +15,7 @@
 namespace Papaya\Utility\Text;
 
 use Papaya\Utility;
+use Papaya\XML\Errors as XMLErrors;
 
 /**
  * Papaya Utilities - XML functions
@@ -396,5 +397,25 @@ class XML {
       $string
     );
     return (is_string($result)) ? $result : '';
+  }
+
+  /**
+   * @param string $string
+   * @return string
+   */
+  public static function stripTags($string) {
+    $errors = new XMLErrors();
+    return (string)$errors->encapsulate(
+      static function() use ($string) {
+        $document = new \DOMDocument();
+        if (0 !== strpos($string, '<?xml')) {
+          $string = '<?xml version="1.0" encoding="utf-8"?>'.$string;
+        }
+        $document->loadHTML($string, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        return $document->textContent;
+      },
+      [],
+      FALSE
+    );
   }
 }

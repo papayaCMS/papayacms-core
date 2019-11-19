@@ -259,6 +259,21 @@ class XMLTest extends \Papaya\TestCase {
     $this->assertSame($expected, XML::removeControlCharacters($input));
   }
 
+  /**
+   * @covers \Papaya\Utility\Text\XML::stripTags
+   * @param string $expected
+   * @param string $input
+   * @testWith
+   *   ["just text", "just text"]
+   *   ["bold text", "<b>bold text</b>"]
+   *   ["", ""]
+   *   ["only open tag", "<div>only open tag"]
+   *   ["nested tag", "<div><em>nested</em> tag"]
+   */
+  public function testStripTags($expected, $input) {
+    $this->assertSame($expected, XML::stripTags($input));
+  }
+
   /*********************************
    * Data Provider
    *********************************/
