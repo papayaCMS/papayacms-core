@@ -15,6 +15,8 @@
 namespace Papaya\Administration\UI\Navigation {
 
   use Papaya\Administration;
+  use Papaya\Iterator\Filter\Callback as CallbackFilterIterator;
+  use Papaya\Plugin\Types as PluginTypes;
   use Papaya\UI;
   use Papaya\Utility;
   use Papaya\XML\Element;
@@ -162,19 +164,6 @@ namespace Papaya\Administration\UI\Navigation {
 
     private $_favorites;
 
-    public function appendTo(Element $parent) {
-      $parent->append($this->menu());
-    }
-
-    public function menu(UI\Menu $menu = NULL) {
-      if (NULL !== $menu) {
-        $this->_menu = $menu;
-      } elseif (NULL === $this->_menu) {
-        $this->_menu = $this->_createMenu();
-      }
-      return $this->_menu;
-    }
-
     private function _createMenu() {
       $menu = new UI\Menu();
       $menu->papaya($this->papaya());
@@ -210,6 +199,7 @@ namespace Papaya\Administration\UI\Navigation {
           $target = Utility\Arrays::get($buttonData, ['target', 5], '_self');
           if (0 === $permission || $this->papaya()->administrationUser->hasPerm($permission)) {
             $button = new UI\Toolbar\Button();
+            $button->papaya($this->papaya());
             $button->reference->setRelative($href);
             $button->image = $image;
             $button->caption = new UI\Text\Translated($buttonCaption);
@@ -228,12 +218,38 @@ namespace Papaya\Administration\UI\Navigation {
       return $menu;
     }
 
-    public function favorites() {
-      if (NULL === $this->_favorites) {
+    /**
+     * @param Element $parent
+     */
+    public function appendTo(Element $parent) {
+      $parent->append($this->menu());
+    }
+
+    /**
+     * @param UI\Menu|NULL $menu
+     * @return UI\Menu
+     */
+    public function menu(UI\Menu $menu = NULL) {
+      if (NULL !== $menu) {
+        $this->_menu = $menu;
+      } elseif (NULL === $this->_menu) {
+        $this->_menu = $this->_createMenu();
+      }
+      return $this->_menu;
+    }
+
+    /**
+     * @param \Traversable|NULL $favorites
+     * @return CallbackFilterIterator|\Traversable
+     */
+    public function favorites(\Traversable $favorites = NULL) {
+      if (NULL !== $favorites) {
+        $this->_favorites = $favorites;
+      } elseif (NULL === $this->_favorites) {
         $administrationUser = $this->papaya()->administrationUser;
-        $this->_favorites = new \Papaya\Iterator\Filter\Callback(
-          $this->papaya()->plugins->plugins()->withType(\Papaya\Plugin\Types::ADMINISTRATION),
-          function(
+        $this->_favorites = new CallbackFilterIterator(
+          $this->papaya()->plugins->plugins()->withType(PluginTypes::ADMINISTRATION),
+          static function(
             /** @noinspection PhpUnusedParameterInspection */
             $plugin, $pluginGuid
           ) use ($administrationUser) {
