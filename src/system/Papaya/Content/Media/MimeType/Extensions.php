@@ -103,5 +103,15 @@ namespace Papaya\Content\Media\MimeType {
       }
       return $executed;
     }
+
+    public function delete($typeId) {
+      $databaseAccess = $this->getDatabaseAccess();
+      $statement = $databaseAccess->prepare(
+        'DELETE FROM :extensions_table WHERE mimetype_id = :type_id'
+      );
+      $statement->addTableName('extensions_table', $this->_tableName);
+      $statement->addInt('type_id', $typeId);
+      return FALSE !== $statement->execute();
+    }
   }
 }

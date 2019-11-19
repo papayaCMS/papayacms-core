@@ -17,6 +17,7 @@ namespace Papaya\Content\Media {
 
   use Papaya\Content\Media\MimeType\Extensions;
   use Papaya\Content\Tables as ContentTables;
+  use Papaya\Database\Record\Callbacks as RecordCallbacks;
   use Papaya\Database\Record\Lazy as LazyDatabaseRecord;
 
   /**
@@ -49,6 +50,19 @@ namespace Papaya\Content\Media {
      * @var Extensions
      */
     private $_extensions;
+
+    /**
+     * Create callbacks subobject, override to assign callbacks
+     *
+     * @return RecordCallbacks
+     */
+    protected function _createCallbacks() {
+      $callbacks = parent::_createCallbacks();
+      $callbacks->onBeforeDelete = function() {
+        $this->extensions()->delete($this->id);
+      };
+      return $callbacks;
+    }
 
     public function extensions(Extensions $extensions = NULL) {
       if (NULL !== $extensions) {
