@@ -13,102 +13,88 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\File\System;
+namespace Papaya\File\System {
 
-require_once __DIR__.'/../../../../bootstrap.php';
+  use Papaya\TestCase;
 
-class DirectoryTest extends \Papaya\TestCase {
-
-  public function tearDown() {
-    $this->removeTemporaryDirectory();
-  }
+  require_once __DIR__.'/../../../../bootstrap.php';
 
   /**
-   * @covers \Papaya\File\System\Directory::__construct
-   * @covers \Papaya\File\System\Directory::__toString
+   * @covers \Papaya\File\System\Directory
    */
-  public function testConstructor() {
-    $directory = new Directory('/path/');
-    $this->assertEquals(
-      '/path', (string)$directory
-    );
-  }
+  class DirectoryTest extends TestCase {
 
-  /**
-   * @covers \Papaya\File\System\Directory::exists
-   */
-  public function testExistsExpectingTrue() {
-    $directory = new Directory(__DIR__);
-    $this->assertTrue($directory->exists());
-  }
+    public function tearDown() {
+      $this->removeTemporaryDirectory();
+    }
 
-  /**
-   * @covers \Papaya\File\System\Directory::exists
-   */
-  public function testExistsExpectingFalse() {
-    $directory = new Directory(__DIR__.'NON_EXISTING');
-    $this->assertFalse($directory->exists());
-  }
+    public function testConstructor() {
+      $directory = new Directory('/path/');
+      $this->assertEquals(
+        '/path', (string)$directory
+      );
+    }
 
-  /**
-   * @covers \Papaya\File\System\Directory::isReadable
-   */
-  public function testIsReadableExpectingTrue() {
-    $directory = new Directory(__DIR__);
-    $this->assertTrue($directory->isReadable());
-  }
+    public function testExistsExpectingTrue() {
+      $directory = new Directory(__DIR__);
+      $this->assertTrue($directory->exists());
+    }
 
-  /**
-   * @covers \Papaya\File\System\Directory::isWritable
-   */
-  public function testIsWriteableExpectingTrue() {
-    $path = $this->createTemporaryDirectory();
-    $directory = new Directory($path);
-    $this->assertTrue($directory->isWritable());
-  }
+    public function testExistsExpectingFalse() {
+      $directory = new Directory(__DIR__.'NON_EXISTING');
+      $this->assertFalse($directory->exists());
+    }
 
-  /**
-   * @covers \Papaya\File\System\Directory::getEntries
-   */
-  public function testGetEntriesOnlyFiles() {
-    $directory = new Directory(__DIR__.'/TestData/Directory');
-    $this->assertEmpty(
-      array_diff(
-        array(
-          'sample-one.txt', 'sample-two.txt'
-        ),
-        array_keys(
-          iterator_to_array($directory->getEntries('', Directory::FETCH_FILES))
+    public function testIsReadableExpectingTrue() {
+      $directory = new Directory(__DIR__);
+      $this->assertTrue($directory->isReadable());
+    }
+
+    public function testIsWritableExpectingTrue() {
+      $path = $this->createTemporaryDirectory();
+      $directory = new Directory($path);
+      $this->assertTrue($directory->isWritable());
+    }
+
+    public function testIsWriteableWithBCExpectingTrue() {
+      $path = $this->createTemporaryDirectory();
+      $directory = new Directory($path);
+      /** @noinspection PhpDeprecationInspection */
+      $this->assertTrue($directory->isWriteable());
+    }
+
+    public function testGetEntriesOnlyFiles() {
+      $directory = new Directory(__DIR__.'/TestData/Directory');
+      $this->assertEmpty(
+        array_diff(
+          [
+            'sample-one.txt', 'sample-two.txt'
+          ],
+          array_keys(
+            iterator_to_array($directory->getEntries('', Directory::FETCH_FILES))
+          )
         )
-      )
-    );
+      );
+    }
+
+    public function testGetEntriesWithFilter() {
+      $directory = new Directory(__DIR__.'/TestData/Directory');
+      $this->assertEquals(
+        [
+          'sample-one.txt'
+        ],
+        array_keys(
+          iterator_to_array($directory->getEntries('(one)', Directory::FETCH_FILES))
+        )
+      );
+    }
+
+    public function testGetEntriesOnlyDirectories() {
+      $directory = new Directory(__DIR__.'/TestData');
+      $this->assertArrayHasKey(
+        'Directory',
+        iterator_to_array($directory->getEntries('', Directory::FETCH_DIRECTORIES))
+      );
+    }
   }
-
-  /**
-   * @covers \Papaya\File\System\Directory::getEntries
-   */
-  public function testGetEntriesWithFilter() {
-    $directory = new Directory(__DIR__.'/TestData/Directory');
-    $this->assertEquals(
-      array(
-        'sample-one.txt'
-      ),
-      array_keys(
-        iterator_to_array($directory->getEntries('(one)', Directory::FETCH_FILES))
-      )
-    );
-  }
-
-  /**
-   * @covers \Papaya\File\System\Directory::getEntries
-   */
-  public function testGetEntriesOnlyDirectories() {
-    $directory = new Directory(__DIR__.'/TestData');
-    $this->assertArrayHasKey(
-      'Directory',
-      iterator_to_array($directory->getEntries('', Directory::FETCH_DIRECTORIES))
-    );
-  }
-
-
 }

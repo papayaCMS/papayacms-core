@@ -88,7 +88,7 @@ class Directory {
   }
 
   /**
-   * Get file list, ignorefiles starting with a dot, by default
+   * Get file list, ignore files starting with a dot, by default
    *
    * @param string $filter
    * @param int $type
