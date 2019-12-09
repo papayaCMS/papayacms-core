@@ -146,7 +146,7 @@ namespace Papaya\Database\Connection {
         if ($calculateFoundRows) {
           $counterResult = $this->process(new SQLStatement('SELECT FOUND_ROWS()'));
           if ($counterResult) {
-            $result->setAbsoluteCount((int)$counterResult->fetch_field());
+            $result->setAbsoluteCount((int)$counterResult->fetch_array()[0]);
             $counterResult->free();
           }
         }
