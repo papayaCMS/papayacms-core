@@ -167,6 +167,7 @@ class Page implements Application\Access {
             'plugin' => \get_class($plugin),
             'view' => $this->translation()->viewName,
             'href' => $this->getPageHref($plugin, $configuration, $viewData),
+            'title' => $this->translation()->title,
             'published' => Utility\Date::timestampToString($this->translation()->modified),
             'created' => Utility\Date::timestampToString($this->translation()->created)
           ]
