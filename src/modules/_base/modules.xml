@@ -36,6 +36,9 @@
     <module type="page" guid="2474f2780ded96e785c6e231b7fbd091" name="Teaser Redirect" file="TeaserRedirect.php" class="Papaya\Modules\Core\TeaserRedirect" outputfilter="no">
       Redirect to another URL, provide teaser
     </module>
+    <module type="page" guid="f4317ace107d91458c202c98f6633688" name="Page Fragment" file="PageFragment.php" class="Papaya\Modules\Core\PageFragment" outputfilter="no">
+      Provides a teaser but no content, it will redirect to the parent page
+    </module>
     <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">
       Shows child pages of given page id as navigation
     </module>
