@@ -1701,7 +1701,7 @@ class base_viewlist extends base_db {
       }
       $fields = array(
         'view_title' => array('Title', 'isNoHTML', TRUE, 'input', 100, ''),
-        'view_name' => array('Name', 'isNoHTML', FALSE, 'input', 100, 'Name/identifier for templates'),
+        'view_name' => array('Identifier(s)', 'isNoHTML', FALSE, 'input', 100, 'Name/identifier(s) for templates'),
         'module_guid' => array('Module', 'isGuid', TRUE, 'combo', $viewModules, ''),
         'Information',
         'view_is_cacheable' => array('Cacheable', 'isNum', TRUE, 'yesno', NULL, '', 0),
