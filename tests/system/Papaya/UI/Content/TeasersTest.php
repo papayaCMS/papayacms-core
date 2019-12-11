@@ -15,12 +15,21 @@
 
 namespace Papaya\UI\Content {
 
+  use Papaya\Content\Pages as ContentPages;
+  use Papaya\Content\View\Configurations as ViewConfigurations;
+  use Papaya\Plugin\Loader as PluginLoader;
+  use Papaya\Plugin\Quoteable as QuoteablePlugin;
+  use Papaya\TestCase;
+  use Papaya\UI\Reference\Page as PageReference;
+  use Papaya\Utility\Date as DateUtilities;
+  use Papaya\XML\Element as XMLElement;
+
   require_once __DIR__.'/../../../../bootstrap.php';
 
     /**
      * @covers \Papaya\UI\Content\Teasers
      */
-  class TeasersTest extends \Papaya\TestCase {
+  class TeasersTest extends TestCase {
 
     public function testConstructor() {
       $pages = $this->getPagesFixture();
@@ -36,13 +45,15 @@ namespace Papaya\UI\Content {
 
     public function testReferenceGetAfterSet() {
       $teasers = new Teasers($this->getPagesFixture());
-      $teasers->reference($reference = $this->createMock(\Papaya\UI\Reference\Page::class));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|PageReference $reference */
+      $reference = $this->createMock(PageReference::class);
+      $teasers->reference($reference);
       $this->assertSame($reference, $teasers->reference());
     }
 
     public function testReferenceGetImplicitCreate() {
       $teasers = new Teasers($this->getPagesFixture());
-      $this->assertInstanceOf(\Papaya\UI\Reference\Page::class, $teasers->reference());
+      $this->assertInstanceOf(PageReference::class, $teasers->reference());
     }
 
     public function testPagesGetAfterSet() {
@@ -83,15 +94,18 @@ namespace Papaya\UI\Content {
         ->expects($this->once())
         ->method('appendQuoteTo');
 
-      $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|PluginLoader $plugins */
+      $plugins = $this->createMock(PluginLoader::class);
       $plugins
         ->expects($this->once())
         ->method('get')
         ->with('12345678901234567890123456789042')
-        ->will($this->returnValue($plugin));
+        ->willReturn($plugin);
 
       $teasers = new Teasers($pages);
-      $teasers->viewConfigurations($this->createMock(\Papaya\Content\View\Configurations::class));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|ViewConfigurations $viewConfigurations */
+      $viewConfigurations = $this->createMock(ViewConfigurations::class);
+      $teasers->viewConfigurations($viewConfigurations);
       $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
       $this->assertXmlStringEqualsXmlString(
@@ -123,15 +137,18 @@ namespace Papaya\UI\Content {
         ->disableOriginalConstructor()
         ->getMock();
 
-      $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|PluginLoader $plugins */
+      $plugins = $this->createMock(PluginLoader::class);
       $plugins
         ->expects($this->once())
         ->method('get')
         ->with('12345678901234567890123456789021')
-        ->will($this->returnValue($plugin));
+        ->willReturn($plugin);
 
       $teasers = new Teasers($pages);
-      $teasers->viewConfigurations($this->createMock(\Papaya\Content\View\Configurations::class));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|ViewConfigurations $viewConfigurations */
+      $viewConfigurations = $this->createMock(ViewConfigurations::class);
+      $teasers->viewConfigurations($viewConfigurations);
       $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
       $this->assertXmlStringEqualsXmlString(
@@ -158,15 +175,18 @@ namespace Papaya\UI\Content {
         )
       );
 
-      $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
+      /** @var \PHPUnit_Framework_MockObject_MockObject|PluginLoader $plugins */
+      $plugins = $this->createMock(PluginLoader::class);
       $plugins
         ->expects($this->once())
         ->method('get')
         ->with(12345678901234567890123456789023)
-        ->will($this->returnValue(NULL));
+        ->willReturn(NULL);
 
       $teasers = new Teasers($pages);
-      $teasers->viewConfigurations($this->createMock(\Papaya\Content\View\Configurations::class));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|ViewConfigurations $viewConfigurations */
+      $viewConfigurations = $this->createMock(ViewConfigurations::class);
+      $teasers->viewConfigurations($viewConfigurations);
       $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
       $this->assertXmlStringEqualsXmlString(
@@ -193,18 +213,20 @@ namespace Papaya\UI\Content {
         )
       );
 
-      $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
+      $plugins = $this->createMock(PluginLoader::class);
       $plugins
         ->expects($this->once())
         ->method('get')
         ->with('12345678901234567890123456789042')
-        ->will($this->returnValue(new Teasers_PagePluginMockClass()));
+        ->willReturn(new Teasers_PagePluginMockClass());
 
       $teasers = new Teasers($pages, 200, 100);
-      $teasers->viewConfigurations($this->createMock(\Papaya\Content\View\Configurations::class));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|ViewConfigurations $viewConfigurations */
+      $viewConfigurations = $this->createMock(ViewConfigurations::class);
+      $teasers->viewConfigurations($viewConfigurations);
       $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
-      $date = \Papaya\Utility\Date::timestampToString(strtotime('2017-01-16T12:21Z'));
+      $date = DateUtilities::timestampToString(strtotime('2017-01-16T12:21Z'));
       $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
         "<teasers>
@@ -213,7 +235,8 @@ namespace Papaya\UI\Content {
           published='$date'
           page-id='42'
           plugin-guid='12345678901234567890123456789042'
-          plugin='Papaya\UI\Content\Teasers_PagePluginMockClass'>
+          plugin='Papaya\UI\Content\Teasers_PagePluginMockClass'
+          title='callback and thumbnails'>
           <title>sample title</title>
           <image>
             <img src='sample.png'/>
@@ -253,18 +276,20 @@ namespace Papaya\UI\Content {
         )
       );
 
-      $plugins = $this->createMock(\Papaya\Plugin\Loader::class);
+      $plugins = $this->createMock(PluginLoader::class);
       $plugins
         ->expects($this->once())
         ->method('get')
         ->with('12345678901234567890123456789042')
-        ->will($this->returnValue(new Teasers_PagePluginMockClass()));
+        ->willReturn(new Teasers_PagePluginMockClass());
 
       $teasers = new Teasers($pages, 200, 100, 'mincrop', TRUE);
-      $teasers->viewConfigurations($this->createMock(\Papaya\Content\View\Configurations::class));
+      /** @var \PHPUnit_Framework_MockObject_MockObject|ViewConfigurations $viewConfigurations */
+      $viewConfigurations = $this->createMock(ViewConfigurations::class);
+      $teasers->viewConfigurations($viewConfigurations);
       $teasers->papaya($this->mockPapaya()->application(array('plugins' => $plugins)));
 
-      $date = \Papaya\Utility\Date::timestampToString(strtotime('2017-01-16T12:21Z'));
+      $date = DateUtilities::timestampToString(strtotime('2017-01-16T12:21Z'));
       $this->assertXmlStringEqualsXmlString(
       /** @lang XML */
         "<teasers>
@@ -273,7 +298,8 @@ namespace Papaya\UI\Content {
           published='$date'
           page-id='42'
           plugin-guid='12345678901234567890123456789042'
-          plugin='Papaya\UI\Content\Teasers_PagePluginMockClass'>
+          plugin='Papaya\UI\Content\Teasers_PagePluginMockClass'
+          title='callback and thumbnails'>
           <title>sample title</title>
           <image>
             <papaya:media 
@@ -287,7 +313,7 @@ namespace Papaya\UI\Content {
       );
     }
 
-    public function callbackAppendTeaser(\Papaya\XML\Element $parent) {
+    public function callbackAppendTeaser(XMLElement $parent) {
       $parent->appendElement('title', array(), 'sample title');
       $parent->appendElement('image')->appendElement('img', array('src' => 'sample.png'));
       $parent->appendElement('text', array(), 'sample teaser');
@@ -299,22 +325,21 @@ namespace Papaya\UI\Content {
 
     /**
      * @param array $pageRecords
-     * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Pages
+     * @return \PHPUnit_Framework_MockObject_MockObject|ContentPages
      */
     private function getPagesFixture(array $pageRecords = array()) {
-      $pages = $this->createMock(\Papaya\Content\Pages::class);
+      $pages = $this->createMock(ContentPages::class);
       $pages
-        ->expects($this->any())
         ->method('getIterator')
-        ->will($this->returnValue(new \ArrayIterator($pageRecords)));
+        ->willReturn(new \ArrayIterator($pageRecords));
       return $pages;
     }
   }
 
   class Teasers_PagePluginMockClass
-    implements \Papaya\Plugin\Quoteable {
+    implements QuoteablePlugin {
 
-    public function appendQuoteTo(\Papaya\XML\Element $parent) {
+    public function appendQuoteTo(XMLElement $parent) {
       $parent->appendElement('title', array(), 'sample title');
       $parent->appendElement('image')->appendElement('img', array('src' => 'sample.png'));
       $parent->appendElement('text', array(), 'sample teaser');
