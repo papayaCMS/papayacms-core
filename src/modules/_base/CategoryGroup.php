@@ -43,13 +43,7 @@ namespace Papaya\Modules\Core {
     const FIELD_CATEGORY_ORDER = 'category-order';
     const FIELD_CATEGORY_LIMIT = 'category-limit';
 
-    const _DEFAULTS = [
-      self::FIELD_TITLE => '',
-      self::FIELD_SUBTITLE => '',
-      self::FIELD_OVERLINE => '',
-      self::FIELD_IMAGE => '',
-      self::FIELD_TEASER => '',
-      self::FIELD_TEXT => '',
+    const _CATEGORY_GROUP_DEFAULTS = [
       self::FIELD_CATEGORY_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
       self::FIELD_CATEGORY_LIMIT => 10
     ];
@@ -67,7 +61,7 @@ namespace Papaya\Modules\Core {
      */
     public function appendTo(XMLElement $parent) {
       parent::appendTo($parent);
-      $content = $this->content()->withDefaults(self::_DEFAULTS)->withDefaults(self::_TEASER_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $pageId = $this->_page->getPageId();
       if ($pageId !== '') {
         $groups = $this->teaserFactory()->byParent(
@@ -78,8 +72,8 @@ namespace Papaya\Modules\Core {
         foreach ($groups->pages() as $page) {
           $teasers = $this->teaserFactory()->byParent(
             $page['id'],
-            $content[self::FIELD_TEASER_ORDER],
-            $content[self::FIELD_TEASER_LIMIT]
+            $content[self::FIELD_TEASERS_ORDER],
+            $content[self::FIELD_TEASERS_LIMIT]
           );
           $group = $parent->appendElement(
             'category'
@@ -100,6 +94,7 @@ namespace Papaya\Modules\Core {
      * @see PapayaPluginEditableContent::editor()
      */
     public function createEditor(EditablePlugin\Content $content) {
+      $defaults = $this->getDefaultContent();
       $pageOrderOptions = new TranslatedList(PageTeaserFactory::ORDER_POSSIBILITIES);
       $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
@@ -112,14 +107,22 @@ namespace Papaya\Modules\Core {
         $pageOrderOptions,
         TRUE
       );
-      $field->setDefaultValue(self::_DEFAULTS[self::FIELD_CATEGORY_ORDER]);
+      $field->setDefaultValue($defaults[self::FIELD_CATEGORY_ORDER]);
       $group->fields[] = new DialogField\Input\Number(
         new TranslatedText('Limit'),
         self::FIELD_CATEGORY_LIMIT,
-        self::_DEFAULTS[self::FIELD_CATEGORY_LIMIT]
+        $defaults[self::FIELD_CATEGORY_LIMIT]
       );
-      $this->appendTeaserFieldsToDialog($editor->dialog(), $content);
+      $this->appendTeasersFieldsToDialog($editor->dialog(), $content);
       return $editor;
+    }
+
+    protected function getDefaultContent() {
+      return array_merge(
+        parent::getDefaultContent(),
+        $this->getTeasersDefaultContent(),
+        self::_CATEGORY_GROUP_DEFAULTS
+      );
     }
   }
 }

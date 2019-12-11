@@ -32,7 +32,7 @@ namespace Papaya\Modules\Core {
 
     const FIELD_TEXT = 'text';
 
-    const _DEFAULTS = [
+    const _RICHTEXT_DEFAULTS = [
       self::FIELD_TEXT => ''
     ];
 
@@ -42,6 +42,7 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor
      */
     public function createEditor(EditableContent $content) {
+      $defaults = $this->getDefaultContent();
       $editor = new EditorDialog($content);
       $editor->papaya($this->papaya());
       $dialog = $editor->dialog();
@@ -50,7 +51,7 @@ namespace Papaya\Modules\Core {
         new TranslatedText('Text'),
         self::FIELD_TEXT,
         20,
-        self::_DEFAULTS[self::FIELD_TEXT],
+        $defaults[self::FIELD_TEXT],
         NULL,
         DialogField\Textarea\Richtext::RTE_SIMPLE
       );
@@ -61,8 +62,15 @@ namespace Papaya\Modules\Core {
      * @param XMLElement $parent
      */
     public function appendTo(XMLElement $parent) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEXT]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultContent() {
+      return self::_RICHTEXT_DEFAULTS;
     }
   }
 }

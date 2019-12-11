@@ -42,15 +42,6 @@ namespace Papaya\Modules\Core {
     use PluginFilter\Aggregation;
     use Partials\TeasersAggregation;
 
-    const _DEFAULTS = [
-      self::FIELD_TITLE => '',
-      self::FIELD_SUBTITLE => '',
-      self::FIELD_OVERLINE => '',
-      self::FIELD_IMAGE => '',
-      self::FIELD_TEASER => '',
-      self::FIELD_TEXT => ''
-    ];
-
     /**
      * @var PageTeaserFactory
      */
@@ -64,13 +55,13 @@ namespace Papaya\Modules\Core {
      */
     public function appendTo(XMLElement $parent) {
       parent::appendTo($parent);
-      $content = $this->content()->withDefaults(self::_TEASER_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $pageId = $this->_page->getPageId();
       if ($pageId !== '') {
         $teasers = $this->teaserFactory()->byParent(
           $pageId,
-          $content[self::FIELD_TEASER_ORDER],
-          $content[self::FIELD_TEASER_LIMIT]
+          $content[self::FIELD_TEASERS_ORDER],
+          $content[self::FIELD_TEASERS_LIMIT]
         );
         $parent->append($teasers);
       }
@@ -87,8 +78,15 @@ namespace Papaya\Modules\Core {
      */
     public function createEditor(EditablePlugin\Content $content) {
       $editor = parent::createEditor($content);
-      $this->appendTeaserFieldsToDialog($editor->dialog(), $content);
+      $this->appendTeasersFieldsToDialog($editor->dialog(), $content);
       return $editor;
+    }
+
+    protected function getDefaultContent() {
+      return array_merge(
+        parent::getDefaultContent(),
+        $this->getTeasersDefaultContent()
+      );
     }
   }
 }

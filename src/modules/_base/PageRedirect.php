@@ -15,7 +15,6 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Modules\Core\Partials\QueryString;
   use Papaya\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Response;
@@ -23,9 +22,9 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Editable\Content as PluginContent;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
+  use Papaya\Router;
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
-  use Papaya\UI\Text\Placeholders as PlaceholdersText;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
@@ -37,7 +36,7 @@ namespace Papaya\Modules\Core {
 
     const FIELD_PAGE_ID = 'target-page-id';
 
-    const _DEFAULTS = [
+    const _PAGE_REDIRECT_DEFAULTS = [
       self::FIELD_PAGE_ID => 0
     ];
     /**
@@ -51,6 +50,7 @@ namespace Papaya\Modules\Core {
      * @return PluginDialog
      */
     public function createEditor(PluginContent $content) {
+      $defaults = $this->getDefaultContent();
       $editor = new PluginDialog($content);
       $editor->papaya($this->papaya());
       $dialog = $editor->dialog();
@@ -58,7 +58,7 @@ namespace Papaya\Modules\Core {
         new TranslatedText('Page Id'),
         self::FIELD_PAGE_ID,
         255,
-        self::_DEFAULTS[self::FIELD_PAGE_ID]
+        $defaults[self::FIELD_PAGE_ID]
       );
       $this->appendQueryStringFieldsToDialog($dialog, $content);
       return $editor;
@@ -67,13 +67,13 @@ namespace Papaya\Modules\Core {
     /**
      * Redirect to target page if provided.
      *
-     * @param \Papaya\Router $router
+     * @param Router $router
      * @param NULL|object $context
      * @param int $level
      * @return Response\Failure|Response\Redirect
      */
-    public function __invoke(\Papaya\Router $router, $context = NULL, $level = 0) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+    public function __invoke(Router $router, $context = NULL, $level = 0) {
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $reference = $this->papaya()->pageReferences->get(
         $this->papaya()->request->languageIdentifier,
         $content['target-page_id']
@@ -92,7 +92,7 @@ namespace Papaya\Modules\Core {
      * @return XMLElement
      */
     public function appendQuoteTo(XMLElement $parent) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       if (
         ($pageId = $content['target-page_id']) > 0 &&
         ($teasers = $this->teaserFactory()->byPageId($pageId)) &&
@@ -116,6 +116,13 @@ namespace Papaya\Modules\Core {
         $this->_contentTeasers = new PageTeaserFactory(0, 0, 'max');
       }
       return $this->_contentTeasers;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultContent() {
+      return self::_PAGE_REDIRECT_DEFAULTS;
     }
   }
 }

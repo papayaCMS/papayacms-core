@@ -20,18 +20,18 @@ namespace Papaya\Modules\Core\Partials {
 
   interface Teasers {
 
-    const FIELD_TEASER_ORDER = 'teaser-order';
-    const FIELD_TEASER_LIMIT = 'teaser-limit';
-    const FIELD_TEASER_IMAGE_RESIZE = 'teaser-image-resize-mode';
-    const FIELD_TEASER_IMAGE_WIDTH = 'teaser-image-width';
-    const FIELD_TEASER_IMAGE_HEIGHT = 'teaser-image-height';
+    const FIELD_TEASERS_ORDER = 'teasers-order';
+    const FIELD_TEASERS_LIMIT = 'teasers-limit';
+    const FIELD_TEASERS_IMAGE_RESIZE = 'teasers-image-resize-mode';
+    const FIELD_TEASERS_IMAGE_WIDTH = 'teasers-image-width';
+    const FIELD_TEASERS_IMAGE_HEIGHT = 'teasers-image-height';
 
-    const _TEASER_DEFAULTS = [
-      self::FIELD_TEASER_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
-      self::FIELD_TEASER_LIMIT => 10,
-      self::FIELD_TEASER_IMAGE_RESIZE => 'max',
-      self::FIELD_TEASER_IMAGE_WIDTH => 0,
-      self::FIELD_TEASER_IMAGE_HEIGHT => 0
+    const _TEASERS_DEFAULTS = [
+      self::FIELD_TEASERS_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
+      self::FIELD_TEASERS_LIMIT => 10,
+      self::FIELD_TEASERS_IMAGE_RESIZE => 'max',
+      self::FIELD_TEASERS_IMAGE_WIDTH => 0,
+      self::FIELD_TEASERS_IMAGE_HEIGHT => 0
     ];
 
     /**
@@ -39,7 +39,12 @@ namespace Papaya\Modules\Core\Partials {
      * @param EditableContent $content
      * @return void
      */
-    public function appendTeaserFieldsToDialog(Dialog $dialog, EditableContent $content);
+    public function appendTeasersFieldsToDialog(Dialog $dialog, EditableContent $content);
+
+    /**
+     * @return array
+     */
+    public function getTeasersDefaultContent();
 
     /**
      * @param PageTeaserFactory|NULL $teasers

@@ -24,6 +24,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
+  use Papaya\Utility\Arrays as ArrayUtilities;
   use Papaya\XML\Element as XMLElement;
 
   class TeasersBox implements ApplicationAccess, AppendablePlugin, EditablePlugin, Partials\Teasers {
@@ -33,7 +34,7 @@ namespace Papaya\Modules\Core {
 
     const FIELD_PAGE_ID = 'category-page-id';
 
-    const _DEFAULTS = [
+    const _TEASERS_BOX_DEFAULTS = [
       self::FIELD_PAGE_ID => 0
     ];
 
@@ -48,13 +49,14 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor
      */
     public function createEditor(EditableContent $content) {
+      $defaults = $this->getDefaultContent();
       $editor = new EditorDialog($content);
       $editor->papaya($this->papaya());
       $dialog = $editor->dialog();
       $dialog->fields[] = new DialogField\Input(
-        new TranslatedText('Page Id'), self::FIELD_PAGE_ID, 255, self::_DEFAULTS[self::FIELD_PAGE_ID]
+        new TranslatedText('Page Id'), self::FIELD_PAGE_ID, 255, $defaults[self::FIELD_PAGE_ID]
       );
-      $this->appendTeaserFieldsToDialog($dialog, $content);
+      $this->appendTeasersFieldsToDialog($dialog, $content);
       return $editor;
     }
 
@@ -62,16 +64,20 @@ namespace Papaya\Modules\Core {
      * @param XMLElement $parent
      */
     public function appendTo(XMLElement $parent) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $pageId = $content[self::FIELD_PAGE_ID];
       if ($pageId !== '') {
         $teasers = $this->teaserFactory()->byParent(
           $pageId,
-          $content[self::FIELD_TEASER_ORDER],
-          $content[self::FIELD_TEASER_LIMIT]
+          $content[self::FIELD_TEASERS_ORDER],
+          $content[self::FIELD_TEASERS_LIMIT]
         );
         $parent->append($teasers);
       }
+    }
+
+    protected function getDefaultContent() {
+      return self::_TEASERS_BOX_DEFAULTS;
     }
   }
 }

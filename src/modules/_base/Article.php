@@ -33,12 +33,10 @@ namespace Papaya\Modules\Core {
 
     const OPTION_CATCH_LINE_ENABLED = 'OPTION_CATCH_LINE_ENABLED';
 
-    const _DEFAULTS = [
-      self::FIELD_TITLE => '',
-      self::FIELD_SUBTITLE => '',
-      self::FIELD_OVERLINE => '',
-      self::FIELD_IMAGE => '',
-      self::FIELD_TEASER => '',
+    /**
+     * @access private
+     */
+    const _ARTICLE_DEFAULTS = [
       self::FIELD_TEXT => '',
       self::FIELD_CATCH_LINE_TITLE => '',
       self::FIELD_CATCH_LINE_TEXT => ''
@@ -50,13 +48,14 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor|PluginDialog
      */
     public function createEditor(EditablePlugin\Content $content) {
+      $defaults = $this->getDefaultContent();
       $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
       $dialog->fields[] = new DialogField\Textarea\Richtext(
         new TranslatedText('Text'),
         self::FIELD_TEXT,
         20,
-        self::_DEFAULTS[self::FIELD_TEXT]
+        $defaults[self::FIELD_TEXT]
       );
       if ($this->options()->get(self::OPTION_CATCH_LINE_ENABLED, FALSE)) {
         $dialog->fields[] = $group = new DialogField\Group(new TranslatedText('Catch-Line'));
@@ -64,13 +63,13 @@ namespace Papaya\Modules\Core {
           new TranslatedText('Title'),
           self::FIELD_CATCH_LINE_TITLE,
           -1,
-          self::_DEFAULTS[self::FIELD_CATCH_LINE_TITLE]
+          $defaults[self::FIELD_CATCH_LINE_TITLE]
         );
         $group->fields[] = new DialogField\Input(
           new TranslatedText('Text'),
           self::FIELD_CATCH_LINE_TEXT,
           -1,
-          self::_DEFAULTS[self::FIELD_CATCH_LINE_TEXT]
+          $defaults[self::FIELD_CATCH_LINE_TEXT]
         );
       }
       return $editor;
@@ -83,7 +82,7 @@ namespace Papaya\Modules\Core {
      * @param XMLElement $parent
      */
     public function appendTo(XMLElement $parent) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $filters = $this->filters();
       $filters->prepare(
         $content[self::FIELD_TEXT],
@@ -125,6 +124,13 @@ namespace Papaya\Modules\Core {
       );
       $field->setDefaultValue(FALSE);
       return $editor;
+    }
+
+    protected function getDefaultContent() {
+      return array_merge(
+        parent::getDefaultContent(),
+        self::_ARTICLE_DEFAULTS
+      );
     }
   }
 }

@@ -27,7 +27,7 @@ namespace Papaya\Modules\Core\Partials {
 
   abstract class Teaser implements PageModule, EditablePlugin, QuotablePlugin {
 
-    use EditablePlugin\Aggregation;
+    use EditablePlugin\Content\Aggregation;
 
     const FIELD_TITLE = 'title';
     const FIELD_SUBTITLE = 'subtitle';
@@ -35,7 +35,10 @@ namespace Papaya\Modules\Core\Partials {
     const FIELD_IMAGE = 'image';
     const FIELD_TEASER = 'teaser';
 
-    const _DEFAULTS = [
+    /**
+     * @access private
+     */
+    const _TEASER_DEFAULTS = [
       self::FIELD_TITLE => '',
       self::FIELD_SUBTITLE => '',
       self::FIELD_OVERLINE => '',
@@ -49,23 +52,24 @@ namespace Papaya\Modules\Core\Partials {
      * @return PluginEditor|PluginDialog
      */
     public function createEditor(EditablePlugin\Content $content) {
+      $defaults = $this->getDefaultContent();
       $editor = new PluginDialog($content);
       $editor->papaya($this->papaya());
       $dialog = $editor->dialog();
       $dialog->fields[] = new DialogField\Input(
-        new TranslatedText('Title'), self::FIELD_TITLE, 255, self::_DEFAULTS[self::FIELD_TITLE]
+        new TranslatedText('Title'), self::FIELD_TITLE, 255, $defaults[self::FIELD_TITLE]
       );
       $dialog->fields[] = new DialogField\Input(
         new TranslatedText('Subtitle'),
         self::FIELD_SUBTITLE,
         255,
-        self::_DEFAULTS[self::FIELD_SUBTITLE]
+        $defaults[self::FIELD_SUBTITLE]
       );
       $dialog->fields[] = new DialogField\Input(
         new TranslatedText('Overline'),
         self::FIELD_OVERLINE,
         255,
-        self::_DEFAULTS[self::FIELD_OVERLINE]
+        $defaults[self::FIELD_OVERLINE]
       );
       $dialog->fields[] = new DialogField\Input\Media\ImageResized(
         new TranslatedText('Image'), self::FIELD_IMAGE
@@ -74,7 +78,7 @@ namespace Papaya\Modules\Core\Partials {
         new TranslatedText('Teaser'),
         self::FIELD_TEASER,
         8,
-        self::_DEFAULTS[self::FIELD_TEASER],
+        $defaults[self::FIELD_TEASER],
         NULL,
         DialogField\Textarea\Richtext::RTE_SIMPLE
       );
@@ -89,13 +93,20 @@ namespace Papaya\Modules\Core\Partials {
      * @return XMLElement
      */
     public function appendQuoteTo(XMLElement $parent) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $parent->appendElement('overline', $content[self::FIELD_OVERLINE]);
       $parent->appendElement('title', $content[self::FIELD_TITLE]);
       $parent->appendElement('subtitle', $content[self::FIELD_SUBTITLE]);
       $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
       $parent->appendElement('text')->appendXML($content[self::FIELD_TEASER]);
       return $parent;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultContent() {
+      return self::_TEASER_DEFAULTS;
     }
   }
 }

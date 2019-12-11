@@ -19,10 +19,12 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
+  use Papaya\Router;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\Response;
+  use Papaya\Utility\Arrays as ArrayUtilities;
 
   class TeaserRedirect extends Partials\Teaser implements RoutablePlugin, Partials\QueryString {
 
@@ -31,13 +33,8 @@ namespace Papaya\Modules\Core {
 
     const FIELD_TARGET_URL = 'target-url';
 
-    const _DEFAULTS = [
-      self::FIELD_TITLE => '',
-      self::FIELD_SUBTITLE => '',
-      self::FIELD_OVERLINE => '',
-      self::FIELD_IMAGE => '',
-      self::FIELD_TEASER => '',
-      self::FIELD_TARGET_URL => null,
+    const _REDIRECT_DEFAULTS = [
+      self::FIELD_TARGET_URL => NULL,
     ];
 
     /**
@@ -46,12 +43,13 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor|PluginDialog
      */
     public function createEditor(EditablePlugin\Content $content) {
+      $defaults = $this->getDefaultContent();
       $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
       $dialog->fields[] = new DialogField\Input\URL(
         new TranslatedText('URL'),
         self::FIELD_TARGET_URL,
-        self::_DEFAULTS[self::FIELD_TARGET_URL]
+        $defaults[self::FIELD_TARGET_URL]
       );
       $this->appendQueryStringFieldsToDialog($dialog, $content);
       return $editor;
@@ -60,13 +58,13 @@ namespace Papaya\Modules\Core {
     /**
      * Redirect to target page if provided, try parent page otherwise.
      *
-     * @param \Papaya\Router $router
+     * @param Router $router
      * @param NULL|object $context
      * @param int $level
      * @return Response\Failure|Response\Redirect
      */
-    public function __invoke(\Papaya\Router $router, $context = NULL, $level = 0) {
-      $content = $this->content()->withDefaults(self::_DEFAULTS);
+    public function __invoke(Router $router, $context = NULL, $level = 0) {
+      $content = $this->content()->withDefaults($this->getDefaultContent());
       $targetURL = $content['target-page-url'];
       if (empty($targetURL)) {
         $reference = $this->papaya()->pageReferences->get(
@@ -76,6 +74,13 @@ namespace Papaya\Modules\Core {
         $targetURL = (string)$reference;
       }
       return new Response\Redirect($this->appendQueryStringToURL($targetURL));
+    }
+
+    protected function getDefaultContent() {
+      return ArrayUtilities::merge(
+        parent::getDefaultContent(),
+        self::_REDIRECT_DEFAULTS
+      );
     }
   }
 }

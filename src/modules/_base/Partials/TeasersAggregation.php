@@ -34,28 +34,29 @@ namespace Papaya\Modules\Core\Partials {
      * @param EditableContent $content
      * @return void
      */
-    public function appendTeaserFieldsToDialog(Dialog $dialog, EditableContent $content) {
+    public function appendTeasersFieldsToDialog(Dialog $dialog, EditableContent $content) {
+      $defaults = $this->getTeasersDefaultContent();
       $dialog->fields[] = $group = new DialogField\Group(
         new TranslatedText('Teasers')
       );
       $group->fields[] = $field = new DialogField\Select(
         new TranslatedText('Order'),
-        Teasers::FIELD_TEASER_ORDER,
+        Teasers::FIELD_TEASERS_ORDER,
         new TranslatedList(PageTeaserFactory::ORDER_POSSIBILITIES),
         TRUE
       );
-      $field->setDefaultValue(Teasers::_TEASER_DEFAULTS[Teasers::FIELD_TEASER_ORDER]);
+      $field->setDefaultValue($defaults[Teasers::FIELD_TEASERS_ORDER]);
       $group->fields[] = new DialogField\Input\Number(
         new TranslatedText('Limit'),
-        Teasers::FIELD_TEASER_LIMIT,
-        Teasers::_TEASER_DEFAULTS[Teasers::FIELD_TEASER_LIMIT]
+        Teasers::FIELD_TEASERS_LIMIT,
+        $defaults[Teasers::FIELD_TEASERS_LIMIT]
       );
       $dialog->fields[] = $group = new DialogField\Group(
         new TranslatedText('Teaser Images')
       );
       $group->fields[] = $field = new DialogField\Select\Radio(
         new TranslatedText('Resize Mode'),
-        Teasers::FIELD_TEASER_IMAGE_RESIZE,
+        Teasers::FIELD_TEASERS_IMAGE_RESIZE,
         new TranslatedList(
           [
             'max' => 'Maximum',
@@ -66,17 +67,24 @@ namespace Papaya\Modules\Core\Partials {
         ),
         TRUE
       );
-      $field->setDefaultValue(Teasers::_TEASER_DEFAULTS[Teasers::FIELD_TEASER_IMAGE_RESIZE]);
+      $field->setDefaultValue($defaults[Teasers::FIELD_TEASERS_IMAGE_RESIZE]);
       $group->fields[] = new DialogField\Input\Number(
         new TranslatedText('Width'),
-        Teasers::FIELD_TEASER_IMAGE_WIDTH,
-        Teasers::_TEASER_DEFAULTS[Teasers::FIELD_TEASER_IMAGE_WIDTH]
+        Teasers::FIELD_TEASERS_IMAGE_WIDTH,
+        $defaults[Teasers::FIELD_TEASERS_IMAGE_WIDTH]
       );
       $group->fields[] = new DialogField\Input\Number(
         new TranslatedText('Height'),
-        Teasers::FIELD_TEASER_IMAGE_HEIGHT,
-        Teasers::_TEASER_DEFAULTS[Teasers::FIELD_TEASER_IMAGE_HEIGHT]
+        Teasers::FIELD_TEASERS_IMAGE_HEIGHT,
+        $defaults[Teasers::FIELD_TEASERS_IMAGE_HEIGHT]
       );
+    }
+
+    /**
+     * @return array
+     */
+    public function getTeasersDefaultContent() {
+      return Teasers::_TEASERS_DEFAULTS;
     }
 
     /**
@@ -84,14 +92,14 @@ namespace Papaya\Modules\Core\Partials {
      * @return PageTeaserFactory
      */
     public function teaserFactory(PageTeaserFactory $teasers = NULL) {
-      $content = $this->content()->withDefaults(Teasers::_TEASER_DEFAULTS);
+      $content = $this->content()->withDefaults($this->getTeasersDefaultContent());
       if (NULL !== $teasers) {
         $this->_teaserFactory = $teasers;
       } elseif (NULL === $this->_teaserFactory) {
         $this->_teaserFactory = new PageTeaserFactory(
-          $content[Teasers::FIELD_TEASER_IMAGE_WIDTH],
-          $content[Teasers::FIELD_TEASER_IMAGE_HEIGHT],
-          $content[Teasers::FIELD_TEASER_IMAGE_RESIZE],
+          $content[Teasers::FIELD_TEASERS_IMAGE_WIDTH],
+          $content[Teasers::FIELD_TEASERS_IMAGE_HEIGHT],
+          $content[Teasers::FIELD_TEASERS_IMAGE_RESIZE],
           TRUE
         );
       }
