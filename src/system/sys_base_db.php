@@ -131,7 +131,7 @@ class base_db extends base_object implements \Papaya\Database\Accessible {
   }
 
   public function databaseGetSQLSource($functionName, ...$parameters) {
-    return $this->getDatabaseAccess()->getSQLSource($functionName, $parameters);
+    return $this->getDatabaseAccess()->getSQLSource($functionName, ...$parameters);
   }
 
   public function databaseGetSQLCondition($filter, $value = NULL) {
