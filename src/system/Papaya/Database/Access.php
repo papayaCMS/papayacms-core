@@ -881,11 +881,11 @@ namespace Papaya\Database {
 
     /**
      * @param $function
-     * @param array $parameters
+     * @param array $parameters [$parameter1, $escape = TRUE, $parameter1, $escape = TRUE, ...]
      * @return string|NULL
      * @deprecated
      */
-    public function getSQLSource($function, array $parameters) {
+    public function getSQLSource($function, ...$parameters) {
       try {
         $arguments = [];
         for ($i = 0, $c = count($parameters); $i < $c; $i += 2) {
