@@ -4,6 +4,7 @@
     <field name="topic_id" type="integer" size="8"  null="no" autoinc="yes"/>
     <field name="prev" type="integer" size="8"  null="no"/>
     <field name="prev_path" type="string" size="65535"  null="no"/>
+    <field name="is_deleted" type="integer" size="2" null="no"/>
     <field name="author_id" type="string" size="32"  null="no"/>
     <field name="author_group" type="integer" size="2"  null="no"/>
     <field name="author_perm" type="string" size="3"  null="no" default="000"/>
@@ -37,6 +38,10 @@
     </key>
     <key name="prev_path">
       <field size="240">prev_path</field>
+    </key>
+    <key name="topic_weight">
+      <field>topic_weight</field>
+      <field>topic_created</field>
     </key>
     <key name="topic_modified">
       <field>topic_modified</field>
