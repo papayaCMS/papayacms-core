@@ -102,12 +102,20 @@ class papaya_boxeslinks extends base_boxeslinks {
     $params = array($this->tableLink, $this->topicId, $this->groupPageId);
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-        if (!empty($this->topicId) && $this->topicId == $row['topic_id']) {
+        if (
+          (int)$this->topicId > 0 &&
+          (int)$this->topicId === (int)$row['topic_id'] &&
+          (int)$row['box_id'] > 0
+        ) {
           $this->linkList[$row['boxlink_id']] = $row;
-          $this->used[] = $row['box_id'];
-        } elseif (!empty($this->groupPageId) && $this->groupPageId == $row['topic_id']) {
+          $this->used[] = (int)$row['box_id'];
+        } elseif (
+          (int)$this->groupPageId > 0 &&
+          (int)$this->groupPageId === (int)$row['topic_id'] &&
+          (int)$row['boxgroup_id'] > 0
+        ) {
           $this->linkList[$row['boxlink_id']] = $row;
-          $this->usedGroups[] = $row['boxgroup_id'];
+          $this->usedGroups[] = (int)$row['boxgroup_id'];
         }
       }
     }
