@@ -682,11 +682,11 @@ class papaya_topic_tree extends base_topic_tree {
           $selected = '';
         }
         if (isset($val['topic_title']) && trim($val['topic_title']) != '') {
-          $title = papaya_strings::escapeHTMLChars($val['topic_title']);
+          $title = $val['topic_title'];
         } elseif (isset($val['mlang_topic_title']) && trim($val['mlang_topic_title']) != '') {
-          $title = papaya_strings::escapeHTMLChars('['.$val['mlang_topic_title'].']');
+          $title = '['.$val['mlang_topic_title'].']';
         } else {
-          $title = papaya_strings::escapeHTMLChars($this->_gt('No title'));
+          $title = $this->_gt('No title');
         }
         $result .= sprintf(
           '<listitem title="%s" href="%s" indent="%d" image="%s"%s>',
