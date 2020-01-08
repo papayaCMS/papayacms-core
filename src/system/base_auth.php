@@ -405,7 +405,9 @@ class base_auth extends base_db {
   function restoreLogin() {
     $this->user = array();
     $this->isValid = FALSE;
-    $this->load($this->sessionParams['user_guid'], TRUE);
+    if (isset($this->sessionParams['user_guid'])) {
+      $this->load($this->sessionParams['user_guid'], TRUE);
+    }
     return $this->isValid;
   }
 
