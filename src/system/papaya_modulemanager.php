@@ -3037,6 +3037,8 @@ class papaya_modulemanager extends base_db {
       );
       if ($pluginObject instanceof \Papaya\Plugin\Configurable\Options) {
         $pluginNode = $this->layout->values()->getValueByPath('/page/rightcol');
+        $moduleOptions = new papaya_module_options();
+        $pluginObject->options()->merge($moduleOptions->getOptions($this->module['module_guid']));
         if ($editor = $pluginObject->options()->editor()) {
           $editor->context()->merge(
             array(
@@ -3047,7 +3049,6 @@ class papaya_modulemanager extends base_db {
           );
           $pluginNode->append($editor);
           if ($pluginObject->options()->modified()) {
-            $moduleOptions = new papaya_module_options();
             if ($moduleOptions->saveOptions($this->module['module_guid'], (array)$editor->getData())) {
               $this->addMsg(MSG_INFO, $this->_gt('Options modified.'));
             }
