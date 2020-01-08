@@ -50,12 +50,12 @@ class Storage
   }
 
   /**
-   * Load module options from database
+   * Explicitly load module options from database
    *
    * @return bool
    */
   public function load() {
-    return $this->options()->activateLazyLoad(['guid' => $this->_guid]);
+    return $this->options()->load(['guid' => $this->_guid]);
   }
 
   /**
@@ -83,6 +83,8 @@ class Storage
       $this->_options = $options;
     } elseif (NULL === $this->_options) {
       $this->_options = new Content\Module\Options();
+      $this->_options->papaya($this->papaya());
+      $this->_options->activateLazyLoad(['guid' => $this->_guid]);
     }
     return $this->_options;
   }
