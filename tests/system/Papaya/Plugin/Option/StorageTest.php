@@ -36,7 +36,7 @@ class StorageTest extends \Papaya\TestCase {
     $options = $this->createMock(\Papaya\Content\Module\Options::class);
     $options
       ->expects($this->once())
-      ->method('activateLazyLoad')
+      ->method('load')
       ->with(array('guid' => 'ab123456789012345678901234567890'))
       ->willReturn(TRUE);
     $storage = new Storage('ab123456789012345678901234567890');

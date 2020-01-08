@@ -33,14 +33,6 @@ namespace Papaya\Plugin\Editable\Options {
       $this->assertSame($options, $plugin->options());
     }
 
-    public function testOptionsGetImplicitCreate() {
-      $plugin = new Aggregation_TestProxy();
-      $plugin->guid = 'af123456789012345678901234567890';
-      $options = $plugin->options();
-      $this->assertSame($options, $plugin->options());
-      $this->assertInstanceOf(PluginEditor::class, $options->editor());
-    }
-
     public function testGetPluginGuid() {
       $plugin = new Aggregation_TestProxy();
       $plugin->guid = 'af123456789012345678901234567890';
