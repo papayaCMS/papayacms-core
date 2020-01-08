@@ -333,11 +333,11 @@ class papaya_parser extends base_db {
       $sql = "SELECT tt.topic_id, tt.topic_title, lt.linktype_id,
                      lt.linktype_is_popup, lt.linktype_name,
                      lt.linktype_target, lt.linktype_popup_config
-                FROM %s tt, %s t, %s lt
+                FROM %s tt, %s t
+                LEFT JOIN %s lt ON (lt.linktype_id = t.linktype_id)
                WHERE $filter
                  AND tt.lng_id = %d
-                 AND t.topic_id = tt.topic_id
-                 AND lt.linktype_id = t.linktype_id";
+                 AND t.topic_id = tt.topic_id";
       $params = array(
         $this->tableTopicsTrans,
         $this->tableTopics,
@@ -1454,6 +1454,9 @@ class papaya_parser extends base_db {
               papaya_strings::escapeHTMLChars($caption)
             );
           } else {
+            if (!isset($params['altmode'])) {
+              $params['altmode'] = '';
+            }
             switch ($params['altmode']) {
             case 'yes':
               $caption = (isset($params['text'])) ? $params['text'] : '';
