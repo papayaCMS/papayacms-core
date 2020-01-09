@@ -35,7 +35,7 @@ namespace Papaya\Modules\Core {
     public function __invoke(Router $router, $context = NULL, $level = 0) {
       $reference = $this->papaya()->pageReferences->get(
         $this->papaya()->request->languageIdentifier,
-        $this->getPage()->getParentID()
+        $this->getPage()->getParentID(1)
       );
       return new Response\Redirect((string)$reference);
     }

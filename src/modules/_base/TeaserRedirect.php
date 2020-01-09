@@ -69,7 +69,7 @@ namespace Papaya\Modules\Core {
       if (empty($targetURL)) {
         $reference = $this->papaya()->pageReferences->get(
           $this->papaya()->request->languageIdentifier,
-          $this->getPage()->getParentID()
+          $this->getPage()->getParentID(1)
         );
         $targetURL = (string)$reference;
       }
