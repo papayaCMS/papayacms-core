@@ -74,11 +74,11 @@ namespace Papaya\Modules\Core {
      */
     public function __invoke(Router $router, $context = NULL, $level = 0) {
       $content = $this->content()->withDefaults($this->getDefaultContent());
+      $pageId = $content[self::FIELD_PAGE_ID] ?: $this->getPage()->getParentID(1);
       $reference = $this->papaya()->pageReferences->get(
-        $this->papaya()->request->languageIdentifier,
-        $content['target-page_id']
+        $this->papaya()->request->languageIdentifier, $pageId
       );
-      if ($content['target-page_id'] > 0 && $reference->valid()) {
+      if ($pageId > 0 && $reference->valid()) {
         return new Response\Redirect($this->appendQueryStringToURL($reference));
       }
       return new Response\Failure('Invalid Redirect Target.');
@@ -93,8 +93,9 @@ namespace Papaya\Modules\Core {
      */
     public function appendQuoteTo(XMLElement $parent) {
       $content = $this->content()->withDefaults($this->getDefaultContent());
+      $pageId = $content[self::FIELD_PAGE_ID] ?: $this->getPage()->getParentID(1);
       if (
-        ($pageId = $content['target-page_id']) > 0 &&
+        $pageId > 0 &&
         ($teasers = $this->teaserFactory()->byPageId($pageId)) &&
         isset($teasers[$pageId])
       ) {
