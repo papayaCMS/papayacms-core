@@ -26,6 +26,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
+  use Papaya\XML\Document;
   use Papaya\XML\Element as XMLElement;
 
   class PageRedirect implements PageModule, EditablePlugin, QuotablePlugin, RoutablePlugin, Partials\QueryString {
@@ -97,9 +98,20 @@ namespace Papaya\Modules\Core {
       if (
         $pageId > 0 &&
         ($teasers = $this->teaserFactory()->byPageId($pageId)) &&
-        isset($teasers[$pageId])
+        isset($teasers->pages()[$pageId])
       ) {
-        $teasers->appendTeaserTo($parent, $teasers->pages()[$pageId]);
+        $teaser = new Document();
+        $fragment = $teaser->appendElement('fragment');
+        $teasers->appendTeaserTo($fragment, $teasers->pages()[$pageId]);
+        if ($fragment->firstChild) {
+          foreach ($teaser->xpath()->evaluate('/*/teaser/*') as $node) {
+            $parent->append($node);
+          }
+          $redirect = $parent->appendElement('redirect-page');
+          foreach ($teaser->xpath()->evaluate('/*/teaser/@*') as $attribute) {
+            $redirect->setAttribute($attribute->name, $attribute->value);
+          }
+        }
       }
       return $parent;
     }
