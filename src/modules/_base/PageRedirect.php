@@ -105,7 +105,7 @@ namespace Papaya\Modules\Core {
         $teasers->appendTeaserTo($fragment, $teasers->pages()[$pageId]);
         if ($fragment->firstChild) {
           foreach ($teaser->xpath()->evaluate('/*/teaser/*') as $node) {
-            $parent->append($node);
+            $parent->appendChild($parent->ownerDocument->importNode($node, TRUE));
           }
           $redirect = $parent->appendElement('redirect-page');
           foreach ($teaser->xpath()->evaluate('/*/teaser/@*') as $attribute) {
