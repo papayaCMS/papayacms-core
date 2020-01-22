@@ -421,6 +421,7 @@
       <arg value="--ignore-platform-reqs"/>
       <arg value="--no-interaction"/>
       <arg value="--no-dev"/>
+      <arg value="--no-cache"/>
       <arg value="--working-dir"/>
       <arg path="${targetDirectory}"/>
     </exec>
