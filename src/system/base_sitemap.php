@@ -1127,7 +1127,10 @@ class base_sitemap extends base_db {
       $topicChangeFrequency = base_statictables::getChangeFrequencyValues();
       $topicPriority = number_format($row['topic_priority'] / 100, 1, '.', '');
       $linkClassAttribute = '';
-      if (!empty($this->linkTypes[$row['linktype_id']]['linktype_class'])) {
+      if (
+        isset($this->linkTypes[$row['linktype_id']]) &&
+        !empty($this->linkTypes[$row['linktype_id']]['linktype_class'])
+      ) {
         $linkClassAttribute = sprintf(
           'class="%s"',
           papaya_strings::escapeHTMLChars($this->linkTypes[$row['linktype_id']]['linktype_class'])
