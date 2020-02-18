@@ -615,12 +615,11 @@ class base_dialog extends base_object {
       case 'date' :
       case 'datetime' :
         $result .= sprintf(
-          '<input type="text" name="%s[%s]" value="%s" maxlength="%d"'.
+          '<input type="text" name="%s[%s]" value="%s" maxlength="40"'.
             ' class="%s dialogScale" size="%d" fid="%s"%s%s%s/>'.LF,
           papaya_strings::escapeHTMLChars($this->paramName),
           papaya_strings::escapeHTMLChars($name),
           papaya_strings::escapeHTMLChars($data),
-          papaya_strings::escapeHTMLChars($element[4]),
           ($elementType == 'datetime') ? 'dialogInputDateTime' : 'dialogInputDate',
           papaya_strings::escapeHTMLChars($inputSize),
           papaya_strings::escapeHTMLChars($name),
@@ -631,12 +630,11 @@ class base_dialog extends base_object {
         break;
       case 'color' :
         $result .= sprintf(
-          '<input type="text" name="%s[%s]" value="%s" maxlength="%d"'.
+          '<input type="text" name="%s[%s]" value="%s" maxlength="40"'.
             ' class="dialogInputColor dialogScale" size="%d" fid="%s"%s%s%s/>'.LF,
           papaya_strings::escapeHTMLChars($this->paramName),
           papaya_strings::escapeHTMLChars($name),
           papaya_strings::escapeHTMLChars($data),
-          papaya_strings::escapeHTMLChars($element[4]),
           papaya_strings::escapeHTMLChars($inputSize),
           papaya_strings::escapeHTMLChars($name),
           $elementId,
@@ -652,7 +650,7 @@ class base_dialog extends base_object {
           papaya_strings::escapeHTMLChars($this->paramName),
           papaya_strings::escapeHTMLChars($name),
           papaya_strings::escapeHTMLChars($data),
-          papaya_strings::escapeHTMLChars($element[4]),
+          papaya_strings::escapeHTMLChars(isset($element[4]) ? $element[4] : 2000),
           papaya_strings::escapeHTMLChars($inputSize),
           papaya_strings::escapeHTMLChars($name),
           $elementId,
@@ -683,7 +681,7 @@ class base_dialog extends base_object {
           papaya_strings::escapeHTMLChars($this->paramName),
           papaya_strings::escapeHTMLChars($name),
           papaya_strings::escapeHTMLChars($data),
-          papaya_strings::escapeHTMLChars($element[4]),
+          papaya_strings::escapeHTMLChars(isset($element[4]) ? $element[4] : 1000),
           papaya_strings::escapeHTMLChars($inputSize),
           papaya_strings::escapeHTMLChars($name),
           $elementId,
@@ -698,7 +696,7 @@ class base_dialog extends base_object {
             ' fid="%s"%s%s%s>%s</textarea>'.LF,
           papaya_strings::escapeHTMLChars($this->paramName),
           papaya_strings::escapeHTMLChars($name),
-          papaya_strings::escapeHTMLChars($element[4]),
+          papaya_strings::escapeHTMLChars(isset($element[4]) ? $element[4] : 10),
           papaya_strings::escapeHTMLChars($inputSize),
           papaya_strings::escapeHTMLChars($name),
           $elementId,
@@ -803,7 +801,7 @@ class base_dialog extends base_object {
             ' fid="%s"%s%s>%s</textarea>'.LF,
           papaya_strings::escapeHTMLChars($this->paramName),
           papaya_strings::escapeHTMLChars($name),
-          papaya_strings::escapeHTMLChars($element[4]),
+          papaya_strings::escapeHTMLChars(isset($element[4]) ? $element[4] : 4),
           papaya_strings::escapeHTMLChars($inputSize),
           papaya_strings::escapeHTMLChars($name),
           $elementId,
