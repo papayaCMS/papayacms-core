@@ -186,6 +186,7 @@ class base_boxeslinks extends base_db {
                        b.box_cachemode, b.box_cachetime,
                        b.box_expiresmode, b.box_expirestime,
                        bt.box_title, bt.box_data, bt.view_id, bt.box_trans_modified,
+                       v.view_name,
                        m.module_guid, m.module_useoutputfilter,
                        m.module_path, m.module_file, m.module_class
                   FROM %s bl,
@@ -467,7 +468,7 @@ class base_boxeslinks extends base_db {
 
   private function getBoxMetaElement($data) {
     return sprintf(
-      '<box title="%s" group="%s" guid="%s" module="%s">',
+      '<box title="%s" group="%s" guid="%s" module="%s" view="%s">',
       papaya_strings::escapeHTMLChars($data['box_title']),
       empty($this->boxGroupsList[$data['boxgroup_id']]['boxgroup_name'])
         ? ''
@@ -475,7 +476,8 @@ class base_boxeslinks extends base_db {
           $this->boxGroupsList[$data['boxgroup_id']]['boxgroup_name']
         ),
       papaya_strings::escapeHTMLChars($data['module_guid']),
-      papaya_strings::escapeHTMLChars($data['module_class'])
+      papaya_strings::escapeHTMLChars($data['module_class']),
+      papaya_strings::escapeHTMLChars($data['view_name'])
     );
   }
 
@@ -612,7 +614,7 @@ class base_boxeslinks extends base_db {
           if ($outputString) {
             if ($wrapperTags) {
               $result .= sprintf(
-                '<box title="%s" group="%s" guid="%s" module="%s">',
+                '<box title="%s" group="%s" guid="%s" module="%s" view="%s">',
                 papaya_strings::escapeHTMLChars($data['box_title']),
                 papaya_strings::escapeHTMLChars(
                   empty($this->boxGroupsList[$data['boxgroup_id']]['boxgroup_name'])
@@ -620,7 +622,8 @@ class base_boxeslinks extends base_db {
                     : $this->boxGroupsList[$data['boxgroup_id']]['boxgroup_name']
                 ),
                 papaya_strings::escapeHTMLChars($data['module_guid']),
-                papaya_strings::escapeHTMLChars($data['module_class'])
+                papaya_strings::escapeHTMLChars($data['module_class']),
+                papaya_strings::escapeHTMLChars($data['view_name'])
               );
               $result .= $outputString;
               $result .= '</box>'.LF;
