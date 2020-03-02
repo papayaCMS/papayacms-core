@@ -134,9 +134,6 @@ namespace Papaya\UI\Content {
         );
         $active = ($pageId === $this->_currentPageId);
         $activeWithin = in_array($pageId, $paths->active, FALSE);
-        if (!$linkType || $page['link_type_id'] != -1) {
-          //var_dump($page, $linkType);
-        }
         $pageNode = $parent->appendElement(
           'page',
           [
