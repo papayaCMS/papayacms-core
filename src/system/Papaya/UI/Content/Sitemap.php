@@ -34,6 +34,16 @@ namespace Papaya\UI\Content {
     const MODE_FIX = 'fix';
     const MODE_BREADCRUMB = 'breadcrumb';
 
+    const CHANGE_FREQUENCIES = [
+      0 => 'never',
+      1 => 'yearly',
+      2 => 'monthly',
+      3 => 'weekly',
+      4 => 'daily',
+      5 => 'hourly',
+      6 => 'always'
+    ];
+
     public static $MODES = [
       self::MODE_PATH => 'Path',
       self::MODE_FIX => 'Fixed',
@@ -110,7 +120,7 @@ namespace Papaya\UI\Content {
     public function appendTo(XMLElement $parent) {
       $path = $this->getPathIds();
       if (count($this->staticPageTree()) > 0) {
-       $this->appendPagesTo(
+        $this->appendPagesTo(
           $parent,
           new DepthLimit($this->staticPageTree()->getIterator(), $this->_staticDepth, $this->_staticOffset),
           $path
@@ -149,7 +159,7 @@ namespace Papaya\UI\Content {
             'hidden' => ($linkType && !$linkType['is_visible']) ? 'true' : NULL,
             'last-modified' => DateUtility::timestampToString($page['modified']),
             'priority' => number_format($page['priority'] / 100, 1, '.', ''),
-            'change-frequency' => $page['change_frequency']
+            'change-frequency' => $this->mapChangeFrequencyToString($page['change_frequency'])
           ]
         );
         if ($linkType) {
@@ -160,7 +170,7 @@ namespace Papaya\UI\Content {
             $pageNode->setAttribute('class', $linkType['class']);
           }
           if ($linkType['is_popup']) {
-             $pageNode->setAttribute('popup', json_encode(self::getPopupConfiguration($linkType['popup_options'])));
+            $pageNode->setAttribute('popup', json_encode(self::getPopupConfiguration($linkType['popup_options'])));
           }
         }
         if ($paths->dynamicAncestor === $pageId) {
@@ -314,6 +324,11 @@ namespace Papaya\UI\Content {
       $result['locationBar'] = (int)in_array($hasLocationInput, $disabledStates, FALSE);
       $result['statusBar'] = (int)in_array($hasStatusBar, $disabledStates, FALSE);
       return $result;
+    }
+
+    private function mapChangeFrequencyToString($changeFrequency) {
+      return NULL !== self::CHANGE_FREQUENCIES[$changeFrequency]
+        ? self::CHANGE_FREQUENCIES[$changeFrequency] : 'monthly';
     }
   }
 }
