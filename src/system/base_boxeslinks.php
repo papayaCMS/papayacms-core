@@ -623,7 +623,7 @@ class base_boxeslinks extends base_db {
                 ),
                 papaya_strings::escapeHTMLChars($data['module_guid']),
                 papaya_strings::escapeHTMLChars($data['module_class']),
-                papaya_strings::escapeHTMLChars($data['view_name'])
+                papaya_strings::escapeHTMLChars(isset($data['view_name']) ? $data['view_name'] : '')
               );
               $result .= $outputString;
               $result .= '</box>'.LF;

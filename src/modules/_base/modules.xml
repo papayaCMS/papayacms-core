@@ -39,6 +39,9 @@
     <module type="page" guid="f4317ace107d91458c202c98f6633688" name="Page Fragment" file="PageFragment.php" class="Papaya\Modules\Core\PageFragment" outputfilter="no">
       Provides a teaser but no content, it will redirect to the parent page
     </module>
+    <module type="page" guid="ab99f5086b4d398136b7dfb3a0f4e93e" name="SitemapPage" file="SitemapPage.php" class="Papaya\Modules\Core\SitemapPage">
+      Hierachical sitemap page
+    </module>
     <module type="box" guid="cc4ddbabb21635d27e2b3ec653589fb8" name="Navigation" file="Navigation.php" class="Papaya\Modules\Core\Navigation">
       Shows child pages of given page id as navigation
     </module>

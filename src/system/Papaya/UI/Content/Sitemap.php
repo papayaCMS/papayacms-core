@@ -134,6 +134,9 @@ namespace Papaya\UI\Content {
         );
         $active = ($pageId === $this->_currentPageId);
         $activeWithin = in_array($pageId, $paths->active, FALSE);
+        if (!$linkType || $page['link_type_id'] != -1) {
+          //var_dump($page, $linkType);
+        }
         $pageNode = $parent->appendElement(
           'page',
           [
@@ -142,9 +145,11 @@ namespace Papaya\UI\Content {
             'active-within' => (!$active) && $activeWithin ? 'true' : NULL,
             'title' => $page['title'],
             'view' => trim($page['view_name']) !== '' ? $page['view_name'] : NULL,
+            'module' => trim($page['module_guid']) !== '' ? $page['module_guid'] : NULL,
             'href' => $reference->valid() ? (string)$reference->getRelative() : NULL,
             'target' => $linkType && $linkType['target'] !== '' && $linkType['target'] !== '_self'
               ? $linkType['target'] : NULL,
+            'hidden' => ($linkType && !$linkType['is_visible']) ? 'true' : NULL,
             'last-modified' => DateUtility::timestampToString($page['modified']),
             'priority' => number_format($page['priority'] / 100, 1, '.', ''),
             'change-frequency' => $page['change_frequency']

@@ -31,6 +31,7 @@ namespace Papaya\Content\Page {
       'modified' => 'pages.topic_modified',
       'title' => 'translations.topic_title',
       'view_name' => 'view.view_name',
+      'module_guid'=> 'view.module_guid',
       'scheme' => 'pages.topic_protocol',
       'change_frequency' => 'pages.topic_changefreq',
       'priority' => 'pages.topic_priority',
@@ -61,7 +62,8 @@ namespace Papaya\Content\Page {
         'SELECT 
           pages.topic_id, 
           translations.topic_title, 
-          translations.view_id, views.view_name,
+          translations.view_id, 
+          views.view_name, views.module_guid,
           pages.prev, pages.prev_path, 
           pages.topic_weight, pages.is_deleted,
           pages.topic_created, pages.topic_modified,
