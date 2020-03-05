@@ -691,7 +691,7 @@ class base_topic extends base_db {
         'meta_keywords' => $metaKeywords,
         'meta_descr' => $metaDescr,
         'meta_title' => $metaTitle,
-        'meta_language' => $this->currentLanguage['code']
+        'meta_language' => isset($this->currentLanguage) ? $this->currentLanguage['code'] : ''
       );
       return $result;
     }
