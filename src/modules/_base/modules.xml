@@ -49,6 +49,8 @@
     </module>
     <module type="box" guid="9836d06e9b83172dfd5cad0e063e99b0" name="Teasers" file="TeasersBox.php" class="Papaya\Modules\Core\TeasersBox">
     </module>
+    <module type="box" guid="3285dd9cc4b7c0b10ae3684d94244d11" name="Passthrough" file="PassthroughBox.php" class="Papaya\Modules\Core\PassthroughBox">
+    </module>
   </modules>
   <tables>
     <table name="auth_groups"/>
