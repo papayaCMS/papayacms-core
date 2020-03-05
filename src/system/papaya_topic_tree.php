@@ -610,10 +610,12 @@ class papaya_topic_tree extends base_topic_tree {
   function initPartTree($topic) {
     $this->topicId = $topic->topicId;
     $this->topic = $topic;
-    $this->opened[$topic->topic['prev']] = TRUE;
+    $parentPageId = isset($topic->topic['prev']) ? $topic->topic['prev'] : 0;
+    $parentPagePath = isset($topic->topic['prev_path']) ? $topic->topic['prev_path'] : '';
+    $this->opened[$parentPageId] = TRUE;
     $this->opened[$this->topicId] = TRUE;
     $base = 0;
-    if (preg_match_all('/\d+/', $topic->topic['prev_path'], $regs, PREG_PATTERN_ORDER)) {
+    if (preg_match_all('/\d+/', $parentPagePath, $regs, PREG_PATTERN_ORDER)) {
       $base = (int)end($regs[0]);
     }
     $this->load($base, $this->papaya()->administrationLanguage->id);
