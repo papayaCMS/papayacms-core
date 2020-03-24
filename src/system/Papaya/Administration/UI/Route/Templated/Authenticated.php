@@ -46,6 +46,7 @@ namespace Papaya\Administration\UI\Route\Templated {
       $user = $application->administrationUser;
       $user->layout = $this->getTemplate();
       $user->initialize();
+      $application->administrationPhrases->setLanguage($application->languages->getDefault());
       $user->execLogin();
       $uiLanguage = $application->languages->getLanguage(
         $application->administrationUser->options->get('PAPAYA_UI_LANGUAGE')
