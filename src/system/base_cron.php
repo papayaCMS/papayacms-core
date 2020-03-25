@@ -927,7 +927,7 @@ class base_cronjobs extends base_db {
   */
   function getJobExecuteFrame() {
     $result = sprintf(
-      '<panel title="%s"><iframe src="%s" style="width: 100%%; height: 400px;"/></panel>',
+      '<panel title="%s"><iframe src="%s" style="width: 100%%;" height="600"/></panel>',
       papaya_strings::escapeHTMLChars($this->_gt('Execute cronjob')),
       'cronexec.php?job='.(int)$this->cronjob['cronjob_id']
     );
