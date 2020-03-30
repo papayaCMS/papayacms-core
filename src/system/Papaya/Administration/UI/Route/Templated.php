@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Administration\UI\Route {
 
   use Papaya\Administration\UI;
@@ -55,23 +56,27 @@ namespace Papaya\Administration\UI\Route {
           'PAPAYA_DBG_DEVMODE' => $application->options->get('PAPAYA_DBG_DEVMODE', FALSE),
           'PAPAYA_USER_AUTHORIZED' => $application->administrationUser->isValid,
           'PAPAYA_UI_LANGUAGE' => $application->administrationUser->options['PAPAYA_UI_LANGUAGE'],
-          'PAPAYA_UI_THEME' => $application->options->get('PAPAYA_UI_THEME', 'green'),
+          'PAPAYA_UI_THEME' => preg_replace(
+            '/.ini\s*$/i',
+            '',
+            $application->options->get('PAPAYA_UI_THEME', 'green')
+          ),
           'PAPAYA_USE_RICHTEXT' => $application->administrationRichText->isActive(),
           'PAPAYA_RICHTEXT_CONTENT_CSS' =>
-          $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
+            $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
           'PAPAYA_RICHTEXT_TEMPLATES_FULL' =>
-          $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
+            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
           'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' =>
-          $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
+            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
           'PAPAYA_RICHTEXT_LINK_TARGET' =>
-          $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
+            $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
           'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
-          $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
+            $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
         ]
       );
       if ($this->_showUserStatus && $application->administrationUser->isValid) {
         $template->parameters()->set('PAGE_USER', $application->administrationUser->user['fullname']);
-        $template->parameters()->set('PAPAYA_MESSAGES_INBOX_NEW',  $this->getNewMessageCount());
+        $template->parameters()->set('PAPAYA_MESSAGES_INBOX_NEW', $this->getNewMessageCount());
         $template->add($application->administrationLanguage, 'title-menu');
         $template->add($application->administrationRichText, 'title-menu');
         $template->add(new UI\Navigation\Main(), 'menus');
@@ -96,7 +101,7 @@ namespace Papaya\Administration\UI\Route {
         $caption = \implode(
           ' - ',
           \array_map(
-            function($captionPart) {
+            function ($captionPart) {
               return new \Papaya\UI\Text\Translated($captionPart);
             },
             $caption
@@ -108,6 +113,7 @@ namespace Papaya\Administration\UI\Route {
 
     /**
      * Get count of new message for the current user
+     *
      * @return int|string
      */
     private function getNewMessageCount() {
