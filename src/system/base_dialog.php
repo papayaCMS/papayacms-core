@@ -1171,7 +1171,7 @@ class base_dialog extends base_object {
         if (!preg_match($regEx, $file)) {
           continue;
         }
-        if (preg_match('~^(.+)_([^_]+\\.[^.]+)$~', $file, $match)) {
+        if (preg_match('~^(.+)[_-]([^_-]+\\.[^.]+)$~', $file, $match)) {
           $fileGroups[$match[1]][] = $file;
         } else {
           $fileGroups['-'][] = $file;

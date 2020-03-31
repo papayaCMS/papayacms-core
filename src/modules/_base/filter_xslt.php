@@ -31,7 +31,7 @@ class filter_xslt extends base_outputfilter {
   */
   var $editFields = array(
     'xslfile' => array ('XSL stylesheet', 'isFile', TRUE, 'filecombo',
-      array('callback:getTemplatePath', '/^\w+\.xsl$/i'), ''),
+      array('callback:getTemplatePath', '/^[\w-]+\.xsl$/i'), ''),
     'fullpage' => array('Full page', 'isNum', TRUE, 'yesno', '', '', 0),
     'link_outputmode' => array(
       'Link output mode', 'isAlphaNum', TRUE, 'function', 'callbackOutputModes'
