@@ -2,7 +2,7 @@
 /**
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2020 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -18,6 +18,7 @@
 *
 * @package Papaya
 * @subpackage Core
+ * @depreacted Use $this->papaya()->plugins
 */
 class base_pluginloader extends base_db {
 
@@ -34,7 +35,7 @@ class base_pluginloader extends base_db {
   * @return base_pluginloader
   */
   public static function getInstance() {
-    if (is_null(self::$_instance)) {
+    if (NULL ===self::$_instance) {
       self::$_instance = new self();
     }
     return self::$_instance;
@@ -121,7 +122,7 @@ class base_pluginloader extends base_db {
   * @param boolean $singleton optional, default value FALSE
   *   class is a singleton (use getInstance())
   * @access public
-  * @return base_plugin
+  * @return object
   */
   public static function createObject($guid, $parent = NULL, $data = NULL, $singleton = FALSE) {
     $pluginLoader = self::getInstance()->getPluginLoader();
@@ -138,6 +139,7 @@ class base_pluginloader extends base_db {
   public static function includeFile($guid) {
     $pluginLoader = self::getInstance()->getPluginLoader();
     /** @noinspection PhpIncludeInspection */
+    /** @noinspection UsingInclusionOnceReturnValueInspection */
     return include_once($pluginLoader->getFileName($guid));
   }
 }

@@ -59,7 +59,7 @@ return array(
   'base_phraseeditor' => '/base_phraseeditor.php',
   'base_plugin' => '/base_plugin.php',
   'base_plugin_alias' => '/base_plugin_alias.php',
-  'base_pluginloader' => '/base_pluginloader.php',
+  'base_pluginloader' => '/deprecated/base_pluginloader.php',
   'base_robots' => '/base_robots.php',
   'searchstringparser' => '/base_searchstringparser.php',
   'base_selectview' => '/base_selectview.php',
