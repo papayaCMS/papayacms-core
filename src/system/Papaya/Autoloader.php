@@ -135,6 +135,7 @@ class Autoloader {
     'PapayaUiDialogFieldFactoryExceptionInvalidProfile' => UI\Dialog\Field\Factory\Exception\InvalidProfile::class,
     'PapayaUiDialogFieldInputGeoPosition' => UI\Dialog\Field\Input\GeoPosition::class,
     'PapayaUiDialogFieldInputMediaImageResized' => UI\Dialog\Field\Input\Media\ImageResized::class,
+    'PapayaUiListviewSubitems' => UI\ListView\SubItems::class,
     'PapayaUiListviewSubitemImageList' => UI\ListView\SubItem\Images::class,
     'PapayaUiListviewSubitemEmpty' => UI\ListView\SubItem\EmptyValue::class,
     'PapayaUiListviewSubitemImageSelect' => UI\ListView\SubItem\Image\Toggle::class,
