@@ -146,6 +146,8 @@ class Tables extends \Papaya\Application\BaseObject {
 
   const LOG_DATABASE_QUERIES = 'log_queries';
 
+  const LOG = 'log';
+
   /**
    * Return tablename with optional prefix.
    *
