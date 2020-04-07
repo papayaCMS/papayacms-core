@@ -88,8 +88,8 @@ class Timer implements \IteratorAggregate, Application\Access {
   public function emit() {
     foreach ($this as $take) {
       $this->papaya()->messages->log(
-        Message\Logable::GROUP_DEBUG,
         Message::SEVERITY_DEBUG,
+        Message\Logable::GROUP_DEBUG,
         $take['text'],
         new Message\Context\Runtime($take['start'], $take['end'])
       );

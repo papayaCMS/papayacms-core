@@ -14,6 +14,8 @@
  */
 namespace Papaya\Message\Dispatcher;
 
+use Papaya\Content\Protocol\ProtocolEntry;
+use Papaya\Content\Tables;
 use Papaya\Database\Accessible as DatabaseBaseAccess;
 use Papaya\Message;
 use Papaya\URL\Current as CurrentURL;
@@ -32,14 +34,14 @@ class Database
   use DatabaseBaseAccess\Aggregation;
 
   private static $_SEVERITY_TYPES = [
-    Message::SEVERITY_DEBUG => 3,
-    Message::SEVERITY_INFO => 0,
-    Message::SEVERITY_NOTICE => 0,
-    Message::SEVERITY_WARNING => 1,
-    Message::SEVERITY_ERROR => 2,
-    Message::SEVERITY_CRITICAL => 2,
-    Message::SEVERITY_ALERT => 2,
-    Message::SEVERITY_EMERGENCY => 2
+    Message::SEVERITY_DEBUG => ProtocolEntry::SEVERITY_DEBUG,
+    Message::SEVERITY_INFO => ProtocolEntry::SEVERITY_INFO,
+    Message::SEVERITY_NOTICE => ProtocolEntry::SEVERITY_INFO,
+    Message::SEVERITY_WARNING => ProtocolEntry::SEVERITY_WARNING,
+    Message::SEVERITY_ERROR => ProtocolEntry::SEVERITY_ERROR,
+    Message::SEVERITY_CRITICAL => ProtocolEntry::SEVERITY_ERROR,
+    Message::SEVERITY_ALERT => ProtocolEntry::SEVERITY_ERROR,
+    Message::SEVERITY_EMERGENCY => ProtocolEntry::SEVERITY_ERROR
   ];
 
   /**
@@ -47,7 +49,7 @@ class Database
    *
    * @var string
    */
-  private $_logTableName = 'log';
+  private $_logTableName = Tables::LOG;
 
   /**
    * Used to prevent DB errors from recursion

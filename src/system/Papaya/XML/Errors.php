@@ -95,8 +95,8 @@ class Errors implements Application\Access {
         $context->append(new Message\Context\Variable($arguments));
         $context->append(new Message\Context\Backtrace(1));
         $this->papaya()->messages->log(
-          Message\Logable::GROUP_SYSTEM,
           Message::SEVERITY_ERROR,
+          Message\Logable::GROUP_SYSTEM,
           $e->getMessage(),
           $context
         );

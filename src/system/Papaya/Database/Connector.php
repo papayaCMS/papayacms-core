@@ -328,8 +328,8 @@ namespace Papaya\Database {
           $message = 'Database Query Count: '.$this->_queryCounterObject;
         }
         $this->papaya()->messages->log(
-          Message\Logable::GROUP_DEBUG,
           Message::SEVERITY_DEBUG,
+          Message\Logable::GROUP_DEBUG,
           $message
         );
       }
