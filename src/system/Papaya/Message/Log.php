@@ -52,12 +52,12 @@ class Log
 
   /**
    * @param int $group
-   * @param int $type
+   * @param int $severity
    * @param string $message
    */
-  public function __construct($group, $type, $message) {
+  public function __construct($group, $severity, $message) {
     $this->_group = $group;
-    $this->_severity = $type;
+    $this->_severity = $severity;
     $this->_message = $message;
   }
 

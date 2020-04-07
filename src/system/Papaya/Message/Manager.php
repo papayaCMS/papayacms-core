@@ -117,7 +117,7 @@ class Manager
    * @param mixed $context
    */
   public function log($severity, $group, $text, $context = NULL) {
-    $message = new Log($severity, $group, $text);
+    $message = new Log($group, $severity, $text);
     if ($context instanceof Context\Group) {
       $message->setContext($context);
     } elseif ($context instanceof Context\Data) {
