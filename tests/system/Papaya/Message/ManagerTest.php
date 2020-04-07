@@ -143,8 +143,8 @@ namespace Papaya\Message {
         ->method('dispatch')
         ->with(
           new Log(
-            \Papaya\Message::SEVERITY_INFO,
             Logable::GROUP_COMMUNITY,
+            \Papaya\Message::SEVERITY_INFO,
             'TEST'
           )
         );
@@ -155,7 +155,7 @@ namespace Papaya\Message {
 
     public function testLogWithContext() {
       $message = new Log(
-        \Papaya\Message::SEVERITY_INFO, Logable::GROUP_COMMUNITY, 'TEST'
+        Logable::GROUP_COMMUNITY,\Papaya\Message::SEVERITY_INFO,  'TEST'
       );
       /** @var \PHPUnit_Framework_MockObject_MockObject|Context\Data $context */
       $context = $this->createMock(Context\Data::class);
@@ -180,7 +180,7 @@ namespace Papaya\Message {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Context\Group $context */
       $context = $this->createMock(Context\Group::class);
       $message = new Log(
-        \Papaya\Message::SEVERITY_INFO, Logable::GROUP_COMMUNITY, 'TEST'
+         Logable::GROUP_COMMUNITY,\Papaya\Message::SEVERITY_INFO, 'TEST'
       );
       $message->setContext($context);
       /** @var \PHPUnit_Framework_MockObject_MockObject|Dispatcher $dispatcher */
@@ -201,7 +201,7 @@ namespace Papaya\Message {
 
     public function testLogWithData() {
       $message = new Log(
-        \Papaya\Message::SEVERITY_INFO, Logable::GROUP_COMMUNITY, 'TEST'
+        Logable::GROUP_COMMUNITY, \Papaya\Message::SEVERITY_INFO, 'TEST'
       );
       $message->context()->append(new Context\Variable('data'));
       /** @var \PHPUnit_Framework_MockObject_MockObject|Dispatcher $dispatcher */

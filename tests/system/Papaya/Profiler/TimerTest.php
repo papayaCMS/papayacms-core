@@ -76,8 +76,8 @@ class TimerTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('log')
       ->with(
-        \Papaya\Message\Logable::GROUP_DEBUG,
         \Papaya\Message::SEVERITY_DEBUG,
+        \Papaya\Message\Logable::GROUP_DEBUG,
         $this->isType('string'),
         $this->isInstanceOf(\Papaya\Message\Context\Runtime::class)
       );
