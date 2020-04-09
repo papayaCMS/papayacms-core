@@ -273,12 +273,12 @@
   <!--
     Fetch revisions and store them in a PHP file
   -->
-  <target name="revisions-update" depends="project-revision,papaya-revision" hidden="true">
+  <target name="revisions-update" depends="project-revision,dependency-revisions" hidden="true">
     <append
       destFile="${directory.base}/${configuration.directory.document-root}/revision.inc.php"
       append="false"
       overwrite="true"
-      text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;"/>
+      text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;define('PAPAYA_DEPENDENCIES', '${revision.dependencies}');&#10;"/>
   </target>
 
   <!--
@@ -325,8 +325,9 @@
     <property name="revision.project.suffix" value="-${revision.project}"/>
   </target>
 
-  <target name="papaya-revision" depends="project-revision" hidden="true">
+  <target name="dependency-revisions" depends="project-revision" hidden="true">
     <property name="revision.papaya" value="unknown"/>
+    <property name="revision.dependencies" value=""/>
     <property name="hasComposerLock" value="false"/>
     <available property="hasComposerLock" file="${directory.base}/composer.lock"/>
     <if>
@@ -341,13 +342,23 @@
 
                   function main() {
                     $json = json_decode(file_get_contents("composer.lock"));
+                    $dependencies = [];
                     foreach ($json->packages as $package) {
+                      $dependencies[$package->name] = $package->version.' '.substr(
+                        isset($package->source->reference)
+                          ? $package->source->reference : $package->dist->reference,
+                        0,
+                        8
+                      );
                       if ($package->name === 'papaya/cms-core') {
                         $this->project->setProperty(
                           'revision.papaya', $package->version.' '.substr($package->source->reference, 0, 8)
                         );
                       }
                     }
+                    $this->project->setProperty(
+                      'revision.dependencies', json_encode($dependencies)
+                    );
                   }
                 }
               ]]>
@@ -371,7 +382,7 @@
   <!--
     Generate distribution export directories (Copy files)
   -->
-  <target name="build-export" depends="properties,project-revision,papaya-revision" description="Export distribution" hidden="true">
+  <target name="build-export" depends="properties,project-revision,dependency-revisions" description="Export distribution" hidden="true">
     <property name="targetDirectory" value="${configuration.export.directory}"/>
     <echo message="Prepare export directory"/>
     <delete dir="${targetDirectory}"/>
@@ -429,7 +440,7 @@
       destFile="${targetDirectory}/${configuration.directory.document-root}/revision.inc.php"
       append="false"
       overwrite="true"
-      text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;"/>
+      text="&lt;?php&#10;define('PAPAYA_WEBSITE_REVISION', '${revision.project}');&#10;define('PAPAYA_VERSION_STRING', '${revision.papaya}');&#10;define('PAPAYA_DEPENDENCIES', '${revision.dependencies}');&#10;"/>
     <if>
       <not>
         <equals arg1="${configuration.directory.document-root}" arg2="${configuration.export.document-root}"/>

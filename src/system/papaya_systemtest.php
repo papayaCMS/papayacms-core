@@ -14,6 +14,8 @@
  */
 
 use Papaya\Database\Exception;
+use Papaya\UI\ListView;
+use Papaya\UI\Text\Translated as TranslatedText;
 
 /**
 * Test OK
@@ -788,7 +790,25 @@ class papaya_systemtest {
   * @access public
   */
   function getXMLLists() {
-    $result = '<listview title="Tests" width="100%">'.LF;
+    $result = '';
+    if (defined('PAPAYA_DEPENDENCIES')) {
+      try {
+        $dependencies = json_decode(PAPAYA_DEPENDENCIES, true);
+        if (isset($dependencies) && is_array($dependencies) && count($dependencies) > 0) {
+          $listView = new ListView();
+          $listView->caption = new TranslatedText('Dependencies');
+          foreach ($dependencies as $name => $version) {
+            $listView->items[] = $item = new ListView\Item(
+              '', $name
+            );
+            $item->subitems[] = new ListView\SubItem\Text($version);
+          }
+          $result .= $listView->getXML();
+        }
+      } catch (\Exception $e) {
+      }
+    }
+    $result .= '<listview title="Tests" width="100%">'.LF;
     $result .= '<items>';
     foreach ($this->resultTests as $title => $testResult) {
       $test = $this->tests[$title];
