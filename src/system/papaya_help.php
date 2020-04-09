@@ -107,15 +107,15 @@ class papaya_help extends base_object {
     case 'bugreport' :
       $this->getBugReportDialog();
       break;
-    case 'sysinfo' :
-      $this->getSystemInformation();
-      break;
     case 'news' :
       $this->getContentFrame($this->urls['news'], 'News');
       break;
-    default :
     case 'manual' :
       $this->getContentFrame($this->urls['manual'], 'User Manual');
+      break;
+    case 'sysinfo' :
+    default :
+      $this->getSystemInformation();
       break;
     }
 
@@ -129,6 +129,24 @@ class papaya_help extends base_object {
   function getButtonsPanel() {
     $images = $this->papaya()->images;
     $result = '<iconpanel>';
+    $result .= sprintf(
+      '<icon src="%s" subtitle="%s" href="%s"/>',
+      papaya_strings::escapeHTMLChars($images['categories-protocol']),
+      papaya_strings::escapeHTMLChars($this->_gt('System Information')),
+      papaya_strings::escapeHTMLChars(
+        $this->getLink(array('ohmode' => 'sysinfo'))
+      )
+    );
+    if ($this->papaya()->administrationUser->isAdmin()) {
+      $result .= sprintf(
+        '<icon src="%s" subtitle="%s" href="%s"/>',
+        papaya_strings::escapeHTMLChars($images['items-bug']),
+        papaya_strings::escapeHTMLChars($this->_gt('Bug Report')),
+        papaya_strings::escapeHTMLChars(
+          $this->getLink(array('ohmode' => 'bugreport'))
+        )
+      );
+    }
     $result .= sprintf(
       '<icon src="%s" subtitle="%s" href="%s"/>',
       papaya_strings::escapeHTMLChars($images['categories-help']),
@@ -145,24 +163,6 @@ class papaya_help extends base_object {
         $this->getLink(array('ohmode' => 'news'))
       )
     );
-    if ($this->papaya()->administrationUser->isAdmin()) {
-      $result .= sprintf(
-        '<icon src="%s" subtitle="%s" href="%s"/>',
-        papaya_strings::escapeHTMLChars($images['categories-protocol']),
-        papaya_strings::escapeHTMLChars($this->_gt('System Information')),
-        papaya_strings::escapeHTMLChars(
-          $this->getLink(array('ohmode' => 'sysinfo'))
-        )
-      );
-      $result .= sprintf(
-        '<icon src="%s" subtitle="%s" href="%s"/>',
-        papaya_strings::escapeHTMLChars($images['items-bug']),
-        papaya_strings::escapeHTMLChars($this->_gt('Bug Report')),
-        papaya_strings::escapeHTMLChars(
-          $this->getLink(array('ohmode' => 'bugreport'))
-        )
-      );
-    }
     $result .= '</iconpanel>';
     $this->layout->addLeft($result);
   }
