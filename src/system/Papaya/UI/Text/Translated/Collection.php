@@ -17,6 +17,7 @@ namespace Papaya\UI\Text\Translated;
 use Papaya\Application;
 use Papaya\Iterator;
 use Papaya\Phrases;
+use Papaya\UI\Text\Translated as TranslatedText;
 
 /**
  * A list of string (objects) that will be translated if cast to string.
@@ -68,14 +69,18 @@ class Collection
    * @return string
    */
   public function current() {
-    $current = new \Papaya\UI\Text\Translated(
-      (string)parent::current(),
-      [],
-      $this->_phrases,
-      $this->_phrasesGroupName
-    );
-    $current->papaya($this->papaya());
-    return $current;
+    $value = (string)parent::current();
+    if ($value !== '') {
+      $current = new TranslatedText(
+        $value,
+        [],
+        $this->_phrases,
+        $this->_phrasesGroupName
+      );
+      $current->papaya($this->papaya());
+      return $current;
+    }
+    return $value;
   }
 
   /**
