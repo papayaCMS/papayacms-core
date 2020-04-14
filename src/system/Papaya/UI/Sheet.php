@@ -16,6 +16,7 @@ namespace Papaya\UI {
 
   use Papaya\BaseObject\Interfaces\StringCastable;
   use Papaya\Utility;
+  use Papaya\Utility\Arrays as ArrayUtilities;
   use Papaya\XML;
   use Papaya\XML\Appendable as XMLAppendable;
   use Papaya\XML\Element as XMLElement;
@@ -25,8 +26,15 @@ namespace Papaya\UI {
    *
    * @package Papaya-Library
    * @subpackage UI
+   * @property int $padding
    */
   class Sheet extends Control {
+
+    const PADDING_NONE = 0;
+    const PADDING_SMALL = 10;
+    const PADDING_MEDIUM = 20;
+    const PADDING_LARGE = 50;
+
     /**
      * @var string|StringCastable
      */
@@ -46,6 +54,10 @@ namespace Papaya\UI {
      * @var XMLElement|XMLAppendable
      */
     private $_content;
+    /**
+     * @var bool
+     */
+    protected $_padding = self::PADDING_NONE;
 
     public function __construct() {
       $this->_document = new XML\Document();
@@ -67,11 +79,23 @@ namespace Papaya\UI {
         $header->append($this->subtitles());
       }
       if ($this->_content instanceof XMLElement) {
-        $sheet->appendChild(
+        if ($this->_padding > 0) {
+          $container = $sheet
+            ->appendElement('text')
+            ->appendElement('div', ['style' => sprintf('padding: %dpx;', $this->_padding)]);
+        } else {
+          $container = $sheet->appendElement('text');
+        }
+        $container->appendChild(
           $parent->ownerDocument->importNode($this->_content, TRUE)
         );
       } else {
-        $sheet->appendElement('text')->append($this->_content);
+        if ($this->_padding > 0) {
+          $container = $sheet->appendElement('div', ['style' => sprintf('padding: %dpx;', $this->_padding)]);
+        } else {
+          $container = $sheet;
+        }
+        $container->append($this->_content);
       }
       return $sheet;
     }
@@ -125,6 +149,15 @@ namespace Papaya\UI {
         }
       }
       return $this->_content;
+    }
+
+    public function getPropertyDeclaration() {
+      return ArrayUtilities::merge(
+        parent::getPropertyDeclaration(),
+        [
+          'padding' => ['_padding', '_padding']
+        ]
+      );
     }
   }
 }
