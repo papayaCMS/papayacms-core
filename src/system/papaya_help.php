@@ -225,16 +225,15 @@ class papaya_help extends base_object {
 
       if (isset($this->params['log_id']) && $this->params['log_id'] > 0) {
         $logId = (int)$this->params['log_id'];
-        $logObject = new papaya_log();
-        if ($logObject->loadMessage($logId)) {
-          $msg = $logObject->messageList[$logId];
+        $protocolEntry = new \Papaya\Content\Protocol\ProtocolEntry();
+        if ($protocolEntry->load(['id' => $logId])) {
           $msgGroups = base_statictables::getTableLogGroups();
           $data['description'] =
-             '*Log message: '.$msgGroups[$msg['log_msgtype']].
-             '* ('.date('Y-m-d H:i:s', $msg['log_time']).")\n\n";
-          $data['description'] .= 'URL: <'.$msg['log_msg_uri'].'>'."\n";
-          $data['description'] .= 'Script: <'.$msg['log_msg_script'].'>'."\n\n\n";
-          $msgText = $msg['log_msg_long'];
+             '*Log message: '.\Papaya\Content\Protocol\ProtocolGroups::getLabel($protocolEntry->groupId).
+             '* ('.(new \Papaya\UI\Text\Date($protocolEntry->createdAt)).")\n\n";
+          $data['description'] .= 'URL: <'.$protocolEntry->requestURL.'>'."\n";
+          $data['description'] .= 'Script: <'.$protocolEntry->script.'>'."\n\n\n";
+          $msgText = $protocolEntry->content;
           $msgText = str_replace(
             array('</p>', '<br />', '<br/>'),
             array("\n\n", "\n", "\n"),

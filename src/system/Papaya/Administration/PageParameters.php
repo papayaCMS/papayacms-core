@@ -12,32 +12,14 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Content\Protocol {
 
-  use Papaya\Content\Tables;
-  use Papaya\Database\Interfaces\Order;
-  use Papaya\Database\Records\Lazy as LazyDatabaseRecords;
+namespace Papaya\Administration {
+  interface PageParameters {
 
-  class ProtocolEntries extends LazyDatabaseRecords {
-
-    protected $_fields = [
-      'id' => 'log_id',
-      'severity' => 'log_msgno',
-      'summary' => 'log_msg_short',
-      'group_id' => 'log_msgtype',
-      'created_at' => 'log_time'
-    ];
-
-    protected $_orderByProperties = [
-      'created_at' => Order::DESCENDING,
-      'id' => Order::ASCENDING
-    ];
-
-    protected $_tableName = Tables::LOG;
-
-    public function delete() {
-
-    }
+    const COLUMN_WIDTH_NAVIGATION = 'COLUMNWIDTH_LEFT';
+    const COLUMN_WIDTH_CONTENT = 'COLUMNWIDTH_CENTER';
+    const COLUMN_WIDTH_INFORMATION = 'COLUMNWIDTH_RIGHT';
   }
 }
+
 

@@ -16,6 +16,7 @@ namespace Papaya\Administration {
 
   use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
   use Papaya\Administration\Media\MimeTypes\Editor as MimeTypesEditor;
+  use Papaya\Administration\Protocol\ProtocolPage;
   use Papaya\Application;
   use Papaya\Response;
   use Papaya\Router;
@@ -394,7 +395,7 @@ namespace Papaya\Administration {
                     self::ADMINISTRATION_PROTOCOL => new Route\PathChoice(
                       [
                         self::ADMINISTRATION_PROTOCOL => new UI\Route\Templated\Page(
-                          $template, $images['categories-protocol'], ['Administration', 'Protocol'], \papaya_log::class, Permissions::SYSTEM_PROTOCOL
+                          $template, $images['categories-protocol'], ['Administration', 'Protocol'], ProtocolPage::class, Permissions::SYSTEM_PROTOCOL
                         ),
                         self::ADMINISTRATION_PROTOCOL_LOGIN => new UI\Route\Templated\Page(
                           $template, $images['categories-protocol'], ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL

@@ -18,6 +18,23 @@ namespace Papaya\Content\Protocol {
   use Papaya\Database\Interfaces\Order;
   use Papaya\Database\Record\Lazy as LazyDatabaseRecord;
 
+  /**
+   * @property int $id
+   * @property int $severity
+   * @property int $groupId
+   * @property string $summary
+   * @property string $content
+   * @property int $createdAt
+   * @property string $requestURL
+   * @property string $script
+   * @property string $clientIP
+   * @property string $refererURL
+   * @property string $cookies
+   * @property string $papayaVersion
+   * @property string $projectVersion
+   * @property string $userID
+   * @property string $userName
+   */
   class ProtocolEntry extends LazyDatabaseRecord {
 
     const SEVERITY_INFO = 0;
@@ -25,15 +42,37 @@ namespace Papaya\Content\Protocol {
     const SEVERITY_ERROR = 2;
     const SEVERITY_DEBUG = 3;
 
+    const SEVERITY_LABELS = [
+      self::SEVERITY_INFO => 'Info',
+      self::SEVERITY_WARNING => 'Warning',
+      self::SEVERITY_ERROR => 'Error',
+      self::SEVERITY_DEBUG => 'Debug',
+    ];
+
     protected $_fields = [
       'id' => 'log_id',
+      'created_at' => 'log_time',
       'severity' => 'log_msgno',
-      'summary' => 'log_msg_short',
       'group_id' => 'log_msgtype',
-      'created' => 'log_time'
+      'summary' => 'log_msg_short',
+      'content' => 'log_msg_long',
+      'request_url' => 'log_msg_uri',
+      'script' => 'log_msg_script',
+      'client_ip' => 'log_msg_from_ip',
+      'referer_url' => 'log_msg_referer',
+      'cookies' => 'log_msg_cookies',
+      'papaya_version' => 'log_version_papaya',
+      'project_version' => 'log_version_project',
+      'user_id' => 'user_id',
+      'user_name' => 'username'
     ];
 
     protected $_tableName = Tables::LOG;
+
+    public static function getSeverityLabel($severity) {
+      $labels = self::SEVERITY_LABELS;
+      return isset($labels[$severity]) ? $labels[$severity] : '';
+    }
   }
 }
 
