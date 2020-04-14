@@ -14,6 +14,7 @@
  */
 namespace Papaya\Database;
 
+use Papaya\Database\Condition\Condition;
 use Papaya\Utility;
 
 /**
@@ -74,6 +75,13 @@ abstract class Records
    */
   public function truncate($filterOrAll = FALSE) {
     $databaseAccess = $this->getDatabaseAccess();
+    if ($filterOrAll instanceof Condition) {
+      $statement = $databaseAccess->prepare(
+        'DELETE FROM :table WHERE '.$filterOrAll->getSQL()
+      );
+      $statement->addTableName('table', $this->_tableName);
+      return FALSE !== $statement->execute();
+    }
     if (\is_array($filterOrAll) && !empty($filterOrAll)) {
       return (
         FALSE !== $databaseAccess->deleteRecord(

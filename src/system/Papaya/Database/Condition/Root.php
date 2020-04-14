@@ -14,7 +14,21 @@
  */
 namespace Papaya\Database\Condition;
 
+use Papaya\Database;
+
 class Root extends Group {
+
+  /**
+   * @param Database\Access|Database\Accessible $parent
+   * @param Database\Interfaces\Mapping|NULL $mapping
+   */
+  public function __construct($parent, Database\Interfaces\Mapping $mapping = NULL) {
+    if (NULL === $mapping && $parent instanceof Database\Interfaces\HasMapping) {
+      $mapping = $parent->mapping();
+    }
+    parent::__construct($parent, $mapping);
+  }
+
   /**
    * @param string $method
    * @param array $arguments

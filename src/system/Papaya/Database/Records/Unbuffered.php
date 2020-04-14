@@ -19,7 +19,7 @@ use Papaya\Database;
 use Papaya\Utility;
 
 abstract class Unbuffered
-  implements Application\Access, Database\Accessible, \IteratorAggregate, \Countable {
+  implements Application\Access, Database\Accessible, Database\Interfaces\HasMapping, \IteratorAggregate, \Countable {
   use Application\Access\Aggregation;
 
   /**
@@ -89,12 +89,16 @@ abstract class Unbuffered
   protected $_itemClass;
 
   /**
+   * @var bool compile absolute records count for limited query
+   */
+  protected $_enableAbsoluteCount = FALSE;
+
+  /**
    * Load records from the defined table. This method can be overloaded to define an own sql.
    *
    * @param mixed $filter If it is an scalar the value will be used for the id property.
    * @param int|null $limit
    * @param int|null $offset
-   *
    * @return bool
    */
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
@@ -116,12 +120,14 @@ abstract class Unbuffered
    * @param array $parameters
    * @param int|null $limit
    * @param int|null $offset
-   *
    * @return bool
    */
   protected function _loadSql($sql, $parameters, $limit = NULL, $offset = NULL) {
     $this->_databaseResult = NULL;
     $databaseAccess = $this->getDatabaseAccess();
+    if ($this->_enableAbsoluteCount && $limit > 0) {
+      $databaseAccess->enableAbsoluteCount();
+    }
     $databaseResult = $databaseAccess->queryFmt($sql, $parameters, $limit, $offset);
     if ($databaseResult instanceof Database\Result) {
       $this->_databaseResult = $databaseResult;
@@ -371,5 +377,12 @@ abstract class Unbuffered
       $item->load($filter);
     }
     return $item;
+  }
+
+  /**
+   * Enable absolute count for limited queries
+   */
+  public function enableAbsoluteCount() {
+    $this->_enableAbsoluteCount = TRUE;
   }
 }
