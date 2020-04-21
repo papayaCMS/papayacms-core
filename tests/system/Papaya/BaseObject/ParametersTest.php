@@ -114,6 +114,16 @@ namespace Papaya\BaseObject {
       );
     }
 
+    public function testGetStringFromArrayReturningDefaultValue() {
+      $parameters = new Parameters(
+        ['foo' => ['bar'=> 42]]
+      );
+      $this->assertSame(
+        'default',
+        $parameters->get('foo', 'default')
+      );
+    }
+
     public function testGetWithObjectDefaultValueExpectingParameterValue() {
       $defaultValue = $this
         ->getMockBuilder(\Papaya\UI\Text::class)

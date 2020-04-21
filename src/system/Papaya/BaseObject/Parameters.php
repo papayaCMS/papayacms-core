@@ -68,7 +68,7 @@ namespace Papaya\BaseObject {
       if (\is_object($defaultValue) && \method_exists($defaultValue, '__toString')) {
         return \is_string($value) ? $value : (string)$defaultValue;
       }
-      if (\is_scalar($defaultValue)) {
+      if (\is_scalar($defaultValue) && \is_scalar($value)) {
         $type = \gettype($defaultValue);
         \settype($value, $type);
         return $value;
