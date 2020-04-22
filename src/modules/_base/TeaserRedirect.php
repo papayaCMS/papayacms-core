@@ -16,6 +16,8 @@
 namespace Papaya\Modules\Core {
 
   use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
+  use Papaya\BaseObject\Parameters;
+  use Papaya\Filter;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
@@ -25,6 +27,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\Response;
   use Papaya\Utility\Arrays as ArrayUtilities;
+  use Papaya\XML\Element as XMLElement;
 
   class TeaserRedirect extends Partials\Teaser implements RoutablePlugin, Partials\QueryString {
 
@@ -32,10 +35,25 @@ namespace Papaya\Modules\Core {
     use Partials\QueryStringAggregation;
 
     const FIELD_TARGET_URL = 'target-url';
+    const FIELD_TARGET_LINK_CAPTION = 'target-link-caption';
 
     const _REDIRECT_DEFAULTS = [
       self::FIELD_TARGET_URL => NULL,
+      self::FIELD_TARGET_LINK_CAPTION => ''
     ];
+
+    public function appendQuoteTo(XMLElement $parent) {
+      parent::appendQuoteTo($parent);
+      $content = $this->content()->withDefaults($this->getDefaultContent());
+      $parent->appendElement(
+        'redirect',
+        [
+          'href' => $this->getRedirectURL($content),
+          'caption' => trim($content[self::FIELD_TARGET_LINK_CAPTION]) !== ''
+            ? $content[self::FIELD_TARGET_LINK_CAPTION] : NULL
+        ]
+      );
+    }
 
     /**
      * @param EditablePlugin\Content $content
@@ -46,10 +64,21 @@ namespace Papaya\Modules\Core {
       $defaults = $this->getDefaultContent();
       $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
-      $dialog->fields[] = new DialogField\Input\URL(
+      $dialog->fields[] = $group = new DialogField\Group(
+        new TranslatedText('Redirect')
+      );
+      $group->fields[] = new DialogField\Input(
         new TranslatedText('URL'),
         self::FIELD_TARGET_URL,
-        $defaults[self::FIELD_TARGET_URL]
+        4000,
+        $defaults[self::FIELD_TARGET_URL],
+        new Filter\LogicalOr(new Filter\URL(), new Filter\IntegerValue())
+      );
+      $group->fields[] = new DialogField\Input(
+        new TranslatedText('Caption'),
+        self::FIELD_TARGET_LINK_CAPTION,
+        100,
+        $defaults[self::FIELD_TARGET_LINK_CAPTION]
       );
       $this->appendQueryStringFieldsToDialog($dialog, $content);
       return $editor;
@@ -65,15 +94,21 @@ namespace Papaya\Modules\Core {
      */
     public function __invoke(Router $router, $context = NULL, $level = 0) {
       $content = $this->content()->withDefaults($this->getDefaultContent());
-      $targetURL = $content[FIELD_TARGET_URL];
-      if (empty($targetURL)) {
+      return new Response\Redirect($this->getRedirectURL($content));
+    }
+
+    private function getRedirectURL(Parameters $content) {
+      $target = $content[self::FIELD_TARGET_URL];
+      if (empty($target)) {
         $reference = $this->papaya()->pageReferences->get(
           $this->papaya()->request->languageIdentifier,
           $this->getPage()->getParentID(1)
         );
         $targetURL = (string)$reference;
+      } else {
+        $targetURL = $this->papaya()->references->byString($target);
       }
-      return new Response\Redirect($this->appendQueryStringToURL($targetURL));
+      return $this->appendQueryStringToURL($targetURL);
     }
 
     protected function getDefaultContent() {
