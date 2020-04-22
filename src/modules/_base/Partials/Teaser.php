@@ -51,7 +51,7 @@ namespace Papaya\Modules\Core\Partials {
      *
      * @return PluginEditor|PluginDialog
      */
-    public function createEditor(EditablePlugin\Content $content) {
+    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = DialogField\Textarea\Richtext::RTE_SIMPLE) {
       $defaults = $this->getDefaultContent();
       $editor = new PluginDialog($content);
       $editor->papaya($this->papaya());
@@ -77,10 +77,10 @@ namespace Papaya\Modules\Core\Partials {
       $dialog->fields[] = new DialogField\Textarea\Richtext(
         new TranslatedText('Teaser'),
         self::FIELD_TEASER,
-        8,
+        $teaserRTEMode === DialogField\Textarea\Richtext::RTE_SIMPLE ? 8 : 40,
         $defaults[self::FIELD_TEASER],
         NULL,
-        DialogField\Textarea\Richtext::RTE_SIMPLE
+        $teaserRTEMode
       );
       return $editor;
     }
