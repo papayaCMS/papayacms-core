@@ -67,7 +67,7 @@ namespace Papaya\Modules\Core\Partials {
       $targetURL = (string)$targetURL;
       /** @var EditablePlugin $this */
       $content = $this->content()->withDefaults(QueryString::_QUERYSTRING_DEFAULTS);
-      switch ($content) {
+      switch ($content[self::FIELD_QUERYSTRING_MODE]) {
       case QueryString::QUERYSTRING_MODE_APPEND:
         $queryString = $this->papaya()->request->getURL()->getQuery();
         break;
