@@ -65,7 +65,7 @@ namespace Papaya\Modules\Core {
      */
     public function __invoke(Router $router, $context = NULL, $level = 0) {
       $content = $this->content()->withDefaults($this->getDefaultContent());
-      $targetURL = $content['target-page-url'];
+      $targetURL = $content[FIELD_TARGET_URL];
       if (empty($targetURL)) {
         $reference = $this->papaya()->pageReferences->get(
           $this->papaya()->request->languageIdentifier,
