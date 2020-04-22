@@ -122,6 +122,13 @@ class Page implements Application\Access {
   /**
    * @return int
    */
+  public function getParentID() {
+    return $this->page()->parentId;
+  }
+
+  /**
+   * @return int
+   */
   public function getPageViewId() {
     $translation = $this->translation();
     return $translation['view_id'];
