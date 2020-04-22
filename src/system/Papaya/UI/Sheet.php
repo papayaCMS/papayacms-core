@@ -69,7 +69,10 @@ namespace Papaya\UI {
      * @return XMLElement
      */
     public function appendTo(XMLElement $parent) {
-      $sheet = $parent->appendElement('sheet');
+      $sheet = $parent->appendElement(
+        'sheet',
+        ['padding' => $this->_padding > 0 ?  ((int)$this->_padding).'px' : NULL]
+      );
       $title = \trim($this->_title);
       if (!('' === $title && 0 === \count($this->subtitles()))) {
         $header = $sheet->appendElement('header');
@@ -79,23 +82,11 @@ namespace Papaya\UI {
         $header->append($this->subtitles());
       }
       if ($this->_content instanceof XMLElement) {
-        if ($this->_padding > 0) {
-          $container = $sheet
-            ->appendElement('text')
-            ->appendElement('div', ['style' => sprintf('padding: %dpx;', $this->_padding)]);
-        } else {
-          $container = $sheet->appendElement('text');
-        }
-        $container->appendChild(
+        $sheet->appendChild(
           $parent->ownerDocument->importNode($this->_content, TRUE)
         );
       } else {
-        if ($this->_padding > 0) {
-          $container = $sheet->appendElement('div', ['style' => sprintf('padding: %dpx;', $this->_padding)]);
-        } else {
-          $container = $sheet;
-        }
-        $container->append($this->_content);
+        $sheet->appendElement('text')->append($this->_content);
       }
       return $sheet;
     }
