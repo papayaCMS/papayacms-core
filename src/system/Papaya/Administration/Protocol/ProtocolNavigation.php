@@ -104,18 +104,18 @@ namespace Papaya\Administration\Protocol {
                 ProtocolPage::PARAMETER_NAME_PAGE => $this->parameters()[ProtocolPage::PARAMETER_NAME_PAGE],
                 ProtocolPage::PARAMETER_NAME_GROUP => $this->parameters()[ProtocolPage::PARAMETER_NAME_GROUP],
                 ProtocolPage::PARAMETER_NAME_SEVERITY => $this->parameters()[ProtocolPage::PARAMETER_NAME_SEVERITY],
-                ProtocolPage::PARAMETER_NAME_ENTRY => $protocolEntry['id']
+                ProtocolPage::PARAMETER_NAME_ENTRY => (int)$protocolEntry['id']
               ]
             ]
           );
-          $item->selected = $selectedId === $protocolEntry['id'];
+          $item->selected = (int)$selectedId === (int)$protocolEntry['id'];
           if ($groupId === ProtocolGroups::UNKNOWN) {
             $item->subitems[] = $subItem = new ListView\SubItem\Text(
-              new TranslatedText(ProtocolGroups::getLabel($protocolEntry['group_id']))
+              new TranslatedText(ProtocolGroups::getLabel((int)$protocolEntry['group_id']))
             );
             $subItem->align = Align::CENTER;
           }
-          $item->subitems[] = $subItem = new ListView\SubItem\Date($protocolEntry['created_at']);
+          $item->subitems[] = $subItem = new ListView\SubItem\Date((int)$protocolEntry['created_at']);
           $subItem->align = Align::CENTER;
         };
       }
