@@ -129,6 +129,7 @@ class Autoloader {
     'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
     'PapayaUtilArray' => Utility\Arrays::class,
 
+    'PapayaUiContentTeaserImages' => UI\Content\Teaser\Thumbnails::class,
     'PapayaUiDialogButtonSubmitNamed' => UI\Dialog\Button\NamedSubmit::class,
     'PapayaUiDialogFieldBuilderArray' => UI\Dialog\Field\Builder\FromArray::class,
     'PapayaUiDialogFieldFactoryExceptionInvalidOption' => UI\Dialog\Field\Factory\Exception\InvalidOption::class,
