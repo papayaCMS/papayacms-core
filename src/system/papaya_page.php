@@ -1611,17 +1611,19 @@ class papaya_page extends base_object {
     $this->setVisitorLanguage($this->topic->currentLanguage['code']);
     if ($outputContent) {
       $serverURL = \Papaya\Utility\Server\Protocol::get().'://'.\Papaya\Utility\Server\Name::get();
-      $url = strtr(
-        $serverURL.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'),
-        '\\',
-        '/'
-      );
+      $url = str_replace('\\', '/', $serverURL.$this->papaya()->options->get('PAPAYA_PATH_WEB', '/'));
       $this->layout->parameters()->set('PAGE_BASE_URL', $url);
       if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '?') > 0) {
         $url .= substr($_SERVER['REQUEST_URI'], 1, strpos($_SERVER['REQUEST_URI'], '?') - 1);
       } elseif (!empty($_SERVER['REQUEST_URI'])) {
         $url .= substr($_SERVER['REQUEST_URI'], 1);
       }
+      $this->layout->parameters()->set(
+        'PAGE_START_URL',
+        (string)$this->papaya()->references->byString(
+          $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 1)
+        )
+      );
       $this->layout->parameters()->set('PAGE_URL', $url);
       $this->layout->parameters()->set(
         'PAGE_REQUEST_QUERYSTRING', $this->papaya()->request->url->getQuery()
