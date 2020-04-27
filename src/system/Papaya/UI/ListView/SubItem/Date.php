@@ -64,9 +64,8 @@ class Date extends UI\ListView\SubItem {
    * @throws \UnexpectedValueException
    */
   public function __construct($timestamp, $options = self::SHOW_TIME) {
-    \Papaya\Utility\Constraints::assertInteger($timestamp);
     \Papaya\Utility\Constraints::assertInteger($options);
-    $this->_timestamp = $timestamp;
+    $this->_timestamp = (int)$timestamp;
     $this->_options = $options;
   }
 

@@ -45,7 +45,7 @@ namespace Papaya\Administration\Protocol\Commands {
         $listView->items[] = $item = new ListView\Item(
           '', new TranslatedText('Time')
         );
-        $item->subitems[] = new ListView\SubItem\Date($this->_protocolEntry->createdAt);
+        $item->subitems[] = new ListView\SubItem\Date((int)$this->_protocolEntry->createdAt);
         $this->appendURLDetails($listView, 'URL', $this->_protocolEntry->requestURL);
         $this->appendURLDetails($listView, 'Referer', $this->_protocolEntry->refererURL);
         $this->appendURLDetails($listView, 'Cookies', $this->_protocolEntry->cookies);
