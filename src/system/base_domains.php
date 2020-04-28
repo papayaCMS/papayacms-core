@@ -174,36 +174,22 @@ class base_domains extends base_db {
     } else {
       $protocol = 1;
     }
-    if (!empty($hostName) && is_int($protocol)) {
+    if (
+      !empty($hostName) &&
+      is_int($protocol) &&
       //check for the exact hostname
-      if (!($domainData = $this->load($hostName, $protocol))) {
-        //not found - split the hostname
-        $hostParts = explode('.', $hostName);
-        //does it have more then two parts?
-        if (is_array($hostParts) && count($hostParts) > 1) {
-          $hostNames[] = '*';
-          $hostParts = array_reverse($hostParts);
-          //last to parts of the hostname to the buffer
-          $buffer = $hostParts[0];
-          $tldLength = strlen($hostParts[0]);
-          for ($i = 1; $i < count($hostParts); $i++) {
-            //prefix hostname parts in buffer with a "*." and replace tld with *
-            if ($i > 1) {
-              $hostNames[] = '*.'.substr($buffer, 0, -1 * $tldLength).'*';
-              $hostNames[] = $hostParts[$i].'.'.substr($buffer, 0, -1 * $tldLength).'*';
-            }
-            //prefix hostname parts in buffer with a "*."
-            $hostNames[] = '*.'.$buffer;
-            //add hostname part to the buffer
-            $buffer = $hostParts[$i].'.'.$buffer;
-          }
-          //try to load domaindata for a list of wildcard domains like *.domain.tld
-          $domainData = $this->load($hostNames, $protocol);
-        }
+      !($domainData = $this->load($hostName, $protocol))
+    ) {
+      //not found - get shortened variants with placeholders
+      $hostNames = iterator_to_array(new \Papaya\Domain\HostName\Variants($hostName));
+      if ($hostNames) {
+        $domainData = $this->load($hostNames, $protocol);
       }
     }
     return $domainData;
   }
+
+
 
   /**
    * handle current domain
