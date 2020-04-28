@@ -55,7 +55,7 @@ namespace Papaya\Domain\HostName {
           $hostNames,
           static function($a, $b) {
             if (strlen($a) === strlen($b)) {
-              return 0;
+              return strcmp($b, $a);
             }
             return strlen($a) > strlen($b) ? -1 : 1;
           }
