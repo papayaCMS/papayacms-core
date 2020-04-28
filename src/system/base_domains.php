@@ -141,12 +141,13 @@ class base_domains extends base_db {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $domains[$row['domain_hostname']] = $row;
       }
-      if (count($domains) == 1) {
+      if (count($domains) === 1) {
         return reset($domains);
-      } elseif (count($domains) > 0) {
-        for ($i = count($hosts) - 1; $i >= 0; $i--) {
-          if (isset($domains[$hosts[$i]])) {
-            return $domains[$hosts[$i]];
+      }
+      if (count($domains) > 0) {
+        foreach ($hosts as $host) {
+          if (isset($domains[$host])) {
+            return $domains[$host];
           }
         }
       }
