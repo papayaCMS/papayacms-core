@@ -5,6 +5,9 @@
   "homepage": "http://www.papaya-cms.com/",
   "minimum-stability": "dev",
   "autoload" : {
+    "psr-4": {
+      "Papaya\\Modules\\Core\\": "src/modules/_base/"
+    },
     "files" : ["src/core.php"]
   },
   "require": {
