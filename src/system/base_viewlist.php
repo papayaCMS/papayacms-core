@@ -865,6 +865,7 @@ class base_viewlist extends base_db {
     $data = array(
        'view_title' => $this->params['view_title'],
        'module_guid' => $this->params['module_guid'],
+       'view_name' => $this->params['view_name'],
        'view_is_cacheable' => $this->params['view_is_cacheable'],
        'view_is_deprecated' => $this->params['view_is_deprecated'],
        'view_note' => $this->params['view_note'],
