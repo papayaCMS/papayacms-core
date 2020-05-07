@@ -57,9 +57,10 @@ class Folder extends UI\Dialog\Field {
     foreach ($iterator as $folderId => $folder) {
       $caption = '';
       if ($iterator->getDepth() > 0) {
-        $caption .= \str_repeat('  ', $iterator->getDepth() - 1).'->';
+        $caption .= \str_repeat("--", $iterator->getDepth()).'->';
       }
-      $caption .= Utility\Arrays::get($folder, 'title', '');
+      $title = Utility\Arrays::get($folder, 'title', '');
+      $caption .= $title ?: '#'.$folder['id'];
       $option = $select->appendElement(
         'option', ['value' => $folderId], $caption
       );
@@ -83,7 +84,11 @@ class Folder extends UI\Dialog\Field {
       $this->setFilter(new \Papaya\Filter\ArrayKey($this->_folders));
     } elseif (NULL === $this->_folders) {
       $this->_folders = new Content\Media\Folders();
-      $this->_folders->activateLazyLoad();
+      $this->_folders->activateLazyLoad(
+        [
+          'language_id' => $this->papaya()->administrationLanguage->id
+        ]
+      );
       $this->setFilter(new \Papaya\Filter\ArrayKey($this->_folders));
     }
     return $this->_folders;

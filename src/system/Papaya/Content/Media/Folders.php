@@ -27,6 +27,11 @@ class Folders extends Database\Records\Tree {
     'title' => 'folder_name'
   ];
 
+  protected $_orderByProperties = [
+    'title' => Database\Interfaces\Order::ASCENDING,
+    'id' => Database\Interfaces\Order::ASCENDING
+  ];
+
   /**
    * @return Database\Record\Mapping
    */
@@ -66,7 +71,7 @@ class Folders extends Database\Records\Tree {
    * @return bool
    */
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
-    $sql = "SELECT f.folder_id, f.parent_id, f.parent_path, ft.lng_id, ft.title
+    $sql = "SELECT f.folder_id, f.parent_id, f.parent_path, ft.lng_id, ft.folder_name
               FROM %s AS f
               LEFT JOIN %s AS ft ON (ft.folder_id = f.folder_id AND ft.lng_id = '%d')";
     if (isset($filter['language_id'])) {

@@ -76,8 +76,9 @@ abstract class Tree extends Lazy {
           $this->_children[$parentIdentifier][] = $identifier;
           if (!isset($this->_records[$parentIdentifier])) {
             $this->_rootIdentifiers[$parentIdentifier] = TRUE;
-          } elseif (isset($this->_rootIdentifiers[$parentIdentifier])) {
-            unset($this->_rootIdentifiers[$parentIdentifier]);
+          }
+          if (isset($this->_rootIdentifiers[$identifier])) {
+            unset($this->_rootIdentifiers[$identifier]);
           }
         } else {
           throw new \LogicException(
