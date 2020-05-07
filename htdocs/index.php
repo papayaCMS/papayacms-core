@@ -64,6 +64,9 @@ if ($error) {
     echo 'Service Unavailable';
   }
 } else {
+  if (file_exists(__DIR__.'/revision.inc.php')) {
+    @include(__DIR__.'/revision.inc.php');
+  }
   $PAPAYA_PAGE = new papaya_page();
   $PAPAYA_PAGE->execute();
   $PAPAYA_PAGE->get();
