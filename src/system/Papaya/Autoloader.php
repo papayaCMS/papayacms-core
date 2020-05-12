@@ -143,6 +143,10 @@ class Autoloader {
     'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
   ];
 
+  private static $_noOldClassAlias = [
+    UI\Content\Teaser\Images::class => TRUE
+  ];
+
   private static $_mapClassesReverse;
 
   /**
@@ -221,7 +225,10 @@ class Autoloader {
           } else {
             \class_alias($name, $alias);
           }
-        } elseif (FALSE !== \strpos($name, '\\') && ($alias = self::convertToToOldClass($name))) {
+        } elseif (
+          FALSE !== \strpos($name, '\\') &&
+          ($alias = self::convertToToOldClass($name))
+        ) {
           \class_alias($name, $alias);
         }
       }
@@ -304,6 +311,9 @@ class Autoloader {
    * @return null|string
    */
   public static function convertToToOldClass($className) {
+    if (isset(self::$_noOldClassAlias[$className])) {
+      return NULL;
+    }
     if (NULL === self::$_mapClassesReverse) {
       self::$_mapClassesReverse = \array_flip(self::$_mapClasses);
     }
