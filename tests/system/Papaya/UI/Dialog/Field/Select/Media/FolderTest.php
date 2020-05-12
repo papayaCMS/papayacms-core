@@ -56,6 +56,13 @@ class FolderTest extends \Papaya\TestCase {
     $select = new Folder(
       'Caption', 'name'
     );
+    $select->papaya(
+      $this->mockPapaya()->application(
+        [
+          'administrationLanguage' => $this->mockPapaya()->administrationLanguage()
+        ]
+      )
+    );
     $this->assertInstanceOf(Folders::class, $select->mediaFolders());
   }
 
@@ -74,8 +81,8 @@ class FolderTest extends \Papaya\TestCase {
       '<field caption="Caption" class="DialogFieldSelectMediaFolder" error="no">
         <select name="name" type="dropdown">
           <option value="21">Folder 21</option>
-          <option value="42" selected="selected">-&gt;Folder 42</option>
-          <option value="84">  -&gt;Folder 84</option>
+          <option value="42" selected="selected">---&gt;Folder 42</option>
+          <option value="84">-----&gt;Folder 84</option>
         </select>
       </field>',
       $select->getXML()
