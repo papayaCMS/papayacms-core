@@ -116,14 +116,16 @@ namespace Papaya\UI\Content\Teaser {
           'papaya' => XML\Document::XMLNS_PAPAYA
         ]
       );
-      $images = $document->xpath()->evaluate($this->_pattern['teaser_images'], $teasers ?: $parent);
+      $source = $teasers ?: $parent;
+      $sourceDocument = $source->ownerDocument;
+      $images = $sourceDocument->xpath()->evaluate($this->_pattern['teaser_images'], $source);
       $names = [
         'list' => 'teaser-thumbnails',
         'item' => 'thumbnail',
         'attribute' => 'page-id'
       ];
       if ($images->length < 1) {
-        $images = $document->xpath()->evaluate($this->_pattern['subtopic_images'], $teasers ?: $parent);
+        $images = $sourceDocument->xpath()->evaluate($this->_pattern['subtopic_images'], $source);
         $names = [
           'list' => 'subtopicthumbs',
           'item' => 'thumb',
@@ -138,7 +140,7 @@ namespace Papaya\UI\Content\Teaser {
             ->appendElement(
               $names['item'],
               [
-                $names['attribute'] => $document->xpath()->evaluate(
+                $names['attribute'] => $sourceDocument->xpath()->evaluate(
                   $this->_pattern['page_id'], $imageNode
                 )
               ]
