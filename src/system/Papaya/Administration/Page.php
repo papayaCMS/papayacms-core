@@ -17,6 +17,7 @@ namespace Papaya\Administration {
   use Papaya\Administration\UI as AdministrationUI;
   use Papaya\Application\BaseObject as ApplicationBaseObject;
   use Papaya\Request;
+  use Papaya\Request\Parameters;
   use Papaya\Template;
   use Papaya\Template\XSLT as XSLTTemplate;
   use Papaya\UI\Menu;
@@ -160,9 +161,8 @@ namespace Papaya\Administration {
       }
       $parts = $this->parts();
       $restoreParameters = ('get' === $this->papaya()->request->getMethod()) && !empty($this->_parameterGroup);
-      $parametersName = [\get_class($this), 'parameters', $this->_parameterGroup];
       if ($restoreParameters && $parts->parameters()->isEmpty()) {
-        $value = $this->papaya()->session->getValue($parametersName);
+        $value = $this->papaya()->session->getValue($this->getSessionParametersName());
         $parts->parameters()->merge(\is_array($value) ? $value : []);
         $this->papaya()->request->setParameters(
           Request::SOURCE_QUERY,
@@ -180,10 +180,20 @@ namespace Papaya\Administration {
         }
       }
       if ($restoreParameters) {
-        $this->papaya()->session->setValue($parametersName, $parts->parameters()->toArray());
+        $this->storeParameters($parts->parameters());
       }
       $this->parts()->toolbar()->toolbar($this->toolbar());
       $this->getTemplate()->addMenu($this->parts()->toolbar()->getXML());
+    }
+
+    private function getSessionParametersName() {
+      return [\get_class($this), 'parameters', $this->_parameterGroup];
+    }
+
+    public function storeParameters(Parameters $parameters = NULL) {
+      $this->papaya()->session->setValue(
+        $this->getSessionParametersName(), $parameters->toArray()
+      );
     }
 
     /**

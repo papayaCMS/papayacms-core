@@ -15,6 +15,7 @@
 
 namespace Papaya\Administration\Protocol\Commands {
 
+  use Papaya\Administration\Page as AdministrationPage;
   use Papaya\Administration\Protocol\ProtocolContent;
   use Papaya\Administration\Protocol\ProtocolPage;
   use Papaya\Content\Protocol\ProtocolEntries;
@@ -42,8 +43,14 @@ namespace Papaya\Administration\Protocol\Commands {
      */
     private $_protocolEntries;
 
-    public function __construct(ProtocolEntry $protocolEntry) {
+    /**
+     * @var AdministrationPage
+     */
+    private $_page;
+
+    public function __construct(ProtocolEntry $protocolEntry, AdministrationPage $page) {
       $this->_protocolEntry = $protocolEntry;
+      $this->_page = $page;
     }
 
     public function createDialog() {
@@ -106,6 +113,8 @@ namespace Papaya\Administration\Protocol\Commands {
       $this->hideAfterSuccess(TRUE);
       $this->callbacks()->onExecuteSuccessful = function() use ($severity, $groupId, $createdBefore) {
         if ($this->deleteEntries($severity, $groupId, $createdBefore)) {
+          $this->parameters()->set('cmd', 'show');
+          $this->_page->storeParameters($this->parameters());
           $this->papaya()->messages->displayInfo(
             'Protocol entries deleted.'
           );

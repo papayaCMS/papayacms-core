@@ -36,7 +36,7 @@ namespace Papaya\Administration\Protocol {
       $commands = new CommandsController($name, $default);
       $commands->owner($this);
       $commands[self::COMMAND_SHOW] = new Commands\ShowProtocolEntry($this->protocolEntry());
-      $commands[self::COMMAND_CLEANUP] = new Commands\DeleteProtocolEntries($this->protocolEntry());
+      $commands[self::COMMAND_CLEANUP] = new Commands\DeleteProtocolEntries($this->protocolEntry(), $this->getPage());
       return $commands;
     }
 

@@ -29,12 +29,12 @@ namespace Papaya\Administration\Protocol {
 
     protected function createContent() {
       $this->getTemplate()->parameters()->set(PageParameters::COLUMN_WIDTH_CONTENT, '60%');
-      return new ProtocolContent();
+      return new ProtocolContent($this);
     }
 
     protected function createNavigation() {
       $this->getTemplate()->parameters()->set(PageParameters::COLUMN_WIDTH_NAVIGATION, '40%');
-      return new ProtocolNavigation();
+      return new ProtocolNavigation($this);
     }
   }
 }
