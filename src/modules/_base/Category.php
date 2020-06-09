@@ -26,12 +26,14 @@ namespace Papaya\Modules\Core {
   * @subpackage Modules-Standard
   */
 
+  use Papaya\Filter\IntegerValue;
   use Papaya\Plugin\Cacheable as CacheablePlugin;
   use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\Plugin\Filter as PluginFilter;
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
+  use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\XML\Element as XMLElement;
 
   class Category extends Article implements Partials\Teasers {
@@ -41,6 +43,8 @@ namespace Papaya\Modules\Core {
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
     use Partials\TeasersAggregation;
+
+    const PARAMETER_NAME_PAGING = 'page';
 
     /**
      * @var PageTeaserFactory
@@ -56,13 +60,18 @@ namespace Papaya\Modules\Core {
     public function appendTo(XMLElement $parent) {
       parent::appendTo($parent);
       $content = $this->content()->withDefaults($this->getDefaultContent());
+      $offsetPage = $this->papaya()->request->getParameter(
+        self::PARAMETER_NAME_PAGING, 1, new IntegerValue(1)
+      );
       $pageId = $this->_page->getPageId();
       if ($pageId !== '') {
         $teasers = $this->teaserFactory()->byParent(
           $pageId,
           $content[self::FIELD_TEASERS_ORDER],
-          $content[self::FIELD_TEASERS_LIMIT]
+          $content[self::FIELD_TEASERS_LIMIT] + 1,
+          ($offsetPage - 1) * $content[self::FIELD_TEASERS_LIMIT]
         );
+        $teasers->definePaging(self::PARAMETER_NAME_PAGING, $content[self::FIELD_TEASERS_LIMIT]);
         $parent->append($teasers);
       }
     }
@@ -76,8 +85,8 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor
      * @see PapayaPluginEditableContent::editor()
      */
-    public function createEditor(EditablePlugin\Content $content) {
-      $editor = parent::createEditor($content);
+    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = Richtext::RTE_SIMPLE) {
+      $editor = parent::createEditor($content, $teaserRTEMode);
       $this->appendTeasersFieldsToDialog($editor->dialog(), $content);
       return $editor;
     }

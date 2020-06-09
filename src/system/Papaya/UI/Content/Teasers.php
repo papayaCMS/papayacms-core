@@ -15,7 +15,9 @@
 namespace Papaya\UI\Content;
 
 use Papaya\Content;
+use Papaya\Filter\IntegerValue;
 use Papaya\Iterator;
+use Papaya\Request\Parameters\Name as ParameterName;
 use Papaya\UI;
 use Papaya\XML;
 
@@ -25,7 +27,7 @@ use Papaya\XML;
  * @package Papaya-Library
  * @subpackage UI-Content
  */
-class Teasers extends UI\Control {
+class Teasers extends UI\Control implements \Countable {
   /**
    * @var Content\Pages
    */
@@ -69,6 +71,14 @@ class Teasers extends UI\Control {
    * @var Teaser\Images
    */
   private $_teaserImages;
+  /**
+   * @var string|ParameterName
+   */
+  private $_pagingParameterName;
+  /**
+   * @var int
+   */
+  private $_pagingLimit = 0;
 
   /**
    * Create list, store pages and optional thumbnail configuration
@@ -87,6 +97,19 @@ class Teasers extends UI\Control {
     $this->_height = $height;
     $this->_resizeMode = $resizeMode;
     $this->_replaceImageTags = $replaceImageTags;
+  }
+
+  public function count() {
+    return $this->pages()->count();
+  }
+
+  /**
+   * @param string|ParameterName $parameterName
+   * @param int $itemsPerPage
+   */
+  public function definePaging($parameterName, $itemsPerPage) {
+    $this->_pagingParameterName = $parameterName;
+    $this->_pagingLimit = (int)$itemsPerPage;
   }
 
   /**
@@ -157,8 +180,33 @@ class Teasers extends UI\Control {
    */
   public function appendTo(XML\Element $parent) {
     $teasers = $parent->appendElement('teasers');
-    foreach ($this->pages() as $record) {
-      $this->appendTeaserTo($teasers, $record);
+    $pages = $this->pages();
+    if ($this->_pagingLimit > 0) {
+      $pages = new \LimitIterator(new \IteratorIterator($this->pages()), 0, $this->_pagingLimit);
+      $currentPage = $this->papaya()->request->getParameter(
+        $this->_pagingParameterName, 1, new IntegerValue(1)
+      );
+      if ($currentPage > 1) {
+        $reference = clone $this->reference();
+        $reference->setParameters(
+          $reference->getParameters()->set($this->_pagingParameterName, $currentPage > 2 ? $currentPage - 1 : null)
+        );
+        $teasers->setAttribute(
+          'href-previous', (string)$reference
+        );
+      }
+      if (count($this->pages()) > $this->_pagingLimit) {
+        $reference = clone $this->reference();
+        $reference->setParameters(
+          $reference->getParameters()->set($this->_pagingParameterName, $currentPage + 1)
+        );
+        $teasers->setAttribute(
+          'href-next', (string)$reference
+        );
+      }
+    }
+    foreach ($pages as $pageData) {
+      $this->appendTeaserTo($teasers, $pageData);
     }
     if (!$this->_replaceImageTags && ($this->_width > 0 || $this->_height > 0)) {
       $teasers->append($this->teaserImages());

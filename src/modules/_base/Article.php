@@ -14,6 +14,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\Plugin\Filter as PluginFilter;
+  use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;
@@ -45,13 +46,14 @@ namespace Papaya\Modules\Core {
     /**
      * @param EditablePlugin\Content $content
      *
+     * @param $teaserRTEMode
      * @return PluginEditor|PluginDialog
      */
-    public function createEditor(EditablePlugin\Content $content) {
+    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = Richtext::RTE_SIMPLE) {
       $defaults = $this->getDefaultContent();
-      $editor = parent::createEditor($content);
+      $editor = parent::createEditor($content, $teaserRTEMode);
       $dialog = $editor->dialog();
-      $dialog->fields[] = new DialogField\Textarea\Richtext(
+      $dialog->fields[] = new Richtext(
         new TranslatedText('Text'),
         self::FIELD_TEXT,
         20,

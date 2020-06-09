@@ -28,6 +28,7 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Filter as PluginFilter;
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
+  use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;
@@ -90,13 +91,14 @@ namespace Papaya\Modules\Core {
      * In this case it the editor creates an dialog from a field definition.
      *
      * @param EditablePlugin\Content $content
+     * @param string $teaserRTEMode
      * @return PluginEditor
      * @see PapayaPluginEditableContent::editor()
      */
-    public function createEditor(EditablePlugin\Content $content) {
+    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = Richtext::RTE_SIMPLE) {
       $defaults = $this->getDefaultContent();
       $pageOrderOptions = new TranslatedList(PageTeaserFactory::ORDER_POSSIBILITIES);
-      $editor = parent::createEditor($content);
+      $editor = parent::createEditor($content, $teaserRTEMode);
       $dialog = $editor->dialog();
       $dialog->fields[] = $group = new DialogField\Group(
         new TranslatedText('Categories')
