@@ -35,6 +35,8 @@ namespace Papaya\Modules\Core\Partials {
     const FIELD_IMAGE = 'image';
     const FIELD_TEASER = 'teaser';
 
+    const TEASER_RTE_NONE = 'none';
+
     /**
      * @access private
      */
@@ -74,14 +76,16 @@ namespace Papaya\Modules\Core\Partials {
       $dialog->fields[] = new DialogField\Input\Media\ImageResized(
         new TranslatedText('Image'), self::FIELD_IMAGE
       );
-      $dialog->fields[] = new DialogField\Textarea\Richtext(
-        new TranslatedText('Teaser'),
-        self::FIELD_TEASER,
-        $teaserRTEMode === DialogField\Textarea\Richtext::RTE_SIMPLE ? 8 : 40,
-        $defaults[self::FIELD_TEASER],
-        NULL,
-        $teaserRTEMode
-      );
+      if ($teaserRTEMode !==self::TEASER_RTE_NONE) {
+        $dialog->fields[] = new DialogField\Textarea\Richtext(
+          new TranslatedText('Teaser'),
+          self::FIELD_TEASER,
+          $teaserRTEMode === DialogField\Textarea\Richtext::RTE_SIMPLE ? 8 : 40,
+          $defaults[self::FIELD_TEASER],
+          NULL,
+          $teaserRTEMode
+        );
+      }
       return $editor;
     }
 
