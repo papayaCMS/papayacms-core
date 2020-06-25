@@ -80,7 +80,7 @@ namespace Papaya\Administration\Media\MimeTypes\Editor {
 
     public function getLocalIconPath() {
       $path = FilePathUtilities::getBasePath(TRUE);
-      $path .= $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/papaya');
+      $path .= $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/papaya');
       $path .= '/pics/icons/16x16/mimetypes';
       return FilePathUtilities::cleanup($path, FALSE);
     }

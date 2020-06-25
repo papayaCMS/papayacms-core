@@ -49,7 +49,7 @@ namespace Papaya\Administration\UI\Route\Templated {
       $application->administrationPhrases->setLanguage($application->languages->getDefault());
       $user->execLogin();
       $uiLanguage = $application->languages->getLanguage(
-        $application->administrationUser->options->get('PAPAYA_UI_LANGUAGE')
+        $application->administrationUser->options->get(\Papaya\Configuration\CMS::UI_LANGUAGE)
       );
       if ($uiLanguage) {
         $application->administrationPhrases->setLanguage($uiLanguage);

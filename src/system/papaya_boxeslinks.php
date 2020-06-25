@@ -217,7 +217,7 @@ class papaya_boxeslinks extends base_boxeslinks {
     $dialog = new \Papaya\UI\Dialog();
     $dialog->caption = new \Papaya\UI\Text\Translated('Link Mode');
     $dialog->options->captionStyle = \Papaya\UI\Dialog\Options::CAPTION_NONE;
-    if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', TRUE)) {
+    if ($this->papaya()->options->get(\Papaya\Configuration\CMS::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
       $modes = array(
         self::INHERIT_ALL => new \Papaya\UI\Text\Translated('None'),
         self::INHERIT_BOXES => new \Papaya\UI\Text\Translated('Groups'),
@@ -273,7 +273,7 @@ class papaya_boxeslinks extends base_boxeslinks {
     $listview = new \Papaya\UI\ListView();
     $listview->caption = new \Papaya\UI\Text\Translated('Boxes And Box Groups');
 
-    if ($this->papaya()->options->get('PAPAYA_FEATURE_BOXGROUPS_LINKABLE', TRUE)) {
+    if ($this->papaya()->options->get(\Papaya\Configuration\CMS::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
       if ($linkGroups) {
         $listview->items[] = $item = new \Papaya\UI\ListView\Item(
           'items-page',

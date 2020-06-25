@@ -84,17 +84,17 @@ class Path extends \Papaya\Application\BaseObject {
       break;
       case self::PATH_INSTALLATION :
         $result = Utility\File\Path::getDocumentRoot().
-          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/').
           $this->_path;
       break;
       case self::PATH_ADMINISTRATION :
         $result = Utility\File\Path::getDocumentRoot().
-          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
-          $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/').
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/').
           $this->_path;
       break;
       case self::PATH_UPLOAD :
-        $result = $this->papaya()->options->get('PAPAYA_PATH_DATA', '/').
+        $result = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_DATA, '/').
           $this->_path;
       break;
       default :

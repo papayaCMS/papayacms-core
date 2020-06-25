@@ -544,7 +544,7 @@ class email extends base_object {
     case 'thumbnail' :
     case 'media' :
       $path = '';
-      $depth = $this->papaya()->options->get('PAPAYA_MEDIADB_SUBDIRECTORIES', 1);
+      $depth = $this->papaya()->options->get(\Papaya\Configuration\CMS::MEDIADB_SUBDIRECTORIES, 1);
       for ($i = 0; $i < $depth; $i++) {
         $path .= $data['media_id'][$i].'/';
       }

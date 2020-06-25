@@ -244,7 +244,7 @@ namespace Papaya\Database {
       }
       $switchOption = 0;
       if ($options = $this->papaya()->options) {
-        $switchOption = $options->get('PAPAYA_DATABASE_CLUSTER_SWITCH', $switchOption);
+        $switchOption = $options->get(\Papaya\Configuration\CMS::DATABASE_CLUSTER_SWITCH, $switchOption);
       }
       switch ($switchOption) {
         /** @noinspection PhpMissingBreakStatementInspection */

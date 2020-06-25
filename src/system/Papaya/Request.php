@@ -216,7 +216,7 @@ namespace Papaya {
       case 'pageId' :
         return $this->getParameter(
           'page_id',
-          $this->papaya()->options->get('PAPAYA_PAGEID_DEFAULT', 0),
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PAGEID_DEFAULT, 0),
           NULL,
           self::SOURCE_PATH
         );
@@ -299,8 +299,8 @@ namespace Papaya {
      * @param Configuration $options
      */
     public function setConfiguration($options) {
-      $this->_separator = $options->get('PAPAYA_URL_LEVEL_SEPARATOR', '[]');
-      $this->_installationPath = $options->get('PAPAYA_PATH_WEB', '/');
+      $this->_separator = $options->get(\Papaya\Configuration\CMS::URL_LEVEL_SEPARATOR, '[]');
+      $this->_installationPath = $options->get(\Papaya\Configuration\CMS::PATH_WEB, '/');
     }
 
     /**
@@ -332,7 +332,7 @@ namespace Papaya {
           $this->_language->activateLazyLoad(
             ['identifier' => $identifier]
           );
-        } elseif ($id = $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 0)) {
+        } elseif ($id = $this->papaya()->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE, 0)) {
           $this->_language->activateLazyLoad(
             ['id' => $id]
           );

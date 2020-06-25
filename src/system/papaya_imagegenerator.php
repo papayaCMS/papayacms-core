@@ -601,14 +601,14 @@ class papaya_imagegenerator extends base_imagegenerator {
         }
         asort($imageModules);
       }
-      $systemImageFormat = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE');
+      $systemImageFormat = $this->papaya()->options->get(\Papaya\Configuration\CMS::THUMBS_FILETYPE);
       $imageFormats = array(
         0 => $this->_gt('System').': '.$this->_validFormats[$systemImageFormat],
         IMAGETYPE_GIF => $this->_validFormats[IMAGETYPE_GIF],
         IMAGETYPE_JPEG => $this->_validFormats[IMAGETYPE_JPEG],
         IMAGETYPE_PNG => $this->_validFormats[IMAGETYPE_PNG]
       );
-      $systemCacheTime = $this->papaya()->options->get('PAPAYA_CACHE_TIME_FILES');
+      $systemCacheTime = $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_TIME_FILES);
       $cacheModes = array(
         0 => $this->_gt('No Cache'),
         1 => $this->_gt('System time').': '.$systemCacheTime,

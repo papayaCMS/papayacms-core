@@ -1256,7 +1256,7 @@ class base_dialog extends base_object {
       $dir = PAPAYA_PATH_DATA.$path;
       break;
     case 'templates':
-      $dir = $this->papaya()->options->get('PAPAYA_PATH_TEMPLATES', PAPAYA_PATH_DATA.'templates/').$path;
+      $dir = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_TEMPLATES, PAPAYA_PATH_DATA.'templates/').$path;
       break;
     default:
       $dir = $path;

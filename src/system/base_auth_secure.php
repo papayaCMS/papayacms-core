@@ -53,7 +53,7 @@ class base_auth_secure extends base_db {
   * @return string
   */
   public function getPasswordHash($password) {
-    $algorithm = $this->papaya()->options->get('PAPAYA_PASSWORD_ALGORITHM', 0);
+    $algorithm = $this->papaya()->options->get(\Papaya\Configuration\CMS::PASSWORD_ALGORITHM, 0);
     if ($algorithm > 0) {
       return password_hash($password, $algorithm);
     } else {
@@ -85,9 +85,9 @@ class base_auth_secure extends base_db {
    * @return string|FALSE new password if rehashing is needed
    */
   public function rehashPassword($password, $hash) {
-    $rehash = $this->papaya()->options->get('PAPAYA_PASSWORD_REHASH', FALSE);
+    $rehash = $this->papaya()->options->get(\Papaya\Configuration\CMS::PASSWORD_REHASH, FALSE);
     if ($rehash) {
-      $algorithm = $this->papaya()->options->get('PAPAYA_PASSWORD_ALGORITHM', 0);
+      $algorithm = $this->papaya()->options->get(\Papaya\Configuration\CMS::PASSWORD_ALGORITHM, 0);
       if (empty($algorithm)) {
         $algorithm = PASSWORD_DEFAULT;
       }
@@ -105,11 +105,11 @@ class base_auth_secure extends base_db {
    * @return string|boolean
    */
   private function getOldPasswordHash($password) {
-    $method = $this->papaya()->options->get('PAPAYA_PASSWORD_METHOD', 'md5');
+    $method = $this->papaya()->options->get(\Papaya\Configuration\CMS::PASSWORD_METHOD, 'md5');
     $password = (
-      $this->papaya()->options->get('PAPAYA_PASSWORD_PREFIX', '').
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::PASSWORD_PREFIX, '').
       $password.
-      $this->papaya()->options->get('PAPAYA_PASSWORD_SUFFIX', '')
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::PASSWORD_SUFFIX, '')
     );
     switch ($method) {
     case 'sha1':

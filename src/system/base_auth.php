@@ -1287,7 +1287,7 @@ class base_auth extends base_db {
         papaya_strings::escapeHTMLChars($this->_gt('Forgot password?'))
       );
       if (!\Papaya\Utility\Server\Protocol::isSecure() &&
-          $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE)) {
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_SECURE_WARNING, TRUE)) {
         $url = new \Papaya\URL\Current();
         $url->setScheme('https');
         $result .= sprintf(

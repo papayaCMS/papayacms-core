@@ -111,12 +111,12 @@ class Wrapper implements Application\Access {
     $themeSetId = $this->_wrapperURL->getThemeSet();
     $compress = (
       $application->request->allowCompression() &&
-      $application->options->get('PAPAYA_COMPRESS_CACHE_THEMES', TRUE)
+      $application->options->get(\Papaya\Configuration\CMS::COMPRESS_CACHE_THEMES, TRUE)
     );
     $files = $this->getFiles();
     $cacheId = $this->getCacheIdentifier($themeSetId, $files, $mimetype, $compress);
-    if ($application->options->get('PAPAYA_CACHE_THEMES', FALSE)) {
-      $cacheTime = $application->options->get('PAPAYA_CACHE_TIME_THEMES', 0);
+    if ($application->options->get(\Papaya\Configuration\CMS::CACHE_THEMES, FALSE)) {
+      $cacheTime = $application->options->get(\Papaya\Configuration\CMS::CACHE_TIME_THEMES, 0);
     } else {
       $cacheTime = 0;
     }
@@ -350,7 +350,7 @@ class Wrapper implements Application\Access {
     $result .= \implode(
       '_',
       [
-        $options->get('PAPAYA_WEBSITE_REVISION', 'dev'),
+        $options->get(\Papaya\Configuration\CMS::WEBSITE_REVISION, 'dev'),
         'text/css' === $mimetype ? 'css' : 'js',
         \md5(\serialize($files))
       ]

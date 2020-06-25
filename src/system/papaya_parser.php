@@ -412,7 +412,7 @@ class papaya_parser extends base_db {
     if (!isset($this->storageService)) {
       $configuration = $this->papaya()->options;
       $this->storageService = \Papaya\Media\Storage::getService(
-        $configuration->get('PAPAYA_MEDIA_STORAGE_SERVICE', ''),
+        $configuration->get(\Papaya\Configuration\CMS::MEDIA_STORAGE_SERVICE, ''),
         $configuration
       );
     }
@@ -661,7 +661,7 @@ class papaya_parser extends base_db {
     if (isset($extensions[$format])) {
       return $extensions[$format];
     } else {
-      $systemFormat = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE');
+      $systemFormat = $this->papaya()->options->get(\Papaya\Configuration\CMS::THUMBS_FILETYPE);
       if (isset($extensions[$systemFormat])) {
         return $extensions[$systemFormat];
       } else {
@@ -1003,7 +1003,7 @@ class papaya_parser extends base_db {
         $result
       );
     }
-    $containerMode = $this->papaya()->options->get('PAPAYA_MEDIA_ELEMENTS_IMAGE', 0);
+    $containerMode = $this->papaya()->options->get(\Papaya\Configuration\CMS::MEDIA_ELEMENTS_IMAGE, 0);
     $subtitleAttributes = '';
     if ($subtitleHtml) {
       $subtitleAttributes .= (!empty($hrefData['data-lightbox-link']))

@@ -145,7 +145,7 @@ class Factory implements Application\Access {
     return \strtolower(
       Utility\File::normalizeName(
         $title,
-        $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
+        $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_NAMELENGTH, 50),
         $languageIdentifier
       )
     );
@@ -495,7 +495,7 @@ class Factory implements Application\Access {
       );
       if (!($language && $language->isContent)) {
         $language = $languages->getLanguage(
-          $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE', 1),
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE, 1),
           Content\Languages::FILTER_IS_CONTENT
         );
       }

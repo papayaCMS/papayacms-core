@@ -37,8 +37,8 @@ class Profiler implements Application\Profile {
     $builder = $this->builder();
     $builder->papaya($application);
     $profiler = new Profiling($builder->createCollector(), $builder->createStorage());
-    if ($application->options->get('PAPAYA_PROFILER_ACTIVE', FALSE)) {
-      $profiler->setDivisor($application->options->get('PAPAYA_PROFILER_DIVISOR', 50));
+    if ($application->options->get(\Papaya\Configuration\CMS::PROFILER_ACTIVE, FALSE)) {
+      $profiler->setDivisor($application->options->get(\Papaya\Configuration\CMS::PROFILER_DIVISOR, 50));
     } else {
       $profiler->setDivisor(0);
     }

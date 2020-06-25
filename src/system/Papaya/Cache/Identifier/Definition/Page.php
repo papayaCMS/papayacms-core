@@ -58,7 +58,7 @@ class Page
       ),
       'output_mode' => $this->papaya()->request->getParameter(
         'output_mode',
-        $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html'),
+        $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html'),
         NULL,
         Request::SOURCE_PATH
       )

@@ -382,8 +382,8 @@ class papaya_overview extends base_db {
         if (isset($topic['ancestors'])) {
           $title .= $this->getAncestorsTitle(
             $topic['ancestors'],
-            $this->papaya()->options->get('PAPAYA_UI_SEARCH_CHARACTER_LIMIT', 100) - strlen($pageTitle),
-            $this->papaya()->options->get('PAPAYA_UI_SEARCH_ANCESTOR_LIMIT',  0)
+            $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_SEARCH_CHARACTER_LIMIT, 100) - strlen($pageTitle),
+            $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_SEARCH_ANCESTOR_LIMIT,  0)
           );
         }
         $title .= $pageTitle;

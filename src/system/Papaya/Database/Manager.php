@@ -114,8 +114,8 @@ class Manager implements Application\Access {
   protected function _getConnectorUris($readUri = NULL, $writeUri = NULL) {
     if (NULL === $readUri) {
       $configuration = $this->getConfiguration();
-      $readUri = $configuration->get('PAPAYA_DB_URI', '');
-      $writeUri = $configuration->get('PAPAYA_DB_URI_WRITE', '');
+      $readUri = $configuration->get(\Papaya\Configuration\CMS::DB_URI, '');
+      $writeUri = $configuration->get(\Papaya\Configuration\CMS::DB_URI_WRITE, '');
     }
     if (empty($writeUri)) {
       $writeUri = $readUri;

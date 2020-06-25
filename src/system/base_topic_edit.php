@@ -199,7 +199,7 @@ class base_topic_edit extends base_topic {
           $currentWeight = $this->topic['topic_weight'];
           $direction = (int)$this->params['direction'];
           $this->changePosition($currentWeight, $direction);
-          if ($this->papaya()->options->get('PAPAYA_LOG_EVENT_PAGE_MOVED', TRUE)) {
+          if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_EVENT_PAGE_MOVED, TRUE)) {
             $this->papaya()->messages->dispatch(
               new \Papaya\Message\Log(
                 \Papaya\Message\Logable::GROUP_CONTENT,
@@ -249,7 +249,7 @@ class base_topic_edit extends base_topic {
             $moveSteps != 0
           ) {
             $this->changePosition($this->topic['topic_weight'], $moveSteps);
-            if ($this->papaya()->options->get('PAPAYA_LOG_EVENT_PAGE_MOVED', TRUE)) {
+            if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_EVENT_PAGE_MOVED, TRUE)) {
               $this->papaya()->messages->dispatch(
                 new \Papaya\Message\Log(
                   \Papaya\Message\Logable::GROUP_CONTENT,
@@ -743,7 +743,7 @@ class base_topic_edit extends base_topic {
     $outputObj = new papaya_output();
     $views = $outputObj->loadViewsList($this->topic['TRANSLATION']['view_id']);
 
-    $viewMode = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
+    $viewMode = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
     $viewLinks = array();
     if (count($views) > 0) {
       $viewLinks['xml'] = 'xml';
@@ -4615,7 +4615,7 @@ class base_topic_edit extends base_topic {
         new \Papaya\Filter\NotEmpty()
       );
       $field->setMandatory(TRUE);
-      if ($this->papaya()->options->get('PAPAYA_PUBLICATION_CHANGE_LEVEL', FALSE)) {
+      if ($this->papaya()->options->get(\Papaya\Configuration\CMS::PUBLICATION_CHANGE_LEVEL, FALSE)) {
         $group->fields[] = new \Papaya\UI\Dialog\Field\Select(
           new \Papaya\UI\Text\Translated('Change level'),
           'change_level',
@@ -4658,7 +4658,7 @@ class base_topic_edit extends base_topic {
         )
       );
 
-      if ($this->papaya()->options->get('PAPAYA_PUBLICATION_AUDITING', FALSE)) {
+      if ($this->papaya()->options->get(\Papaya\Configuration\CMS::PUBLICATION_AUDITING, FALSE)) {
         $dialog->buttons[] = new \Papaya\UI\Dialog\Button\NamedSubmit(
           new \Papaya\UI\Text\Translated('Audited'), 'audit', 1, \Papaya\UI\Dialog\Button::ALIGN_LEFT
         );

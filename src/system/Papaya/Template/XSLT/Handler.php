@@ -34,7 +34,7 @@ class Handler extends Application\BaseObject {
     $path = $this
       ->papaya()
       ->options
-      ->get('PAPAYA_PATH_TEMPLATES');
+      ->get(\Papaya\Configuration\CMS::PATH_TEMPLATES);
     return Utility\File\Path::cleanup($path.'/'.$this->getTemplate());
   }
 
@@ -60,7 +60,7 @@ class Handler extends Application\BaseObject {
       $template = $this
         ->papaya()
         ->options
-        ->get('PAPAYA_LAYOUT_TEMPLATES');
+        ->get(\Papaya\Configuration\CMS::LAYOUT_TEMPLATES);
     }
     return $template;
   }

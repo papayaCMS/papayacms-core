@@ -344,7 +344,7 @@ namespace Papaya\Plugin {
         'vendor:' => Utility\File\Path::getVendorPath(),
         'src:' => Utility\File\Path::getSourcePath()
       ];
-      $documentRoot = $this->papaya()->options->get('PAPAYA_DOCUMENT_ROOT', Utility\File\Path::getDocumentRoot());
+      $documentRoot = $this->papaya()->options->get(\Papaya\Configuration\CMS::DOCUMENT_ROOT, Utility\File\Path::getDocumentRoot());
       foreach ($map as $prefix => $mapPath) {
         if (0 === \strpos($path, $prefix)) {
           $basePath = $documentRoot.$mapPath;
@@ -357,7 +357,7 @@ namespace Papaya\Plugin {
           );
         }
       }
-      if ($includePath = $this->papaya()->options->get('PAPAYA_INCLUDE_PATH', '')) {
+      if ($includePath = $this->papaya()->options->get(\Papaya\Configuration\CMS::INCLUDE_PATH, '')) {
         return Utility\File\Path::cleanup(
             $includePath.'/modules/', TRUE
           ).$path;

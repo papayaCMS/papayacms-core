@@ -322,7 +322,7 @@ class papaya_installer extends base_db {
       if (isset($this->params['table']) && isset($this->params['table_idx'])) {
         $count = $this->getTableCount(
           $this->params['table'],
-          $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX')
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX)
         );
         $this->outputRPCResponse(
           (int)$this->params['table_idx'], TRUE, (int)$count, 'count'
@@ -601,7 +601,7 @@ class papaya_installer extends base_db {
     $tableNames = \Papaya\Content\Tables::getTables();
     foreach ($tableNames as $table) {
       $tableName = $this->databaseGetTableName($table);
-      if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
+      if ($tableName != $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TBL_OPTIONS)) {
         $result .= sprintf(
           '<listitem title="%s">',
           papaya_strings::escapeHTMLChars($tableName)
@@ -671,7 +671,7 @@ class papaya_installer extends base_db {
     $result .= '    ['.LF;
     foreach (\Papaya\Content\Tables::getTables() as $table) {
       $tableName = $this->databaseGetTableName($table);
-      if ($tableName != $this->papaya()->options->get('PAPAYA_DB_TBL_OPTIONS')) {
+      if ($tableName != $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TBL_OPTIONS)) {
         if ($this->checkTableExists($tableName)) {
           $exists = 'true';
           $tableCounts['exists']++;
@@ -837,7 +837,7 @@ class papaya_installer extends base_db {
     } else {
       header('HTTP/1.1 302 Found');
     }
-    if (!$this->papaya()->options->get('PAPAYA_DISABLE_XHEADERS')) {
+    if (!$this->papaya()->options->get(\Papaya\Configuration\CMS::DISABLE_XHEADERS)) {
       header('X-Papaya-Status: reloading installer');
     }
     header('Location: '.$url);
@@ -1112,7 +1112,7 @@ class papaya_installer extends base_db {
           if (FALSE !== $this->databaseEmptyTable($tableName)) {
             if (is_array($done = $this->insertCSV($tableName, $dataFileName))) {
               $count = $this->getTableCount(
-                $this->params['table'], $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX')
+                $this->params['table'], $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX)
               );
               if ($tableName == PAPAYA_DB_TBL_AUTHUSER) {
                 $this->initAdminAccount();
@@ -1584,10 +1584,10 @@ class papaya_installer extends base_db {
       if (isset($this->administrationUser)) {
         $this->licenseLng = $this->administrationUser->options['PAPAYA_UI_LANGUAGE'];
       } else {
-        $this->licenseLng = $this->papaya()->options->get('PAPAYA_UI_LANGUAGE');
+        $this->licenseLng = $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_LANGUAGE);
       }
     }
-    $fileName = $this->installationPath.$this->papaya()->options->get('PAPAYA_PATH_ADMIN').
+    $fileName = $this->installationPath.$this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN).
       '/data/'.$this->licenseLng.'/gpl.txt';
     $fileName = \Papaya\Utility\File\Path::cleanup($fileName, FALSE);
     if ($fileName) {

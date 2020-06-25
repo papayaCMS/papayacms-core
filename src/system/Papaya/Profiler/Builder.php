@@ -47,12 +47,12 @@ class Builder implements Application\Access {
    * @return \Papaya\Profiler\Storage
    */
   public function createStorage() {
-    switch ($this->papaya()->options->get('PAPAYA_PROFILER_STORAGE', 'file')) {
+    switch ($this->papaya()->options->get(\Papaya\Configuration\CMS::PROFILER_STORAGE, 'file')) {
       case 'xhgui' :
         $storage = new Storage\Xhgui(
-          $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE', ''),
-          $this->papaya()->options->get('PAPAYA_PROFILER_STORAGE_DATABASE_TABLE', 'details'),
-          $this->papaya()->options->get('PAPAYA_PROFILER_SERVER_ID', '1')
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PROFILER_STORAGE_DATABASE, ''),
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PROFILER_STORAGE_DATABASE_TABLE, 'details'),
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PROFILER_SERVER_ID, '1')
         );
       break;
       case 'file' :

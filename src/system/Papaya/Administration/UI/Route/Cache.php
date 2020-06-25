@@ -98,7 +98,7 @@ namespace Papaya\Administration\UI\Route {
       }
       $cacheElement = '' !== \trim($this->_element)
         ? $this->_element
-        : $application->options->get('PAPAYA_VERSION_STRING', 'dev', new \Papaya\Filter\NotEmpty());
+        : $application->options->get(\Papaya\Configuration\CMS::VERSION_STRING, 'dev', new \Papaya\Filter\NotEmpty());
       $cacheId = $this->getCacheIdentifier($address->getRouteString(-1));
       $data = NULL;
       $lastModified = $this->cache()->created($this->_group, $cacheElement, $cacheId, $this->_cacheTime);

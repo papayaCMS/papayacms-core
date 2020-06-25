@@ -180,7 +180,7 @@ class papaya_options extends base_options {
             if ($this->save('PAPAYA_LAYOUT_THEME', $theme->name)) {
               $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
               if (
-                $theme->templatePath != $this->papaya()->options->get('PAPAYA_LAYOUT_TEMPLATES', '') &&
+                $theme->templatePath != $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_TEMPLATES, '') &&
                 $this->save('PAPAYA_LAYOUT_TEMPLATES', $theme->templatePath)
               ) {
                 $this->addMsg(MSG_INFO, $this->_gt('Templates option modified.'));
@@ -886,7 +886,7 @@ class papaya_options extends base_options {
   function getThemeSetsCombo($name, $element, $data) {
     $themeSets = new \Papaya\Content\Theme\Skins();
     $themeSets->load(
-      array('theme_name' => $this->papaya()->options->get('PAPAYA_LAYOUT_THEME'))
+      array('theme_name' => $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_THEME))
     );
     $result = '';
     $result .= sprintf(
@@ -898,7 +898,7 @@ class papaya_options extends base_options {
       '<option value="">%s</option>'.LF,
       new \Papaya\UI\Text\Translated('None')
     );
-    $current = $this->papaya()->options->get('PAPAYA_LAYOUT_THEME_SET', '');
+    $current = $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_THEME_SET, '');
     foreach ($themeSets as $themeSet) {
       $selected = ($current == $data) ? ' selected="selected"' : '';
       $result .= sprintf(

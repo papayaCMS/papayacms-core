@@ -57,7 +57,7 @@ class Database extends Application\BaseObject
   public function handleError(\Exception $exception) {
     if (
       isset($this->papaya()->response) &&
-      $this->papaya()->options->get('PAPAYA_DBG_DEVMODE', FALSE)
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::DBG_DEVMODE, FALSE)
     ) {
       $message = \str_replace(['\r', '\n'], ' ', $exception->getMessage());
       $this->papaya()->response->sendHeader(

@@ -93,7 +93,7 @@ class XHTML
    */
   public function allow() {
     $options = $this->papaya()->options;
-    return $options->get('PAPAYA_PROTOCOL_XHTML', $options->get('PAPAYA_DBG_DEVMODE'));
+    return $options->get(\Papaya\Configuration\CMS::PROTOCOL_XHTML, $options->get(\Papaya\Configuration\CMS::DBG_DEVMODE));
   }
 
   /**
@@ -104,7 +104,7 @@ class XHTML
     $doOutput = $this
       ->papaya()
       ->options
-      ->get('PAPAYA_PROTOCOL_XHTML_OUTPUT_CLOSERS', FALSE);
+      ->get(\Papaya\Configuration\CMS::PROTOCOL_XHTML_OUTPUT_CLOSERS, FALSE);
     if ($doOutput) {
       print('</form></table>');
     }

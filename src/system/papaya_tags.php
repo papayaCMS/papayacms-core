@@ -840,7 +840,7 @@ class papaya_tags extends base_tags {
   * @return void
   */
   function loadAlternativeCategoryNames($categoryIds) {
-    $defaultLanguage = $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE');
+    $defaultLanguage = $this->papaya()->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE);
     if ($defaultLanguage != $this->papaya()->administrationLanguage->id &&
         isset($categoryIds) && is_array($categoryIds) &&
         count($categoryIds) > 0) {
@@ -962,7 +962,7 @@ class papaya_tags extends base_tags {
         } else {
           $selected = '';
         }
-        $defaultLanguage = $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE');
+        $defaultLanguage = $this->papaya()->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE);
         if ($tag['tag_title'] != '') {
           $title = $tag['tag_title'];
         } elseif ($defaultLanguage != $this->papaya()->administrationLanguage->id) {
@@ -2526,7 +2526,7 @@ class papaya_tags extends base_tags {
     if ($cacheId == NULL) {
       $cacheId = $this->sessionParams['cache_id'];
     }
-    return $this->papaya()->options->get('PAPAYA_PATH_CACHE', '').'.tags_'.$cacheId.'.csv';
+    return $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_CACHE, '').'.tags_'.$cacheId.'.csv';
   }
 
   /**
