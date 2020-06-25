@@ -125,11 +125,11 @@ class papaya_publictopic extends base_topic {
       }
 
       //try to load surfer default language
-      if ((!$contentLoaded) &&
-          isset($GLOBALS['PAPAYA_PAGE']) &&
-          is_object($GLOBALS['PAPAYA_PAGE']) &&
-          (!empty($GLOBALS['PAPAYA_PAGE']->visitorLanguage))) {
-        if (($lngId = $this->languageIdentToId($GLOBALS['PAPAYA_PAGE']->visitorLanguage)) &&
+      if (
+        (!$contentLoaded) &&
+        (!empty($this->papaya()->front->visitorLanguage))
+      ) {
+        if (($lngId = $this->languageIdentToId($this->papaya()->front->visitorLanguage)) &&
             (!in_array($lngId, $usedLanguages))) {
           $contentLoaded = $this->loadTranslatedData(
             $topicId,
@@ -197,12 +197,7 @@ class papaya_publictopic extends base_topic {
    * @return Cache\Identifier\Definition
    */
   function getCacheDefinition($pagePlugin) {
-    if (isset($GLOBALS['PAPAYA_PAGE']) &&
-        is_object($GLOBALS['PAPAYA_PAGE'])) {
-      $pageOptions = $GLOBALS['PAPAYA_PAGE']->sessionParams;
-    } else {
-      $pageOptions = array();
-    }
+    $pageOptions = $this->papaya()->front->sessionParams;
     $definition = NULL;
     if ($pagePlugin instanceof \Papaya\Plugin\Cacheable) {
       $definition = $pagePlugin->cacheable();

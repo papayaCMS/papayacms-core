@@ -129,9 +129,8 @@ class papaya_output extends base_db {
       $charset = (trim($this->viewMode['viewmode_charset']) != '') ?
         $this->viewMode['viewmode_charset'] : 'utf-8';
       $headerStr = 'Content-type: '.$contentType.'; charset='.$charset;
-      if (isset($GLOBALS['PAPAYA_PAGE']) &&
-          ($page = $GLOBALS['PAPAYA_PAGE']) instanceof papaya_page) {
-        /** @var papaya_page $page */
+      $page = $this->papaya()->front;
+      if ($page instanceof papaya_page) {
         $page->sendHeader($headerStr);
       } else {
         header($headerStr);

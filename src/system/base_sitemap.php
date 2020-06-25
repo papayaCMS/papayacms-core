@@ -512,7 +512,7 @@ class base_sitemap extends base_db {
         $this->topicTree[$row['prev']]['childcount'] = 1;
       }
 
-      if (isset($GLOBALS['PAPAYA_PAGE']) && !$GLOBALS['PAPAYA_PAGE']->public) {
+      if (!$this->papaya()->front->public) {
         //preview - no domain restrictions
         $domainRestriction = FALSE;
       } elseif (strpos(strtolower($this->baseURL), 'http://') === 0) {

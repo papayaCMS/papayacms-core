@@ -543,7 +543,7 @@ class papaya_page extends base_object {
         $this->getError(
           404,
           'File/path '.$_SERVER['REQUEST_URI'].' not found',
-          $options->get(\Papaya\Configuration\CMS::PAGE_ERROR_PATH, 0)
+          PAPAYA_PAGE_ERROR_PATH
         );
       }
       exit;

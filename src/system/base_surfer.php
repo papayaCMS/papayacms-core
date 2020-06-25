@@ -990,7 +990,7 @@ class base_surfer extends base_db {
     }
     $currentTime = time();
     if (!is_array($this->topicList)) {
-      if (!$forceLoading && isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public) {
+      if (!$forceLoading && $this->papaya()->front->public) {
         $topicListStatus = $this->getSessionValue($this->topiclistVar.'_status');
         if (isset($topicListStatus['surfer_id']) &&
             $topicListStatus['surfer_id'] == $surferId &&
@@ -1478,9 +1478,8 @@ class base_surfer extends base_db {
     }
     $this->setStatusCookie(FALSE);
     if ($redirectionURL) {
-      if (isset($GLOBALS['PAPAYA_PAGE']) && is_object($GLOBALS['PAPAYA_PAGE'])) {
-        /** @var papaya_page $page */
-        $page = $GLOBALS['PAPAYA_PAGE'];
+      $page = $this->papaya()->front;
+      if (isset($page) && is_object($page)) {
         if (!(defined('PAPAYA_DISABLE_XHEADERS') && PAPAYA_DISABLE_XHEADERS)) {
           header('X-Papaya-Redirect-Note: surfer logout');
         }

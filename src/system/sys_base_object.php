@@ -448,7 +448,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $data = $this->parseRequestURI();
     if (
       isset($data['output']) &&
-      ($data['output'] == 'media' || $data['output'] == 'image')
+      ($data['output'] === 'media' || $data['output'] === 'image')
     ) {
       return $data['filename'];
     } elseif ($pageId > 0) {
@@ -458,11 +458,9 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     } elseif ($this->papaya()->request->isAdministration) {
       $pId = 0;
     } elseif (
-      isset($GLOBALS['PAPAYA_PAGE']) &&
-      is_object($GLOBALS['PAPAYA_PAGE']) &&
-      is_a($GLOBALS['PAPAYA_PAGE'], 'papaya_page')
+      ($pageId = $this->papaya()->front->topicId) > 0
     ) {
-      $pId = $GLOBALS['PAPAYA_PAGE']->topicId;
+      $pId = $pageId;
     } elseif (isset($_GET['p_id']) && $_GET['p_id'] > 0) {
       $pId = (int)$_GET['p_id'];
     } else {
@@ -619,16 +617,14 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     if (isset($mode) && strpos($mode, '.preview') !== FALSE) {
       $mode = substr($mode, 0, -8);
       $preview = TRUE;
-    } elseif ((isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public == FALSE) ||
-              $mode == 'preview') {
+    } elseif ($mode === 'preview' || (!$this->papaya()->front->public)) {
       $preview = TRUE;
     } else {
       $preview = FALSE;
     }
     if ($preview) {
-      if (isset($GLOBALS['PAPAYA_PAGE']) &&
-          $GLOBALS['PAPAYA_PAGE']->versionDateTime > 0) {
-        $reference->setPreview(TRUE, $GLOBALS['PAPAYA_PAGE']->versionDateTime);
+      if ($this->papaya()->front->versionDateTime > 0) {
+        $reference->setPreview(TRUE, $this->papaya()->front->versionDateTime);
       } else {
         $reference->setPreview(TRUE);
       }
@@ -636,10 +632,8 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $reference->setPreview(FALSE);
     }
     if (empty($lng)) {
-      if (isset($GLOBALS['PAPAYA_PAGE']) &&
-          isset($GLOBALS['PAPAYA_PAGE']->contentLanguage) &&
-          isset($GLOBALS['PAPAYA_PAGE']->contentLanguage['lng_ident'])) {
-        $lng = $GLOBALS['PAPAYA_PAGE']->contentLanguage['lng_ident'];
+      if (!empty($this->papaya()->front->contentLanguage['lng_ident'])) {
+        $lng = $this->papaya()->front->contentLanguage['lng_ident'];
       }
       $lng = $request->getParameter(
         'language',
@@ -649,9 +643,9 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       );
     }
     $reference->setPageLanguage($lng);
-    if (!($reference->getPageId() > 0) && $reference->getPageTitle() != 'index') {
-      if (!empty($GLOBALS['PAPAYA_PAGE']->topicId)) {
-        $reference->setPageId($GLOBALS['PAPAYA_PAGE']->topicId);
+    if (!($reference->getPageId() > 0) && $reference->getPageTitle() !== 'index') {
+      if (!empty($this->papaya()->front->topicId)) {
+        $reference->setPageId($this->papaya()->front->topicId);
       }
     }
     if (!empty($text)) {
@@ -686,10 +680,8 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $ext = $pageModes[$mode];
     } elseif (isset($mode) && preg_match('~^[a-z]+$~', $mode)) {
       $ext = $mode;
-    } elseif (isset($GLOBALS['PAPAYA_PAGE']) &&
-              is_object($GLOBALS['PAPAYA_PAGE']) &&
-              isset($GLOBALS['PAPAYA_PAGE']->mode)) {
-      $ext = $GLOBALS['PAPAYA_PAGE']->mode;
+    } elseif (isset($this->papaya()->front->mode)) {
+      $ext = $this->papaya()->front->mode;
     } else {
       $ext = $defaultExtension;
     }
@@ -800,10 +792,10 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $reference->setMediaUri($mid);
     $options = $this->papaya()->options;
     $mimeType = '';
-    $isPublic = isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public;
+    $isPublic = $this->papaya()->front->public;
     if (empty($text) || empty ($ext)) {
       if (strlen($mid) > 0 && strpos($mid, '.') === FALSE) {
-        if ($storageGroup == 'thumbs') {
+        if ($storageGroup === 'thumbs') {
           $mimeType = image_type_to_mime_type($thumbsFileType);
         } else {
           $mediaDb = base_mediadb::getInstance();
@@ -814,7 +806,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
             }
             $text = empty($mediaFile['file_name']) ? $text : $mediaFile['file_name'];
             $mimeType = (isset($mediaFile['mimetype'])) ? $mediaFile['mimetype'] : '';
-            if ($storageGroup == 'files') {
+            if ($storageGroup === 'files') {
               $versionSuffix = (isset($mediaFile['current_version_id'])) ?
                 'v'.$mediaFile['current_version_id'] : '';
             }

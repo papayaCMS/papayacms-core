@@ -1103,18 +1103,20 @@ class base_topic extends base_db {
       if (!$isValid) {
         $allowFixation = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_FIXATION, FALSE);
         if ($allowFixation) {
-          if ($this->papaya()->request->getMethod() != 'get') {
+          if ($this->papaya()->request->getMethod() !== 'get') {
             //url fixation should only be used on GET requests, not POST ...
             $allowFixation = FALSE;
           }
-          if (isset($GLOBALS['PAPAYA_PAGE']) && !$GLOBALS['PAPAYA_PAGE']->public) {
+          if (!$this->papaya()->front->public) {
             //url fixation should not be used while in preview mode
             $allowFixation = FALSE;
           }
         }
         // if the strict url fixation is disabled 'index' and $pageFileName are always allowed
-        if (!$allowFixation &&
-            ($currentFileName == 'index' || $currentFileName == $pageFileName)) {
+        if (
+          !$allowFixation &&
+          ($currentFileName === 'index' || $currentFileName === $pageFileName)
+        ) {
           return FALSE;
         }
         return $url;

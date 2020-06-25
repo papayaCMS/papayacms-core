@@ -309,9 +309,8 @@ class base_topiclist extends base_db {
       $this->loadTopicTranslatedData();
       $counter = 0;
       foreach ($this->topics as $topicId => $topicData) {
-        $page = isset($GLOBALS['PAPAYA_PAGE']) ? $GLOBALS['PAPAYA_PAGE'] : NULL;
-        if ($page instanceof papaya_page &&
-            !$page->validateAccess($topicId)) {
+        $page = $this->papaya()->front;
+        if ($page instanceof papaya_page && !$page->validateAccess($topicId)) {
           continue;
         }
         if (class_exists($topicClass, FALSE)) {
