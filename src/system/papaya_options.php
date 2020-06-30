@@ -1288,11 +1288,11 @@ class papaya_options extends base_options {
           $this->addMsg(MSG_INFO, $this->_gtf('Changed permissions for "%s".', $title));
           return TRUE;
         } elseif (!$readable) {
-          $this->addMsg(MSG_INFO, $this->_gtf('"%s" is not readable.', $title));
+          $this->addMsg(MSG_INFO, $this->_gtf('"%s" (%s) is not readable.', [$title, $path]));
         } elseif (!$executable) {
-          $this->addMsg(MSG_INFO, $this->_gtf('"%s" is not executable.', $title));
+          $this->addMsg(MSG_INFO, $this->_gtf('"%s" (%s) is not executable.', [$title, $path]));
         } elseif (!$writeable) {
-          $this->addMsg(MSG_INFO, $this->_gtf('"%s" is not writeable.', $title));
+          $this->addMsg(MSG_INFO, $this->_gtf('"%s" (%s) is not writeable.', [$title, $path]));
         }
         return FALSE;
       } elseif (is_writeable($path)) {
@@ -1300,7 +1300,7 @@ class papaya_options extends base_options {
         return TRUE;
       }
     } else {
-      $this->addMsg(MSG_INFO, $this->_gtf('Cannot create "%s".', $title));
+      $this->addMsg(MSG_INFO, $this->_gtf('Cannot create "%s" (%s).', [$title, $path]));
     }
     return FALSE;
   }
