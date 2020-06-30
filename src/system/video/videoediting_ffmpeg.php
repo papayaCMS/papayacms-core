@@ -246,7 +246,7 @@ class videoediting_ffmpeg extends videoediting_common {
     }
     $overwrite = FALSE;
     if ($outFile == '') {
-      $outFile = PAPAYA_PATH_CACHE.'/reindex_'.md5(rand(999999999)).'.flv';
+      $outFile = \Papaya\Configuration\CMS::PATH_CACHE.'/reindex_'.md5(rand(999999999)).'.flv';
       $overwrite = TRUE;
     }
     $cmd = sprintf(
