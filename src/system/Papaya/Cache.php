@@ -21,10 +21,9 @@ namespace Papaya;
  * @subpackage Cache
  */
 class Cache {
+
   const OUTPUT = 'main';
-
   const DATA = 'data';
-
   const IMAGES = 'images';
 
   /**

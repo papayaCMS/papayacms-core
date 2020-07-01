@@ -12,18 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Content {
 
+namespace Papaya\Content\Configuration {
+
+  use Papaya\Content\Tables;
   use Papaya\Database;
 
   /**
    * Provide data encapsulation for the configuration options.
    *
-   * @package Papaya-Library
-   * @subpackage Content
+   * @property string $name
+   * @property string $value
    */
-  class Configuration
-    extends Database\Records\Lazy {
+  class Setting
+    extends Database\Record\Lazy {
     /**
      * Map field names to value identifiers
      *
@@ -34,10 +36,14 @@ namespace Papaya\Content {
       'value' => 'opt_value'
     ];
 
-    protected $_orderByProperties = ['name'];
-
-    protected $_identifierProperties = ['name'];
-
     protected $_tableName = Tables::OPTIONS;
+
+
+    /**
+     * @return Database\Record\Key\Fields
+     */
+    protected function _createKey() {
+      return new Database\Record\Key\Fields($this, $this->_tableName, ['name']);
+    }
   }
 }
