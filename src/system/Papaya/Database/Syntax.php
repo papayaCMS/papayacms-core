@@ -29,6 +29,14 @@ namespace Papaya\Database {
      */
     public function concat(...$arguments);
 
+
+    /*
+     * @param string|SQLSource $values
+     * @param string|SQLSource $separator
+     * @return string
+     */
+    public function groupConcat($values, $separator = ',');
+
     /**
      * @param string|Parameter $text
      * @return int

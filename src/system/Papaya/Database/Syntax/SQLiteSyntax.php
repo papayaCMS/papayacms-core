@@ -30,6 +30,19 @@ namespace Papaya\Database\Syntax {
       return '('.$serialized.')';
     }
 
+    /*
+     * @param string|SQLSource $values
+     * @param string|SQLSource $separator
+     *
+     */
+    public function groupConcat($values, $separator = ',') {
+      return sprintf(
+        'GROUP_CONCAT(%s, %s)',
+        $this->compileParameter($values),
+        $this->compileParameter($separator)
+      );
+    }
+
     /**
      * @param string|Parameter $text
      * @return int

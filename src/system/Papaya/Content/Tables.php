@@ -120,6 +120,8 @@ class Tables extends \Papaya\Application\BaseObject {
 
   const MEDIA_FILE_TRANSLATIONS = 'mediadb_files_trans';
 
+  const MEDIA_FILE_VERSIONS = 'mediadb_files_versions';
+
   const MEDIA_FOLDERS = 'mediadb_folders';
 
   const MEDIA_FOLDER_TRANSLATIONS = 'mediadb_folders_trans';

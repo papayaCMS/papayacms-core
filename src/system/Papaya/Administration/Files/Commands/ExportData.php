@@ -28,6 +28,7 @@ namespace Papaya\Administration\Files\Commands {
     public function createDialog() {
       $dialog = parent::createDialog();
       $dialog->options->useToken = FALSE;
+      $dialog->options->protectChanges = FALSE;
       $dialog->parameterGroup($this->parameterGroup());
       $dialog->hiddenFields->merge(
         [
@@ -49,7 +50,6 @@ namespace Papaya\Administration\Files\Commands {
         ),
         FALSE
       );
-      /*
       $dialog->fields[] = new Dialog\Field\Select\Radio(
         new TranslatedText('Include tags'),
         self::FIELD_INCLUDE_TAGS,
@@ -62,7 +62,6 @@ namespace Papaya\Administration\Files\Commands {
         new TranslatedList([1 => 'On', 0 => 'Off']),
         FALSE
       );
-       */
       $dialog->buttons[] = new Dialog\Button\Submit(new TranslatedText('Export CSV'));
       //$this->hideAfterSuccess(TRUE);
       $this->callbacks()->onExecuteSuccessful = function ($context, $dialog) {
@@ -76,6 +75,8 @@ namespace Papaya\Administration\Files\Commands {
     }
 
     private function exportCSV(array $languages, $includeTags, $includeVersions) {
+      $databaseAccess = $this->getDatabaseAccess();
+      $databaseSyntax = $databaseAccess->syntax();
       foreach ($languages as $languageId) {
         $languageIdentifier = $this->papaya()->languages[$languageId]['identifier'];
         $fields[$languageIdentifier] = sprintf(
@@ -89,15 +90,55 @@ namespace Papaya\Administration\Files\Commands {
         );
       }
       if ($includeVersions) {
-
+        $sql =
+          "(SELECT files.file_id, files.current_version_id version_id, '✓' as is_current_version, files.file_name, 
+             files.file_date, files.file_source, 
+             files.file_source_url, files.file_keywords,
+             ".$databaseSyntax->groupConcat($databaseSyntax->identifier('tag_translations.tag_title'), ', ')." as tags
+             ".implode(' ', $fields)."
+          FROM (:table_files AS files)
+          LEFT JOIN :table_versions AS versions ON (versions.file_id = files.file_id)
+          LEFT JOIN :table_tag_links AS links ON (links.link_type = 'media' AND links.link_id = files.file_id)
+          LEFT JOIN :table_tags AS tags ON (tags.tag_id = links.tag_id)
+          LEFT JOIN :table_tag_i18n AS tag_translations ON (tag_translations.tag_id = tags.tag_id AND tag_translations.lng_id = tags.default_lng_id)
+             ".implode(' ', $joins).
+          " GROUP BY files.file_id)
+          UNION
+          (SELECT files.file_id, versions.version_id, '' as is_current_version, versions.file_name, 
+             versions.file_date, versions.file_source, 
+             versions.file_source_url, versions.file_keywords,
+             ".$databaseSyntax->groupConcat($databaseSyntax->identifier('tag_translations.tag_title'), ', ')." as tags
+             ".implode(' ', $fields)."
+          FROM (:table_files AS files)
+          INNER JOIN :table_versions AS versions ON (versions.file_id = files.file_id AND versions.version_id != files.current_version_id)
+          LEFT JOIN :table_tag_links AS links ON (links.link_type = 'media' AND links.link_id = files.file_id)
+          LEFT JOIN :table_tags AS tags ON (tags.tag_id = links.tag_id)
+          LEFT JOIN :table_tag_i18n AS tag_translations ON (tag_translations.tag_id = tags.tag_id AND tag_translations.lng_id = tags.default_lng_id)
+             ".implode(' ', $joins).
+          " GROUP BY files.file_id, versions.version_id)";
+        $columns = [
+          'file_id' => 'Id',
+          'version_id' => 'Version',
+          'is_current_version' => 'Current Version',
+          'file_name' => 'Name',
+          'file_date' => 'Date',
+          'file_source' => 'Source',
+          'file_source_url' => 'Source URL',
+          'file_keywords' => 'Keywords'
+        ];
       } else {
         $sql =
           "SELECT files.file_id, files.file_name, 
              files.file_date, files.file_source, 
-             files.file_source_url, files.file_keywords 
+             files.file_source_url, files.file_keywords,
+             ".$databaseSyntax->groupConcat($databaseSyntax->identifier('tag_translations.tag_title'), ', ')." as tags
              ".implode(' ', $fields)."
           FROM (:table_files AS files)
-             ".implode(' ', $joins);
+          LEFT JOIN :table_tag_links AS links ON (links.link_type = 'media' AND links.link_id = files.file_id)
+          LEFT JOIN :table_tags AS tags ON (tags.tag_id = links.tag_id)
+          LEFT JOIN :table_tag_i18n AS tag_translations ON (tag_translations.tag_id = tags.tag_id AND tag_translations.lng_id = tags.default_lng_id)
+             ".implode(' ', $joins).
+          " GROUP BY files.file_id";
         $columns = [
           'file_id' => 'Id',
           'file_name' => 'Name',
@@ -106,15 +147,24 @@ namespace Papaya\Administration\Files\Commands {
           'file_source_url' => 'Source URL',
           'file_keywords' => 'Keywords'
         ];
-        foreach ($languages as $languageId) {
-          $languageIdentifier = $this->papaya()->languages[$languageId]['identifier'];
-          $languageCode = $this->papaya()->languages[$languageId]['code'];
-          $columns['title_'.$languageIdentifier] = 'Title ('.$languageCode.')';
-          $columns['description_'.$languageIdentifier] = 'Description ('.$languageCode.')';
-        }
       }
-      $statement = $this->getDatabaseAccess()->prepare($sql);
+      if ($includeTags) {
+        $columns['tags'] = 'Tags';
+      }
+      foreach ($languages as $languageId) {
+        $languageIdentifier = $this->papaya()->languages[$languageId]['identifier'];
+        $languageCode = $this->papaya()->languages[$languageId]['code'];
+        $columns['title_'.$languageIdentifier] = 'Title ('.$languageCode.')';
+        $columns['description_'.$languageIdentifier] = 'Description ('.$languageCode.')';
+      }
+      $statement = $databaseAccess->prepare($sql);
       $statement->addTableName('table_files', Tables::MEDIA_FILES);
+      if ($includeVersions) {
+        $statement->addTableName('table_versions', Tables::MEDIA_FILE_VERSIONS);
+      }
+      $statement->addTableName('table_tag_links', Tables::TAG_LINKS);
+      $statement->addTableName('table_tags', Tables::TAGS);
+      $statement->addTableName('table_tag_i18n', Tables::TAG_TRANSLATIONS);
       foreach ($joins as $languageCode => $join) {
         $statement->addTableName('table_'.$languageCode, Tables::MEDIA_FILE_TRANSLATIONS);
       }
@@ -126,7 +176,7 @@ namespace Papaya\Administration\Files\Commands {
             $columns
           )
         );
-        $content->callbacks()->onMapField = function($value, $field) {
+        $content->callbacks()->onMapField = function ($value, $field) {
           if ($field === 'file_date') {
             return gmdate(DATE_ATOM, $value);
           }
