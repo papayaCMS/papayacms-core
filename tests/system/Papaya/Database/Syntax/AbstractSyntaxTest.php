@@ -111,6 +111,13 @@ namespace Papaya\Database\Syntax {
     }
 
     /**
+     * @param string|Parameter $values
+     * @param string $separator
+     */
+    public function groupConcat($values, $separator = ',') {
+    }
+
+    /**
      * @param string|Parameter $text
      * @return int
      */
