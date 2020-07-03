@@ -117,7 +117,8 @@ class Groups implements \IteratorAggregate {
       Administration\Permissions::FILE_UPLOAD => 'Upload files',
       Administration\Permissions::FILE_EDIT => 'Edit files',
       Administration\Permissions::FILE_DELETE => 'Delete files',
-      Administration\Permissions::FILE_IMPORT => 'Import files'
+      Administration\Permissions::FILE_IMPORT => 'Import files',
+      Administration\Permissions::FILE_EXPORT => 'Export file metadata'
     ]
   ];
 

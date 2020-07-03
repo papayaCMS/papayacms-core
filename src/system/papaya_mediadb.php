@@ -595,6 +595,12 @@ class papaya_mediadb extends base_mediadb_edit {
         $this->getUploadToolbar();
         $this->getUploadDialog();
         break;
+      case 'export_meta':
+        $command = new Administration\Files\Commands\ExportData();
+        $command->papaya($this->papaya());
+        $command->parameterGroup($this->parameterGroup());
+        $this->layout->addInformation($command->getXML());
+        break;
       case 'get_file':
         $this->getUploadToolbar();
         $folderId = empty($this->params['folder_id']) ? 0 : (int)$this->params['folder_id'];
@@ -1242,6 +1248,15 @@ class papaya_mediadb extends base_mediadb_edit {
         'actions-upload',
         'Upload files from your computer',
         isset($this->params['cmd']) && $this->params['cmd'] == 'upload_files'
+      );
+    }
+    if ($administrationUser->hasPerm(Administration\Permissions::FILE_EXPORT)) {
+      $this->menubar->addButton(
+        'Export metadata',
+        $this->getLink(array('cmd' => 'export_meta')),
+        'actions-download',
+        'Export file metadata as CSV.',
+        isset($this->params['cmd']) && $this->params['cmd'] == 'export_meta'
       );
     }
     if (isset($this->currentFile) &&

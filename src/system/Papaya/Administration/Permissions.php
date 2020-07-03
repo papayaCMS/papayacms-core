@@ -92,6 +92,8 @@ class Permissions
 
   const FILE_IMPORT = 47;
 
+  const FILE_EXPORT = 52;
+
   const FILE_EDIT = 9;
 
   const FILE_DELETE = 10;
