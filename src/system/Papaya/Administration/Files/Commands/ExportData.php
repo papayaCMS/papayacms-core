@@ -66,9 +66,9 @@ namespace Papaya\Administration\Files\Commands {
       //$this->hideAfterSuccess(TRUE);
       $this->callbacks()->onExecuteSuccessful = function ($context, $dialog) {
         $this->exportCSV(
-          $dialog->data[self::FIELD_LANGUAGES],
-          $dialog->data[self::FIELD_INCLUDE_TAGS],
-          $dialog->data[self::FIELD_INCLUDE_VERSIONS]
+          $dialog->data->get(self::FIELD_LANGUAGES, []),
+          $dialog->data->get(self::FIELD_INCLUDE_TAGS, false),
+          $dialog->data->get(self::FIELD_INCLUDE_VERSIONS, false)
         );
       };
       return $dialog;
