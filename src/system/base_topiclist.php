@@ -197,7 +197,7 @@ class base_topiclist extends base_db {
       $publishedFilter = " AND (t.published_from = t.published_to
         OR (t.published_from <= '%d' AND t.published_to >= '%d'))";
     } else {
-      $publishedFilter = '';
+      $publishedFilter = ' AND t.is_deleted = 0 ';
       $tableTopics = $this->tableTopics;
       $tableTrans = $this->tableTopicsTrans;
     }
