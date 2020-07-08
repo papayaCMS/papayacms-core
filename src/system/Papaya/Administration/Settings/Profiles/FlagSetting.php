@@ -29,6 +29,7 @@ namespace Papaya\Administration\Settings\Profiles {
         new TranslatedList([1 => 'On', 0 => 'Off']),
         FALSE
       );
+      return TRUE;
     }
 
     /**

@@ -27,6 +27,7 @@ namespace Papaya\Administration\Settings\Profiles {
         $settingName,
         SettingsPage::PARAMETER_SETTING_VALUE
       );
+      return TRUE;
     }
 
     /**

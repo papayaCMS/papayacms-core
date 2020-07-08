@@ -12,26 +12,26 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\Settings {
 
-  use Papaya\Application\Access;
+namespace Papaya\Administration\Settings\Profiles {
+
+  use Papaya\Administration\Settings\SettingProfile;
   use Papaya\UI\Dialog;
-  use Papaya\UI\Dialog\Button\Submit as SubmitButton;
   use Papaya\UI\Text\Translated as TranslatedText;
 
-  abstract class SettingProfile implements Access {
+  class ReadOnlySetting extends SettingProfile {
 
-    use Access\Aggregation;
+    public function appendFieldTo(Dialog $dialog, $settingName) {
+      return FALSE;
+    }
 
     /**
-     * @param Dialog $dialog
-     * @param string $settingName
-     * @return boolean - added editable field
+     * @param mixed $value
+     * @return TranslatedText|string
      */
-    abstract public function appendFieldTo(Dialog $dialog, $settingName);
-
-    abstract public function getDisplayString($value);
+    public function getDisplayString($value) {
+      return $value;
+    }
   }
 }
-
 

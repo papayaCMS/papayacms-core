@@ -57,6 +57,7 @@ namespace Papaya\Administration\Settings\Profiles {
         $this->getList(),
         FALSE
       );
+      return TRUE;
     }
 
     private function getList() {

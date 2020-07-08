@@ -43,6 +43,7 @@ namespace Papaya\Administration\Settings\Profiles {
         $this->_minimum,
         $this->_maximum
       );
+      return TRUE;
     }
 
     /**

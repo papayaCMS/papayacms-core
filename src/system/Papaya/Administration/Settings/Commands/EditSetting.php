@@ -19,6 +19,7 @@ namespace Papaya\Administration\Settings\Commands {
   use Papaya\Administration\Settings\SettingsPage;
   use Papaya\Configuration\CMS;
   use Papaya\Content\Configuration\Setting;
+  use Papaya\Database;
   use Papaya\UI\Control\Command\Dialog\Database\Record as DatabaseDialogCommand;
   use Papaya\UI\Dialog;
   use Papaya\UI\Dialog\Button\Submit as SubmitButton;
@@ -40,7 +41,7 @@ namespace Papaya\Administration\Settings\Commands {
      * @return Dialog\Database\Save
      */
     public function createDialog() {
-      $settingName = $this->record()->name;
+      $settingName = $this->parameters()->get(SettingsPage::PARAMETER_SETTING, '');
       $dialog = parent::createDialog();
       $dialog->options->captionStyle = Dialog\Options::CAPTION_NONE;
       $dialog->options->dialogWidth = Dialog\Options::SIZE_LARGE;
@@ -57,28 +58,29 @@ namespace Papaya\Administration\Settings\Commands {
         $dialog->fields[] = $field = new Dialog\Field\Sheet();
         $sheet = $field->sheet();
         $sheet->padding = Sheet::PADDING_MEDIUM;
-        $sheet->title($this->record()->name);
+        $sheet->title($settingName);
         $sheet->subtitles()->addString(
           (new TranslatedText('Request / Active')).': '.
           $profile->getDisplayString($this->papaya()->options[$settingName])
         );
-        $sheet->subtitles()->addString(
-          (new TranslatedText('Database')).': '.
-          $profile->getDisplayString($this->record()->value)
-        );
+        if ($this->record()->isLoaded()) {
+          $sheet->subtitles()->addString(
+            (new TranslatedText('Database')).': '.
+            $profile->getDisplayString($this->record()->value)
+          );
+        }
         $sheet->content()->appendElement('p')->appendXML($this->getNote($settingName));
-        $profile->appendFieldTo($dialog, $settingName);
-        $dialog->buttons[] = new SubmitButton(new TranslatedText('Save'));
+        if ($editable = $profile->appendFieldTo($dialog, $settingName)) {
+          $dialog->buttons[] = new SubmitButton(new TranslatedText('Save'));
+        } else {
+          $dialog->caption = new TranslatedText('Display Setting (Read Only)');
+        }
       } else {
-        $dialog->fields[] = new Dialog\Field\Message(
-          Dialog\Field\Message::SEVERITY_ERROR,
-          new TranslatedText('Can not find setting profile.')
-        );
-        $dialog->fields[] = new Dialog\Field\Input\Readonly(
-          $settingName,
-          SettingsPage::PARAMETER_SETTING_VALUE,
-          $this->record()->value
-        );
+        $dialog->fields[] = $field = new Dialog\Field\Sheet();
+        $sheet = $field->sheet();
+        $sheet->padding = Sheet::PADDING_MEDIUM;
+        $sheet->title($this->record()->name);
+        $sheet->content()->appendElement('p')->appendXML($this->getNote($settingName));
       }
       $this->callbacks()->onExecuteSuccessful = function() {
         $this->papaya()->messages->displayInfo('Setting saved.');

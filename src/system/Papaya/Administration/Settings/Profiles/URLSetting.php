@@ -12,26 +12,31 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Administration\Settings {
 
-  use Papaya\Application\Access;
+namespace Papaya\Administration\Settings\Profiles {
+
+  use Papaya\Administration\Settings\SettingProfile;
+  use Papaya\Administration\Settings\SettingsPage;
   use Papaya\UI\Dialog;
-  use Papaya\UI\Dialog\Button\Submit as SubmitButton;
   use Papaya\UI\Text\Translated as TranslatedText;
 
-  abstract class SettingProfile implements Access {
+  class URLSetting extends SettingProfile {
 
-    use Access\Aggregation;
+    public function appendFieldTo(Dialog $dialog, $settingName) {
+      $dialog->fields[] = new Dialog\Field\Input\URL(
+        $settingName,
+        SettingsPage::PARAMETER_SETTING_VALUE
+      );
+      return TRUE;
+    }
 
     /**
-     * @param Dialog $dialog
-     * @param string $settingName
-     * @return boolean - added editable field
+     * @param mixed $value
+     * @return TranslatedText|string
      */
-    abstract public function appendFieldTo(Dialog $dialog, $settingName);
-
-    abstract public function getDisplayString($value);
+    public function getDisplayString($value) {
+      return $value;
+    }
   }
 }
-
 

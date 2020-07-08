@@ -20,10 +20,15 @@ namespace Papaya\Administration\Settings {
   use Papaya\Administration\Settings\Profiles\IntegerSetting;
   use Papaya\Administration\Settings\Profiles\LanguageIdSetting;
   use Papaya\Administration\Settings\Profiles\PageIdSetting;
+  use Papaya\Administration\Settings\Profiles\ReadOnlyDSNSetting;
+  use Papaya\Administration\Settings\Profiles\ReadOnlySetting;
   use Papaya\Administration\Settings\Profiles\TextSetting;
+  use Papaya\Administration\Settings\Profiles\URLSetting;
   use Papaya\Application\Access;
   use Papaya\Configuration\CMS;
-  use Papaya\Iterator\SortIterator as SortIterator;
+  use Papaya\Iterator\SortIterator;
+  use Papaya\Session;
+  use Papaya\Session\Options as SessionOptions;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
 
@@ -82,7 +87,10 @@ namespace Papaya\Administration\Settings {
     private static $_PROFILES = [
       self::UNKNOWN => [],
       self::DATABASE => [],
-      self::PATHS => [],
+      self::PATHS => [
+        CMS::CDN_THEMES => URLSetting::class,
+        CMS::CDN_THEMES_SECURE => URLSetting::class,
+      ],
       self::DEBUGGING => [
         CMS::DBG_DATABASE_ERROR => FlagSetting::class,
         CMS::DBG_XML_OUTPUT => FlagSetting::class,
@@ -113,7 +121,13 @@ namespace Papaya\Administration\Settings {
         ],
         CMS::PUBLISH_SOCIALMEDIA => FlagSetting::class
       ],
-      self::INTERNALS => [],
+      self::INTERNALS => [
+        CMS::DB_TABLEPREFIX => ReadOnlySetting::class,
+        CMS::DB_URI => ReadOnlyDSNSetting::class,
+        CMS::DB_URI_WRITE => ReadOnlyDSNSetting::class,
+        CMS::PATH_ADMIN => ReadOnlySetting::class,
+        CMS::MEDIADB_SUBDIRECTORIES => [IntegerSetting::class, 0, 10]
+      ],
       self::SYSTEM => [
         CMS::BROWSER_CRONJOBS => FlagSetting::class,
         CMS::BROWSER_CRONJOBS_IP => TextSetting::class,
@@ -149,7 +163,33 @@ namespace Papaya\Administration\Settings {
         CMS::PAGEID_ERROR_404 => PageIdSetting::class,
         CMS::PAGEID_ERROR_500 => PageIdSetting::class,
       ],
-      self::CHARSETS => [],
+      self::CHARSETS => [
+        CMS::DATABASE_COLLATION => [
+          ChoiceSetting::class,
+          [
+            'utf8_bin' => 'utf8_bin',
+            'utf8_czech_ci' => 'utf8_czech_ci',
+            'utf8_danish_ci' => 'utf8_danish_ci',
+            'utf8_estonian_ci' => 'utf8_estonian_ci',
+            'utf8_general_ci' => 'utf8_general_ci',
+            'utf8_icelandic_ci' => 'utf8_icelandic_ci',
+            'utf8_latvian_ci' => 'utf8_latvian_ci',
+            'utf8_lithuanian_ci' => 'utf8_lithuanian_ci',
+            'utf8_persian_ci' => 'utf8_persian_ci',
+            'utf8_polish_ci' => 'utf8_polish_ci',
+            'utf8_roman_ci' => 'utf8_roman_ci',
+            'utf8_romanian_ci' => 'utf8_romanian_ci',
+            'utf8_slovak_ci' => 'utf8_slovak_ci',
+            'utf8_slovenian_ci' => 'utf8_slovenian_ci',
+            'utf8_spanish2_ci' => 'utf8_spanish2_ci',
+            'utf8_spanish_ci' => 'utf8_spanish_ci',
+            'utf8_swedish_ci' => 'utf8_swedish_ci',
+            'utf8_turkish_ci' => 'utf8_turkish_ci',
+            'utf8_unicode_ci' => 'utf8_unicode_ci'
+          ],
+          FALSE
+        ]
+      ],
       self::ADMINISTRATION => [],
       self::AUTHENTICATION => [
         CMS::PASSWORD_ALGORITHM => [
@@ -225,6 +265,7 @@ namespace Papaya\Administration\Settings {
         CMS::CACHE_DATA_SERVICE => [ChoiceSetting::class, self::CACHE_SERVICE_CHOICES],
         CMS::CACHE_DATA_TIME => [IntegerSetting::class, 0, 9999999999],
         CMS::CACHE_MEMCACHE_SERVERS => TextSetting::class,
+        CMS::CACHE_NOTIFIER => TextSetting::class,
         CMS::CACHE_OUTPUT => FlagSetting::class,
         CMS::CACHE_PAGES => FlagSetting::class,
         CMS::CACHE_SERVICE => [ChoiceSetting::class, self::CACHE_SERVICE_CHOICES],
@@ -241,9 +282,44 @@ namespace Papaya\Administration\Settings {
         CMS::COMPRESS_OUTPUT => FlagSetting::class,
       ],
       self::LOGGING => [],
-      self::SESSION => [],
-      self::FEATURES => [],
-      self::FEATURES_EXPERIMENTAL => []
+      self::SESSION => [
+        CMS::DB_DISCONNECT_SESSIONSTART => FlagSetting::class,
+        CMS::SESSION_ACTIVATION => [
+          ChoiceSetting::class,
+          [
+            Session::ACTIVATION_ALWAYS => 'always',
+            Session::ACTIVATION_NEVER => 'never',
+            Session::ACTIVATION_DYNAMIC => 'dynamic',
+          ]
+        ],
+        CMS::SESSION_CACHE => [
+          ChoiceSetting::class,
+          [
+            SessionOptions::CACHE_PRIVATE => 'private',
+            SessionOptions::CACHE_NONE => 'none'
+          ]
+        ],
+        CMS::SESSION_HTTP_ONLY => FlagSetting::class,
+        CMS::SESSION_ID_FALLBACK => [
+          ChoiceSetting::class,
+          [
+            // @ToDo - Replace Keys With Class Constants
+            'none' => 'None',
+            'rewrite' => 'Path Rewrite',
+            'get' => 'Transparent SID'
+          ]
+        ],
+        CMS::SESSION_SECURE => FlagSetting::class,
+        CMS::SESSION_START => FlagSetting::class
+      ],
+      self::FEATURES => [
+        CMS::DATAFILTER_USE => FlagSetting::class,
+        CMS::PUBLICATION_AUDITING => FlagSetting::class,
+        CMS::FEATURE_BOXGROUPS_LINKABLE => FlagSetting::class
+      ],
+      self::FEATURES_EXPERIMENTAL => [
+        CMS::IMPORTFILTER_USE => FlagSetting::class
+      ]
     ];
 
     private static $_SETTING_GROUP_MAP;

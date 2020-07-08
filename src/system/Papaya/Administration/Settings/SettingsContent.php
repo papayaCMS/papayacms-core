@@ -17,6 +17,7 @@ namespace Papaya\Administration\Settings {
 
   use Papaya\Administration\Page\Part as AdministrationPagePart;
   use Papaya\Content\Configuration\Setting;
+  use Papaya\Filter\NotEmpty;
   use Papaya\UI\Control\Command\Condition\Record as IsValidRecord;
   use Papaya\UI\Control\Command\Controller as CommandsController;
 
@@ -31,7 +32,12 @@ namespace Papaya\Administration\Settings {
       $commands = new CommandsController($name, $default);
       $commands->owner($this);
       $commands[SettingsPage::COMMAND_EDIT] = $command = new Commands\EditSetting($this->setting());
-      $command->condition(new IsValidRecord($this->setting()));
+      $command->condition(
+        new \Papaya\UI\Control\Command\Condition\Parameter(
+          SettingsPage::PARAMETER_SETTING,
+          new NotEmpty()
+        )
+      );
       return $commands;
     }
 

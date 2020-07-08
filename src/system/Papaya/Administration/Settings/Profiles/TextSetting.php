@@ -17,6 +17,7 @@ namespace Papaya\Administration\Settings\Profiles {
 
   use Papaya\Administration\Settings\SettingProfile;
   use Papaya\Administration\Settings\SettingsPage;
+  use Papaya\Filter\RegEx;
   use Papaya\UI\Dialog;
   use Papaya\UI\Text\Translated as TranslatedText;
 
@@ -26,16 +27,24 @@ namespace Papaya\Administration\Settings\Profiles {
      * @var int
      */
     private $_maximumLength;
+    /**
+     * @var null
+     */
+    private $_pattern;
 
-    public function __construct($maximumLength = 0) {
+    public function __construct($maximumLength = 0, $pattern = NULL) {
       $this->_maximumLength = $maximumLength;
+      $this->_pattern = $pattern;
+      return TRUE;
     }
 
     public function appendFieldTo(Dialog $dialog, $settingName) {
       $dialog->fields[] = new Dialog\Field\Input(
         $settingName,
         SettingsPage::PARAMETER_SETTING_VALUE,
-        $this->_maximumLength
+        $this->_maximumLength,
+        NULL,
+        isset($this->_pattern) ? new RegEx($this->_pattern) : NULL
       );
     }
 
