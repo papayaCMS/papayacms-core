@@ -18,7 +18,7 @@ namespace Papaya\Iterator {
   use Papaya\Utility\Bitwise;
   use Papaya\Utility\Constraints;
 
-  class Sort implements \OuterIterator {
+  class SortIterator implements \OuterIterator {
 
     /**
      * Default behaviour - sort values
@@ -71,21 +71,30 @@ namespace Papaya\Iterator {
           $values = iterator_to_array($this->_innerIterator);
           uksort(
             $values,
-            $this->_compare instanceof \Closure ? $this->_compare : 'strcmp'
+            $this->_compare instanceof \Closure ? $this->_compare : $this->getDefaultCompare()
+          );
+        } elseif (Bitwise::inBitmask(self::IGNORE_KEYS, $this->_flags)) {
+          $values = iterator_to_array($this->_innerIterator, FALSE);
+          usort(
+            $values,
+            $this->_compare instanceof \Closure ? $this->_compare : $this->getDefaultCompare()
           );
         } else {
-          $values = iterator_to_array(
-            $this->_innerIterator,
-            !Bitwise::inBitmask(self::IGNORE_KEYS, $this->_flags)
-          );
+          $values = iterator_to_array($this->_innerIterator);
           uasort(
             $values,
-            $this->_compare instanceof \Closure ? $this->_compare : 'strcmp'
+            $this->_compare instanceof \Closure ? $this->_compare : $this->getDefaultCompare()
           );
         }
         $this->_sortedIterator = new \ArrayIterator($values);
       }
       return $this->_sortedIterator;
+    }
+
+    private function getDefaultCompare() {
+      return static function($a, $b) {
+        return strcasecmp($a, $b);
+      };
     }
 
     public function rewind() {
