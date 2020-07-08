@@ -18,10 +18,12 @@ namespace Papaya\Administration\Settings {
   use Papaya\Administration\Settings\Profiles\ChoiceSetting;
   use Papaya\Administration\Settings\Profiles\FlagSetting;
   use Papaya\Administration\Settings\Profiles\IntegerSetting;
+  use Papaya\Administration\Settings\Profiles\LanguageIdSetting;
+  use Papaya\Administration\Settings\Profiles\PageIdSetting;
   use Papaya\Administration\Settings\Profiles\TextSetting;
   use Papaya\Application\Access;
   use Papaya\Configuration\CMS;
-  use Papaya\Iterator\Sort as SortIterator;
+  use Papaya\Iterator\SortIterator as SortIterator;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
 
@@ -91,8 +93,25 @@ namespace Papaya\Administration\Settings {
       ],
       self::LANGUAGE => [],
       self::PROJECT => [
-        CMS::REDIRECT_PROTECTION => FlagSetting::class
-
+        CMS::REDIRECT_PROTECTION => FlagSetting::class,
+        CMS::CONTENT_LANGUAGE => [LanguageIdSetting::class, LanguageIdSetting::FILTER_IS_CONTENT],
+        CMS::CONTENT_LANGUAGE_COOKIE => FlagSetting::class,
+        CMS::DEFAULT_PROTOCOL => [
+          ChoiceSetting::class,
+          [
+            0 => 'None',
+            1 => 'http',
+            2 => 'https',
+          ]
+        ],
+        CMS::DEFAULT_HOST_ACTION => [
+          ChoiceSetting::class,
+          [
+            0 => 'None',
+            1 => 'Redirect'
+          ]
+        ],
+        CMS::PUBLISH_SOCIALMEDIA => FlagSetting::class
       ],
       self::INTERNALS => [],
       self::SYSTEM => [
@@ -102,15 +121,56 @@ namespace Papaya\Administration\Settings {
         CMS::SPAM_BLOCK => FlagSetting::class,
         CMS::SPAM_SCOREMIN_PERCENT => [IntegerSetting::class, 1, 10],
         CMS::SPAM_SCOREMAX_PERCENT => [IntegerSetting::class, 1, 90],
-        CMS::SPAM_STOPWORD_MAX => [IntegerSetting::class, 3, 10]
+        CMS::SPAM_STOPWORD_MAX => [IntegerSetting::class, 3, 10],
+        CMS::DATABASE_CLUSTER_SWITCH => [
+          ChoiceSetting::class,
+          [0 => 'manual', 1 => 'object', 2 => 'connection']
+        ],
+        CMS::VERSIONS_MAXCOUNT => [IntegerSetting::class, 1, 2000],
+        CMS::URL_NAMELENGTH => [IntegerSetting::class, 1, 100],
+        CMS::URL_LEVEL_SEPARATOR => [
+          ChoiceSetting::class,
+          ['' => '[ ]', ',' => ',', ':' => ':', '*' => '*', '!' => '!', '/' => '/'],
+          FALSE
+        ],
+        CMS::URL_ALIAS_SEPARATOR => [
+          ChoiceSetting::class,
+          [',' => ',', ':' => ':', '*' => '*', '!' => '!'],
+          FALSE
+        ]
       ],
       self::LAYOUT => [],
-      self::DEFAULT_PAGES => [],
+      self::DEFAULT_PAGES => [
+        CMS::PAGEID_DEFAULT => PageIdSetting::class,
+        CMS::PAGEID_USERDATA => PageIdSetting::class,
+        CMS::PAGEID_STATUS_301 => PageIdSetting::class,
+        CMS::PAGEID_STATUS_302 => PageIdSetting::class,
+        CMS::PAGEID_ERROR_403 => PageIdSetting::class,
+        CMS::PAGEID_ERROR_404 => PageIdSetting::class,
+        CMS::PAGEID_ERROR_500 => PageIdSetting::class,
+      ],
       self::CHARSETS => [],
       self::ADMINISTRATION => [],
       self::AUTHENTICATION => [
+        CMS::PASSWORD_ALGORITHM => [
+          ChoiceSetting::class,
+          [0 => 'PHP Default (suggested)', 1 => 'BCrypt'],
+        ],
+        CMS::PASSWORD_REHASH => FlagSetting::class,
         CMS::COMMUNITY_AUTOLOGIN => FlagSetting::class,
-        CMS::COMMUNITY_RELOGIN => FlagSetting::class
+        CMS::COMMUNITY_REDIRECT_PAGE => PageIdSetting::class,
+        CMS::COMMUNITY_RELOGIN => FlagSetting::class,
+        CMS::COMMUNITY_RELOGIN_EXP_DAYS => [IntegerSetting::class, 1, 40],
+        CMS::COMMUNITY_RELOGIN_SALT => TextSetting::class,
+        CMS::COMMUNITY_API_LOGIN => [
+          ChoiceSetting::class,
+          [
+            0 => 'Handle',
+            1 => 'Email',
+            2 => 'Handle or email',
+          ]
+        ],
+        CMS::COMMUNITY_HANDLE_MAX_LENGTH => [IntegerSetting::class, 10, 40],
       ],
       self::SUPPORT => [],
       self::FILES => [
@@ -152,6 +212,7 @@ namespace Papaya\Administration\Settings {
         ],
         CMS::THUMBS_JPEGQUALITY => [IntegerSetting::class, 20, 100],
         CMS::THUMBS_TRANSPARENT => FlagSetting::class,
+        CMS::THUMBS_MEMORYCHECK_SUHOSIN => FlagSetting::class,
         CMS::SENDFILE_HEADER => FlagSetting::class,
         CMS::BANDWIDTH_SHAPING => FlagSetting::class,
         CMS::BANDWIDTH_SHAPING_LIMIT => IntegerSetting::class,
@@ -163,6 +224,7 @@ namespace Papaya\Administration\Settings {
         CMS::CACHE_DATA_MEMCACHE_SERVERS => TextSetting::class,
         CMS::CACHE_DATA_SERVICE => [ChoiceSetting::class, self::CACHE_SERVICE_CHOICES],
         CMS::CACHE_DATA_TIME => [IntegerSetting::class, 0, 9999999999],
+        CMS::CACHE_MEMCACHE_SERVERS => TextSetting::class,
         CMS::CACHE_OUTPUT => FlagSetting::class,
         CMS::CACHE_PAGES => FlagSetting::class,
         CMS::CACHE_SERVICE => [ChoiceSetting::class, self::CACHE_SERVICE_CHOICES],
@@ -174,6 +236,9 @@ namespace Papaya\Administration\Settings {
         CMS::CACHE_TIME_PAGES => [IntegerSetting::class, 0, 9999999999],
         CMS::CACHE_TIME_THEMES => [IntegerSetting::class, 0, 9999999999],
         CMS::CACHE_DISABLE_FILE_DELETE => FlagSetting::class,
+        CMS::COMPRESS_CACHE_OUTPUT => FlagSetting::class,
+        CMS::COMPRESS_CACHE_THEMES => FlagSetting::class,
+        CMS::COMPRESS_OUTPUT => FlagSetting::class,
       ],
       self::LOGGING => [],
       self::SESSION => [],

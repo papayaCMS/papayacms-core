@@ -20,22 +20,12 @@ namespace Papaya\Administration\Settings\Profiles {
   use Papaya\UI\Dialog;
   use Papaya\UI\Text\Translated as TranslatedText;
 
-  class TextSetting extends SettingProfile {
-
-    /**
-     * @var int
-     */
-    private $_maximumLength;
-
-    public function __construct($maximumLength = 0) {
-      $this->_maximumLength = $maximumLength;
-    }
+  class PageIdSetting extends SettingProfile {
 
     public function appendFieldTo(Dialog $dialog, $settingName) {
-      $dialog->fields[] = new Dialog\Field\Input(
+      $dialog->fields[] = new Dialog\Field\Input\Page(
         $settingName,
-        SettingsPage::PARAMETER_SETTING_VALUE,
-        $this->_maximumLength
+        SettingsPage::PARAMETER_SETTING_VALUE
       );
     }
 

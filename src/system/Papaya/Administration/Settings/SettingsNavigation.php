@@ -86,7 +86,7 @@ namespace Papaya\Administration\Settings {
           $isSelectedGroup = $currentGroup === $group;
           $items[] = new ListView\Item(
             $isSelectedGroup ? 'status.folder-open' : 'items.folder',
-            $label,
+            $isUnknownGroup ? $label.' ('.iterator_count($unknownOptions).')' : $label,
             [
               $this->parameterGroup() => [
                 SettingsPage::PARAMETER_COMMAND => SettingsPage::COMMAND_EDIT,
