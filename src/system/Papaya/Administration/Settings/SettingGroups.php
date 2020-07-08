@@ -16,16 +16,23 @@
 namespace Papaya\Administration\Settings {
 
   use Papaya\Administration\Settings\Profiles\ChoiceSetting;
+  use Papaya\Administration\Settings\Profiles\CSSClassSetting;
+  use Papaya\Administration\Settings\Profiles\EmailSetting;
+  use Papaya\Administration\Settings\Profiles\FileSetting;
   use Papaya\Administration\Settings\Profiles\FlagSetting;
+  use Papaya\Administration\Settings\Profiles\GeoPositionSetting;
+  use Papaya\Administration\Settings\Profiles\HostNameSetting;
   use Papaya\Administration\Settings\Profiles\IntegerSetting;
   use Papaya\Administration\Settings\Profiles\LanguageIdSetting;
   use Papaya\Administration\Settings\Profiles\PageIdSetting;
+  use Papaya\Administration\Settings\Profiles\PathSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlyDSNSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlySetting;
   use Papaya\Administration\Settings\Profiles\TextSetting;
   use Papaya\Administration\Settings\Profiles\URLSetting;
   use Papaya\Application\Access;
   use Papaya\Configuration\CMS;
+  use Papaya\Iterator\Filter\Callback as CallbackFilterIterator;
   use Papaya\Iterator\SortIterator;
   use Papaya\Session;
   use Papaya\Session\Options as SessionOptions;
@@ -85,7 +92,6 @@ namespace Papaya\Administration\Settings {
     ];
 
     private static $_PROFILES = [
-      self::UNKNOWN => [],
       self::DATABASE => [],
       self::PATHS => [
         CMS::CDN_THEMES => URLSetting::class,
@@ -101,6 +107,7 @@ namespace Papaya\Administration\Settings {
       ],
       self::LANGUAGE => [],
       self::PROJECT => [
+        CMS::PROJECT_TITLE => TextSetting::class,
         CMS::REDIRECT_PROTECTION => FlagSetting::class,
         CMS::CONTENT_LANGUAGE => [LanguageIdSetting::class, LanguageIdSetting::FILTER_IS_CONTENT],
         CMS::CONTENT_LANGUAGE_COOKIE => FlagSetting::class,
@@ -112,6 +119,7 @@ namespace Papaya\Administration\Settings {
             2 => 'https',
           ]
         ],
+        CMS::DEFAULT_HOST => HostNameSetting::class,
         CMS::DEFAULT_HOST_ACTION => [
           ChoiceSetting::class,
           [
@@ -151,7 +159,9 @@ namespace Papaya\Administration\Settings {
           ChoiceSetting::class,
           [',' => ',', ':' => ':', '*' => '*', '!' => '!'],
           FALSE
-        ]
+        ],
+        CMS::GMAPS_API_KEY => TextSetting::class,
+        CMS::GMAPS_DEFAULT_POSITION => GeoPositionSetting::class
       ],
       self::LAYOUT => [],
       self::DEFAULT_PAGES => [
@@ -188,7 +198,16 @@ namespace Papaya\Administration\Settings {
             'utf8_unicode_ci' => 'utf8_unicode_ci'
           ],
           FALSE
-        ]
+        ],
+        CMS::INPUT_ENCODING => [
+          ChoiceSetting::class,
+          [
+            'utf-8' => 'utf-8',
+            'iso-8859-1' => 'iso-8859-1'
+          ],
+          FALSE
+        ],
+        CMS::LATIN1_COMPATIBILITY => FlagSetting::class
       ],
       self::ADMINISTRATION => [],
       self::AUTHENTICATION => [
@@ -211,9 +230,32 @@ namespace Papaya\Administration\Settings {
           ]
         ],
         CMS::COMMUNITY_HANDLE_MAX_LENGTH => [IntegerSetting::class, 10, 40],
+        CMS::LOGIN_CHECKTIME => [IntegerSetting::class, 60, 999999],
+        CMS::LOGIN_BLOCKCOUNT => [IntegerSetting::class, 1, 99999],
+        CMS::LOGIN_NOTIFYCOUNT => [IntegerSetting::class, 1, 99999],
+        CMS::LOGIN_NOTIFYEMAIL => EmailSetting::class,
+        CMS::LOGIN_GC_ACTIVE => FlagSetting::class,
+        CMS::LOGIN_GC_DIVISOR => [IntegerSetting::class, 1, 999],
+        CMS::LOGIN_GC_TIME => [IntegerSetting::class, 60, 1000000],
+        CMS::LOGIN_RESTRICTION => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Add Class Constants
+            0 => 'None',
+            1 => 'Use block list',
+            2 => 'Use block and access list',
+            3 => 'Restrict to acess list'
+          ]
+        ]
       ],
-      self::SUPPORT => [],
+      self::SUPPORT => [
+        CMS::SUPPORT_BUG_EMAIL => EmailSetting::class,
+        CMS::SUPPORT_PAGE_MANUAL => URLSetting::class,
+        CMS::SUPPORT_PAGE_NEWS => URLSetting::class
+      ],
       self::FILES => [
+        CMS::FLASH_DEFAULT_VERSION => [TextSetting::class, 0, '(^\d{1,3}(\.\d{1,4}){0,2}$)D'],
+        CMS::FLASH_MIN_VERSION => [TextSetting::class, 0, '(^\d{1,3}(\.\d{1,4}){0,2}$)D'],
         CMS::MAX_UPLOAD_SIZE => [IntegerSetting::class, 1, 100000],
         CMS::NUM_UPLOAD_FIELDS => [IntegerSetting::class, 1, 20],
         CMS::MEDIADB_THUMBSIZE => [IntegerSetting::class, 1, 10000],
@@ -250,6 +292,21 @@ namespace Papaya\Administration\Settings {
           ],
           FALSE
         ],
+        CMS::MEDIA_CUTLINE_LINK_CLASS => CSSClassSetting::class,
+        CMS::MEDIA_ALTTEXT_MODE => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Add Class Constants
+            0 => 'explicit only', 1 => 'description'
+          ]
+        ],
+        CMS::MEDIA_CSSCLASS_DYNIMAGE => CSSClassSetting::class,
+        CMS::MEDIA_CSSCLASS_IMAGE => CSSClassSetting::class,
+        CMS::MEDIA_CSSCLASS_SUBTITLE => CSSClassSetting::class,
+        CMS::MEDIA_CSSCLASS_LINK => CSSClassSetting::class,
+        CMS::MEDIA_CSSCLASS_MAILTO => CSSClassSetting::class,
+        CMS::IMAGE_CONVERTER_PATH => PathSetting::class,
+        CMS::FILE_CMD_PATH => FileSetting::class,
         CMS::THUMBS_JPEGQUALITY => [IntegerSetting::class, 20, 100],
         CMS::THUMBS_TRANSPARENT => FlagSetting::class,
         CMS::THUMBS_MEMORYCHECK_SUHOSIN => FlagSetting::class,
@@ -281,7 +338,48 @@ namespace Papaya\Administration\Settings {
         CMS::COMPRESS_CACHE_THEMES => FlagSetting::class,
         CMS::COMPRESS_OUTPUT => FlagSetting::class,
       ],
-      self::LOGGING => [],
+      self::LOGGING => [
+        CMS::LOG_PHP_ERRORLEVEL => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Refactor To Class Constants Using Static Expressions
+            0 => '~E_ALL',
+            30719 => 'E_ALL & ~E_STRICT',
+            30711 => 'E_ALL & ~(E_STRICT | E_NOTICE)',
+            29687 => 'E_ALL & ~(E_STRICT | E_NOTICE | E_USER_NOTICE)'
+          ],
+          FALSE
+        ],
+        CMS::LOG_DATABASE_CLUSTER_VIOLATIONS => FlagSetting::class,
+        CMS::LOG_DATABASE_QUERY => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Add Class Constants
+            0 => 'none', 1 => 'slow', 2 => 'all'
+          ]
+        ],
+        CMS::LOG_DATABASE_QUERY_SLOW => [
+          IntegerSetting::class, 0, 999999
+        ],
+        CMS::LOG_DATABASE_QUERY_DETAILS => FlagSetting::class,
+        CMS::LOG_EVENT_PAGE_MOVED => FlagSetting::class,
+        CMS::LOG_ERROR_THUMBNAIL => FlagSetting::class,
+        CMS::LOG_RUNTIME_DATABASE => FlagSetting::class,
+        CMS::LOG_RUNTIME_REQUEST => FlagSetting::class,
+        CMS::LOG_RUNTIME_TEMPLATE => FlagSetting::class,
+        CMS::PROTOCOL_DATABASE => FlagSetting::class,
+        CMS::PROTOCOL_DATABASE_DEBUG => FlagSetting::class,
+        CMS::PROTOCOL_WILDFIRE => FlagSetting::class,
+        CMS::PROTOCOL_XHTML => FlagSetting::class,
+        CMS::QUERYLOG => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Add Class Constants
+            0 => 'none', 1 => 'slow', 2 => 'all'
+          ]
+        ],
+        CMS::QUERYLOG_DETAILS => FlagSetting::class
+      ],
       self::SESSION => [
         CMS::DB_DISCONNECT_SESSIONSTART => FlagSetting::class,
         CMS::SESSION_ACTIVATION => [
@@ -304,7 +402,7 @@ namespace Papaya\Administration\Settings {
           ChoiceSetting::class,
           [
             // @ToDo - Replace Keys With Class Constants
-            'none' => 'None',
+            'none' => 'none',
             'rewrite' => 'Path Rewrite',
             'get' => 'Transparent SID'
           ]
@@ -357,7 +455,17 @@ namespace Papaya\Administration\Settings {
     public function getTranslatedLabels() {
       $unknownGroupLabel = new TranslatedText(self::$_LABELS[self::UNKNOWN]);
       return new SortIterator(
-        new TranslatedList(self::$_LABELS),
+        new TranslatedList(
+          new CallbackFilterIterator(
+            self::$_LABELS,
+            static function($value, $key) {
+              return (
+                $key === self::UNKNOWN || (
+                isset(self::$_PROFILES[$key]) && count(self::$_PROFILES[$key]) > 0)
+              );
+            }
+          )
+        ),
         static function ($a, $b) use ($unknownGroupLabel) {
           $unknown = (string)$unknownGroupLabel;
           $a = (string)$a;

@@ -86,7 +86,7 @@ namespace Papaya\Administration\Settings\Commands {
         $this->papaya()->messages->displayInfo('Setting saved.');
       };
       $this->callbacks()->onExecuteFailed = function() {
-        $this->papaya()->messages->displayError('Can not save setting.');
+        $this->papaya()->messages->displayError('Invalid setting value.');
       };
       return $dialog;
     }

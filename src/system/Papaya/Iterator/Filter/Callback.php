@@ -36,10 +36,10 @@ class Callback extends \FilterIterator {
    * Traversable, wrap it using IteratorIterator.
    *
    *
-   * @param \Traversable $traversable
+   * @param \Traversable|array $traversable
    * @param callable $callback
    */
-  public function __construct(\Traversable $traversable, $callback) {
+  public function __construct($traversable, $callback) {
     parent::__construct(
       $traversable instanceof \Iterator ? $traversable : new TraversableIterator($traversable)
     );
