@@ -82,12 +82,14 @@ namespace Papaya\Administration\Settings\Commands {
         $sheet->title($this->record()->name);
         $sheet->content()->appendElement('p')->appendXML($this->getNote($settingName));
       }
-      $this->callbacks()->onExecuteSuccessful = function() {
+      $this->callbacks()->onExecuteSuccessful = function() use ($settingName) {
         $this->papaya()->messages->displayInfo('Setting saved.');
+        $this->record()->load(['name' => $settingName]);
       };
       $this->callbacks()->onExecuteFailed = function() {
         $this->papaya()->messages->displayError('Invalid setting value.');
       };
+      $this->resetAfterSuccess(TRUE);
       return $dialog;
     }
 
