@@ -157,10 +157,11 @@ class Path {
   /**
    * Get the /vendor path
    *
+   * @param \Papaya\Configuration $options
    * @return string
    */
-  public static function getVendorPath() {
-    $root = self::getDocumentRoot();
+  public static function getVendorPath($options = NULL) {
+    $root = self::getDocumentRoot($options);
     if (\is_dir($root.'/../vendor')) {
       return '../vendor/';
     }
@@ -170,10 +171,11 @@ class Path {
   /**
    * Get the /src path
    *
+   * @param \Papaya\Configuration $options
    * @return string
    */
-  public static function getSourcePath() {
-    $root = self::getDocumentRoot();
+  public static function getSourcePath($options = NULL) {
+    $root = self::getDocumentRoot($options);
     if (\is_dir($root.'/../src')) {
       return '../src/';
     }
