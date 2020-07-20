@@ -47,14 +47,6 @@ namespace Papaya\Administration\Settings\Profiles {
         isset($this->_pattern) ? new RegEx($this->_pattern) : NULL
       );
     }
-
-    /**
-     * @param mixed $value
-     * @return TranslatedText|string
-     */
-    public function getDisplayString($value) {
-      return $value;
-    }
   }
 }
 

@@ -17,17 +17,51 @@ namespace Papaya\Administration\Settings\Profiles {
 
   use Papaya\Administration\Settings\SettingProfile;
   use Papaya\Administration\Settings\SettingsPage;
+  use Papaya\Iterator\TraversableIterator;
   use Papaya\UI\Dialog;
   use Papaya\UI\Text\Translated as TranslatedText;
+  use Papaya\UI\Text\Translated\Collection as TranslatedList;
 
-  class URLSetting extends SettingProfile {
+  class XSLTExtensionSetting extends SettingProfile {
+
+    /**
+     * @var array
+     */
+    private $_list;
+
 
     public function appendFieldTo(Dialog $dialog, $settingName) {
-      $dialog->fields[] = new Dialog\Field\Input\URL(
+      $dialog->fields[] = new Dialog\Field\Select(
         $settingName,
-        SettingsPage::PARAMETER_SETTING_VALUE
+        SettingsPage::PARAMETER_SETTING_VALUE,
+        $this->getList(),
+        FALSE
       );
       return TRUE;
+    }
+
+    private function getList() {
+      if (NULL === $this->_list) {
+        $this->_list = [
+          '' => new TranslatedText('Automatic')
+        ];
+        $extensions = ['xsl', 'xslcache'];
+        foreach ($extensions as $extension) {
+          if (extension_loaded($extension)) {
+            $this->_list[$extension] = $extension;
+          }
+        }
+      }
+      return $this->_list;
+    }
+
+    /**
+     * @param mixed $value
+     * @return TranslatedText|string
+     */
+    public function getDisplayString($value) {
+      $list = $this->getList();
+      return isset($list[$value]) ? $list[$value] : $value;
     }
   }
 }

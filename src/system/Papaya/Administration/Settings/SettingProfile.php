@@ -30,7 +30,13 @@ namespace Papaya\Administration\Settings {
      */
     abstract public function appendFieldTo(Dialog $dialog, $settingName);
 
-    abstract public function getDisplayString($value);
+    /**
+     * @param mixed $value
+     * @return TranslatedText|string
+     */
+    public function getDisplayString($value) {
+      return $value;
+    }
   }
 }
 

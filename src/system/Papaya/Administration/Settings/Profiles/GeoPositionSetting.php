@@ -30,14 +30,6 @@ namespace Papaya\Administration\Settings\Profiles {
       );
       return TRUE;
     }
-
-    /**
-     * @param mixed $value
-     * @return TranslatedText|string
-     */
-    public function getDisplayString($value) {
-      return $value;
-    }
   }
 }
 

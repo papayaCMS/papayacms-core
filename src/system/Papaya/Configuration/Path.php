@@ -33,6 +33,8 @@ class Path extends \Papaya\Application\BaseObject {
 
   const PATH_UPLOAD = 'upload';
 
+  const PATH_TEMPLATES = 'templates';
+
   /**
    * @var string
    */
@@ -69,13 +71,16 @@ class Path extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Get the system path defined by the identifer and the subdirectory as
+   * Get the system path defined by the identifier and the subdirectory as
    * a string
    *
    * @return string
    */
   public function get() {
     switch ($this->_basePath) {
+      case self::PATH_TEMPLATES :
+        $result = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_TEMPLATES, '/');
+      break;
       case self::PATH_THEMES :
         $result = $this->themeHandler()->getLocalPath().$this->_path;
       break;

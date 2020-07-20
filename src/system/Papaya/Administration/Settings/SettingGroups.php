@@ -16,28 +16,36 @@
 namespace Papaya\Administration\Settings {
 
   use Papaya\Administration\Settings\Profiles\ChoiceSetting;
+  use Papaya\Administration\Settings\Profiles\ColorSetting;
   use Papaya\Administration\Settings\Profiles\CSSClassSetting;
   use Papaya\Administration\Settings\Profiles\EmailSetting;
+  use Papaya\Administration\Settings\Profiles\FileSystemChoiceSetting;
   use Papaya\Administration\Settings\Profiles\FileSetting;
   use Papaya\Administration\Settings\Profiles\FlagSetting;
   use Papaya\Administration\Settings\Profiles\GeoPositionSetting;
   use Papaya\Administration\Settings\Profiles\HostNameSetting;
   use Papaya\Administration\Settings\Profiles\IntegerSetting;
+  use Papaya\Administration\Settings\Profiles\LanguageCodeSetting;
   use Papaya\Administration\Settings\Profiles\LanguageIdSetting;
   use Papaya\Administration\Settings\Profiles\PageIdSetting;
+  use Papaya\Administration\Settings\Profiles\PathChoiceSetting;
   use Papaya\Administration\Settings\Profiles\PathSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlyDSNSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlySetting;
   use Papaya\Administration\Settings\Profiles\TextSetting;
   use Papaya\Administration\Settings\Profiles\URLSetting;
+  use Papaya\Administration\Settings\Profiles\XSLTExtensionSetting;
+  use Papaya\Administration\UI\Path;
   use Papaya\Application\Access;
   use Papaya\Configuration\CMS;
   use Papaya\Iterator\Filter\Callback as CallbackFilterIterator;
   use Papaya\Iterator\SortIterator;
   use Papaya\Session;
   use Papaya\Session\Options as SessionOptions;
+  use Papaya\UI\Text;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
+  use papaya_parser as PapayaTagParser;
 
   class SettingGroups implements Access {
 
@@ -67,6 +75,7 @@ namespace Papaya\Administration\Settings {
     const SESSION = 17;
     const FEATURES = 18;
     const FEATURES_EXPERIMENTAL = 19;
+    const DEPRECATED = 20;
 
     private static $_LABELS = [
       self::UNKNOWN => 'Unknown',
@@ -88,7 +97,8 @@ namespace Papaya\Administration\Settings {
       self::LOGGING => 'Logging',
       self::SESSION => 'Session',
       self::FEATURES => 'Features',
-      self::FEATURES_EXPERIMENTAL => 'Experimental Features'
+      self::FEATURES_EXPERIMENTAL => 'Experimental Features',
+      self::DEPRECATED => 'Deprecated'
     ];
 
     private static $_PROFILES = [
@@ -96,6 +106,11 @@ namespace Papaya\Administration\Settings {
       self::PATHS => [
         CMS::CDN_THEMES => URLSetting::class,
         CMS::CDN_THEMES_SECURE => URLSetting::class,
+        CMS::PATH_DATA => PathSetting::class,
+        CMS::PATH_WEB => PathSetting::class,
+        CMS::PATH_TEMPLATES => PathSetting::class,
+        CMS::PATH_THEMES => PathSetting::class,
+        CMS::PATH_PUBLICFILES => PathSetting::class
       ],
       self::DEBUGGING => [
         CMS::DBG_DATABASE_ERROR => FlagSetting::class,
@@ -161,9 +176,37 @@ namespace Papaya\Administration\Settings {
           FALSE
         ],
         CMS::GMAPS_API_KEY => TextSetting::class,
-        CMS::GMAPS_DEFAULT_POSITION => GeoPositionSetting::class
+        CMS::GMAPS_DEFAULT_POSITION => GeoPositionSetting::class,
+        CMS::TRANSLITERATION_MODE => [
+          ChoiceSetting::class,
+          [
+            // @ToDO Add Class Constants
+            0 => 'papaya',
+            1 => 'ext/translit',
+          ],
+          FALSE
+        ],
+        CMS::SEARCH_BOOLEAN => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Add Class Constants
+            0 => 'generic SQL (LIKE)',
+            1 => 'MySQL FULLTEXT',
+            2 => 'MySQL FULLTEXT BOOLEAN (MySQL >= 4.1)'
+          ]
+        ],
+        CMS::URL_FIXATION => FlagSetting::class,
+        CMS::XSLT_EXTENSION => XSLTExtensionSetting::class
       ],
-      self::LAYOUT => [],
+      self::LAYOUT => [
+        CMS::LAYOUT_TEMPLATES => [
+          FileSystemChoiceSetting::class,
+          \Papaya\Configuration\Path::PATH_TEMPLATES,
+          '',
+          NULL,
+          FileSystemChoiceSetting::INCLUDE_DIRECTORIES
+        ]
+      ],
       self::DEFAULT_PAGES => [
         CMS::PAGEID_DEFAULT => PageIdSetting::class,
         CMS::PAGEID_USERDATA => PageIdSetting::class,
@@ -209,7 +252,40 @@ namespace Papaya\Administration\Settings {
         ],
         CMS::LATIN1_COMPATIBILITY => FlagSetting::class
       ],
-      self::ADMINISTRATION => [],
+      self::ADMINISTRATION => [
+        CMS::OVERVIEW_ITEMS_MESSAGES => [IntegerSetting::class, 1, 99],
+        CMS::OVERVIEW_ITEMS_TASKS => [IntegerSetting::class, 1, 99],
+        CMS::OVERVIEW_TASK_NOTIFY => FlagSetting::class,
+        CMS::OVERVIEW_ITEMS_PUBLISHED => [IntegerSetting::class, 1, 99],
+        CMS::OVERVIEW_ITEMS_UNPUBLISHED => [IntegerSetting::class, 1, 99],
+        CMS::UI_SEARCH_ANCESTOR_LIMIT => [IntegerSetting::class, 1, 999],
+        CMS::UI_SEARCH_CHARACTER_LIMIT => [IntegerSetting::class, 1, 9999],
+        CMS::UI_LANGUAGE => [LanguageCodeSetting::class, LanguageCodeSetting::FILTER_IS_INTERFACE],
+        CMS::UI_THEME => [
+          FileSystemChoiceSetting::class,
+          \Papaya\Configuration\Path::PATH_ADMINISTRATION,
+          '/styles/themes/',
+          '(^.+\.ini)'
+        ],
+        CMS::UI_SECURE => FlagSetting::class,
+        CMS::UI_SECURE_WARNING => FlagSetting::class,
+        CMS::USE_RICHTEXT => FlagSetting::class,
+        CMS::RICHTEXT_TEMPLATES_FULL => [TextSetting::class, 1000, '(^([a-z]+)(,[a-z+])*)'],
+        CMS::RICHTEXT_TEMPLATES_SIMPLE => [TextSetting::class, 1000, '(^([a-z]+)(,[a-z+])*)'],
+        CMS::RICHTEXT_BROWSER_SPELLCHECK => FlagSetting::class,
+        CMS::RICHTEXT_LINK_TARGET => [
+          ChoiceSetting::class,
+          ['_self' => '_self', '_blank' => '_blank'],
+          FALSE
+        ],
+        CMS::RICHTEXT_CONTENT_CSS => [
+          FileSystemChoiceSetting::class,
+          \Papaya\Configuration\Path::PATH_THEME_CURRENT,
+          '',
+          '(.css$)',
+          FileSystemChoiceSetting::INCLUDE_FILES | FileSystemChoiceSetting::INCLUDE_OPTION_NONE
+        ]
+      ],
       self::AUTHENTICATION => [
         CMS::PASSWORD_ALGORITHM => [
           ChoiceSetting::class,
@@ -305,15 +381,35 @@ namespace Papaya\Administration\Settings {
         CMS::MEDIA_CSSCLASS_SUBTITLE => CSSClassSetting::class,
         CMS::MEDIA_CSSCLASS_LINK => CSSClassSetting::class,
         CMS::MEDIA_CSSCLASS_MAILTO => CSSClassSetting::class,
+        CMS::MEDIA_ELEMENTS_IMAGE => [
+          ChoiceSetting::class,
+          [
+            PapayaTagParser::ELEMENTS_SPAN => 'span (only with subtitle)',
+            PapayaTagParser::ELEMENTS_FIGURE => 'figure/figcaption (only with subtitle)',
+            PapayaTagParser::ELEMENTS_FIGURE_MANDATORY => 'figure/figcaption (always)',
+          ]
+        ],
         CMS::IMAGE_CONVERTER_PATH => PathSetting::class,
         CMS::FILE_CMD_PATH => FileSetting::class,
+        CMS::PATH_MEDIADB_IMPORT => PathSetting::class,
         CMS::THUMBS_JPEGQUALITY => [IntegerSetting::class, 20, 100],
         CMS::THUMBS_TRANSPARENT => FlagSetting::class,
         CMS::THUMBS_MEMORYCHECK_SUHOSIN => FlagSetting::class,
+        CMS::THUMBS_BACKGROUND => ColorSetting::class,
         CMS::SENDFILE_HEADER => FlagSetting::class,
         CMS::BANDWIDTH_SHAPING => FlagSetting::class,
         CMS::BANDWIDTH_SHAPING_LIMIT => IntegerSetting::class,
-        CMS::BANDWIDTH_SHAPING_OFFSET => IntegerSetting::class
+        CMS::BANDWIDTH_SHAPING_OFFSET => IntegerSetting::class,
+        CMS::MEDIA_STORAGE_SERVICE => [
+          ChoiceSetting::class,
+          [
+            // @ToDo Add Class Constants
+            'file' => 'File system', 's3' => 'AWS S3'
+          ]
+        ],
+        CMS::MEDIA_STORAGE_S3_BUCKET => TextSetting::class,
+        CMS::MEDIA_STORAGE_S3_KEY => TextSetting::class,
+        CMS::MEDIA_STORAGE_S3_KEYID => TextSetting::class
       ],
       self::CACHE => [
         CMS::CACHE_BOXES => FlagSetting::class,
@@ -378,6 +474,7 @@ namespace Papaya\Administration\Settings {
             0 => 'none', 1 => 'slow', 2 => 'all'
           ]
         ],
+        CMS::QUERYLOG_SLOW => [IntegerSetting::class, 0, 100000],
         CMS::QUERYLOG_DETAILS => FlagSetting::class
       ],
       self::SESSION => [
@@ -408,15 +505,28 @@ namespace Papaya\Administration\Settings {
           ]
         ],
         CMS::SESSION_SECURE => FlagSetting::class,
-        CMS::SESSION_START => FlagSetting::class
+        CMS::SESSION_START => FlagSetting::class,
+        CMS::SESSION_DOMAIN => HostNameSetting::class,
+        CMS::SESSION_PATH => PathSetting::class
       ],
       self::FEATURES => [
+        CMS::PROTECT_FORM_CHANGES => FlagSetting::class,
+        CMS::PUBLICATION_CHANGE_LEVEL => FlagSetting::class,
         CMS::DATAFILTER_USE => FlagSetting::class,
         CMS::PUBLICATION_AUDITING => FlagSetting::class,
         CMS::FEATURE_BOXGROUPS_LINKABLE => FlagSetting::class
       ],
       self::FEATURES_EXPERIMENTAL => [
         CMS::IMPORTFILTER_USE => FlagSetting::class
+      ],
+      self::DEPRECATED => [
+        CMS::URL_EXTENSION => [
+          ChoiceSetting::class,
+          ['html' => 'html', 'papaya' => 'papaya'],
+          FALSE
+        ],
+        CMS::PAGE_STATISTIC => FlagSetting::class,
+        CMS::STATISTIC_PRESERVE_IP => FlagSetting::class
       ]
     ];
 
@@ -458,10 +568,10 @@ namespace Papaya\Administration\Settings {
         new TranslatedList(
           new CallbackFilterIterator(
             self::$_LABELS,
-            static function($value, $key) {
+            static function ($value, $key) {
               return (
                 $key === self::UNKNOWN || (
-                isset(self::$_PROFILES[$key]) && count(self::$_PROFILES[$key]) > 0)
+                  isset(self::$_PROFILES[$key]) && count(self::$_PROFILES[$key]) > 0)
               );
             }
           )

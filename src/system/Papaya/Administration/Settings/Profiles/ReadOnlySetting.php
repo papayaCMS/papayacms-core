@@ -24,14 +24,6 @@ namespace Papaya\Administration\Settings\Profiles {
     public function appendFieldTo(Dialog $dialog, $settingName) {
       return FALSE;
     }
-
-    /**
-     * @param mixed $value
-     * @return TranslatedText|string
-     */
-    public function getDisplayString($value) {
-      return $value;
-    }
   }
 }
 

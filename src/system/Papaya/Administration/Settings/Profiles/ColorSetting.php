@@ -20,10 +20,10 @@ namespace Papaya\Administration\Settings\Profiles {
   use Papaya\UI\Dialog;
   use Papaya\UI\Text\Translated as TranslatedText;
 
-  class URLSetting extends SettingProfile {
+  class ColorSetting extends SettingProfile {
 
     public function appendFieldTo(Dialog $dialog, $settingName) {
-      $dialog->fields[] = new Dialog\Field\Input\URL(
+      $dialog->fields[] = new Dialog\Field\Input\Color(
         $settingName,
         SettingsPage::PARAMETER_SETTING_VALUE
       );

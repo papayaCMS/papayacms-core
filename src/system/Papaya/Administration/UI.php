@@ -17,6 +17,7 @@ namespace Papaya\Administration {
   use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
   use Papaya\Administration\Media\MimeTypes\Editor as MimeTypesEditor;
   use Papaya\Administration\Protocol\ProtocolPage;
+  use Papaya\Administration\Settings\SettingsPage;
   use Papaya\Application;
   use Papaya\Response;
   use Papaya\Router;
@@ -228,6 +229,7 @@ namespace Papaya\Administration {
           [
             self::LOGOUT => new UI\Route\LogOut(),
             self::STYLES => function(self $ui) use ($localPath, $cacheTime) {
+              $this->papaya()->options->loadAndDefine();
               $stylePath = $localPath.'/styles';
               $themePath = $stylePath.'/themes';
               $themeName = empty($_GET['theme'])
@@ -259,6 +261,7 @@ namespace Papaya\Administration {
               );
             },
             self::SCRIPTS => function() use ($localPath, $cacheTime) {
+              $this->papaya()->options->loadAndDefine();
               $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
               $files = \array_map(
                 function($file) use ($localPath) {
@@ -404,6 +407,9 @@ namespace Papaya\Administration {
                     ),
                     self::ADMINISTRATION_SETTINGS => new UI\Route\Templated\Page(
                       $template, $images['items-option'], ['Administration', 'Settings'], \papaya_options::class, Permissions::SYSTEM_SETTINGS
+                    ),
+                    self::ADMINISTRATION_SETTINGS.'-new' => new UI\Route\Templated\Page(
+                      $template, $images['items-option'], ['Administration', 'Settings'], SettingsPage::class, Permissions::SYSTEM_SETTINGS
                     ),
                     self::ADMINISTRATION_CRONJOBS => new UI\Route\Templated\Page(
                       $template, $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
