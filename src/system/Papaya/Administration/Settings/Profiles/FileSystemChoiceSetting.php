@@ -54,12 +54,23 @@ namespace Papaya\Administration\Settings\Profiles {
     }
 
     public function appendFieldTo(Dialog $dialog, $settingName) {
-      $dialog->fields[] = new Dialog\Field\Select(
-        $settingName,
-        SettingsPage::PARAMETER_SETTING_VALUE,
-        $this->getChoices()
-      );
+      if ($this->isValidPath($this->_path)) {
+        $dialog->fields[] = new Dialog\Field\Select(
+          $settingName,
+          SettingsPage::PARAMETER_SETTING_VALUE,
+          $this->getChoices()
+        );
+      } else {
+        $dialog->fields[] = new Dialog\Field\Message(
+          Dialog\Field\Message::SEVERITY_ERROR,
+          new Translated('Can not read directory: %s', [(string)$this->_path])
+        );
+      }
       return TRUE;
+    }
+
+    private function isValidPath(Path $path) {
+      return file_exists($path) && is_dir($path) && is_readable($path);
     }
 
     private function getChoices() {
@@ -72,7 +83,7 @@ namespace Papaya\Administration\Settings\Profiles {
       $choices = new CallbackIterator(
         new CallbackFilterIterator(
           $iterator,
-           $this->getFilterFunction()
+          $this->getFilterFunction()
         ),
         static function (\splFileInfo $fileInfo) {
           return $fileInfo->getBasename();
@@ -107,12 +118,12 @@ namespace Papaya\Administration\Settings\Profiles {
         return $filter;
       }
       if ($includeDirectories) {
-        return static function(\splFileInfo $fileInfo) use ($filter) {
+        return static function (\splFileInfo $fileInfo) use ($filter) {
           return $fileInfo->isDir() && $filter($fileInfo);
         };
       }
       if ($includeFiles) {
-        return static function(\splFileInfo $fileInfo) use ($filter) {
+        return static function (\splFileInfo $fileInfo) use ($filter) {
           return $fileInfo->isFile() && $filter($fileInfo);
         };
       }

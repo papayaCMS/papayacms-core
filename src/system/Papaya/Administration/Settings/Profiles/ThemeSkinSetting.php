@@ -17,10 +17,14 @@ namespace Papaya\Administration\Settings\Profiles {
 
   use Papaya\Administration\Settings\SettingProfile;
   use Papaya\Administration\Settings\SettingsPage;
+  use Papaya\Configuration\CMS;
+  use Papaya\Content\Theme\Skins;
+  use Papaya\Iterator\TraversableIterator;
   use Papaya\UI\Dialog;
   use Papaya\UI\Text\Translated as TranslatedText;
+  use Papaya\UI\Text\Translated\Collection as TranslatedList;
 
-  class XSLTExtensionSetting extends SettingProfile {
+  class ThemeSkinSetting extends SettingProfile {
 
     /**
      * @var array
@@ -41,13 +45,14 @@ namespace Papaya\Administration\Settings\Profiles {
     private function getList() {
       if (NULL === $this->_list) {
         $this->_list = [
-          '' => new TranslatedText('Automatic')
+          '' => new TranslatedText('None')
         ];
-        $extensions = ['xsl', 'xslcache'];
-        foreach ($extensions as $extension) {
-          if (extension_loaded($extension)) {
-            $this->_list[$extension] = $extension;
-          }
+        $skins = new Skins();
+        $skins->activateLazyLoad(
+          ['theme_name' => $this->papaya()->options->get(CMS::LAYOUT_THEME)]
+        );
+        foreach ($skins as $skin) {
+          $this->_list[$skin['id']] = $skin['title'];
         }
       }
       return $this->_list;

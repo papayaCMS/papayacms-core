@@ -33,6 +33,7 @@ namespace Papaya\Administration\Settings {
   use Papaya\Administration\Settings\Profiles\ReadOnlyDSNSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlySetting;
   use Papaya\Administration\Settings\Profiles\TextSetting;
+  use Papaya\Administration\Settings\Profiles\ThemeSkinSetting;
   use Papaya\Administration\Settings\Profiles\URLSetting;
   use Papaya\Administration\Settings\Profiles\XSLTExtensionSetting;
   use Papaya\Administration\UI\Path;
@@ -205,7 +206,15 @@ namespace Papaya\Administration\Settings {
           '',
           NULL,
           FileSystemChoiceSetting::INCLUDE_DIRECTORIES
-        ]
+        ],
+        CMS::LAYOUT_THEME => [
+          FileSystemChoiceSetting::class,
+          \Papaya\Configuration\Path::PATH_THEMES,
+          '',
+          NULL,
+          FileSystemChoiceSetting::INCLUDE_DIRECTORIES
+        ],
+        CMS::LAYOUT_THEME_SET => ThemeSkinSetting::class
       ],
       self::DEFAULT_PAGES => [
         CMS::PAGEID_DEFAULT => PageIdSetting::class,
