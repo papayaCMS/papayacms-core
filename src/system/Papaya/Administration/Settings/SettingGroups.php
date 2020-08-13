@@ -28,7 +28,6 @@ namespace Papaya\Administration\Settings {
   use Papaya\Administration\Settings\Profiles\LanguageCodeSetting;
   use Papaya\Administration\Settings\Profiles\LanguageIdSetting;
   use Papaya\Administration\Settings\Profiles\PageIdSetting;
-  use Papaya\Administration\Settings\Profiles\PathChoiceSetting;
   use Papaya\Administration\Settings\Profiles\PathSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlyDSNSetting;
   use Papaya\Administration\Settings\Profiles\ReadOnlySetting;
@@ -36,19 +35,19 @@ namespace Papaya\Administration\Settings {
   use Papaya\Administration\Settings\Profiles\ThemeSkinSetting;
   use Papaya\Administration\Settings\Profiles\URLSetting;
   use Papaya\Administration\Settings\Profiles\XSLTExtensionSetting;
-  use Papaya\Administration\UI\Path;
   use Papaya\Application\Access;
   use Papaya\Configuration\CMS;
+  use Papaya\Iterator\Callback as CallbackIterator;
   use Papaya\Iterator\Filter\Callback as CallbackFilterIterator;
   use Papaya\Iterator\SortIterator;
+  use Papaya\Request\Parameters\GroupSeparator;
   use Papaya\Session;
   use Papaya\Session\Options as SessionOptions;
-  use Papaya\UI\Text;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use papaya_parser as PapayaTagParser;
 
-  class SettingGroups implements Access {
+  class SettingGroups implements Access, \IteratorAggregate {
 
     use Access\Aggregation;
 
@@ -168,7 +167,7 @@ namespace Papaya\Administration\Settings {
         CMS::URL_NAMELENGTH => [IntegerSetting::class, 1, 100],
         CMS::URL_LEVEL_SEPARATOR => [
           ChoiceSetting::class,
-          ['' => '[ ]', ',' => ',', ':' => ':', '*' => '*', '!' => '!', '/' => '/'],
+          GroupSeparator::CHOICES,
           FALSE
         ],
         CMS::URL_ALIAS_SEPARATOR => [
@@ -596,6 +595,15 @@ namespace Papaya\Administration\Settings {
             return 1;
           }
           return strcmp($a, $b);
+        }
+      );
+    }
+
+    public function getIterator() {
+      return new CallbackIterator(
+        $this->getTranslatedLabels(),
+        function($label, $group) {
+           return new SortIterator($this->getSettingsInGroup($group));
         }
       );
     }

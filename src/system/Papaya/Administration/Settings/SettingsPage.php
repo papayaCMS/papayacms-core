@@ -27,6 +27,8 @@ namespace Papaya\Administration\Settings {
     const PARAMETER_SETTINGS_GROUP = 'group';
     const PARAMETER_SETTING = 'setting';
     const PARAMETER_SETTING_VALUE = 'value';
+    const PARAMETER_SEARCH_FOR = 'search-for';
+    const PARAMETER_SEARCH_CLEAR = 'search-clear';
 
     protected $_parameterGroup = 'settings';
 

@@ -49,7 +49,8 @@ namespace Papaya\Administration\Settings\Commands {
       $dialog->hiddenFields()->merge(
         [
           SettingsPage::PARAMETER_COMMAND => SettingsPage::COMMAND_EDIT,
-          SettingsPage::PARAMETER_SETTING => $settingName
+          SettingsPage::PARAMETER_SETTING => $settingName,
+          SettingsPage::PARAMETER_SEARCH_FOR => $this->parameters()->get(SettingsPage::PARAMETER_SEARCH_FOR)
         ]
       );
       $dialog->caption = new TranslatedText('Edit Setting');

@@ -14,6 +14,7 @@
  */
 namespace Papaya {
 
+  use Papaya\Configuration\CMS as CMSConfiguration;
   use Papaya\Request\Content as RequestContent;
   use Papaya\Request\Parameters as RequestParameters;
   use Papaya\Request\Parser as RequestParser;
@@ -216,7 +217,7 @@ namespace Papaya {
       case 'pageId' :
         return $this->getParameter(
           'page_id',
-          $this->papaya()->options->get(\Papaya\Configuration\CMS::PAGEID_DEFAULT, 0),
+          $this->papaya()->options->get(CMSConfiguration::PAGEID_DEFAULT, 0),
           NULL,
           self::SOURCE_PATH
         );
@@ -299,8 +300,11 @@ namespace Papaya {
      * @param Configuration $options
      */
     public function setConfiguration($options) {
-      $this->_separator = $options->get(\Papaya\Configuration\CMS::URL_LEVEL_SEPARATOR, '[]');
-      $this->_installationPath = $options->get(\Papaya\Configuration\CMS::PATH_WEB, '/');
+      $this->_separator = $options->get(
+        CMSConfiguration::URL_LEVEL_SEPARATOR,
+        RequestParameters\GroupSeparator::ARRAY_SYNTAX
+      );
+      $this->_installationPath = $options->get(CMSConfiguration::PATH_WEB, '/');
     }
 
     /**
@@ -332,7 +336,7 @@ namespace Papaya {
           $this->_language->activateLazyLoad(
             ['identifier' => $identifier]
           );
-        } elseif ($id = $this->papaya()->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE, 0)) {
+        } elseif ($id = $this->papaya()->options->get(CMSConfiguration::CONTENT_LANGUAGE, 0)) {
           $this->_language->activateLazyLoad(
             ['id' => $id]
           );
@@ -396,8 +400,8 @@ namespace Papaya {
      */
     public function setParameterGroupSeparator($separator) {
       if ('' === (string)$separator) {
-        $this->_separator = '[]';
-      } elseif (in_array($separator, ['[]', ',', ':', '/', '*', '!'])) {
+        $this->_separator = RequestParameters\GroupSeparator::ARRAY_SYNTAX;
+      } elseif (RequestParameters\GroupSeparator::validate($separator, TRUE)) {
         $this->_separator = $separator;
       } else {
         throw new \InvalidArgumentException(

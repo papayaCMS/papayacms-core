@@ -46,6 +46,7 @@ namespace Papaya\Administration\Settings\Profiles {
         NULL,
         isset($this->_pattern) ? new RegEx($this->_pattern) : NULL
       );
+      return TRUE;
     }
   }
 }
