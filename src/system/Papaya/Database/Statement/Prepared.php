@@ -120,8 +120,11 @@ namespace Papaya\Database\Statement {
             if ($allowPrepared && $parameter['allow_prepared']) {
               $parameterValue = $parameter['value'];
               if (is_array($parameter['value'])) {
-                array_push($values,...$parameterValue);
-                return '('.implode(', ', array_fill(0, count($parameterValue), '?')).')';
+                if (count($parameter['value']) > 0) {
+                  array_push($values, ...$parameterValue);
+                  return '('.implode(', ', array_fill(0, count($parameterValue), '?')).')';
+                }
+                return '';
               }
               $values[] = $parameterValue;
               return '?';

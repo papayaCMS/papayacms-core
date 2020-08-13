@@ -51,7 +51,11 @@ class Children implements \RecursiveIterator {
       $ids = [$ids];
     }
     foreach ($ids as $id) {
-      if (FALSE !== $id && isset($this->_tree[$id])) {
+      if (
+        FALSE !== $id &&
+        isset($this->_tree[$id]) &&
+        count($this->_tree[$id]) > 0
+      ) {
         array_push($this->_list, ...$this->_tree[$id]);
       }
     }

@@ -15,6 +15,7 @@
 namespace Papaya\Media\Storage\Service;
 
 use Papaya\Media;
+use Papaya\Utility\Arrays;
 
 /**
  * File based storage service for papaya
@@ -270,7 +271,7 @@ class File extends Media\Storage\Service {
     $directories = \glob($path.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR);
     if (\is_array($directories)) {
       foreach ($directories as $directory) {
-        \array_push(
+        \Papaya\Utility\Arrays::push(
           $result,
           ...$this->_browseDirectory($directory, $startsWith)
         );

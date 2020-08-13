@@ -58,11 +58,17 @@ class Arrays {
     return $result;
   }
 
+  public static function push(array &$array, ...$values) {
+    if (count($values) > 0) {
+      array_push($array, ...$values);
+    }
+  }
+
   /**
    * Converts a Traversable into an array. For optimisation it checks for other possiblities to get
    * the array without traversing the object.
    *
-   * A skalar value or an object that is not an traversable will be converted into an array
+   * A scalar value or an object that is not an traversable will be converted into an array
    * containing this value.
    *
    * @param mixed $input

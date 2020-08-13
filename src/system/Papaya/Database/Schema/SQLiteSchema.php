@@ -262,7 +262,9 @@ namespace Papaya\Database\Schema {
           isset($primaryKeyField) && $field->name === $primaryKeyField->name
         );
         $sql .= '  '.$this->getQuotedIdentifier($field->name).' '.$fieldType[0].",\n";
-        array_push($parameters, ...$fieldType[1]);
+        if (is_array($fieldType[1]) && count($fieldType[1]) > 0) {
+          array_push($parameters, ...$fieldType[1]);
+        }
       }
       /** @var IndexStructure $index */
       foreach ($tableStructure->indices as $index) {
