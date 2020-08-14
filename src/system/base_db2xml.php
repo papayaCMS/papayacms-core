@@ -41,7 +41,15 @@ class base_database2xml extends base_db {
    * @throws \Papaya\Database\Exception\ConnectionFailed
    */
   function table2xml($tableName, $fileName = NULL) {
-    $data = $this->getDatabaseAccess()->schema()->describeTable($tableName);
+    $prefix = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', '');
+    if ($prefix !== '') {
+      if (0 === strpos($tableName, $prefix.'_')) {
+        $tableName = substr($tableName, strlen($prefix) + 1);
+      } else {
+        $prefix = '';
+      }
+    }
+    $data = $this->getDatabaseAccess()->schema()->describeTable($tableName, $prefix);
     $xml = $data->getXMLDocument()->saveXML();
     if (isset($fileName)) {
       if ($fh = fopen($fileName, 'wb')) {
