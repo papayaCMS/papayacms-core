@@ -38,10 +38,10 @@ class Handler implements Application\Access {
     $options = $this->papaya()->options;
     $baseURL = '';
     if (Utility\Server\Protocol::isSecure()) {
-      $baseURL = $options->get('PAPAYA_CDN_THEMES_SECURE', '');
+      $baseURL = $options->get(\Papaya\Configuration\CMS::CDN_THEMES_SECURE, '');
     }
     if (empty($baseURL)) {
-      $baseURL = $options->get('PAPAYA_CDN_THEMES', '');
+      $baseURL = $options->get(\Papaya\Configuration\CMS::CDN_THEMES, '');
     }
     if (empty($baseURL)) {
       $baseURL = $this
@@ -50,7 +50,7 @@ class Handler implements Application\Access {
         ->getURL()
         ->getHostURL();
       $baseURL .= Utility\File\Path::cleanup(
-        $options->get('PAPAYA_PATH_WEB').$options->get('PAPAYA_PATH_THEMES')
+        $options->get(\Papaya\Configuration\CMS::PATH_WEB).$options->get(\Papaya\Configuration\CMS::PATH_THEMES)
       );
     }
     if ('' === \trim($themeName)) {
@@ -76,7 +76,7 @@ class Handler implements Application\Access {
     $path = $this
       ->papaya()
       ->options
-      ->get('PAPAYA_PATH_THEMES');
+      ->get(\Papaya\Configuration\CMS::PATH_THEMES);
     return Utility\File\Path::cleanup($root.'/'.$path);
   }
 
@@ -157,7 +157,7 @@ class Handler implements Application\Access {
       $theme = $this
         ->papaya()
         ->options
-        ->get('PAPAYA_LAYOUT_THEME');
+        ->get(\Papaya\Configuration\CMS::LAYOUT_THEME);
     }
     return $theme;
   }
@@ -181,7 +181,7 @@ class Handler implements Application\Access {
       $themeSkin = $this
         ->papaya()
         ->options
-        ->get('PAPAYA_LAYOUT_THEME_SET', 0);
+        ->get(\Papaya\Configuration\CMS::LAYOUT_THEME_SET, 0);
     }
     return (int)$themeSkin;
   }

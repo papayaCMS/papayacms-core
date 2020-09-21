@@ -28,7 +28,7 @@ interface Profile {
    *
    * @param Application $application
    *
-   * @return object
+   * @return object|NULL
    */
   public function createObject($application);
 }

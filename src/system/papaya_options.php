@@ -180,7 +180,7 @@ class papaya_options extends base_options {
             if ($this->save('PAPAYA_LAYOUT_THEME', $theme->name)) {
               $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
               if (
-                $theme->templatePath != $this->papaya()->options->get('PAPAYA_LAYOUT_TEMPLATES', '') &&
+                $theme->templatePath != $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_TEMPLATES, '') &&
                 $this->save('PAPAYA_LAYOUT_TEMPLATES', $theme->templatePath)
               ) {
                 $this->addMsg(MSG_INFO, $this->_gt('Templates option modified.'));
@@ -886,7 +886,7 @@ class papaya_options extends base_options {
   function getThemeSetsCombo($name, $element, $data) {
     $themeSets = new \Papaya\Content\Theme\Skins();
     $themeSets->load(
-      array('theme_name' => $this->papaya()->options->get('PAPAYA_LAYOUT_THEME'))
+      array('theme_name' => $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_THEME))
     );
     $result = '';
     $result .= sprintf(
@@ -898,7 +898,7 @@ class papaya_options extends base_options {
       '<option value="">%s</option>'.LF,
       new \Papaya\UI\Text\Translated('None')
     );
-    $current = $this->papaya()->options->get('PAPAYA_LAYOUT_THEME_SET', '');
+    $current = $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_THEME_SET, '');
     foreach ($themeSets as $themeSet) {
       $selected = ($current == $data) ? ' selected="selected"' : '';
       $result .= sprintf(
@@ -1288,11 +1288,11 @@ class papaya_options extends base_options {
           $this->addMsg(MSG_INFO, $this->_gtf('Changed permissions for "%s".', $title));
           return TRUE;
         } elseif (!$readable) {
-          $this->addMsg(MSG_INFO, $this->_gtf('"%s" is not readable.', $title));
+          $this->addMsg(MSG_INFO, $this->_gtf('"%s" (%s) is not readable.', [$title, $path]));
         } elseif (!$executable) {
-          $this->addMsg(MSG_INFO, $this->_gtf('"%s" is not executable.', $title));
+          $this->addMsg(MSG_INFO, $this->_gtf('"%s" (%s) is not executable.', [$title, $path]));
         } elseif (!$writeable) {
-          $this->addMsg(MSG_INFO, $this->_gtf('"%s" is not writeable.', $title));
+          $this->addMsg(MSG_INFO, $this->_gtf('"%s" (%s) is not writeable.', [$title, $path]));
         }
         return FALSE;
       } elseif (is_writeable($path)) {
@@ -1300,7 +1300,7 @@ class papaya_options extends base_options {
         return TRUE;
       }
     } else {
-      $this->addMsg(MSG_INFO, $this->_gtf('Cannot create "%s".', $title));
+      $this->addMsg(MSG_INFO, $this->_gtf('Cannot create "%s" (%s).', [$title, $path]));
     }
     return FALSE;
   }

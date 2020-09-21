@@ -40,13 +40,13 @@ namespace Papaya\Administration\UI\Route\Templated {
       $application = $router->papaya();
       $this->papaya()->options->load();
       if (
-        $application->options->get('PAPAYA_UI_SECURE', FALSE) &&
+        $application->options->get(\Papaya\Configuration\CMS::UI_SECURE, FALSE) &&
         !Utility\Server\Protocol::isSecure()
       ) {
         return new Response\Redirect\Secure();
       }
       if (
-        $this->papaya()->options->get('PAPAYA_UI_SECURE_WARNING', TRUE) &&
+        $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_SECURE_WARNING, TRUE) &&
         !(
           Utility\Server\Protocol::isSecure() ||
           \preg_match('(^localhost(:\d+)?$)i', Utility\Server\Name::get())

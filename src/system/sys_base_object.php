@@ -227,7 +227,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     }
     $fileName = \Papaya\Utility\File\Path::cleanup(
       \Papaya\Utility\File\Path::getDocumentRoot($this->papaya()->options).
-      $this->papaya()->options->get('PAPAYA_PATHWEB_ADMIN', '/papaya/').
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::PATHWEB_ADMIN, '/papaya/').
       '/data/'.$lng.'/'
     ).$fileName;
     if (file_exists($fileName) && is_readable($fileName)) {
@@ -448,7 +448,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $data = $this->parseRequestURI();
     if (
       isset($data['output']) &&
-      ($data['output'] == 'media' || $data['output'] == 'image')
+      ($data['output'] === 'media' || $data['output'] === 'image')
     ) {
       return $data['filename'];
     } elseif ($pageId > 0) {
@@ -458,11 +458,9 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     } elseif ($this->papaya()->request->isAdministration) {
       $pId = 0;
     } elseif (
-      isset($GLOBALS['PAPAYA_PAGE']) &&
-      is_object($GLOBALS['PAPAYA_PAGE']) &&
-      is_a($GLOBALS['PAPAYA_PAGE'], 'papaya_page')
+      ($pageId = $this->papaya()->front->topicId) > 0
     ) {
-      $pId = $GLOBALS['PAPAYA_PAGE']->topicId;
+      $pId = $pageId;
     } elseif (isset($_GET['p_id']) && $_GET['p_id'] > 0) {
       $pId = (int)$_GET['p_id'];
     } else {
@@ -505,7 +503,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   function getBasePath($withDocumentRoot = FALSE) {
     $path = \Papaya\Utility\File\Path::getBasePath($withDocumentRoot);
     if ($this->papaya()->request->isAdministration) {
-      $path .= $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/papaya').'/';
+      $path .= $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/papaya').'/';
     }
     return \Papaya\Utility\File\Path::cleanup($path);
   }
@@ -537,7 +535,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         $ext = $regs[2];
       }
     } else {
-      $ext = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
+      $ext = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
     }
     $mode = $request->getParameter(
       'mode', 'page', NULL, \Papaya\Request::SOURCE_PATH
@@ -619,16 +617,14 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     if (isset($mode) && strpos($mode, '.preview') !== FALSE) {
       $mode = substr($mode, 0, -8);
       $preview = TRUE;
-    } elseif ((isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public == FALSE) ||
-              $mode == 'preview') {
+    } elseif ($mode === 'preview' || (!$this->papaya()->front->public)) {
       $preview = TRUE;
     } else {
       $preview = FALSE;
     }
     if ($preview) {
-      if (isset($GLOBALS['PAPAYA_PAGE']) &&
-          $GLOBALS['PAPAYA_PAGE']->versionDateTime > 0) {
-        $reference->setPreview(TRUE, $GLOBALS['PAPAYA_PAGE']->versionDateTime);
+      if ($this->papaya()->front->versionDateTime > 0) {
+        $reference->setPreview(TRUE, $this->papaya()->front->versionDateTime);
       } else {
         $reference->setPreview(TRUE);
       }
@@ -636,10 +632,8 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $reference->setPreview(FALSE);
     }
     if (empty($lng)) {
-      if (isset($GLOBALS['PAPAYA_PAGE']) &&
-          isset($GLOBALS['PAPAYA_PAGE']->contentLanguage) &&
-          isset($GLOBALS['PAPAYA_PAGE']->contentLanguage['lng_ident'])) {
-        $lng = $GLOBALS['PAPAYA_PAGE']->contentLanguage['lng_ident'];
+      if (!empty($this->papaya()->front->contentLanguage['lng_ident'])) {
+        $lng = $this->papaya()->front->contentLanguage['lng_ident'];
       }
       $lng = $request->getParameter(
         'language',
@@ -649,9 +643,9 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       );
     }
     $reference->setPageLanguage($lng);
-    if (!($reference->getPageId() > 0) && $reference->getPageTitle() != 'index') {
-      if (!empty($GLOBALS['PAPAYA_PAGE']->topicId)) {
-        $reference->setPageId($GLOBALS['PAPAYA_PAGE']->topicId);
+    if (!($reference->getPageId() > 0) && $reference->getPageTitle() !== 'index') {
+      if (!empty($this->papaya()->front->topicId)) {
+        $reference->setPageId($this->papaya()->front->topicId);
       }
     }
     if (!empty($text)) {
@@ -677,7 +671,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function _getWebLinkPageModeExtension($mode) {
-    $defaultExtension = $this->papaya()->options->get('PAPAYA_URL_EXTENSION', 'html');
+    $defaultExtension = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
     $pageModes = array(
       'page' => $defaultExtension,
       'preview' => $defaultExtension
@@ -686,10 +680,8 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $ext = $pageModes[$mode];
     } elseif (isset($mode) && preg_match('~^[a-z]+$~', $mode)) {
       $ext = $mode;
-    } elseif (isset($GLOBALS['PAPAYA_PAGE']) &&
-              is_object($GLOBALS['PAPAYA_PAGE']) &&
-              isset($GLOBALS['PAPAYA_PAGE']->mode)) {
-      $ext = $GLOBALS['PAPAYA_PAGE']->mode;
+    } elseif (isset($this->papaya()->front->mode)) {
+      $ext = $this->papaya()->front->mode;
     } else {
       $ext = $defaultExtension;
     }
@@ -719,7 +711,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         $parameters->remove('preview_date');
       }
       $queryString = $parameters->getQueryString(
-        $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR')
+        $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_LEVEL_SEPARATOR)
       );
       if (!empty($queryString)) {
         return '?'.$queryString;
@@ -737,7 +729,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
    */
   public function recodeQueryString($queryString, $newQueryParams = array()) {
     $query = new \Papaya\Request\Parameters\QueryString(
-      $this->papaya()->options->get('PAPAYA_URL_LEVEL_SEPARATOR')
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_LEVEL_SEPARATOR)
     );
     $query->setString($queryString);
     $query->values()->merge($newQueryParams);
@@ -760,7 +752,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   function escapeForFilename($str, $default = 'index', $language = NULL) {
     $str = \Papaya\Utility\File::normalizeName(
       $str,
-      $this->papaya()->options->get('PAPAYA_URL_NAMELENGTH', 50),
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_NAMELENGTH, 50),
       $language
     );
     return ($str != '') ? strtolower($str) : $default;
@@ -778,7 +770,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   function getWebMediaLink($mid, $mode = 'media', $text = '', $ext = '') {
     $application = $this->papaya();
     $request = $application->request;
-    $thumbsFileType = $this->papaya()->options->get('PAPAYA_THUMBS_FILETYPE', IMAGETYPE_PNG);
+    $thumbsFileType = $this->papaya()->options->get(\Papaya\Configuration\CMS::THUMBS_FILETYPE, IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
       $reference = new \Papaya\UI\Reference\Thumbnail();
       $reference->papaya($this->papaya());
@@ -800,10 +792,10 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     $reference->setMediaUri($mid);
     $options = $this->papaya()->options;
     $mimeType = '';
-    $isPublic = isset($GLOBALS['PAPAYA_PAGE']) && $GLOBALS['PAPAYA_PAGE']->public;
+    $isPublic = $this->papaya()->front->public;
     if (empty($text) || empty ($ext)) {
       if (strlen($mid) > 0 && strpos($mid, '.') === FALSE) {
-        if ($storageGroup == 'thumbs') {
+        if ($storageGroup === 'thumbs') {
           $mimeType = image_type_to_mime_type($thumbsFileType);
         } else {
           $mediaDb = base_mediadb::getInstance();
@@ -814,7 +806,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
             }
             $text = empty($mediaFile['file_name']) ? $text : $mediaFile['file_name'];
             $mimeType = (isset($mediaFile['mimetype'])) ? $mediaFile['mimetype'] : '';
-            if ($storageGroup == 'files') {
+            if ($storageGroup === 'files') {
               $versionSuffix = (isset($mediaFile['current_version_id'])) ?
                 'v'.$mediaFile['current_version_id'] : '';
             }
@@ -825,7 +817,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       }
       if ($isPublic) {
         $storage = \Papaya\Media\Storage::getService(
-          $options->get('PAPAYA_MEDIA_STORAGE_SERVICE', ''),
+          $options->get(\Papaya\Configuration\CMS::MEDIA_STORAGE_SERVICE, ''),
           $options
         );
         if ($storage->isPublic($storageGroup, $mid, $mimeType)) {
@@ -882,7 +874,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $hostPort .= ':'.$port;
     }
     if (!($hostPort)) {
-      $hostPort = $this->papaya()->options->get('PAPAYA_DEFAULT_HOST', 'localhost');
+      $hostPort = $this->papaya()->options->get(\Papaya\Configuration\CMS::DEFAULT_HOST, 'localhost');
     }
     $baseHref = $protocol."://".$hostPort;
 
@@ -905,7 +897,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $urlAppend = '';
     }
 
-    $pathWeb = $this->papaya()->options->get('PAPAYA_PATH_WEB', '/');
+    $pathWeb = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/');
     if ($url == '/') {
       $href = $baseHref.$pathWeb;
     } elseif (preg_match("(^(?:(\d+)\.)?(\d+)$)", trim($url), $regs)) {
@@ -936,7 +928,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $iURL = preg_replace('([^/]+$)', '', $iURL);
       $href = $baseHref.$iURL.$url;
     }
-    $pathAdmin = $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/');
+    $pathAdmin = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/');
     $href = preg_replace(
       '('.preg_quote($pathAdmin, '(').'/../)', '/', $href
     );

@@ -55,9 +55,9 @@ class QueryString {
    */
   public function setSeparator($groupSeparator) {
     $groupSeparator = \trim($groupSeparator);
-    if (\in_array($groupSeparator, [',', ':', '/', '*', '!'])) {
+    if (\in_array($groupSeparator, GroupSeparator::CHARACTERS)) {
       $this->_separator = $groupSeparator;
-    } elseif (\in_array($groupSeparator, ['', '[]'], TRUE)) {
+    } elseif ($groupSeparator === '' || $groupSeparator === GroupSeparator::ARRAY_SYNTAX) {
       $this->_separator = '';
     } else {
       throw new \InvalidArgumentException(
@@ -160,7 +160,7 @@ class QueryString {
       foreach ($parameters as $name => $value) {
         if (empty($prefix)) {
           $fullName = \urlencode($name);
-        } elseif ('[]' === $this->_separator || empty($this->_separator)) {
+        } elseif (GroupSeparator::ARRAY_SYNTAX === $this->_separator || empty($this->_separator)) {
           $fullName = $prefix.'['.\urlencode($name).']';
         } else {
           $fullName = $prefix.$this->_separator.\urlencode($name);

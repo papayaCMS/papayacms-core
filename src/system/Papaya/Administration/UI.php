@@ -17,6 +17,7 @@ namespace Papaya\Administration {
   use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
   use Papaya\Administration\Media\MimeTypes\Editor as MimeTypesEditor;
   use Papaya\Administration\Protocol\ProtocolPage;
+  use Papaya\Administration\Settings\SettingsPage;
   use Papaya\Application;
   use Papaya\Response;
   use Papaya\Router;
@@ -182,7 +183,7 @@ namespace Papaya\Administration {
     public function execute() {
       $application = $this->papaya();
       $application->messages->setUp($application->options, $this->template());
-      if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+      if ($application->options->get(\Papaya\Configuration\CMS::LOG_RUNTIME_REQUEST, FALSE)) {
         \Papaya\Request\Log::getInstance();
       }
       $application->request->isAdministration = TRUE;
@@ -207,7 +208,7 @@ namespace Papaya\Administration {
         $this->_address = $address;
       } elseif (NULL === $this->_address) {
         $this->_address = new UI\Path(
-          $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '')
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '')
         );
       }
       return $this->_address;
@@ -220,18 +221,19 @@ namespace Papaya\Administration {
       $template = $this->template();
       $images = $this->papaya()->images;
       $localPath = $this->getLocalPath();
-      $cacheTime = $this->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
-        ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
+      $cacheTime = $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_THEMES, FALSE)
+        ? $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_TIME_THEMES, 0) : 0;
       return new Route\Group(
         // logout and layout files need to work without login/authentication
         new Route\PathChoice(
           [
             self::LOGOUT => new UI\Route\LogOut(),
             self::STYLES => function(self $ui) use ($localPath, $cacheTime) {
+              $this->papaya()->options->loadAndDefine();
               $stylePath = $localPath.'/styles';
               $themePath = $stylePath.'/themes';
               $themeName = empty($_GET['theme'])
-                ? $ui->papaya()->options->get('PAPAYA_UI_THEME', '')
+                ? $ui->papaya()->options->get(\Papaya\Configuration\CMS::UI_THEME, '')
                 : $_GET['theme'];
               return new Route\Gzip(
                 new UI\Route\Cache(
@@ -259,6 +261,7 @@ namespace Papaya\Administration {
               );
             },
             self::SCRIPTS => function() use ($localPath, $cacheTime) {
+              $this->papaya()->options->loadAndDefine();
               $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
               $files = \array_map(
                 function($file) use ($localPath) {
@@ -403,7 +406,7 @@ namespace Papaya\Administration {
                       ]
                     ),
                     self::ADMINISTRATION_SETTINGS => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings'], \papaya_options::class, Permissions::SYSTEM_SETTINGS
+                      $template, $images['items-option'], ['Administration', 'Settings'], SettingsPage::class, Permissions::SYSTEM_SETTINGS
                     ),
                     self::ADMINISTRATION_CRONJOBS => new UI\Route\Templated\Page(
                       $template, $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
@@ -524,7 +527,7 @@ namespace Papaya\Administration {
                   $response = new Response();
                   $response->setContentType('application/xml');
                   $response->content(new Response\Content\Text($rpcCall->getXML()));
-                  if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+                  if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_RUNTIME_REQUEST, FALSE)) {
                     \Papaya\Request\Log::getInstance()->emit();
                     $this->papaya()->database->close();
                   }

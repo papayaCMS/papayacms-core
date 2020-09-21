@@ -35,7 +35,7 @@ namespace Papaya\Administration\RichText {
     public function appendTo(XMLElement $parent) {
       $reference = new UI\Reference($this->papaya()->request->getURL());
       if ($this->parameters()->has('PAPAYA_ADMINISTRATION_USE_RICHTEXT')) {
-        $shouldBeActive = $this->parameters()->get('PAPAYA_ADMINISTRATION_USE_RICHTEXT', FALSE);
+        $shouldBeActive = $this->parameters()->get(\Papaya\Configuration\CMS::ADMINISTRATION_USE_RICHTEXT, FALSE);
         if ($shouldBeActive !== $this->isActive()) {
           // change and reload
           $this->papaya()->session->setValue(
@@ -97,7 +97,7 @@ namespace Papaya\Administration\RichText {
       if (isset($this->papaya()->administrationUser->options['PAPAYA_USE_RICHTEXT'])) {
         return $this->_isAvailable = (bool)$this->papaya()->administrationUser->options['PAPAYA_USE_RICHTEXT'];
       }
-      return $this->_isAvailable = (bool)$this->papaya()->options->get('PAPAYA_USE_RICHTEXT', FALSE);
+      return $this->_isAvailable = (bool)$this->papaya()->options->get(\Papaya\Configuration\CMS::USE_RICHTEXT, FALSE);
     }
   }
 

@@ -350,6 +350,11 @@ class NameTest extends \Papaya\TestCase {
         '/'
       ),
       array(
+        array('foo', '42/bar',  '1'),
+        'foo*42/bar*1',
+        '*'
+      ),
+      array(
         array('foo/bar', '1'),
         'foo/bar[1]',
         '[]'

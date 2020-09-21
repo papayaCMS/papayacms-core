@@ -15,6 +15,7 @@
 namespace Papaya\UI\ListView\SubItem;
 
 use Papaya\Request;
+use Papaya\Request\Parameters\GroupSeparator;
 use Papaya\UI;
 use Papaya\XML;
 
@@ -62,7 +63,7 @@ class Checkbox extends UI\ListView\SubItem {
       'input',
       [
         'type' => 'checkbox',
-        'name' => $parameterName.'[]',
+        'name' => $parameterName.GroupSeparator::ARRAY_SYNTAX,
         'value' => $this->_value
       ]
     );

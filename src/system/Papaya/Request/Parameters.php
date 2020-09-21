@@ -16,6 +16,7 @@ namespace Papaya\Request;
 
 use Papaya\BaseObject;
 use Papaya\Filter;
+use Papaya\Request\Parameters\GroupSeparator;
 
 /**
  * Papaya Request Parameters Handling
@@ -183,7 +184,7 @@ class Parameters extends BaseObject\Parameters {
    *
    * @return array
    */
-  public function getList($groupSeparator = '[]') {
+  public function getList($groupSeparator = GroupSeparator::ARRAY_SYNTAX) {
     $result = $this->flattenArray((array)$this, $groupSeparator);
     \uksort($result, 'strnatcasecmp');
     return $result;
@@ -204,7 +205,7 @@ class Parameters extends BaseObject\Parameters {
     foreach ($parameters as $name => $value) {
       if (empty($prefix)) {
         $fullName = $name;
-      } elseif ('[]' === $groupSeparator || empty($groupSeparator)) {
+      } elseif (GroupSeparator::ARRAY_SYNTAX === $groupSeparator || empty($groupSeparator)) {
         $fullName = $prefix.'['.$name.']';
       } else {
         $fullName = $prefix.$groupSeparator.$name;

@@ -142,10 +142,10 @@ class Path {
     if (isset($_SERVER['SCRIPT_FILENAME'])) {
       $path = \dirname($_SERVER['SCRIPT_FILENAME']);
       if (NULL !== $options) {
-        if ($options->get('PAPAYA_ADMIN_PAGE', FALSE)) {
+        if ($options->get(\Papaya\Configuration\CMS::ADMIN_PAGE, FALSE)) {
           $path = \dirname($path);
         }
-        if ($webPath = $options->get('PAPAYA_PATH_WEB', '/')) {
+        if ($webPath = $options->get(\Papaya\Configuration\CMS::PATH_WEB, '/')) {
           $path = \substr($path, 0, 1 - \strlen($webPath));
         }
       }
@@ -157,10 +157,11 @@ class Path {
   /**
    * Get the /vendor path
    *
+   * @param \Papaya\Configuration $options
    * @return string
    */
-  public static function getVendorPath() {
-    $root = self::getDocumentRoot();
+  public static function getVendorPath($options = NULL) {
+    $root = self::getDocumentRoot($options);
     if (\is_dir($root.'/../vendor')) {
       return '../vendor/';
     }
@@ -170,10 +171,11 @@ class Path {
   /**
    * Get the /src path
    *
+   * @param \Papaya\Configuration $options
    * @return string
    */
-  public static function getSourcePath() {
-    $root = self::getDocumentRoot();
+  public static function getSourcePath($options = NULL) {
+    $root = self::getDocumentRoot($options);
     if (\is_dir($root.'/../src')) {
       return '../src/';
     }

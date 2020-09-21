@@ -46,7 +46,7 @@ class Status extends Content\Page\Status {
    * @return bool
    */
   public function load($id) {
-    $expires = $this->papaya()->options->get('PAPAYA_CACHE_DATA_TIME', 0);
+    $expires = $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_DATA_TIME, 0);
     if (($cache = $this->cache()) &&
       ($content = $cache->read('pages', 'status', $id, $expires))) {
       $this->assign(\unserialize($content));

@@ -13,61 +13,108 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-/**
-* error level information
-* @var integer
-*/
-define('PAPAYA_FEED_ERROR_INFO', 1);
-/**
-* error level warning
-* @var integer
-*/
-define('PAPAYA_FEED_ERROR_WARNING', 2);
-/**
-* error level fatal error
-* @var integer
-*/
-define('PAPAYA_FEED_ERROR_FATAL', 3);
+use Papaya\Filter\Factory as Filters;
 
 /**
-* error code required element
-* @var integer
-*/
-define('PAPAYA_FEED_ERRORCODE_REQUIRED', 1);
+ * error level information
+ *
+ * @var integer
+ */
+define('self::FEED_ERROR_INFO', 1);
 /**
-* error code wrong format
-* @var integer
-*/
-define('PAPAYA_FEED_ERRORCODE_FORMAT', 2);
+ * error level warning
+ *
+ * @var integer
+ */
+define('self::FEED_ERROR_WARNING', 2);
 /**
-* error code duplicate for unique element
-* @var integer
-*/
-define('PAPAYA_FEED_ERRORCODE_DUPLICATE', 3);
+ * error level fatal error
+ *
+ * @var integer
+ */
+define('self::FEED_ERROR_FATAL', 3);
 
 /**
-* Validator for an Atom 1.0 feed
-*
-* @package Papaya-Library
-* @subpackage XML-Feed
-*/
+ * error code required element
+ *
+ * @var integer
+ */
+define('self::FEED_ERROR_CODE_REQUIRED', 1);
+/**
+ * error code wrong format
+ *
+ * @var integer
+ */
+define('self::FEED_ERROR_CODE_FORMAT', 2);
+/**
+ * error code duplicate for unique element
+ *
+ * @var integer
+ */
+define('self::FEED_ERROR_CODE_DUPLICATE', 3);
+
+/**
+ * Validator for an Atom 1.0 feed
+ *
+ * @package Papaya-Library
+ * @subpackage XML-Feed
+ */
 class papaya_atom_validate {
+  /**
+   * error level information
+   *
+   * @var integer
+   */
+  const FEED_ERROR_INFO = 1;
+  /**
+   * error level warning
+   *
+   * @var integer
+   */
+  const FEED_ERROR_WARNING = 2;
+  /**
+   * error level fatal error
+   *
+   * @var integer
+   */
+  const FEED_ERROR_FATAL = 3;
 
   /**
-  * error list
-  * @var array
-  */
-  var $_errors = array();
+   * error code required element
+   *
+   * @var integer
+   */
+  const FEED_ERROR_CODE_REQUIRED = 1;
   /**
-  * feed object
-  * @var papaya_atom_feed
-  */
-  var $_feed = NULL;
+   * error code wrong format
+   *
+   * @var integer
+   */
+  const FEED_ERROR_CODE_FORMAT = 2;
+  /**
+   * error code duplicate for unique element
+   *
+   * @var integer
+   */
+  const FEED_ERROR_CODE_DUPLICATE = 3;
+
+  /**
+   * error list
+   *
+   * @var array
+   */
+  private $_errors = [];
+  /**
+   * feed object
+   *
+   * @var papaya_atom_feed
+   */
+  private $_feed = NULL;
 
   /**
    * @var array
    */
-  private $_ids = array();
+  private $_ids = [];
 
   /**
    * @var boolean
@@ -80,51 +127,54 @@ class papaya_atom_validate {
   private $_allEntriesHaveAuthors = FALSE;
 
   /**
-  * create validator object and attach feed
-  * @param $feed
-  */
-  function __construct(papaya_atom_feed $feed) {
+   * create validator object and attach feed
+   *
+   * @param $feed
+   */
+  public function __construct(papaya_atom_feed $feed) {
     $this->_feed = $feed;
   }
 
   /**
-  * add error to list
-  * @param integer $level
-  * @param integer $code
-  * @param string $element
-  * @param string $index
-  * @param string $property
-  * @return void
-  */
-  function _addError($level, $code, $element, $index, $property) {
+   * add error to list
+   *
+   * @param integer $level
+   * @param integer $code
+   * @param string $element
+   * @param string $index
+   * @param string $property
+   * @return void
+   */
+  private function _addError($level, $code, $element, $index, $property) {
     if (!(isset($this->_errors) && is_array($this->_errors))) {
-      $this->_errors = array();
+      $this->_errors = [];
     }
-    $this->_errors[] = array(
+    $this->_errors[] = [
       'level' => $level,
       'code' => $code,
       'element' => $element,
       'index' => $index,
       'property' => $property
-    );
+    ];
   }
 
   /**
-  * get errors in html format
-  * @return string
-  */
-  function getErrorsHTML() {
+   * get errors in html format
+   *
+   * @return string
+   */
+  public function getErrorsHTML() {
     if (isset($this->_errors) && is_array($this->_errors) && count($this->_errors) > 0) {
       $result = '<ul>';
       foreach ($this->_errors as $error) {
         switch ($error['level']) {
-        case PAPAYA_FEED_ERROR_INFO :
+        case self::FEED_ERROR_INFO :
           $errorLevel = 'INFORMATION';
           break;
-        case PAPAYA_FEED_ERROR_WARNING :
+        case self::FEED_ERROR_WARNING :
           $errorLevel = 'WARNING';
           break;
-        case PAPAYA_FEED_ERROR_FATAL :
+        case self::FEED_ERROR_FATAL :
           $errorLevel = 'FATAL ERROR';
           break;
         default :
@@ -132,13 +182,13 @@ class papaya_atom_validate {
           break;
         }
         switch ($error['code']) {
-        case PAPAYA_FEED_ERRORCODE_REQUIRED :
+        case self::FEED_ERROR_CODE_REQUIRED :
           $errorMsg = '%1$s: Missing "%4$s" for "%2$s#%3$s".';
           break;
-        case PAPAYA_FEED_ERRORCODE_FORMAT :
+        case self::FEED_ERROR_CODE_FORMAT :
           $errorMsg = '%1$s: Invalid data in "%4$s" for "%2$s#%3$s".';
           break;
-        case PAPAYA_FEED_ERRORCODE_DUPLICATE :
+        case self::FEED_ERROR_CODE_DUPLICATE :
           $errorMsg = '%1$s: Duplicate "%$4s" for "%$2s#%$3s".';
           break;
         default :
@@ -162,32 +212,33 @@ class papaya_atom_validate {
   }
 
   /**
-  * validate attached feed
-  * @return void
-  */
-  function validate() {
-    $this->_errors = array();
-    $this->_ids = array();
+   * validate attached feed
+   *
+   * @return void
+   */
+  public function validate() {
+    $this->_errors = [];
+    $this->_ids = [];
     $this->_feedHasAuthor = FALSE;
     $this->_allEntriesHaveAuthors = TRUE;
     $feedId = $this->_feed->id->get();
     if (empty($feedId)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'feed', 0, 'id'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'feed', 0, 'id'
       );
     }
     if (empty($this->_feed->updated)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'feed', 0, 'updated'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'feed', 0, 'updated'
       );
     } elseif ($this->_feed->updated <= 0) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_FORMAT, 'feed', 0, 'updated'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_FORMAT, 'feed', 0, 'updated'
       );
     }
     if ($this->_feed->title->isEmpty()) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'feed', 0, 'title'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'feed', 0, 'title'
       );
     }
     $elementCount = $this->_feed->authors->count();
@@ -219,40 +270,41 @@ class papaya_atom_validate {
 
     if (!($this->_feedHasAuthor || $this->_allEntriesHaveAuthors)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'feed', 0, 'author'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'feed', 0, 'author'
       );
     }
   }
 
   /**
-  * validate ffed entry
-  * @param papaya_atom_entry $entry
-  * @param integer $idx
-  * @return void
-  */
-  function _validateEntry($entry, $idx) {
+   * validate feed entry
+   *
+   * @param papaya_atom_entry $entry
+   * @param integer $idx
+   * @return void
+   */
+  private function _validateEntry($entry, $idx) {
     $entryId = $entry->id->get();
     if (empty($entryId)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'entry', $idx, 'id'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'entry', $idx, 'id'
       );
     } elseif (isset($this->_ids[$entryId]) && $entry->updated != $this->_ids[$entryId]) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_DUPLICATE, 'entry', $idx, 'id'
+        self::FEED_ERROR_WARNING, self::FEED_ERROR_CODE_DUPLICATE, 'entry', $idx, 'id'
       );
     } elseif (isset($this->_ids[$this->_feed->id->get()])) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_DUPLICATE, 'entry', $idx, 'id'
+        self::FEED_ERROR_WARNING, self::FEED_ERROR_CODE_DUPLICATE, 'entry', $idx, 'id'
       );
     }
     if (empty($entry->updated)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'entry', $idx, 'updated'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'entry', $idx, 'updated'
       );
       $this->_ids[$entryId] = 0;
     } elseif ($entry->updated <= 0) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_FORMAT, 'entry', $idx, 'updated'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_FORMAT, 'entry', $idx, 'updated'
       );
       $this->_ids[$entryId] = 0;
     } else {
@@ -260,16 +312,16 @@ class papaya_atom_validate {
     }
     if ($entry->title->isEmpty()) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, 'entry', $idx, 'title'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, 'entry', $idx, 'title'
       );
     }
     $entryHasAuthor = FALSE;
     $elementCount = $entry->authors->count();
     if ($elementCount > 0) {
-      for ($idx = 0; $idx < $elementCount; $idx++) {
+      for ($i = 0; $i < $elementCount; $i++) {
         /** @var papaya_atom_person $author */
-        $author = $entry->authors->item($idx);
-        if ($this->_validatePerson($author, $idx, 'feed::author')) {
+        $author = $entry->authors->item($i);
+        if ($this->_validatePerson($author, $i, 'feed::author')) {
           $entryHasAuthor = TRUE;
         }
       }
@@ -278,44 +330,45 @@ class papaya_atom_validate {
       $this->_allEntriesHaveAuthors = FALSE;
       if ($this->_feedHasAuthor) {
         $this->_addError(
-          PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_REQUIRED, 'entry', $idx, 'author'
+          self::FEED_ERROR_WARNING, self::FEED_ERROR_CODE_REQUIRED, 'entry', $idx, 'author'
         );
       }
     }
     $elementCount = $entry->contributors->count();
     if ($elementCount > 0) {
-      for ($idx = 0; $idx < $elementCount; $idx++) {
+      for ($i = 0; $i < $elementCount; $i++) {
         /** @var papaya_atom_person $contributor */
-        $contributor = $entry->contributors->item($idx);
+        $contributor = $entry->contributors->item($i);
         $this->_validatePerson($contributor, $idx, 'feed::contributor');
       }
     }
   }
 
   /**
-  * validate person object
-  * @param papaya_atom_person $person
-  * @param integer $idx
-  * @param string $elementType
-  * @return boolean
-  */
-  function _validatePerson($person, $idx, $elementType) {
+   * validate person object
+   *
+   * @param papaya_atom_person $person
+   * @param integer $idx
+   * @param string $elementType
+   * @return boolean
+   */
+  private function _validatePerson($person, $idx, $elementType) {
     $result = TRUE;
     if (empty($person->name)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_FATAL, PAPAYA_FEED_ERRORCODE_REQUIRED, $elementType, $idx, 'name'
+        self::FEED_ERROR_FATAL, self::FEED_ERROR_CODE_REQUIRED, $elementType, $idx, 'name'
       );
       $result = FALSE;
     }
-    if (!\Papaya\Filter\Factory::isEmail($person->email, FALSE)) {
+    if (!Filters::isEmail($person->email, FALSE)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_FORMAT, $elementType, $idx, 'email'
+        self::FEED_ERROR_WARNING, self::FEED_ERROR_CODE_FORMAT, $elementType, $idx, 'email'
       );
       $result = FALSE;
     }
-    if (!\Papaya\Filter\Factory::isURL($person->uri, FALSE)) {
+    if (!Filters::isURL($person->uri, FALSE)) {
       $this->_addError(
-        PAPAYA_FEED_ERROR_WARNING, PAPAYA_FEED_ERRORCODE_FORMAT, $elementType, $idx, 'uri'
+        self::FEED_ERROR_WARNING, self::FEED_ERROR_CODE_FORMAT, $elementType, $idx, 'uri'
       );
       $result = FALSE;
     }

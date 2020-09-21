@@ -19,6 +19,7 @@ namespace Papaya\Application;
  * allows to declare the profiles as properties
  *
  * @property \Papaya\Database\Manager $database
+ * @property \papaya_page|NULL $front
  * @property \Papaya\UI\Images images
  * @property \Papaya\Content\Languages $languages
  * @property \Papaya\Message\Manager $messages

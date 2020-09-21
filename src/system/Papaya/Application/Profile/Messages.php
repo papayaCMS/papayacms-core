@@ -42,7 +42,7 @@ namespace Papaya\Application\Profile {
       try {
         $database = $application->database;
         if (
-          $application->options->get('PAPAYA_LOG_ENABLE_EXTERNAL', FALSE) &&
+          $application->options->get(\Papaya\Configuration\CMS::LOG_ENABLE_EXTERNAL, FALSE) &&
           $database->getConnector()->connect()
         ) {
           $plugins = $application->plugins;

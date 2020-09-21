@@ -70,8 +70,8 @@ class papaya_mediadb_browser extends base_mediadb {
   * initialize languageselector and session parameters
   */
   function initialize() {
-    $this->dataDirectory = $this->papaya()->options->get('PAPAYA_PATH_MEDIAFILES');
-    $this->thumbnailDirectory = $this->papaya()->options->get('PAPAYA_PATH_THUMBFILES');
+    $this->dataDirectory = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_MEDIAFILES);
+    $this->thumbnailDirectory = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_THUMBFILES);
     $this->sessionParamName = 'PAPAYA_SESS_'.$this->paramName;
     $this->initializeParams();
     $this->sessionParams = $this->getSessionValue($this->sessionParamName);
@@ -876,7 +876,7 @@ class papaya_mediadb_browser extends base_mediadb {
         $foldersWithoutName[] = $folderId;
       }
     }
-    $defaultLanguage = $this->papaya()->options->get('PAPAYA_CONTENT_LANGUAGE');
+    $defaultLanguage = $this->papaya()->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE);
     if ($defaultLanguage != $this->papaya()->administrationLanguage->id &&
         isset($foldersWithoutName) && is_array($foldersWithoutName) &&
         count($foldersWithoutName) > 0) {

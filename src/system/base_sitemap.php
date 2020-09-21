@@ -322,7 +322,7 @@ class base_sitemap extends base_db {
       $this->tableLanguages,
       $this->tableViewLinks,
       $this->tableViewModes,
-      $this->papaya()->options->get('PAPAYA_URL_EXTENSTION', 'html')
+      $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSTION, 'html')
     );
     header('Content-Type: text/html; charset=utf-8');
     echo '<html><head>'.
@@ -512,7 +512,7 @@ class base_sitemap extends base_db {
         $this->topicTree[$row['prev']]['childcount'] = 1;
       }
 
-      if (isset($GLOBALS['PAPAYA_PAGE']) && !$GLOBALS['PAPAYA_PAGE']->public) {
+      if (!$this->papaya()->front->public) {
         //preview - no domain restrictions
         $domainRestriction = FALSE;
       } elseif (strpos(strtolower($this->baseURL), 'http://') === 0) {

@@ -12,40 +12,32 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Content;
+namespace Papaya\Content {
 
-use Papaya\Database;
+  use Papaya\Database;
 
-/**
- * Provide data encapsulation for the configuration options.
- *
- * @package Papaya-Library
- * @subpackage Content
- */
-class Configuration
-  extends Database\BaseObject\Records {
   /**
-   * Map field names to value identifiers
+   * Provide data encapsulation for the configuration options.
    *
-   * @var array
+   * @package Papaya-Library
+   * @subpackage Content
    */
-  protected $_fieldMapping = [
-    'opt_name' => 'name',
-    'opt_value' => 'value'
-  ];
-
-  /**
-   * Load all options
-   */
-  public function load() {
-    $sql =
-      /* @lang TEXT */
-      'SELECT opt_name, opt_value
-         FROM %s
-        ORDER BY opt_name';
-    $parameters = [
-      $this->databaseGetTableName(Tables::OPTIONS)
+  class Configuration
+    extends Database\Records\Lazy {
+    /**
+     * Map field names to value identifiers
+     *
+     * @var array
+     */
+    protected $_fields = [
+      'name' => 'opt_name',
+      'value' => 'opt_value'
     ];
-    return $this->_loadRecords($sql, $parameters, 'opt_name');
+
+    protected $_orderByProperties = ['name'];
+
+    protected $_identifierProperties = ['name'];
+
+    protected $_tableName = Tables::OPTIONS;
   }
 }

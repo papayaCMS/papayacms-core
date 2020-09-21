@@ -16,6 +16,7 @@ namespace Papaya\UI {
 
   use Papaya\Application;
   use Papaya\Request;
+  use Papaya\Request\Parameters\GroupSeparator;
   use Papaya\URL;
 
   /**
@@ -225,16 +226,15 @@ namespace Papaya\UI {
     /**
      * Specify a custom parameter group separator
      *
-     * @param string $separator Allowed values: '[]', ',', ':', '/', '*', '!'
-     *
+     * @param string $separator
      * @return self
      * @throws \InvalidArgumentException
      *
      */
     public function setParameterGroupSeparator($separator) {
       if ('' === (string)$separator) {
-        $this->_parameterGroupSeparator = '[]';
-      } elseif (in_array($separator, ['[]', ',', ':', '/', '*', '!'], TRUE)) {
+        $this->_parameterGroupSeparator = Request\Parameters\GroupSeparator::ARRAY_SYNTAX;
+      } elseif (Request\Parameters\GroupSeparator::validate($separator, TRUE)) {
         $this->_parameterGroupSeparator = $separator;
       } else {
         throw new \InvalidArgumentException(
@@ -253,7 +253,7 @@ namespace Papaya\UI {
       if (NULL === $this->_parameterGroupSeparator) {
         $this->url();
       }
-      return empty($this->_parameterGroupSeparator) ? '[]' : $this->_parameterGroupSeparator;
+      return empty($this->_parameterGroupSeparator) ? GroupSeparator::ARRAY_SYNTAX : $this->_parameterGroupSeparator;
     }
 
     /**

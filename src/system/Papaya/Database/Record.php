@@ -140,7 +140,7 @@ abstract class Record
   }
 
   /**
-   * Create a filter condition object attached to this database accesss and mapping
+   * Create a filter condition object attached to this database access and mapping
    *
    * @return Condition\Root
    */
@@ -170,7 +170,7 @@ abstract class Record
   }
 
   /**
-   * Delte record from database table
+   * Delete record from database table
    *
    * @return bool
    */
@@ -192,7 +192,7 @@ abstract class Record
   }
 
   /**
-   * Internal method to load record data using sql and paramters.
+   * Internal method to load record data using sql and parameters.
    *
    * @param string $sql
    * @param array $parameters
@@ -311,7 +311,7 @@ abstract class Record
   }
 
   /**
-   * Getter/Setter for the key subobject. This conatins informations about the identification
+   * Getter/Setter for the key subobject. This contains information about the identification
    * of the record.
    *
    * @param Interfaces\Key $key

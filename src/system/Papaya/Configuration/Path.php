@@ -33,6 +33,8 @@ class Path extends \Papaya\Application\BaseObject {
 
   const PATH_UPLOAD = 'upload';
 
+  const PATH_TEMPLATES = 'templates';
+
   /**
    * @var string
    */
@@ -69,13 +71,16 @@ class Path extends \Papaya\Application\BaseObject {
   }
 
   /**
-   * Get the system path defined by the identifer and the subdirectory as
+   * Get the system path defined by the identifier and the subdirectory as
    * a string
    *
    * @return string
    */
   public function get() {
     switch ($this->_basePath) {
+      case self::PATH_TEMPLATES :
+        $result = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_TEMPLATES, '/');
+      break;
       case self::PATH_THEMES :
         $result = $this->themeHandler()->getLocalPath().$this->_path;
       break;
@@ -84,17 +89,17 @@ class Path extends \Papaya\Application\BaseObject {
       break;
       case self::PATH_INSTALLATION :
         $result = Utility\File\Path::getDocumentRoot().
-          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/').
           $this->_path;
       break;
       case self::PATH_ADMINISTRATION :
         $result = Utility\File\Path::getDocumentRoot().
-          $this->papaya()->options->get('PAPAYA_PATH_WEB', '/').
-          $this->papaya()->options->get('PAPAYA_PATH_ADMIN', '/').
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/').
+          $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/').
           $this->_path;
       break;
       case self::PATH_UPLOAD :
-        $result = $this->papaya()->options->get('PAPAYA_PATH_DATA', '/').
+        $result = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_DATA, '/').
           $this->_path;
       break;
       default :

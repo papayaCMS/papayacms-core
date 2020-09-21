@@ -49,8 +49,8 @@ namespace Papaya\Administration\UI\Route {
         );
       }
       $path = $router->getLocalPath().'/script/tiny_mce3/';
-      $cacheTime = $this->papaya()->options->get('PAPAYA_CACHE_THEMES', FALSE)
-        ? $this->papaya()->options->get('PAPAYA_CACHE_TIME_THEMES', 0) : 0;
+      $cacheTime = $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_THEMES, FALSE)
+        ? $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_TIME_THEMES, 0) : 0;
 
       $content = '';
 

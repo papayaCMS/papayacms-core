@@ -69,7 +69,7 @@ class XSLT extends \Papaya\Template {
     if (NULL !== $engine) {
       $this->_engine = $engine;
     } elseif (NULL === $this->_engine) {
-      $preferred = $this->papaya()->options->get('PAPAYA_XSLT_EXTENSION', 'xslcache');
+      $preferred = $this->papaya()->options->get(\Papaya\Configuration\CMS::XSLT_EXTENSION, 'xslcache');
       $this->_engine = $engine = new Engine\XSLT();
       $engine->useCache('xsl' !== $preferred);
     }
@@ -105,7 +105,7 @@ class XSLT extends \Papaya\Template {
    * @return mixed
    */
   public function process($engine) {
-    if ($this->papaya()->options->get('PAPAYA_LOG_RUNTIME_TEMPLATE', FALSE)) {
+    if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_RUNTIME_TEMPLATE, FALSE)) {
       $timer = new \Papaya\Profiler\Timer();
       $timer->papaya($this->papaya());
     } else {

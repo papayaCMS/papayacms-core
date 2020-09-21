@@ -158,7 +158,7 @@ class Tables extends \Papaya\Application\BaseObject {
    */
   public function get($tableName, $prefix = TRUE) {
     if ($prefix && isset($this->papaya()->options)) {
-      $prefixString = $this->papaya()->options->get('PAPAYA_DB_TABLEPREFIX', 'papaya');
+      $prefixString = $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX, 'papaya');
       if ('' !== $prefixString && 0 !== \strpos($tableName, $prefixString.'_')) {
         return $prefixString.'_'.$tableName;
       }

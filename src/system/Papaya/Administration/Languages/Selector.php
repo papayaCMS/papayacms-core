@@ -155,13 +155,13 @@ class Selector extends UI\Control\Interactive {
         $this->_current = $languages->getLanguage($id);
       } elseif (
         ($user = $application->administrationUser) &&
-        ($id = $user->options->get('PAPAYA_CONTENT_LANGUAGE')) &&
+        ($id = $user->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE)) &&
         ($this->_current = $languages->getLanguage($id))
       ) {
         $application->session->values()->set([$this, 'CONTENT_LANGUAGE'], $this->_current->id);
-      } elseif ($id = $application->options->get('PAPAYA_CONTENT_LANGUAGE')) {
+      } elseif ($id = $application->options->get(\Papaya\Configuration\CMS::CONTENT_LANGUAGE)) {
         $this->_current = $languages->getLanguage($id);
-      } elseif ($code = $application->options->get('PAPAYA_UI_LANGUAGE')) {
+      } elseif ($code = $application->options->get(\Papaya\Configuration\CMS::UI_LANGUAGE)) {
         $this->_current = $languages->getLanguageByCode($code);
       }
     }

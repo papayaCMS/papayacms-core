@@ -686,8 +686,7 @@ class base_boxeslinks extends base_db {
    * @return mixed string box cache id or boolean FALSE
    */
   function getBoxCacheId(array $boxData, $box, $lngId, $viewModeId) {
-    if (isset($box) && is_object($box) && isset($GLOBALS['PAPAYA_PAGE']) &&
-        $GLOBALS['PAPAYA_PAGE']->public) {
+    if (isset($box) && is_object($box) && $this->papaya()->front->public) {
       if ($box instanceof \Papaya\Plugin\Cacheable) {
         $definition = $box->cacheable();
       } elseif (method_exists($box, 'getCacheId')) {

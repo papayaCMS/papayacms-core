@@ -28,7 +28,7 @@ namespace Papaya\Administration\UI\Route {
     public function __invoke(Router $router, $address = NULL, $level = 0) {
       $application = $router->papaya();
       if (
-        '' !== ($dataPath = $application->options->get('PAPAYA_PATH_DATA')) &&
+        '' !== ($dataPath = $application->options->get(\Papaya\Configuration\CMS::PATH_DATA)) &&
         FALSE !== \strpos($dataPath, $_SERVER['DOCUMENT_ROOT']) &&
         \file_exists($dataPath) && (!\file_exists($dataPath.'.htaccess'))
       ) {
@@ -37,7 +37,7 @@ namespace Papaya\Administration\UI\Route {
           'is missing or not accessible. Please secure the directory.'
         );
       }
-      if (!$application->options->get('PAPAYA_PASSWORD_REHASH', FALSE)) {
+      if (!$application->options->get(\Papaya\Configuration\CMS::PASSWORD_REHASH, FALSE)) {
         $application->messages->displayWarning(
           'The password rehashing is not active. Please activate PAPAYA_PASSWORD_REHASH.'.
           ' Make sure the authentication tables are up to date before activating'.

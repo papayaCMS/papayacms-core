@@ -51,27 +51,27 @@ namespace Papaya\Administration\UI\Route {
       $template = $this->getTemplate();
       $template->parameters()->assign(
         [
-          'PAGE_PROJECT' => $application->options->get('PAPAYA_PROJECT_TITLE', 'CMS Project'),
+          'PAGE_PROJECT' => $application->options->get(\Papaya\Configuration\CMS::PROJECT_TITLE, 'CMS Project'),
           'PAGE_REVISION' => \trim(\constant('PAPAYA_WEBSITE_REVISION')),
-          'PAPAYA_DBG_DEVMODE' => $application->options->get('PAPAYA_DBG_DEVMODE', FALSE),
+          'PAPAYA_DBG_DEVMODE' => $application->options->get(\Papaya\Configuration\CMS::DBG_DEVMODE, FALSE),
           'PAPAYA_USER_AUTHORIZED' => $application->administrationUser->isValid,
           'PAPAYA_UI_LANGUAGE' => $application->administrationUser->options['PAPAYA_UI_LANGUAGE'],
           'PAPAYA_UI_THEME' => preg_replace(
             '/.ini\s*$/i',
             '',
-            $application->options->get('PAPAYA_UI_THEME', 'green')
+            $application->options->get(\Papaya\Configuration\CMS::UI_THEME, 'green')
           ),
           'PAPAYA_USE_RICHTEXT' => $application->administrationRichText->isActive(),
           'PAPAYA_RICHTEXT_CONTENT_CSS' =>
-            $this->theme()->getURL(NULL, $application->options->get('PAPAYA_RICHTEXT_CONTENT_CSS')),
+            $this->theme()->getURL(NULL, $application->options->get(\Papaya\Configuration\CMS::RICHTEXT_CONTENT_CSS)),
           'PAPAYA_RICHTEXT_TEMPLATES_FULL' =>
-            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_FULL'),
+            $application->options->get(\Papaya\Configuration\CMS::RICHTEXT_TEMPLATES_FULL),
           'PAPAYA_RICHTEXT_TEMPLATES_SIMPLE' =>
-            $application->options->get('PAPAYA_RICHTEXT_TEMPLATES_SIMPLE'),
+            $application->options->get(\Papaya\Configuration\CMS::RICHTEXT_TEMPLATES_SIMPLE),
           'PAPAYA_RICHTEXT_LINK_TARGET' =>
-            $application->options->get('PAPAYA_RICHTEXT_LINK_TARGET'),
+            $application->options->get(\Papaya\Configuration\CMS::RICHTEXT_LINK_TARGET),
           'PAPAYA_RICHTEXT_BROWSER_SPELLCHECK' =>
-            $application->options->get('PAPAYA_RICHTEXT_BROWSER_SPELLCHECK')
+            $application->options->get(\Papaya\Configuration\CMS::RICHTEXT_BROWSER_SPELLCHECK)
         ]
       );
       if ($this->_showUserStatus && $application->administrationUser->isValid) {
@@ -83,7 +83,7 @@ namespace Papaya\Administration\UI\Route {
       }
       $response = new Response();
       $response->content(new Response\Content\Text($template->getOutput()));
-      if ($application->options->get('PAPAYA_LOG_RUNTIME_REQUEST', FALSE)) {
+      if ($application->options->get(\Papaya\Configuration\CMS::LOG_RUNTIME_REQUEST, FALSE)) {
         \Papaya\Request\Log::getInstance()->emit();
         $application->database->close();
       }
