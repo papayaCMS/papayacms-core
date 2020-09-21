@@ -143,12 +143,6 @@ namespace Papaya\Administration\UI\Navigation {
           'System configuration',
           Administration\Permissions::SYSTEM_SETTINGS
         ],
-        Administration\UI::ADMINISTRATION_SETTINGS.'-new' => [
-          'items-option',
-          'Settings (Refactor)',
-          'System configuration',
-          Administration\Permissions::SYSTEM_SETTINGS.'-new'
-        ],
         Administration\UI::ADMINISTRATION_PROTOCOL => [
           'categories-protocol',
           'Protocol',

@@ -19,7 +19,6 @@ namespace Papaya\Administration\Settings\Commands {
   use Papaya\Administration\Settings\SettingsPage;
   use Papaya\Configuration\CMS;
   use Papaya\Content\Configuration\Setting;
-  use Papaya\Database;
   use Papaya\UI\Control\Command\Dialog\Database\Record as DatabaseDialogCommand;
   use Papaya\UI\Dialog;
   use Papaya\UI\Dialog\Button\Submit as SubmitButton;

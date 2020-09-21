@@ -406,9 +406,6 @@ namespace Papaya\Administration {
                       ]
                     ),
                     self::ADMINISTRATION_SETTINGS => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings'], \papaya_options::class, Permissions::SYSTEM_SETTINGS
-                    ),
-                    self::ADMINISTRATION_SETTINGS.'-new' => new UI\Route\Templated\Page(
                       $template, $images['items-option'], ['Administration', 'Settings'], SettingsPage::class, Permissions::SYSTEM_SETTINGS
                     ),
                     self::ADMINISTRATION_CRONJOBS => new UI\Route\Templated\Page(
