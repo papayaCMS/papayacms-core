@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration\CMS as CMSSettings;
+
 
 /**
 * Thumbnail creation
@@ -101,13 +103,13 @@ class base_thumbnail extends base_object {
   var $backgroundColor = array('r' => 255, 'g' => 255, 'b' => 255);
 
   /**
-  * save last calculated thumbsize in buffer
+  * save last calculated thumbnail size in buffer
   * @var array
   */
   var $lastThumbSize = array(0,0);
 
   /**
-  * store the memoty limit if it is changed, restore it in desctructor
+  * store the memory limit if it is changed, restore it in destructor
   *
   * @var NULL|string
   */
@@ -266,8 +268,8 @@ class base_thumbnail extends base_object {
   /**
   * Copies the file $fileName into memory
   *
-  * @param string $fileName filename of picturefile
-  * @param integer $fileType picturetype of file
+  * @param string $fileName filename of picture file
+  * @param integer $fileType type of picture file
   * @access public
   * @return resource|FALSE new created picture in memory
   */
@@ -362,10 +364,11 @@ class base_thumbnail extends base_object {
     if (isset($params) && is_array($params)) {
       $attrs = $params;
     }
-    if (empty($params['bgcolor']) &&
-        defined('PAPAYA_THUMBS_BACKGROUND') &&
-        PAPAYA_THUMBS_BACKGROUND != '') {
-      $attrs['bgcolor'] = PAPAYA_THUMBS_BACKGROUND;
+    if (
+      empty($params['bgcolor']) &&
+      ($thumbnailBackgroundColor = $this->papaya()->options->get(CMSSettings::THUMBS_BACKGROUND, '')) !== ''
+    ) {
+      $attrs['bgcolor'] = $thumbnailBackgroundColor;
     }
     if (defined('PAPAYA_THUMBS_TRANSPARENT') && PAPAYA_THUMBS_TRANSPARENT) {
       $attrs['transparent'] = 'yes';
@@ -407,7 +410,7 @@ class base_thumbnail extends base_object {
   * @param int $imageType
   * @param int $filter
   * @param array $params
-  * @return string the name of the thumbfile
+  * @return string the name of the thumbnail file
   */
   function getThumbFileName(
     $fileName, $versionId, $width, $height, $imageType, $filter, $params = NULL

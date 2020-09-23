@@ -199,4 +199,19 @@ class Arrays {
   public static function encodeAndQuoteIdList(array $list, $quote = ';', $separator = ';') {
     return $quote.self::encodeIdList($list, $separator).$quote;
   }
+
+  /**
+   * Return the first not null value in the array
+   *
+   * @param array $array
+   * @return mixed
+   */
+  public static function firstNotNull(array $array) {
+    foreach ($array as $value) {
+      if (NULL !== $value) {
+        return $value;
+      }
+    }
+    return NULL;
+  }
 }

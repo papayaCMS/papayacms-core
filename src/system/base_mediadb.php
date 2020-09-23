@@ -56,11 +56,6 @@ class base_mediadb extends base_db {
   var $flashVersion = '9.0.26';
 
   /**
-  * @var integer $mediaSubDirs depth of subdirectories below media/files
-  */
-  var $mediaSubDirs = PAPAYA_MEDIADB_SUBDIRECTORIES;
-
-  /**
   * @var integer $absCount absolute count of results for the last query, if limit was set
   */
   var $absCount = 0;
@@ -105,18 +100,6 @@ class base_mediadb extends base_db {
     'image/jpeg'
   );
   public $folderPermissions;
-
-  /**
-  * constructor, sets mediaSubDir if necessary
-  */
-  function __construct() {
-    parent::__construct();
-    if (defined('PAPAYA_NUM_MEDIADB_SUBDIRS') && PAPAYA_NUM_MEDIADB_SUBDIRS >= 0) {
-      $this->mediaSubDirs = PAPAYA_NUM_MEDIADB_SUBDIRS;
-    } else {
-      $this->mediaSubDirs = 1;
-    }
-  }
 
   // ---------------------------------- FILES ----------------------------------
 
@@ -1321,7 +1304,6 @@ class base_mediadb extends base_db {
    * calculate path for a given file id, create missing directories if necessary
    *
    * @access private
-   * @see base_mediadb::mediaSubDirs
    * @param string $fileId a file id
    * @param bool $createDirectories
    * @return mixed path for the given file id if found, otherwise FALSE
@@ -1343,7 +1325,9 @@ class base_mediadb extends base_db {
     if ($createDirectories) {
       $this->_ensureLocalDirectory($path, $createDirectories, $currentMask);
     }
-    $subDirectories = empty($this->mediaSubDirs) ? 0 : $this->mediaSubDirs;
+    $subDirectories = $this->papaya()->options->get(
+      CMS::MEDIADB_SUBDIRECTORIES, 1, new \Papaya\Filter\IntegerValue(1, 10)
+    );
     for ($i = 0; $i < $subDirectories; $i++) {
       $path .= $fileId[$i].'/';
       if ($createDirectories) {

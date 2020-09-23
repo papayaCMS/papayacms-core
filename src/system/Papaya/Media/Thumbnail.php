@@ -12,7 +12,55 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Media;
 
-class Thumbnail {
+namespace Papaya\Media {
+
+  use Papaya\Graphics\GD\Filter\CopyResampled;
+  use Papaya\Graphics\GD\GDLibrary;
+  use Papaya\Media\Thumbnail\Calculation;
+
+  class Thumbnail {
+    /**
+     * @var string|resource
+     */
+    private $_source;
+
+    /**
+     * @var GDLibrary
+     */
+    private $_gd;
+    /**
+     * @var Calculation
+     */
+    private $_calculation;
+
+    public function __construct($source, Calculation $calculation) {
+      $this->_source = $source;
+      $this->_calculation = $calculation;
+    }
+
+    public function gd(GDLibrary $gd = NULL) {
+      if (isset($gd)) {
+        $this->_gd = $gd;
+      } elseif (NULL === $this->_gd) {
+        $this->_gd = new GDLibrary();
+      }
+      return $this->_gd;
+    }
+
+    public function create() {
+      $gd = $this->gd();
+      if ($source = $gd->load($this->_source)) {
+        $calculation = $this->_calculation;
+        $destination = $gd->create(...$calculation->getTargetSize());
+        $destination->filter(
+          new CopyResampled(
+            $source, $calculation->getSource(), $calculation->getDestination()
+          )
+        );
+        return $destination;
+      }
+      return NULL;
+    }
+  }
 }

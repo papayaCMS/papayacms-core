@@ -16,6 +16,7 @@
     "ext-libxml": "*",
     "ext-xsl": "*",
     "ext-json": "*",
+    "ext-gd": "*",
     "psr/log": "1.*"
   },
   "require-dev": {
