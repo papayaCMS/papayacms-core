@@ -185,7 +185,7 @@ class base_thumbnail extends base_object {
   * @param boolean $readOnly Only read access needed
   * @return boolean TRUE if the image type is supported by GD, otherwise FALSE
   */
-  function checkTypeInGD($type, $readOnly = FALSE) {
+  private function checkTypeInGD($type, $readOnly = FALSE) {
     switch ($type) {
     case 1:
       if ($readOnly) {
@@ -228,7 +228,7 @@ class base_thumbnail extends base_object {
    * @access public
    * @return array array($newWidth, $newHeight)
    */
-  function calcSize($orgWidth, $orgHeight, $newWidth, $newHeight, $mode = NULL) {
+  private function calcSize($orgWidth, $orgHeight, $newWidth, $newHeight, $mode = NULL) {
     $this->lastThumbSize = array(0, 0);
     if ($orgWidth > 0 && $orgHeight > 0) {
       if ($newWidth < 1) {
@@ -273,7 +273,7 @@ class base_thumbnail extends base_object {
   * @access public
   * @return resource|FALSE new created picture in memory
   */
-  function loadFile($fileName, $fileType) {
+  private function loadFile($fileName, $fileType) {
     $result = FALSE;
     switch ($fileType) {
     case 1:
@@ -297,7 +297,7 @@ class base_thumbnail extends base_object {
   * @param integer $fileType target file type
   * @return FALSE|string absolute file name
   */
-  function saveFile($im, $fileName, $fileType) {
+  private function saveFile($im, $fileName, $fileType) {
     if (!(substr($fileName, 0, 1) == '/' || substr($fileName, 1, 1) == ':')) {
       // allows for complete path
       $fileLocation = $this->thumbnailDirectory.$fileName;
@@ -356,7 +356,7 @@ class base_thumbnail extends base_object {
    * @param array $params
    * @return string
    */
-  function getThumbFileId(
+  private function getThumbFileId(
     $fileName, $versionId, $width, $height, $imageType, $filter, $params = NULL
   ) {
     $result = $fileName.'v'.$versionId.'_'.$filter.'_'.$width.'x'.$height;
@@ -386,7 +386,7 @@ class base_thumbnail extends base_object {
    * @param string $fileName string the name of the image file
    * @return string $path string the absolute file path
    */
-  function getThumbFilePath($fileName) {
+  private function getThumbFilePath($fileName) {
     $path = '';
     if ($this->subDirectories > 0) {
       for ($i = 0; $i < $this->subDirectories; $i++) {
@@ -412,7 +412,7 @@ class base_thumbnail extends base_object {
   * @param array $params
   * @return string the name of the thumbnail file
   */
-  function getThumbFileName(
+  private function getThumbFileName(
     $fileName, $versionId, $width, $height, $imageType, $filter, $params = NULL
   ) {
     $result = $this->getThumbFilePath($fileName).
@@ -426,7 +426,7 @@ class base_thumbnail extends base_object {
   *
   * @return string File ending for thumbnail type
   */
-  function getThumbFileExt() {
+  private function getThumbFileExt() {
     switch ($this->thumbnailType) {
     case 1:
       return 'gif';
@@ -447,7 +447,7 @@ class base_thumbnail extends base_object {
   * @access public
   * @return integer
   */
-  function returnBytes($val) {
+  private function returnBytes($val) {
     return \Papaya\Utility\Bytes::fromString($val);
   }
 
@@ -457,7 +457,7 @@ class base_thumbnail extends base_object {
    * @param string $fileId
    * @return boolean
    */
-  function deleteThumbs($fileId) {
+  public function deleteThumbs($fileId) {
     $fileId = strtolower($fileId);
     $fileIdLength = strlen($fileId);
     $path = '';
@@ -486,7 +486,7 @@ class base_thumbnail extends base_object {
   * @param string $fileIdLength
   * @return void
   */
-  function deleteThumbFiles($directory, $fileId, $fileIdLength) {
+  private function deleteThumbFiles($directory, $fileId, $fileIdLength) {
     if (is_dir($directory)) {
       if (function_exists('glob')) {
         if ($thumbFiles = glob($directory.$fileId.'*')) {
@@ -519,7 +519,7 @@ class base_thumbnail extends base_object {
   * @param array $params
   * @return string
   */
-  function getThumbnail(
+  public function getThumbnail(
     $fileId, $fileVersion, $width = NULL, $height = NULL, $mode = NULL, $params = NULL
   ) {
     $this->width = (NULL !== $width)  ? $width  : PAPAYA_MEDIADB_THUMBSIZE;
@@ -570,7 +570,7 @@ class base_thumbnail extends base_object {
    * @param array $fileData
    * @return FALSE|string thumb file name
    */
-  function getThumb($fileId, $versionId, $bgColor = NULL, array $fileData = NULL) {
+  private function getThumb($fileId, $versionId, $bgColor = NULL, array $fileData = NULL) {
     if (empty($bgColor) &&
         defined('PAPAYA_THUMBS_BACKGROUND') &&
         PAPAYA_THUMBS_BACKGROUND != '') {
@@ -803,7 +803,7 @@ class base_thumbnail extends base_object {
   * @param int $level Level
   * @param string $msg Message
   */
-  function setError($level, $msg) {
+  private function setError($level, $msg) {
     unset($this->error);
     $this->error = array('level' => $level, 'msg' => $msg);
     if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_ERROR_THUMBNAIL, TRUE)) {
@@ -834,7 +834,7 @@ class base_thumbnail extends base_object {
    * @access public
    * @return mixed cache filename or FALSE
    */
-  function imageScale(
+  private function imageScale(
     $srcFileName, $destFileName, $orgType, $orgWidth, $orgHeight, $thumbWidth, $thumbHeight
   ) {
     $memoryNeeded = (
@@ -1007,7 +1007,7 @@ class base_thumbnail extends base_object {
    * @param null|int $yOffset
    * @return boolean Success
    */
-  function imageCrop(
+  private function imageCrop(
     $srcFileName, $destFileName, $orgType, $width, $height, $xOffset = NULL, $yOffset = NULL
   ) {
     $thumb = FALSE;
@@ -1092,7 +1092,7 @@ class base_thumbnail extends base_object {
   * @param integer $degrees degrees to rotate the image by; multiple of 90
   * @return boolean whether the operation could be accomplished
   */
-  function imageRotate($srcFileName, $destFileName, $orgType, $degrees = 90) {
+  private function imageRotate($srcFileName, $destFileName, $orgType, $degrees = 90) {
     if (function_exists('imagerotate') && is_file($srcFileName) &&
         ($im = $this->loadFile($srcFileName, $orgType)) && $degrees % 90 == 0) {
       $rotatedImage = imagerotate($im, $degrees, 0);
@@ -1113,7 +1113,7 @@ class base_thumbnail extends base_object {
   * @access public
   * @return array $result rgb values
   */
-  function htmlToColor($htmlColor) {
+  private function htmlToColor($htmlColor) {
     if (strpos($htmlColor, '#') === FALSE) {
       $offset = 0;
     } else {
