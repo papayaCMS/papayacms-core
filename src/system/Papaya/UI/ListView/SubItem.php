@@ -108,7 +108,7 @@ abstract class SubItem extends UI\Control\Collection\Item {
       'subitem',
       [
         'align' => UI\Option\Align::getString($this->getAlign()),
-        'span' => $this->getColumnSpan()
+        'span' => ($span = $this->getColumnSpan()) > 1 ? $span : NULL
       ]
     );
   }
