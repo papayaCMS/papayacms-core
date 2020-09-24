@@ -25,7 +25,7 @@ namespace Papaya\Graphics {
 
     public function testGetSize() {
       $bounds = new BoundingRectangle(1,2,3,4);
-      $this->assertEquals([3,4], $bounds->getOffset());
+      $this->assertEquals([3,4], $bounds->getSize());
     }
 
     public function testGetLeft() {

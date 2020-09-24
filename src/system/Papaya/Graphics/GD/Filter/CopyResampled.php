@@ -43,14 +43,14 @@ namespace Papaya\Graphics\GD\Filter {
       return imagecopyresampled(
         $imageResource,
         $this->_source->getResource(),
-        $this->_sourceBoundary->getLeft(),
-        $this->_sourceBoundary->getTop(),
-        $this->_sourceBoundary->getWidth(),
-        $this->_sourceBoundary->getHeight(),
         $this->_targetBoundary->getLeft(),
         $this->_targetBoundary->getTop(),
+        $this->_sourceBoundary->getLeft(),
+        $this->_sourceBoundary->getTop(),
         $this->_targetBoundary->getWidth(),
-        $this->_targetBoundary->getHeight()
+        $this->_targetBoundary->getHeight(),
+        $this->_sourceBoundary->getWidth(),
+        $this->_sourceBoundary->getHeight()
       );
     }
   }

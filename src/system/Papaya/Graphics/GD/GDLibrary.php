@@ -57,9 +57,11 @@ namespace Papaya\Graphics\GD {
         $backgroundColor->red,
         $backgroundColor->green,
         $backgroundColor->blue,
-        round($backgroundColor->alpha / 2)
+        127 - round($backgroundColor->alpha / 255 * 127)
       );
-      imagefill($imageResource, 0,0, $colorIndex);
+      imagefilledrectangle(
+        $imageResource, 0,0, $width, $height, $colorIndex
+      );
       imagealphablending($imageResource, TRUE);
       return new GDImage($imageResource, $this);
     }
@@ -76,7 +78,7 @@ namespace Papaya\Graphics\GD {
         $source = $definition[1]($fileName);
       }
       if ($source) {
-        return new GDImage($this, $source);
+        return new GDImage($source, $this);
       }
       return NULL;
     }

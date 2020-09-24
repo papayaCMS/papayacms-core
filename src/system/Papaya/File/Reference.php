@@ -13,37 +13,17 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Media\Thumbnail {
 
-  use Papaya\Graphics\BoundingRectangle;
+namespace Papaya\File {
 
-  interface Calculation {
+  interface Reference {
 
-    const MODE_FIX = 'abs';
-    const MODE_CONTAIN = 'max';
-    const MODE_CONTAIN_PADDED = 'maxfill';
-    const MODE_COVER = 'min';
-    const MODE_COVER_CROPPED = 'mincrop';
+    public function getName();
 
-    /**
-     * @return string
-     */
-    public function getIdentifier();
+    public function getSize();
 
-    /**
-     * @return array [width, height]
-     */
-    public function getTargetSize();
+    public function getType();
 
-    /**
-     * @return BoundingRectangle
-     */
-    public function getSource();
-
-    /**
-     * @return BoundingRectangle
-     */
-    public function getDestination();
-
+    public function getURL();
   }
 }

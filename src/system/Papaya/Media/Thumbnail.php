@@ -15,52 +15,64 @@
 
 namespace Papaya\Media {
 
-  use Papaya\Graphics\GD\Filter\CopyResampled;
-  use Papaya\Graphics\GD\GDLibrary;
-  use Papaya\Media\Thumbnail\Calculation;
+  use Papaya\File\Reference;
 
-  class Thumbnail {
-    /**
-     * @var string|resource
-     */
-    private $_source;
+  class Thumbnail implements Reference {
 
+    private $_localFileName;
     /**
-     * @var GDLibrary
+     * @var string|null
      */
-    private $_gd;
+    private $_type;
     /**
-     * @var Calculation
+     * @var int|null
      */
-    private $_calculation;
+    private $_size;
+    /**
+     * @var string
+     */
+    private $_name;
 
-    public function __construct($source, Calculation $calculation) {
-      $this->_source = $source;
-      $this->_calculation = $calculation;
+    public function __construct($localFileName, $name = '', $type = NULL) {
+      $this->_localFileName = (string)$localFileName;
+      $this->_name = empty($name) ? basename($localFileName) : $name;
+      $this->_type = $type;
     }
 
-    public function gd(GDLibrary $gd = NULL) {
-      if (isset($gd)) {
-        $this->_gd = $gd;
-      } elseif (NULL === $this->_gd) {
-        $this->_gd = new GDLibrary();
+    public function getName() {
+      return $this->_name;
+    }
+
+    public function getType() {
+      if ($this->_type === NULL) {
+        list(, , $imageType) = getimagesize($this->_localFileName);
+        $this->_type = image_type_to_mime_type($imageType);
       }
-      return $this->_gd;
+      return $this->_type;
     }
 
-    public function create() {
-      $gd = $this->gd();
-      if ($source = $gd->load($this->_source)) {
-        $calculation = $this->_calculation;
-        $destination = $gd->create(...$calculation->getTargetSize());
-        $destination->filter(
-          new CopyResampled(
-            $source, $calculation->getSource(), $calculation->getDestination()
-          )
-        );
-        return $destination;
+    public function getSize() {
+      if ($this->_size === NULL) {
+        $this->_size = filesize($this->_localFileName);
       }
-      return NULL;
+      return $this->_size;
     }
+
+    public function getLocalFileName() {
+      return $this->_localFileName;
+    }
+
+    public function getURL() {
+      return 'thumb.'.basename($this->getLocalFileName());
+    }
+
+    public function getMediaURI() {
+      return basename($this->getLocalFileName());
+    }
+
+    public function __toString() {
+      return $this->getMediaURI();
+    }
+
   }
 }

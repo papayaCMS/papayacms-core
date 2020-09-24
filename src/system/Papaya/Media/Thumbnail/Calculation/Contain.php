@@ -14,6 +14,7 @@
  */
 namespace Papaya\Media\Thumbnail\Calculation {
 
+  use Papaya\Autoloader;
   use Papaya\Graphics\BoundingRectangle;
   use Papaya\Media\Thumbnail\Calculation;
 
@@ -37,6 +38,14 @@ namespace Papaya\Media\Thumbnail\Calculation {
       $this->_maximumWidth = (int)$maximumWidth;
       $this->_maximumHeight = (int)$maximumHeight;
       $this->_addPadding = (bool)$pad;
+    }
+
+    public function getIdentifier() {
+      if ($this->_addPadding) {
+        return Calculation::MODE_CONTAIN_PADDED.'_'.$this->_width.'x'.$this->_height;
+      }
+      $targetSize = $this->getTargetSize();
+      return Calculation::MODE_FIX.'_'.$targetSize[0].'x'.$targetSize[1];
     }
 
     private function getThumbnailSize() {

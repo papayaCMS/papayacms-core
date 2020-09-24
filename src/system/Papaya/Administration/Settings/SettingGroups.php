@@ -355,6 +355,7 @@ namespace Papaya\Administration\Settings {
         CMS::THUMBS_FILETYPE => [
           ChoiceSetting::class,
           [
+            0 => 'Original',
             1 => 'GIF',
             2 => 'JPEG',
             3 => 'PNG'

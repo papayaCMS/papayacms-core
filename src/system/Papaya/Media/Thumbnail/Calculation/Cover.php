@@ -33,6 +33,11 @@ namespace Papaya\Media\Thumbnail\Calculation {
       $this->_minimumHeight = (int)$minimumHeight;
     }
 
+    public function getIdentifier() {
+      $targetSize = $this->getTargetSize();
+      return Calculation::MODE_FIX.'_'.$targetSize[0].'x'.$targetSize[1];
+    }
+
     private function getThumbnailSize() {
       $factorX = $this->_width / $this->_minimumWidth;
       $factorY = $this->_height / $this->_minimumHeight;
