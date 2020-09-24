@@ -33,6 +33,13 @@ abstract class SubItem extends UI\Control\Collection\Item {
   protected $_align;
 
   /**
+   * Span multiple columns
+   *
+   * @var int
+   */
+  private $_columnSpan = 1;
+
+  /**
    * Specific parameters for a link
    *
    * @var array
@@ -70,6 +77,20 @@ abstract class SubItem extends UI\Control\Collection\Item {
   }
 
   /**
+   * @return int
+   */
+  public function getColumnSpan() {
+    return $this->_columnSpan;
+  }
+
+  /**
+   * @param int $columnSpan
+   */
+  public function setColumnSpan($columnSpan) {
+    $this->_columnSpan = max(1, (int)$columnSpan);
+  }
+
+  /**
    * Store action parameters for links or form elements in the subitem
    *
    * @param array $actionParameters
@@ -86,7 +107,8 @@ abstract class SubItem extends UI\Control\Collection\Item {
     return $parent->appendElement(
       'subitem',
       [
-        'align' => UI\Option\Align::getString($this->getAlign())
+        'align' => UI\Option\Align::getString($this->getAlign()),
+        'span' => $this->getColumnSpan()
       ]
     );
   }

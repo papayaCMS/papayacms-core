@@ -38,6 +38,7 @@ namespace Papaya\Administration\Settings {
           new NotEmpty()
         )
       );
+      $commands[SettingsPage::COMMAND_VALIDATE_PATHS] = $command = new Commands\ValidatePaths();
       return $commands;
     }
 
