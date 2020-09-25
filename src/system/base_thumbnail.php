@@ -81,8 +81,7 @@ class base_thumbnail extends base_object {
       $calculation = $thumbnails->createCalculation(
         $width, $height, $mode
       ),
-      $mimeType,
-      FALSE
+      $mimeType
     );
     if ($thumbnail) {
       $this->lastThumbSize = $calculation->getTargetSize();
