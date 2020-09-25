@@ -24,11 +24,14 @@ namespace Papaya\Administration\Settings {
     const COMMAND_EDIT = 'edit';
     const COMMAND_EXPORT = 'export';
     const COMMAND_IMPORT = 'import';
+    const COMMAND_IMPORT_CONFIRM = 'import-confirm';
     const PARAMETER_SETTINGS_GROUP = 'group';
     const PARAMETER_SETTING = 'setting';
     const PARAMETER_SETTING_VALUE = 'value';
     const PARAMETER_SEARCH_FOR = 'search-for';
     const PARAMETER_SEARCH_CLEAR = 'search-clear';
+    const PARAMETER_IMPORT_FILE = 'settings-file';
+    const PARAMETER_IMPORT_SETTING = 'import-settings';
 
     protected $_parameterGroup = 'settings';
 

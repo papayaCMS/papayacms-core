@@ -22,7 +22,7 @@ use Papaya\Utility;
  * @package Papaya-Library
  * @subpackage CSV
  */
-class Reader {
+class Reader implements \IteratorAggregate {
   /**
    * Maximum file size
    *
@@ -43,6 +43,11 @@ class Reader {
    * @var string
    */
   private $_fileName;
+
+  /**
+   * @var array
+   */
+  private $_values;
 
   /**
    * Initialize reader object and set file name.
@@ -134,7 +139,9 @@ class Reader {
           $offset = $data[1];
           $row = [];
           foreach ($data[0] as $i => $content) {
-            $row[$titles[$i]] = $content;
+            if (isset($titles[$i])) {
+              $row[$titles[$i]] = $content;
+            }
           }
           $result[] = $row;
           if ($limit > 0 && \count($result) >= $limit) {
@@ -149,6 +156,14 @@ class Reader {
       return $result;
     }
     return NULL;
+  }
+
+  public function getIterator() {
+    if (NULL === $this->_values) {
+      $offset = 0;
+      $this->_values = $this->fetchAssoc($offset);
+    }
+    return new \ArrayIterator($this->_values ?: []);
   }
 
   /**
@@ -213,7 +228,7 @@ class Reader {
   }
 
   /**
-   * Read a line from csv, parse it into an array and reutrn array and new offset
+   * Read a line from csv, parse it into an array and return array and new offset
    *
    * @param resource $fh
    * @param string $delimiter

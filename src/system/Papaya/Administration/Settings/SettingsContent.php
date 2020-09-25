@@ -40,6 +40,8 @@ namespace Papaya\Administration\Settings {
       );
       $commands[SettingsPage::COMMAND_VALIDATE_PATHS] = new Commands\ValidatePaths();
       $commands[SettingsPage::COMMAND_EXPORT] = new Commands\ExportSettings();
+      $commands[SettingsPage::COMMAND_IMPORT] = $importCommand = new Commands\ImportSettings();
+      $commands[SettingsPage::COMMAND_IMPORT_CONFIRM] = $importCommand;
       return $commands;
     }
 
