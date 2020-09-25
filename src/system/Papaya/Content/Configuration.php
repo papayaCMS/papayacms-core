@@ -14,6 +14,7 @@
  */
 namespace Papaya\Content {
 
+  use Papaya\Content\Configuration\Setting;
   use Papaya\Database;
 
   /**
@@ -39,5 +40,7 @@ namespace Papaya\Content {
     protected $_identifierProperties = ['name'];
 
     protected $_tableName = Tables::OPTIONS;
+
+    protected $_itemClass = Setting::class;
   }
 }

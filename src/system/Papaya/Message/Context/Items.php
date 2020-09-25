@@ -46,7 +46,7 @@ class Items
    */
   public function __construct($label, array $items) {
     $this->_label = $label;
-    $this->_items = $items;
+    $this->_items = array_values($items);
   }
 
   public function getLabel() {

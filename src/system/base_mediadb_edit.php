@@ -264,8 +264,6 @@ class base_mediadb_edit extends base_mediadb {
       // create a version of the old file
       if (FALSE !== $this->databaseInsertRecord($this->tableFilesVersions, NULL, $data)) {
         $moved = FALSE;
-        $thumbnail = new base_thumbnail;
-        $thumbnail->deleteThumbs($fileId);
         if ($path = $this->getFilePath($fileId, TRUE)) {
           $fileNameOnDisk = $this->getFileName($fileId, $newVersionId);
           if ($mode == 'uploaded_file') {
@@ -370,8 +368,6 @@ class base_mediadb_edit extends base_mediadb {
         );
         $newVersionId = $file['current_version_id'] + 1;
         if (FALSE !== $this->databaseInsertRecord($this->tableFilesVersions, NULL, $data)) {
-          $thumbnail = new base_thumbnail;
-          $thumbnail->deleteThumbs($fileId);
           if ($path = $this->getFilePath($fileId, TRUE)) {
             $fileNameOnDisk = $this->getFileName($fileId, $newVersionId);
             if (copy($fileVersion['FILENAME'], $fileNameOnDisk)) {
@@ -638,8 +634,7 @@ class base_mediadb_edit extends base_mediadb {
   function deleteFile($fileId) {
     $file = $this->getFile($fileId);
     if (is_array($file) && !empty($fileId)) {
-      $thumbnail = new base_thumbnail;
-      $thumbnail->deleteThumbs($fileId);
+      $this->getThumbnailGenerator($fileId, $file['current_version_id'])->delete(TRUE);
 
       if ($this->deleteFileVersions($fileId)) {
         $fileName = $this->getFileName($fileId, $file['current_version_id'], TRUE);
@@ -681,8 +676,7 @@ class base_mediadb_edit extends base_mediadb {
         'file_id' => $fileId,
         'version_id' => $versionId,
       );
-      $thumbnail = new base_thumbnail;
-      $thumbnail->deleteThumbs($fileId);
+      $this->getThumbnailGenerator($fileId, $versionId)->delete();
       return (FALSE !== $this->databaseDeleteRecord($this->tableFilesVersions, $condition));
     }
     return TRUE;
@@ -1000,6 +994,10 @@ class base_mediadb_edit extends base_mediadb {
   */
   function iniGetSize($ident) {
     return \Papaya\Utility\Bytes::fromString(ini_get($ident));
+  }
+
+  private function getThumbnailGenerator($fileId, $fileRevision) {
+    return new Papaya\Media\Thumbnails($fileId, $fileRevision);
   }
 }
 

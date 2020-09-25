@@ -41,6 +41,10 @@ class Temporary extends UI\Dialog\Field {
    * @var Request\Parameter\File
    */
   private $_file;
+  /**
+   * @var array
+   */
+  private $_acceptedFileTypes = [];
 
   /**
    * Initialize object, set caption, field name and maximum length
@@ -53,8 +57,12 @@ class Temporary extends UI\Dialog\Field {
     $this->setName($name);
   }
 
+  public function acceptFileTypes(...$types) {
+    $this->_acceptedFileTypes = $types;
+  }
+
   /**
-   * Append field and input ouptut to DOM
+   * Append field and input to DOM
    *
    * @param XML\Element $parent
    */
@@ -64,7 +72,8 @@ class Temporary extends UI\Dialog\Field {
       'input',
       [
         'type' => $this->_type,
-        'name' => $this->_getParameterName($this->getName())
+        'name' => $this->_getParameterName($this->getName()),
+        'accept' => empty($this->_acceptedFileTypes) ? null : implode(', ', $this->_acceptedFileTypes)
       ]
     );
   }

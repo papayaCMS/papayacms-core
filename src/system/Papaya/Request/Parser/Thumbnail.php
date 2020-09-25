@@ -30,7 +30,7 @@ class Thumbnail extends Request\Parser {
    */
   private $_pattern = '(/
     (?:[a-zA-Z\d_-]+\.) # title
-    (?P<mode>thumb)\. # mode
+    (?P<mode>thumb|thumbnail)\. # mode
     (?:(?P<preview>preview)\.)? # is preview
     (?P<media_uri>
       (?P<id>[A-Fa-f\d]{32}) # id

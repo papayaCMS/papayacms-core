@@ -12,7 +12,67 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Media;
 
-class Thumbnail {
+namespace Papaya\Media {
+
+  use Papaya\File\Reference;
+
+  class Thumbnail implements Reference {
+
+    private $_localFileName;
+    /**
+     * @var string|null
+     */
+    private $_type;
+    /**
+     * @var int|null
+     */
+    private $_size;
+    /**
+     * @var string
+     */
+    private $_name;
+
+    public function __construct($localFileName, $name = '', $type = NULL) {
+      $this->_localFileName = (string)$localFileName;
+      $this->_name = empty($name) ? basename($localFileName) : $name;
+      $this->_type = $type;
+    }
+
+    public function getName() {
+      return $this->_name;
+    }
+
+    public function getType() {
+      if ($this->_type === NULL) {
+        list(, , $imageType) = getimagesize($this->_localFileName);
+        $this->_type = image_type_to_mime_type($imageType);
+      }
+      return $this->_type;
+    }
+
+    public function getSize() {
+      if ($this->_size === NULL) {
+        $this->_size = filesize($this->_localFileName);
+      }
+      return $this->_size;
+    }
+
+    public function getLocalFileName() {
+      return $this->_localFileName;
+    }
+
+    public function getURL() {
+      return 'thumb.'.basename($this->getLocalFileName());
+    }
+
+    public function getMediaURI() {
+      return basename($this->getLocalFileName());
+    }
+
+    public function __toString() {
+      return $this->getMediaURI();
+    }
+
+  }
 }

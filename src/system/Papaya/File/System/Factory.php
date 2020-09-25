@@ -29,7 +29,7 @@ class Factory {
    * @return File
    */
   public function getFile($filename) {
-    return new File($filename);
+    return new File($filename, $this);
   }
 
   /**
@@ -40,6 +40,6 @@ class Factory {
    * @return Directory
    */
   public function getDirectory($directory) {
-    return new Directory($directory);
+    return new Directory($directory, $this);
   }
 }

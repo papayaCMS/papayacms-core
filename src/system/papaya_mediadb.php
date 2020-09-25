@@ -744,26 +744,6 @@ class papaya_mediadb extends base_mediadb_edit {
           );
         }
         break;
-      case 'crop_image_window':
-        $this->getImageCropWindow();
-        break;
-      case 'crop_image_rpc':
-        header('Content-type: text/xml; charset=utf-8');
-        echo '<response>';
-        if (isset($this->params['file_id']) &&
-            isset($this->params['x']) && isset($this->params['y']) &&
-            isset($this->params['width']) && $this->params['width'] > 0 &&
-            isset($this->params['height']) && $this->params['height'] > 0) {
-          echo $this->cropImageRpc();
-        } else {
-          printf(
-            '<error>%s</error>'.LF,
-            papaya_strings::escapeHTMLChars($this->_gt('Could not crop image.'))
-          );
-        }
-        echo '</response>';
-        exit;
-        break;
       case 'papaya_tag':
         $this->layout->addRight($this->getPapayaTagCreator($this->params['file_id']));
         break;
@@ -1080,12 +1060,12 @@ class papaya_mediadb extends base_mediadb_edit {
           if ($folderPermissions = $this->calculateFilePermission($fileId)) {
             $files = $this->getFilesById($fileId);
             $allowed = array();
-            foreach ($files as $fileId => $file) {
+            foreach ($files as $id => $file) {
               $checked = $this->checkActionPermissionGroup(
                 $folderPermissions[$file['folder_id']]['user_edit']
               );
               if ($checked) {
-                $allowed[$fileId] = $fileId;
+                $allowed[$id] = $id;
               }
             }
           }
@@ -1108,12 +1088,12 @@ class papaya_mediadb extends base_mediadb_edit {
           if ($folderPermissions = $this->calculateFilePermission($fileId)) {
             $files = $this->getFilesById($fileId);
             $allowed = array();
-            foreach ($files as $fileId => $file) {
+            foreach ($files as $id => $file) {
               $check = $this->checkActionPermissionGroup(
                 $folderPermissions[$file['folder_id']]['user_edit']
               );
               if ($check) {
-                $allowed[$fileId] = $fileId;
+                $allowed[$id] = $id;
               }
             }
           }
@@ -1288,25 +1268,6 @@ class papaya_mediadb extends base_mediadb_edit {
               isset($this->params['cmd']) && $this->params['cmd'] == 'convert_image'
             );
           }
-        }
-
-        if (strtolower($this->getFileExtension($this->currentFile['file_name'])) == 'jpg') {
-          $cropLink = $this->getLink(
-            array(
-              'cmd' => 'crop_image_window',
-              'file_id' => $this->params['file_id']
-            )
-          );
-          $this->menubar->addButton(
-            'Crop',
-            sprintf(
-              "javascript:window.open('%s', 'cropwindow',
-               'width=656,height=556,top=100,left=100'); return false;",
-              $cropLink
-            ),
-            'actions-edit-crop',
-            'Crop image'
-          );
         }
 
         $this->menubar->addSeparator();
@@ -3849,7 +3810,7 @@ class papaya_mediadb extends base_mediadb_edit {
         isset($_FILES[$this->paramName]) && is_array($_FILES[$this->paramName])) {
       $maxUploadSize = $this->getMaxUploadSize();
       $result = TRUE;
-      for ($i = 0; $i < count($_FILES[$this->paramName]['name']['upload']); $i++) {
+      for ($i = 0, $c = count($_FILES[$this->paramName]['name']['upload']); $i < $c; $i++) {
         if ($_FILES[$this->paramName]['tmp_name']['upload'][$i] != '') {
           $file['tempname'] = $_FILES[$this->paramName]['tmp_name']['upload'][$i];
           $file['size'] = $_FILES[$this->paramName]['size']['upload'][$i];
@@ -4384,101 +4345,6 @@ class papaya_mediadb extends base_mediadb_edit {
   }
 
   /**
-  * generates a html document for a popup window to contain the crop GUI
-  *
-  * exits the script!
-  */
-  function getImageCropWindow() {
-    printf(
-      '<html><head><title>%s</title></head><body>'.
-      '<object type="application/x-shockwave-flash" width="640" height="540"
-         data="flash/imagecrop.swf?lzproxied=false&imageid=%s">
-       <param name="movie" value="flash/imagecrop.swf?lzproxied=false&imageid=%s">
-       <param name="quality" value="high">
-       <param name="scale" value="noscale">
-       <param name="salign" value="LT">
-       <param name="menu" value="false"></object></body></html>',
-      papaya_strings::escapeHTMLChars($this->_gt('Crop image')),
-      papaya_strings::escapeHTMLChars($this->params['file_id']),
-      papaya_strings::escapeHTMLChars($this->params['file_id'])
-    );
-    exit;
-  }
-
-  /**
-  * crop image rpc function for the flash GUI
-  *
-  * needs file_id, width, height, x and y in $this->params
-  *
-  * @return string $result error or info message XML
-  */
-  function cropImageRpc() {
-    $result = '';
-    if ($file = $this->getFile($this->params['file_id'])) {
-      $thumbnail = new base_thumbnail;
-      // otherwise the filename would have an extension, which the temp filename hasn't
-      $thumbnail->forceExtension = FALSE;
-      $tempFileName = tempnam(PAPAYA_PATH_CACHE, '.mdb_crop');
-      $srcFileName = $this->getFileName($file['file_id'], $file['current_version_id']);
-      $orgType = $this->mimeToInteger($file['mimetype']);
-      $cropped = $thumbnail->imageCrop(
-        $srcFileName,
-        $tempFileName,
-        $orgType,
-        $this->params['width'],
-        $this->params['height'],
-        $this->params['x'],
-        $this->params['y']
-      );
-      if ($cropped) {
-        // set the extension of the file to the current thumbnail type extension
-        $newFileName = $file['file_name'];
-        if ($thumbnail->getThumbFileExt() != $this->getFileExtension($newFileName)) {
-          if ($pos = strrpos($newFileName, '.')) {
-            $newFileName = substr($newFileName, 0, $pos) .'.'. $thumbnail->getThumbFileExt();
-          }
-        }
-        $newFileId = $this->addFile(
-          $tempFileName,
-          $newFileName,
-          -1,
-          $this->surfer ? $this->surfer['surfer_id'] : NULL,
-          '',
-          'local_file',
-          $file
-        );
-        if ($newFileId) {
-          $this->copyTranslatedData($file['file_id'], $newFileId);
-          $linked = $this->addDerivation(
-            $newFileId, $file['file_id'], $file['current_version_id']
-          );
-          if (!$linked) {
-            $result .= sprintf(
-              '<error>%s</error>',
-              papaya_strings::escapeHTMLChars($this->_gt('Derivation could not be created.'))
-            );
-          }
-          $result .= sprintf(
-            '<message>%s</message>',
-            papaya_strings::escapeHTMLChars($this->_gt('Image cropped.'))
-          );
-        } else {
-          $result .= sprintf(
-            '<error>%s</error>',
-            papaya_strings::escapeHTMLChars($this->_gt('Could not save file.'))
-          );
-        }
-      }
-    } else {
-      $result .= sprintf(
-        '<error>%s</error>',
-        papaya_strings::escapeHTMLChars($this->_gt('File not found.'))
-      );
-    }
-    return $result;
-  }
-
-  /**
   * Initialize object for image convert dialog
   * @return void
   */
@@ -4740,30 +4606,6 @@ HEREDOC;
       );
       $result .= sprintf(
         '</linegroup><linegroup caption="%s">',
-        papaya_strings::escapeHTMLChars($this->_gt('Cropping'))
-      );
-      $result .= sprintf(
-        '<line caption="%s"><input type="text" name="imgcropx"'.
-        ' onkeyup="createMediaImageTag();" class="dialogInput dialogScale" value="" /></line>'.LF,
-        papaya_strings::escapeHTMLChars($this->_gt('Left offset'))
-      );
-      $result .= sprintf(
-        '<line caption="%s"><input type="text" name="imgcropy"'.
-        ' onkeyup="createMediaImageTag();" class="dialogInput dialogScale" value="" /></line>'.LF,
-        papaya_strings::escapeHTMLChars($this->_gt('Top offset'))
-      );
-      $result .= sprintf(
-        '<line caption="%s"><input type="text" name="imgcropwidth"'.
-        ' onkeyup="createMediaImageTag();" class="dialogInput dialogScale" value="" /></line>'.LF,
-        papaya_strings::escapeHTMLChars($this->_gt('Crop width'))
-      );
-      $result .= sprintf(
-        '<line caption="%s"><input type="text" name="imgcropheight"'.
-        ' onkeyup="createMediaImageTag();" class="dialogInput dialogScale" value="" /></line>'.LF,
-        papaya_strings::escapeHTMLChars($this->_gt('Crop height'))
-      );
-      $result .= sprintf(
-        '</linegroup><linegroup caption="%s">',
         papaya_strings::escapeHTMLChars($this->_gt('Linking'))
       );
       $result .= sprintf(
@@ -4974,9 +4816,7 @@ HEREDOC;
       }
 
       foreach ($files as $fileId => $file) {
-        if (isset($succeeded) &&
-            $succeeded &&
-            !(isset($failed) && is_array($failed) && isset($failed[$fileId]))) {
+        if (isset($succeeded) && $succeeded) {
           $this->addMsg(
             MSG_INFO,
             sprintf(
@@ -5082,9 +4922,12 @@ HEREDOC;
   * initialize dialog to tag multiple files at once
   */
   function initializeTagMultipleFilesDialog() {
-    $allowed = $this->checkActionPermission('edit_file', array_keys($this->params['batch_files']));
+    $fileIds = array_keys($this->params['batch_files']);
+    sort($fileIds);
+    $allowed = array_keys($this->checkActionPermission('edit_file', array_keys($this->params['batch_files'])));
+    sort($allowed);
     if ($allowed) {
-      if (sort(array_keys($allowed)) == sort(array_keys($this->params['batch_files']))) {
+      if ($allowed === $fileIds) {
         //if getInstance returns NULL, we get a FALSE value
         if ($tags = papaya_taglinks::getInstance($this, 'tg')) {
           $tags->setLinkParams(
@@ -5095,7 +4938,7 @@ HEREDOC;
             )
           );
           $this->layout->addRight(
-            $tags->getTagLinker('media', array_keys($this->params['batch_files']), TRUE)
+            $tags->getTagLinker('media', $fileIds, TRUE)
           );
         } else {
           $this->addMsg(MSG_WARNING, $this->_gt('You don\'t have the permission to tag files.'));

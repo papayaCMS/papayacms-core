@@ -19,6 +19,7 @@ namespace Papaya\Administration\Settings\Commands {
   use Papaya\Administration\Settings\SettingsPage;
   use Papaya\Configuration\CMS;
   use Papaya\Content\Configuration\Setting;
+  use Papaya\Message\Logable;
   use Papaya\UI\Control\Command\Dialog\Database\Record as DatabaseDialogCommand;
   use Papaya\UI\Dialog;
   use Papaya\UI\Dialog\Button\Submit as SubmitButton;
@@ -54,6 +55,7 @@ namespace Papaya\Administration\Settings\Commands {
       );
       $dialog->caption = new TranslatedText('Edit Setting');
       $dialog->data()->merge($this->record());
+      $currentValue = $this->record()->value;
       if ($profile = $this->groups()->getProfile($settingName)) {
         $dialog->fields[] = $field = new Dialog\Field\Sheet();
         $sheet = $field->sheet();
@@ -82,8 +84,32 @@ namespace Papaya\Administration\Settings\Commands {
         $sheet->title($this->record()->name);
         $sheet->content()->appendElement('p')->appendXML($this->getNote($settingName));
       }
-      $this->callbacks()->onExecuteSuccessful = function() use ($settingName) {
+      $this->callbacks()->onExecuteSuccessful = function() use ($settingName, $currentValue) {
         $this->papaya()->messages->displayInfo('Setting saved.');
+        if ((string)$currentValue !== (string)$this->record()->value) {
+          if ($profile = $this->groups()->getProfile($settingName)) {
+            $getDisplayString = static function($value) use ($profile) {
+              return $profile->getDisplayString($value);
+            };
+          } else {
+            $getDisplayString = static function($value) {
+              return $value;
+            };
+          }
+          $context = new \Papaya\Message\Context\Table('');
+          $context->addRow(
+            ['New', $getDisplayString($this->record()->value)]
+          );
+          $context->addRow(
+            ['Old', $getDisplayString($currentValue)]
+          );
+          $this->papaya()->messages->log(
+            Logable::SEVERITY_INFO,
+            Logable::GROUP_SYSTEM,
+            'Changed setting: '.$settingName,
+            $context
+          );
+        }
         $this->record()->load(['name' => $settingName]);
       };
       $this->callbacks()->onExecuteFailed = function() {
