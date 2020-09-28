@@ -13,6 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Configuration\CMS as CMSSettings;
 use Papaya\Content\Tables;
 
 if (!defined('IMAGETYPE_SWC')) {
@@ -1326,7 +1327,7 @@ class base_mediadb extends base_db {
       $this->_ensureLocalDirectory($path, $createDirectories, $currentMask);
     }
     $subDirectories = $this->papaya()->options->get(
-      CMS::MEDIADB_SUBDIRECTORIES, 1, new \Papaya\Filter\IntegerValue(1, 10)
+      CMSSettings::MEDIADB_SUBDIRECTORIES, 1, new \Papaya\Filter\IntegerValue(1, 10)
     );
     for ($i = 0; $i < $subDirectories; $i++) {
       $path .= $fileId[$i].'/';
