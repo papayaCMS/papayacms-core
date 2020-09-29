@@ -17,30 +17,20 @@ namespace Papaya\Administration\Media {
 
   use Papaya\Administration\Page as AdministrationPage;
   use Papaya\Administration\PageParameters;
+  use Papaya\Content\Media\Folder;
 
   class MediaFilesPage extends AdministrationPage {
 
     const PARAMETER_COMMAND = 'cmd';
-    const COMMAND_ADD_FOLDER = 'add-folder';
     const COMMAND_EDIT_FOLDER = 'edit-folder';
     const COMMAND_EDIT_FILE = 'edit-file';
     const PARAMETER_FOLDER = 'folder-id';
-    const PARAMETER_EDITOR_PERMISSION = 'editor-permission';
     const PARAMETER_FILE = 'file-id';
-    const PARAMETER_FILES = 'files';
-    const PARAMETER_FILES_VIEW = 'view';
-    const PARAMETER_FILES_SORT = 'sort';
-    const PARAMETER_FILES_LIMIT = 'limit';
-    const PARAMETER_FILES_OFFSET = 'offset';
+    const PARAMETER_FILE_LIST = 'files';
     const PARAMETER_NAVIGATION_MODE = 'navigation';
     const NAVIGATION_MODE_FOLDERS = 'folders';
     const NAVIGATION_MODE_TAGS = 'tags';
     const NAVIGATION_MODE_SEARCH = 'search';
-    const PARAMETER_FILES_ACTION = 'files-action';
-    const FILES_ACTION_TAG = 'tag';
-    const FILES_ACTION_DELETE = 'delete';
-    const FILES_ACTION_MOVE = 'move';
-    const FILES_ACTION_CUT = 'cut';
 
     protected $_parameterGroup = 'media';
 

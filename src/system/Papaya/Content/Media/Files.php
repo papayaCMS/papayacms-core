@@ -12,18 +12,12 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-
 namespace Papaya\Content\Media;
 
 use Papaya\Content\Tables;
 use Papaya\Database;
 
 class Files extends Database\Records\Lazy {
-
-  const SORT_BY_NAME = 'by_name';
-  const SORT_BY_SIZE = 'by_size';
-  const SORT_BY_DATE = 'by_date';
-
   protected $_fields = [
     'id' => 'files.file_id',
     'folder_id' => 'files.folder_id',
@@ -76,39 +70,14 @@ class Files extends Database\Records\Lazy {
           translations.file_title, translations.file_description
         FROM :files AS files
         LEFT JOIN :mimetypes AS mimetypes ON (mimetypes.mimetype_id = files.mimetype_id) 
-        LEFT JOIN :translations AS translations ON (translations.file_id = files.file_id AND translations.lng_id = :language_id) " .
-      $this->_compileCondition($filter) . $this->_compileOrderBy()
+        LEFT JOIN :translations AS translations ON (translations.file_id = files.file_id AND translations.lng_id = :language_id) ".
+        $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $statement->addTableName('files', Tables::MEDIA_FILES);
     $statement->addTableName('mimetypes', Tables::MEDIA_MIMETYPES);
     $statement->addTableName('translations', Tables::MEDIA_FILE_TRANSLATIONS);
     $statement->addInt('language_id', $languageId);
+    $this->getDatabaseAccess()->debugNextQuery();
     return $this->_loadRecords($statement, [], $limit, $offset, $this->_identifierProperties);
-  }
-
-  public function setSorting($sortBy, $sortDirection = Database\Interfaces\Order::ASCENDING) {
-    switch ($sortBy) {
-      case self::SORT_BY_SIZE:
-        $this->_orderByProperties = [
-          'size' => $sortDirection,
-          'name' => Database\Interfaces\Order::ASCENDING,
-          'id' => Database\Interfaces\Order::ASCENDING
-        ];
-        break;
-      case self::SORT_BY_DATE:
-        $this->_orderByProperties = [
-          'date' => $sortDirection,
-          'name' => Database\Interfaces\Order::ASCENDING,
-          'id' => Database\Interfaces\Order::ASCENDING
-        ];
-        break;
-      case self::SORT_BY_NAME:
-      default:
-        $this->_orderByProperties = [
-          'name' => $sortDirection,
-          'id' => Database\Interfaces\Order::ASCENDING
-        ];
-        break;
-    }
   }
 }
