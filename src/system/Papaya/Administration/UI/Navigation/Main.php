@@ -86,6 +86,12 @@ namespace Papaya\Administration\UI\Navigation {
           Administration\Permissions::FILE_MANAGE,
           'M'
         ],
+        Administration\UI::CONTENT_FILES.'.refactor' => [
+          'items-folder',
+          'Files (refactor)',
+          'Media database',
+          Administration\Permissions::FILE_MANAGE
+        ],
         Administration\UI::CONTENT_IMAGES => [
           'items-graphic',
           'Graphics',
