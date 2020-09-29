@@ -15,67 +15,14 @@
 
 namespace Papaya\Administration\Media {
 
-  use Papaya\Administration\Media\Commands\ChangeFolder;
   use Papaya\Administration\Page\Part as AdministrationPagePart;
-  use Papaya\Content\Media\Folder;
-  use Papaya\UI\Text\Translated;
-  use Papaya\UI\Toolbar;
+  use Papaya\XML\Element as XMLElement;
 
   class MediaFilesContent extends AdministrationPagePart {
 
-    /**
-     * @var Folder
-     */
-    private $_folder;
 
-    protected function _createCommands($name = 'cmd', $default = 'show') {
-      $commands = parent::_createCommands($name, $default);
-      $commands['edit-folder'] = new ChangeFolder($this->folder(), MediaFilesPage::COMMAND_EDIT_FOLDER);
-      $commands['add-folder'] = new ChangeFolder($this->folder(), MediaFilesPage::COMMAND_ADD_FOLDER);
-      return $commands;
-    }
+    public function appendTo(XMLElement $parent) {
 
-    private function folder(Folder $folder = NULL) {
-      if (NULL !== $folder) {
-        $this->_folder = $folder;
-      } elseif (NULL === $this->_folder) {
-        $this->_folder = new Folder();
-        $this->_folder->papaya($this->papaya());
-        $this->_folder->activateLazyLoad(
-          [
-            'id' => $this->parameters()->get(MediaFilesPage::PARAMETER_FOLDER, 0),
-            'language_id' => $this->papaya()->administrationLanguage->id
-          ]
-        );
-      }
-      return $this->_folder;
-    }
-
-    public function _initializeToolbar(Toolbar\Collection $toolbar) {
-      parent::_initializeToolbar($toolbar);
-      $toolbar->elements[] = new Toolbar\Separator();
-      if ($this->folder()->id > 0) {
-        $toolbar->elements[] = $button = new Toolbar\Button(
-          'items.folder.add',
-          new Translated('Add Folder'),
-          [
-            $this->parameterGroup() => [
-              MediaFilesPage::PARAMETER_FOLDER => $this->folder()->parentId,
-              MediaFilesPage::PARAMETER_COMMAND => MediaFilesPage::COMMAND_ADD_FOLDER
-            ]
-          ]
-        );
-      }
-      $toolbar->elements[] = $button = new Toolbar\Button(
-        'items.folder-child.add',
-        new Translated('Add Child Folder'),
-        [
-          $this->parameterGroup() => [
-            MediaFilesPage::PARAMETER_FOLDER => $this->folder()->id,
-            MediaFilesPage::PARAMETER_COMMAND => MediaFilesPage::COMMAND_ADD_FOLDER
-          ]
-        ]
-      );
     }
   }
 }
