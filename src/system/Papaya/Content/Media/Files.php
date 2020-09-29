@@ -78,7 +78,7 @@ class Files extends Database\Records\Lazy {
         FROM :files AS files
         LEFT JOIN :mimetypes AS mimetypes ON (mimetypes.mimetype_id = files.mimetype_id) 
         LEFT JOIN :translations AS translations ON (translations.file_id = files.file_id AND translations.lng_id = :language_id) " .
-      $this->_compileCondition($filter) . $this->_compileOrderBy()
+      $this->_compileCondition($filter).$this->_compileOrderBy()
     );
     $statement->addTableName('files', Tables::MEDIA_FILES);
     $statement->addTableName('mimetypes', Tables::MEDIA_MIMETYPES);
