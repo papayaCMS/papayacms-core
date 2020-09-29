@@ -148,6 +148,7 @@ namespace Papaya\Administration\Settings\Commands {
         foreach ($this->values() as $record) {
           $currentValues[$record['name']] = $record['value'];
         }
+        $counter = 0;
         foreach ($groups->getTranslatedLabels() as $group => $label) {
           $settings = new CallbackFilterIterator(
             $groups->getSettingsInGroup($group),
@@ -166,6 +167,7 @@ namespace Papaya\Administration\Settings\Commands {
             $item->columnSpan = 2;
             foreach ($settings as $setting) {
               if ($profile = $this->groups()->getProfile($setting)) {
+                $counter++;
                 $settingParameterName = SettingsPage::PARAMETER_IMPORT_SETTING.'['.$setting.']';
                 $dialog->data()->set($settingParameterName, $newValues[$setting]);
                 $listView->items[] = $item = new ListView\Item\Checkbox(
@@ -182,8 +184,14 @@ namespace Papaya\Administration\Settings\Commands {
               }
             }
           }
-        };
-        $dialog->buttons[] = new Dialog\Button\Submit(new Translated('Save'));
+        }
+        if ($counter < 1) {
+          $dialog->fields[] = new Dialog\Field\Message(
+            Dialog\Field\Message::SEVERITY_INFO, new Translated('No changed setting in  import.')
+          );
+        } else {
+          $dialog->buttons[] = new Dialog\Button\Submit(new Translated('Save'));
+        }
       }
       return $this->_selectionDialog;
     }
