@@ -15,6 +15,7 @@
 namespace Papaya\Administration {
 
   use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
+  use Papaya\Administration\Media\MediaFilesPage;
   use Papaya\Administration\Media\MimeTypes\Editor as MimeTypesEditor;
   use Papaya\Administration\Protocol\ProtocolPage;
   use Papaya\Administration\Settings\SettingsPage;
@@ -139,6 +140,8 @@ namespace Papaya\Administration {
     const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
 
     const ICON = 'icon';
+
+    const ICON_MIMETYPE = self::ICON.'.mimetypes';
 
     /**
      * @var string
@@ -368,7 +371,10 @@ namespace Papaya\Administration {
                         ),
                         self::CONTENT_FILES_BROWSER => new UI\Route\Templated\Page(
                           $template, $images['items-folder'] ?? '', ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
-                        )
+                        ),
+                        self::CONTENT_FILES.'.refactor' => new UI\Route\Templated\Page(
+                          $template, $images['items-folder'], ['Content', 'Files'], MediaFilesPage::class, Permissions::FILE_MANAGE
+                        ),
                       ]
                     ),
                     self::CONTENT_IMAGES => new UI\Route\Templated\Page(

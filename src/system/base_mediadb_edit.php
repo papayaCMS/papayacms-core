@@ -13,6 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
+use Papaya\Content\Media\Folder;
+
 /**
 * Basic class for media db file handling - creating, modifying
 *
@@ -740,7 +742,7 @@ class base_mediadb_edit extends base_mediadb {
     $data = array(
       'parent_id' => $parentId,
       'parent_path' => $parentPath,
-      'permission_mode' => $parentId > 0 ? $permissionMode : 'own',
+      'permission_mode' => $parentId > 0 ? $permissionMode : Folder::PERMISSION_MODE_DEFINE,
     );
     $folderId = $this->databaseInsertRecord($this->tableFolders, 'folder_id', $data);
     return $folderId;

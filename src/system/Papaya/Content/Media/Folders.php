@@ -14,17 +14,18 @@
  */
 namespace Papaya\Content\Media;
 
-use Papaya\Content;
+use Papaya\Content\Tables;
 use Papaya\Database;
 use Papaya\Utility;
 
 class Folders extends Database\Records\Tree {
   protected $_fields = [
-    'id' => 'folder_id',
-    'parent_id' => 'parent_id',
-    'ancestors' => 'parent_path',
-    'language_id' => 'lng_id',
-    'title' => 'folder_name'
+    'id' => 'folders.folder_id',
+    'parent_id' => 'folders.parent_id',
+    'ancestors' => 'folders.parent_path',
+    'permission_mode' => 'folders.permission_mode',
+    'language_id' => 'translations.lng_id',
+    'title' => 'translations.folder_name'
   ];
 
   protected $_orderByProperties = [
@@ -37,7 +38,7 @@ class Folders extends Database\Records\Tree {
    */
   public function _createMapping() {
     $mapping = parent::_createMapping();
-    $mapping->callbacks()->onMapValueFromFieldToProperty = function(
+    $mapping->callbacks()->onMapValueFromFieldToProperty = static function(
       /** @noinspection PhpUnusedParameterInspection */
       $context, $property, $field, $value
     ) {
@@ -45,21 +46,6 @@ class Folders extends Database\Records\Tree {
         return Utility\Arrays::decodeIdList($value);
       }
       return $value;
-    };
-    $mapping->callbacks()->onGetFieldForProperty = function(
-      /** @noinspection PhpUnusedParameterInspection */
-      $context, $property
-    ) {
-      switch ($property) {
-        case 'language_id' :
-        case 'title' :
-          return 'ft.'.$this->_fields[$property];
-        default :
-          if (isset($this->_fields[$property])) {
-            return 'f.'.$this->_fields[$property];
-          }
-      }
-      return NULL;
     };
     return $mapping;
   }
@@ -71,23 +57,25 @@ class Folders extends Database\Records\Tree {
    * @return bool
    */
   public function load($filter = NULL, $limit = NULL, $offset = NULL) {
-    $sql = "SELECT f.folder_id, f.parent_id, f.parent_path, ft.lng_id, ft.folder_name
-              FROM %s AS f
-              LEFT JOIN %s AS ft ON (ft.folder_id = f.folder_id AND ft.lng_id = '%d')";
     if (isset($filter['language_id'])) {
       $languageId = (int)$filter['language_id'];
       unset($filter['language_id']);
     } else {
       $languageId = 0;
     }
-    $sql .= Utility\Text::escapeForPrintf(
-      $this->_compileCondition($filter).$this->_compileOrderBy()
+    $statement = $this->getDatabaseAccess()->prepare(
+      "SELECT 
+          folders.folder_id, folders.parent_id, folders.parent_path, folders.permission_mode,
+          translations.lng_id, translations.folder_name
+        FROM :folders AS folders
+        LEFT JOIN :translations AS translations ON (
+          translations.folder_id = folders.folder_id AND translations.lng_id = :language_id
+        ) ".
+        $this->_compileCondition($filter).$this->_compileOrderBy()
     );
-    $parameters = [
-      $this->getDatabaseAccess()->getTableName(Content\Tables::MEDIA_FOLDERS),
-      $this->getDatabaseAccess()->getTableName(Content\Tables::MEDIA_FOLDER_TRANSLATIONS),
-      $languageId
-    ];
-    return $this->_loadRecords($sql, $parameters, $limit, $offset, $this->_identifierProperties);
+    $statement->addTableName('folders', Tables::MEDIA_FOLDERS);
+    $statement->addTableName('translations', Tables::MEDIA_FOLDER_TRANSLATIONS);
+    $statement->addInt('language_id', $languageId);
+    return $this->_loadRecords($statement, [], $limit, $offset, $this->_identifierProperties);
   }
 }
