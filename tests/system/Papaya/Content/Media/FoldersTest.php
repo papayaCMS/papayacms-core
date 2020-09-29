@@ -15,6 +15,8 @@
 
 namespace Papaya\Content\Media;
 
+use Papaya\Database\Statement;
+
 require_once __DIR__.'/../../../../bootstrap.php';
 
 class FoldersTest extends \Papaya\TestCase {
@@ -27,7 +29,6 @@ class FoldersTest extends \Papaya\TestCase {
     /** @var \Papaya\Database\Record\Mapping $mapping */
     $mapping = $records->mapping();
     $this->assertTrue(isset($mapping->callbacks()->onMapValueFromFieldToProperty));
-    $this->assertTrue(isset($mapping->callbacks()->onGetFieldForProperty));
   }
 
   /**
@@ -75,31 +76,6 @@ class FoldersTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Content\Media\Folders
-   * @dataProvider providePropertyToFieldValues
-   * @param string $expected
-   * @param string $property
-   */
-  public function testCallbackGetFieldForProperty($expected, $property) {
-    $records = new Folders();
-    /** @var \Papaya\Database\Record\Mapping $mapping */
-    $mapping = $records->mapping();
-    $this->assertEquals(
-      $expected, $mapping->getField($property)
-    );
-  }
-
-  public static function providePropertyToFieldValues() {
-    return array(
-      array('f.folder_id', 'id'),
-      array('f.parent_id', 'parent_id'),
-      array('f.parent_path', 'ancestors'),
-      array('ft.lng_id', 'language_id'),
-      array('ft.folder_name', 'title')
-    );
-  }
-
-  /**
    * @covers \Papaya\Content\Media\Folders::load
    */
   public function testLoad() {
@@ -137,10 +113,9 @@ class FoldersTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        $this->isType('string'),
-        array('table_mediadb_folders', 'table_mediadb_folders_trans', 1)
+        $this->isInstanceOf(Statement::class), $this->isType('array')
       )
-      ->will($this->returnValue($databaseResult));
+      ->willReturn($databaseResult);
 
     $records = new Folders();
     $records->setDatabaseAccess($databaseAccess);
@@ -201,10 +176,9 @@ class FoldersTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with(
-        $this->isType('string'),
-        array('table_mediadb_folders', 'table_mediadb_folders_trans', 0)
+        $this->isInstanceOf(Statement::class), $this->isType('array')
       )
-      ->will($this->returnValue($databaseResult));
+      ->willReturn($databaseResult);
 
     $records = new Folders();
     $records->setDatabaseAccess($databaseAccess);
