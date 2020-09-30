@@ -16,12 +16,16 @@
 namespace Papaya\Administration\Media {
 
   use Papaya\Administration\Page\Part as AdministrationPagePart;
+  use Papaya\Administration\UI\ListView\ViewToggle;
   use Papaya\Administration\UI\Navigation\Reference\MimeTypeIcon;
   use Papaya\Content\Media\Files;
   use Papaya\Content\Media\Folder;
   use Papaya\Content\Media\Folders;
-  use Papaya\Controller\Media;
+  use Papaya\Graphics\Color;
+  use Papaya\Graphics\ImageTypes;
   use Papaya\Iterator\RecursiveTraversableIterator;
+  use Papaya\Media\Thumbnail\Calculation;
+  use Papaya\Media\Thumbnails;
   use Papaya\UI;
   use Papaya\UI\Dialog;
   use Papaya\UI\ListView;
@@ -30,7 +34,8 @@ namespace Papaya\Administration\Media {
   use Papaya\UI\Toolbar;
   use Papaya\XML\Element as XMLElement;
 
-  class MediaFilesNavigation extends AdministrationPagePart {
+  class MediaFilesNavigation extends AdministrationPagePart
+  {
 
     /**
      * @var Folders
@@ -53,7 +58,8 @@ namespace Papaya\Administration\Media {
      */
     private $_filesDialog;
 
-    public function appendTo(XMLElement $parent) {
+    public function appendTo(XMLElement $parent)
+    {
       switch ($this->parameters()->get(MediaFilesPage::PARAMETER_NAVIGATION_MODE, MediaFilesPage::NAVIGATION_MODE_FOLDERS)) {
         case MediaFilesPage::NAVIGATION_MODE_TAGS:
           break;
@@ -69,7 +75,8 @@ namespace Papaya\Administration\Media {
       }
     }
 
-    public function foldersListView(ListView $foldersListView = NULL) {
+    public function foldersListView(ListView $foldersListView = NULL)
+    {
       if (NULL !== $foldersListView) {
         $this->_foldersListView = $foldersListView;
       } elseif (NULL === $this->_foldersListView) {
@@ -94,7 +101,7 @@ namespace Papaya\Administration\Media {
           );
           $item->indentation = $folders->getDepth() + 1;
           $item->selected = $isSelected;
-          switch($folder['permission_mode']) {
+          switch ($folder['permission_mode']) {
             case Folder::PERMISSION_MODE_DEFINE:
               $item->subitems[] = $subItem = new ListView\SubItem\Image('items.permission', new Translated('Defines permissions'));
               $subItem->align = Align::CENTER;
@@ -111,7 +118,8 @@ namespace Papaya\Administration\Media {
       return $this->_foldersListView;
     }
 
-    public function filesDialog(Dialog $filesDialog = NULL) {
+    public function filesDialog(Dialog $filesDialog = NULL)
+    {
       if (NULL !== $filesDialog) {
         $this->_filesDialog = $filesDialog;
       } elseif (NULL === $this->_filesDialog) {
@@ -120,29 +128,69 @@ namespace Papaya\Administration\Media {
         $dialog->caption = new Translated('Files');
         $dialog->parameterGroup($this->parameterGroup());
         $dialog->fields[] = $field = new Dialog\Field\ListView($listView = new ListView());
-        $listView->columns[] = new ListView\Column(new Translated('Name'));
-        $listView->columns[] = new ListView\Column(new Translated('Size'), Align::CENTER);
-        $listView->columns[] = new ListView\Column(new Translated('Uploaded / Created'), Align::CENTER);
+        $listView->toolbars->topRight->elements[] = $viewToggle = new ViewToggle(
+          [$this->parameterGroup(), MediaFilesPage::PARAMETER_FILES_VIEW]
+        );
+        $viewToggle->reference()->setParameters($this->parameters(), $this->parameterGroup());
+        $listView->mode = $viewToggle->currentValue;
+        $viewMode = $viewToggle->currentValue;
+        if (ListView::MODE_DETAILS === $viewMode) {
+          $listView->columns[] = new ListView\Column(new Translated('Name'));
+          $listView->columns[] = new ListView\Column(new Translated('Size'), Align::CENTER);
+          $listView->columns[] = new ListView\Column(new Translated('Uploaded / Created'), Align::CENTER);
+        }
         $listView->builder(
           $builder = new ListView\Items\Builder($this->files())
         );
-        $builder->callbacks()->onCreateItem = static function(
+        $listView->parameterGroup($this->parameterGroup());
+        $builder->callbacks()->onCreateItem = static function (
           $context, ListView\Items $items, $file
-        ) use ($dialog) {
+        ) use ($dialog, $viewMode) {
+          switch ($viewMode) {
+            case ListView::MODE_THUMBNAILS:
+            case ListView::MODE_TILES:
+              $thumbnailSize = $viewMode === ListView::MODE_THUMBNAILS ? 100 : 48;
+              $generator = new Thumbnails($file['id'], $file['revision'], $file['name']);
+              $generator->setBackgroundColor(Color::createFromString('#FF000000'));
+              if (
+                $thumbnail = $generator->createThumbnail(
+                  $generator->createCalculation($thumbnailSize, $thumbnailSize, Calculation::MODE_CONTAIN),
+                  ImageTypes::MIMETYPE_PNG
+                )
+              ) {
+                $icon = '../'.$thumbnail->getURL();
+              } else {
+                $icon = new MimeTypeIcon($file['icon'], 48);
+              }
+              break;
+            case ListView::MODE_DETAILS:
+            default:
+              $icon = new MimeTypeIcon($file['icon']);
+              break;
+          }
           $items[] = $item = new ListView\Item\Checkbox(
-            new MimeTypeIcon($file['icon']), $file['name'], $dialog, MediaFilesPage::PARAMETER_FILE_LIST, $file['id'], TRUE
+            $icon,
+            $file['name'],
+            $dialog,
+            MediaFilesPage::PARAMETER_FILES,
+            $file['id'],
+            TRUE
           );
           $item->actionParameters = [
             MediaFilesPage::PARAMETER_FILE => $file['id']
           ];
-          $item->subitems[] = new ListView\SubItem\Bytes($file['size']);
-          $item->subitems[] = new ListView\SubItem\Date($file['created']);
+          if (ListView::MODE_DETAILS === $viewMode) {
+            $item->subitems[] = new ListView\SubItem\Bytes($file['size']);
+            $item->subitems[] = new ListView\SubItem\Date($file['created']);
+          }
         };
+
       }
       return $this->_filesDialog;
     }
 
-    public function folders(Folders $folders = NULL) {
+    public function folders(Folders $folders = NULL)
+    {
       if (NULL !== $folders) {
         $this->_folders = $folders;
       } elseif (NULL === $this->_folders) {
@@ -160,7 +208,8 @@ namespace Papaya\Administration\Media {
       return $this->_folders;
     }
 
-    public function files(Files $files = NULL) {
+    public function files(Files $files = NULL)
+    {
       if (NULL !== $files) {
         $this->_files = $files;
       } elseif (NULL === $this->_files) {
@@ -176,7 +225,8 @@ namespace Papaya\Administration\Media {
       return $this->_files;
     }
 
-    public function selectedFolder(Folder $folder = NULL) {
+    public function selectedFolder(Folder $folder = NULL)
+    {
       if (NULL !== $folder) {
         $this->_selectedFolder = $folder;
       } elseif (NULL === $this->_selectedFolder) {
@@ -195,9 +245,9 @@ namespace Papaya\Administration\Media {
       $toggle = new Toolbar\Select\Buttons(
         [$this->parameterGroup(), MediaFilesPage::PARAMETER_NAVIGATION_MODE],
         [
-           MediaFilesPage::NAVIGATION_MODE_FOLDERS => [new Translated('Folders'), 'items.folder'],
-           MediaFilesPage::NAVIGATION_MODE_TAGS => [new Translated('Tags'), 'items.tag'],
-           MediaFilesPage::NAVIGATION_MODE_SEARCH => [new Translated('Search'), 'actions.search']
+          MediaFilesPage::NAVIGATION_MODE_FOLDERS => [new Translated('Folders'), 'items.folder'],
+          MediaFilesPage::NAVIGATION_MODE_TAGS => [new Translated('Tags'), 'items.tag'],
+          MediaFilesPage::NAVIGATION_MODE_SEARCH => [new Translated('Search'), 'actions.search']
         ]
       );
       $toggle->defaultValue = MediaFilesPage::NAVIGATION_MODE_FOLDERS;

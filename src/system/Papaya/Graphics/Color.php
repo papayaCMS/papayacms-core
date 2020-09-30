@@ -22,7 +22,7 @@ namespace Papaya\Graphics {
    * @property int $red
    * @property int $green
    * @property int $blue
-   * @property int $alpha
+   * @property float $alpha
    * @property-read float $hue
    * @property-read float $saturation
    * @property-read float $lightness
@@ -35,7 +35,7 @@ namespace Papaya\Graphics {
       'red' => 0,
       'green' => 0,
       'blue' => 0,
-      'alpha' => 255
+      'alpha' => 1.0
     ];
 
     private $_hsl;
@@ -44,14 +44,14 @@ namespace Papaya\Graphics {
      * @param int $red
      * @param int $green
      * @param int $blue
-     * @param int $alpha
+     * @param float $alpha
      * @throws \LogicException
      */
-    public function __construct($red, $green, $blue, $alpha = 255) {
+    public function __construct($red, $green, $blue, $alpha = 1.0) {
       $this->setValue('red', (int)$red);
       $this->setValue('green', (int)$green);
       $this->setValue('blue', (int)$blue);
-      $this->setValue('alpha', (int)$alpha);
+      $this->setValue('alpha', (float)$alpha);
     }
 
     /**
@@ -64,7 +64,7 @@ namespace Papaya\Graphics {
         $this->_rgba['red'],
         $this->_rgba['green'],
         $this->_rgba['blue'],
-        $this->_rgba['alpha'],
+        number_format($this->_rgba['alpha'], 2),
         $hsl['hue'],
         $hsl['saturation'],
         $hsl['lightness']
@@ -82,7 +82,7 @@ namespace Papaya\Graphics {
           $this->_rgba['red'],
           $this->_rgba['green'],
           $this->_rgba['blue'],
-          $this->_rgba['alpha']
+          round($this->_rgba['alpha'] * 255)
         );
       }
       $result = sprintf(
@@ -105,7 +105,7 @@ namespace Papaya\Graphics {
         ($this->_rgba['red'] << 24) +
         ($this->_rgba['green'] << 16) +
         ($this->_rgba['blue'] << 8) +
-        $this->_rgba['alpha'];
+        round($this->_rgba['alpha'] * 255);
     }
 
     /**
@@ -135,7 +135,7 @@ namespace Papaya\Graphics {
      * @return self
      * @throws \LogicException
      */
-    public static function create($red, $green, $blue, $alpha = 255) {
+    public static function create($red, $green, $blue, $alpha = 1.0) {
       return new self($red, $green, $blue, $alpha);
     }
 
@@ -147,7 +147,7 @@ namespace Papaya\Graphics {
      * @return self
      * @throws \LogicException
      */
-    public static function createGray($value, $alpha = 255) {
+    public static function createGray($value, $alpha = 1.0) {
       return new self($value, $value, $value, $alpha);
     }
 
@@ -161,7 +161,7 @@ namespace Papaya\Graphics {
         ArraysUtility::get($values, ['red', 'r', 0], 0),
         ArraysUtility::get($values, ['green', 'g', 1], 0),
         ArraysUtility::get($values, ['blue', 'b', 2], 0),
-        ArraysUtility::get($values, ['alpha', 'a', 3], 255)
+        ArraysUtility::get($values, ['alpha', 'a', 3], 1.0)
       );
     }
 
@@ -174,10 +174,10 @@ namespace Papaya\Graphics {
      */
     public static function createRandom($alpha = NULL) {
       return new self(
-        Random::rand(0, 255),
-        Random::rand(0, 255),
-        Random::rand(0, 255),
-        isset($alpha) ? $alpha : Random::rand(0, 255)
+        Random::randomInt(0, 255),
+        Random::randomInt(0, 255),
+        Random::randomInt(0, 255),
+        isset($alpha) ? $alpha : Random::randomFloat()
       );
     }
 
@@ -200,7 +200,11 @@ namespace Papaya\Graphics {
           } elseif (strlen($part) < 2) {
             $part .= $part;
           }
-          $parts[] = hexdec($part);
+          if (count($parts) < 3) {
+            $parts[] = hexdec($part);
+          } else {
+            $parts[] = hexdec($part) / 255;
+          }
         }
         return new self(...$parts);
       }
@@ -276,7 +280,7 @@ namespace Papaya\Graphics {
       case '3':
       case 'a':
       case 'alpha':
-        $this->validateValue($value, 0, 255);
+        $this->validateValue($value, 0, 1);
         $this->_rgba['alpha'] = $value;
         return;
       }
@@ -503,12 +507,12 @@ namespace Papaya\Graphics {
      */
     public static function removeAlphaFromColor($color, $backgroundColor = NULL) {
       $backgroundColor = $backgroundColor ?: ['red' => 255, 'green' => 255, 'blue' => 255];
-      $alpha = ArraysUtility::get($color, ['alpha', 4], 255);
-      if ($alpha < 255) {
+      $alpha = ArraysUtility::get($color, ['alpha', 4], 1.0);
+      if ($alpha < 1.0) {
         $backgroundRed = ArraysUtility::get($backgroundColor, ['red', 0], 0);
         $backgroundGreen = ArraysUtility::get($backgroundColor, ['green', 1], 0);
         $backgroundBlue = ArraysUtility::get($backgroundColor, ['blue', 2], 0);
-        $factor = (float)$alpha / 255.0;
+        $factor = (float)$alpha;
         $red = $backgroundRed * (1 - $factor) + $color['red'] * $factor;
         $green = $backgroundGreen * (1 - $factor) + $color['green'] * $factor;
         $blue = $backgroundBlue * (1 - $factor) + $color['blue'] * $factor;
@@ -516,9 +520,9 @@ namespace Papaya\Graphics {
           return self::create($red, $green, $blue);
         }
         if (isset($color['red'])) {
-          return ['red' => $red, 'green' => $green, 'blue' => $blue, 'alpha' => 255];
+          return ['red' => $red, 'green' => $green, 'blue' => $blue, 'alpha' => 1.0];
         }
-        return [$red, $green, $blue, 255];
+        return [$red, $green, $blue, 1.0];
       }
       return $color;
     }

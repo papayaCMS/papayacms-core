@@ -52,7 +52,13 @@ namespace Papaya\Media {
       ImageTypes::MIMETYPE_PNG => '.png',
       ImageTypes::MIMETYPE_BMP => '.bmp',
       ImageTypes::MIMETYPE_WBMP => '.wbmp',
-      ImageTypes::MIMETYPE_WEBP => '.webp'
+      ImageTypes::MIMETYPE_WEBP => '.webp',
+      IMAGETYPE_GIF => '.gif',
+      IMAGETYPE_JPEG => '.jpg',
+      IMAGETYPE_PNG => '.png',
+      IMAGETYPE_BMP => '.bmp',
+      IMAGETYPE_WBMP => '.wbmp',
+      IMAGETYPE_WEBP => '.webp'
     ];
 
     /**
@@ -67,14 +73,19 @@ namespace Papaya\Media {
      * @var GDLibrary
      */
     private $_gd;
+    /**
+     * @var string
+     */
+    private $_fileName;
 
     /**
      * @param string $fileId
      * @param int $fileRevision
      */
-    public function __construct($fileId, $fileRevision) {
+    public function __construct($fileId, $fileRevision, $fileName = '') {
       $this->_fileId = (string)$fileId;
       $this->_fileRevision = (int)$fileRevision;
+      $this->_fileName = $fileName;
     }
 
     public function createCalculation($targetWidth, $targetHeight, $mode = Calculation::MODE_CONTAIN) {
@@ -141,7 +152,7 @@ namespace Papaya\Media {
           )
         );
         $destination->save($mimeType, $targetFileName);
-        return new Thumbnail($targetFileName, NULL, $mimeType);
+        return new Thumbnail($targetFileName, $this->_fileName, $mimeType);
       }
       $this->logError(
         Message::SEVERITY_ERROR,
@@ -228,7 +239,11 @@ namespace Papaya\Media {
       if (NULL === $this->_backgroundColor) {
         try {
           $colorString = $this->papaya()->options->get(CMSSettings::THUMBS_BACKGROUND, '#FFF0');
+          $hasTransparency = $this->papaya()->options->get(CMSSettings::THUMBS_TRANSPARENT, TRUE);
           $this->_backgroundColor = Color::createFromString($colorString);
+          if ($hasTransparency) {
+            $this->_backgroundColor->alpha = 0;
+          }
         } catch (\InvalidArgumentException $e) {
           $this->_backgroundColor = Color::createGray(255, 0);
         }

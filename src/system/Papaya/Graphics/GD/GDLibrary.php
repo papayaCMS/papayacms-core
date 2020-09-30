@@ -57,13 +57,17 @@ namespace Papaya\Graphics\GD {
         $backgroundColor->red,
         $backgroundColor->green,
         $backgroundColor->blue,
-        127 - round($backgroundColor->alpha / 255 * 127)
+        $this->getGDAlphaValue($backgroundColor->alpha)
       );
       imagefilledrectangle(
         $imageResource, 0,0, $width, $height, $colorIndex
       );
       imagealphablending($imageResource, TRUE);
       return new GDImage($imageResource, $this);
+    }
+
+    private function getGDAlphaValue($alpha) {
+      return 127 - round(min($alpha, 1.0) * 127);
     }
 
     /**
