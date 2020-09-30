@@ -50,6 +50,12 @@ class Submit extends UI\Dialog\Button {
   private $_hint = '';
 
   /**
+   * @var string
+   */
+  private $_image = '';
+
+
+  /**
    * Initialize object, set caption and alignment
    *
    * @param string|StringCastable $caption
@@ -66,12 +72,14 @@ class Submit extends UI\Dialog\Button {
    * @param XMLElement $parent
    */
   public function appendTo(XMLElement $parent) {
+    $image = (string)$this->getImage();
     $parent->appendElement(
       'button',
       [
         'type' => 'submit',
         'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
-        'hint' => $this->getHint()
+        'hint' => $this->getHint(),
+        'image' => $image !== '' ? $image : NULL
       ],
       (string)$this->_caption
     );
@@ -90,5 +98,20 @@ class Submit extends UI\Dialog\Button {
    */
   public function getHint() {
     return (string)$this->_hint;
+  }
+
+  /**
+   * @param string|object $image
+   */
+  public function setImage($image) {
+    \Papaya\Utility\Constraints::assertStringCastable($image);
+    $this->_image = $image;
+  }
+
+  /**
+   * @return string $image
+   */
+  public function getImage() {
+    return (string)$this->_image;
   }
 }

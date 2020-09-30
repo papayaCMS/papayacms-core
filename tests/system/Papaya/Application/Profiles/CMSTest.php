@@ -36,6 +36,7 @@ class CMSTest extends \Papaya\TestCase {
         'Images' => new Profile\Images(),
         'Languages' => new Profile\Languages(),
         'Messages' => new Profile\Messages(),
+        'Media' => new Profile\Media(),
         'Options' => new Profile\Options(),
         'Plugins' => new Profile\Plugins(),
         'Profiler' => new Profile\Profiler(),

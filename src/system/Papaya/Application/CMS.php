@@ -22,6 +22,7 @@ namespace Papaya\Application;
  * @property \papaya_page|NULL $front
  * @property \Papaya\UI\Images images
  * @property \Papaya\Content\Languages $languages
+ * @property \Papaya\Media\MediaDatabase $media
  * @property \Papaya\Message\Manager $messages
  * @property \Papaya\Configuration\CMS $options
  * @property \Papaya\Plugin\Loader $plugins

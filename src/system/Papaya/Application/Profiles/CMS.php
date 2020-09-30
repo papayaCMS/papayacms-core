@@ -36,6 +36,7 @@ class CMS implements \Papaya\Application\Profiles {
     $profiles['Front'] = new Profile\Front();
     $profiles['Images'] = new Profile\Images();
     $profiles['Languages'] = new Profile\Languages();
+    $profiles['Media'] = new Profile\Media();
     $profiles['Messages'] = new Profile\Messages();
     $profiles['Options'] = new Profile\Options();
     $profiles['Plugins'] = new Profile\Plugins();
