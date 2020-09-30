@@ -244,8 +244,7 @@ namespace Papaya\Administration\Media {
       return $this->_filesDialog;
     }
 
-    public function folders(Folders $folders = NULL)
-    {
+    public function folders(Folders $folders = NULL) {
       if (NULL !== $folders) {
         $this->_folders = $folders;
       } elseif (NULL === $this->_folders) {
