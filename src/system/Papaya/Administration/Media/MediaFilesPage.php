@@ -32,6 +32,11 @@ namespace Papaya\Administration\Media {
     const NAVIGATION_MODE_FOLDERS = 'folders';
     const NAVIGATION_MODE_TAGS = 'tags';
     const NAVIGATION_MODE_SEARCH = 'search';
+    const PARAMETER_FILES_ACTION = 'files-action';
+    const FILES_ACTION_TAG = 'tag';
+    const FILES_ACTION_DELETE = 'delete';
+    const FILES_ACTION_MOVE = 'move';
+    const FILES_ACTION_CUT = 'cut';
 
     protected $_parameterGroup = 'media';
 

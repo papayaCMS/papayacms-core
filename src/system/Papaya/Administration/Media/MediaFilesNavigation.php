@@ -25,11 +25,11 @@ namespace Papaya\Administration\Media {
   use Papaya\Graphics\ImageTypes;
   use Papaya\Iterator\RecursiveTraversableIterator;
   use Papaya\Media\Thumbnail\Calculation;
-  use Papaya\Media\Thumbnails;
   use Papaya\UI;
   use Papaya\UI\Dialog;
   use Papaya\UI\ListView;
   use Papaya\UI\Option\Align;
+  use Papaya\UI\Text\Date;
   use Papaya\UI\Text\Translated;
   use Papaya\UI\Toolbar;
   use Papaya\XML\Element as XMLElement;
@@ -143,29 +143,31 @@ namespace Papaya\Administration\Media {
           $builder = new ListView\Items\Builder($this->files())
         );
         $listView->parameterGroup($this->parameterGroup());
-        $builder->callbacks()->onCreateItem = static function (
+        $builder->callbacks()->onCreateItem = function (
           $context, ListView\Items $items, $file
         ) use ($dialog, $viewMode) {
           switch ($viewMode) {
             case ListView::MODE_THUMBNAILS:
             case ListView::MODE_TILES:
               $thumbnailSize = $viewMode === ListView::MODE_THUMBNAILS ? 100 : 48;
-              $generator = new Thumbnails($file['id'], $file['revision'], $file['name']);
-              $generator->setBackgroundColor(Color::createFromString('#FF000000'));
+              $generator = $this->papaya()->media->createThumbnailGenerator(
+                $file['id'], $file['revision'], $file['name']
+              );
               if (
                 $thumbnail = $generator->createThumbnail(
-                  $generator->createCalculation($thumbnailSize, $thumbnailSize, Calculation::MODE_CONTAIN),
-                  ImageTypes::MIMETYPE_PNG
+                  $generator->createCalculation($thumbnailSize, $thumbnailSize, Calculation::MODE_CONTAIN)
                 )
               ) {
                 $icon = '../'.$thumbnail->getURL();
               } else {
                 $icon = new MimeTypeIcon($file['icon'], 48);
               }
+              $subTitle = new Date($file['date']);
               break;
             case ListView::MODE_DETAILS:
             default:
               $icon = new MimeTypeIcon($file['icon']);
+              $subTitle = '';
               break;
           }
           $items[] = $item = new ListView\Item\Checkbox(
@@ -176,15 +178,33 @@ namespace Papaya\Administration\Media {
             $file['id'],
             TRUE
           );
+          $item->text = $subTitle;
           $item->actionParameters = [
             MediaFilesPage::PARAMETER_FILE => $file['id']
           ];
           if (ListView::MODE_DETAILS === $viewMode) {
             $item->subitems[] = new ListView\SubItem\Bytes($file['size']);
-            $item->subitems[] = new ListView\SubItem\Date($file['created']);
+            $item->subitems[] = new ListView\SubItem\Date($file['date']);
           }
         };
-
+        if (count($this->files()) > 0) {
+          $dialog->buttons[] = $button = new Dialog\Button\NamedSubmit(
+            new Translated('Delete'), MediaFilesPage::PARAMETER_FILES_ACTION, MediaFilesPage::FILES_ACTION_DELETE
+          );
+          $button->setImage('places.trash');
+          $dialog->buttons[] = $button = new Dialog\Button\NamedSubmit(
+            new Translated('Cut'), MediaFilesPage::PARAMETER_FILES_ACTION, MediaFilesPage::FILES_ACTION_CUT
+          );
+          $button->setImage('actions.edit-cut');
+          $dialog->buttons[] = $button = new Dialog\Button\NamedSubmit(
+            new Translated('Move'), MediaFilesPage::PARAMETER_FILES_ACTION, MediaFilesPage::FILES_ACTION_MOVE
+          );
+          $button->setImage('items.image.move');
+          $dialog->buttons[] = $button = new Dialog\Button\NamedSubmit(
+            new Translated('Tag'), MediaFilesPage::PARAMETER_FILES_ACTION, MediaFilesPage::FILES_ACTION_TAG
+          );
+          $button->setImage('items.tag');
+        }
       }
       return $this->_filesDialog;
     }

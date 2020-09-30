@@ -68,6 +68,9 @@ class base_thumbnail extends base_object {
     } else {
       $bgColor = $this->papaya()->options->get(CMSSettings::THUMBS_BACKGROUND, '#FFFFFF');
     }
+    if (NULL === $mode) {
+      $mode = Papaya\Media\Thumbnail\Calculation::MODE_CONTAIN;
+    }
     $fileType = $this->papaya()->options->get(CMSSettings::THUMBS_FILETYPE, $this->thumbnailType);
     $mimeType = isset($this->_fileTypes[$fileType]) ? $this->_fileTypes[$fileType] : NULL;
     $this->mediaDB = base_mediadb::getInstance();
