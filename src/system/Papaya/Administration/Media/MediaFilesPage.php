@@ -26,7 +26,8 @@ namespace Papaya\Administration\Media {
     const COMMAND_EDIT_FILE = 'edit-file';
     const PARAMETER_FOLDER = 'folder-id';
     const PARAMETER_FILE = 'file-id';
-    const PARAMETER_FILE_LIST = 'files';
+    const PARAMETER_FILES = 'files';
+    const PARAMETER_FILES_VIEW = 'view';
     const PARAMETER_NAVIGATION_MODE = 'navigation';
     const NAVIGATION_MODE_FOLDERS = 'folders';
     const NAVIGATION_MODE_TAGS = 'tags';
