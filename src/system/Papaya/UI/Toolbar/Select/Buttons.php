@@ -50,9 +50,11 @@ namespace Papaya\UI\Toolbar\Select {
           }
           $caption = Utility\Arrays::get($data, ['caption', 0], '');
           $image = Utility\Arrays::get($data, ['image', 1], '');
+          $hint = Utility\Arrays::get($data, ['hint', 2], '');
         } else {
           $caption = $data;
           $image = '';
+          $hint = '';
         }
         $reference = clone $this->reference();
         $reference->getParameters()->set((string)$parameterName, $value);
@@ -61,6 +63,7 @@ namespace Papaya\UI\Toolbar\Select {
           [
             'href' => $reference->getRelative(),
             'title' => (string)$caption,
+            'hint' => (string)$hint,
             'image' => empty($image) ? '' : (string)($this->papaya()->images[$image] ?? '')
           ]
         );

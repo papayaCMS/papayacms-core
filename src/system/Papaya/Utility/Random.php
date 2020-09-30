@@ -29,9 +29,25 @@ class Random {
    *
    * @return int
    */
-  public static function rand($min = NULL, $max = NULL) {
-    $random = \function_exists('mt_rand') ? 'mt_rand' : 'rand';
-    return NULL === $min ? $random() : $random($min, $max);
+  public static function rand($min = 0, $max = NULL) {
+    return self::randomInt($min, $max);
+  }
+
+  public static function randomInt($min = 0, $max = NULL) {
+    if (function_exists('random_int')) {
+      /** @noinspection PhpElementIsNotAvailableInCurrentPhpVersionInspection */
+      return random_int($min, $max !== NULL ? $max : 2147483647);
+    }
+    return mt_rand($min, $max !== NULL ? $max : mt_getrandmax());
+  }
+
+  /**
+   * @param int $min
+   * @param int $max
+   * @return float|int|mixed
+   */
+  public static function randomFloat($min = 0, $max = 1) {
+    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
   }
 
   /**
