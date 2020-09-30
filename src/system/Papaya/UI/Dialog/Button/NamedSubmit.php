@@ -37,7 +37,6 @@ class NamedSubmit extends Submit {
    * @var string
    */
   protected $_value = '';
-
   /**
    * Initialize object, set caption and alignment
    *
@@ -63,11 +62,13 @@ class NamedSubmit extends Submit {
    * @param XML\Element $parent
    */
   public function appendTo(XML\Element $parent) {
+    $image = (string)$this->getImage();
     $parent->appendElement(
       'button',
       [
         'type' => 'submit',
         'align' => (UI\Dialog\Button::ALIGN_LEFT === $this->_align) ? 'left' : 'right',
+        'image' => $image !== '' ? $image : NULL,
         'name' => $this->_getParameterName([$this->_name, $this->_value]),
         'hint' => $this->getHint()
       ],
