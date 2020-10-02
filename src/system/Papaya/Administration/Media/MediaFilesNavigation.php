@@ -38,8 +38,7 @@ namespace Papaya\Administration\Media {
   use Papaya\Utility\Arrays;
   use Papaya\XML\Element as XMLElement;
 
-  class MediaFilesNavigation extends AdministrationPagePart
-  {
+  class MediaFilesNavigation extends AdministrationPagePart {
 
     /**
      * @var Folders
@@ -66,8 +65,7 @@ namespace Papaya\Administration\Media {
      */
     private $_filesPerPage = 10;
 
-    public function appendTo(XMLElement $parent)
-    {
+    public function appendTo(XMLElement $parent) {
       switch ($this->parameters()->get(MediaFilesPage::PARAMETER_NAVIGATION_MODE, MediaFilesPage::NAVIGATION_MODE_FOLDERS)) {
         case MediaFilesPage::NAVIGATION_MODE_TAGS:
           break;
@@ -83,8 +81,7 @@ namespace Papaya\Administration\Media {
       }
     }
 
-    public function foldersListView(ListView $foldersListView = NULL)
-    {
+    public function foldersListView(ListView $foldersListView = NULL) {
       if (NULL !== $foldersListView) {
         $this->_foldersListView = $foldersListView;
       } elseif (NULL === $this->_foldersListView) {
@@ -122,8 +119,7 @@ namespace Papaya\Administration\Media {
       return $this->_foldersListView;
     }
 
-    public function filesDialog(Dialog $filesDialog = NULL)
-    {
+    public function filesDialog(Dialog $filesDialog = NULL) {
       if (NULL !== $filesDialog) {
         $this->_filesDialog = $filesDialog;
       } elseif (NULL === $this->_filesDialog) {
@@ -263,8 +259,7 @@ namespace Papaya\Administration\Media {
       return $this->_folders;
     }
 
-    public function files(Files $files = NULL)
-    {
+    public function files(Files $files = NULL) {
       if (NULL !== $files) {
         $this->_files = $files;
       } elseif (NULL === $this->_files) {
@@ -305,8 +300,7 @@ namespace Papaya\Administration\Media {
       return $this->_files;
     }
 
-    public function selectedFolder(Folder $folder = NULL)
-    {
+    public function selectedFolder(Folder $folder = NULL) {
       if (NULL !== $folder) {
         $this->_selectedFolder = $folder;
       } elseif (NULL === $this->_selectedFolder) {
@@ -319,8 +313,7 @@ namespace Papaya\Administration\Media {
       return $this->_selectedFolder;
     }
 
-    public function _initializeToolbar(UI\Toolbar\Collection $toolbar)
-    {
+    public function _initializeToolbar(UI\Toolbar\Collection $toolbar) {
       parent::_initializeToolbar($toolbar);
       $toggle = new Toolbar\Select\Buttons(
         [$this->parameterGroup(), MediaFilesPage::PARAMETER_NAVIGATION_MODE],
