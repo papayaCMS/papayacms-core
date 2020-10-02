@@ -338,6 +338,11 @@ class Collection
     return $this->remove($offset);
   }
 
+  public function indexOf($item) {
+    $position = array_search($item, $this->_items, TRUE);
+    return (NULL !== $position) ? $position : -1;
+  }
+
   /**
    * Prepare the item before adding it to the internal item list. This allows to do things like
    * setting the application object or parameter group in subclasses. It sets the collection so

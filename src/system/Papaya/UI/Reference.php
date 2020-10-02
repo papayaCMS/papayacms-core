@@ -299,6 +299,17 @@ namespace Papaya\UI {
     }
 
     /**
+     * @param Request\Parameters $parameters
+     * @return Request\Parameters
+     */
+    public function parameters(Request\Parameters $parameters = NULL) {
+      if (NULL !== $parameters) {
+        $this->setParameters($parameters);
+      }
+      return $this->getParameters();
+    }
+
+    /**
      * Get reference query string prefixed by "?"
      *
      * @param bool $forPublic remove session id parameter for public urls
