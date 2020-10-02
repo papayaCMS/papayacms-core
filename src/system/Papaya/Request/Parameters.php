@@ -278,4 +278,18 @@ class Parameters extends BaseObject\Parameters {
   public function isEmpty() {
     return \count($this) < 1;
   }
+
+  /**
+   * @param array $names
+   * @return self
+   */
+  public function getFiltered(array $names) {
+    $filtered = new self();
+    foreach ($names as $name) {
+      if ($this->has($name)) {
+        $filtered->set($name, $this->get($name));
+      }
+    }
+    return $filtered;
+  }
 }
