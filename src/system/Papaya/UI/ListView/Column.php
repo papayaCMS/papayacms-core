@@ -27,6 +27,7 @@ use Papaya\XML;
  * @property string|\Papaya\UI\Text $caption
  */
 class Column extends UI\Control\Collection\Item {
+
   /**
    * Current caption value
    *
