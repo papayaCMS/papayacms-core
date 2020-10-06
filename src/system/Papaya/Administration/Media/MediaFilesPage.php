@@ -17,7 +17,6 @@ namespace Papaya\Administration\Media {
 
   use Papaya\Administration\Page as AdministrationPage;
   use Papaya\Administration\PageParameters;
-  use Papaya\Content\Media\Folder;
 
   class MediaFilesPage extends AdministrationPage {
 
