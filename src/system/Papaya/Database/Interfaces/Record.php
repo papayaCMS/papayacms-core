@@ -49,4 +49,10 @@ interface Record
    * @return bool
    */
   public function delete();
+
+  /**
+   * @param Key|null $key
+   * @return Key
+   */
+  public function key(Key $key = NULL);
 }
