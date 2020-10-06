@@ -95,7 +95,7 @@ class Dialog extends Control\Interactive {
   /**
    * Hidden fields are output as hidden input fields, the parameter group value ist used for them
    *
-   * @var Request\Parameters|null
+   * @var Request\Parameters
    */
   private $_hiddenFields;
 
@@ -374,22 +374,20 @@ class Dialog extends Control\Interactive {
    * This function gives you access to parameters object holding the hidden fields of the
    * dialog. Hidden fields use the parameter group name.
    *
-   * @param Request\Parameters|null $values
-   *
+   * @param Request\Parameters $values
    * @return Request\Parameters
    */
   public function hiddenFields(Request\Parameters $values = NULL) {
     if (NULL !== $values) {
       $this->_hiddenFields = $values;
-    }
-    if (NULL === $this->_hiddenFields) {
+    } elseif (NULL === $this->_hiddenFields) {
       $this->_hiddenFields = new Request\Parameters();
     }
     return $this->_hiddenFields;
   }
 
   /**
-   * Getter/Setter for csrf token manager including implizit create
+   * Getter/Setter for csrf token manager including implicit create
    *
    * @param Tokens $tokens
    *

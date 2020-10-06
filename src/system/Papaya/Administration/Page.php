@@ -171,12 +171,15 @@ namespace Papaya\Administration {
           )
         );
       }
+      $stepParameters = NULL;
       foreach ($parts as $name => $part) {
-        if (
-          $part instanceof Page\Part &&
-          ($xml = $part->getXML())
-        ) {
-          $this->getTemplate()->add($xml, $this->parts()->getTarget($name));
+        if ($part instanceof Page\Part) {
+          if ($stepParameters) {
+            $part->parameters()->merge($stepParameters);
+          }
+          if ($xml = $part->getXML()) {
+            $this->getTemplate()->add($xml, $this->parts()->getTarget($name));
+          }
         }
       }
       if ($restoreParameters) {

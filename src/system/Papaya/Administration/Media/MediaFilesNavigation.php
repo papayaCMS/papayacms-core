@@ -88,10 +88,6 @@ namespace Papaya\Administration\Media {
         $listView->papaya($this->papaya());
         $listView->caption = new Translated('Folders');
         $listView->parameterGroup($this->parameterGroup());
-        $listView->items[] = $item = new ListView\Item(
-          'places.desktop', new Translated('Desktop'), [MediaFilesPage::PARAMETER_FOLDER => 0]
-        );
-        $item->subitems[] = new ListView\SubItem\EmptyValue();
         $folders = new RecursiveTraversableIterator($this->folders(), RecursiveTraversableIterator::SELF_FIRST);
         foreach ($folders as $folder) {
           $isSelected = $this->selectedFolder()->id === $folder['id'];
@@ -103,14 +99,14 @@ namespace Papaya\Administration\Media {
               MediaFilesPage::PARAMETER_FOLDER => $folder['id']
             ]
           );
-          $item->indentation = $folders->getDepth() + 1;
+          $item->indentation = $folders->getDepth();
           $item->selected = $isSelected;
           switch ($folder['permission_mode']) {
             case Folder::PERMISSION_MODE_DEFINE:
               $item->subitems[] = $subItem = new ListView\SubItem\Image('items.permission', new Translated('Defines permissions'));
               $subItem->align = Align::CENTER;
               break;
-            case Folder::PERMISSION_MODE_INHERIT:
+            case Folder::PERMISSION_MODE_EXTEND:
               $item->subitems[] = $subItem = new ListView\SubItem\Image('status.permission-inherited', new Translated('Extends permissions'));
               $subItem->align = Align::CENTER;
               break;
@@ -130,6 +126,7 @@ namespace Papaya\Administration\Media {
         $dialog->papaya($this->papaya());
         $dialog->caption = new Translated('Files');
         $dialog->parameterGroup($this->parameterGroup());
+        $dialog->options->protectChanges = FALSE;
         $dialog->fields[] = $field = new Dialog\Field\ListView($listView = new ListView());
         $listView->toolbars->topLeft->elements[] = $paging = new Toolbar\Paging(
           [$this->parameterGroup(), MediaFilesPage::PARAMETER_FILES_OFFSET],
@@ -247,6 +244,7 @@ namespace Papaya\Administration\Media {
         $this->_folders = new Folders();
         $this->_folders->papaya($this->papaya());
         $folderIds = $this->selectedFolder()->ancestors ?: [0];
+        $folderIds[] = $this->selectedFolder()->parentId;
         $folderIds[] = $this->selectedFolder()->id;
         $this->_folders->activateLazyLoad(
           [
@@ -270,7 +268,9 @@ namespace Papaya\Administration\Media {
         $sort = Arrays::firstNotNull(
           $this->parameters()->get(
             MediaFilesPage::PARAMETER_FILES_SORT,
-            ['key' => Files::SORT_BY_NAME, ListView\Column\SortableColumn::SORTED_ASCENDING],
+            [
+              ['key' => 0, 'value' => ListView\Column\SortableColumn::SORTED_ASCENDING]
+            ],
             new KeyValue(
               new IntegerValue(0, 2),
               new ArrayElement(
@@ -322,7 +322,7 @@ namespace Papaya\Administration\Media {
       );
       $toggle->defaultValue = MediaFilesPage::NAVIGATION_MODE_FOLDERS;
       $toolbar->elements[] = $toggle;
-      $toolbar->elements[] = new Toolbar\Separator();
+      $toolbar->elements[] = new Toolbar\Separator(TRUE);
     }
   }
 }

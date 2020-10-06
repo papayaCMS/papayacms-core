@@ -23,6 +23,15 @@ use Papaya\XML;
  * @subpackage UI
  */
 class Separator extends Element {
+
+  /**
+   * @var false
+   */
+  private $_showAlways;
+
+  public function __construct($showAlways = FALSE) {
+    $this->_showAlways = $showAlways;
+  }
   /**
    * Append the separator to the parent xml element
    *
@@ -39,6 +48,9 @@ class Separator extends Element {
    * previous element is an separator, too.
    */
   public function isDisplayed() {
+    if ($this->_showAlways) {
+      return TRUE;
+    }
     $index = $this->index();
     $previous = $index - 1;
     $next = $index + 1;

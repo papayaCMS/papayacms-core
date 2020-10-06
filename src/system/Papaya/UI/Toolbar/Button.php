@@ -92,6 +92,14 @@ class Button extends Element {
     'target' => ['_target', '_target']
   ];
 
+  public function __construct($image = '', $caption = '', $parameters = NULL) {
+    $this->_image = $image;
+    $this->_caption = $caption;
+    if ($parameters) {
+      $this->reference()->setParameters($parameters);
+    }
+  }
+
   /**
    * Setter for access key character.
    *

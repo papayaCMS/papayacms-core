@@ -27,18 +27,18 @@ class Record extends UI\Control\Command\Condition {
   /**
    * member variable to store the record
    *
-   * @var Database\Record
+   * @var Database\Interfaces\Record
    */
   private $_record;
 
   /**
    * Create object and store callback.
    *
-   * @param Database\Record $record
+   * @param Database\Interfaces\Record $record
    *
    * @throws \InvalidArgumentException
    */
-  public function __construct(Database\Record $record) {
+  public function __construct(Database\Interfaces\Record $record) {
     $this->_record = $record;
   }
 
