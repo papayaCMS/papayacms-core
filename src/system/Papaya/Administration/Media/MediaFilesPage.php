@@ -17,11 +17,11 @@ namespace Papaya\Administration\Media {
 
   use Papaya\Administration\Page as AdministrationPage;
   use Papaya\Administration\PageParameters;
-  use Papaya\Content\Media\Folder;
 
   class MediaFilesPage extends AdministrationPage {
 
     const PARAMETER_COMMAND = 'cmd';
+    const COMMAND_ADD_FOLDER = 'add-folder';
     const COMMAND_EDIT_FOLDER = 'edit-folder';
     const COMMAND_EDIT_FILE = 'edit-file';
     const PARAMETER_FOLDER = 'folder-id';
