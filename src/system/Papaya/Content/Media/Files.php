@@ -83,7 +83,6 @@ class Files extends Database\Records\Lazy {
     $statement->addTableName('mimetypes', Tables::MEDIA_MIMETYPES);
     $statement->addTableName('translations', Tables::MEDIA_FILE_TRANSLATIONS);
     $statement->addInt('language_id', $languageId);
-    $this->getDatabaseAccess()->debugNextQuery();
     return $this->_loadRecords($statement, [], $limit, $offset, $this->_identifierProperties);
   }
 

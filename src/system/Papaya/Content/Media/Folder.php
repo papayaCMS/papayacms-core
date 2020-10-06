@@ -12,9 +12,11 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Content\Media {
 
   use Papaya\Content;
+  use Papaya\Content\Tables;
   use Papaya\Database;
   use Papaya\Utility;
 
@@ -23,27 +25,34 @@ namespace Papaya\Content\Media {
    * @property int $parentId
    * @property int[] $ancestors
    * @property string $permissionMode
+   * @property int $languageId
+   * @property string $title
    */
-  class Folder extends Database\Record\Lazy
-  {
+  class Folder extends Database\Record\Lazy {
     const PERMISSION_MODE_DEFINE = 'own';
     const PERMISSION_MODE_EXTEND = 'additional';
     const PERMISSION_MODE_INHERIT = 'inherited';
 
     protected $_fields = [
-      'id' => 'folder_id',
-      'parent_id' => 'parent_id',
-      'ancestors' => 'parent_path',
-      'permission_mode' => 'permission_mode'
+      'id' => 'folders.folder_id',
+      'parent_id' => 'folders.parent_id',
+      'ancestors' => 'folders.parent_path',
+      'permission_mode' => 'folders.permission_mode',
+      'language_id' => 'translations.lng_id',
+      'title' => 'translations.folder_name'
     ];
 
     protected $_tableName = Content\Tables::MEDIA_FOLDERS;
+    protected $_tableAlias = 'folders';
+    /**
+     * @var mixed|Folder\FolderTranslations
+     */
+    private $_translations;
 
     /**
      * @return Database\Record\Mapping
      */
-    public function _createMapping()
-    {
+    public function _createMapping() {
       $mapping = parent::_createMapping();
       $mapping->callbacks()->onMapValueFromFieldToProperty = static function (
         /** @noinspection PhpUnusedParameterInspection */
@@ -64,6 +73,57 @@ namespace Papaya\Content\Media {
         return $value;
       };
       return $mapping;
+    }
+
+    /**
+     * @param array|null $filter
+     * @return bool
+     */
+    public function load($filter = NULL) {
+      if (isset($filter['language_id'])) {
+        $languageId = (int)$filter['language_id'];
+        unset($filter['language_id']);
+      } else {
+        $languageId = 0;
+      }
+      $statement = $this->getDatabaseAccess()->prepare(
+        "SELECT 
+            folders.folder_id, folders.parent_id, folders.parent_path, folders.permission_mode,
+            translations.lng_id, translations.folder_name
+          FROM :folders AS folders
+          LEFT JOIN :translations AS translations ON (
+            translations.folder_id = folders.folder_id AND translations.lng_id = :language_id
+          ) " .
+        $this->_compileCondition($filter)
+      );
+      $statement->addTableName('folders', Tables::MEDIA_FOLDERS);
+      $statement->addTableName('translations', Tables::MEDIA_FOLDER_TRANSLATIONS);
+      $statement->addInt('language_id', $languageId);
+      return $this->_loadRecord($statement);
+    }
+
+    public function save() {
+      $result = parent::save();
+      if (
+        $result &&
+        ($this->id > 0) &&
+        ($this->languageId > 0)
+      ) {
+        $translation = $this->translations()->getItem(['id' => $this->id, 'language_id' => $this->languageId]);
+        $translation->assign($this);
+        return $translation->save();
+      }
+      return $result;
+    }
+
+    public function translations(Content\Media\Folder\FolderTranslations $translations = NULL) {
+      if (NULL !== $translations) {
+        $this->_translations = $translations;
+      } elseif (NULL === $this->_translations) {
+        $this->_translations = new Content\Media\Folder\FolderTranslations();
+        $this->_translations->papaya($this->papaya());
+      }
+      return $this->_translations;
     }
   }
 }

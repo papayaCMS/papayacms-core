@@ -18,7 +18,7 @@ use Papaya\Database;
 use Papaya\UI;
 
 /**
- * A command that executes a dialog. After dialog creation, and after successfull/failed execuution
+ * A command that executes a dialog. After dialog creation, and after successful/failed execution
  * callbacks are executed. This class adds record handling.
  *
  * @package Papaya-Library

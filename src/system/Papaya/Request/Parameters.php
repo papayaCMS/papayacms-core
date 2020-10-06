@@ -57,32 +57,32 @@ class Parameters extends BaseObject\Parameters {
    *
    * @see \Papaya\BaseObject\Parameters::get()
    *
-   * @param array|int|string $offset
+   * @param array|int|string $name
    * @param null $defaultValue
    * @param Filter $filter
    *
    * @return mixed
    */
-  public function get($offset, $defaultValue = NULL, Filter $filter = NULL) {
-    return parent::get($this->_parseParameterName($offset), $defaultValue, $filter);
+  public function get($name, $defaultValue = NULL, Filter $filter = NULL) {
+    return parent::get($this->_parseParameterName($name), $defaultValue, $filter);
   }
 
   /**
    * Set a value. If $offsets is an array or Traversable each element in the array/Traversalbe
    * is set.
    *
-   * @param int|string|array|\Traversable $offsets
+   * @param int|string|array|\Traversable $nameOrValues
    * @param mixed $value
    *
    * @return $this
    */
-  public function set($offsets, $value = NULL) {
-    if (\is_array($offsets) || $offsets instanceof \Traversable) {
-      foreach ($offsets as $offset => $element) {
+  public function set($nameOrValues, $value = NULL) {
+    if (\is_array($nameOrValues) || $nameOrValues instanceof \Traversable) {
+      foreach ($nameOrValues as $offset => $element) {
         $this[$offset] = $element;
       }
     } else {
-      $this[$offsets] = $value;
+      $this[$nameOrValues] = $value;
     }
     return $this;
   }
