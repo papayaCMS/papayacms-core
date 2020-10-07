@@ -52,6 +52,10 @@ abstract class Record
    * @var string|null
    */
   protected $_tableName;
+  /**
+   * @var Database\Interfaces\Key|string|null
+   */
+  private $_key;
 
   /**
    * Loads the values from the database table.
@@ -86,6 +90,32 @@ abstract class Record
     return $this->_deleteRecord(
       $this->databaseGetTableName($this->_tableName), ['id']
     );
+  }
+
+  /**
+   * Getter/Setter for the key subobject. This contains information about the identification
+   * of the record.
+   *
+   * @param Database\Interfaces\Key $key
+   *
+   * @return Database\Interfaces\Key
+   */
+  public function key(Database\Interfaces\Key $key = NULL) {
+    if (NULL !== $key) {
+      $this->_key = $key;
+    } elseif (NULL === $this->_key) {
+      $this->_key = $this->_createKey();
+    }
+    return $this->_key;
+  }
+
+  /**
+   * Create a standard autoincrement key object for the property "id".
+   *
+   * @return Database\Record\Key\Autoincrement
+   */
+  protected function _createKey() {
+    return new Database\Record\Key\Autoincrement('id');
   }
 
   /**
