@@ -15,6 +15,8 @@
 
 namespace Papaya\Content {
 
+  use Papaya\Database\Interfaces\Key;
+
   require_once __DIR__.'/../../../bootstrap.php';
 
   class BoxTest extends \Papaya\TestCase {
@@ -132,5 +134,7 @@ namespace Papaya\Content {
 
   class Box_TestProxy extends Box {
 
+    public function key(Key $key = NULL) {
+    }
   }
 }
