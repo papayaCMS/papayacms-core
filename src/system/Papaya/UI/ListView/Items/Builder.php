@@ -32,10 +32,14 @@ class Builder {
    * Create object and store the data source
    *
    * @param \Traversable|array $dataSource
+   * @param callable|null $onCreateItem
    */
-  public function __construct($dataSource) {
+  public function __construct($dataSource, callable $onCreateItem = NULL) {
     Utility\Constraints::assertArrayOrTraversable($dataSource);
     $this->_dataSource = $dataSource;
+    if (isset($onCreateItem)) {
+      $this->callbacks()->onCreateItem = $onCreateItem;
+    }
   }
 
   /**
