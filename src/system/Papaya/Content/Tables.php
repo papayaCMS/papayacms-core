@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Content;
 
 use Papaya\Database;
@@ -124,9 +125,11 @@ class Tables extends \Papaya\Application\BaseObject {
 
   const MEDIA_FOLDER_TRANSLATIONS = 'mediadb_folders_trans';
 
+  const MEDIA_FOLDER_PERMISSIONS = 'mediadb_folders_permissions';
+
   const MEDIA_MIMETYPES = 'mediadb_mimetypes';
 
-  const MEDIA_MIMETYPE_EXTENSIONS =  'mediadb_mimetypes_extensions';
+  const MEDIA_MIMETYPE_EXTENSIONS = 'mediadb_mimetypes_extensions';
 
   const MEDIA_MIMETYPE_GROUPS = 'mediadb_mimegroups';
 
@@ -159,8 +162,8 @@ class Tables extends \Papaya\Application\BaseObject {
   public function get($tableName, $prefix = TRUE) {
     if ($prefix && isset($this->papaya()->options)) {
       $prefixString = $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX, 'papaya');
-      if ('' !== $prefixString && 0 !== \strpos($tableName, $prefixString.'_')) {
-        return $prefixString.'_'.$tableName;
+      if ('' !== $prefixString && 0 !== \strpos($tableName, $prefixString . '_')) {
+        return $prefixString . '_' . $tableName;
       }
     }
     return $tableName;

@@ -14,6 +14,7 @@
  */
 namespace Papaya\UI;
 
+use Papaya\UI\ListView\Items\Builder;
 use Papaya\XML;
 
 /**
@@ -95,7 +96,7 @@ class ListView extends Control\Interactive {
   private $_reference;
 
   /**
-   * Declared public properties, see property annotaiton of the class for documentation.
+   * Declared public properties, see property annotation of the class for documentation.
    *
    * @var array
    */
@@ -107,6 +108,12 @@ class ListView extends Control\Interactive {
     'mode' => ['_mode', 'setMode'],
     'reference' => ['reference', 'reference']
   ];
+
+  public function __construct(Builder $builder = NULL) {
+    if (isset($builder)) {
+      $this->builder($builder);
+    }
+  }
 
   /**
    * Append listview output to parent element.

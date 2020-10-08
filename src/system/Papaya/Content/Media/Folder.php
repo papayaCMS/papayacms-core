@@ -16,8 +16,12 @@
 namespace Papaya\Content\Media {
 
   use Papaya\Content;
+  use Papaya\Content\Authentication\Group;
+  use Papaya\Content\Media\Folder\EditorPermissions;
   use Papaya\Content\Tables;
   use Papaya\Database;
+  use Papaya\Iterator\Callback as CallbackIterator;
+  use Papaya\Media\FolderPermission;
   use Papaya\Utility;
 
   /**
@@ -29,9 +33,11 @@ namespace Papaya\Content\Media {
    * @property string $title
    */
   class Folder extends Database\Record\Lazy {
+
     const PERMISSION_MODE_DEFINE = 'own';
     const PERMISSION_MODE_EXTEND = 'additional';
     const PERMISSION_MODE_INHERIT = 'inherited';
+    const PERMISSION_MODE_UNRESTRICTED = 'unrestricted';
 
     protected $_fields = [
       'id' => 'folders.folder_id',
@@ -48,6 +54,10 @@ namespace Papaya\Content\Media {
      * @var mixed|Folder\FolderTranslations
      */
     private $_translations;
+    /**
+     * @var mixed|EditorPermissions
+     */
+    private $_editorPermissions;
 
     /**
      * @return Database\Record\Mapping
@@ -124,6 +134,67 @@ namespace Papaya\Content\Media {
         $this->_translations->papaya($this->papaya());
       }
       return $this->_translations;
+    }
+
+    /**
+     * @param EditorPermissions $permissions
+     * @return EditorPermissions
+     */
+    public function editorPermissions(EditorPermissions $permissions = NULL) {
+      if (NULL !== $permissions) {
+        $this->_editorPermissions = $permissions;
+      } elseif (NULL === $this->_editorPermissions) {
+        $this->_editorPermissions = new EditorPermissions();
+        $this->_editorPermissions->papaya($this->papaya());
+        $this->_editorPermissions->activateLazyLoad(['id' => $this->getAncestorPath()]);
+    }
+      return $this->_editorPermissions;
+    }
+
+    public function hasPermissionFor(Group $group, $permission) {
+      return (
+        $this->hasOwnPermissionFor($group, $permission) ||
+        $this->hasInheritedPermissionFor($group, $permission)
+      );
+    }
+
+    public function hasOwnPermissionFor(Group $group, $permission) {
+      if ($this->permissionMode === self::PERMISSION_MODE_UNRESTRICTED) {
+        return TRUE;
+      }
+      if ($this->permissionMode === self::PERMISSION_MODE_DEFINE) {
+        return $this->editorPermissions()->hasPermission($this->id, $permission, $group->id);
+      }
+      return FALSE;
+    }
+
+    public function hasInheritedPermissionFor(Group $group, $permission) {
+      if (
+        $this->permissionMode === self::PERMISSION_MODE_EXTEND ||
+        $this->permissionMode === self::PERMISSION_MODE_INHERIT
+      ) {
+        foreach ($this->getAncestorPath() as $folderId) {
+          if ($this->editorPermissions()->hasPermission($folderId, $permission, $group->id)) {
+            return TRUE;
+          }
+        }
+      }
+      return FALSE;
+    }
+
+    private function getAncestorPath($includeSelf = TRUE) {
+      $folderIds = $this->ancestors ?: [];
+      $folderIds[] = $this->parentId;
+      if ($includeSelf) {
+        $folderIds[] = $this->id;
+      }
+      return array_reverse(
+        array_unique(
+          array_filter(
+            $folderIds, static function($id) { return $id > 0; }
+          )
+        )
+      );
     }
   }
 }

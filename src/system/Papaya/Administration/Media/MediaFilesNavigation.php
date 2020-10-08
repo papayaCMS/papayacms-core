@@ -102,6 +102,10 @@ namespace Papaya\Administration\Media {
           $item->indentation = $folders->getDepth();
           $item->selected = $isSelected;
           switch ($folder['permission_mode']) {
+            case Folder::PERMISSION_MODE_UNRESTRICTED:
+              $item->subitems[] = $subItem = new ListView\SubItem\Image('items.publication', new Translated('Public'));
+              $subItem->align = Align::CENTER;
+              break;
             case Folder::PERMISSION_MODE_DEFINE:
               $item->subitems[] = $subItem = new ListView\SubItem\Image('items.permission', new Translated('Defines permissions'));
               $subItem->align = Align::CENTER;

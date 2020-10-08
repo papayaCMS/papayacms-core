@@ -12,76 +12,78 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\UI\ListView\SubItem;
+namespace Papaya\UI\ListView\SubItem {
 
-use Papaya\Request;
-use Papaya\Request\Parameters\GroupSeparator;
-use Papaya\UI;
-use Papaya\XML;
-
-/**
- * An listview subitem with a checkbox element.
- *
- * @package Papaya-Library
- * @subpackage UI
- */
-class Checkbox extends UI\ListView\SubItem {
-  /**
-   * @var Request\Parameters\Name
-   */
-  private $_parameterName;
+  use Papaya\Request\Parameters\GroupSeparator;
+  use Papaya\Request\Parameters\Name as ParameterName;
+  use Papaya\UI;
+  use Papaya\XML;
 
   /**
-   * @var UI\Dialog
-   */
-  private $_dialog;
-
-  /**
-   * @var string
-   */
-  private $_value;
-
-  public function __construct(UI\Dialog $dialog, $parameterName, $value) {
-    $this->_dialog = $dialog;
-    $this->_parameterName = new Request\Parameters\Name($parameterName);
-    $this->_value = $value;
-  }
-
-  /**
-   * Append subitem xml data to parent node. In this case just an <subitem/> element
+   * An listview subitem with a checkbox element.
    *
-   * @param XML\Element $parent
-   * @return XML\Element
+   * @package Papaya-Library
+   * @subpackage UI
    */
-  public function appendTo(XML\Element $parent) {
-    $subitem = $this->_appendSubItemTo($parent);
-    $parameterName = clone $this->_parameterName;
-    if ($group = $this->_dialog->parameterGroup()) {
-      $parameterName->insertBefore(0, $this->_dialog->parameterGroup());
-    }
-    $checkbox = $subitem->appendElement(
-      'input',
-      [
-        'type' => 'checkbox',
-        'name' => $parameterName.GroupSeparator::ARRAY_SYNTAX,
-        'value' => $this->_value
-      ]
-    );
-    if ($this->isSelected()) {
-      $checkbox->setAttribute('checked', 'checked');
-    }
-    return $subitem;
-  }
+  class Checkbox extends UI\ListView\SubItem {
+    /**
+     * @var ParameterName
+     */
+    private $_parameterName;
 
-  /**
-   * @return bool
-   */
-  public function isSelected() {
-    if ($this->_dialog->parameters()->has($this->_parameterName)) {
-      $currentValues = $this->_dialog->parameters()->get($this->_parameterName, []);
-    } else {
-      $currentValues = $this->_dialog->data()->get($this->_parameterName, []);
+    /**
+     * @var UI\Dialog
+     */
+    private $_dialog;
+
+    /**
+     * @var string
+     */
+    private $_value;
+
+    public function __construct(UI\Dialog $dialog, $parameterName, $value) {
+      $this->_dialog = $dialog;
+      $this->_parameterName = $parameterName instanceof ParameterName
+        ? clone $parameterName : new ParameterName($parameterName);
+      $this->_value = $value;
     }
-    return \in_array($this->_value, $currentValues, FALSE);
+
+    /**
+     * Append subitem xml data to parent node. In this case just an <subitem/> element
+     *
+     * @param XML\Element $parent
+     * @return XML\Element
+     */
+    public function appendTo(XML\Element $parent) {
+      $subitem = $this->_appendSubItemTo($parent);
+      $parameterName = clone $this->_parameterName;
+      if ($group = $this->_dialog->parameterGroup()) {
+        $parameterName->insertBefore(0, $this->_dialog->parameterGroup());
+      }
+      $checkbox = $subitem->appendElement(
+        'input',
+        [
+          'type' => 'checkbox',
+          'name' => $parameterName . GroupSeparator::ARRAY_SYNTAX,
+          'value' => $this->_value
+        ]
+      );
+      if ($this->isSelected()) {
+        $checkbox->setAttribute('checked', 'checked');
+      }
+      return $subitem;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSelected() {
+      if ($this->_dialog->parameters()->has($this->_parameterName)) {
+        $currentValues = $this->_dialog->parameters()->get($this->_parameterName, []);
+      } else {
+        $currentValues = $this->_dialog->data()->get($this->_parameterName, []);
+      }
+      return \in_array($this->_value, $currentValues, FALSE);
+    }
   }
 }

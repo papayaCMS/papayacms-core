@@ -55,12 +55,14 @@ namespace Papaya\Administration\Media\Commands {
         $dialog->buttons[] = new SubmitButton(
           new TranslatedText('Add')
         );
+        $isTopLevelFolder = $this->record()->id < 1;
       } else {
         $dialog->caption = new TranslatedText('Edit Folder');
         $dialog->buttons[] = new SubmitButton(
           new TranslatedText('Save')
         );
         $dialog->data->merge($this->record());
+        $isTopLevelFolder = $this->record()->parentId < 1;
       }
       $dialog->hiddenFields()->merge(
         [
@@ -77,19 +79,25 @@ namespace Papaya\Administration\Media\Commands {
         '',
         new TextFilter(TextFilter::ALLOW_SPACES | TextFilter::ALLOW_DIGITS)
       );
+      $allowedPermissionModes = $isTopLevelFolder
+        ? [
+            Folder::PERMISSION_MODE_UNRESTRICTED => 'Unrestricted',
+            Folder::PERMISSION_MODE_DEFINE => 'Define'
+          ]
+        : [
+            Folder::PERMISSION_MODE_INHERIT => 'Inherit',
+            Folder::PERMISSION_MODE_EXTEND => 'Extend',
+            Folder::PERMISSION_MODE_DEFINE => 'Define',
+            Folder::PERMISSION_MODE_UNRESTRICTED => 'Unrestricted'
+          ];
       $dialog->fields[] = $field = new SelectField(
         new TranslatedText('Permission Mode'),
         self::PARAMETER_PERMISSION_MODE,
         new TranslatedList(
-          [
-            Folder::PERMISSION_MODE_INHERIT => 'Inherit',
-            Folder::PERMISSION_MODE_EXTEND => 'Extend',
-            Folder::PERMISSION_MODE_DEFINE => 'Define',
-          ]
+          $allowedPermissionModes
         ),
         FALSE
       );
-      $field->setDisabled($this->record()->parentId < 1);
       $this->resetAfterSuccess(TRUE);
       $this->callbacks()->onExecuteSuccessful = function () use ($dialog) {
         if ($this->_command === MediaFilesPage::COMMAND_ADD_FOLDER) {
@@ -104,7 +112,7 @@ namespace Papaya\Administration\Media\Commands {
               'ancestors' => $ancestors,
               'permission_mode' => $parentId > 0
                 ? $dialog->parameters()->get(self::PARAMETER_PERMISSION_MODE,  Folder::PERMISSION_MODE_INHERIT)
-                : Folder::PERMISSION_MODE_DEFINE,
+                : $dialog->parameters()->get(self::PARAMETER_PERMISSION_MODE,  Folder::PERMISSION_MODE_UNRESTRICTED),
               'language_id' => $this->papaya()->administrationLanguage->id,
               'title' => $dialog->parameters()->get(self::PARAMETER_TITLE, '')
             ]
@@ -122,7 +130,7 @@ namespace Papaya\Administration\Media\Commands {
             [
               'permission_mode' => $this->record()->parentId > 0
                 ? $dialog->parameters()->get(self::PARAMETER_PERMISSION_MODE,  Folder::PERMISSION_MODE_INHERIT)
-                : Folder::PERMISSION_MODE_DEFINE,
+                : $dialog->parameters()->get(self::PARAMETER_PERMISSION_MODE,  Folder::PERMISSION_MODE_UNRESTRICTED),
               'title' => $dialog->parameters()->get(self::PARAMETER_TITLE, '')
             ]
           );
