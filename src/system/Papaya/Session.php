@@ -16,6 +16,7 @@ namespace Papaya {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties;
+  use Papaya\Configuration\CMS;
   use Papaya\Session\Id as SessionId;
   use Papaya\Session\Redirect as RedirectAlias;
   use Papaya\Session\Values as SessionValues;
@@ -324,21 +325,43 @@ namespace Papaya {
     private function configure() {
       $options = $this->papaya()->options;
       $wrapper = $this->wrapper();
-      $defaults = $wrapper->getCookieParameters();
-      $wrapper->setCookieParameters(
-        [
-          'lifetime' => $defaults['lifetime'],
-          'path' => $options->get(
-            'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
-          ),
-          'domain' => $options->get(
-            'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new Filter\NotEmpty()
-          ),
-          'secure' => $this->isSecureOnly(),
-          'httponly' => $options->get(\Papaya\Configuration\CMS::SESSION_HTTP_ONLY, $defaults['httponly']),
-        ]
-      );
+      if ($this->hasCookieConsent()) {
+        $defaults = $wrapper->getCookieParameters();
+        $wrapper->setCookieParameters(
+          [
+            'lifetime' => $defaults['lifetime'],
+            'path' => $options->get(
+              'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
+            ),
+            'domain' => $options->get(
+              'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new Filter\NotEmpty()
+            ),
+            'secure' => $this->isSecureOnly(),
+            'httponly' => $options->get(\Papaya\Configuration\CMS::SESSION_HTTP_ONLY, $defaults['httponly']),
+          ]
+        );
+      } else {
+        ini_set('session.use_cookies', '0');
+      }
       $wrapper->setCacheLimiter($this->options()->cache);
+    }
+
+    private function hasCookieConsent() {
+      $options = $this->papaya()->options;
+      if (
+        $this->isAdministration() ||
+        !$options->get(CMS::SESSION_CONSENT_COOKIE_REQUIRE, FALSE)
+      ) {
+        return TRUE;
+      }
+      $name = $options->get(CMS::SESSION_CONSENT_COOKIE_NAME, '');
+      if ($name && isset($_COOKIE[$name]) && ($value = $_COOKIE[$name])) {
+        $posibilites = array_map(
+          static function($posibility) { return trim($posibility); },
+          explode(',', $options->get(CMS::SESSION_CONSENT_COOKIE_VALUES))
+        );
+        return in_array($value, $posibilites);
+      }
     }
 
     /**

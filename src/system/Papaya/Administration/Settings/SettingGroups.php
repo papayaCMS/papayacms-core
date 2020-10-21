@@ -516,7 +516,14 @@ namespace Papaya\Administration\Settings {
         CMS::SESSION_SECURE => FlagSetting::class,
         CMS::SESSION_START => FlagSetting::class,
         CMS::SESSION_DOMAIN => HostNameSetting::class,
-        CMS::SESSION_PATH => PathSetting::class
+        CMS::SESSION_PATH => PathSetting::class,
+        CMS::SESSION_CONSENT_COOKIE_REQUIRE => FlagSetting::class,
+        CMS::SESSION_CONSENT_COOKIE_NAME => [
+          TextSetting::class, 50, '(^[a-z\d_]+$)'
+        ],
+        CMS::SESSION_CONSENT_COOKIE_VALUES => [
+          TextSetting::class, 500
+        ]
       ],
       self::FEATURES => [
         CMS::PROTECT_FORM_CHANGES => FlagSetting::class,
@@ -555,7 +562,9 @@ namespace Papaya\Administration\Settings {
           $profileClass = $profileData;
           $profileData = [];
         }
-        return new $profileClass(...$profileData);
+        $profile = new $profileClass(...$profileData);
+        $profile->papaya($this->papaya());
+        return $profile;
       }
       return NULL;
     }

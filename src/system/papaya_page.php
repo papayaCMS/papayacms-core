@@ -1112,7 +1112,7 @@ class papaya_page extends base_object {
       $pageStatus->load($this->topicId);
       if ($pageStatus->sessionMode == 0) {
         $this->allowSession = $this->papaya()->options->get(
-          'PAPAYA_SESSION_ACTIVATION', \Papaya\Session::ACTIVATION_ALWAYS
+          \Papaya\Configuration\CMS::SESSION_ACTIVATION, \Papaya\Session::ACTIVATION_ALWAYS
         );
       } else {
         $this->allowSession = $pageStatus->sessionMode;
