@@ -54,8 +54,18 @@ namespace Papaya\Administration\Settings\Commands {
         ]
       );
       $dialog->caption = new TranslatedText('Edit Setting');
-      $dialog->data()->merge($this->record());
-      $currentValue = $this->record()->value;
+      if ($this->record()->isLoaded()) {
+        $dialog->data()->merge($this->record());
+        $currentValue = $this->record()->value;
+      } else {
+        $currentValue = $this->papaya()->options->get($settingName);
+        $dialog->data()->merge(
+          [
+            'name' => $settingName,
+            'value' => $currentValue
+          ]
+        );
+      }
       if ($profile = $this->groups()->getProfile($settingName)) {
         $dialog->fields[] = $field = new Dialog\Field\Sheet();
         $sheet = $field->sheet();
