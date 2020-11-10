@@ -17,6 +17,7 @@ namespace Papaya {
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties;
   use Papaya\Configuration\CMS;
+  use Papaya\Session\ConsentCookie;
   use Papaya\Session\Id as SessionId;
   use Papaya\Session\Redirect as RedirectAlias;
   use Papaya\Session\Values as SessionValues;
@@ -90,6 +91,8 @@ namespace Papaya {
      * @var bool|null
      */
     private $_isAdministration;
+
+    private $_consentCookie;
 
     /**
      * Set the session name (include sid)
@@ -350,18 +353,20 @@ namespace Papaya {
       $options = $this->papaya()->options;
       if (
         $this->isAdministration() ||
-        !$options->get(CMS::SESSION_CONSENT_COOKIE_REQUIRE, FALSE)
+        $this->consentCookie()->hasLevel(ConsentCookie::LEVEL_BASIC)
       ) {
         return TRUE;
       }
-      $name = $options->get(CMS::SESSION_CONSENT_COOKIE_NAME, '');
-      if ($name && isset($_COOKIE[$name]) && ($value = $_COOKIE[$name])) {
-        $posibilites = array_map(
-          static function($posibility) { return trim($posibility); },
-          explode(',', $options->get(CMS::SESSION_CONSENT_COOKIE_VALUES))
-        );
-        return in_array($value, $posibilites);
+    }
+
+    public function consentCookie(ConsentCookie $consentCookie = NULL) {
+      if (NULL !== $consentCookie) {
+        $this->_consentCookie = $consentCookie;
+      } elseif (NULL === $this->_consentCookie) {
+        $this->_consentCookie = new ConsentCookie();
+        $this->_consentCookie->papaya($this->papaya());
       }
+      return $this->_consentCookie;
     }
 
     /**
