@@ -78,16 +78,25 @@ namespace Papaya\Graphics\GD {
           return imagegif($this->_resource, $to);
         case IMAGETYPE_JPEG:
         case ImageTypes::MIMETYPE_JPEG:
-          return imagejpeg($this->_resource, $to, $quality ? round($quality * 100) : NULL);
+          if ($quality) {
+            return imagejpeg($this->_resource, $to, round($quality * 100));
+          }
+          return imagejpeg($this->_resource, $to);
         case IMAGETYPE_PNG:
         case ImageTypes::MIMETYPE_PNG:
-          return imagepng($this->_resource, $to, $quality ? round($quality * 9) : NULL);
+          if ($quality) {
+            return imagepng($this->_resource, $to, round($quality * 9));
+          }
+          return imagepng($this->_resource, $to);
         case IMAGETYPE_WBMP:
         case ImageTypes::MIMETYPE_WBMP:
           return imagewbmp($this->_resource, $to);
         case IMAGETYPE_WEBP:
         case ImageTypes::MIMETYPE_WEBP:
-          return imagewebp($this->_resource, $to, $quality);
+          if ($quality) {
+            return imagewebp($this->_resource, $to, round($quality * 100));
+          }
+          return imagewebp($this->_resource, $to);
         }
       }
       return FALSE;
