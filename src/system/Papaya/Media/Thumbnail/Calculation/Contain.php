@@ -48,15 +48,31 @@ namespace Papaya\Media\Thumbnail\Calculation {
       return Calculation::MODE_FIX.'_'.$targetSize[0].'x'.$targetSize[1];
     }
 
-    private function getThumbnailSize() {
-      $factorX = $this->_width / $this->_maximumWidth;
-      $factorY = $this->_height / $this->_maximumHeight;
-      $thumbnailWidth = $this->_maximumWidth;
-      $thumbnailHeight = $this->_maximumHeight;
-      if ($factorX >= $factorY) {
+    private function getThumbnailSize()
+    {
+      if (
+        ($this->_width < 1 || $this->_height < 1) ||
+        ($this->_maximumWidth < 1 && $this->_maximumHeight < 1)
+      ) {
+        return [$this->_width, $this->_height];
+      } elseif ($this->_maximumHeight < 1) {
+        $factorX = $this->_width / $this->_maximumWidth;
+        $thumbnailWidth = $this->_maximumWidth;
         $thumbnailHeight = (int)round($this->_height / $factorX);
-      } else {
+      } elseif ($this->_maximumWidth < 1) {
+        $factorY = $this->_height / $this->_maximumHeight;
+        $thumbnailHeight = $this->_maximumHeight;
         $thumbnailWidth = (int)round($this->_width / $factorY);
+      } else {
+        $factorX = $this->_width / $this->_maximumWidth;
+        $factorY = $this->_height / $this->_maximumHeight;
+        $thumbnailWidth = $this->_maximumWidth;
+        $thumbnailHeight = $this->_maximumHeight;
+        if ($factorX >= $factorY) {
+          $thumbnailHeight = (int)round($this->_height / $factorX);
+        } else {
+          $thumbnailWidth = (int)round($this->_width / $factorY);
+        }
       }
       return [$thumbnailWidth, $thumbnailHeight];
     }

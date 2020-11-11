@@ -88,13 +88,13 @@ namespace Papaya\Graphics\GD {
      * @return int
      */
     public function identifyType($fileName) {
-      list(, , $type) = getimagesize($fileName);
-      return $type;
+      list(, , $type) = @getimagesize($fileName);
+      return $type ?: -1;
     }
 
     public function getImageSize($fileName) {
-      list($width, $height) = getimagesize($fileName);
-      return [$width, $height];
+      list($width, $height) = @getimagesize($fileName);
+      return [(int)$width, (int)$height];
     }
 
     /**

@@ -98,6 +98,15 @@ namespace Papaya\Media {
     public function createThumbnail(Calculation $calculation, $mimeType = NULL, $useCache = TRUE) {
       $gd = $this->gd();
       $sourceFileName = $this->getSourceFileName();
+      if (!$this->fileSystem()->getFile($sourceFileName)->isReadable()) {
+        $this->logError(
+          Message::SEVERITY_ERROR,
+          sprintf(
+            'Can not create thumbnail, image file not found: %s', $sourceFileName
+          )
+        );
+        return NULL;
+      }
       if (NULL ===$mimeType) {
         $mimeType = $gd->identifyType($sourceFileName);
       }
