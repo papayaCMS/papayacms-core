@@ -97,6 +97,10 @@ namespace Papaya\Graphics\GD {
       return [(int)$width, (int)$height];
     }
 
+    public function getMimeType($fileName) {
+      return image_type_to_mime_type($this->identifyType($fileName));
+    }
+
     /**
      * @param int|string $type Image type constant or mimetype string
      * @return bool

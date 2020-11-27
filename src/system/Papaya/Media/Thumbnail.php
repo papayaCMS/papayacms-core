@@ -16,6 +16,7 @@
 namespace Papaya\Media {
 
   use Papaya\File\Reference;
+  use Papaya\Utility\File;
 
   class Thumbnail implements Reference {
 
@@ -35,12 +36,19 @@ namespace Papaya\Media {
 
     public function __construct($localFileName, $name = '', $type = NULL) {
       $this->_localFileName = (string)$localFileName;
-      $this->_name = empty($name) ? basename($localFileName) : $name;
       $this->_type = $type;
+      $this->setName(empty($name) ? basename($localFileName) : $name);
     }
 
     public function getName() {
-      return $this->_name;
+      return $this->_name ? $this->_name : 'index';
+    }
+
+    public function setName($name) {
+      $this->_name = (string)File::normalizeName(
+        preg_replace('(\.[^.]+$)', '', $name),
+        50
+      );
     }
 
     public function getType() {
@@ -63,7 +71,7 @@ namespace Papaya\Media {
     }
 
     public function getURL() {
-      return 'thumb.'.basename($this->getLocalFileName());
+      return $this->getName().'.thumb.'.basename($this->getLocalFileName());
     }
 
     public function getMediaURI() {

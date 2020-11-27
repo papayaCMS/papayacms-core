@@ -77,14 +77,11 @@ class base_thumbnail extends base_object {
     if (!empty($bgColor)) {
       $thumbnails->setBackgroundColor(Color::createFromString($bgColor));
     }
-    $thumbnail = $thumbnails->createThumbnail(
-      $calculation = $thumbnails->createCalculation(
-        $width, $height, $mode
-      ),
-      $mimeType
-    );
+    $calculation = $thumbnails->createCalculation($width, $height, $mode);
+    $thumbnail = $thumbnails->createThumbnail($calculation, $mimeType);
     if ($thumbnail) {
       $this->lastThumbSize = $calculation->getTargetSize();
+      $thumbnail->setName($file['file_name']);
       return $thumbnail;
     }
     return NULL;

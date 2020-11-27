@@ -107,16 +107,16 @@ namespace Papaya\Media {
         );
         return NULL;
       }
-      if (NULL ===$mimeType) {
-        $mimeType = $gd->identifyType($sourceFileName);
-      }
       $targetFileName = $this->getTargetFileName($calculation, $mimeType);
       $targetFile = $this->fileSystem()->getFile($targetFileName);
+      $sourceSize = $gd->getImageSize($sourceFileName);
+      $targetSize = $calculation->getTargetSize();
+      if ($this->isSourceEqualTo($sourceSize, $targetSize, $gd->getMimeType($sourceFileName), $mimeType)) {
+        return new Thumbnail($sourceFileName, NULL, $mimeType);
+      }
       if ($useCache && $targetFile->isReadable()) {
         return new Thumbnail($targetFileName, NULL, $mimeType);
       }
-      $sourceSize = $gd->getImageSize($sourceFileName);
-      $targetSize = $calculation->getTargetSize();
       $requiredMemory = ($sourceSize[0] * $sourceSize[1] * 4) + ($targetSize[0] * $targetSize[1] * 4);
       $memoryLimit = new MemoryLimit();
       if (!$memoryLimit->increase($requiredMemory)) {
@@ -274,6 +274,14 @@ namespace Papaya\Media {
         $this->_fileSystem = new FileSystemFactory();
       }
       return $this->_fileSystem;
+    }
+
+    private function isSourceEqualTo($sourceSize, $targetSize, $sourceType, $targetType) {
+      return (
+        ($targetType === '' || $sourceType === $targetType) &&
+        ((!$targetSize[0]) || $sourceSize[0] === $targetSize[0]) &&
+        ((!$targetSize[1]) || $sourceSize[1] === $targetSize[1])
+      );
     }
   }
 }
