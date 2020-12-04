@@ -14,7 +14,9 @@
  */
 namespace Papaya\UI\Dialog\Field;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\UI;
+use Papaya\Utility\Constraints;
 use Papaya\XML;
 
 /**
@@ -41,16 +43,43 @@ class Group extends UI\Dialog\Field {
    */
   protected $_declaredProperties = [
     'caption' => ['getCaption', 'setCaption'],
+    'caption' => ['setImage', 'getImage'],
     'fields' => ['fields', 'fields']
   ];
 
   /**
+   * @var mixed|UI\Text|string
+   */
+  private $_image;
+
+  /**
    * Initialize object, set caption, field name and maximum length
    *
-   * @param string|UI\Text $caption
+   * @param string|StringCastable $caption
+   * @param string|StringCastable $image
    */
-  public function __construct($caption) {
+  public function __construct($caption, $image = '') {
     $this->setCaption($caption);
+    $this->setImage($image);
+  }
+
+  /**
+   * @param string|StringCastable $image
+   *
+   * @throws \UnexpectedValueException
+   */
+  public function setImage($image) {
+    Constraints::assertStringCastable($image);
+    $this->_image = $image;
+  }
+
+  /**
+   * Casts the caption value to a string and returns it.
+   *
+   * @return string
+   */
+  public function getImage() {
+    return (string)$this->_image;
   }
 
   /**
@@ -117,7 +146,8 @@ class Group extends UI\Dialog\Field {
       $group = $parent->appendElement(
         'field-group',
         [
-          'caption' => $this->getCaption()
+          'caption' => $this->getCaption(),
+          'image' => ($image = $this->getImage()) !== '' ? $image :NULL
         ]
       );
       $id = $this->getId();

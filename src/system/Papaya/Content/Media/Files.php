@@ -39,6 +39,7 @@ class Files extends Database\Records\Lazy {
     'revision' => 'files.current_version_id',
     'image_width' => 'files.width',
     'image_height' => 'files.height',
+    'mimetype' => 'mimetypes.mimetype',
     'extension' => 'mimetypes.mimetype_ext',
     'icon' => 'mimetypes.mimetype_icon',
     'title' => 'translations.file_title',
@@ -72,7 +73,7 @@ class Files extends Database\Records\Lazy {
           files.file_source_url, files.file_keywords, files.mimetype_id,
           files.current_version_id,
           files.width, files.height, files.metadata,
-          mimetypes.mimetype_ext, mimetypes.mimetype_icon,
+          mimetypes.mimetype, mimetypes.mimetype_ext, mimetypes.mimetype_icon,
           translations.file_title, translations.file_description
         FROM :files AS files
         LEFT JOIN :mimetypes AS mimetypes ON (mimetypes.mimetype_id = files.mimetype_id) 

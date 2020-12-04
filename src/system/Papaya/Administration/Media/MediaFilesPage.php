@@ -28,9 +28,9 @@ namespace Papaya\Administration\Media {
     const PARAMETER_FILE = 'file-id';
     const PARAMETER_FILES = 'files';
     const PARAMETER_FILES_VIEW = 'view';
-    const PARAMETER_FILES_SORT = 'sort';
-    const PARAMETER_FILES_LIMIT = 'limit';
-    const PARAMETER_FILES_OFFSET = 'offset';
+    const PARAMETER_FILES_SORT = 'files-sort';
+    const PARAMETER_FILES_LIMIT = 'files-limit';
+    const PARAMETER_FILES_OFFSET = 'files-offset';
     const PARAMETER_NAVIGATION_MODE = 'navigation';
     const NAVIGATION_MODE_FOLDERS = 'folders';
     const NAVIGATION_MODE_TAGS = 'tags';

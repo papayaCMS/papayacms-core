@@ -23,10 +23,6 @@ namespace Papaya\Media {
   use Papaya\Graphics\GD\GDLibrary;
   use Papaya\Graphics\ImageTypes;
   use Papaya\Media\Thumbnail\Calculation;
-  use Papaya\Media\Thumbnail\Calculation\Contain;
-  use Papaya\Media\Thumbnail\Calculation\Cover;
-  use Papaya\Media\Thumbnail\Calculation\CoverCrop;
-  use Papaya\Media\Thumbnail\Calculation\Fixed;
   use Papaya\MemoryLimit;
   use Papaya\Message;
   use Papaya\Message\Logable;
@@ -88,22 +84,12 @@ namespace Papaya\Media {
       $this->_fileName = $fileName;
     }
 
-    public function createCalculation($targetWidth, $targetHeight, $mode = Calculation::MODE_CONTAIN) {
-      $gd = $this->gd();
-      list($sourceWidth, $sourceHeight) = $gd->getImageSize($this->getSourceFileName());
-      switch ($mode) {
-      case CALCULATION::MODE_CONTAIN:
-        return new Contain($sourceWidth, $sourceHeight, $targetWidth, $targetHeight);
-      case CALCULATION::MODE_CONTAIN_PADDED:
-        return new Contain($sourceWidth, $sourceHeight, $targetWidth, $targetHeight, TRUE);
-      case CALCULATION::MODE_COVER:
-        return new Cover($sourceWidth, $sourceHeight, $targetWidth, $targetHeight);
-      case CALCULATION::MODE_COVER_CROPPED:
-        return new CoverCrop($sourceWidth, $sourceHeight, $targetWidth, $targetHeight);
-      case CALCULATION::MODE_FIX:
-      default:
-        return new Fixed($sourceWidth, $sourceHeight, $targetWidth, $targetHeight);
-      }
+    public function createCalculation(array $targetSize, $mode = Calculation::MODE_CONTAIN) {
+      return $this->papaya()->media->createCalculation(
+        $targetSize,
+        $this->gd()->getImageSize($this->getSourceFileName()),
+        $mode
+      );
     }
 
     public function createThumbnail(Calculation $calculation, $mimeType = NULL, $useCache = TRUE) {
@@ -117,6 +103,9 @@ namespace Papaya\Media {
           )
         );
         return NULL;
+      }
+      if (NULL === $mimeType) {
+        $mimeType = $gd->identifyType($sourceFileName);
       }
       $targetFileName = $this->getTargetFileName($calculation, $mimeType);
       $targetFile = $this->fileSystem()->getFile($targetFileName);

@@ -25,6 +25,7 @@ namespace Papaya\Administration\Media {
   use Papaya\Filter\ArrayElement;
   use Papaya\Filter\IntegerValue;
   use Papaya\Filter\KeyValue;
+  use Papaya\Graphics\ImageTypes;
   use Papaya\Iterator\RecursiveTraversableIterator;
   use Papaya\Media\Thumbnail\Calculation;
   use Papaya\UI;
@@ -37,7 +38,8 @@ namespace Papaya\Administration\Media {
   use Papaya\Utility\Arrays;
   use Papaya\XML\Element as XMLElement;
 
-  class MediaFilesNavigation extends AdministrationPagePart {
+  class MediaFilesNavigation extends AdministrationPagePart
+  {
 
     /**
      * @var Folders
@@ -64,7 +66,8 @@ namespace Papaya\Administration\Media {
      */
     private $_filesPerPage = 10;
 
-    public function appendTo(XMLElement $parent) {
+    public function appendTo(XMLElement $parent)
+    {
       switch ($this->parameters()->get(MediaFilesPage::PARAMETER_NAVIGATION_MODE, MediaFilesPage::NAVIGATION_MODE_FOLDERS)) {
         case MediaFilesPage::NAVIGATION_MODE_TAGS:
           break;
@@ -80,7 +83,8 @@ namespace Papaya\Administration\Media {
       }
     }
 
-    public function foldersListView(ListView $foldersListView = NULL) {
+    public function foldersListView(ListView $foldersListView = NULL)
+    {
       if (NULL !== $foldersListView) {
         $this->_foldersListView = $foldersListView;
       } elseif (NULL === $this->_foldersListView) {
@@ -118,7 +122,8 @@ namespace Papaya\Administration\Media {
       return $this->_foldersListView;
     }
 
-    public function filesDialog(Dialog $filesDialog = NULL) {
+    public function filesDialog(Dialog $filesDialog = NULL)
+    {
       if (NULL !== $filesDialog) {
         $this->_filesDialog = $filesDialog;
       } elseif (NULL === $this->_filesDialog) {
@@ -151,15 +156,13 @@ namespace Papaya\Administration\Media {
         $viewToggle->reference()->setParameters($this->parameters(), $this->parameterGroup());
         $listView->mode = $viewToggle->currentValue;
         $viewMode = $viewToggle->currentValue;
-        if (ListView::MODE_DETAILS === $viewMode) {
-          $sortParameter = [$this->parameterGroup(), MediaFilesPage::PARAMETER_FILES_SORT];
-          $listView->columns[] = $column = new ListView\Column\SortableColumn(new Translated('Name'), $sortParameter);
-          $column->reference()->setParameters($this->parameters(), $this->parameterGroup());
-          $listView->columns[] = $column = new ListView\Column\SortableColumn(new Translated('Size'), $sortParameter, '', Align::CENTER);
-          $column->reference()->setParameters($this->parameters(), $this->parameterGroup());
-          $listView->columns[] = $column = new ListView\Column\SortableColumn(new Translated('Uploaded / Created'), $sortParameter, '', Align::CENTER);
-          $column->reference()->setParameters($this->parameters(), $this->parameterGroup());
-        }
+        $sortParameter = [$this->parameterGroup(), MediaFilesPage::PARAMETER_FILES_SORT];
+        $listView->columns[] = $column = new ListView\Column\SortableColumn(new Translated('Name'), $sortParameter);
+        $column->reference()->setParameters($this->parameters(), $this->parameterGroup());
+        $listView->columns[] = $column = new ListView\Column\SortableColumn(new Translated('Size'), $sortParameter, '', Align::CENTER);
+        $column->reference()->setParameters($this->parameters(), $this->parameterGroup());
+        $listView->columns[] = $column = new ListView\Column\SortableColumn(new Translated('Uploaded / Created'), $sortParameter, '', Align::CENTER);
+        $column->reference()->setParameters($this->parameters(), $this->parameterGroup());
         $listView->builder(
           $builder = new ListView\Items\Builder($this->files())
         );
@@ -174,14 +177,18 @@ namespace Papaya\Administration\Media {
               $generator = $this->papaya()->media->createThumbnailGenerator(
                 $file['id'], $file['revision'], $file['name']
               );
-              if (
-              $thumbnail = $generator->createThumbnail(
-                $generator->createCalculation($thumbnailSize, $thumbnailSize, Calculation::MODE_CONTAIN)
-              )
-              ) {
-                $icon = '../' . $thumbnail->getURL();
+              if ($file['mimetype'] === ImageTypes::MIMETYPE_SVG) {
+                $icon = $this->papaya()->media->createReference($file['id'], $file['revision'], $file['name']);
               } else {
-                $icon = new MimeTypeIcon($file['icon'], 48);
+                if (
+                $thumbnail = $generator->createThumbnail(
+                  $generator->createCalculation([$thumbnailSize, $thumbnailSize], Calculation::MODE_CONTAIN)
+                )
+                ) {
+                  $icon = '../' . $thumbnail->getURL();
+                } else {
+                  $icon = new MimeTypeIcon($file['icon'], 48);
+                }
               }
               $subTitle = new Date($file['date']);
               break;
@@ -237,7 +244,8 @@ namespace Papaya\Administration\Media {
       return $this->_filesDialog;
     }
 
-    public function folders(Folders $folders = NULL) {
+    public function folders(Folders $folders = NULL)
+    {
       if (NULL !== $folders) {
         $this->_folders = $folders;
       } elseif (NULL === $this->_folders) {
@@ -256,7 +264,8 @@ namespace Papaya\Administration\Media {
       return $this->_folders;
     }
 
-    public function files(Files $files = NULL) {
+    public function files(Files $files = NULL)
+    {
       if (NULL !== $files) {
         $this->_files = $files;
       } elseif (NULL === $this->_files) {
@@ -297,7 +306,8 @@ namespace Papaya\Administration\Media {
       return $this->_files;
     }
 
-    public function selectedFolder(Folder $folder = NULL) {
+    public function selectedFolder(Folder $folder = NULL)
+    {
       if (NULL !== $folder) {
         $this->_selectedFolder = $folder;
       } elseif (NULL === $this->_selectedFolder) {
@@ -310,7 +320,8 @@ namespace Papaya\Administration\Media {
       return $this->_selectedFolder;
     }
 
-    public function _initializeToolbar(UI\Toolbar\Collection $toolbar) {
+    public function _initializeToolbar(UI\Toolbar\Collection $toolbar)
+    {
       parent::_initializeToolbar($toolbar);
       $toggle = new Toolbar\Select\Buttons(
         [$this->parameterGroup(), MediaFilesPage::PARAMETER_NAVIGATION_MODE],

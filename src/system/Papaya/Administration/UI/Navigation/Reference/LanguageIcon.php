@@ -12,19 +12,30 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+namespace Papaya\Administration\UI\Navigation\Reference {
 
-namespace Papaya\Graphics {
+  use Papaya\Administration\UI;
+  use Papaya\BaseObject\Interfaces\StringCastable;
 
-  interface ImageTypes {
+  class LanguageIcon implements StringCastable {
 
-    const MIMETYPE_GIF = 'image/gif';
-    const MIMETYPE_JPEG = 'image/jpeg';
-    const MIMETYPE_PNG = 'image/png';
-    const MIMETYPE_BMP = 'image/bmp';
-    const MIMETYPE_WBMP = 'image/vnd.wap.wbmp';
-    const MIMETYPE_WEBP = 'image/webp';
+    /**
+     * @var string
+     */
+    private $_icon;
 
-    const MIMETYPE_SVG = 'image/svg+xml';
+    public function __construct($icon) {
+      $this->_icon = trim($icon) !== '' ? (string)basename($icon) : '';
+    }
+
+    public function __toString() {
+      if ($this->_icon === '') {
+        return '';
+      }
+       return UI::ICON_LANGUAGE.'/'.$this->_icon;
+    }
   }
 }
+
+
 

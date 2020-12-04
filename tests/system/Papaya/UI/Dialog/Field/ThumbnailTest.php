@@ -29,9 +29,9 @@ namespace Papaya\UI\Dialog\Field {
   );
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Image
+   * @covers \Papaya\UI\Dialog\Field\Thumbnail
    */
-  class ImageTest extends TestCase {
+  class ThumbnailTest extends TestCase {
 
     public function testAppendTo() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\base_thumbnail $thumbnail */
@@ -60,7 +60,7 @@ namespace Papaya\UI\Dialog\Field {
         ->method('get')
         ->willReturn('a-media-id-link.png');
 
-      $image = new Image('a-media-id', 'A Caption');
+      $image = new Thumbnail('a-media-id', 'A Caption');
       $image->thumbnailGenerator($thumbnail);
       $image->thumbnailReference($thumbnailReference);
 
@@ -74,11 +74,11 @@ namespace Papaya\UI\Dialog\Field {
     }
 
     public function testThumbnailGeneratorImplicitCreate() {
-      $image = new Image('a-media-id', 'A Caption');
+      $image = new Thumbnail('a-media-id', 'A Caption');
       $this->assertNotNull($image->thumbnailGenerator());
     }
     public function testThumbnailReferenceImplicitCreate() {
-      $image = new Image('a-media-id', 'A Caption');
+      $image = new Thumbnail('a-media-id', 'A Caption');
       $image->papaya($this->mockPapaya()->application(['request' => $this->mockPapaya()->request()]));
       $this->assertNotNull($image->thumbnailReference());
     }
