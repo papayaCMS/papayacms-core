@@ -143,7 +143,9 @@ namespace Papaya\Administration {
 
     const ICON_MIMETYPE = self::ICON.'.mimetypes';
 
-    /**
+    const ICON_LANGUAGE = './pics/language';
+
+      /**
      * @var string
      */
     private $_path;

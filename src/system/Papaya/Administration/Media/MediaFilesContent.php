@@ -15,8 +15,10 @@
 
 namespace Papaya\Administration\Media {
 
+  use Papaya\Administration\Media\Commands\ChangeFile;
   use Papaya\Administration\Media\Commands\ChangeFolder;
   use Papaya\Administration\Page\Part as AdministrationPagePart;
+  use Papaya\Content\Media\File;
   use Papaya\Content\Media\Folder;
   use Papaya\UI\Text\Translated;
   use Papaya\UI\Toolbar;
@@ -27,15 +29,20 @@ namespace Papaya\Administration\Media {
      * @var Folder
      */
     private $_folder;
+    /**
+     * @var mixed
+     */
+    private $_file;
 
     protected function _createCommands($name = 'cmd', $default = 'show') {
       $commands = parent::_createCommands($name, $default);
       $commands['edit-folder'] = new ChangeFolder($this->folder(), MediaFilesPage::COMMAND_EDIT_FOLDER);
       $commands['add-folder'] = new ChangeFolder($this->folder(), MediaFilesPage::COMMAND_ADD_FOLDER);
+      $commands['edit-file'] = new ChangeFile($this->file(), MediaFilesPage::COMMAND_EDIT_FILE);
       return $commands;
     }
 
-    private function folder(Folder $folder = NULL) {
+    public function folder(Folder $folder = NULL) {
       if (NULL !== $folder) {
         $this->_folder = $folder;
       } elseif (NULL === $this->_folder) {
@@ -49,6 +56,22 @@ namespace Papaya\Administration\Media {
         );
       }
       return $this->_folder;
+    }
+
+    public function file(File $file = NULL) {
+      if (NULL !== $file) {
+        $this->_file = $file;
+      } elseif (NULL === $this->_file) {
+        $this->_file = new File();
+        $this->_file->papaya($this->papaya());
+        $this->_file->activateLazyLoad(
+          [
+            'id' => $this->parameters()->get(MediaFilesPage::PARAMETER_FILE, ''),
+            'language_id' => $this->papaya()->administrationLanguage->id
+          ]
+        );
+      }
+      return $this->_file;
     }
 
     public function _initializeToolbar(Toolbar\Collection $toolbar) {
