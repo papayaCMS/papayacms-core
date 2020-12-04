@@ -67,11 +67,11 @@ namespace Papaya\Database\Connection {
     public function fetchField($fieldIndex = 0) {
       if (is_int($fieldIndex)) {
         $data = $this->fetchRow();
-        return $data[$fieldIndex];
+        return isset($data[$fieldIndex]) ? $data[$fieldIndex] : NULL;
       }
       if (is_string($fieldIndex)) {
         $data = $this->fetchRow(self::FETCH_ASSOC);
-        return $data[$fieldIndex];
+        return isset($data[$fieldIndex]) ? $data[$fieldIndex] : NULL;
       }
       return FALSE;
     }

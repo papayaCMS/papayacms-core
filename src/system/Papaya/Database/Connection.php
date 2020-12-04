@@ -31,7 +31,7 @@ namespace Papaya\Database {
     /**
      * @param \Papaya\Database\Statement|string $statement
      * @param int $options
-     * @return \Papaya\Database\Statement|int|FALSE
+     * @return \Papaya\Database\Result|int|FALSE
      */
     public function execute($statement, $options = self::EMPTY_OPTIONS);
 

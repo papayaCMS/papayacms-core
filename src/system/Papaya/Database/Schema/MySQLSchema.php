@@ -6,7 +6,6 @@ namespace Papaya\Database\Schema {
   use Papaya\Database\Schema\Structure\IndexStructure;
   use Papaya\Database\Schema\Structure\IndexFieldStructure;
   use Papaya\Database\Schema\Structure\TableStructure;
-  use Papaya\Database\SQLStatement;
 
   class MySQLSchema extends AbstractSchema {
 
