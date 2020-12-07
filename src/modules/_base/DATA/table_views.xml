@@ -22,7 +22,7 @@
     <field name="module_guid" type="string" size="32" null="no"/>
     <field name="view_is_cacheable" type="integer" size="2" null="no"/>
     <field name="view_is_deprecated" type="integer" size="2" null="no"/>
-    <field name="view_note" type="string" size="65535"  null="no"/>
+    <field name="view_note" type="string" size="65535" null="yes"/>
     <field name="view_checksum" type="string" size="65" null="no"/>
   </fields>
   <keys>
