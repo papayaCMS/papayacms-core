@@ -293,7 +293,7 @@ namespace Papaya\Database\BaseObject {
     public $_recordCount;
 
     public function _loadRecords(
-      $sql, $parameters, $idProperty = NULL, $limit = NULL, $offset = NULL
+      $sql, array $parameters, $idProperty = NULL, $limit = NULL, $offset = NULL
     ) {
       return parent::_loadRecords($sql, $parameters, $idProperty, $limit, $offset);
     }
