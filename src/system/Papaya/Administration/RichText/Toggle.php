@@ -14,11 +14,15 @@
  */
 namespace Papaya\Administration\RichText {
 
+  use Papaya\Configuration\CMS as CMSSettings;
   use Papaya\Response;
   use Papaya\UI;
   use Papaya\XML\Element as XMLElement;
 
   class Toggle extends UI\Control\Interactive {
+
+    const USE_RICHTEXT_FLAG = 'PAPAYA_ADMINISTRATION_USE_RICHTEXT';
+
     /**
      * @var bool|null
      */
@@ -30,16 +34,16 @@ namespace Papaya\Administration\RichText {
     private $_isActive;
 
     /**
-     * @param \Papaya\XML\Element $parent
+     * @param XMLElement $parent
      */
     public function appendTo(XMLElement $parent) {
       $reference = new UI\Reference($this->papaya()->request->getURL());
-      if ($this->parameters()->has('PAPAYA_ADMINISTRATION_USE_RICHTEXT')) {
-        $shouldBeActive = $this->parameters()->get(\Papaya\Configuration\CMS::ADMINISTRATION_USE_RICHTEXT, FALSE);
+      if ($this->parameters()->has(self::USE_RICHTEXT_FLAG)) {
+        $shouldBeActive = $this->parameters()->get(self::USE_RICHTEXT_FLAG, FALSE);
         if ($shouldBeActive !== $this->isActive()) {
           // change and reload
           $this->papaya()->session->setValue(
-            'PAPAYA_ADMINISTRATION_USE_RICHTEXT', $this->_isActive = $shouldBeActive
+            self::USE_RICHTEXT_FLAG, $this->_isActive = $shouldBeActive
           );
           $reference->setParameters([]);
           $reload = new Response\Redirect($reference->get());
@@ -57,7 +61,7 @@ namespace Papaya\Administration\RichText {
         $currentValue = $this->isActive() ? 1 : 0;
         foreach ([1 => 'On', 0 => 'Off'] as $value => $label) {
           $toggleReference = clone $reference;
-          $toggleReference->setParameters(['PAPAYA_ADMINISTRATION_USE_RICHTEXT' => $value]);
+          $toggleReference->setParameters([self::USE_RICHTEXT_FLAG => $value]);
           $links->appendElement(
             'link',
             [
@@ -80,7 +84,7 @@ namespace Papaya\Administration\RichText {
         return $this->_isActive;
       }
       return $this->_isActive = $this->papaya()->session->getValue(
-        'PAPAYA_ADMINISTRATION_USE_RICHTEXT',
+        self::USE_RICHTEXT_FLAG,
         $this->isAvailable()
       );
     }
@@ -94,10 +98,10 @@ namespace Papaya\Administration\RichText {
       if (NULL !== $this->_isAvailable) {
         return $this->_isAvailable;
       }
-      if (isset($this->papaya()->administrationUser->options['PAPAYA_USE_RICHTEXT'])) {
-        return $this->_isAvailable = (bool)$this->papaya()->administrationUser->options['PAPAYA_USE_RICHTEXT'];
+      if (isset($this->papaya()->administrationUser->options[CMSSettings::USE_RICHTEXT])) {
+        return $this->_isAvailable = (bool)$this->papaya()->administrationUser->options[CMSSettings::USE_RICHTEXT];
       }
-      return $this->_isAvailable = (bool)$this->papaya()->options->get(\Papaya\Configuration\CMS::USE_RICHTEXT, FALSE);
+      return $this->_isAvailable = (bool)$this->papaya()->options->get(CMSSettings::USE_RICHTEXT, FALSE);
     }
   }
 
