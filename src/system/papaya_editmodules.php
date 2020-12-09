@@ -159,6 +159,7 @@ class papaya_editmodules extends base_db {
     } else {
       $this->loadModulesList();
       if (
+        isset($this->modules) &&
         is_array($this->modules) &&
         count($this->modules) > 0
       ) {
@@ -188,8 +189,11 @@ class papaya_editmodules extends base_db {
       } elseif (method_exists($this->_moduleInstance, 'execModule')) {
         $this->_moduleInstance->execModule();
       }
-    } elseif (isset($this->modules) &&
-       is_array($this->modules) && count($this->modules) > 0) {
+    } elseif (
+      isset($this->modules) &&
+      is_array($this->modules) &&
+      count($this->modules) > 0
+    ) {
       $administrationUser = $this->papaya()->administrationUser;
       $currentUserModules = array_intersect(
         $administrationUser->userModules, array_keys($this->modules)
