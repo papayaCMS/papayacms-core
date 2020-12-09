@@ -22,6 +22,7 @@ namespace Papaya\Modules\Core\Partials {
   use Papaya\Template\Tag\Image as ImageTag;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
+  use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;
 
@@ -48,12 +49,14 @@ namespace Papaya\Modules\Core\Partials {
       self::FIELD_TEASER => ''
     ];
 
+    protected $teaserRTEMode = Richtext::RTE_SIMPLE;
+
     /**
      * @param EditablePlugin\Content $content
      *
      * @return PluginEditor|PluginDialog
      */
-    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = DialogField\Textarea\Richtext::RTE_SIMPLE) {
+    public function createEditor(EditablePlugin\Content $content) {
       $defaults = $this->getDefaultContent();
       $editor = new PluginDialog($content);
       $editor->papaya($this->papaya());
@@ -76,6 +79,7 @@ namespace Papaya\Modules\Core\Partials {
       $dialog->fields[] = new DialogField\Input\Media\ImageResized(
         new TranslatedText('Image'), self::FIELD_IMAGE
       );
+      $teaserRTEMode = $this->teaserRTEMode;
       if ($teaserRTEMode !==self::TEASER_RTE_NONE) {
         $dialog->fields[] = new DialogField\Textarea\Richtext(
           new TranslatedText('Teaser'),

@@ -16,15 +16,12 @@
 namespace Papaya\Modules\Core {
 
   use Papaya\Administration\Plugin\Editor\Dialog as EditorDialog;
-  use Papaya\Application\Access as ApplicationAccess;
   use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editable\Content as EditableContent;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
-  use Papaya\Utility\Arrays as ArrayUtilities;
   use Papaya\XML\Element as XMLElement;
 
   class PassthroughBox implements AppendablePlugin, EditablePlugin {
@@ -82,7 +79,7 @@ namespace Papaya\Modules\Core {
         case self::PASSTHROUGH_TYPE_HTML:
           $parent->appendElement('passthrough', ['type' => 'html'], $content);
           break;
-        case self::PASSTHROUGH_TYPE_HTML:
+        case self::PASSTHROUGH_TYPE_XHTML:
         default:
           $parent->appendElement('passthrough', ['type' => 'xhtml'])->appendXML($content);
         }

@@ -26,6 +26,7 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Dialog\Field\Input\Range as RangeField;
   use Papaya\UI\Dialog\Field\Input\Page as PageIdField;
   use Papaya\UI\Dialog\Field\Select\Radio as RadioGroupField;
+  use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\XML\Element as XMLElement;

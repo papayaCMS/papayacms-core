@@ -64,7 +64,7 @@ namespace Papaya\Modules\Core {
         self::PARAMETER_NAME_PAGING, 1, new IntegerValue(1)
       );
       $pageId = $this->_page->getPageId();
-      if ($pageId !== '') {
+      if ($pageId !== '' && $this->teaserFactory()) {
         $teasers = $this->teaserFactory()->byParent(
           $pageId,
           $content[self::FIELD_TEASERS_ORDER],
@@ -85,8 +85,8 @@ namespace Papaya\Modules\Core {
      * @return PluginEditor
      * @see PapayaPluginEditableContent::editor()
      */
-    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = Richtext::RTE_SIMPLE) {
-      $editor = parent::createEditor($content, $teaserRTEMode);
+    public function createEditor(EditablePlugin\Content $content) {
+      $editor = parent::createEditor($content);
       $this->appendTeasersFieldsToDialog($editor->dialog(), $content);
       return $editor;
     }

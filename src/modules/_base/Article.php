@@ -46,12 +46,11 @@ namespace Papaya\Modules\Core {
     /**
      * @param EditablePlugin\Content $content
      *
-     * @param $teaserRTEMode
      * @return PluginEditor|PluginDialog
      */
-    public function createEditor(EditablePlugin\Content $content, $teaserRTEMode = Richtext::RTE_SIMPLE) {
+    public function createEditor(EditablePlugin\Content $content) {
       $defaults = $this->getDefaultContent();
-      $editor = parent::createEditor($content, $teaserRTEMode);
+      $editor = parent::createEditor($content);
       $dialog = $editor->dialog();
       $dialog->fields[] = new Richtext(
         new TranslatedText('Text'),

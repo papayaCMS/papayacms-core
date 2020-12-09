@@ -24,7 +24,6 @@ namespace Papaya\Modules\Core {
   use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
-  use Papaya\Utility\Arrays as ArrayUtilities;
   use Papaya\XML\Element as XMLElement;
 
   class TeasersBox implements ApplicationAccess, AppendablePlugin, EditablePlugin, Partials\Teasers {
@@ -66,7 +65,7 @@ namespace Papaya\Modules\Core {
     public function appendTo(XMLElement $parent) {
       $content = $this->content()->withDefaults($this->getDefaultContent());
       $pageId = $content[self::FIELD_PAGE_ID];
-      if ($pageId !== '') {
+      if ($pageId !== '' && $this->teaserFactory()) {
         $teasers = $this->teaserFactory()->byParent(
           $pageId,
           $content[self::FIELD_TEASERS_ORDER],
