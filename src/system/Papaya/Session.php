@@ -339,6 +339,7 @@ namespace Papaya {
             'domain' => $options->get(
               'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new Filter\NotEmpty()
             ),
+            'SameSite' => 'Strict',
             'secure' => $this->isSecureOnly(),
             'httponly' => $options->get(\Papaya\Configuration\CMS::SESSION_HTTP_ONLY, $defaults['httponly']),
           ]
