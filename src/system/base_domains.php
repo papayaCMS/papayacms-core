@@ -296,6 +296,7 @@ class base_domains extends base_db {
 
   public function validateLanguage($languageId) {
     if ($languageId > 0 &&
+        isset($this->domainData['domain_language_id']) &&
         $this->domainData['domain_language_id'] > 0 &&
         $this->domainData['domain_language_id'] != $languageId &&
         !$this->papaya()->request->isPreview) {

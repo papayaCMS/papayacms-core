@@ -72,7 +72,7 @@ class XML {
     static $translations = NULL;
     if (NULL === $translations) {
       $translations = \array_flip(
-        \version_compare(PHP_VERSION, '>', '5.2')
+        \version_compare(PHP_VERSION, '5.2', '>')
           ? \get_html_translation_table(HTML_ENTITIES, ENT_COMPAT, 'UTF-8')
           : \get_html_translation_table(HTML_ENTITIES)
       );

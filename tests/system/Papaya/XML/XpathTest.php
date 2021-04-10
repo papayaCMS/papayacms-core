@@ -63,7 +63,7 @@ namespace Papaya\XML {
     }
 
     public function testEvaluate() {
-      if (version_compare(PHP_VERSION, '<', '5.3.3')) {
+      if (version_compare(PHP_VERSION, '5.3.3', '<')) {
         $this->markTestSkipped('PHP Version >= 5.3.3 needed for this test.');
       }
       $document = new Document();
@@ -76,7 +76,7 @@ namespace Papaya\XML {
     }
 
     public function testEvaluateWithContext() {
-      if (version_compare(PHP_VERSION, '<', '5.3.3')) {
+      if (version_compare(PHP_VERSION, '5.3.3', '<')) {
         $this->markTestSkipped('PHP Version >= 5.3.3 needed for this test.');
       }
       $document = new Document();
