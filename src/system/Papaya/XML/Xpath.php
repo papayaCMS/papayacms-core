@@ -33,7 +33,7 @@ class Xpath extends \DOMXpath {
    */
   public function __construct(\DOMDocument $document) {
     parent::__construct($document);
-    $this->registerNodeNamespaces(\version_compare(PHP_VERSION, '<', '5.3.3'));
+    $this->registerNodeNamespaces(\version_compare(PHP_VERSION,  '5.3.3', '<'));
   }
 
   /**

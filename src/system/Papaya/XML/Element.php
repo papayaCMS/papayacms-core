@@ -28,12 +28,18 @@ class Element
   /**
    * Append a object (with interface Papaya\XML\Appendable) to the element
    *
-   * @param Appendable $object
+   * @param Appendable $objects
    *
-   * @return self|null
+   * @return void
    */
-  public function append(Appendable $object) {
-    return $object->appendTo($this);
+  public function append(...$objects): void {
+    foreach ($objects as $object) {
+      if ($object instanceof Appendable) {
+        $object->appendTo($this);
+      } else {
+        parent::append($object);
+      }
+    }
   }
 
   /**
