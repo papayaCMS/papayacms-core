@@ -45,7 +45,11 @@ class Exceptions
    * catched in the source.
    */
   public function activate() {
-    \set_exception_handler([$this, 'handle']);
+    \set_exception_handler(
+      function($exception) {
+        $this->handle($exception);
+      }
+    );
   }
 
   /**

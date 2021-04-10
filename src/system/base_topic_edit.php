@@ -160,7 +160,7 @@ class base_topic_edit extends base_topic {
   */
   function execute() {
     $this->load($this->params['page_id'], $this->papaya()->administrationLanguage->id);
-    $this->currentLanguage = $this->loadCurrentLanguage(
+    $this->loadCurrentLanguage(
       $this->papaya()->administrationLanguage->id
     );
 

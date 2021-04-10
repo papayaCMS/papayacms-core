@@ -79,7 +79,9 @@ class Errors
    */
   public function activate() {
     \set_error_handler(
-      [$this, 'handle']
+      function($errrorCode, $errorMessage, $errorFile = '', $errorLine = '', $errorContext = []) {
+        $this->handle($errrorCode, $errorMessage, $errorFile, $errorLine, $errorContext);
+      }
     );
   }
 
