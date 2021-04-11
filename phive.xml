@@ -12,9 +12,9 @@
   ~  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
   ~  FOR A PARTICULAR PURPOSE.
   -->
-
 <phive xmlns="https://phar.io/phive">
-  <phar name="phpunit" version="^5.0" installed="5.7.27" location="./tools/phpunit"/>
+  <phar name="phpunit" version="^8.0" installed="8.5.15" location="./tools/phpunit"/>
   <phar name="phing" version="^2.16" installed="2.16.1" location="./tools/phing"/>
-  <phar name="php-cs-fixer" version="^2.13.0" installed="2.13.0" location="./tools/php-cs-fixer"/>
+  <phar name="php-cs-fixer" version="^2.13.0" installed="2.18.5" location="./tools/php-cs-fixer"/>
+  <phar name="composer" version="^2.0.12" installed="2.0.12" location="./tools/composer"/>
 </phive>

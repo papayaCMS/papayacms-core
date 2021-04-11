@@ -2,7 +2,10 @@
 /vendor/
 
 # Phive
-/tools/
+/tools/*.bat
+
+# PHP Unit
+/.phpunit.result.cache
 
 # PHPStorm
 /.idea/

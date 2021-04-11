@@ -1,7 +1,5 @@
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         syntaxCheck="false"
-         strict="false"
          bootstrap="tests/bootstrap.php">
   <testsuites>
     <testsuite name="papayaCMS">
@@ -9,7 +7,7 @@
     </testsuite>
   </testsuites>
   <filter>
-    <whitelist processUncoveredFilesFromWhitelist="true">
+    <whitelist processUncoveredFilesFromWhitelist="false">
       <directory suffix=".php">src/system/Papaya</directory>
     </whitelist>
   </filter>
