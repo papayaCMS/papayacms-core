@@ -185,7 +185,8 @@ namespace Papaya\Phrases\Storage {
       if (
         !empty($phrase) &&
         !isset($this->_errors[$phrase]) &&
-        $this->papaya()->options['PAPAYA_DEBUG_LANGUAGE_PHRASES']
+        isset($this->papaya()->options) &&
+        $this->papaya()->options->get('PAPAYA_DEBUG_LANGUAGE_PHRASES', FALSE)
       ) {
         $this->_errors[$phrase] = TRUE;
         $this->messages()->add(

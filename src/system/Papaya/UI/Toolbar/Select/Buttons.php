@@ -61,10 +61,13 @@ namespace Papaya\UI\Toolbar\Select {
           [
             'href' => $reference->getRelative(),
             'title' => (string)$caption,
-            'image' => empty($image) ? '' : (string)$this->papaya()->images[$image]
+            'image' => empty($image) ? '' : (string)($this->papaya()->images[$image] ?? '')
           ]
         );
-        if ($currentValue === (string)$value) {
+        if (
+          (is_int($value) && (int)$currentValue === $value) ||
+          $currentValue === (string)$value
+        ) {
           $button->setAttribute('down', 'down');
         }
       }

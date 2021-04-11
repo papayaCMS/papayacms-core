@@ -14,6 +14,8 @@
  */
 namespace Papaya\Streamwrapper;
 
+use Papaya\Streamwrapper\S3\S3Exception;
+
 /**
  * Papaya Streamwrapper for Amazon S3
  *
@@ -192,9 +194,8 @@ class S3 {
       if (empty($matches['secret'])) {
         if (empty(self::$_secrets[$matches['id']])) {
           if ($options & STREAM_REPORT_ERRORS) {
-            \trigger_error(
-              'No secret for Amazon S3 ID found',
-              E_USER_WARNING
+            throw new S3Exception(
+              'No secret for Amazon S3 ID found'
             );
           }
           return FALSE;
@@ -209,9 +210,8 @@ class S3 {
       ];
     }
     if ($options & STREAM_REPORT_ERRORS) {
-      \trigger_error(
-        'Invalid Amazon S3 resource string',
-        E_USER_WARNING
+      throw new S3Exception(
+        'Invalid Amazon S3 resource string'
       );
     }
     return FALSE;
@@ -254,9 +254,8 @@ class S3 {
         $resourceData = $this->fillBuffer(TRUE);
         if (NULL === $resourceData) {
           if ($this->_options & STREAM_REPORT_ERRORS) {
-            \trigger_error(
-              'Can not find amazon resource.',
-              E_USER_WARNING
+            throw new S3Exception(
+              'Can not find amazon resource.'
             );
           }
         } else {
@@ -268,9 +267,8 @@ class S3 {
       return FALSE;
     }
     if ($this->_options & STREAM_REPORT_ERRORS) {
-      \trigger_error(
-        'Mode not support by stream wrapper: '.$mode,
-        E_USER_WARNING
+      throw new S3Exception(
+        'Mode not support by stream wrapper: '.$mode
       );
     }
     return FALSE;
@@ -341,9 +339,8 @@ class S3 {
   public function stream_seek($offset, $whence = SEEK_SET) {
     if (FALSE !== $this->_writeable) {
       if ($this->_options & STREAM_REPORT_ERRORS) {
-        \trigger_error(
-          'Seek ist not supported for writeable streams',
-          E_USER_WARNING
+        throw new S3Exception(
+          'Seek ist not supported for writeable streams'
         );
       }
       return FALSE;
@@ -448,9 +445,8 @@ class S3 {
         $this->_options & STREAM_REPORT_ERRORS &&
         !($flags & STREAM_URL_STAT_QUIET)
       ) {
-        \trigger_error(
-          'Can not find amazon resource.',
-          E_USER_WARNING
+        throw new S3Exception(
+          'Can not find amazon resource.'
         );
       }
     }
@@ -474,9 +470,8 @@ class S3 {
       );
       if (NULL === $resourceData) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Can not find amazon resource.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Can not find amazon resource.'
           );
         }
       } else {
@@ -509,9 +504,8 @@ class S3 {
       );
       if (NULL === $resourceData) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Can not find amazon resource.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Can not find amazon resource.'
           );
         }
         return FALSE;
@@ -576,9 +570,8 @@ class S3 {
       $handler = $this->getHandler();
       if (NULL === $handler->getFileInformations($location, $this->_options)) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Can not find amazon resource.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Can not find amazon resource.'
           );
         }
         return FALSE;
@@ -611,9 +604,8 @@ class S3 {
       $status = $handler->getDirectoryInformations($location, $this->_options);
       if (NULL !== $status) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Directory already present.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Directory already present.'
           );
         }
         return FALSE;
@@ -622,9 +614,8 @@ class S3 {
       $status = $handler->getFileInformations($location, $this->_options);
       if (NULL !== $status) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'File already present.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'File already present.'
           );
         }
         return FALSE;
@@ -673,18 +664,16 @@ class S3 {
         $handler->getDirectoryInformations($location, $this->_options, 2);
       if (NULL === $directoryInformation) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Can not find amazon resource.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Can not find amazon resource.'
           );
         }
         return FALSE;
       }
       if (TRUE === $directoryInformation['moreContent']) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Directory not empty.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Directory not empty.'
           );
         }
         return FALSE;
@@ -698,9 +687,8 @@ class S3 {
       }
       if (FALSE === $empty) {
         if ($this->_options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Directory not empty.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Directory not empty.'
           );
         }
         return FALSE;

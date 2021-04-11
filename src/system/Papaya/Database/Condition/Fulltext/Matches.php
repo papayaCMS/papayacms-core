@@ -18,7 +18,7 @@ use Papaya\Database;
 use Papaya\Parser;
 use Papaya\Parser\Search\Text as SearchTextParser;
 
-class Match extends Database\Condition\Fulltext {
+class Matches extends Database\Condition\Fulltext {
   /**
    * Get filters for MySQL MATCH command
    *

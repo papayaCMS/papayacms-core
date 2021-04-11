@@ -77,7 +77,10 @@ class Document
     /** @noinspection UnusedConstructorDependenciesInspection */
     $this->_document = $this;
     $this->registerNodeClass(\DOMElement::class, Element::class);
-    $this->_canDisableEntityLoader = \function_exists('libxml_disable_entity_loader');
+    $this->_canDisableEntityLoader = (
+      (LIBXML_VERSION < 20900) &&
+      \function_exists('libxml_disable_entity_loader')
+    );
   }
 
   /**

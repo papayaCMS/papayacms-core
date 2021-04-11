@@ -91,15 +91,13 @@ class Handler {
         case 404 :
         break;
         case 403 :
-          \trigger_error(
-            'Invalid Amazon S3 permissions',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Invalid Amazon S3 permissions'
           );
         break;
         default :
-          \trigger_error(
-            'Unexpected response status: '.$status,
-            E_USER_WARNING
+          throw new S3Exception(
+            'Unexpected response status: '.$status
           );
         break;
       }
@@ -175,9 +173,8 @@ class Handler {
       if (1 !== $return) {
         $client->close();
         if ($options & STREAM_REPORT_ERRORS) {
-          \trigger_error(
-            'Missing Content-Range header in response from amazon S3.',
-            E_USER_WARNING
+          throw new S3Exception(
+            'Missing Content-Range header in response from amazon S3.'
           );
         }
         return NULL;
@@ -191,9 +188,8 @@ class Handler {
       return [$client->getResponseData(), $stat];
     }
     if ($options & STREAM_REPORT_ERRORS) {
-      \trigger_error(
-        'Can not find amazon resource.',
-        E_USER_WARNING
+      throw new S3Exception(
+        'Can not find amazon resource.'
       );
     }
     return NULL;
@@ -234,13 +230,10 @@ class Handler {
     $this->_temporaryFile = \tmpfile();
     $result = \is_resource($this->_temporaryFile);
     if (TRUE !== $result && $options & STREAM_REPORT_ERRORS) {
-      // @codeCoverageIgnoreStart
-      \trigger_error(
-        'Failed to create temporary file.',
-        E_USER_WARNING
+      throw new S3Exception(
+        'Failed to create temporary file.'
       );
     }
-    // @codeCoverageIgnoreEnd
     return $result;
   }
 
@@ -278,14 +271,12 @@ class Handler {
       && ($options & STREAM_REPORT_ERRORS)
     ) {
       if (403 === $status) {
-        \trigger_error(
-          'Invalid Amazon S3 permissions',
-          E_USER_WARNING
+        throw new S3Exception(
+          'Invalid Amazon S3 permissions'
         );
       } else {
-        \trigger_error(
-          'Unexpected response status: '.$status,
-          E_USER_WARNING
+        throw new S3Exception(
+          'Unexpected response status: '.$status
         );
       }
     }

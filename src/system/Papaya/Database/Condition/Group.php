@@ -209,7 +209,7 @@ class Group
    * @return $this
    */
   public function match($field, $searchFor) {
-    $this->_conditions[] = new Fulltext\Match($this, $field, $searchFor);
+    $this->_conditions[] = new Fulltext\Matches($this, $field, $searchFor);
     return $this;
   }
 

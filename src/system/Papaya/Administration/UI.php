@@ -321,15 +321,21 @@ namespace Papaya\Administration {
               [
                 // General
                 self::OVERVIEW => new UI\Route\Templated\Page(
-                  $template, $images['places-home'], ['General', 'Overview'], \papaya_overview::class
+                  $template,
+                  $images['places-home'] ?? '',
+                  ['General', 'Overview'],
+                  \papaya_overview::class
                 ),
                 self::MESSAGES => new Route\PathChoice(
                   [
                     self::MESSAGES => new UI\Route\Templated\Page(
-                      $template, $images['status-mail-open'], ['General', 'Messages'], \papaya_messages::class
+                      $template,
+                      $images['status-mail-open'] ?? '',
+                      ['General', 'Messages'],
+                      \papaya_messages::class
                     ),
                     self::MESSAGES_TASKS => new UI\Route\Templated\Page(
-                      $template, $images['items-task'], ['General', 'Messages', 'Tasks'], \papaya_todo::class
+                      $template, $images['items-task'] ?? '', ['General', 'Messages', 'Tasks'], \papaya_todo::class
                     ),
                   ]
                 ),
@@ -338,13 +344,13 @@ namespace Papaya\Administration {
                 self::PAGES => new Route\PathChoice(
                   [
                     self::PAGES_SITEMAP => new UI\Route\Templated\Page(
-                      $template, $images['categories-sitemap'], ['Pages', 'Sitemap'], \papaya_topic_tree::class, Permissions::PAGE_MANAGE
+                      $template, $images['categories-sitemap'] ?? '', ['Pages', 'Sitemap'], \papaya_topic_tree::class, Permissions::PAGE_MANAGE
                     ),
                     self::PAGES_SEARCH => new UI\Route\Templated\Page(
-                      $template, $images['actions-search'], ['Pages', 'Search'], \papaya_overview_search::class, Permissions::PAGE_SEARCH
+                      $template, $images['actions-search'] ?? '', ['Pages', 'Search'], \papaya_overview_search::class, Permissions::PAGE_SEARCH
                     ),
                     self::PAGES_EDIT => new UI\Route\Templated\Page(
-                      $template, $images['items-page'], 'Pages', \papaya_topic::class, Permissions::PAGE_MANAGE
+                      $template, $images['items-page'] ?? '', 'Pages', \papaya_topic::class, Permissions::PAGE_MANAGE
                     )
                   ]
                 ),
@@ -353,84 +359,84 @@ namespace Papaya\Administration {
                 self::CONTENT => new Route\PathChoice(
                   [
                     self::CONTENT_BOXES => new UI\Route\Templated\Page(
-                      $template, $images['items-box'], ['Content', 'Boxes'], \papaya_boxes::class, Permissions::BOX_MANAGE
+                      $template, $images['items-box'] ?? '', ['Content', 'Boxes'], \papaya_boxes::class, Permissions::BOX_MANAGE
                     ),
                     self::CONTENT_FILES => new Route\PathChoice(
                       [
                         self::CONTENT_FILES => new UI\Route\Templated\Page(
-                          $template, $images['items-folder'], ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
+                          $template, $images['items-folder'] ?? '', ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
                         ),
                         self::CONTENT_FILES_BROWSER => new UI\Route\Templated\Page(
-                          $template, $images['items-folder'], ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
+                          $template, $images['items-folder'] ?? '', ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
                         )
                       ]
                     ),
                     self::CONTENT_IMAGES => new UI\Route\Templated\Page(
-                      $template, $images['items-graphic'], ['Content', 'Dynamic Images'], \papaya_imagegenerator::class, Permissions::IMAGE_GENERATOR
+                      $template, $images['items-graphic'] ?? '', ['Content', 'Dynamic Images'], \papaya_imagegenerator::class, Permissions::IMAGE_GENERATOR
                     ),
                     self::CONTENT_ALIASES => new UI\Route\Templated\Page(
-                      $template, $images['items-alias'], ['Content', 'Alias'], \papaya_alias_tree::class, Permissions::ALIAS_MANAGE
+                      $template, $images['items-alias'] ?? '', ['Content', 'Alias'], \papaya_alias_tree::class, Permissions::ALIAS_MANAGE
                     ),
                     self::CONTENT_TAGS => new UI\Route\Templated\Page(
-                      $template, $images['items-tag'], ['Content', 'Tags'], \papaya_tags::class, Permissions::TAG_MANAGE
+                      $template, $images['items-tag'] ?? '', ['Content', 'Tags'], \papaya_tags::class, Permissions::TAG_MANAGE
                     )
                   ]
                 ),
                 // Extensions/Applications
                 self::EXTENSIONS => new UI\Route\Templated\Extensions(
-                  $template, $images['categories-applications'], 'Applications'
+                  $template, $images['categories-applications'] ?? '', 'Applications'
                 ),
                 // Administration
                 self::ADMINISTRATION => new Route\PathChoice(
                   [
                     self::ADMINISTRATION_USERS => new UI\Route\Templated\Page(
-                      $template, $images['items-user-group'], ['Administration', 'Users'], \papaya_user::class, Permissions::USER_MANAGE
+                      $template, $images['items-user-group'] ?? '', ['Administration', 'Users'], \papaya_user::class, Permissions::USER_MANAGE
                     ),
                     self::ADMINISTRATION_VIEWS => new UI\Route\Templated\Page(
-                      $template, $images['items-view'], ['Administration', 'Views'], \base_viewlist::class, Permissions::VIEW_MANAGE
+                      $template, $images['items-view'] ?? '', ['Administration', 'Views'], \base_viewlist::class, Permissions::VIEW_MANAGE
                     ),
                     self::ADMINISTRATION_PLUGINS => new UI\Route\Templated\Page(
-                      $template, $images['items-plugin'], ['Administration', 'Plugins / Modules'], \papaya_modulemanager::class, Permissions::MODULE_MANAGE
+                      $template, $images['items-plugin'] ?? '', ['Administration', 'Plugins / Modules'], \papaya_modulemanager::class, Permissions::MODULE_MANAGE
                     ),
                     self::ADMINISTRATION_THEMES => new UI\Route\Templated\Page(
-                      $template, $images['items-theme'], ['Administration', 'Themes', 'Skins'], Theme\Editor::class, Permissions::SYSTEM_THEME_SKIN_MANAGE
+                      $template, $images['items-theme'] ?? '', ['Administration', 'Themes', 'Skins'], Theme\Editor::class, Permissions::SYSTEM_THEME_SKIN_MANAGE
                     ),
                     self::ADMINISTRATION_PROTOCOL => new Route\PathChoice(
                       [
                         self::ADMINISTRATION_PROTOCOL => new UI\Route\Templated\Page(
-                          $template, $images['categories-protocol'], ['Administration', 'Protocol'], ProtocolPage::class, Permissions::SYSTEM_PROTOCOL
+                          $template, $images['categories-protocol'] ?? '', ['Administration', 'Protocol'], ProtocolPage::class, Permissions::SYSTEM_PROTOCOL
                         ),
                         self::ADMINISTRATION_PROTOCOL_LOGIN => new UI\Route\Templated\Page(
-                          $template, $images['categories-protocol'], ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL
+                          $template, $images['categories-protocol'] ?? '', ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL
                         )
                       ]
                     ),
                     self::ADMINISTRATION_SETTINGS => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings'], SettingsPage::class, Permissions::SYSTEM_SETTINGS
+                      $template, $images['items-option'] ?? '', ['Administration', 'Settings'], SettingsPage::class, Permissions::SYSTEM_SETTINGS
                     ),
                     self::ADMINISTRATION_CRONJOBS => new UI\Route\Templated\Page(
-                      $template, $images['items-cronjob'], ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
+                      $template, $images['items-cronjob'] ?? '', ['Administration', 'Settings', 'Cronjobs'], \base_cronjobs::class, Permissions::SYSTEM_CRONJOBS
                     ),
                     self::ADMINISTRATION_LINK_TYPES => new UI\Route\Templated\Page(
-                      $template, $images['items-link'], ['Administration', 'Settings', 'Link types'], LinkTypeEditor::class, Permissions::SYSTEM_LINKTYPES_MANAGE
+                      $template, $images['items-link'] ?? '', ['Administration', 'Settings', 'Link types'], LinkTypeEditor::class, Permissions::SYSTEM_LINKTYPES_MANAGE
                     ),
                     self::ADMINISTRATION_MIME_TYPES => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings', 'Mime types'], MimeTypesEditor::class, Permissions::SYSTEM_MIMETYPES_MANAGE
+                      $template, $images['items-option'] ?? '', ['Administration', 'Settings', 'Mime types'], MimeTypesEditor::class, Permissions::SYSTEM_MIMETYPES_MANAGE
                     ),
                     self::ADMINISTRATION_SPAM_FILTER => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings', 'Spam filter'], \papaya_spamfilter::class, Permissions::SYSTEM_SETTINGS
+                      $template, $images['items-option'] ?? '', ['Administration', 'Settings', 'Spam filter'], \papaya_spamfilter::class, Permissions::SYSTEM_SETTINGS
                     ),
                     self::ADMINISTRATION_ICONS => new UI\Route\Templated\Page(
-                      $template, $images['items-option'], ['Administration', 'Settings', 'Icons'], Settings\Icons\Page::class, Permissions::SYSTEM_SETTINGS
+                      $template, $images['items-option'] ?? '', ['Administration', 'Settings', 'Icons'], Settings\Icons\Page::class, Permissions::SYSTEM_SETTINGS
                     ),
                     self::ADMINISTRATION_PHRASES => new UI\Route\Templated\Page(
-                      $template, $images['items-translation'], ['Administration', 'Translations'], \base_languages::class, Permissions::SYSTEM_TRANSLATE
+                      $template, $images['items-translation'] ?? '', ['Administration', 'Translations'], \base_languages::class, Permissions::SYSTEM_TRANSLATE
                     ),
                   ]
                 ),
                 // Help
                 self::HELP => new UI\Route\Templated\Page(
-                  $template, $images['categories-help'], 'Help', \papaya_help::class
+                  $template, $images['categories-help'] ?? '', 'Help', \papaya_help::class
                 ),
                 // Popups
                 self::POPUP => function() use ($cacheTime, $localPath) {

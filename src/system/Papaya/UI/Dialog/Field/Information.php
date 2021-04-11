@@ -59,7 +59,7 @@ class Information extends UI\Dialog\Field {
     $message = $field->appendElement(
       'message', [], (string)$this->_text
     );
-    $image = (string)('' !== $this->_image ? $this->papaya()->images[$this->_image] : '');
+    $image = (string)('' !== $this->_image ? ($this->papaya()->images[$this->_image] ?? '') : '');
     if ('' !== $image) {
       $message->setAttribute('image', $image);
     }

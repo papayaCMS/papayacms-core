@@ -72,7 +72,9 @@ class Xhgui
     $record = [
       'id' => $this->getId(), // unique id for the run
       'url' => $url = $this->removeSid(
-        isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF']
+        isset($_SERVER['REQUEST_URI'])
+          ? $_SERVER['REQUEST_URI']
+          : ($_SERVER['PHP_SELF'] ?? '')
       ),
       'c_url' => $this->normalizeURL($url), // normalized url to group requests
       'server name' => isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '', // server name

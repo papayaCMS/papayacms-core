@@ -23,6 +23,7 @@ namespace Papaya {
   use Papaya\Session\Values as SessionValues;
   use Papaya\Session\Options as SessionOptions;
   use Papaya\Session\Wrapper as SessionWrapper;
+  use PHPUnit\phpDocumentor\Reflection\Types\True_;
 
   /**
    * Papaya Session Handling, initialize, start, close and destroy session, give access to the the
@@ -332,16 +333,18 @@ namespace Papaya {
         $defaults = $wrapper->getCookieParameters();
         $wrapper->setCookieParameters(
           [
-            'lifetime' => $defaults['lifetime'],
+            'lifetime' => $defaults['lifetime'] ?? 1800,
             'path' => $options->get(
               'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
             ),
             'domain' => $options->get(
-              'PAPAYA_SESSION_DOMAIN', $defaults['domain'], new Filter\NotEmpty()
+              'PAPAYA_SESSION_DOMAIN', $defaults['domain'] ?? '', new Filter\NotEmpty()
             ),
             'SameSite' => 'Strict',
             'secure' => $this->isSecureOnly(),
-            'httponly' => $options->get(\Papaya\Configuration\CMS::SESSION_HTTP_ONLY, $defaults['httponly']),
+            'httponly' => $options->get(
+              \Papaya\Configuration\CMS::SESSION_HTTP_ONLY, $defaults['httponly'] ?? True
+            ),
           ]
         );
       } else {

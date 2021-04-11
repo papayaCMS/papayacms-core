@@ -116,7 +116,7 @@ class Button extends Element {
    * @param XML\Element $parent
    */
   public function appendTo(XML\Element $parent) {
-    $image = $this->papaya()->images[(string)$this->_image];
+    $image = $this->papaya()->images[(string)$this->_image] ?? '';
     $caption = (string)$this->_caption;
     if (!(empty($image) && empty($caption))) {
       $button = $parent->appendElement(

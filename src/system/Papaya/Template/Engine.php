@@ -242,7 +242,7 @@ abstract class Engine implements BaseObject\Interfaces\Properties {
       case 'values' :
         return $this->values();
     }
-    return $this->$name;
+    return NULL;
   }
 
   /**

@@ -155,7 +155,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return mixed session value or NULL
   */
   function getSessionValue($name) {
-    return $this->papaya()->session->values[$name];
+    return $this->papaya()->session->values[$name] ?? null;
   }
 
   /**
