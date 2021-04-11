@@ -15,10 +15,12 @@
 
 namespace Papaya\UI\Control\Command\Condition {
 
+  use Papaya\TestCase;
+
   /**
    * @covers \Papaya\UI\Control\Command\Condition\Value
    */
-  class ValueTest extends \PHPUnit_Framework_TestCase {
+  class ValueTest extends TestCase {
 
     public function testValidateExpectingTrue() {
       $condition = new Value(TRUE);

@@ -204,7 +204,7 @@ class HandlerTest extends \Papaya\TestCase {
       ->method('close');
     $handler = new Handler();
     $handler->setHTTPClient($client);
-    $this->expectError(E_WARNING);
+    $this->expectException(S3Exception::class);
     $handler->getFileInformations(
       self::$_testFile,
       STREAM_REPORT_ERRORS
@@ -224,13 +224,11 @@ class HandlerTest extends \Papaya\TestCase {
       ->will($this->returnValue(403));
     $handler = new Handler();
     $handler->setHTTPClient($client);
-    $this->assertNull(
-      @$handler->getFileInformations(
-        self::$_testFile,
-        STREAM_REPORT_ERRORS
-      )
+    $this->expectException(S3Exception::class);
+    $handler->getFileInformations(
+      self::$_testFile,
+      STREAM_REPORT_ERRORS
     );
-
   }
 
   /**
@@ -249,7 +247,7 @@ class HandlerTest extends \Papaya\TestCase {
       ->method('close');
     $handler = new Handler();
     $handler->setHTTPClient($client);
-    $this->expectError(E_WARNING);
+    $this->expectException(S3Exception::class);
     $handler->getFileInformations(
       self::$_testFile,
       STREAM_REPORT_ERRORS
@@ -269,11 +267,10 @@ class HandlerTest extends \Papaya\TestCase {
       ->will($this->returnValue(0));
     $handler = new Handler();
     $handler->setHTTPClient($client);
-    $this->assertNull(
-      @$handler->getFileInformations(
-        self::$_testFile,
-        STREAM_REPORT_ERRORS
-      )
+    $this->expectException(S3Exception::class);
+    $handler->getFileInformations(
+      self::$_testFile,
+      STREAM_REPORT_ERRORS
     );
   }
 
@@ -584,13 +581,12 @@ class HandlerTest extends \Papaya\TestCase {
       ->method('close');
     $handler = new Handler();
     $handler->setHTTPClient($client);
-    $this->assertNull(
-      @$handler->readFileContent(
-        self::$_testFile,
-        10,
-        20,
-        STREAM_REPORT_ERRORS
-      )
+    $this->expectException(S3Exception::class);
+    $handler->readFileContent(
+      self::$_testFile,
+      10,
+      20,
+      STREAM_REPORT_ERRORS
     );
   }
 
@@ -606,13 +602,12 @@ class HandlerTest extends \Papaya\TestCase {
       ->will($this->returnValue(404));
     $handler = new Handler();
     $handler->setHTTPClient($client);
-    $this->assertNull(
-      @$handler->readFileContent(
-        self::$_testFile,
-        10,
-        20,
-        STREAM_REPORT_ERRORS
-      )
+    $this->expectException(S3Exception::class);
+    $handler->readFileContent(
+      self::$_testFile,
+      10,
+      20,
+      STREAM_REPORT_ERRORS
     );
   }
 
@@ -714,24 +709,8 @@ class HandlerTest extends \Papaya\TestCase {
     $handler = new Handler();
     $handler->setHTTPClient($client);
     $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
-    $this->expectError(E_WARNING);
+    $this->expectException(S3Exception::class);
     $handler->closeWriteFile(STREAM_REPORT_ERRORS);
-  }
-
-  /**
-   * @covers \Papaya\Streamwrapper\S3\Handler::closeWriteFile
-   */
-  public function testCloseWriteFileWithSuppressedWarningPermissionDenied() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client $client */
-    $client = $this->createMock(\Papaya\HTTP\Client::class);
-    $client
-      ->expects($this->once())
-      ->method('getResponseStatus')
-      ->will($this->returnValue(403));
-    $handler = new Handler();
-    $handler->setHTTPClient($client);
-    $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
-    @$handler->closeWriteFile(STREAM_REPORT_ERRORS);
   }
 
   /**
@@ -750,24 +729,8 @@ class HandlerTest extends \Papaya\TestCase {
     $handler = new Handler();
     $handler->setHTTPClient($client);
     $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
-    $this->expectError(E_WARNING);
+    $this->expectException(S3Exception::class);
     $handler->closeWriteFile(STREAM_REPORT_ERRORS);
-  }
-
-  /**
-   * @covers \Papaya\Streamwrapper\S3\Handler::closeWriteFile
-   */
-  public function testCloseWriteFileWithSuppressedWarningUnexpectedResponse() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client $client */
-    $client = $this->createMock(\Papaya\HTTP\Client::class);
-    $client
-      ->expects($this->once())
-      ->method('getResponseStatus')
-      ->will($this->returnValue(0));
-    $handler = new Handler();
-    $handler->setHTTPClient($client);
-    $handler->openWriteFile(self::$_testFile, STREAM_REPORT_ERRORS);
-    @$handler->closeWriteFile(STREAM_REPORT_ERRORS);
   }
 
   /**

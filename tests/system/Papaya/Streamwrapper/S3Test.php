@@ -15,6 +15,7 @@
 
 namespace Papaya\Streamwrapper {
 
+  use Papaya\Streamwrapper\S3\S3Exception;
   use Papaya\TestCase;
 
   require_once __DIR__.'/../../../bootstrap.php';
@@ -77,15 +78,8 @@ namespace Papaya\Streamwrapper {
 
     public function testParsePathTriggersError() {
       $wrapper = new S3();
-      $this->expectError(E_WARNING);
+      $this->expectException(S3Exception::class);
       $wrapper->parsePath('INVALID', STREAM_REPORT_ERRORS);
-    }
-
-    public function testParsePathBlockedError() {
-      $wrapper = new S3();
-      $this->assertFalse(
-        @$wrapper->parsePath('INVALID', STREAM_REPORT_ERRORS)
-      );
     }
 
     public function testParsePathSilentError() {
@@ -157,15 +151,6 @@ namespace Papaya\Streamwrapper {
       S3::setSecret($id, NULL);
     }
 
-    public function testParsePathForNoSecretFound() {
-      $id = 'KEYID123456789012345';
-      $wrapper = new S3();
-      $path = 'amazon://'.$id.':@bucketname/object';
-      $this->assertFalse(
-        @$wrapper->parsePath($path, STREAM_REPORT_ERRORS)
-      );
-    }
-
     public function testUrlStat() {
       $fileInformation = [
         'size' => 23,
@@ -215,22 +200,6 @@ namespace Papaya\Streamwrapper {
       );
     }
 
-    public function testUrlStatForNotFound() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
-      $handler = $this->createMock(S3\Handler::class);
-      $handler
-        ->expects($this->once())
-        ->method('getFileInformations');
-      $handler
-        ->expects($this->once())
-        ->method('getDirectoryInformations');
-      $wrapper = new S3();
-      $wrapper->setHandler($handler);
-      $this->assertNull(
-        @$wrapper->url_stat(self::TEST_FILE, 0)
-      );
-    }
-
     public function testStreamOpen() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
       $handler = $this->createMock(S3\Handler::class);
@@ -268,17 +237,16 @@ namespace Papaya\Streamwrapper {
       $wrapper = new S3();
       $wrapper->setHandler($handler);
       $openedPath = NULL;
-      $this->assertFalse(
-        @$wrapper->stream_open(
-          'INVALID',
-          'r',
-          0,
-          $openedPath
-        )
+      $this->expectException(S3Exception::class);
+      $wrapper->stream_open(
+        'INVALID',
+        'r',
+        0,
+        $openedPath
       );
     }
 
-    public function testStreamOpenNotFoundSuppressedWarning() {
+    public function testStreamOpenNotFound() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
       $handler = $this->createMock(S3\Handler::class);
       $handler
@@ -288,27 +256,7 @@ namespace Papaya\Streamwrapper {
       $wrapper = new S3();
       $wrapper->setHandler($handler);
       $openedPath = NULL;
-      $this->assertFalse(
-        @$wrapper->stream_open(
-          self::TEST_FILE,
-          'r',
-          0,
-          $openedPath
-        )
-      );
-    }
-
-    public function testStreamOpenNotFoundWarning() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $handler */
-      $handler = $this->createMock(S3\Handler::class);
-      $handler
-        ->expects($this->once())
-        ->method('readFileContent')
-        ->willReturn(NULL);
-      $wrapper = new S3();
-      $wrapper->setHandler($handler);
-      $openedPath = NULL;
-      $this->expectError(E_WARNING);
+      $this->expectException(S3Exception::class);
       $wrapper->stream_open(
         self::TEST_FILE,
         'r',
@@ -321,16 +269,15 @@ namespace Papaya\Streamwrapper {
      * @dataProvider streamOpenUnsupportedModeDataProvider
      * @param string $mode
      */
-    public function testStreamOpenUnsupportedModeSuppressedWarning($mode) {
+    public function testStreamOpenUnsupportedMode($mode) {
       $wrapper = new S3();
       $openedPath = NULL;
-      $this->assertFalse(
-        @$wrapper->stream_open(
-          self::TEST_FILE,
-          $mode,
-          STREAM_REPORT_ERRORS,
-          $openedPath
-        )
+      $this->expectException(S3Exception::class);
+      $wrapper->stream_open(
+        self::TEST_FILE,
+        $mode,
+        STREAM_REPORT_ERRORS,
+        $openedPath
       );
     }
 
@@ -341,7 +288,7 @@ namespace Papaya\Streamwrapper {
     public function testStreamOpenUnsupportedModeWarning($mode) {
       $wrapper = new S3();
       $openedPath = NULL;
-      $this->expectError(E_WARNING);
+      $this->expectException(S3Exception::class);
       $wrapper->stream_open(
         self::TEST_FILE,
         $mode,
@@ -702,9 +649,8 @@ namespace Papaya\Streamwrapper {
         0,
         $openedPath
       );
-      $this->assertFalse(
-        @$wrapper->stream_seek(0, SEEK_CUR)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->stream_seek(0, SEEK_CUR);
     }
 
     public function testStreamEOF() {
@@ -1028,7 +974,7 @@ namespace Papaya\Streamwrapper {
         ->willReturn(NULL);
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->expectError(E_WARNING);
+      $this->expectException(S3Exception::class);
       $wrapper->dir_opendir(
         self::TEST_FILE,
         0
@@ -1044,11 +990,10 @@ namespace Papaya\Streamwrapper {
         ->willReturn(NULL);
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->dir_opendir(
-          self::TEST_FILE,
-          0
-        )
+      $this->expectException(S3Exception::class);
+      $wrapper->dir_opendir(
+        self::TEST_FILE,
+        0
       );
     }
 
@@ -1175,7 +1120,7 @@ namespace Papaya\Streamwrapper {
         self::TEST_FILE,
         STREAM_REPORT_ERRORS
       );
-      $this->expectError(E_WARNING);
+      $this->expectException(S3Exception::class);
       $wrapper->dir_readdir();
     }
 
@@ -1204,9 +1149,8 @@ namespace Papaya\Streamwrapper {
         self::TEST_FILE,
         STREAM_REPORT_ERRORS
       );
-      $this->assertFalse(
-        @$wrapper->dir_readdir()
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->dir_readdir();
     }
 
     public function testDirReadNotFound() {
@@ -1234,9 +1178,8 @@ namespace Papaya\Streamwrapper {
         self::TEST_FILE,
         0
       );
-      $this->assertFalse(
-        @$wrapper->dir_readdir()
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->dir_readdir();
     }
 
     public function testDirRewind() {
@@ -1426,9 +1369,8 @@ namespace Papaya\Streamwrapper {
         ->method('removeFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->unlink(self::TEST_FILE)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->unlink(self::TEST_FILE);
     }
 
     public function testUnlinkWithInvalidPath() {
@@ -1439,9 +1381,8 @@ namespace Papaya\Streamwrapper {
         ->method('removeFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->unlink('INVALID')
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->unlink('INVALID');
     }
 
     public function testMakeDirectory() {
@@ -1503,9 +1444,8 @@ namespace Papaya\Streamwrapper {
         ->method('openWriteFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->mkdir(self::TEST_FILE, 0, 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->mkdir(self::TEST_FILE, 0, 0);
     }
 
     public function testMakeDirectoryWithFailingOpen() {
@@ -1569,9 +1509,8 @@ namespace Papaya\Streamwrapper {
         ->method('openWriteFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->mkdir(self::TEST_FILE, 0, 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->mkdir(self::TEST_FILE, 0, 0);
     }
 
     public function testMakeDirectoryWithInvalidPath() {
@@ -1588,9 +1527,8 @@ namespace Papaya\Streamwrapper {
         ->method('openWriteFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->mkdir('INVALID', 0, 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->mkdir('INVALID', 0, 0);
     }
 
     public function testRemoveDirectory() {
@@ -1653,9 +1591,8 @@ namespace Papaya\Streamwrapper {
         ->method('removeFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->rmdir(self::TEST_FILE, 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->rmdir(self::TEST_FILE, 0);
     }
 
     public function testRemoveDirectoryWithMoreContent() {
@@ -1674,9 +1611,8 @@ namespace Papaya\Streamwrapper {
         ->method('removeFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->rmdir(self::TEST_FILE, 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->rmdir(self::TEST_FILE, 0);
     }
 
     public function testRemoveDirectoryNotExisting() {
@@ -1691,9 +1627,8 @@ namespace Papaya\Streamwrapper {
         ->method('removeFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->rmdir(self::TEST_FILE, 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->rmdir(self::TEST_FILE, 0);
     }
 
     public function testRemoveDirectoryWithInvalidPath() {
@@ -1707,9 +1642,8 @@ namespace Papaya\Streamwrapper {
         ->method('removeFile');
       $wrapper = new S3();
       $wrapper->setHandler($handler);
-      $this->assertFalse(
-        @$wrapper->rmdir('INVALID', 0)
-      );
+      $this->expectException(S3Exception::class);
+      $wrapper->rmdir('INVALID', 0);
     }
 
     /*********************************

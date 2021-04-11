@@ -22,7 +22,7 @@ namespace Papaya\Session {
    */
   class WrapperTest extends \Papaya\TestCase {
 
-    public function setUp() {
+    public function setUp(): void {
       ini_set('session.use_cookies', FALSE);
       session_cache_limiter(FALSE);
     }

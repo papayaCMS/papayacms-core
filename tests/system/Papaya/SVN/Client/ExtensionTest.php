@@ -18,7 +18,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 
 class ExtensionTest extends \Papaya\TestCase {
 
-  protected function setUp() {
+  protected function setUp(): void {
     if (!extension_loaded('svn')) {
       $this->markTestSkipped(
         'The svn extension is not available.'

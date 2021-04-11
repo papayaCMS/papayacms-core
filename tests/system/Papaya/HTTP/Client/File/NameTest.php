@@ -21,7 +21,7 @@ namespace Papaya\HTTP\Client\File {
 
     private $_sampleFile;
 
-    public function setUp() {
+    public function setUp(): void {
       $this->_sampleFile = __DIR__.'/DATA/sample.txt';
     }
 

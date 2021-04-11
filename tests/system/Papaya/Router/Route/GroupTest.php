@@ -18,11 +18,12 @@ namespace Papaya\Router\Route {
   use Papaya\Response;
   use Papaya\Router;
   use Papaya\Router\Route;
+  use Papaya\TestCase;
 
   /**
    * @covers \Papaya\Router\Route\Group
    */
-  class GroupTest extends \PHPUnit_Framework_TestCase {
+  class GroupTest extends TestCase {
 
     public function testIssetExpectingTrue() {
       $route = $this->createMock(Route::class);

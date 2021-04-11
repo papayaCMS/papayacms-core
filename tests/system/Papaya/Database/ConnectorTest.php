@@ -18,7 +18,7 @@ namespace Papaya\Database {
       $this->assertInstanceOf(Connection_TestProxy::class, $connection);
     }
 
-    public function tearDown() {
+    public function tearDown(): void {
       if ($this->_registeredSample) {
         Connector::unregisterConnectionClass('sample');
       }

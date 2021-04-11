@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+ini_set('memory_limit', -1);
 
 error_reporting(E_ALL & ~E_STRICT);
 

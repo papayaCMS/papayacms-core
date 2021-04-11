@@ -22,7 +22,7 @@ namespace Papaya\Media\Storage\Service {
     private $_storageDirectory;
     private $_publicDirectory;
 
-    public function setUp() {
+    public function setUp(): void {
       if ($directory = $this->createTemporaryDirectory()) {
         $this->_storageDirectory = $directory.DIRECTORY_SEPARATOR.'storage';
         $this->_publicDirectory = $directory.DIRECTORY_SEPARATOR.'public';
@@ -33,7 +33,7 @@ namespace Papaya\Media\Storage\Service {
       }
     }
 
-    public function tearDown() {
+    public function tearDown(): void {
       $this->removeTemporaryDirectory();
     }
 

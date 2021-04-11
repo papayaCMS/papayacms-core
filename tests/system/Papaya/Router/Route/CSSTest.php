@@ -16,11 +16,12 @@
 namespace Papaya\Router\Route {
 
   use Papaya\Router;
+  use Papaya\TestCase;
 
   /**
    * @covers \Papaya\Router\Route\CSS
    */
-  class CSSTest extends \PHPUnit_Framework_TestCase {
+  class CSSTest extends TestCase {
 
     public function testInvoke() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Router $router */

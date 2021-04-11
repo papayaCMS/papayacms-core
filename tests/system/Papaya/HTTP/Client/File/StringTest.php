@@ -20,7 +20,7 @@ class StringTest extends \Papaya\TestCase {
 
   private $_fileContents;
 
-  public function setUp() {
+  public function setUp(): void {
     $this->_fileContents = file_get_contents(__DIR__.'/DATA/sample.txt');
   }
 

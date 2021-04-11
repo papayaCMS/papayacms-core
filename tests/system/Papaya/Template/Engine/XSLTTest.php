@@ -29,7 +29,7 @@ namespace Papaya\Template\Engine {
 
     private $_internalErrors;
 
-    public function tearDown() {
+    public function tearDown(): void {
       if (NULL !== $this->_internalErrors) {
         libxml_use_internal_errors($this->_internalErrors);
       }

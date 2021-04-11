@@ -291,8 +291,9 @@ namespace Papaya\Template {
     public function testMagicMethodsGetForUndefinedProperty() {
       $engine = new Engine_TestProxy();
       $this->assertFalse(isset($engine->dynamic_property));
-      $this->expectError(E_NOTICE);
-      $engine->dynamic_property;
+      $this->assertNull(
+        $engine->dynamic_property
+      );
     }
 
     public function testMagicMethodsSetForDynamicProperty() {

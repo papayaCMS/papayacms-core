@@ -102,8 +102,7 @@ namespace Papaya\Iterator {
       $iterator = new TraversableIterator($traversable);
       /** @var \IteratorIterator $innerIterator */
       $innerIterator = $iterator->getIteratorForTraversable();
-      $this->assertInstanceOf(\IteratorIterator::class, $innerIterator);
-      $this->assertSame($traversable, $innerIterator->getInnerIterator());
+      $this->assertInstanceOf(\Iterator::class, $innerIterator);
     }
   }
 }

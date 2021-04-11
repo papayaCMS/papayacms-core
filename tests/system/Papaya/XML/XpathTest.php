@@ -28,7 +28,7 @@ namespace Papaya\XML {
       $xpath = new Xpath($document = new Document());
       $this->assertSame($document, $xpath->document);
       $this->assertEquals(
-        version_compare(PHP_VERSION, '<', '5.3.3'),
+        version_compare(PHP_VERSION, '5.3.3', '<'),
         $xpath->registerNodeNamespaces()
       );
     }

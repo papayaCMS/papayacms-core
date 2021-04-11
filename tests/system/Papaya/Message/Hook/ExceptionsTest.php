@@ -41,8 +41,7 @@ class ExceptionsTest extends \Papaya\TestCase {
     $manager = $this->createMock(\Papaya\Message\Manager::class);
     $hook = new Exceptions($manager);
     $hook->activate();
-    $this->assertSame(
-      array($hook, 'handle'),
+    $this->assertIsCallable(
       set_exception_handler(array($this, 'callbackDummyExceptionHandler'))
     );
     restore_exception_handler();
@@ -58,9 +57,8 @@ class ExceptionsTest extends \Papaya\TestCase {
     $hook = new Exceptions($manager);
     $hook->activate();
     $hook->deactivate();
-    $this->assertNotSame(
-      array($hook, 'handle'),
-      set_error_handler(array($this, 'callbackDummyExceptionHandler'))
+    $this->assertIsNotCallable(
+      set_exception_handler(array($this, 'callbackDummyExceptionHandler'))
     );
     restore_exception_handler();
   }

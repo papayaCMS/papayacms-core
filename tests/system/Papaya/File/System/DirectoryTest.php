@@ -24,7 +24,7 @@ namespace Papaya\File\System {
    */
   class DirectoryTest extends TestCase {
 
-    public function tearDown() {
+    public function tearDown(): void {
       $this->removeTemporaryDirectory();
     }
 

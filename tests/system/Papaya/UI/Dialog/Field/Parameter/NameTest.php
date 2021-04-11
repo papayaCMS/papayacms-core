@@ -16,12 +16,13 @@
 namespace Papaya\UI\Dialog\Field\Parameter {
 
   use Papaya\Request\Parameters\Name as RequestParameterName;
+  use Papaya\TestCase;
   use Papaya\UI\Dialog;
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Parameter\Name
    */
-  class NameTest extends \PHPUnit_Framework_TestCase {
+  class NameTest extends TestCase {
 
     /**
      * @param string $expected

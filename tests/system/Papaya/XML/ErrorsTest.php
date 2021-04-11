@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 
 class ErrorsTest extends \Papaya\TestCase {
 
-  public function setUp() {
+  public function setUp(): void {
     if (!extension_loaded('dom')) {
       $this->markTestSkipped('No dom xml extension found.');
     }
@@ -27,7 +27,7 @@ class ErrorsTest extends \Papaya\TestCase {
     libxml_clear_errors();
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     libxml_use_internal_errors(FALSE);
   }
 

@@ -15,12 +15,13 @@
 
 namespace Papaya\Iterator {
 
+  use Papaya\TestCase;
   use UnexpectedValueException;
 
   /**
    * @covers \Papaya\Iterator\RecursiveTraversableIterator
    */
-  class RecursiveTraversableIteratorTest extends \PHPUnit_Framework_TestCase {
+  class RecursiveTraversableIteratorTest extends TestCase {
 
     public function testRecursiveTraversableIteratorForArray() {
       $iterator = new RecursiveTraversableIterator([0, 1, [2, 3]], RecursiveTraversableIterator::LEAVES_ONLY);

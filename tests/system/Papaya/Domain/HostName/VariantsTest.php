@@ -16,8 +16,9 @@
 namespace system\Papaya\Domain\HostName {
 
   use Papaya\Domain\HostName\Variants;
+  use Papaya\TestCase;
 
-  class VariantsTest extends \PHPUnit_Framework_TestCase {
+  class VariantsTest extends TestCase {
 
     public function testCreatingVariantsFromHostName() {
       $variants = new Variants('www.example.com');

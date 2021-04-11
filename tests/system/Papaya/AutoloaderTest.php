@@ -24,7 +24,7 @@ namespace Papaya {
    */
   class AutoloaderTest extends TestCase {
 
-    public function tearDown() {
+    public function tearDown(): void {
       Autoloader::clear();
     }
 

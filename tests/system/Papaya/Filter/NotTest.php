@@ -32,7 +32,6 @@ class NotTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Filter\Not::validate
-   * @expectedException Exception
    */
   public function testValidateExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
@@ -43,6 +42,7 @@ class NotTest extends \Papaya\TestCase {
       ->with($this->equalTo(123))
       ->will($this->returnValue(TRUE));
     $filter = new Not($filterMock);
+    $this->expectException(\Exception::class);
     $filter->validate(123);
   }
 

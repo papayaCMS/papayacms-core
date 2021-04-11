@@ -157,11 +157,11 @@ namespace Papaya {
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      * @dataProvider setHostDataProviderExceptions
      * @param string $host
      */
     public function testSetHostExpectingException($host) {
+      $this->expectException(\InvalidArgumentException::class);
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
       $urlObject->setHost($host);

@@ -20,11 +20,11 @@ class StreamTest extends \Papaya\TestCase {
 
   private $_fileResource;
 
-  public function setUp() {
+  public function setUp(): void {
     $this->_fileResource = fopen(__DIR__.'/DATA/sample.txt', 'rb');
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     if (is_resource($this->_fileResource)) {
       fclose($this->_fileResource);
     }

@@ -642,9 +642,8 @@ namespace Papaya\UI\Reference\Page {
       );
 
       $document = new XMLDocument();
-      $node = $document
-        ->appendElement('sample')
-        ->append($factory->getLinkAttributes('de', 42));
+      $node = $document->appendElement('sample');
+      $node->append($factory->getLinkAttributes('de', 42));
       $this->assertEquals(
       /** @lang XML */ '<sample class="sampleClass" target="sampleTarget"/>',
                        $node->saveXML()
@@ -679,9 +678,8 @@ namespace Papaya\UI\Reference\Page {
       );
 
       $document = new XMLDocument();
-      $node = $document
-        ->appendElement('sample')
-        ->append($factory->getLinkAttributes('de', 42));
+      $node = $document->appendElement('sample');
+      $node->append($factory->getLinkAttributes('de', 42));
       $this->assertEquals(
         '<sample class="sampleClass"'.
         ' target="sampleTarget"'.
@@ -723,9 +721,8 @@ namespace Papaya\UI\Reference\Page {
       );
 
       $document = new XMLDocument();
-      $node = $document
-        ->appendElement('sample')
-        ->append($factory->getLinkAttributes('de', 42));
+      $node = $document->appendElement('sample');
+      $node->append($factory->getLinkAttributes('de', 42));
       $this->assertEquals(
         '<sample class="sampleClass"'.
         ' target="sampleTarget"'.

@@ -16,11 +16,12 @@
 namespace system\Papaya\Response\Content {
 
   use Papaya\Response\Content\JSON;
+  use Papaya\TestCase;
 
   /**
    * @covers \Papaya\Response\Content\JSON
    */
-  class JSONTest extends \PHPUnit_Framework_TestCase {
+  class JSONTest extends TestCase {
 
     /**
      * @param int $expectedLength

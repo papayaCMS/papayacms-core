@@ -30,11 +30,11 @@ namespace Papaya\Message {
      */
     private $_errorReporting;
 
-    public function setUp() {
+    public function setUp(): void {
       $this->_errorReporting = error_reporting();
     }
 
-    public function tearDown() {
+    public function tearDown(): void {
       error_reporting($this->_errorReporting);
     }
 

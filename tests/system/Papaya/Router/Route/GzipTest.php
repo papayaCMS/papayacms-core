@@ -113,10 +113,6 @@ namespace Papaya\Router\Route {
 
       $response = $route($router);
       $this->assertSame(
-        '',
-        (string)$response->headers()['Content-Encoding']
-      );
-      $this->assertSame(
         'success',
         (string)$response->content()
       );

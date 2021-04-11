@@ -19,7 +19,7 @@ require_once __DIR__.'/../../bootstrap.php';
 
 class CacheTest extends \Papaya\TestCase {
 
-  public function tearDown() {
+  public function tearDown(): void {
     Cache::reset();
   }
 

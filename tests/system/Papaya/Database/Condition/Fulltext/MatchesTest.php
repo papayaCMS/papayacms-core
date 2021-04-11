@@ -22,9 +22,9 @@ namespace Papaya\Database\Condition\Fulltext {
 
   /**
    * @covers \Papaya\Database\Condition\Fulltext
-   * @covers \Papaya\Database\Condition\Fulltext\Match
+   * @covers \Papaya\Database\Condition\Fulltext\Matches
    */
-  class MatchTest extends TestCase {
+  class MatchesTest extends TestCase {
 
     /**
      * @param $expected
@@ -37,7 +37,7 @@ namespace Papaya\Database\Condition\Fulltext {
 
       $this->assertSame(
         $expected,
-        (string)new Match(new Group($databaseAccess), $field, $searchFor)
+        (string)(new Matches(new Group($databaseAccess), $field, $searchFor))
       ) ;
     }
 
