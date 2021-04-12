@@ -868,7 +868,7 @@ class papaya_parser extends base_db {
         'title' => isset($params['title']) ? $params['title'] : ''
       );
     } else {
-      $hrefData = FALSE;
+      $hrefData = [];
     }
     if (!empty($params['alt'])) {
       $altText = $params['alt'];
@@ -881,7 +881,7 @@ class papaya_parser extends base_db {
         \Papaya\Utility\Text\HTML::stripTags($data['description'])
       );
     } else {
-      $altText = $hrefData['title'];
+      $altText = $hrefData['title'] ?? '';
     }
     $borderData = $this->calcBorders($params, $data);
     $style = 'width: '.(int)$data['width'].'px;';
