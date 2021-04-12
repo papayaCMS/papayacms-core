@@ -37,7 +37,7 @@ class Error
     $this->_message = $message;
     $this
       ->_context
-      ->append(new Message\Context\Backtrace(2))
+      ->append(new Message\Context\Backtrace(3))
       ->append(new Message\Context\Variable($variableContext));
   }
 }
