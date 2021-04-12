@@ -154,7 +154,9 @@ class UTF8 {
             $length = $possibleLength;
           }
         }
-        return \grapheme_substr($string, $start, $length);
+        return NULL !== $length
+          ? \grapheme_substr($string, $start, $length)
+          : \grapheme_substr($string, $start);
       case self::EXT_MBSTRING :
         if (NULL === $length) {
           $length = self::length($string);

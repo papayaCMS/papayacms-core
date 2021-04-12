@@ -112,7 +112,7 @@ class Database
       'log_time' => \time(),
       'log_msgtype' => $message->getGroup(),
       'log_msgno' => isset(self::$_SEVERITY_TYPES[$message->getSeverity()]) ? self::$_SEVERITY_TYPES[$message->getSeverity()] : 0,
-      'log_msg_short' => UTF8::copy($message->getMessage(), 200),
+      'log_msg_short' => UTF8::copy($message->getMessage(), 0, 200),
       'log_msg_long' => $details,
       'log_msg_uri' => $url->getURL(),
       'log_msg_referer' => empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'],
