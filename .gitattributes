@@ -30,3 +30,4 @@ phpunit.xml export-ignore
 *.pyc binary
 *.pdf binary
 *.z binary
+*.phar binary
