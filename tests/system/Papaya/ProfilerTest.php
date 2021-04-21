@@ -68,21 +68,14 @@ class ProfilerTest extends \Papaya\TestCase {
    * @covers \Papaya\Profiler::allowRun
    */
   public function testDivisorWith50() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Profiler\Collector $collector */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|Profiler\Collector $collector */
     $collector = $this->createMock(Profiler\Collector::class);
     /** @var \PHPUnit_Framework_MockObject_MockObject|Profiler\Storage $storage */
     $storage = $this->createMock(Profiler\Storage::class);
     $profiler = new Profiler($collector, $storage);
     $profiler->setDivisor(50);
-    $this->assertAttributeEquals(
-      50, '_divisor', $profiler
-    );
-    $this->assertAttributeSame(
-      NULL, '_allowRun', $profiler
-    );
-    $profiler->allowRun();
-    $this->assertAttributeNotSame(
-      NULL, '_allowRun', $profiler
+    $this->assertEquals(
+      50, $profiler->getDivisor()
     );
   }
 
@@ -96,11 +89,8 @@ class ProfilerTest extends \Papaya\TestCase {
     $storage = $this->createMock(Profiler\Storage::class);
     $profiler = new Profiler($collector, $storage);
     $profiler->setDivisor(50000000);
-    $this->assertAttributeEquals(
-      999999, '_divisor', $profiler
-    );
-    $this->assertAttributeSame(
-      NULL, '_allowRun', $profiler
+    $this->assertEquals(
+      999999,  $profiler->getDivisor()
     );
   }
 

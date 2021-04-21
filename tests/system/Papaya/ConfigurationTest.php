@@ -25,10 +25,10 @@ namespace Papaya {
      */
     public function testConstructorDefinesOptions() {
       $config = new Configuration(
-        array('sample' => NULL)
+        ['sample' => NULL]
       );
       $this->assertEquals(
-        array('sample' => NULL), iterator_to_array($config)
+        ['sample' => NULL], iterator_to_array($config)
       );
     }
 
@@ -39,7 +39,7 @@ namespace Papaya {
     public function testConstructorDefinesInvalidOptionExpectingException() {
       $this->expectException(\UnexpectedValueException::class);
       new Configuration(
-        array('sample' => new \stdClass)
+        ['sample' => new \stdClass]
       );
     }
 
@@ -47,9 +47,9 @@ namespace Papaya {
      * @covers \Papaya\Configuration::getHash
      */
     public function testGetHash() {
-      $config = new Configuration(array());
+      $config = new Configuration([]);
       $this->assertEquals(
-        md5(serialize(array())), $config->getHash()
+        md5(serialize([])), $config->getHash()
       );
     }
 
@@ -80,7 +80,7 @@ namespace Papaya {
      * @covers \Papaya\Configuration::filter
      */
     public function testGetWithUnknownOptionReturningDefault() {
-      $config = new Configuration(array());
+      $config = new Configuration([]);
       $this->assertSame(
         23, $config->get('UNKNOWN_OPTION', 23)
       );
@@ -150,7 +150,7 @@ namespace Papaya {
      */
     public function testAssign() {
       $config = new Configuration_TestProxy();
-      $config->assign(array('SAMPLE_INT' => 21));
+      $config->assign(['SAMPLE_INT' => 21]);
       $this->assertEquals(
         21, $config->get('SAMPLE_INT')
       );
@@ -199,7 +199,7 @@ namespace Papaya {
       $storage
         ->expects($this->once())
         ->method('getIterator')
-        ->will($this->returnValue(new \ArrayIterator(array('SAMPLE_INT' => 23))));
+        ->will($this->returnValue(new \ArrayIterator(['SAMPLE_INT' => 23])));
       $config = new Configuration_TestProxy();
       $config->storage($storage);
       $config->load();
@@ -220,15 +220,15 @@ namespace Papaya {
       $storage
         ->expects($this->once())
         ->method('getIterator')
-        ->will($this->returnValue(new \ArrayIterator(array('SAMPLE_INT_UNKNOWN' => 23))));
+        ->will($this->returnValue(new \ArrayIterator(['SAMPLE_INT_UNKNOWN' => 23])));
       $config = new Configuration_TestProxy();
       $config->storage($storage);
       $config->load();
       $this->assertEquals(
-        array(
+        [
           'SAMPLE_INT' => 42,
-          'PAPAYA_INCLUDE_PATH' => 'not_defined'
-        ),
+          'PAPAYA_INCLUDE_PATH' => 'not_defined',
+        ],
         iterator_to_array($config)
       );
     }
@@ -256,10 +256,9 @@ namespace Papaya {
       $config = new Configuration_TestProxy();
       $iterator = $config->getIterator();
       $this->assertInstanceOf(Configuration\Iterator::class, $iterator);
-      $this->assertAttributeEquals(
-        array('SAMPLE_INT', 'PAPAYA_INCLUDE_PATH'),
-        '_names',
-        $iterator
+      $this->assertEquals(
+        ['SAMPLE_INT', 'PAPAYA_INCLUDE_PATH'],
+        array_keys(iterator_to_array($iterator))
       );
     }
 
@@ -347,10 +346,10 @@ namespace Papaya {
 
     public function __construct() {
       parent::__construct(
-        array(
+        [
           'SAMPLE_INT' => 42,
-          'PAPAYA_INCLUDE_PATH' => 'not_defined'
-        )
+          'PAPAYA_INCLUDE_PATH' => 'not_defined',
+        ]
       );
     }
   }
