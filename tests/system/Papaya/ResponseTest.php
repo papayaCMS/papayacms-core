@@ -121,10 +121,9 @@ namespace Papaya {
     public function testSetCache(array $expected, $cacheMode, $cachePeriod, $cacheStartTime, $now) {
       $response = new Response();
       $response->setCache($cacheMode, $cachePeriod, $cacheStartTime, $now);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         $expected,
-        '_headers',
-        $response->headers()
+        iterator_to_array($response->headers())
       );
     }
 

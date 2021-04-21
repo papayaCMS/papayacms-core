@@ -170,12 +170,12 @@ class CacheTest extends \Papaya\TestCase {
     $configuration = $this->mockPapaya()->options();
     Cache::getService($configuration);
     Cache::reset();
-    $this->assertAttributeEquals(
-      array(), '_serviceObjects', Cache::class
+    $this->assertEquals(
+      [], Cache::getServices()
     );
   }
 
-  public static function provideCacheIdentifiers() {
+  public static function provideCacheIdentifiers(): array {
     return array(
       array(Cache::OUTPUT),
       array(Cache::DATA),
@@ -183,7 +183,7 @@ class CacheTest extends \Papaya\TestCase {
     );
   }
 
-  public static function provideDisabledCacheIdentifiers() {
+  public static function provideDisabledCacheIdentifiers(): array {
     return array(
       array(Cache::DATA),
       array(Cache::IMAGES)

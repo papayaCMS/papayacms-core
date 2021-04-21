@@ -38,9 +38,7 @@ class Cache {
    *
    * @param \Papaya\Configuration $configuration
    * @param bool $static remember service object an return at second request
-   *
    * @throws \UnexpectedValueException
-   *
    * @return \Papaya\Cache\Service
    */
   public static function getService($configuration, $static = TRUE) {
@@ -63,6 +61,10 @@ class Cache {
       );
     }
     throw new \UnexpectedValueException('No cache service defined.');
+  }
+
+  public static function getServices(): array {
+    return self::$_serviceObjects;
   }
 
   /**

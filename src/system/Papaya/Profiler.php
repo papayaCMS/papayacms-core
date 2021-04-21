@@ -14,6 +14,10 @@
  */
 namespace Papaya;
 
+use Papaya\Profiler\Collector as ProfilerCollector;
+use Papaya\Profiler\Storage as ProfilerStorage;
+use Papaya\Utility\Random;
+
 /**
  * Papaya profile, collects and stores profilng data for requests. A divisor is used to
  * define a probability that the profiling is activated.
@@ -35,10 +39,10 @@ class Profiler {
   /**
    * Create Profiler and set collector and storage objects.
    *
-   * @param \Papaya\Profiler\Collector $collector
-   * @param \Papaya\Profiler\Storage $storage
+   * @param ProfilerCollector $collector
+   * @param ProfilerStorage $storage
    */
-  public function __construct(Profiler\Collector $collector, Profiler\Storage $storage) {
+  public function __construct(ProfilerCollector $collector, ProfilerStorage $storage) {
     $this->_collector = $collector;
     $this->_storage = $storage;
   }
@@ -46,10 +50,9 @@ class Profiler {
   /**
    * Set the divisor. That defines the probability that the profiler is activated.
    *
-   *
    * @param int $divisor
    */
-  public function setDivisor($divisor) {
+  public function setDivisor(int $divisor): void {
     $this->_allowRun = NULL;
     if ($divisor < 1) {
       $this->_allowRun = FALSE;
@@ -63,16 +66,20 @@ class Profiler {
     }
   }
 
+  public function getDivisor(): int {
+    return $this->_divisor;
+  }
+
   /**
    * Return true if profiling data for the current run should be collected.
    *
    * If it is not defined otherwise, it will e calculated using the $divisor.
    *
-   * @return boolean.
+   * @return bool
    */
-  public function allowRun() {
+  public function allowRun(): bool {
     if (NULL === $this->_allowRun) {
-      $this->_allowRun = (1 === \mt_rand(1, $this->_divisor));
+      $this->_allowRun = (1 === Random::rand(1, $this->_divisor));
     }
     return $this->_allowRun;
   }
@@ -80,7 +87,7 @@ class Profiler {
   /**
    * Start the profiling if allowed.
    */
-  public function start() {
+  public function start(): void {
     if ($this->allowRun()) {
       $this->_collector->enable();
     }
@@ -89,7 +96,7 @@ class Profiler {
   /**
    * Store the collected profiling data.
    */
-  public function store() {
+  public function store(): void {
     if ($this->allowRun() && ($data = $this->_collector->disable())) {
       $this->_storage->saveRun($data, $this->_type);
     }
