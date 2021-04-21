@@ -202,12 +202,12 @@ class Autoloader {
    *
    * @return bool
    */
-  public static function load($name, $file = NULL, $alias = NULL) {
+  public static function load(string $name, $file = NULL, $alias = NULL): bool {
     if (!self::exists($name, FALSE)) {
       $alternativeClass = self::convertToNamespaceClass($name);
       if (NULL !== $alternativeClass && $alternativeClass !== $name) {
         if (self::exists($alternativeClass, FALSE)) {
-          \class_alias($alternativeClass, $name);
+          class_alias($alternativeClass, $name);
           return TRUE;
         }
         if (self::load($alternativeClass, $file, $name)) {
@@ -215,59 +215,57 @@ class Autoloader {
         }
         $alias = $alternativeClass;
       }
-      $file = NULL === $file ? self::getClassFile($name) : $file;
-      if (NULL !== $file && \file_exists($file) && \is_file($file) && \is_readable($file)) {
+      $file = $file ?? self::getClassFile($name);
+      if (NULL !== $file && file_exists($file) && is_file($file) && is_readable($file)) {
         /** @noinspection PhpIncludeInspection */
         include $file;
         if (NULL !== $alias) {
           if (self::exists($alias)) {
-            \class_alias($alias, $name);
+            class_alias($alias, $name);
           } else {
-            \class_alias($name, $alias);
+            class_alias($name, $alias);
           }
         } elseif (
-          FALSE !== \strpos($name, '\\') &&
+          FALSE !== strpos($name, '\\') &&
           ($alias = self::convertToToOldClass($name))
         ) {
-          \class_alias($name, $alias);
+          class_alias($name, $alias);
         }
       }
     }
     return self::exists($name, FALSE);
   }
 
-  private static function exists($name, $allowAutoload = TRUE) {
+  private static function exists(string $name, bool $allowAutoload = TRUE): bool {
     return
-      \class_exists($name, $allowAutoload) ||
-      \interface_exists($name, $allowAutoload) ||
-      \trait_exists($name, $allowAutoload);
+      class_exists($name, $allowAutoload) ||
+      interface_exists($name, $allowAutoload) ||
+      trait_exists($name, $allowAutoload);
   }
 
   /**
    * Get file for a class
    *
    * @param string $className
-   *
    * @return string|null
    */
-  public static function getClassFile($className) {
+  public static function getClassFile(string $className): ?string {
     static $systemDirectory = NULL;
-    $systemDirectory = NULL !== $systemDirectory
-      ? $systemDirectory : \str_replace('\\', '/', \dirname(__DIR__));
+    $systemDirectory = $systemDirectory ?? str_replace('\\', '/', dirname(__DIR__));
     self::lazyLoadClassmap($systemDirectory);
-    $key = \strtolower($className);
+    $key = strtolower($className);
     foreach (self::$_classMaps as $path => $map) {
       if (isset($map[$key])) {
         return $path.$map[$key];
       }
     }
     $fileName = self::prepareFileName($className);
-    if (0 !== \strpos($fileName, '/Papaya/') ||
-        0 === \strpos($fileName, '/Papaya/Module/') ||
-        0 === \strpos($fileName, '/Papaya/Modules/')) {
+    if (0 !== strpos($fileName, '/Papaya/') ||
+        0 === strpos($fileName, '/Papaya/Module/') ||
+        0 === strpos($fileName, '/Papaya/Modules/')) {
       foreach (self::$_paths as $prefix => $path) {
-        if (0 === \strpos($fileName, $prefix)) {
-          return $path.\substr($fileName, \strlen($prefix)).'.php';
+        if (0 === strpos($fileName, $prefix)) {
+          return $path.substr($fileName, strlen($prefix)).'.php';
         }
       }
       return NULL;
@@ -276,18 +274,17 @@ class Autoloader {
   }
 
   /**
-   * @param $className
-   *
+   * @param string $className
    * @return string|null
    */
-  public static function convertToNamespaceClass($className) {
+  public static function convertToNamespaceClass(string $className): ?string {
     if (isset(self::$_mapClasses[$className])) {
       return self::$_mapClasses[$className];
     }
     if (
-      0 === \strpos($className, 'Papaya') &&
-      FALSE === \strpos($className, '\\') &&
-      \preg_match_all(self::$classPattern, $className, $matches)
+      0 === strpos($className, 'Papaya') &&
+      FALSE === strpos($className, '\\') &&
+      preg_match_all(self::$classPattern, $className, $matches)
     ) {
       /** @var array $parts */
       $parts = $matches[0];
@@ -298,7 +295,7 @@ class Autoloader {
         }
         $result .= '\\'.$part;
       }
-      return \substr($result, 1);
+      return substr($result, 1);
     }
     return $className;
   }
@@ -307,23 +304,22 @@ class Autoloader {
    *  Convert a new (namespaced class back to its old class name)
    *
    * @param string $className
-   *
    * @return null|string
    */
-  public static function convertToToOldClass($className) {
+  public static function convertToToOldClass(string $className): ?string {
     if (isset(self::$_noOldClassAlias[$className])) {
       return NULL;
     }
     if (NULL === self::$_mapClassesReverse) {
-      self::$_mapClassesReverse = \array_flip(self::$_mapClasses);
+      self::$_mapClassesReverse = array_flip(self::$_mapClasses);
     }
     if (isset(self::$_mapClassesReverse[$className])) {
       return self::$_mapClassesReverse[$className];
     }
     if (NULL === self::$_mapPartsReverse) {
-      self::$_mapPartsReverse = \array_flip(self::$_mapParts);
+      self::$_mapPartsReverse = array_flip(self::$_mapParts);
     }
-    $parts = \explode('\\', $className);
+    $parts = explode('\\', $className);
     $result = '';
     foreach ($parts as $part) {
       if (isset(self::$_mapPartsReverse[$part])) {
@@ -343,8 +339,8 @@ class Autoloader {
    *
    * @return string
    */
-  private static function prepareFileName($className) {
-    if (\preg_match_all(self::$classPattern, $className, $matches)) {
+  private static function prepareFileName(string $className): string {
+    if (preg_match_all(self::$classPattern, $className, $matches)) {
       /** @var array $parts */
       $parts = $matches[0];
     } else {
@@ -353,9 +349,9 @@ class Autoloader {
     $result = '';
     foreach ($parts as $part) {
       if ('\\' === $part[0]) {
-        $result .= '/'.\substr($part, 1);
+        $result .= '/'.substr($part, 1);
       } else {
-        $result .= '/'.\ucfirst(\strtolower($part));
+        $result .= '/'.ucfirst(strtolower($part));
       }
     }
     return $result;
@@ -368,19 +364,34 @@ class Autoloader {
    * @param string $modulePrefix
    * @param string $modulePath
    */
-  public static function registerPath($modulePrefix, $modulePath) {
+  public static function registerPath(string $modulePrefix, string $modulePath): void {
     self::$_paths[self::prepareFileName($modulePrefix).'/'] = Utility\File\Path::cleanup($modulePath);
-    \uksort(self::$_paths, ['self', 'compareByCharacterLength']);
+    uksort(
+      self::$_paths,
+      static function(string $prefixOne, string $prefixTwo): int {
+        if (strlen($prefixOne) > strlen($prefixTwo)) {
+          return -1;
+        }
+        return strcmp($prefixOne, $prefixTwo);
+      }
+    );
+  }
+
+  /**
+   * Get currently registered paths
+   * @return array
+   */
+  public static function getRegisteredPaths(): array {
+    return self::$_paths;
   }
 
   /**
    * Check if a class name prefix is already registered.
    *
-   * @param $modulePrefix
-   *
+   * @param string $modulePrefix
    * @return bool
    */
-  public static function hasPrefix($modulePrefix) {
+  public static function hasPrefix(string $modulePrefix): bool {
     return isset(self::$_paths[self::prepareFileName($modulePrefix).'/']);
   }
 
@@ -398,41 +409,25 @@ class Autoloader {
    * @param string $path
    * @param array $classMap
    */
-  public static function registerClassMap($path, array $classMap) {
+  public static function registerClassMap(string $path, array $classMap): void {
     self::$_classMaps[$path] = $classMap;
   }
 
   /**
    * Check if a classmap for the given path is already registered
    *
-   * @param $path
-   *
+   * @param string $path
    * @return bool
    */
-  public static function hasClassMap($path) {
+  public static function hasClassMap(string $path): bool {
     return isset(self::$_classMaps[$path]);
-  }
-
-  /**
-   * Registered prefix are sortet by length (descending). A longer prefix has a higher priority.
-   *
-   * @param string $prefixOne
-   * @param string $prefixTwo
-   *
-   * @return int
-   */
-  public static function compareByCharacterLength($prefixOne, $prefixTwo) {
-    if (\strlen($prefixOne) > \strlen($prefixTwo)) {
-      return -1;
-    }
-    return \strcmp($prefixOne, $prefixTwo);
   }
 
   /**
    * Clear all additional registered data about class and path mappings, reset lazy initialized
    * caches
    */
-  public static function clear() {
+  public static function clear(): void {
     self::$_paths = [];
     self::$_classMaps = [];
     self::$_mapClassesReverse = NULL;
@@ -444,7 +439,7 @@ class Autoloader {
    *
    * @param string $directory
    */
-  private static function lazyLoadClassmap($directory) {
+  private static function lazyLoadClassmap(string $directory): void {
     if (empty(self::$_classMaps) || !isset(self::$_classMaps[$directory])) {
       /* @noinspection PhpIncludeInspection */
       self::registerClassMap($directory, include $directory.'/_classmap.php');
@@ -452,4 +447,4 @@ class Autoloader {
   }
 }
 
-\class_alias(Autoloader::class, 'PapayaAutoloader');
+class_alias(Autoloader::class, 'PapayaAutoloader');

@@ -59,8 +59,9 @@ namespace Papaya {
     public function testRegisterPath() {
       Autoloader::clear();
       Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
-      $this->assertAttributeEquals(
-        ['/Papaya/Module/Sample/' => '/foo/bar/'], '_paths', Autoloader::class
+      $this->assertEquals(
+        ['/Papaya/Module/Sample/' => '/foo/bar/'],
+        Autoloader::getRegisteredPaths()
       );
     }
 
@@ -68,22 +69,22 @@ namespace Papaya {
       Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
       Autoloader::registerPath('PapayaModule', '/bar/foo/foobar');
       Autoloader::registerPath('PapayaModuleSampleChild', '/foo/bar/child');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           '/Papaya/Module/Sample/Child/' => '/foo/bar/child/',
           '/Papaya/Module/Sample/' => '/foo/bar/',
           '/Papaya/Module/' => '/bar/foo/foobar/'
         ],
-        '_paths',
-        Autoloader::class
+        Autoloader::getRegisteredPaths()
       );
     }
 
     public function testClearPaths() {
       Autoloader::registerPath('PapayaModuleSample', '/foo/bar');
       Autoloader::clear();
-      $this->assertAttributeEquals(
-        [], '_paths', Autoloader::class
+      $this->assertEquals(
+        [],
+        Autoloader::getRegisteredPaths()
       );
     }
 
