@@ -48,8 +48,8 @@ namespace Papaya {
     public function testSetUrl($url, array $expected) {
       $urlObject = new URL();
       $urlObject->setURLString($url);
-      $this->assertAttributeEquals(
-        $expected, '_elements', $urlObject
+      $this->assertEquals(
+        $expected, iterator_to_array($urlObject)
       );
     }
 
@@ -117,13 +117,12 @@ namespace Papaya {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld');
       $urlObject->setScheme('ftp');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'scheme' => 'ftp',
           'host' => 'www.domain.tld'
         ],
-        '_elements',
-        $urlObject
+        iterator_to_array($urlObject)
       );
       $this->assertEquals(
         'ftp://www.domain.tld', $urlObject->getURL()
@@ -148,10 +147,9 @@ namespace Papaya {
       $urlObject = new URL();
       $urlObject->setURLString($url);
       $urlObject->setHost($host);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         $elements,
-        '_elements',
-        $urlObject
+        iterator_to_array($urlObject)
       );
       $this->assertEquals($expected, $urlObject->getURL());
     }
@@ -171,14 +169,13 @@ namespace Papaya {
       $urlObject = new URL();
       $urlObject->setURLString('http://www.domain.tld:80');
       $urlObject->setPort('8080');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'scheme' => 'http',
           'host' => 'www.domain.tld',
           'port' => '8080',
         ],
-        '_elements',
-        $urlObject
+        iterator_to_array($urlObject)
       );
       $this->assertEquals(
         'http://www.domain.tld:8080', $urlObject->getURL()
