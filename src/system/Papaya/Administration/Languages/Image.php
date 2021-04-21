@@ -45,6 +45,10 @@ class Image  implements Application\Access {
     $this->_languageId = $languageId;
   }
 
+  public function getLanguageID(): int {
+    return $this->_languageId;
+  }
+
   /**
    * If the object is cast to string, fetch the language image and return the url
    *

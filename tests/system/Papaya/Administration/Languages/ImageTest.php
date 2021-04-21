@@ -24,7 +24,7 @@ class ImageTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $image = new Image();
-    $this->assertAttributeEquals(0, '_languageId', $image);
+    $this->assertEquals(0, $image->getLanguageID());
   }
 
   /**
@@ -32,7 +32,7 @@ class ImageTest extends \Papaya\TestCase {
    */
   public function testConstructorWithLanguageId() {
     $image = new Image(21);
-    $this->assertAttributeEquals(21, '_languageId', $image);
+    $this->assertEquals(21, $image->getLanguageID());
   }
 
   /**
