@@ -59,7 +59,7 @@ namespace Papaya\Content {
       $this->assertTrue(
         $box->load(42)
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 42,
           'group_id' => 21,
@@ -73,8 +73,7 @@ namespace Papaya\Content {
           'expires_time' => 0,
           'unpublished_translations' => 0
         ),
-        '_values',
-        $box
+        iterator_to_array($box)
       );
     }
 
@@ -92,18 +91,6 @@ namespace Papaya\Content {
       $box->setDatabaseAccess($databaseAccess);
       $this->assertFalse(
         $box->load(42)
-      );
-    }
-
-    /**
-     * @covers \Papaya\Content\Box::translations
-     */
-    public function testTranslationsSet() {
-      $translations = $this->createMock(Box\Translations::class);
-      $box = new Box_TestProxy();
-      $box->translations($translations);
-      $this->assertAttributeSame(
-        $translations, '_translations', $box
       );
     }
 

@@ -62,6 +62,14 @@ class File extends Cache\Service {
         ? !$configuration['FILESYSTEM_DISABLE_CLEAR'] : TRUE;
   }
 
+  public function getCacheDirectory(): string {
+    return $this->_cacheDirectory;
+  }
+
+  public function getNotifierScript(): string {
+    return $this->_notifierScript;
+  }
+
   /**
    * Check cache is usable
    *

@@ -53,9 +53,12 @@ class Counter extends Database\BaseObject {
    *
    * @param int $pageId
    */
-  public function __construct($pageId) {
-    \Papaya\Utility\Constraints::assertInteger($pageId);
+  public function __construct(int $pageId) {
     $this->_pageId = $pageId;
+  }
+
+  public function getPageID(): int {
+    return $this->_pageId;
   }
 
   /**

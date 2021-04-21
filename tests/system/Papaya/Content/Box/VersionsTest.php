@@ -48,7 +48,7 @@ class VersionsTest extends \Papaya\TestCase {
     $list = new Versions();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->load(42, 10, 0));
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         '21' => array(
           'id' => '21',
@@ -58,8 +58,7 @@ class VersionsTest extends \Papaya\TestCase {
           'box_id' => '42',
         )
       ),
-      '_records',
-      $list
+      iterator_to_array($list)
     );
   }
 

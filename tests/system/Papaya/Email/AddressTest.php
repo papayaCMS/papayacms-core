@@ -16,24 +16,17 @@
 namespace Papaya\Email;
 
 require_once __DIR__.'/../../../bootstrap.php';
-
+/**
+ * @covers \Papaya\Email\Address
+ */
 class AddressTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Email\Address::__construct
-   */
-  public function testConstructorWithAddress() {
+  public function testConstructorWithAddress(): void {
     $address = new Address('John Doe <john.doe@local.tld>');
     $this->assertEquals('John Doe <john.doe@local.tld>', (string)$address);
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__construct
-   * @covers \Papaya\Email\Address::__set
-   * @covers \Papaya\Email\Address::__get
-   * @covers \Papaya\Email\Address::setAddress
-   */
-  public function testPropertyAddress() {
+  public function testPropertyAddress(): void {
     $address = new Address();
     $address->address = 'John Doe <john.doe@local.tld>';
     $this->assertEquals('John Doe <john.doe@local.tld>', $address->address);
@@ -41,51 +34,39 @@ class AddressTest extends \Papaya\TestCase {
     $this->assertEquals('john.doe@local.tld', $address->email);
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__set
-   * @covers \Papaya\Email\Address::__get
-   * @covers \Papaya\Email\Address::setName
-   */
-  public function testPropertyName() {
+  public function testPropertyAddressAndName(): void {
+    $address = new Address('john.doe@local.tld', 'John Doe');
+    $this->assertEquals('John Doe <john.doe@local.tld>', $address->address);
+    $this->assertEquals('John Doe', $address->name);
+    $this->assertEquals('john.doe@local.tld', $address->email);
+  }
+
+  public function testPropertyName(): void {
     $address = new Address();
     $address->name = 'John Doe';
     $this->assertEquals('John Doe', $address->name);
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__set
-   * @covers \Papaya\Email\Address::__get
-   * @covers \Papaya\Email\Address::setAddress
-   */
-  public function testPropertyEmail() {
+  public function testPropertyEmail(): void {
     $address = new Address();
     $address->email = 'john.doe@local.tld';
     $this->assertEquals('john.doe@local.tld', $address->email);
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__toString
-   */
-  public function testMagicMethodToString() {
+  public function testMagicMethodToString(): void {
     $address = new Address();
     $address->name = 'John Doe';
     $address->email = 'john.doe@local.tld';
     $this->assertEquals('John Doe <john.doe@local.tld>', (string)$address);
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__toString
-   */
-  public function testMagicMethodToStringWithEmailOnly() {
+  public function testMagicMethodToStringWithEmailOnly(): void {
     $address = new Address();
     $address->email = 'john.doe@local.tld';
     $this->assertEquals('john.doe@local.tld', (string)$address);
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__set
-   */
-  public function testSetUnknownPropertyExpectingException() {
+  public function testSetUnknownPropertyExpectingException(): void {
     $address = new Address();
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');
@@ -93,10 +74,7 @@ class AddressTest extends \Papaya\TestCase {
     $address->unknown = 'test';
   }
 
-  /**
-   * @covers \Papaya\Email\Address::__get
-   */
-  public function testGetUnknownPropertyExpectingException() {
+  public function testGetUnknownPropertyExpectingException(): void {
     $address = new Address();
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('InvalidArgumentException: Unknown property "unknown".');

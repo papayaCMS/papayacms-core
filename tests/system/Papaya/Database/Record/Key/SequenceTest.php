@@ -25,8 +25,8 @@ class SequenceTest extends \Papaya\TestCase {
   public function testConstructor() {
     $sequence = $this->getSequenceFixture();
     $key = new Sequence($sequence);
-    $this->assertAttributeSame(
-      $sequence, '_sequence', $key
+    $this->assertSame(
+      $sequence, $key->getSequence()
     );
     $this->assertEquals(
       array('id'), $key->getProperties()

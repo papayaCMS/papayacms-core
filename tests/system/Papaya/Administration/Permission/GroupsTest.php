@@ -24,7 +24,7 @@ class GroupsTest extends \Papaya\TestCase {
    */
   public function testConstructorPreparesIndex() {
     $permissions = new Groups();
-    $this->assertAttributeNotEmpty('_index', $permissions);
+    $this->assertNotEmpty(iterator_to_array($permissions));
   }
 
   /**

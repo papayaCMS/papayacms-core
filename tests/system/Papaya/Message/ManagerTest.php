@@ -224,7 +224,7 @@ namespace Papaya\Message {
       $manager = new Manager();
       $manager->papaya($papaya = $this->mockPapaya()->application());
       $sandbox = $manager->encapsulate('substr');
-      $this->assertInternalType('callable', $sandbox);
+      $this->assertIsCallable($sandbox);
       /** @noinspection PhpUndefinedMethodInspection */
       $this->assertSame($papaya, $sandbox[0]->papaya());
     }

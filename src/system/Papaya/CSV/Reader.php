@@ -60,6 +60,10 @@ class Reader implements \IteratorAggregate {
     $this->_fileName = $fileName;
   }
 
+  public function getFileName(): string {
+    return $this->_fileName;
+  }
+
   /**
    * Set a byte maximum for the allowed file size.
    *
@@ -70,6 +74,10 @@ class Reader implements \IteratorAggregate {
     $this->_maxFileSize = $size;
   }
 
+  public function getMaximumFileSize(): int {
+    return $this->_maxFileSize;
+  }
+
   /**
    * Set the maximum count of bytes readed for a line.
    *
@@ -78,6 +86,10 @@ class Reader implements \IteratorAggregate {
   public function setMaximumLineSize($size) {
     Utility\Constraints::assertInteger($size);
     $this->_maxLineSize = $size;
+  }
+
+  public function getMaximumLineSize(): int {
+    return $this->_maxLineSize;
   }
 
   /**

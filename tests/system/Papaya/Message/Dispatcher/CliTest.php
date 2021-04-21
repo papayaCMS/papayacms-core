@@ -195,9 +195,7 @@ class CliTest extends \Papaya\TestCase {
    */
   public function testStreamGetImplicitInitialization() {
     $dispatcher = new CLI();
-    $this->assertInternalType(
-      'resource', $dispatcher->stream(CLI::TARGET_STDERR)
-    );
+    $this->assertIsResource($dispatcher->stream(CLI::TARGET_STDERR));
   }
 
   /**

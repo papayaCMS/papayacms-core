@@ -25,11 +25,8 @@ class AccessTest extends \Papaya\TestCase {
   public function testConstructor() {
     $owner = new \stdClass();
     $access = new Access(NULL, 'read', 'write');
-    $this->assertAttributeEquals(
-      'read', '_uriRead', $access
-    );
-    $this->assertAttributeSame(
-      'write', '_uriWrite', $access
+    $this->assertEquals(
+      ['read', 'write'], $access->getDatabaseURIs()
     );
   }
 

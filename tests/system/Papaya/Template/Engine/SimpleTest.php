@@ -101,14 +101,12 @@ namespace Papaya\Template\Engine {
     public function testSetTemplateFile() {
       $engine = new Simple();
       $engine->setTemplateFile(__DIR__.'/TestData/valid.css');
-      $this->assertAttributeNotEmpty(
-        '_template',
-        $engine
+      $this->assertNotEmpty(
+        $engine->getTemplate()
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         __DIR__.'/TestData/valid.css',
-        '_templateFile',
-        $engine
+        $engine->getTemplateFile()
       );
     }
 

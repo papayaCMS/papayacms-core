@@ -21,17 +21,6 @@ class ManagerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Database\Manager::setConfiguration
-   */
-  public function testSetConfiguration() {
-    $manager = new Manager();
-    $options = $this->mockPapaya()->options();
-    $manager->setConfiguration($options);
-    $this->assertAttributeSame(
-      $options, '_configuration', $manager
-    );
-  }
-
-  /**
    * @covers \Papaya\Database\Manager::getConfiguration
    */
   public function testGetConfigutation() {
@@ -66,10 +55,9 @@ class ManagerTest extends \Papaya\TestCase {
     $manager = new Manager();
     $connector = new Connector('READ');
     $manager->setConnector($connector);
-    $this->assertAttributeSame(
-      array("READ\nREAD" => $connector),
-      '_connectors',
-      $manager
+    $this->assertSame(
+      $connector,
+      $manager->getConnector('READ')
     );
   }
 
@@ -77,7 +65,7 @@ class ManagerTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Manager::setConnector
    * @covers \Papaya\Database\Manager::_getConnectorUris
    */
-  public function testGetConnectorWithoutReadUri() {
+  public function testGetConnectorWithoutReadUriReturnsSameInstance() {
     $manager = new Manager();
     $manager->setConfiguration(
       $this->mockPapaya()->options(
@@ -88,11 +76,8 @@ class ManagerTest extends \Papaya\TestCase {
       )
     );
     $connector = $manager->getConnector();
-    $this->assertAttributeSame(
-      array("read_default\nwrite_default" => $connector),
-      '_connectors',
-      $manager
-    );
+    $this->assertSame($connector, $manager->getConnector());
+    $this->assertSame('read_default', $manager->getConnector()->getDatabaseURI());
   }
 
   /**

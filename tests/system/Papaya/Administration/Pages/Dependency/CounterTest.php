@@ -24,7 +24,7 @@ namespace Papaya\Administration\Pages\Dependency {
      */
     public function testConstructor() {
       $counter = new Counter(42);
-      $this->assertAttributeEquals(42, '_pageId', $counter);
+      $this->assertEquals(42, $counter->getPageID());
     }
 
     /**

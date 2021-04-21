@@ -101,8 +101,7 @@ class BacktraceTest extends \Papaya\TestCase {
    */
   public function testGetBacktraceImplicitCreate() {
     $backtrace = new Backtrace();
-    $this->assertInternalType(
-      'array',
+    $this->assertIsArray(
       $backtrace->getBacktrace()
     );
   }

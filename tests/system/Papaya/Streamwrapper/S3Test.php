@@ -362,7 +362,7 @@ namespace Papaya\Streamwrapper {
       );
       $wrapper->stream_write($testContent);
       $result = $wrapper->stream_stat();
-      $this->assertInternalType('array', $result);
+      $this->assertIsArray($result);
       $this->assertEquals($result['size'], strlen($testContent));
       $this->assertLessThan($result['atime'], 0);
       $this->assertLessThan($result['mtime'], 0);

@@ -63,6 +63,14 @@ namespace Papaya\Configuration\Storage {
       }
     }
 
+    public function getHost(): string {
+      return $this->_host;
+    }
+
+    public function getScheme(): string {
+      return $this->_scheme;
+    }
+
     /**
      * Getter/Setter for domain record object
      *

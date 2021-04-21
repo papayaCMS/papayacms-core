@@ -26,8 +26,8 @@ class IteratorTest extends \Papaya\TestCase {
     $iterator = new Iterator(
       $databaseResult = $this->createMock(\Papaya\Database\Result::class)
     );
-    $this->assertAttributeSame(
-      $databaseResult, '_databaseResult', $iterator
+    $this->assertSame(
+      $databaseResult, $iterator->getDatabaseResult()
     );
   }
 
@@ -39,8 +39,8 @@ class IteratorTest extends \Papaya\TestCase {
       $this->createMock(\Papaya\Database\Result::class),
       \Papaya\Database\Result::FETCH_ORDERED
     );
-    $this->assertAttributeSame(
-      \Papaya\Database\Result::FETCH_ORDERED, '_fetchMode', $iterator
+    $this->assertSame(
+      \Papaya\Database\Result::FETCH_ORDERED, $iterator->getFetchMode()
     );
   }
 

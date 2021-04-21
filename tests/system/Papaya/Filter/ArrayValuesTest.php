@@ -17,20 +17,12 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\ArrayValues
+ */
 class ArrayValuesTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\ArrayValues::__construct
-   */
-  public function testConstructor() {
-    $filter = new ArrayValues(array(21, 42));
-    $this->assertAttributeSame(
-      array(21, 42), '_list', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\ArrayValues::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param array|\Traversable $validValues
@@ -42,7 +34,6 @@ class ArrayValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayValues::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param array|\Traversable $validValues
@@ -55,7 +46,6 @@ class ArrayValuesTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayValues::filter
    * @dataProvider provideValidFilterData
    * @param mixed $expected
    * @param mixed $value

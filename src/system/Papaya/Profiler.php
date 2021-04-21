@@ -101,4 +101,12 @@ class Profiler {
       $this->_storage->saveRun($data, $this->_type);
     }
   }
+
+  public function getCollector(): ProfilerCollector {
+    return $this->_collector;
+  }
+
+  public function getStorage(): ProfilerStorage {
+    return $this->_storage;
+  }
 }

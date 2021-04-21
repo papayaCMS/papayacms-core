@@ -19,21 +19,9 @@ namespace Papaya\Cache\Service {
 
   class MemcacheTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\Cache\Service\Memcache::setMemcacheObject
-     */
-    public function testSetMemcacheObject() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Memcached $memcache */
-      $memcache = $this->createMock(\Memcached::class);
-      $service = new Memcache();
-      $service->setMemcacheObject($memcache);
-      $this->assertAttributeSame(
-        $memcache, '_memcache', $service
-      );
-    }
 
     /**
-     * @covers \Papaya\Cache\Service\Memcache::getMemcacheObject
+     * @covers \Papaya\Cache\Service\Memcache
      */
     public function testGetMemcacheObject() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\Memcached $memcache */

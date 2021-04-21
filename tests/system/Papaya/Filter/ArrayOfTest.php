@@ -17,20 +17,12 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\ArrayOf
+ */
 class ArrayOfTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\ArrayOf::__construct
-   */
-  public function testConstructorWithElementFilter() {
-    $filter = new ArrayOf($subFilter = $this->createMock(\Papaya\Filter::class));
-    $this->assertAttributeSame(
-      $subFilter, '_elementFilter', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\ArrayOf::validate
    * @dataProvider provideValidValidateData
    * @param mixed $value
    * @param NULL|\Papaya\Filter $elementFilter
@@ -42,7 +34,6 @@ class ArrayOfTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayOf::validate
    * @dataProvider provideInvalidValidateData
    * @param mixed $value
    * @param NULL|\Papaya\Filter $elementFilter
@@ -55,7 +46,6 @@ class ArrayOfTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayOf::filter
    * @dataProvider provideValidFilterData
    * @param array|NULL $expected
    * @param mixed $value
@@ -67,7 +57,6 @@ class ArrayOfTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\ArrayOf::filter
    * @dataProvider provideInvalidFilterData
    * @param mixed $value
    * @param NULL|\Papaya\Filter $elementFilter

@@ -36,10 +36,10 @@ namespace Papaya\HTTP\Client {
         fclose($testResource);
         $socket = new Socket();
         $socket->open($host, $port);
-        $this->assertInternalType('resource', $this->readAttribute($socket, '_resource'));
-        $this->assertAttributeSame($host, '_host', $socket);
-        $this->assertAttributeSame($port, '_port', $socket);
-        fclose($this->readAttribute($socket, '_resource'));
+        $this->assertIsResource($socket->getResource());
+        $this->assertSame($host, $socket->getHost());
+        $this->assertSame($port, $socket->getPort());
+        fclose($socket->getResource());
       } else {
         $this->markTestSkipped(
           'Can not open connection to '.$host.':'.$port
@@ -61,10 +61,10 @@ namespace Papaya\HTTP\Client {
         ->will($this->returnValue($ms));
       $socket->setPool($pool);
       $socket->open($host, $port);
-      $this->assertAttributeSame($ms, '_resource', $socket);
-      $this->assertAttributeSame($host, '_host', $socket);
-      $this->assertAttributeSame($port, '_port', $socket);
-      fclose($this->readAttribute($socket, '_resource'));
+      $this->assertSame($ms, $socket->getResource());
+      $this->assertSame($host, $socket->getHost());
+      $this->assertSame($port, $socket->getPort());
+      fclose($socket->getResource());
     }
 
     public function testOpenFailure() {

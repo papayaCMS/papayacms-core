@@ -429,8 +429,8 @@ namespace Papaya\Database\BaseObject {
     public function testOffetSet() {
       $record = new Record_TestProxy();
       $record['field1'] = 'success';
-      $this->assertAttributeSame(
-        array('field1' => 'success'), '_values', $record
+      $this->assertSame(
+        array('field1' => 'success', 'field2' => null), iterator_to_array($record)
       );
     }
 
@@ -449,8 +449,8 @@ namespace Papaya\Database\BaseObject {
     public function testOffetUnset() {
       $record = new Record_TestProxy();
       unset($record['field1']);
-      $this->assertAttributeSame(
-        array(), '_values', $record
+      $this->assertSame(
+        array('field1' => null, 'field2' => null),  iterator_to_array($record)
       );
     }
 

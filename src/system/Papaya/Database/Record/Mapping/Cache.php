@@ -52,6 +52,10 @@ class Cache implements Database\Interfaces\Mapping {
     }
   }
 
+  public function getMapping(): Database\Interfaces\Mapping {
+    return $this->_mapping;
+  }
+
   /**
    * Map the database fields of an record to the object properties
    *

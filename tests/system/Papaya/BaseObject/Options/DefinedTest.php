@@ -42,12 +42,11 @@ namespace Papaya\BaseObject\Options {
     public function testSetOption() {
       $options = new Defined_TestProxy();
       $options->validOption = FALSE;
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'VALID_OPTION' => FALSE
         ],
-        '_options',
-        $options
+        iterator_to_array($options)
       );
     }
 

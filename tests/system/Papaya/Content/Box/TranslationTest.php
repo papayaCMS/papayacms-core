@@ -33,6 +33,7 @@ class TranslationTest extends \Papaya\TestCase {
       'box_trans_modified' => '456',
       'view_id' => '21',
       'view_title' => 'view title',
+      'view_name' => '',
       'module_guid' => '123456789012345678901234567890ab',
       'module_title' => 'module title'
     );
@@ -53,21 +54,21 @@ class TranslationTest extends \Papaya\TestCase {
     $this->assertTrue(
       $translation->load(array(42, 1))
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
-        'box_id' => 42,
-        'language_id' => 1,
+        'box_id' => '42',
+        'language_id' => '1',
         'title' => 'translated box title',
-        'created' => 123,
-        'modified' => 456,
-        'view_id' => 21,
+        'created' => '123',
+        'modified' => '456',
+        'view_id' => '21',
         'view_title' => 'view title',
         'module_guid' => '123456789012345678901234567890ab',
         'module_title' => 'module title',
-        'content' => array()
+        'content' => array(),
+        'view_name' => ''
       ),
-      '_values',
-      $translation
+      iterator_to_array($translation)
     );
   }
 

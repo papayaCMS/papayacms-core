@@ -86,6 +86,14 @@ class Simple extends Template\Engine {
     }
   }
 
+  public function getTemplate(): string {
+    return $this->_template;
+  }
+
+  public function getTemplateFile(): string {
+    return $this->_templateFile;
+  }
+
   /**
    * Set a template string and set the template file to FALSE.
    *

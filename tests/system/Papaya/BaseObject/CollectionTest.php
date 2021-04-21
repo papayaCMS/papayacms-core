@@ -23,10 +23,9 @@ class CollectionTest extends \Papaya\TestCase {
    */
   public function testConstructorWithClass() {
     $list = new Collection(\Papaya\TestCase::class);
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       \Papaya\TestCase::class,
-      '_itemClass',
-      $list
+      $list->getItemClass()
     );
   }
 
@@ -35,10 +34,9 @@ class CollectionTest extends \Papaya\TestCase {
    */
   public function testConstructorWithoutClass() {
     $list = new Collection();
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       \stdClass::class,
-      '_itemClass',
-      $list
+      $list->getItemClass()
     );
   }
 
@@ -48,10 +46,9 @@ class CollectionTest extends \Papaya\TestCase {
   public function testSetItemClassWithClass() {
     $list = new Collection();
     $list->setItemClass(\Papaya\TestCase::class);
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       \Papaya\TestCase::class,
-      '_itemClass',
-      $list
+      $list->getItemClass()
     );
   }
 
@@ -61,10 +58,9 @@ class CollectionTest extends \Papaya\TestCase {
   public function testSetItemClassWithInterface() {
     $list = new Collection();
     $list->setItemClass('Iterator');
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       'Iterator',
-      '_itemClass',
-      $list
+      $list->getItemClass()
     );
   }
 
@@ -85,10 +81,9 @@ class CollectionTest extends \Papaya\TestCase {
     $list = new Collection();
     $list->add(new \stdClass());
     $list->setItemClass(\Papaya\TestCase::class);
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 
@@ -113,10 +108,9 @@ class CollectionTest extends \Papaya\TestCase {
       $list,
       $list->add($item)
     );
-    $this->assertAttributeSame(
+    $this->assertSame(
       array($item),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 
@@ -127,10 +121,9 @@ class CollectionTest extends \Papaya\TestCase {
     $list = new Collection(\stdClass::class);
     $list->add(new \stdClass());
     $list->clear();
-    $this->assertAttributeSame(
+    $this->assertSame(
       array(),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 
@@ -141,10 +134,9 @@ class CollectionTest extends \Papaya\TestCase {
     $list = new Collection(\stdClass::class);
     $list->add(new \stdClass());
     $list->remove(0);
-    $this->assertAttributeSame(
+    $this->assertSame(
       array(),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 
@@ -327,10 +319,9 @@ class CollectionTest extends \Papaya\TestCase {
     $item = new \stdClass();
     $list = new Collection(\stdClass::class);
     $list->offsetSet(NULL, $item);
-    $this->assertAttributeSame(
+    $this->assertSame(
       array($item),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 
@@ -342,10 +333,9 @@ class CollectionTest extends \Papaya\TestCase {
     $list = new Collection(\stdClass::class);
     $list->offsetSet(NULL, new \stdClass());
     $list->offsetSet(0, $item);
-    $this->assertAttributeSame(
+    $this->assertSame(
       array($item),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 
@@ -376,10 +366,9 @@ class CollectionTest extends \Papaya\TestCase {
     $list->offsetSet(NULL, new \stdClass());
     $list->offsetSet(NULL, $item);
     $list->offsetUnset(0);
-    $this->assertAttributeSame(
+    $this->assertSame(
       array($item),
-      '_items',
-      $list
+      iterator_to_array($list)
     );
   }
 

@@ -150,6 +150,18 @@ class Socket {
     $this->_resource = $resource;
   }
 
+  public function getResource() {
+    return $this->_resource;
+  }
+
+  public function getHost(): string {
+    return $this->_host;
+  }
+
+  public function getPort(): int {
+    return $this->_port;
+  }
+
   /**
    * set the content length to read
    *

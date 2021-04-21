@@ -17,30 +17,12 @@ namespace Papaya\Filter {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
+  /**
+   * @covers \Papaya\Filter\ArrayKey
+   */
   class ArrayKeyTest extends \Papaya\TestCase {
 
     /**
-     * @covers \Papaya\Filter\ArrayKey::__construct
-     */
-    public function testConstructor() {
-      $filter = new ArrayKey(array(21 => 'half', 42 => 'truth'));
-      $this->assertAttributeEquals(
-        array(21 => 'half', 42 => 'truth'), '_list', $filter
-      );
-    }
-
-    /**
-     * @covers \Papaya\Filter\ArrayKey::__construct
-     */
-    public function testConstructorWithTraversable() {
-      $filter = new ArrayKey($iterator = new \ArrayIterator(array()));
-      $this->assertAttributeSame(
-        $iterator, '_list', $filter
-      );
-    }
-
-    /**
-     * @covers \Papaya\Filter\ArrayKey::validate
      * @dataProvider provideValidValidateData
      * @param mixed $value
      * @param array|\Traversable $validValues
@@ -52,7 +34,6 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers \Papaya\Filter\ArrayKey::validate
      * @dataProvider provideInvalidValidateData
      * @param mixed $value
      * @param array|\Traversable $validValues
@@ -65,7 +46,6 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers \Papaya\Filter\ArrayKey::filter
      * @dataProvider provideValidFilterData
      * @param mixed $expected
      * @param mixed $value
@@ -77,7 +57,6 @@ namespace Papaya\Filter {
     }
 
     /**
-     * @covers \Papaya\Filter\ArrayKey::filter
      * @dataProvider provideInvalidValidateData
      * @param mixed $value
      * @param array|\Traversable $validValues
@@ -91,7 +70,7 @@ namespace Papaya\Filter {
      * Data Provider
      **************************/
 
-    public static function provideValidValidateData() {
+    public static function provideValidValidateData(): array {
       return array(
         array('21', array(21 => 'half', 42 => 'truth')),
         array('21', array('21' => 'half', '42' => 'truth')),
@@ -100,7 +79,7 @@ namespace Papaya\Filter {
       );
     }
 
-    public static function provideInvalidValidateData() {
+    public static function provideInvalidValidateData(): array {
       return array(
         array('', array(21 => 'half', 42 => 'truth')),
         array(array(), array(21 => 'half', 42 => 'truth')),
@@ -110,7 +89,7 @@ namespace Papaya\Filter {
       );
     }
 
-    public static function provideValidFilterData() {
+    public static function provideValidFilterData(): array {
       return array(
         array(21, '21', array(21 => 'half', 42 => 'truth')),
         array('#21', '#21', array('#21' => 'half', '#42' => 'truth')),

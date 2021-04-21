@@ -650,8 +650,7 @@ namespace Papaya {
 
     public function testGetMagicQuotesStatus() {
       $request = new Request();
-      $this->assertInternalType(
-        'boolean',
+      $this->assertIsBool(
         $request->getMagicQuotesStatus()
       );
     }

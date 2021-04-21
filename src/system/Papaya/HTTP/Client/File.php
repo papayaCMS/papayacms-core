@@ -86,6 +86,14 @@ abstract class File {
     return $this->_name;
   }
 
+  public function getFileName(): string {
+    return $this->_fileName;
+  }
+
+  public function getMimeType(): string {
+    return $this->_mimeType;
+  }
+
   /**
    * get http headers (for multipart formatting)
    *

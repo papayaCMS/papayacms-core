@@ -21,19 +21,6 @@ class BaseObjectTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Database\BaseObject::setDatabaseAccess
-   */
-  public function testSetDatabaseAccess() {
-    $databaseObject = new BaseObject();
-    $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $databaseObject->setDatabaseAccess($databaseAccess);
-    $this->assertAttributeSame(
-      $databaseAccess,
-      '_databaseAccessObject',
-      $databaseObject
-    );
-  }
-
-  /**
    * @covers \Papaya\Database\BaseObject::getDatabaseAccess
    */
   public function testGetDatabaseAccess() {

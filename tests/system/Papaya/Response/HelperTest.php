@@ -23,8 +23,7 @@ class HelperTest extends \Papaya\TestCase {
    */
   public function testHeadersSent() {
     $helper = new Helper();
-    $this->assertInternalType(
-      'boolean',
+    $this->assertIsBool(
       $helper->headersSent()
     );
   }

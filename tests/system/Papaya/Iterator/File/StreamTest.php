@@ -25,7 +25,7 @@ class StreamTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $iterator = new Stream($this->getStreamFixture());
-    $this->assertInternalType('resource', $iterator->getStream());
+    $this->assertIsResource($iterator->getStream());
   }
 
   /**

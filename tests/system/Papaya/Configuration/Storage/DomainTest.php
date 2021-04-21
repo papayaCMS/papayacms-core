@@ -30,12 +30,8 @@ namespace Papaya\Configuration\Storage {
      */
     public function testConstructor($expectedScheme, $expectedHost, $hostUrl) {
       $storage = new Domain($hostUrl);
-      $this->assertAttributeEquals(
-        $expectedScheme, '_scheme', $storage
-      );
-      $this->assertAttributeEquals(
-        $expectedHost, '_host', $storage
-      );
+      $this->assertEquals($expectedScheme, $storage->getScheme());
+      $this->assertEquals($expectedHost, $storage->getHost());
     }
 
     public function testDomainGetAfterSet() {

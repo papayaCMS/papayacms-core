@@ -44,8 +44,8 @@ class FileTest extends \Papaya\TestCase {
    */
   public function testSetConfiguration() {
     $service = $this->getServiceObjectFixture();
-    $this->assertAttributeSame(
-      $this->_temporaryDirectory, '_cacheDirectory', $service
+    $this->assertSame(
+      $this->_temporaryDirectory, $service->getCacheDirectory()
     );
   }
 
@@ -57,8 +57,8 @@ class FileTest extends \Papaya\TestCase {
     $configuration['FILESYSTEM_PATH'] = '/tmp';
     $configuration['FILESYSTEM_NOTIFIER_SCRIPT'] = '/foo/bar.php';
     $service = new File($configuration);
-    $this->assertAttributeSame(
-      '/foo/bar.php', '_notifierScript', $service
+    $this->assertSame(
+      '/foo/bar.php', $service->getNotifierScript()
     );
   }
 

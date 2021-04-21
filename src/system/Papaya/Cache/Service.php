@@ -39,6 +39,11 @@ abstract class Service {
     }
   }
 
+  public function getConfiguration() {
+    return $this->_configuration;
+  }
+
+
   /**
    * Set configuration
    *

@@ -63,6 +63,14 @@ class Iterator implements \Iterator {
     $this->_fetchMode = $mode;
   }
 
+  public function getDatabaseResult(): Database\Result {
+    return $this->_databaseResult;
+  }
+
+  public function getFetchMode(): int {
+    return $this->_fetchMode;
+  }
+
   /**
    * Setter for the mapping subobject. This is used to convert the property values into
    * a database record and back.

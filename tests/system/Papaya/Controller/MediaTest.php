@@ -110,18 +110,6 @@ namespace Papaya\Controller {
 
     /**
      * @covers \Papaya\Controller\Media::setMediaDatabase
-     */
-    public function testSetMediaDatabase() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\base_mediadb $generator */
-      $generator = $this->createMock(\base_mediadb::class);
-      $controller = new Media();
-      $controller->setMediaDatabase($generator);
-      $this->assertAttributeSame(
-        $generator, '_mediaDatabase', $controller
-      );
-    }
-
-    /**
      * @covers \Papaya\Controller\Media::getMediaDatabase
      */
     public function testGetMediaDatabase() {

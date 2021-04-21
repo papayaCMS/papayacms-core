@@ -72,7 +72,7 @@ class PageTest extends \Papaya\TestCase {
     $this->assertTrue(
       $page->load(42)
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'id' => 42,
         'parent_id' => 21,
@@ -99,8 +99,7 @@ class PageTest extends \Papaya\TestCase {
         'parent_path' => array(0, 11, 21),
         'visitor_permissions' => array(1, 2)
       ),
-      '_values',
-      $page
+      iterator_to_array($page)
     );
   }
 
@@ -124,18 +123,6 @@ class PageTest extends \Papaya\TestCase {
     $page->setDatabaseAccess($databaseAccess);
     $this->assertFalse(
       $page->load(42)
-    );
-  }
-
-  /**
-   * @covers \Papaya\Content\Page
-   */
-  public function testTranslationsSet() {
-    $translations = $this->createMock(Page\Translations::class);
-    $page = new Page();
-    $page->translations($translations);
-    $this->assertAttributeSame(
-      $translations, '_translations', $page
     );
   }
 

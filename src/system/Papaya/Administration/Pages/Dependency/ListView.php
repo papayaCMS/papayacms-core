@@ -85,6 +85,26 @@ class ListView extends UI\ListView {
     $this->_synchronizations = $synchronizations;
   }
 
+  public function getOriginPageID(): int {
+    return $this->_originPageId;
+  }
+
+  public function getCurrentPageID(): int {
+    return $this->_currentPageId;
+  }
+
+  public function getDependencies(): Content\Page\Dependencies {
+    return $this->_dependencies;
+  }
+
+  public function getReferences(): Content\Page\References {
+    return $this->_references;
+  }
+
+  public function getSynchronizations(): Synchronizations {
+    return $this->_synchronizations;
+  }
+
   /**
    * Prepare listview, set caption, create columns, items and subitems
    */

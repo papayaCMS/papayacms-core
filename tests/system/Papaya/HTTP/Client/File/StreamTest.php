@@ -37,10 +37,10 @@ class StreamTest extends \Papaya\TestCase {
     $file = new Stream(
       'test', 'sample.txt', $this->_fileResource, 'text/plain'
     );
-    $this->assertAttributeEquals('test', '_name', $file);
-    $this->assertAttributeEquals('sample.txt', '_fileName', $file);
-    $this->assertAttributeEquals('text/plain', '_mimeType', $file);
-    $this->assertInternalType('resource', $this->readAttribute($file, '_resource'));
+    $this->assertEquals('test', $file->getName());
+    $this->assertEquals('sample.txt', $file->getFileName());
+    $this->assertEquals('text/plain', $file->getMimeType());
+    $this->assertIsResource($file->getResource());
   }
 
   /**

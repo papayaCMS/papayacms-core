@@ -25,10 +25,9 @@ class CollectionTest extends \Papaya\TestCase {
     $options = new Collection(
       array('Sample' => 'Hallo World')
     );
-    $this->assertAttributeSame(
+    $this->assertSame(
       array('SAMPLE' => 'Hallo World'),
-      '_options',
-      $options
+      iterator_to_array($options)
     );
   }
 
@@ -43,10 +42,9 @@ class CollectionTest extends \Papaya\TestCase {
   public function testOffsetSet($expected, $name, $value) {
     $options = new Collection();
     $options[$name] = $value;
-    $this->assertAttributeSame(
+    $this->assertSame(
       $expected,
-      '_options',
-      $options
+      iterator_to_array($options)
     );
   }
 
@@ -70,10 +68,9 @@ class CollectionTest extends \Papaya\TestCase {
     $options['sample'] = 'failed';
     $this->assertEquals('failed', $options['sample']);
     $options['sample'] = NULL;
-    $this->assertAttributeSame(
+    $this->assertSame(
       array(),
-      '_options',
-      $options
+      iterator_to_array($options)
     );
   }
 
@@ -126,10 +123,9 @@ class CollectionTest extends \Papaya\TestCase {
     $options = new Collection();
     $options['SAMPLE'] = 42;
     unset($options['sample']);
-    $this->assertAttributeSame(
+    $this->assertSame(
       array(),
-      '_options',
-      $options
+      iterator_to_array($options)
     );
   }
 

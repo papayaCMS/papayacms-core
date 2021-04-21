@@ -60,7 +60,7 @@ namespace Papaya\Content {
       $languages = new Languages();
       $languages->setDatabaseAccess($databaseAccess);
       $this->assertTrue($languages->load());
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           1 => array(
             'id' => 1,
@@ -81,24 +81,7 @@ namespace Papaya\Content {
             'is_interface' => 1
           )
         ),
-        '_records',
-        $languages
-      );
-      $this->assertAttributeEquals(
-        array(
-          'en-US' => 1,
-          'de-DE' => 2
-        ),
-        '_mapCodes',
-        $languages
-      );
-      $this->assertAttributeEquals(
-        array(
-          'en' => 1,
-          'de' => 2
-        ),
-        '_mapIdentifiers',
-        $languages
+        iterator_to_array($languages)
       );
     }
 
@@ -175,7 +158,7 @@ namespace Papaya\Content {
       $languages->setDatabaseAccess($databaseAccess);
       $language = $languages->getLanguage(2);
       $this->assertInstanceOf(Language::class, $language);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 2,
           'identifier' => 'de',
@@ -185,8 +168,7 @@ namespace Papaya\Content {
           'is_content' => 1,
           'is_interface' => 1
         ),
-        '_values',
-        $language
+        iterator_to_array($language)
       );
     }
 
@@ -224,7 +206,7 @@ namespace Papaya\Content {
       $languages = new Languages_TestProxy();
       $language = $languages->getLanguageByCode('de-DE');
       $this->assertInstanceOf(Language::class, $language);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 2,
           'identifier' => 'de',
@@ -234,8 +216,7 @@ namespace Papaya\Content {
           'is_content' => 1,
           'is_interface' => 1
         ),
-        '_values',
-        $language
+        iterator_to_array($language)
       );
     }
 
@@ -255,7 +236,7 @@ namespace Papaya\Content {
       $languages = new Languages_TestProxy();
       $language = $languages->getLanguageByIdentifier('de');
       $this->assertInstanceOf(Language::class, $language);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 2,
           'identifier' => 'de',
@@ -265,8 +246,7 @@ namespace Papaya\Content {
           'is_content' => 1,
           'is_interface' => 1
         ),
-        '_values',
-        $language
+        iterator_to_array($language)
       );
     }
 
