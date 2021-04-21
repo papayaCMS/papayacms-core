@@ -17,34 +17,12 @@ namespace Papaya\Administration\Languages;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Administration\Languages\Caption
+ */
 class CaptionTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Administration\Languages\Caption
-   */
-  public function testConstructor() {
-    $caption = new Caption();
-    $this->assertEquals('', (string)$caption);
-  }
-
-  /**
-   * @covers \Papaya\Administration\Languages\Caption
-   */
-  public function testConstructorWithString() {
-    $caption = new Caption('Suffix string');
-    $this->assertAttributeEquals('Suffix string', '_suffix', $caption);
-  }
-
-  /**
-   * @covers \Papaya\Administration\Languages\Caption
-   */
-  public function testConstructorWithStringAndSeparator() {
-    $caption = new Caption('Suffix string', '|');
-    $this->assertAttributeEquals('|', '_separator', $caption);
-  }
-
-  /**
-   * @covers \Papaya\Administration\Languages\Caption
    * @dataProvider provideSampleWithoutLanguageSwitch
    * @param string $expected
    * @param string $suffix
@@ -56,7 +34,6 @@ class CaptionTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Administration\Languages\Caption
    * @dataProvider provideSampleWithLanguageSwitch
    * @param string $expected
    * @param array $language
@@ -68,34 +45,34 @@ class CaptionTest extends \Papaya\TestCase {
     $switch
       ->expects($this->once())
       ->method('getCurrent')
-      ->will($this->returnValue($language));
+      ->willReturn($language);
 
     $caption = new Caption($suffix, $separator);
     $caption->papaya(
-      $this->mockPapaya()->application(array('administrationLanguage' => $switch))
+      $this->mockPapaya()->application(['administrationLanguage' => $switch])
     );
     $this->assertEquals($expected, (string)$caption);
   }
 
-  public static function provideSampleWithoutLanguageSwitch() {
-    return array(
-      array('', '', ' - '),
-      array('Foo', 'Foo', ' - '),
-      array('Foo', 'Foo', ' > '),
-      array('Foo', new \Papaya\UI\Text('Foo'), ' '),
-    );
+  public static function provideSampleWithoutLanguageSwitch(): array {
+    return [
+      ['', '', ' - '],
+      ['Foo', 'Foo', ' - '],
+      ['Foo', 'Foo', ' > '],
+      ['Foo', new \Papaya\UI\Text('Foo'), ' '],
+    ];
   }
 
-  public static function provideSampleWithLanguageSwitch() {
-    return array(
-      array('', NULL, '', ' - '),
-      array('Foo', NULL, 'Foo', ' - '),
-      array('Foo', NULL, 'Foo', ' > '),
-      array('Foo', NULL, new \Papaya\UI\Text('Foo'), ''),
-      array('English', array('title' => 'English'), '', ' - '),
-      array('English - Foo', array('title' => 'English'), 'Foo', ' - '),
-      array('English > Foo', array('title' => 'English'), 'Foo', ' > '),
-      array('English Foo', array('title' => 'English'), new \Papaya\UI\Text('Foo'), ' '),
-    );
+  public static function provideSampleWithLanguageSwitch(): array {
+    return [
+      ['', NULL, '', ' - '],
+      ['Foo', NULL, 'Foo', ' - '],
+      ['Foo', NULL, 'Foo', ' > '],
+      ['Foo', NULL, new \Papaya\UI\Text('Foo'), ''],
+      ['English', ['title' => 'English'], '', ' - '],
+      ['English - Foo', ['title' => 'English'], 'Foo', ' - '],
+      ['English > Foo', ['title' => 'English'], 'Foo', ' > '],
+      ['English Foo', ['title' => 'English'], new \Papaya\UI\Text('Foo'), ' '],
+    ];
   }
 }
