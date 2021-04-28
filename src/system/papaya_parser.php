@@ -1336,7 +1336,7 @@ class papaya_parser extends base_db {
       $size = number_format($data['size'], 0, ',', '.').' Bytes';
     }
     $result = sprintf(
-      '<a href="%s" title="%s" %s>%s</a>',
+      '<a href="%s" title="%s" %s%s>%s</a>',
       papaya_strings::escapeHTMLChars(
         $this->getWebMediaLink(
           $params['src'],
@@ -1348,8 +1348,12 @@ class papaya_parser extends base_db {
       papaya_strings::escapeHTMLChars(
         isset($params['hint']) ? $params['hint'] : ''
       ),
+      isset($params['class'])
+        ? ' class="'.papaya_strings::escapeHTMLChars($params['class']).'"'
+        : ''
+      ,
       isset($params['target'])
-        ? 'target="'.papaya_strings::escapeHTMLChars($params['target']).'"' : '',
+        ? ' target="'.papaya_strings::escapeHTMLChars($params['target']).'"' : '',
       papaya_strings::escapeHTMLChars(
         isset($params['text']) ? $params['text'] : $data['title'].' ('.$size.')'
       )
