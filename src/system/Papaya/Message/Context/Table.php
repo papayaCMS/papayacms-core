@@ -102,6 +102,10 @@ class Table
     return $this->_captions;
   }
 
+  public function getFields() {
+    return $this->_fields;
+  }
+
   /**
    * Add a row to the context.
    *

@@ -51,7 +51,7 @@ class BoxesTest extends \Papaya\TestCase {
     $boxes = new Boxes();
     $boxes->setDatabaseAccess($databaseAccess);
     $this->assertTrue($boxes->load(21));
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         array(
           'box_id' => 1,
@@ -64,8 +64,7 @@ class BoxesTest extends \Papaya\TestCase {
           'position' => 2
         ),
       ),
-      '_records',
-      $boxes
+      iterator_to_array($boxes)
     );
   }
 

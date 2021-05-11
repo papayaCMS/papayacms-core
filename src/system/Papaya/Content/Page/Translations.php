@@ -55,8 +55,12 @@ class Translations extends Database\BaseObject\Records {
     $this->_translationsTableName = $tableName;
   }
 
+  public function getTranslationsTableName(): string {
+    return $this->_translationsTableName;
+  }
+
   /**
-   * Load translation list informations
+   * Load translation list information
    *
    * @param int $pageId
    *

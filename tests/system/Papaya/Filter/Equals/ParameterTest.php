@@ -17,30 +17,17 @@ namespace Papaya\Filter\Equals;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Equals\Parameter
+ */
 class ParameterTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\Equals\Parameter::__construct
-   */
-  public function testConstructor() {
-    $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
-    $filter = new Parameter($parameters, 'foo');
-    $this->assertAttributeSame($parameters, '_parameters', $filter);
-    $this->assertAttributeEquals(new \Papaya\Request\Parameters\Name('foo'), '_parameterName', $filter);
-  }
-
-  /**
-   * @covers \Papaya\Filter\Equals\Parameter::validate
-   */
   public function testValidateTrue() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
     $filter = new Parameter($parameters, 'foo');
     $this->assertTrue($filter->validate('bar'));
   }
 
-  /**
-   * @covers \Papaya\Filter\Equals\Parameter::validate
-   */
   public function testValidateInvalidFilterException() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'booo'));
     $filter = new Parameter($parameters, 'foo');
@@ -49,18 +36,12 @@ class ParameterTest extends \Papaya\TestCase {
     $filter->validate('bar');
   }
 
-  /**
-   * @covers \Papaya\Filter\Equals\Parameter::filter
-   */
   public function testFilterIsNull() {
     $parameters = new \Papaya\Request\Parameters(array());
     $filter = new Parameter($parameters, 'foo');
     $this->assertNull($filter->filter('foo3'));
   }
 
-  /**
-   * @covers \Papaya\Filter\Equals\Parameter::filter
-   */
   public function testFilterExpectingValue() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
     $filter = new Parameter($parameters, 'foo');

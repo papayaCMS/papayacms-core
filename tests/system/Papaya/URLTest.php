@@ -36,7 +36,7 @@ namespace Papaya {
           'scheme' => 'http',
           'host' => 'www.domain.tld'
         ],
-        $this->readAttribute($urlObject, '_elements')
+        iterator_to_array($urlObject)
       );
     }
 

@@ -195,6 +195,14 @@ namespace Papaya\HTTP {
       }
     }
 
+    public function getMethod(): string {
+      return $this->_method;
+    }
+
+    public function getParsedURL(): array {
+      return $this->_url;
+    }
+
     /**
      * reset request/response data
      */
@@ -303,6 +311,14 @@ namespace Papaya\HTTP {
       } else {
         throw new \InvalidArgumentException('Invalid proxy server');
       }
+    }
+
+    public function getProxyConfiguration(): array {
+      return $this->_proxy;
+    }
+
+    public function getProxyAuthorization(): array {
+      return $this->_proxyAuthorization;
     }
 
     /**
@@ -607,15 +623,6 @@ namespace Papaya\HTTP {
     }
 
     /**
-     * return current http method
-     *
-     * @return string
-     */
-    public function getMethod() {
-      return $this->_method;
-    }
-
-    /**
      * set a http header, the second parameter allows to set several headers with the same name.
      *
      * @param string $name header name
@@ -663,6 +670,10 @@ namespace Papaya\HTTP {
           }
         }
       }
+    }
+
+    public function getRequestData(): array {
+      return $this->_requestData;
     }
 
     /**

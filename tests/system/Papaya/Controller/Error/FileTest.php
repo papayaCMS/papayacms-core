@@ -27,7 +27,7 @@ class FileTest extends \Papaya\TestCase {
     );
     $this->assertStringEqualsFile(
       $fileName,
-      $this->readAttribute($controller, '_template')
+      $controller->getTemplate()
     );
   }
 
@@ -36,8 +36,9 @@ class FileTest extends \Papaya\TestCase {
     $this->assertFalse(
       $controller->setTemplateFile('INVALID_FILENAME.txt')
     );
-    $this->assertAttributeNotEquals(
-      '', '_template', $controller
+    $this->assertNotEquals(
+      '',
+      $controller->getTemplate()
     );
   }
 }

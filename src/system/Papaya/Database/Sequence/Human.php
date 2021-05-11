@@ -87,6 +87,10 @@ class Human extends Database\Sequence {
     $this->_length = (int)$length;
   }
 
+  public function getLength(): int {
+    return $this->_length;
+  }
+
   /**
    * create an random identifier string
    *

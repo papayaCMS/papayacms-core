@@ -109,6 +109,10 @@ class Error extends Application\BaseObject implements Controller {
        </body>
      </html>';
 
+  public function getTemplate(): string {
+    return $this->_template;
+  }
+
   /**
    * Set HTTP response status
    *
@@ -116,6 +120,10 @@ class Error extends Application\BaseObject implements Controller {
    */
   public function setStatus($status) {
     $this->_status = (int)$status;
+  }
+
+  public function getStatus(): int {
+    return $this->_status;
   }
 
   /**
@@ -127,6 +135,14 @@ class Error extends Application\BaseObject implements Controller {
   public function setError($identifier, $message) {
     $this->_errorMessage = $message;
     $this->_errorIdentifier = $identifier;
+  }
+
+  public function getErrorMessage(): string {
+    return $this->_errorMessage;
+  }
+
+  public function getErrorIdentifier(): string {
+    return $this->_errorIdentifier;
   }
 
   /**

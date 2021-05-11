@@ -24,9 +24,9 @@ namespace Papaya\Database\Sequence\Human {
      */
     public function testConstructor() {
       $sequence = new Cumulative('table', 'field');
-      $this->assertAttributeEquals(2, '_minimumLength', $sequence);
-      $this->assertAttributeEquals(32, '_maximumLength', $sequence);
-      $this->assertAttributeEquals(32, '_cumulativeLength', $sequence);
+      $this->assertEquals(2,  $sequence->getMinimumLength());
+      $this->assertEquals(32, $sequence->getMaximumLength());
+      $this->assertEquals(32, $sequence->getCumulativeLength());
     }
 
     /**
@@ -34,9 +34,9 @@ namespace Papaya\Database\Sequence\Human {
      */
     public function testConstructorWithParameters() {
       $sequence = new Cumulative('table', 'field', 21, 42);
-      $this->assertAttributeEquals(21, '_minimumLength', $sequence);
-      $this->assertAttributeEquals(42, '_maximumLength', $sequence);
-      $this->assertAttributeEquals(42, '_cumulativeLength', $sequence);
+      $this->assertEquals(21, $sequence->getMinimumLength());
+      $this->assertEquals(42, $sequence->getMaximumLength());
+      $this->assertEquals(42, $sequence->getCumulativeLength());
     }
 
     /**

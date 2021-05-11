@@ -140,11 +140,8 @@ class ManagerTest extends \Papaya\TestCase {
     $manager = new Manager();
     $manager->papaya($papaya = $this->mockPapaya()->application());
     $databaseAccess = $manager->createDatabaseAccess('READ_SAMPLE', 'WRITE_SAMPLE');
-    $this->assertAttributeEquals(
-      'READ_SAMPLE', '_uriRead', $databaseAccess
-    );
-    $this->assertAttributeEquals(
-      'WRITE_SAMPLE', '_uriWrite', $databaseAccess
+    $this->assertEquals(
+      ['READ_SAMPLE', 'WRITE_SAMPLE'], $databaseAccess->getDatabaseURIs()
     );
   }
 }

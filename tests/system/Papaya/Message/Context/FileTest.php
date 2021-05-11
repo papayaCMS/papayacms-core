@@ -16,43 +16,11 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Context\File
+ */
 class FileTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Context\File::__construct
-   */
-  public function testConstructor() {
-    $context = new File(__FILE__);
-    $this->assertAttributeEquals(
-      __FILE__, '_fileName', $context
-    );
-    $this->assertAttributeEquals(
-      0, '_line', $context
-    );
-    $this->assertAttributeEquals(
-      0, '_column', $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\File::__construct
-   */
-  public function testConstructorWithPosition() {
-    $context = new File(__FILE__, 42, 21);
-    $this->assertAttributeEquals(
-      __FILE__, '_fileName', $context
-    );
-    $this->assertAttributeEquals(
-      42, '_line', $context
-    );
-    $this->assertAttributeEquals(
-      21, '_column', $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\File::getLabel
-   */
   public function testGetLabel() {
     $context = new File(__FILE__);
     $this->assertEquals(
@@ -61,9 +29,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::getLabel
-   */
   public function testGetLabelWithLine() {
     $context = new File(__FILE__, 42);
     $this->assertEquals(
@@ -72,9 +37,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::getLabel
-   */
   public function testGetLabelWithLineAndColumn() {
     $context = new File(__FILE__, 42, 21);
     $this->assertEquals(
@@ -83,9 +45,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::readable
-   */
   public function testReadable() {
     $context = new File(__FILE__);
     $this->assertTrue(
@@ -93,9 +52,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::readable
-   */
   public function testReadableWithDirectory() {
     $context = new File(__FILE__);
     $this->assertFalse(
@@ -103,9 +59,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::readable
-   */
   public function testReadableWithEmpty() {
     $context = new File(__FILE__);
     $this->assertFalse(
@@ -113,9 +66,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::readable
-   */
   public function testReadableWithNotExistingFile() {
     $context = new File(__FILE__);
     $this->assertFalse(
@@ -123,9 +73,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::asString
-   */
   public function testAsString() {
     $context = new File(__DIR__.'/TestData/sample.txt');
     $this->assertEquals(
@@ -134,9 +81,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::asString
-   */
   public function testAsStringWithNotExistingFile() {
     $context = new File(__FILE__.'does-not-exist.txt');
     $this->assertEquals(
@@ -145,9 +89,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::asArray
-   */
   public function testAsArray() {
     $context = new File(__DIR__.'/TestData/sample.txt');
     $this->assertEquals(
@@ -156,9 +97,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::asArray
-   */
   public function testAsArrayWithNotExistingFile() {
     $context = new File(__FILE__.'does-not-exist.txt');
     $this->assertEquals(
@@ -167,9 +105,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::asXhtml
-   */
   public function testAsXhtml() {
     $context = new File(__DIR__.'/TestData/sample.txt', 2, 3);
     $this->assertEquals(
@@ -182,9 +117,6 @@ class FileTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\File::asXhtml
-   */
   public function testAsXhtmlWithNotExistingFile() {
     $context = new File(__FILE__.'does-not-exist.txt', 2, 3);
     $this->assertEquals(

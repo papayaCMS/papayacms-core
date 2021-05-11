@@ -54,7 +54,7 @@ class TranslationTest extends \Papaya\TestCase {
     $this->assertTrue(
       $translation->load(array(42, 1))
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'id' => 42,
         'language_id' => 1,
@@ -69,8 +69,7 @@ class TranslationTest extends \Papaya\TestCase {
         'module_guid' => '123456789012345678901234567890ab',
         'content' => array()
       ),
-      '_values',
-      $translation
+      iterator_to_array($translation)
     );
   }
 }

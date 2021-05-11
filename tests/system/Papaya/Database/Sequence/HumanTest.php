@@ -24,8 +24,8 @@ class HumanTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $sequence = new Human('table', 'field');
-    $this->assertAttributeEquals(
-      10, '_length', $sequence
+    $this->assertEquals(
+      10, $sequence->getLength()
     );
   }
 
@@ -34,8 +34,8 @@ class HumanTest extends \Papaya\TestCase {
    */
   public function testConstructorWithByteLength() {
     $sequence = new Human('table', 'field', 42);
-    $this->assertAttributeEquals(
-      42, '_length', $sequence
+    $this->assertEquals(
+      42, $sequence->getLength()
     );
   }
 

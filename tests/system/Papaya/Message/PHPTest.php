@@ -24,10 +24,9 @@ namespace Papaya\Message {
      */
     public function testConstructor() {
       $message = new  PHPMessage_TestProxy();
-      $this->assertAttributeInstanceOf(
+      $this->assertInstanceOf(
         Context\Group::class,
-        '_context',
-        $message
+        $message->context()
       );
     }
 
@@ -37,10 +36,9 @@ namespace Papaya\Message {
     public function testSetSeverity() {
       $message = new  PHPMessage_TestProxy();
       $message->setSeverity(E_USER_NOTICE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         \Papaya\Message::SEVERITY_INFO,
-        '_type',
-        $message
+        $message->getSeverity()
       );
     }
 

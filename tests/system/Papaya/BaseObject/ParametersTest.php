@@ -53,7 +53,7 @@ namespace Papaya\BaseObject {
 
     public function testMergeWithInvalidArgument() {
       $parameters = new Parameters();
-      $this->expectException(\UnexpectedValueException::class);
+      $this->expectException(\TypeError::class);
       /** @noinspection PhpParamsInspection */
       $parameters->merge('foo');
     }

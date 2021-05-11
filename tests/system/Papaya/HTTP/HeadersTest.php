@@ -20,20 +20,9 @@ class HeadersTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\HTTP\Headers::__construct
-   */
-  public function testConstructor() {
-    $headers = new Headers(
-      array('X-Hello' => 'World')
-    );
-    $this->assertAttributeEquals(
-      array('X-Hello' => 'World'), '_headers', $headers
-    );
-  }
-
-  /**
    * @covers \Papaya\HTTP\Headers::toArray
    */
-  public function testToArray() {
+  public function testConstructor() {
     $headers = new Headers(
       array('X-Hello' => 'World')
     );
@@ -99,8 +88,8 @@ class HeadersTest extends \Papaya\TestCase {
   public function testSet() {
     $headers = new Headers();
     $headers->set('X-Hello', 'World');
-    $this->assertAttributeEquals(
-      array('X-Hello' => 'World'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Hello' => 'World'), iterator_to_array($headers)
     );
   }
 
@@ -111,8 +100,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Hello', 'World');
     $headers->set('X-Hello', 'Moon');
-    $this->assertAttributeEquals(
-      array('X-Hello' => 'Moon'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Hello' => 'Moon'), iterator_to_array($headers)
     );
   }
 
@@ -123,8 +112,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Hello', 'World');
     $headers->set('X-Hello', 'Moon', TRUE);
-    $this->assertAttributeEquals(
-      array('X-Hello' => array('World', 'Moon')), '_headers', $headers
+    $this->assertEquals(
+      array('X-Hello' => array('World', 'Moon')), iterator_to_array($headers)
     );
   }
 
@@ -135,8 +124,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Hello', 'World');
     $headers->set('X-Hello', '');
-    $this->assertAttributeEquals(
-      array(), '_headers', $headers
+    $this->assertEquals(
+      array(), iterator_to_array($headers)
     );
   }
 
@@ -146,8 +135,8 @@ class HeadersTest extends \Papaya\TestCase {
   public function testSetEmptyValueOnNoneExistingHeader() {
     $headers = new Headers();
     $headers->set('X-Hello', '');
-    $this->assertAttributeEquals(
-      array(), '_headers', $headers
+    $this->assertEquals(
+      array(), iterator_to_array($headers)
     );
   }
 
@@ -193,8 +182,8 @@ class HeadersTest extends \Papaya\TestCase {
   public function testOffsetSet() {
     $headers = new Headers();
     $headers['X-Hello'] = 'World';
-    $this->assertAttributeEquals(
-      array('X-Hello' => 'World'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Hello' => 'World'), iterator_to_array($headers)
     );
   }
 
@@ -205,8 +194,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Hello', 'World');
     unset($headers['X-Hello']);
-    $this->assertAttributeEquals(
-      array(), '_headers', $headers
+    $this->assertEquals(
+      array(), iterator_to_array($headers)
     );
   }
 
@@ -216,8 +205,8 @@ class HeadersTest extends \Papaya\TestCase {
   public function testOffetUnsetOnNoneExistingHeader() {
     $headers = new Headers();
     unset($headers['X-Hello']);
-    $this->assertAttributeEquals(
-      array(), '_headers', $headers
+    $this->assertEquals(
+      array(), iterator_to_array($headers)
     );
   }
 

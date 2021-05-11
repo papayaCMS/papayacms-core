@@ -101,4 +101,20 @@ class Memory
   public function rememberMemoryUsage($current) {
     self::$_previousUsage = $current;
   }
+
+  public function getPreviousUsage(): int {
+    return self::$_previousUsage;
+  }
+
+  public function getCurrentUsage():int {
+    return $this->_currentUsage;
+  }
+
+  public function getPeakUsage(): int {
+    return $this->_peakUsage;
+  }
+
+  public function getUsageDifference(): int {
+    return $this->_diffUsage;
+  }
 }

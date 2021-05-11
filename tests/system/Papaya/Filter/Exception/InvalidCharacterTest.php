@@ -17,10 +17,12 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Exception\InvalidCharacter::getCharacterPosition
+ */
 class InvalidCharacterTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\Exception\InvalidCharacter::__construct
    * @dataProvider provideExceptionDataAndMessage
    * @param string $expected
    * @param string $value
@@ -28,17 +30,14 @@ class InvalidCharacterTest extends \Papaya\TestCase {
    */
   public function testConstructor($expected, $value, $offset) {
     $e = new InvalidCharacter($value, $offset);
-    $this->assertAttributeEquals(
-      $offset, '_characterPosition', $e
+    $this->assertEquals(
+      $offset, $e->getCharacterPosition()
     );
     $this->assertEquals(
       $expected, $e->getMessage()
     );
   }
 
-  /**
-   * @covers \Papaya\Filter\Exception\InvalidCharacter::getCharacterPosition
-   */
   public function testGetCharacterPosition() {
     $e = new InvalidCharacter('', 42);
     $this->assertEquals(

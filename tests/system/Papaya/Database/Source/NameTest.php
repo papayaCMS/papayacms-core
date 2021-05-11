@@ -25,12 +25,11 @@ class NameTest extends \Papaya\TestCase {
    */
   public function testConstructorWithValidDsn() {
     $dsn = new Name('mysql://server/sample');
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       'mysql://server/sample',
-      '_name',
-      $dsn
+      (string)$dsn
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'api' => 'mysql',
         'platform' => 'mysql',
@@ -42,8 +41,7 @@ class NameTest extends \Papaya\TestCase {
         'socket' => NULL,
         'database' => 'sample'
       ),
-      '_properties',
-      $dsn
+      iterator_to_array($dsn)
     );
   }
 
@@ -75,8 +73,8 @@ class NameTest extends \Papaya\TestCase {
    */
   public function testSetName($name, $expected) {
     $dsn = new Name($name);
-    $this->assertAttributeEquals(
-      $expected, '_properties', $dsn
+    $this->assertEquals(
+      $expected, iterator_to_array($dsn)
     );
   }
 

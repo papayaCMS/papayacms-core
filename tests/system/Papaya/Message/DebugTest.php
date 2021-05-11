@@ -23,20 +23,17 @@ class DebugTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $message = new Debug(Logable::GROUP_SYSTEM, 'Sample Message');
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       Logable::GROUP_SYSTEM,
-      '_group',
-      $message
+      $message->getGroup()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       'Sample Message',
-      '_message',
-      $message
+      $message->getMessage()
     );
-    $this->assertAttributeInstanceOf(
+    $this->assertInstanceOf(
       Context\Group::class,
-      '_context',
-      $message
+      $message->context()
     );
   }
 

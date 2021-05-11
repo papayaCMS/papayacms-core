@@ -16,59 +16,35 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Context\Memory
+ */
 class MemoryTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Context\Memory::__construct
-   */
-  public function testContructor() {
-    $context = new Memory();
-    $this->assertAttributeGreaterThan(
-      0,
-      '_currentUsage',
-      $context
-    );
-    $this->assertAttributeGreaterThan(
-      0,
-      '_peakUsage',
-      $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Memory::rememberMemoryUsage
-   */
   public function testRememberMemoryUsage() {
     $context = new Memory();
     $context->rememberMemoryUsage(42);
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       42,
-      '_previousUsage',
-      Memory::class
+      $context->getPreviousUsage()
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Memory::setMemoryUsage
-   */
   public function testSetMemoryUsage() {
     $context = new Memory();
     $context->rememberMemoryUsage(2);
     $context->setMemoryUsage(23, 42);
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       23,
-      '_currentUsage',
-      $context
+      $context->getCurrentUsage()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       42,
-      '_peakUsage',
-      $context
+      $context->getPeakUsage()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       21,
-      '_diffUsage',
-      $context
+      $context->getUsageDifference()
     );
   }
 

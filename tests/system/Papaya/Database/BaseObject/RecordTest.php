@@ -46,13 +46,12 @@ namespace Papaya\Database\BaseObject {
       );
       $item->setDatabaseAccess($databaseAccess);
       $this->assertTrue($item->load(42));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 42,
           'title' => 'title text'
         ),
-        '_values',
-        $item
+        iterator_to_array($item)
       );
     }
 
@@ -334,13 +333,12 @@ namespace Papaya\Database\BaseObject {
           'field3' => '3'
         )
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'field1' => '1',
           'field2' => '2'
         ),
-        '_values',
-        $record
+        iterator_to_array($record)
       );
     }
 
@@ -481,12 +479,12 @@ namespace Papaya\Database\BaseObject {
     public function testPropertySet() {
       $record = new Record_TestProxy();
       $record->field1 = 'success';
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
-          'field1' => 'success'
+          'field1' => 'success',
+          'field2' => null
         ),
-        '_values',
-        $record
+        iterator_to_array($record)
       );
     }
 
@@ -502,12 +500,11 @@ namespace Papaya\Database\BaseObject {
       );
       $record->_values = array();
       $record->$offset = 'success';
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'field_name_test' => 'success'
         ),
-        '_values',
-        $record
+        iterator_to_array($record)
       );
     }
 
@@ -562,13 +559,12 @@ namespace Papaya\Database\BaseObject {
       $this->assertTrue(
         $item->_loadRecordFromTable('table_sample_table', 'id', 42)
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 42,
           'title' => 'title text'
         ),
-        '_values',
-        $item
+        iterator_to_array($item)
       );
     }
 
@@ -601,13 +597,12 @@ namespace Papaya\Database\BaseObject {
       $this->assertTrue(
         $item->_loadRecord('SQL', array('table_sample_table', 42))
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 42,
           'title' => 'title text'
         ),
-        '_values',
-        $item
+        iterator_to_array($item)
       );
     }
 

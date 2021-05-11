@@ -16,37 +16,11 @@
 namespace Papaya\Iterator\Filter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Iterator\Filter\RegEx
+ */
 class RegExTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Iterator\Filter\RegEx::__construct
-   */
-  public function testConstructor() {
-    $filter = new RegEx(new \ArrayIterator(array()), '(pattern)');
-    $this->assertAttributeEquals(
-      '(pattern)', '_pattern', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Iterator\Filter\RegEx::__construct
-   */
-  public function testConstructorWithAllArguments() {
-    $filter = new RegEx(
-      new \ArrayIterator(array()), '(pattern)', 42, RegEx::FILTER_BOTH
-    );
-    $this->assertAttributeEquals(
-      42, '_offset', $filter
-    );
-    $this->assertAttributeEquals(
-      RegEx::FILTER_BOTH, '_target', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Iterator\Filter\RegEx::accept
-   * @covers \Papaya\Iterator\Filter\RegEx::isMatch
-   */
   public function testAccept() {
     $data = array(
       'ok' => 'offset pattern',
@@ -62,10 +36,6 @@ class RegExTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Iterator\Filter\RegEx::accept
-   * @covers \Papaya\Iterator\Filter\RegEx::isMatch
-   */
   public function testAcceptUsingKeys() {
     $data = array(
       'ok' => 'offset pattern',

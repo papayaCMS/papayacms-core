@@ -16,20 +16,12 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\XML
+ */
 class XMLTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\XML::__construct
-   */
-  public function testConstructorWihtAllArguments() {
-    $filter = new XML(FALSE);
-    $this->assertAttributeEquals(
-      FALSE, '_allowFragments', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\XML::validate
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
    * @throws \Papaya\Filter\Exception\IsEmpty
@@ -40,9 +32,6 @@ class XMLTest extends \Papaya\TestCase {
     $this->assertTrue($filter->validate($fragment));
   }
 
-  /**
-   * @covers \Papaya\Filter\XML::validate
-   */
   public function testValidateWithDocument() {
     $filter = new XML(FALSE);
     $this->assertTrue($filter->validate(/** @lang XML */
@@ -50,7 +39,6 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\XML::validate
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
    * @throws \Papaya\Filter\Exception\IsEmpty
@@ -62,18 +50,12 @@ class XMLTest extends \Papaya\TestCase {
     $filter->validate($fragment);
   }
 
-  /**
-   * @covers \Papaya\Filter\XML::validate
-   */
   public function testValidateWithEmptyStringExpectingException() {
     $filter = new XML();
     $this->expectException(\Papaya\Filter\Exception\IsEmpty::class);
     $filter->validate('');
   }
 
-  /**
-   * @covers \Papaya\Filter\XML::validate
-   */
   public function testValidateWithDocumentExpectingException() {
     $filter = new XML(FALSE);
     $this->expectException(\Papaya\Filter\Exception\InvalidXML::class);
@@ -81,7 +63,6 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\XML::filter
    * @dataProvider provideValidXmlFragments
    * @param string $fragment
    */
@@ -91,7 +72,6 @@ class XMLTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\XML::filter
    * @dataProvider provideInvalidXmlFragments
    * @param mixed $fragment
    */

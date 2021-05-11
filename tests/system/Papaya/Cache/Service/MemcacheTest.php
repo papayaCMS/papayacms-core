@@ -79,7 +79,7 @@ namespace Papaya\Cache\Service {
       $configuration['MEMCACHE_SERVERS'] = 'TEST';
       $service = new Memcache();
       $service->setConfiguration($configuration);
-      $this->assertSame('TEST', $this->readAttribute($service, '_cachePath'));
+      $this->assertSame('TEST', $service->getCachePath());
     }
 
     /**
@@ -91,7 +91,7 @@ namespace Papaya\Cache\Service {
       $service = new Memcache();
       $service->setConfiguration($configuration);
       $this->assertThat(
-        $this->readAttribute($service, '_cachePath'),
+        $service->getCachePath(),
         $this->logicalOr(
           $this->equalTo(''),
           $this->equalTo(ini_get('session.save_path'))

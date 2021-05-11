@@ -16,21 +16,12 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+
+/**
+ * @covers \Papaya\Message\Context\Table
+ */
 class TableTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Context\Table::__construct
-   */
-  public function testConstructor() {
-    $context = new Table('Sample');
-    $this->assertAttributeEquals(
-      'Sample', '_label', $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Table::getLabel
-   */
   public function testGetLabel() {
     $context = new Table('Sample');
     $this->assertEquals(
@@ -38,47 +29,35 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::setColumns
-   */
   public function testSetColumns() {
     $context = new Table('');
     $context->setColumns(array('sample' => 'Sample'));
-    $this->assertAttributeEquals(
-      array('sample' => 'Sample'), '_captions', $context
+    $this->assertEquals(
+      array('sample' => 'Sample'), $context->getColumns()
     );
-    $this->assertAttributeEquals(
-      array('sample'), '_fields', $context
+    $this->assertEquals(
+      array('sample'), $context->getFields()
     );
-    $this->assertAttributeEquals(
-      array(), '_rows', $context
+    $this->assertEquals(
+      array(), $context->asArray()
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::setColumns
-   */
   public function testSetColumnsWithEmptyArrayExpectingException() {
     $context = new Table('');
     $this->expectException(\InvalidArgumentException::class);
     $context->setColumns(array());
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::setColumns
-   */
   public function testSetColumnsResetRows() {
     $context = new Table('');
     $context->addRow(array('foo' => 'bar'));
     $context->setColumns(array('sample' => 'Sample'));
-    $this->assertAttributeEquals(
-      array(), '_rows', $context
+    $this->assertEquals(
+      array(), $context->asArray()
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::getColumns
-   */
   public function testGetColumns() {
     $context = new Table('');
     $context->setColumns(array('sample' => 'Sample'));
@@ -87,42 +66,34 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::addRow
-   */
   public function testAddRow() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
-    $this->assertAttributeEquals(
-      array(array('fieldOne' => 'Content One')), '_rows', $context
+    $this->assertEquals(
+      array('fieldOne'), $context->getFields()
+    );
+    $this->assertEquals(
+      array('Content One '), $context->asArray()
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::addRow
-   */
   public function testAddRowMergingFieldIdentifiers() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
     $context->addRow(array('fieldOne' => 'Content One', 'fieldTwo' => 'Content Two'));
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
-        array('fieldOne' => 'Content One'),
-        array('fieldOne' => 'Content One', 'fieldTwo' => 'Content Two')
+        'Content One |  ',
+        'Content One | Content Two '
       ),
-      '_rows',
-      $context
+      $context->asArray()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array('fieldOne', 'fieldTwo'),
-      '_fields',
-      $context
+      $context->getFields()
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::getRow
-   */
   public function testGetRow() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
@@ -131,9 +102,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::getRow
-   */
   public function testGetRowMergedFields() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
@@ -143,9 +111,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::getRow
-   */
   public function testGetRowColumnsDefined() {
     $context = new Table('');
     $context->setColumns(array('fieldOne' => 'Field One'));
@@ -156,9 +121,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::getRowCount
-   */
   public function testGetRowCountExpectingZero() {
     $context = new Table('');
     $this->assertEquals(
@@ -166,9 +128,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::getRowCount
-   */
   public function testGetRowCountExpectingOne() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => 'Content One'));
@@ -177,9 +136,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asString
-   */
   public function testAsStringWithoutContent() {
     $context = new Table('');
     $this->assertEquals(
@@ -187,9 +143,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asString
-   */
   public function testAsStringWithColumns() {
     $context = new Table('');
     $context->setColumns(array('fieldOne' => 'Caption One', 'fieldTwo' => 'Caption Two'));
@@ -203,9 +156,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asString
-   */
   public function testAsStringWithoutColumns() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => '1.1'));
@@ -219,9 +169,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asArray
-   */
   public function testAsArrayWithoutContent() {
     $context = new Table('');
     $this->assertEquals(
@@ -229,9 +176,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asArray
-   */
   public function testAsArrayWithColumns() {
     $context = new Table('');
     $context->setColumns(array('fieldOne' => 'Caption One', 'fieldTwo' => 'Caption Two'));
@@ -246,9 +190,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asArray
-   */
   public function testAsArrayWithoutColumns() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => '1.1'));
@@ -262,9 +203,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asXhtml
-   */
   public function testAsXhtmlWithoutContent() {
     $context = new Table('');
     $this->assertEquals(
@@ -272,9 +210,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asXhtml
-   */
   public function testAsXhtmlWithColumns() {
     $context = new Table('');
     $context->setColumns(array('fieldOne' => 'Caption One', 'fieldTwo' => 'Caption Two'));
@@ -289,9 +224,6 @@ class TableTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Table::asXhtml
-   */
   public function testAsXhtmlWithoutColumns() {
     $context = new Table('');
     $context->addRow(array('fieldOne' => '1.1'));

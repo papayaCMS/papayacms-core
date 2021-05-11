@@ -41,7 +41,7 @@ namespace Papaya\Database\Condition {
         ->disableOriginalConstructor()
         ->getMock();
       $element = new Element_TestProxy($group, NULL, '=');
-      $this->assertAttributeEquals('=', '_operator', $element);
+      $this->assertEquals('=', $element->getOperator());
     }
 
     public function testGetSqlWithScalar() {
@@ -183,6 +183,10 @@ namespace Papaya\Database\Condition {
 
     public function mapFieldName($value) {
       return parent::mapFieldName($value);
+    }
+
+    public function getOperator(): string {
+      return $this->_operator;
     }
   }
 }

@@ -14,6 +14,7 @@
  */
 namespace Papaya\File\System\Action;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\File\System as FileSystem;
 
 /**
@@ -22,11 +23,15 @@ use Papaya\File\System as FileSystem;
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class URL implements FileSystem\Action {
+class URL implements FileSystem\Action, StringCastable {
   private $_url;
 
   public function __construct($url) {
     $this->_url = $url;
+  }
+
+  public function __toString(): string {
+    return $this->_url;
   }
 
   /**

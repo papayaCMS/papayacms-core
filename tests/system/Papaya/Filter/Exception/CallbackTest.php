@@ -17,30 +17,19 @@ namespace Papaya\Filter\Exception {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
+  /**
+   * @covers \Papaya\Filter\Exception\Callback
+   */
   class CallbackTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\Filter\Exception\Callback::__construct
-     */
-    public function testConstructor() {
-      $e = new Callback_TestProxy('', 'function');
-      $this->assertAttributeEquals(
-        'function', '_callback', $e
-      );
-    }
-
-    /**
-     * @covers \Papaya\Filter\Exception\Callback::getCallback
-     */
     public function testGetCallback() {
-      $e = new Callback_TestProxy('', 'function');
-      $this->assertEquals(
-        'function', $e->getCallback()
+      $e = new Callback_TestProxy('', $callback = static function() {});
+      $this->assertSame(
+        $callback, $e->getCallback()
       );
     }
 
     /**
-     * @covers \Papaya\Filter\Exception\Callback::callbackToString
      * @dataProvider provideCallbacks
      * @param string $expected
      * @param callable $callback

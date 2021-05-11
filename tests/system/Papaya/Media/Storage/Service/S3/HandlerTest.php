@@ -41,8 +41,8 @@ class HandlerTest extends \Papaya\TestCase {
     $configuration = $this->getMockConfigurationObjectFixture();
     $handler = new Handler($configuration);
     $handler->setHTTPClient($client);
-    $this->assertAttributeSame(
-      $client, '_client', $handler
+    $this->assertSame(
+      $client, $handler->getHTTPClient()
     );
   }
 

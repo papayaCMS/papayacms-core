@@ -73,6 +73,18 @@ class Cumulative extends Database\Sequence\Human {
     }
   }
 
+  public function getMinimumLength(): int {
+    return $this->_minimumLength;
+  }
+
+  public function getMaximumLength(): int {
+    return $this->_maximumLength;
+  }
+
+  public function getCumulativeLength(): int {
+    return $this->_cumulativeLength;
+  }
+
   /**
    * Create a random Id of a length of at least $this->_minimumLength and at most
    * $this->_maximumLength.

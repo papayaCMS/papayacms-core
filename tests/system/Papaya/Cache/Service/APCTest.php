@@ -28,17 +28,17 @@ class APCTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Cache\Service\APC::setAPCObject
    */
-  public function testSetApcObject() {
+  public function testSetAndGetApcObject() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|APC\Wrapper $apc */
     $apc = $this->createMock(APC\Wrapper::class);
     $service = new APC();
     $service->setAPCObject($apc);
-    $this->assertSame($apc, $this->readAttribute($service, '_apcObject'));
+    $this->assertSame($apc, $service->getAPCObject());
   }
 
   /**
+   * @covers \Papaya\Cache\Service\APC::setAPCObject
    * @covers \Papaya\Cache\Service\APC::getAPCObject
    */
   public function testGetApcObject() {

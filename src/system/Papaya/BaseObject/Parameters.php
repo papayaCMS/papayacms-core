@@ -32,7 +32,7 @@ namespace Papaya\BaseObject {
      *
      * @return bool
      */
-    public function has($offset) {
+    public function has($offset): bool {
       return $this->offsetExists($offset);
     }
 
@@ -47,7 +47,7 @@ namespace Papaya\BaseObject {
      *
      * @param mixed $offset
      * @param mixed $defaultValue
-     * @param Filter $filter
+     * @param Filter|NULL $filter
      *
      * @return mixed
      */
@@ -79,16 +79,16 @@ namespace Papaya\BaseObject {
     /**
      * Empty the internal array.
      */
-    public function clear() {
+    public function clear(): void {
       $this->exchangeArray([]);
     }
 
     /**
      * Merge the given array or Traversable into the internal array.
      *
-     * @param array|\Traversable $value
+     * @param iterable $value
      */
-    public function merge($value) {
+    public function merge(iterable $value): void {
       Utility\Constraints::assertArrayOrTraversable($value);
       $this->exchangeArray(Utility\Arrays::merge($this, $value));
     }

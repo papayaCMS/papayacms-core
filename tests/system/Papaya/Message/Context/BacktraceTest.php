@@ -24,10 +24,9 @@ class BacktraceTest extends \Papaya\TestCase {
    */
   public function testConstructorWithOffset() {
     $backtrace = new Backtrace(41);
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       42,
-      '_offset',
-      $backtrace
+      $backtrace->getOffset()
     );
   }
 
@@ -37,10 +36,9 @@ class BacktraceTest extends \Papaya\TestCase {
    */
   public function testContructorWithOffsetAndTraceData() {
     $backtrace = new Backtrace(42, array());
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       42,
-      '_offset',
-      $backtrace
+      $backtrace->getOffset()
     );
   }
 
@@ -50,10 +48,9 @@ class BacktraceTest extends \Papaya\TestCase {
    */
   public function testContructorWithoutOffset() {
     $backtrace = new Backtrace();
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       1,
-      '_offset',
-      $backtrace
+      $backtrace->getOffset()
     );
   }
 
@@ -68,28 +65,11 @@ class BacktraceTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Context\Backtrace::setBacktrace
+   * @covers \Papaya\Message\Context\Backtrace::getBacktrace
    */
   public function testSetBacktrace() {
     $backtrace = new Backtrace();
-    $backtrace->setBacktrace(array(1), 42);
-    $this->assertAttributeEquals(
-      array(1),
-      '_backtrace',
-      $backtrace
-    );
-    $this->assertAttributeEquals(
-      42,
-      '_offset',
-      $backtrace
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Backtrace::getBacktrace
-   */
-  public function testGetBacktrace() {
-    $backtrace = new Backtrace();
-    $backtrace->setBacktrace(array(1));
+    $backtrace->setBacktrace(array(1), 0);
     $this->assertEquals(
       array(1),
       $backtrace->getBacktrace()

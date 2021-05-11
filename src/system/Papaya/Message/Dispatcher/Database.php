@@ -138,4 +138,8 @@ class Database
     }
     return FALSE;
   }
+
+  public function preventMessageRecursion(): bool {
+    return $this->_preventMessageRecursion;
+  }
 }

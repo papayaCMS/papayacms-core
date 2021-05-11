@@ -17,28 +17,11 @@ namespace Papaya\Message\Context\Variable {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
+  /**
+   * @covers \Papaya\Message\Context\Variable\Visitor
+   */
   class VisitorTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::__construct
-     */
-    public function testConstructor() {
-      $visitor = new Visitor_TestProxy(21, 42);
-      $this->assertAttributeEquals(
-        21,
-        '_depth',
-        $visitor
-      );
-      $this->assertAttributeEquals(
-        42,
-        '_stringLength',
-        $visitor
-      );
-    }
-
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::__toString
-     */
     public function testMagicMethodToString() {
       $visitor = new Visitor_TestProxy(21, 42);
       $this->assertEquals(
@@ -48,7 +31,6 @@ namespace Papaya\Message\Context\Variable {
     }
 
     /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::visitVariable
      * @dataProvider dataProviderForVisitVariable
      * @param string $expected
      * @param mixed $with
@@ -56,10 +38,9 @@ namespace Papaya\Message\Context\Variable {
     public function testVisitVariable($expected, $with) {
       $visitor = new Visitor_TestProxy(21, 42);
       $visitor->visitVariable($with);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         $expected,
-        '_visitedVariableType',
-        $visitor
+        $visitor->_visitedVariableType
       );
     }
 
@@ -76,53 +57,37 @@ namespace Papaya\Message\Context\Variable {
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_pushObjectStack
-     */
     public function testPushObjectStack() {
       $visitor = $this->getVisitorFixtureForObjectTest();
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('hash1', 'hash2'),
-        '_objectStack',
-        $visitor
+        $visitor->_objectStack
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('hash1' => 1, 'hash2' => 2),
-        '_objectList',
-        $visitor
+        $visitor->_objectList
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_popObjectStack
-     */
     public function testPopObjectStack() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $visitor->_popObjectStack('hash2');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('hash1'),
-        '_objectStack',
-        $visitor
+        $visitor->_objectStack
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('hash1' => 1, 'hash2' => 2),
-        '_objectList',
-        $visitor
+        $visitor->_objectList
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_popObjectStack
-     */
     public function testPopObjectStackExpectingException() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $this->expectException(\LogicException::class);
       $visitor->_popObjectStack('hash1');
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_isObjectRecursion
-     */
     public function testIsObjectRecursionExpectingTrue() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $this->assertTrue(
@@ -130,9 +95,6 @@ namespace Papaya\Message\Context\Variable {
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_isObjectRecursion
-     */
     public function testIsObjectRecursionExpectingFalse() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $this->assertFalse(
@@ -140,9 +102,6 @@ namespace Papaya\Message\Context\Variable {
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_isObjectDuplicate
-     */
     public function testIsObjectDuplicateExpectingTrue() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $this->assertTrue(
@@ -150,9 +109,6 @@ namespace Papaya\Message\Context\Variable {
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_isObjectDuplicate
-     */
     public function testIsObjectDuplicateExpectingFalse() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $this->assertFalse(
@@ -160,9 +116,6 @@ namespace Papaya\Message\Context\Variable {
       );
     }
 
-    /**
-     * @covers \Papaya\Message\Context\Variable\Visitor::_getObjectIndex
-     */
     public function testGetObjectIndex() {
       $visitor = $this->getVisitorFixtureForObjectTest();
       $this->assertEquals(
@@ -181,7 +134,11 @@ namespace Papaya\Message\Context\Variable {
 
   class Visitor_TestProxy extends Visitor {
 
-    private $_visitedVariableType = '';
+    public $_visitedVariableType = '';
+
+    public $_objectList = [];
+
+    public $_objectStack = [];
 
     public function get() {
       return 'variable dump';

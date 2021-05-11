@@ -14,6 +14,7 @@
  */
 namespace Papaya\File\System\Action;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\File\System as FileSystem;
 
 /**
@@ -22,11 +23,15 @@ use Papaya\File\System as FileSystem;
  * @package Papaya-Library
  * @subpackage FileSystem
  */
-class Script implements FileSystem\Action {
+class Script implements FileSystem\Action, StringCastable {
   private $_script;
 
   public function __construct($script) {
     $this->_script = $script;
+  }
+
+  public function __toString() {
+    return $this->_script;
   }
 
   /**

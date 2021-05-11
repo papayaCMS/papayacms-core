@@ -98,7 +98,7 @@ namespace Papaya\Content {
       );
       $language = $languages->getLanguage($languageFilter);
       $this->assertInstanceOf(Language::class, $language);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 2,
           'identifier' => 'de',
@@ -108,8 +108,7 @@ namespace Papaya\Content {
           'is_content' => 1,
           'is_interface' => 1
         ),
-        '_values',
-        $language
+        iterator_to_array($language)
       );
     }
 

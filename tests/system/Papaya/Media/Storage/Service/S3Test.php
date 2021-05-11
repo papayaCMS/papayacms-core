@@ -99,8 +99,8 @@ namespace Papaya\Media\Storage\Service {
       $configuration = $this->getMockConfigurationObjectFixture();
       $service = new S3($configuration);
       $service->setHandler($handler);
-      $this->assertAttributeSame(
-        $handler, '_handler', $service
+      $this->assertSame(
+        $handler, $service->getHandler()
       );
     }
 

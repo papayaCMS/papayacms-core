@@ -597,14 +597,6 @@ namespace Papaya {
       $parameters = new Request\Parameters();
       $parameters->merge(['PARAMETER_QUERY_SAMPLE' => 'success']);
       $request->setParameters(Request::SOURCE_QUERY, $parameters);
-      $this->assertEquals(
-        [
-          Request::SOURCE_PATH,
-          Request::SOURCE_QUERY,
-          Request::SOURCE_BODY
-        ],
-        array_keys($this->readAttribute($request, '_parameterCache'))
-      );
       $this->assertSame(
         ['PARAMETER_QUERY_SAMPLE' => 'success'],
         $request->getParameters(Request::SOURCE_QUERY)->toArray()

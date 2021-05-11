@@ -41,18 +41,6 @@ class GlobTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Iterator\Glob::rewind
-   */
-  public function testRewind() {
-    $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
-    iterator_to_array($glob);
-    $glob->rewind();
-    $this->assertAttributeSame(
-      NULL, '_files', $glob
-    );
-  }
-
-  /**
    * @covers \Papaya\Iterator\Glob::getFilesLazy
    * @covers \Papaya\Iterator\Glob::getIterator
    */

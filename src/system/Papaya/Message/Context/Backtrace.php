@@ -71,6 +71,10 @@ class Backtrace
     $this->_offset = $offset;
   }
 
+  public function getOffset(): int {
+    return $this->_offset;
+  }
+
   /**
    * Set backtrace
    *

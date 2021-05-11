@@ -35,10 +35,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitArrayWithEmptyArray() {
       $visitor = new Text(21, 42);
       $visitor->visitArray(array());
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         "array(0) {\n}",
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -51,10 +50,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitArrayWithNestedArray() {
       $visitor = new Text(21, 42);
       $visitor->visitArray(array(array()));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         "array(1) {\n  [0]=>\n  array(0) {\n  }\n}",
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -66,10 +64,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitArrayWithNestedArrayReachingLimit() {
       $visitor = new Text(1, 42);
       $visitor->visitArray(array(array()));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         "array(1) {\n  ...recursion limit...\n}",
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -79,10 +76,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitBooleanWithTrue() {
       $visitor = new Text(21, 42);
       $visitor->visitBoolean(TRUE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'bool(true)',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -92,10 +88,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitBooleanWithFalse() {
       $visitor = new Text(21, 42);
       $visitor->visitBoolean(FALSE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'bool(false)',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -105,10 +100,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitInteger() {
       $visitor = new Text(21, 42);
       $visitor->visitInteger(3117);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'int(3117)',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -118,10 +112,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitFloat() {
       $visitor = new Text(21, 42);
       $visitor->visitFloat(31.17);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'float(31.17)',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -131,10 +124,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitNull() {
       $visitor = new Text(21, 42);
       $visitor->visitNull(NULL);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'NULL',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -145,7 +137,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
       $visitor = new Text(21, 42);
       $sample = new TextVisitor_SampleClass();
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'object(Papaya\Message\Context\Variable\Visitor\TextVisitor_SampleClass) #1 {'."\n".
         '  [private:privateProperty]=>'."\n".
         '  int(1)'."\n".
@@ -156,8 +148,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
         '  [public:recursion]=>'."\n".
         '  NULL'."\n".
         '}',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -168,7 +159,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
       $visitor = new Text(21, 42);
       $sample = new TextVisitor_SampleChildClass();
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'object(Papaya\Message\Context\Variable\Visitor\TextVisitor_SampleChildClass) #1 {'."\n".
         '  [static:private:privateStaticProperty]=>'."\n".
         '  int(5)'."\n".
@@ -181,8 +172,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
         '  [public:recursion]=>'."\n".
         '  NULL'."\n".
         '}',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -194,7 +184,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
       $sample = new TextVisitor_SampleClass();
       $sample->recursion = $sample;
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'object(Papaya\Message\Context\Variable\Visitor\TextVisitor_SampleClass) #1 {'."\n".
         '  [private:privateProperty]=>'."\n".
         '  int(1)'."\n".
@@ -207,8 +197,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
         '    ...object recursion...'."\n".
         '  }'."\n".
         '}',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -220,12 +209,11 @@ namespace Papaya\Message\Context\Variable\Visitor {
       $sample = new TextVisitor_SampleClass();
       $sample->recursion = $sample;
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'object(Papaya\Message\Context\Variable\Visitor\TextVisitor_SampleClass) #1 {'."\n".
         '  ...recursion limit...'."\n".
         '}',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -238,7 +226,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
       $sample = new TextVisitor_SampleClass();
       $objects = array($sample, $sample);
       $visitor->visitArray($objects);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'array(2) {'."\n".
         '  [0]=>'."\n".
         '  object(Papaya\Message\Context\Variable\Visitor\TextVisitor_SampleClass) #1 {'."\n".
@@ -256,8 +244,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
         '    ...object duplication...'."\n".
         '  }'."\n".
         '}',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -281,10 +268,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitString() {
       $visitor = new Text(21, 42);
       $visitor->visitString('Sample');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'string(6) "Sample"',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
 
@@ -294,10 +280,9 @@ namespace Papaya\Message\Context\Variable\Visitor {
     public function testVisitLongString() {
       $visitor = new Text(21, 3);
       $visitor->visitString('Sample');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'string(6) "Sam..."',
-        '_variableString',
-        $visitor
+        (string)$visitor
       );
     }
   }

@@ -17,58 +17,42 @@ namespace Papaya\Filter {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
+  /**
+   * @covers \Papaya\Filter\Logical
+   */
   class LogicalTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\Filter\Logical::__construct
-     * @covers \Papaya\Filter\Logical::_setFilters
-     */
     public function testConstructorWithTwoFilters() {
       $subFilterOne = $this->createMock(\Papaya\Filter::class);
       $subFilterTwo = $this->createMock(\Papaya\Filter::class);
       $filter = new Logical_TestProxy($subFilterOne, $subFilterTwo);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array($subFilterOne, $subFilterTwo),
-        '_filters',
-        $filter
+        $filter->getFilters()
       );
     }
 
-    /**
-     * @covers \Papaya\Filter\Logical::__construct
-     * @covers \Papaya\Filter\Logical::_setFilters
-     */
     public function testConstructorWithTwoScalars() {
       $subFilterOne = new Equals('one');
       $subFilterTwo = new Equals('two');
       $filter = new Logical_TestProxy('one', 'two');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array($subFilterOne, $subFilterTwo),
-        '_filters',
-        $filter
+        $filter->getFilters()
       );
     }
 
-    /**
-     * @covers \Papaya\Filter\Logical::__construct
-     * @covers \Papaya\Filter\Logical::_setFilters
-     */
     public function testConstructorWithThreeFilters() {
       $subFilterOne = $this->createMock(\Papaya\Filter::class);
       $subFilterTwo = $this->createMock(\Papaya\Filter::class);
       $subFilterThree = $this->createMock(\Papaya\Filter::class);
       $filter = new Logical_TestProxy($subFilterOne, $subFilterTwo, $subFilterThree);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array($subFilterOne, $subFilterTwo, $subFilterThree),
-        '_filters',
-        $filter
+        $filter->getFilters()
       );
     }
 
-    /**
-     * @covers \Papaya\Filter\Logical::__construct
-     * @covers \Papaya\Filter\Logical::_setFilters
-     */
     public function testConstructorWithOneFilterExpectingException() {
       $this->expectException(\InvalidArgumentException::class);
       new Logical_TestProxy(
@@ -76,10 +60,6 @@ namespace Papaya\Filter {
       );
     }
 
-    /**
-     * @covers \Papaya\Filter\Logical::__construct
-     * @covers \Papaya\Filter\Logical::_setFilters
-     */
     public function testContructorWithInvalidObjectsExpectingException() {
       $this->expectException(\InvalidArgumentException::class);
       new Logical_TestProxy(
@@ -94,6 +74,10 @@ namespace Papaya\Filter {
     }
 
     public function filter($value) {
+    }
+
+    public function getFilters(): array {
+      return $this->_filters;
     }
   }
 }

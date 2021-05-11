@@ -32,7 +32,7 @@ namespace Papaya\HTTP {
           'host' => 'www.papaya-cms.com',
           'path' => '/'
         ],
-        $this->readAttribute($client, '_url')
+        $client->getParsedURL()
       );
     }
 
@@ -46,7 +46,7 @@ namespace Papaya\HTTP {
           'port' => '80',
           'path' => '/',
         ],
-        $this->readAttribute($client, '_url')
+        $client->getParsedURL()
       );
     }
 
@@ -63,7 +63,7 @@ namespace Papaya\HTTP {
           'host' => 'www.example.com',
           'path' => '/',
         ],
-        $this->readAttribute($client, '_url')
+        $client->getParsedURL()
       );
     }
 
@@ -87,23 +87,11 @@ namespace Papaya\HTTP {
     public function testSetSocket() {
       $client = new Client('http://www.sample.tld');
       $client->setSocket($socket = new Client\Socket());
-      $this->assertAttributeSame($socket, '_socket', $client);
+      $this->assertSame($socket, $client->getSocket());
     }
 
     /**
      * @covers \Papaya\HTTP\Client::setRedirectLimit
-     */
-    public function testSetRedirectLimit() {
-      $client = new Client('http://www.sample.tld');
-      $client->setRedirectLimit(99);
-      $this->assertAttributeSame(
-        99,
-        '_redirectLimit',
-        $client
-      );
-    }
-
-    /**
      * @covers \Papaya\HTTP\Client::getRedirectLimit
      */
     public function testGetRedirectLimit() {
@@ -135,7 +123,7 @@ namespace Papaya\HTTP {
     public function testSetMethod() {
       $client = new Client('http://www.sample.tld');
       $client->setMethod('Post');
-      $this->assertEquals('POST', $this->readAttribute($client, '_method'));
+      $this->assertEquals('POST', $client->getMethod());
     }
 
     public function testGetMethod() {
@@ -146,34 +134,31 @@ namespace Papaya\HTTP {
     public function testSetProxy() {
       $client = new Client('http://www.sample.tld');
       $client->setProxy('www.proxy.tld', 3128, 'username', 'password');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'host' => 'www.proxy.tld',
           'port' => 3128
         ],
-        '_proxy',
-        $client
+        $client->getProxyConfiguration()
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'user' => 'username',
           'password' => 'password'
         ],
-        '_proxyAuthorization',
-        $client
+        $client->getProxyAuthorization()
       );
     }
 
     public function testSetProxyHostOnly() {
       $client = new Client('http://www.sample.tld');
       $client->setProxy('www.proxy.tld');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'host' => 'www.proxy.tld',
           'port' => 80
         ],
-        '_proxy',
-        $client
+        $client->getProxyConfiguration()
       );
     }
 
@@ -244,17 +229,17 @@ namespace Papaya\HTTP {
       $client = new Client('http://www.sample.tld');
       $client->setHeader('X-Sample', 'Test1');
       $client->setHeader('X-Sample', 'Test2', TRUE);
-      $requestHeaders = $this->readAttribute($client, '_requestHeaders')->toArray();
+      $requestHeaders =$client->getRequestHeaders()->toArray();
       $this->assertEquals(['Test1', 'Test2'], $requestHeaders['X-Sample']);
     }
 
     public function testSetHeaderEmpty() {
       $client = new Client('http://www.sample.tld');
       $client->setHeader('x-sample', 'Test');
-      $requestHeaders = $this->readAttribute($client, '_requestHeaders')->toArray();
+      $requestHeaders =$client->getRequestHeaders()->toArray();
       $this->assertEquals('Test', $requestHeaders['X-Sample']);
       $client->setHeader('X-Sample', '');
-      $requestHeaders = $this->readAttribute($client, '_requestHeaders')->toArray();
+      $requestHeaders =$client->getRequestHeaders()->toArray();
       $this->assertFalse(isset($requestHeaders['X-Sample']));
     }
 
@@ -319,7 +304,7 @@ namespace Papaya\HTTP {
         'foo2' => 'bar2',
       ];
       $client->addRequestData($data);
-      $this->assertEquals($data, $this->readAttribute($client, '_requestData'));
+      $this->assertEquals($data, $client->getRequestData());
     }
 
     public function testAddRequestDataRecursive() {

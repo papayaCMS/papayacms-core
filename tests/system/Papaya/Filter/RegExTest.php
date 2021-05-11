@@ -16,31 +16,11 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\RegEx
+ */
 class RegExTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\RegEx::__construct
-   */
-  public function testConstructor() {
-    $filter = new RegEx('(foo)');
-    $this->assertAttributeEquals(
-      '(foo)', '_pattern', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\RegEx::__construct
-   */
-  public function testConstructorWithSubMatch() {
-    $filter = new RegEx('(foo)', 1);
-    $this->assertAttributeEquals(
-      1, '_subMatch', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\RegEx::validate
-   */
   public function testValidate() {
     $filter = new RegEx('(^foo$)');
     $this->assertTrue(
@@ -48,18 +28,12 @@ class RegExTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Filter\RegEx::validate
-   */
   public function testValidateExpectingException() {
     $filter = new RegEx('(^foo$)');
     $this->expectException(Exception\RegEx\NoMatch::class);
     $filter->validate('bar');
   }
 
-  /**
-   * @covers \Papaya\Filter\RegEx::filter
-   */
   public function testFilter() {
     $filter = new RegEx('(^foo$)');
     $this->assertEquals(
@@ -67,9 +41,6 @@ class RegExTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Filter\Password::filter
-   */
   public function testFilterExpectingNull() {
     $filter = new RegEx('(^foo$)');
     $this->assertNull(
@@ -77,9 +48,6 @@ class RegExTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Filter\RegEx::filter
-   */
   public function testFilterExpectingSubMatch() {
     $filter = new RegEx('(^f(oo)$)', 1);
     $this->assertEquals(
@@ -87,9 +55,6 @@ class RegExTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Filter\RegEx::filter
-   */
   public function testFilterExpectingNamedSubMatch() {
     $filter = new RegEx(/** @lang Text */
       '(^f(?P<part>oo)$)', 'part');
@@ -98,9 +63,6 @@ class RegExTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Filter\RegEx::filter
-   */
   public function testFilterWithInvalidSubMatchExpectingNull() {
     $filter = new RegEx('(^f(oo)$)', 'part');
     $this->assertNull(

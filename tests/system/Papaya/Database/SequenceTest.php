@@ -24,11 +24,11 @@ namespace Papaya\Database {
      */
     public function testConstructor() {
       $sequence = new Sequence_TestProxy('table', 'field');
-      $this->assertAttributeEquals(
-        'table', '_table', $sequence
+      $this->assertEquals(
+        'table', $sequence->getTable()
       );
-      $this->assertAttributeEquals(
-        'field', '_field', $sequence
+      $this->assertEquals(
+        'field', $sequence->getField()
       );
     }
 
@@ -198,6 +198,14 @@ namespace Papaya\Database {
 
     public function createIdentifiers($count) {
       return parent::createIdentifiers($count);
+    }
+
+    public function getTable(): string {
+      return $this->_table;
+    }
+
+    public function getField(): string {
+      return $this->_field;
     }
   }
 

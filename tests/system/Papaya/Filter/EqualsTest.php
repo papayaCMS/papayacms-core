@@ -16,20 +16,12 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Equals
+ */
 class EqualsTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\Equals::__construct
-   */
-  public function testConstructor() {
-    $filter = new Equals('success');
-    $this->assertAttributeEquals(
-      'success', '_value', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\Equals::validate
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
@@ -41,7 +33,6 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Equals::validate
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
@@ -54,7 +45,6 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Equals::filter
    * @dataProvider provideEqualValues
    * @param mixed $expected
    * @param mixed $value
@@ -65,7 +55,6 @@ class EqualsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Equals::filter
    * @dataProvider provideNonEqualValues
    * @param mixed $expected
    * @param mixed $value
