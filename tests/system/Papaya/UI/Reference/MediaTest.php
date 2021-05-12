@@ -66,7 +66,7 @@ namespace Papaya\UI\Reference {
           'extension' => '',
           'preview' => TRUE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
     }
 
@@ -92,7 +92,7 @@ namespace Papaya\UI\Reference {
           'extension' => '',
           'preview' => FALSE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.media.012345678901234567890123456789ab',
@@ -115,7 +115,7 @@ namespace Papaya\UI\Reference {
           'extension' => '',
           'preview' => FALSE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
     }
 
@@ -134,7 +134,7 @@ namespace Papaya\UI\Reference {
           'extension' => '',
           'preview' => FALSE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
     }
 
@@ -162,7 +162,7 @@ namespace Papaya\UI\Reference {
           'extension' => '',
           'preview' => FALSE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
     }
 
@@ -181,7 +181,7 @@ namespace Papaya\UI\Reference {
           'extension' => 'mp3',
           'preview' => FALSE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
     }
 
@@ -200,7 +200,7 @@ namespace Papaya\UI\Reference {
           'extension' => 'png',
           'preview' => FALSE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.media.012345678901234567890123456789abv23.png',
@@ -224,7 +224,7 @@ namespace Papaya\UI\Reference {
           'extension' => 'png',
           'preview' => TRUE
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.media.preview.012345678901234567890123456789abv23.png',

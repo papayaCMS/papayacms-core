@@ -25,7 +25,9 @@ use Papaya\UI;
  * @package Papaya-Library
  * @subpackage Messages
  */
-class Translated extends Message\Display {
+class Translated extends Message\Display implements \Papaya\Application\Access {
+
+  private $_messageText;
   /**
    * Initialize object, convert message into translation object
    *
@@ -34,6 +36,12 @@ class Translated extends Message\Display {
    * @param array $parameters message parameters
    */
   public function __construct($type, $message, array $parameters = []) {
-    parent::__construct($type, new UI\Text\Translated($message, $parameters));
+    $this->_messageText = new UI\Text\Translated($message, $parameters);
+    parent::__construct($type, $this->_messageText);
+  }
+
+
+  public function papaya(\Papaya\Application $application = NULL) {
+    return $this->_messageText->papaya($application);
   }
 }

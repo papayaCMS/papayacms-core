@@ -22,33 +22,11 @@ namespace Papaya\UI\Control {
     /**
      * @covers \Papaya\UI\Control\Interactive::parameterMethod
      */
-    public function testParameterMethodSet() {
-      $dialog = new Interactive_TestProxy();
-      $dialog->parameterMethod(Interactive::METHOD_GET);
-      $this->assertAttributeEquals(
-        Interactive::METHOD_GET, '_parameterMethod', $dialog
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Control\Interactive::parameterMethod
-     */
     public function testParameterMethodGet() {
       $dialog = new Interactive_TestProxy();
       $this->assertEquals(
         Interactive::METHOD_GET,
         $dialog->parameterMethod(Interactive::METHOD_GET)
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Control\Interactive::parameterGroup
-     */
-    public function testParameterGroupSet() {
-      $dialog = new Interactive_TestProxy();
-      $dialog->parameterGroup('sample');
-      $this->assertAttributeEquals(
-        'sample', '_parameterGroup', $dialog
       );
     }
 

@@ -33,8 +33,8 @@ class ParametersTest extends \Papaya\TestCase {
     $this->assertSame(
       $parameters, $sessionParameters->parameters()
     );
-    $this->assertAttributeSame(
-      $group, '_group', $sessionParameters
+    $this->assertSame(
+      $group, $sessionParameters->getGroup()
     );
   }
 

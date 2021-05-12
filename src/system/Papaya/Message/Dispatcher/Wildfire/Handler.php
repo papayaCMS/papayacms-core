@@ -121,6 +121,10 @@ namespace Papaya\Message\Dispatcher\Wildfire {
       }
     }
 
+    public function getCounters() {
+      return self::$_counter;
+    }
+
     /**
      * Use callback to send headers
      *

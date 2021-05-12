@@ -223,5 +223,13 @@ namespace Papaya\UI\Control\Command {
     public function __unset($name) {
       $this->offsetUnset($name);
     }
+
+    public function getDefaultCommand(): string {
+      return $this->_defaultCommand;
+    }
+
+    public function getParameterName(): Request\Parameters\Name {
+      return $this->_parameterName;
+    }
   }
 }

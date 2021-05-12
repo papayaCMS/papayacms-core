@@ -132,6 +132,10 @@ class Confirmation extends UI\Dialog {
     $this->_message = $text;
   }
 
+  public function getMessageText() {
+    return $this->_message;
+  }
+
   /**
    * Set dialog button caption
    *
@@ -139,5 +143,9 @@ class Confirmation extends UI\Dialog {
    */
   public function setButtonCaption($caption) {
     $this->_button = $caption;
+  }
+
+  public function getButtonCaption(): string {
+    return $this->_button;
   }
 }

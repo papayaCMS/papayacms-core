@@ -24,8 +24,8 @@ namespace Papaya\Plugin {
      */
     public function testConstructor() {
       $factory = new Factory_TestProxy($owner = new \stdClass);
-      $this->assertAttributeSame(
-        $owner, '_owner', $factory
+      $this->assertSame(
+        $owner, $factory->getOwner()
       );
     }
 

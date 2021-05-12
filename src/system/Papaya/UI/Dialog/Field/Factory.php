@@ -108,4 +108,8 @@ class Factory {
       $this->_profiles[Utility\Text\Identifier::toCamelCase($name, TRUE)] = $profile;
     }
   }
+
+  public function getProfiles(): array {
+    return $this->_profiles;
+  }
 }

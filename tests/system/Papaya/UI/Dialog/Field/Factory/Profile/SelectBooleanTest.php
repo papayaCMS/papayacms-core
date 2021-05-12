@@ -32,6 +32,6 @@ class SelectBooleanTest extends \Papaya\TestCase {
     $profile = new SelectBoolean();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select\Radio::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\Papaya\UI\Text\Translated\Collection::class, '_values', $field);
+    $this->assertInstanceOf(\Papaya\UI\Text\Translated\Collection::class, $field->getValues());
   }
 }

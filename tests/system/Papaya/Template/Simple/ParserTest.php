@@ -17,26 +17,12 @@ namespace Papaya\Template\Simple {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
+  /**
+   * @covers \Papaya\Template\Simple\Parser
+   */
   class ParserTest extends \Papaya\TestCase {
 
     /**
-     * @covers \Papaya\Template\Simple\Parser::__construct
-     */
-    public function testConstructor() {
-      $tokens = $this->createTokens(
-        array(
-          Scanner\Token::TEXT, 0, 'foo'
-        )
-      );
-      $parser = $this->getParserFixture($tokens);
-      $this->assertAttributeSame(
-        $tokens, '_tokens', $parser
-      );
-    }
-
-    /**
-     * @covers \Papaya\Template\Simple\Parser::read
-     * @covers \Papaya\Template\Simple\Parser::matchToken
      * @dataProvider provideDirectMatchingTokens
      * @param int $expectedResult
      * @param array $tokens
@@ -58,9 +44,6 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers \Papaya\Template\Simple\Parser::read
-     * @covers \Papaya\Template\Simple\Parser::matchToken
-     * @covers \Papaya\Template\Simple\Parser::createMismatchException
      * @dataProvider provideDirectMismatchingTokens
      * @param array $tokens
      * @param array|int $allowedTokens
@@ -73,7 +56,6 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideDirectMatchingTokens
      * @param int $expectedResult
      * @param array $tokens
@@ -92,7 +74,6 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideDirectMismatchingTokens
      * @param array $tokens
      * @param array|int $allowedTokens
@@ -105,7 +86,6 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideLookaheadMatchingTokens
      * @param int $expectedResult
      * @param array $tokens
@@ -124,7 +104,6 @@ namespace Papaya\Template\Simple {
     }
 
     /**
-     * @covers \Papaya\Template\Simple\Parser::lookahead
      * @dataProvider provideLookaheadMismatchingTokens
      * @param array $tokens
      * @param array|int $allowedTokens
@@ -136,18 +115,12 @@ namespace Papaya\Template\Simple {
       $parser->lookahead($allowedTokens, 1);
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::endOfTokens
-     */
     public function testEndOfTokensExpectingTrue() {
       $tokens = array();
       $parser = $this->getParserFixture($tokens);
       $this->assertTrue($parser->endOfTokens());
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::endOfTokens
-     */
     public function testEndOfTokensExpectingFalse() {
       $tokens = $this->createTokens(
         array(
@@ -158,9 +131,6 @@ namespace Papaya\Template\Simple {
       $this->assertFalse($parser->endOfTokens());
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::endOfTokens
-     */
     public function testEndOfTokensWithPositionExpectingTrue() {
       $tokens = $this->createTokens(
         array(
@@ -171,9 +141,6 @@ namespace Papaya\Template\Simple {
       $this->assertTrue($parser->endOfTokens(2));
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::endOfTokens
-     */
     public function testEndOfTokensWithPositionExpectingFalse() {
       $tokens = $this->createTokens(
         array(
@@ -185,9 +152,6 @@ namespace Papaya\Template\Simple {
       $this->assertFalse($parser->endOfTokens(1));
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::lookahead
-     */
     public function testLookAheadAllowingEndOfTokens() {
       $parser = $this->getParserFixture(array());
       $this->assertEquals(
@@ -196,9 +160,6 @@ namespace Papaya\Template\Simple {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::lookahead
-     */
     public function testLookAheadWithPositionAllowingEndOfTokens() {
       $tokens = $this->createTokens(
         array(
@@ -212,9 +173,6 @@ namespace Papaya\Template\Simple {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::ignore
-     */
     public function testIgnoreExpectingTrue() {
       $tokens = $this->createTokens(
         array(
@@ -229,9 +187,6 @@ namespace Papaya\Template\Simple {
       $this->assertTrue($parser->endOfTokens(1));
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::ignore
-     */
     public function testIgnoreMultipleTokensExpectingTrue() {
       $tokens = $this->createTokens(
         array(
@@ -249,9 +204,6 @@ namespace Papaya\Template\Simple {
       $this->assertTrue($parser->endOfTokens(1));
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::ignore
-     */
     public function testIgnoreExpectingFalse() {
       $tokens = array(
         array(Scanner\Token::TEXT, 0, 'foo')
@@ -263,9 +215,6 @@ namespace Papaya\Template\Simple {
       $this->assertTrue($parser->endOfTokens(1));
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::delegate
-     */
     public function testDelegate() {
       $parser = $this->getParserFixture();
       $this->assertEquals(
@@ -274,9 +223,6 @@ namespace Papaya\Template\Simple {
       );
     }
 
-    /**
-     * @covers \Papaya\Template\Simple\Parser::delegate
-     */
     public function testDelegateWithInvalidClassExpectingException() {
       $parser = $this->getParserFixture();
       $this->expectException(\LogicException::class);

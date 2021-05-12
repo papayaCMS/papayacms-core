@@ -23,8 +23,8 @@ class TextTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $content = new \Papaya\Response\Content\Text('sample');
-    $this->assertAttributeEquals(
-      'sample', '_content', $content
+    $this->assertEquals(
+      'sample', (string)$content
     );
   }
 

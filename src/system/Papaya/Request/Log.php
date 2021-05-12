@@ -21,7 +21,7 @@ namespace Papaya\Request;
  * @package Papaya-Library
  * @subpackage Request
  */
-class Log extends \Papaya\Application\BaseObject {
+class Log extends \Papaya\Application\BaseObject implements \IteratorAggregate {
   /**
    * Same instance to make it usable like a singleton
    *
@@ -59,6 +59,10 @@ class Log extends \Papaya\Application\BaseObject {
     $dateString .= \round(($now - (int)$now) * 1000);
     $this->_startTime = $now;
     $this->_events[] = 'Started at '.$dateString;
+  }
+
+  public function getIterator(): \ArrayIterator {
+    return new \ArrayIterator($this->_events);
   }
 
   /**

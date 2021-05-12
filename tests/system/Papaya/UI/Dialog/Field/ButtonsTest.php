@@ -46,27 +46,6 @@ class ButtonsTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\UI\Dialog\Field\Buttons::buttons
    */
-  public function testFieldsSet() {
-    $dialog = $this
-      ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new \stdClass()))
-      ->getMock();
-    $field = new Buttons();
-    $field->collection($this->getCollectionMock($dialog));
-    $buttons = $this->createMock(\Papaya\UI\Dialog\Buttons::class);
-    $buttons
-      ->expects($this->once())
-      ->method('owner')
-      ->with($this->equalTo($dialog));
-    $field->buttons($buttons);
-    $this->assertAttributeSame(
-      $buttons, '_buttons', $field
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Buttons::buttons
-   */
   public function testFieldsGetAfterSet() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)

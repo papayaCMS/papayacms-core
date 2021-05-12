@@ -64,28 +64,28 @@ namespace Papaya\Text\Transliteration\ASCII {
     public function testLazyLoadLanguageSpecificMapping() {
       $mapping = new Mapping();
       $mapping->lazyLoad(0, 'de');
-      $result = $this->readAttribute($mapping, '_mappingTables');
+      $result = $mapping->getMappingTables();
       $this->assertArrayHasKey('de', $result);
     }
 
     public function testLazyLoadFallbackToMainLanguage() {
       $mapping = new Mapping();
       $mapping->lazyLoad(5, 'de-DE');
-      $result = $this->readAttribute($mapping, '_mappingTables');
+      $result = $mapping->getMappingTables();
       $this->assertArrayHasKey('de-DE', $result);
     }
 
     public function testLazyLoadFallbackToGeneric() {
       $mapping = new Mapping();
       $mapping->lazyLoad(5, 'de');
-      $result = $this->readAttribute($mapping, '_mappingTables');
+      $result = $mapping->getMappingTables();
       $this->assertArrayHasKey('de', $result);
     }
 
     public function testLazyLoadGeneric() {
       $mapping = new Mapping();
       $mapping->lazyLoad(5, 'generic');
-      $result = $this->readAttribute($mapping, '_mappingTables');
+      $result = $mapping->getMappingTables();
       $this->assertArrayHasKey('generic', $result);
     }
 
@@ -93,7 +93,7 @@ namespace Papaya\Text\Transliteration\ASCII {
       $mapping = new Mapping();
       $mapping->lazyLoad(5, 'de');
       $mapping->lazyLoad(5, 'generic');
-      $result = $this->readAttribute($mapping, '_mappingTables');
+      $result = $mapping->getMappingTables();
       $this->assertEquals(
         $result['generic'], $result['de']
       );

@@ -43,6 +43,10 @@ class File implements Response\Content {
     $this->_filename = $filename;
   }
 
+  public function getFileName(): string {
+    return $this->_filename;
+  }
+
   /**
    * Return content length for the http header
    *

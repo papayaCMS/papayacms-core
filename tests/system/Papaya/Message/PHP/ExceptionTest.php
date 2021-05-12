@@ -27,15 +27,13 @@ class ExceptionTest extends \Papaya\TestCase {
     $message = new Exception(
       new \ErrorException('Sample Error', 0, E_USER_ERROR, 'sample.php', 42)
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       \Papaya\Message::SEVERITY_ERROR,
-      '_type',
-      $message
+      $message->getSeverity()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       'Sample Error',
-      '_message',
-      $message
+      $message->getMessage()
     );
     $this->assertCount(1, $message->context());
   }

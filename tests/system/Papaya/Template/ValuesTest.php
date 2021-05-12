@@ -23,23 +23,13 @@ class ValuesTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $values = new Values();
-    $this->assertAttributeInstanceOf(
-      \Papaya\XML\Document::class, '_document', $values
+    $this->assertNotNull(
+      $values->document()
     );
   }
 
   /**
    * @covers \Papaya\Template\Values::__construct
-   */
-  public function testConstructorWithDocument() {
-    $document = new \Papaya\XML\Document();
-    $values = new Values($document);
-    $this->assertAttributeSame(
-      $document, '_document', $values
-    );
-  }
-
-  /**
    * @covers \Papaya\Template\Values::document
    */
   public function testDocument() {
@@ -58,9 +48,6 @@ class ValuesTest extends \Papaya\TestCase {
     $values = new Values();
     $this->assertSame(
       $document, $values->document($document)
-    );
-    $this->assertAttributeSame(
-      $document, '_document', $values
     );
   }
 

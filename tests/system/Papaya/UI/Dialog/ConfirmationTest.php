@@ -24,8 +24,8 @@ class ConfirmationTest extends \Papaya\TestCase {
   public function testConstructor() {
     $owner = new \stdClass();
     $dialog = new Confirmation($owner, array('sample' => 'foo'));
-    $this->assertAttributeSame(
-      $owner, '_owner', $dialog
+    $this->assertSame(
+      $owner, $dialog->getOwner()
     );
     $this->assertEquals(
       array('sample' => 'foo'), $dialog->hiddenFields()->toArray()
@@ -38,8 +38,8 @@ class ConfirmationTest extends \Papaya\TestCase {
   public function testConstructorWithParameterGroup() {
     $owner = new \stdClass();
     $dialog = new Confirmation($owner, array('sample' => 'foo'), 'group');
-    $this->assertAttributeSame(
-      $owner, '_owner', $dialog
+    $this->assertSame(
+      $owner, $dialog->getOwner()
     );
     $this->assertEquals(
       'group', $dialog->parameterGroup()
@@ -56,8 +56,8 @@ class ConfirmationTest extends \Papaya\TestCase {
     $owner = new \stdClass();
     $dialog = new Confirmation($owner, array('sample' => 'foo'), 'group');
     $dialog->setMessageText('Message text');
-    $this->assertAttributeEquals(
-      'Message text', '_message', $dialog
+    $this->assertEquals(
+      'Message text', $dialog->getMessageText()
     );
   }
 
@@ -68,8 +68,8 @@ class ConfirmationTest extends \Papaya\TestCase {
     $owner = new \stdClass();
     $dialog = new Confirmation($owner, array('sample' => 'foo'), 'group');
     $dialog->setButtonCaption('Button caption');
-    $this->assertAttributeEquals(
-      'Button caption', '_button', $dialog
+    $this->assertEquals(
+      'Button caption', $dialog->getButtonCaption()
     );
   }
 

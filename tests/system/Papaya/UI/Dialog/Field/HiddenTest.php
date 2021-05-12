@@ -16,35 +16,11 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Hidden
+ */
 class HiddenTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Hidden::__construct
-   */
-  public function testConstructor() {
-    $input = new Hidden('name', 'default');
-    $this->assertAttributeEquals(
-      'name', '_name', $input
-    );
-    $this->assertAttributeEquals(
-      'default', '_defaultValue', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Hidden::__construct
-   */
-  public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new Hidden('name', 'value', $filter);
-    $this->assertAttributeSame(
-      $filter, '_filter', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Hidden::appendTo
-   */
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
@@ -66,9 +42,6 @@ class HiddenTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Hidden::appendTo
-   */
   public function testAppendToWithId() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');

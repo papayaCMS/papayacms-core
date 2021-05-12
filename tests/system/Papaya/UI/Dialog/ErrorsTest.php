@@ -51,15 +51,14 @@ class ErrorsTest extends \Papaya\TestCase {
   public function testAddWithoutSource() {
     $errors = new Errors();
     $errors->add($e = new \Exception());
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         array(
           'exception' => $e,
           'source' => NULL
         )
       ),
-      '_errors',
-      $errors
+      iterator_to_array($errors)
     );
   }
 
@@ -69,15 +68,14 @@ class ErrorsTest extends \Papaya\TestCase {
   public function testAddWithSource() {
     $errors = new Errors();
     $errors->add($e = new \Exception(), $source = new \stdClass());
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         array(
           'exception' => $e,
           'source' => $source
         )
       ),
-      '_errors',
-      $errors
+      iterator_to_array($errors)
     );
   }
 
@@ -87,10 +85,9 @@ class ErrorsTest extends \Papaya\TestCase {
   public function testClear() {
     $errors = new Errors();
     $errors->clear();
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(),
-      '_errors',
-      $errors
+      iterator_to_array($errors)
     );
   }
 

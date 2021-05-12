@@ -68,7 +68,7 @@ class CliTest extends \Papaya\TestCase {
    */
   public function testGetOptionsFromType() {
     $dispatcher = new CLI();
-    $this->assertContains(
+    $this->assertStringContainsString(
       'Warning',
       $dispatcher->getLabelFromType(\Papaya\Message::SEVERITY_WARNING)
     );
@@ -79,7 +79,7 @@ class CliTest extends \Papaya\TestCase {
    */
   public function testGetOptionsFromTypeWithInvalidTypeExpectingErrorOptions() {
     $dispatcher = new CLI();
-    $this->assertContains(
+    $this->assertStringContainsString(
       'Error',
       $dispatcher->getLabelFromType(99999)
     );

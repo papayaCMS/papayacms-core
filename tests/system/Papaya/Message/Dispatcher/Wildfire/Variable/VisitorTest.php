@@ -48,10 +48,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitArrayWithEmptyArray() {
       $visitor = new Visitor(21, 42);
       $visitor->visitArray(array());
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -65,12 +64,11 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitArrayWithNestedArray() {
       $visitor = new Visitor(21, 42);
       $visitor->visitArray(array(array()));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           array()
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -82,12 +80,11 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitArrayWithNestedArrayReachingLimit() {
       $visitor = new Visitor(1, 42);
       $visitor->visitArray(array(array()));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           0 => '** Max Recursion Depth (1) **'
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -97,10 +94,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitBooleanWithTrue() {
       $visitor = new Visitor(21, 42);
       $visitor->visitBoolean(TRUE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         TRUE,
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -110,10 +106,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitBooleanWithFalse() {
       $visitor = new Visitor(21, 42);
       $visitor->visitBoolean(FALSE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         FALSE,
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -123,10 +118,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitInteger() {
       $visitor = new Visitor(21, 42);
       $visitor->visitInteger(3117);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         3117,
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -136,10 +130,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitFloat() {
       $visitor = new Visitor(21, 42);
       $visitor->visitFloat(31.17);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         31.17,
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -149,10 +142,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitNull() {
       $visitor = new Visitor(21, 42);
       $visitor->visitNull(NULL);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         NULL,
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -163,7 +155,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
       $visitor = new Visitor(21, 42);
       $sample = new VariableVisitor_SampleClass();
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           '__className' => 'Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleClass #1',
           'private:privateProperty' => 1,
@@ -171,8 +163,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
           'public:publicProperty' => 3,
           'public:recursion' => NULL
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -183,7 +174,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
       $visitor = new Visitor(21, 42);
       $sample = new VariableVisitor_SampleChildClass();
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           '__className' => 'Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleChildClass #1',
           'static:private:privateStaticProperty' => 5,
@@ -192,8 +183,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
           'protected:protectedProperty' => 2,
           'public:recursion' => NULL
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -205,7 +195,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
       $sample = new VariableVisitor_SampleClass();
       $sample->recursion = $sample;
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           '__className' => 'Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleClass #1',
           'private:privateProperty' => 1,
@@ -214,8 +204,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
           'public:recursion' =>
             '** Object Recursion (Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleClass #1) **'
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -227,7 +216,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
       $sample = new VariableVisitor_SampleClass();
       $sample->recursion = new VariableVisitor_SampleClass();
       $visitor->visitObject($sample);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           '__className' => 'Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleClass #1',
           'private:privateProperty' => 1,
@@ -236,8 +225,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
           'public:recursion' =>
             '** Max Recursion Depth (1) **'
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -250,7 +238,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
       $sample = new VariableVisitor_SampleClass();
       $objects = array($sample, $sample);
       $visitor->visitArray($objects);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           array(
             '__className' => 'Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleClass #1',
@@ -261,8 +249,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
           ),
           '** Object Duplication (Papaya\Message\Dispatcher\Wildfire\Variable\VariableVisitor_SampleClass #1) **'
         ),
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -275,7 +262,7 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
       $visitor->visitResource($resource);
       $this->assertRegExp(
         "(^\\*\\* Resource id #\d+ \*\*$)D",
-        $this->readAttribute($visitor, '_dump')
+        $visitor->getDump()
       );
       fclose($resource);
     }
@@ -286,10 +273,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitString() {
       $visitor = new Visitor(21, 42);
       $visitor->visitString('Sample');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'Sample',
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
 
@@ -299,10 +285,9 @@ namespace Papaya\Message\Dispatcher\Wildfire\Variable {
     public function testVisitLongString() {
       $visitor = new Visitor(21, 3);
       $visitor->visitString('Sample');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'Sam...(6)',
-        '_dump',
-        $visitor
+        $visitor->getDump()
       );
     }
   }

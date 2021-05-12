@@ -75,6 +75,10 @@ class Wrapper implements Application\Access {
     }
   }
 
+  public function getUrl(): Wrapper\URL {
+    return $this->_wrapperURL;
+  }
+
   /**
    * Get/Set the theme wrapper group object.
    *

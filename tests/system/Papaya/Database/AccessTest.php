@@ -252,9 +252,7 @@ class AccessTest extends \Papaya\TestCase {
       ->method('setDataModified');
     $access = $this->getFixtureDatabaseAccess($connector);
     $access->setDataModified();
-    $this->assertAttributeSame(
-      TRUE, '_dataModified', $access
-    );
+    $this->assertTrue($access->isDataModified());
   }
 
   /**

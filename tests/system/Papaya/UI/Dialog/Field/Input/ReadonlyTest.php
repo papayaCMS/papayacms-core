@@ -16,36 +16,11 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Input\Readonly
+ */
 class ReadonlyTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::__construct
-   */
-  public function testConstructor() {
-    $input = new Readonly('Caption', 'name');
-
-    $this->assertAttributeEquals(
-      'Caption', '_caption', $input
-    );
-    $this->assertAttributeEquals(
-      'name', '_name', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::__construct
-   */
-  public function testConstructorWithAllParameters() {
-    $input = new Readonly('Caption', 'name', 'default');
-
-    $this->assertAttributeEquals(
-      'default', '_defaultValue', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::appendTo
-   */
   public function testStandardAppendTo() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
@@ -65,9 +40,6 @@ class ReadonlyTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::appendTo
-   */
   public function testWithDefaultAppendTo() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
@@ -87,9 +59,6 @@ class ReadonlyTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Readonly::getCurrentValue
-   */
   public function testGetCurrentValue() {
     $input = new Readonly('Caption', 'name', 'default');
 

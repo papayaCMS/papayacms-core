@@ -33,7 +33,7 @@ class SelectTranslatedTest extends \Papaya\TestCase {
     $profile = new SelectTranslated();
     $profile->options($options);
     $this->assertInstanceOf(\Papaya\UI\Dialog\Field\Select::class, $field = $profile->getField());
-    $this->assertAttributeInstanceOf(\Papaya\UI\Text\Translated\Collection::class, '_values', $field);
+    $this->assertInstanceOf(\Papaya\UI\Text\Translated\Collection::class, $field->getValues());
   }
 
   /**

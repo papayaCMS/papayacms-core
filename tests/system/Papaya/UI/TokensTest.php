@@ -24,8 +24,8 @@ namespace Papaya\UI {
      */
     public function testConstructor() {
       $tokens = new Tokens();
-      $this->assertAttributeEquals(
-        200, '_maximum', $tokens
+      $this->assertEquals(
+        200, $tokens->getMaximum()
       );
     }
 
@@ -34,8 +34,8 @@ namespace Papaya\UI {
      */
     public function testConstructorWithMaximum() {
       $tokens = new Tokens(100);
-      $this->assertAttributeEquals(
-        100, '_maximum', $tokens
+      $this->assertEquals(
+        100,  $tokens->getMaximum()
       );
     }
 
@@ -280,10 +280,9 @@ namespace Papaya\UI {
         'sample_token_two' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e')
       );
       $tokens->cleanup();
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('sample_token_two' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e')),
-        '_tokens',
-        $tokens
+        iterator_to_array($tokens)
       );
     }
 
@@ -297,10 +296,9 @@ namespace Papaya\UI {
         'sample_token_two' => array(time() - 9999, 'd41d8cd98f00b204e9800998ecf8427e')
       );
       $tokens->cleanup();
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('sample_token_one' => array(NULL, 'd41d8cd98f00b204e9800998ecf8427e')),
-        '_tokens',
-        $tokens
+        iterator_to_array($tokens)
       );
     }
 

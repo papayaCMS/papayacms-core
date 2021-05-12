@@ -271,6 +271,10 @@ namespace Papaya\Database {
       }
     }
 
+    public function isDataModified(): bool {
+      return $this->_dataModified;
+    }
+
     public function debugNextQuery($counter = 1) {
       if ($connector = $this->getDatabaseConnector()) {
         $connector->debugNextQuery($counter);

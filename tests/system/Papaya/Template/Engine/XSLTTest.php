@@ -77,10 +77,9 @@ namespace Papaya\Template\Engine {
       $this->assertTrue(
         $engine->useCache(TRUE)
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         TRUE,
-        '_useCache',
-        $engine
+        $engine->useCache()
       );
     }
 
@@ -89,10 +88,9 @@ namespace Papaya\Template\Engine {
       $this->assertFalse(
         $engine->useCache(FALSE)
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         FALSE,
-        '_useCache',
-        $engine
+        $engine->useCache()
       );
     }
 
@@ -100,10 +98,9 @@ namespace Papaya\Template\Engine {
       $engine = new XSLT();
       $engine->setProcessor($this->getProcessorMock());
       $engine->useCache(TRUE);
-      $this->assertAttributeNotInstanceOf(
+      $this->assertNotInstanceOf(
         'XsltProcessor',
-        '_processor',
-        $engine
+        $engine->getProcessor()
       );
     }
 
@@ -111,10 +108,9 @@ namespace Papaya\Template\Engine {
       $engine = new XSLT();
       $engine->setProcessor($this->getProcessorMock('XsltCache'));
       $engine->useCache(FALSE);
-      $this->assertAttributeNotInstanceOf(
+      $this->assertNotInstanceOf(
         'XsltCache',
-        '_processor',
-        $engine
+        $engine->getProcessor()
       );
     }
 
@@ -122,10 +118,9 @@ namespace Papaya\Template\Engine {
       $processor = $this->getProcessorMock('XsltProcessor');
       $engine = new XSLT();
       $engine->setProcessor($processor);
-      $this->assertAttributeSame(
+      $this->assertSame(
         $processor,
-        '_processor',
-        $engine
+        $engine->getProcessor()
       );
     }
 
@@ -133,10 +128,9 @@ namespace Papaya\Template\Engine {
       $processor = $this->getProcessorMock('XsltCache');
       $engine = new XSLT();
       $engine->setProcessor($processor);
-      $this->assertAttributeSame(
+      $this->assertSame(
         $processor,
-        '_processor',
-        $engine
+        $engine->getProcessor()
       );
     }
 
@@ -180,10 +174,9 @@ namespace Papaya\Template\Engine {
       $errors = $this->createMock(XMLErrors::class);
       $engine = new XSLT();
       $engine->setErrorHandler($errors);
-      $this->assertAttributeSame(
+      $this->assertSame(
         $errors,
-        '_errorHandler',
-        $engine
+        $engine->getErrorHandler()
       );
     }
 

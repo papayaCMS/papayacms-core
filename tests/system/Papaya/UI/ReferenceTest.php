@@ -84,7 +84,7 @@ namespace Papaya\UI {
       );
       $this->assertSame(
         '/',
-        $this->readAttribute($reference, '_parameterGroupSeparator')
+        $reference->getParameterGroupSeparator()
       );
     }
 
@@ -324,7 +324,7 @@ namespace Papaya\UI {
           'test'
         )
       );
-      $parameters = $this->readAttribute($reference, '_parametersObject');
+      $parameters = $reference->getParameters();
       $this->assertEquals(
         [
           'test' => [
@@ -350,7 +350,7 @@ namespace Papaya\UI {
         ],
         'test'
       );
-      $parameters = $this->readAttribute($reference, '_parametersObject');
+      $parameters = $reference->getParameters();
       $this->assertEquals(
         [
           'test' => [
@@ -369,7 +369,7 @@ namespace Papaya\UI {
         new RequestParameters(['mode' => 'sample']),
         'test'
       );
-      $parameters = $this->readAttribute($reference, '_parametersObject');
+      $parameters = $reference->getParameters();
       $this->assertEquals(
         [
           'test' => [
@@ -389,7 +389,7 @@ namespace Papaya\UI {
           'test'
         )
       );
-      $parameters = $this->readAttribute($reference, '_parametersObject');
+      $parameters = $reference->getParameters();
       $this->assertSame(
         [],
         (array)$parameters
@@ -407,7 +407,7 @@ namespace Papaya\UI {
           ]
         )
       );
-      $parameters = $this->readAttribute($reference, '_parametersObject');
+      $parameters = $reference->getParameters();
       $this->assertEquals(
         [
           'cmd' => 'show',
@@ -493,7 +493,7 @@ namespace Papaya\UI {
       );
       $this->assertEquals(
         $expected,
-        $this->readAttribute($reference, '_basePath')
+        $reference->getBasePath()
       );
     }
 

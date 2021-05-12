@@ -16,22 +16,12 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Input\Number
+ */
 class NumberTest extends \Papaya\TestCase {
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number::__construct
-   */
-  public function testConstructSuccess() {
-    $input = new Number('Number', 'number', '123', TRUE, 2, 4);
-    $this->assertEquals('Number', $input->caption);
-    $this->assertEquals('number', $input->name);
-    $this->assertEquals('123', $input->defaultValue);
-    $this->assertTrue($input->mandatory);
-    $this->assertAttributeEquals(2, '_minimumLength', $input);
-    $this->assertAttributeEquals(4, '_maximumLength', $input);
-  }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number::__construct
    * @dataProvider constructFailureProvider
    * @param mixed $minimumLength
    * @param mixed $maximumLength
@@ -44,7 +34,6 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -57,7 +46,6 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -69,9 +57,6 @@ class NumberTest extends \Papaya\TestCase {
     $this->assertFalse($input->validate());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Number::getXML
-   */
   public function testGetXml() {
     $input = new Number('Number', 'number', '123', FALSE, 2, 4);
     $this->assertXmlStringEqualsXmlString(

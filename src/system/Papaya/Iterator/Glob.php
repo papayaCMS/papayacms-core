@@ -56,6 +56,10 @@ class Glob implements \IteratorAggregate, \Countable {
     $this->setFlags($flags);
   }
 
+  public function getPath(): string {
+    return $this->_path;
+  }
+
   /**
    * Set the flags
    *

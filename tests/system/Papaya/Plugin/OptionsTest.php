@@ -23,8 +23,8 @@ class OptionsTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $options = new Options('ab123456789012345678901234567890');
-    $this->assertAttributeEquals(
-      'ab123456789012345678901234567890', '_guid', $options
+    $this->assertEquals(
+      'ab123456789012345678901234567890', $options->getGUID()
     );
   }
 

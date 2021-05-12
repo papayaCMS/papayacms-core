@@ -28,17 +28,6 @@ namespace Papaya\Template {
    */
   class EngineTest extends TestCase {
 
-    public function testParametersSetter() {
-      $parameters = $this->createMock(OptionsCollection::class);
-      $engine = new Engine_TestProxy();
-      $engine->parameters($parameters);
-      $this->assertAttributeSame(
-        $parameters,
-        '_parameters',
-        $engine
-      );
-    }
-
     public function testParametersGetter() {
       $parameters = $this->createMock(OptionsCollection::class);
       $engine = new Engine_TestProxy();
@@ -69,23 +58,6 @@ namespace Papaya\Template {
       $engine = new Engine_TestProxy();
       $this->expectException(\InvalidArgumentException::class);
       $engine->parameters(23);
-    }
-
-    public function testLoadersSetter() {
-      $loaders = $this
-        ->getMockBuilder(Collection::class)
-        ->setConstructorArgs([Engine\Values\Loadable::class])
-        ->getMock();
-      $loaders
-        ->method('getItemClass')
-        ->willReturn(Engine\Values\Loadable::class);
-      $engine = new Engine_TestProxy();
-      $engine->loaders($loaders);
-      $this->assertAttributeSame(
-        $loaders,
-        '_loaders',
-        $engine
-      );
     }
 
     public function testLoadersSetterWithInvalidObjectList() {
@@ -186,8 +158,8 @@ namespace Papaya\Template {
         ->add($loaderFailure)
         ->add($loaderSuccess);
       $engine->values('DATA');
-      $this->assertAttributeSame(
-        $document, '_values', $engine
+      $this->assertSame(
+        $document, $engine->values()
       );
       $this->assertNull($engine->getContext());
     }
@@ -242,8 +214,8 @@ namespace Papaya\Template {
         ->willReturn(Engine\Values\Loadable::class);
       $engine = new Engine_TestProxy();
       $engine->loaders = $loaders;
-      $this->assertAttributeSame(
-        $loaders, '_loaders', $engine
+      $this->assertSame(
+        $loaders, $engine->loaders
       );
     }
 
@@ -260,8 +232,8 @@ namespace Papaya\Template {
       $parameters = $this->createMock(OptionsCollection::class);
       $engine = new Engine_TestProxy();
       $engine->parameters = $parameters;
-      $this->assertAttributeSame(
-        $parameters, '_parameters', $engine
+      $this->assertSame(
+        $parameters, $engine->parameters
       );
     }
 

@@ -370,6 +370,10 @@ class Paging extends Element {
     $this->_lastPage = NULL;
   }
 
+  public function isCalculated(): bool {
+    return $this->_lastPage !== NULL;
+  }
+
   /**
    * Calculate several internal limits for the button output.
    */

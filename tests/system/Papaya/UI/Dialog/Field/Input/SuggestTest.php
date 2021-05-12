@@ -16,58 +16,17 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Input\Suggest
+ */
 class SuggestTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::__construct
-   */
-  public function testConstructor() {
-    $input = new Suggest('Caption', 'name', 'www.example.com');
-    $suggestionData = array(
-      'url' => 'www.example.com',
-      'limit' => 10
-    );
-    $this->assertAttributeEquals(
-      'Caption', '_caption', $input
-    );
-    $this->assertAttributeEquals(
-      'name', '_name', $input
-    );
-    $this->assertAttributeEquals(
-      $suggestionData, '_suggestionData', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::__construct
-   */
-  public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new Suggest(
-      'Caption', 'name', 'www.example.com', '50670', $filter
-    );
-    $this->assertAttributeEquals(
-      '50670', '_defaultValue', $input
-    );
-    $this->assertAttributeSame(
-      $filter, '_filter', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::setType
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::getType
-   */
   public function testGetTypeAfterSetType() {
     $input = new Suggest('Caption', 'name', 'www.example.com');
     $input->setType('suggest');
     $this->assertEquals('suggest', $input->getType());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::setSuggestionURL
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::getSuggestionURL
-   */
   public function testGetSuggestionUrlAfterSetSuggestionUrl() {
     $url = 'www.example.com';
     $input = new Suggest('Caption', 'name', $url);
@@ -75,9 +34,6 @@ class SuggestTest extends \Papaya\TestCase {
     $this->assertEquals($url, $input->getSuggestionURL());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Suggest::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');

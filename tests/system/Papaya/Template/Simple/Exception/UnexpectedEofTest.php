@@ -25,8 +25,8 @@ class UnexpectedEofTest extends \Papaya\TestCase {
     $e = new UnexpectedEOF(
       array(\Papaya\Template\Simple\Scanner\Token::TEXT)
     );
-    $this->assertAttributeEquals(
-      array(\Papaya\Template\Simple\Scanner\Token::TEXT), 'expectedTokens', $e
+    $this->assertEquals(
+      array(\Papaya\Template\Simple\Scanner\Token::TEXT), $e->expectedTokens
     );
     $this->assertEquals(
       'Parse error: Unexpected end of file was found while one of TEXT was expected.',

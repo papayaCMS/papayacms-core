@@ -23,8 +23,8 @@ class QueryStringTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $query = new QueryString(':');
-    $this->assertAttributeEquals(
-      ':', '_separator', $query
+    $this->assertEquals(
+      ':', $query->getSeparator()
     );
   }
 
@@ -37,8 +37,8 @@ class QueryStringTest extends \Papaya\TestCase {
   public function testSetSeparator($separator, $expected) {
     $query = new QueryString();
     $query->setSeparator($separator);
-    $this->assertAttributeEquals(
-      $expected, '_separator', $query
+    $this->assertEquals(
+      $expected, $query->getSeparator()
     );
   }
 
@@ -63,20 +63,9 @@ class QueryStringTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Request\Parameters\QueryString::values
-   */
-  public function testValuesWrite() {
-    $query = new QueryString();
-    $parameters = new \Papaya\Request\Parameters();
-    $query->values($parameters);
-    $this->assertAttributeSame(
-      $parameters, '_values', $query
-    );
-  }
-
-  /**
    * @covers \Papaya\Request\Parameters\QueryString::values
    */
-  public function testValuesRead() {
+  public function testValuesWriteAndRead() {
     $query = new QueryString();
     $parameters = new \Papaya\Request\Parameters();
     $query->values($parameters);

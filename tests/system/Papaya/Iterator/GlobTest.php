@@ -24,7 +24,7 @@ class GlobTest extends \Papaya\TestCase {
   public function testConstructor() {
     $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
     $this->assertStringEndsWith(
-      '/TestDataGlob/*.*', $this->readAttribute($glob, '_path')
+      '/TestDataGlob/*.*', $glob->getPath()
     );
   }
 

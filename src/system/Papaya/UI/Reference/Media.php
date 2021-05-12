@@ -24,7 +24,7 @@ use Papaya\URL;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Media extends UI\Reference {
+class Media extends UI\Reference implements \IteratorAggregate {
   /**
    * Page identification data
    *
@@ -48,6 +48,10 @@ class Media extends UI\Reference {
    */
   public static function create(URL $url = NULL) {
     return new self($url);
+  }
+
+  public function getIterator(): \ArrayIterator {
+    return new \ArrayIterator($this->_pageData);
   }
 
   /**

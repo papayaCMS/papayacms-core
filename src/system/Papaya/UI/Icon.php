@@ -26,6 +26,7 @@ use Papaya\XML;
  * @property string $image
  * @property string|\Papaya\UI\Text $title
  * @property string|\Papaya\UI\Text $hint
+ * @property string|\Papaya\UI\Text $caption
  * @property bool $visible
  * @property array $actionParameters
  * @property Reference $reference

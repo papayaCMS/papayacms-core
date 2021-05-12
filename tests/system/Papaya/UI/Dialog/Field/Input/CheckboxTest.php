@@ -108,8 +108,8 @@ namespace Papaya\UI\Dialog\Field\Input {
     public function testSetValues() {
       $checkbox = new Checkbox('caption', 'name', TRUE);
       $checkbox->setValues('yes', 'no');
-      $this->assertAttributeEquals(
-        ['active' => 'yes', 'inactive' => 'no'], '_values', $checkbox
+      $this->assertEquals(
+        ['active' => 'yes', 'inactive' => 'no'], $checkbox->getValues()
       );
     }
 

@@ -66,6 +66,10 @@ class QueryString {
     }
   }
 
+  public function getSeparator(): string {
+    return $this->_separator;
+  }
+
   /**
    * Get/set the values object
    *

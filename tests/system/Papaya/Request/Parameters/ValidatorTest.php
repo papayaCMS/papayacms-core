@@ -38,14 +38,14 @@ class ValidatorTest extends \Papaya\TestCase {
   public function testConstructorWithArray() {
     $parameters = array('foo' => 'bar');
     $definitions = array(
-      array('example', 'default', new \Papaya\Filter\NotEmpty())
+      array('foo', 'default', new \Papaya\Filter\NotEmpty())
     );
     $validator = new Validator($definitions, $parameters);
     $this->assertEquals(
       array(
         'foo' => 'bar'
       ),
-      iterator_to_array($this->readAttribute($validator, '_parameters'))
+      iterator_to_array($validator)
     );
   }
 

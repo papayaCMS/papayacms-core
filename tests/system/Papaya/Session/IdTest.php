@@ -20,15 +20,6 @@ class IdTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Session\Id::__construct
-   */
-  public function testConstructor() {
-    $sid = new Id('sample');
-    $this->assertAttributeEquals(
-      'sample', '_name', $sid
-    );
-  }
-
-  /**
    * @covers \Papaya\Session\Id::getName
    */
   public function testGetName() {

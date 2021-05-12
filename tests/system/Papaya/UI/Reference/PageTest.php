@@ -74,7 +74,7 @@ namespace Papaya\UI\Reference {
           'preview' => TRUE,
           'preview_time' => 1800
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
     }
 
@@ -114,7 +114,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.42.html',
@@ -148,7 +148,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.42.html',
@@ -178,7 +178,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.42.0.html',
@@ -203,7 +203,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.html',
@@ -228,7 +228,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/sample.html',
@@ -267,7 +267,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.de.html',
@@ -306,7 +306,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.42.de.html',
@@ -336,7 +336,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertSame('pdf', $reference->getOutputMode());
       $this->assertSame(
@@ -362,7 +362,7 @@ namespace Papaya\UI\Reference {
           'preview' => TRUE,
           'preview_time' => 23
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.html.preview.23',
@@ -385,7 +385,7 @@ namespace Papaya\UI\Reference {
           'preview' => TRUE,
           'preview_time' => 23
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.html.preview.23',
@@ -408,7 +408,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.html',
@@ -433,7 +433,7 @@ namespace Papaya\UI\Reference {
           'preview' => FALSE,
           'preview_time' => 0
         ],
-        $this->readAttribute($reference, '_pageData')
+        iterator_to_array($reference)
       );
       $this->assertEquals(
         'http://www.sample.tld/index.html#sample',

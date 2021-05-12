@@ -59,6 +59,18 @@ class Xhgui
     $this->_serverId = (string)$serverId;
   }
 
+  public function getDatabase(): string {
+    return $this->_database;
+  }
+
+  public function getTableName(): string {
+    return $this->_tableName;
+  }
+
+  public function getServerID(): string {
+    return $this->_serverId;
+  }
+
   /**
    * Save the profiling data of a run into the database table
    *

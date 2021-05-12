@@ -24,8 +24,8 @@ class WrapperTest extends \Papaya\TestCase {
   public function testConstructorWithUrl() {
     $wrapperUrl = $this->createMock(Wrapper\URL::class);
     $wrapper = new Wrapper($wrapperUrl);
-    $this->assertAttributeSame(
-      $wrapperUrl, '_wrapperURL', $wrapper
+    $this->assertSame(
+      $wrapperUrl, $wrapper->getUrl()
     );
   }
 
@@ -34,8 +34,8 @@ class WrapperTest extends \Papaya\TestCase {
    */
   public function testConstructorWithoutUrl() {
     $wrapper = new Wrapper();
-    $this->assertAttributeInstanceOf(
-      Wrapper\URL::class, '_wrapperURL', $wrapper
+    $this->assertNotNull(
+      $wrapper->getUrl()
     );
   }
 
@@ -64,18 +64,6 @@ class WrapperTest extends \Papaya\TestCase {
     $wrapper->handler($handler);
     $this->assertInstanceOf(
       Wrapper\Group::class, $wrapper->group()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Theme\Wrapper::handler
-   */
-  public function testHandlerSetHandler() {
-    $handler = $this->createMock(Handler::class);
-    $wrapper = new Wrapper();
-    $wrapper->handler($handler);
-    $this->assertAttributeSame(
-      $handler, '_handler', $wrapper
     );
   }
 
@@ -142,18 +130,6 @@ class WrapperTest extends \Papaya\TestCase {
   public function testTemplateEngineGetWithoutSetExpectingNull() {
     $wrapper = new Wrapper();
     $this->assertNull($wrapper->templateEngine());
-  }
-
-  /**
-   * @covers \Papaya\Theme\Wrapper::cache
-   */
-  public function testCacheSetCache() {
-    $service = $this->createMock(\Papaya\Cache\Service::class);
-    $wrapper = new Wrapper();
-    $wrapper->cache($service);
-    $this->assertAttributeSame(
-      $service, '_cacheService', $wrapper
-    );
   }
 
   /**
@@ -413,7 +389,7 @@ class WrapperTest extends \Papaya\TestCase {
     $wrapper->papaya($this->getResponseApplicationFixture(array(), FALSE));
     $wrapper->handler($this->getThemeHandlerFixture());
     $response = $wrapper->getResponse();
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'Cache-Control' =>
           'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transform',
@@ -421,15 +397,14 @@ class WrapperTest extends \Papaya\TestCase {
         'Expires' => 'Thu, 19 Nov 1981 08:52:00 GMT',
         'Content-Type' => 'text/css; charset=UTF-8'
       ),
-      '_headers',
-      $response->headers()
+      iterator_to_array($response->headers())
     );
     $this->assertEquals(
       '.sample {}',
       (string)$response->content()
     );
-    $this->assertAttributeEquals(
-      200, '_status', $response
+    $this->assertEquals(
+      200, $response->getStatus()
     );
   }
 
@@ -445,7 +420,7 @@ class WrapperTest extends \Papaya\TestCase {
     $wrapper->papaya($this->getResponseApplicationFixture(array(), TRUE));
     $wrapper->handler($this->getThemeHandlerFixture());
     $response = $wrapper->getResponse();
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'Cache-Control' =>
           'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transform',
@@ -455,8 +430,7 @@ class WrapperTest extends \Papaya\TestCase {
         'Content-Encoding' => 'gzip',
         'Content-Type' => 'text/css; charset=UTF-8'
       ),
-      '_headers',
-      $response->headers()
+      iterator_to_array($response->headers())
     );
     /** @noinspection PhpComposerExtensionStubsInspection */
     $this->assertEquals(
@@ -603,8 +577,8 @@ class WrapperTest extends \Papaya\TestCase {
     $wrapper->handler($this->getThemeHandlerFixture());
     $wrapper->cache($cache);
     $response = $wrapper->getResponse();
-    $this->assertAttributeEquals(
-      304, '_status', $response
+    $this->assertEquals(
+      304, $response->getStatus()
     );
   }
 

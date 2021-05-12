@@ -26,14 +26,14 @@ class RecordTest extends \Papaya\TestCase {
     $dialog = new Record(
       'tablename', 'indexfield', array('datafield' => NULL)
     );
-    $this->assertAttributeEquals(
-      'tablename', '_table', $dialog
+    $this->assertEquals(
+      'tablename', $dialog->getTableName()
     );
-    $this->assertAttributeEquals(
-      'indexfield', '_identifierColumn', $dialog
+    $this->assertEquals(
+      'indexfield', $dialog->getIdentifierColumn()
     );
-    $this->assertAttributeEquals(
-      array('datafield' => NULL), '_columns', $dialog
+    $this->assertEquals(
+      array('datafield' => NULL), $dialog->getColumns()
     );
   }
 
@@ -49,11 +49,11 @@ class RecordTest extends \Papaya\TestCase {
     $this->assertEquals(
       NULL, $dialog->hiddenFields()->get('indexfield')
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_NONE, '_databaseAction', $dialog
+    $this->assertEquals(
+      Record::ACTION_NONE, $dialog->getDatabaseAction()
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_INSERT, '_databaseActionNext', $dialog
+    $this->assertEquals(
+      Record::ACTION_INSERT, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -110,11 +110,11 @@ class RecordTest extends \Papaya\TestCase {
     $this->assertEquals(
       42, $dialog->hiddenFields()->get('indexfield')
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_NONE, '_databaseAction', $dialog
+    $this->assertEquals(
+      Record::ACTION_NONE, $dialog->getDatabaseAction()
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_UPDATE, '_databaseActionNext', $dialog
+    $this->assertEquals(
+      Record::ACTION_UPDATE, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -142,11 +142,11 @@ class RecordTest extends \Papaya\TestCase {
     $this->assertEquals(
       'success', $dialog->hiddenFields()->get('indexfield')
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_INSERT, '_databaseAction', $dialog
+    $this->assertEquals(
+      Record::ACTION_INSERT, $dialog->getDatabaseAction()
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_UPDATE, '_databaseActionNext', $dialog
+    $this->assertEquals(
+      Record::ACTION_UPDATE, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -171,11 +171,11 @@ class RecordTest extends \Papaya\TestCase {
       ->will($this->returnValue(FALSE));
     $dialog->setDatabaseAccess($databaseAccess);
     $this->assertFalse($dialog->execute());
-    $this->assertAttributeEquals(
-      Record::ACTION_NONE, '_databaseAction', $dialog
+    $this->assertEquals(
+      Record::ACTION_NONE, $dialog->getDatabaseAction()
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_INSERT, '_databaseActionNext', $dialog
+    $this->assertEquals(
+      Record::ACTION_INSERT, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -222,11 +222,11 @@ class RecordTest extends \Papaya\TestCase {
     $this->assertEquals(
       42, $dialog->hiddenFields()->get('indexfield')
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_UPDATE, '_databaseAction', $dialog
+    $this->assertEquals(
+      Record::ACTION_UPDATE, $dialog->getDatabaseAction()
     );
-    $this->assertAttributeEquals(
-      Record::ACTION_UPDATE, '_databaseActionNext', $dialog
+    $this->assertEquals(
+      Record::ACTION_UPDATE, $dialog->getDatabaseActionNext()
     );
   }
 
@@ -255,8 +255,8 @@ class RecordTest extends \Papaya\TestCase {
   public function testSetPermissionCallback() {
     $dialog = new Record('tablename', 'indexfield', array());
     $dialog->setPermissionCallback(array($this, 'callbackPermissionFailed'));
-    $this->assertAttributeEquals(
-      array($this, 'callbackPermissionFailed'), '_callbackPermissions', $dialog
+    $this->assertEquals(
+      array($this, 'callbackPermissionFailed'), $dialog->getPermissionCallback()
     );
   }
 
@@ -308,19 +308,6 @@ class RecordTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Database\Record::setDatabaseAccess
-   */
-  public function testSetDatabaseAccess() {
-    $dialog = new Record('tablename', 'indexfield', array());
-    $databaseAccess = $this->mockPapaya()->databaseAccess();
-    $dialog->setDatabaseAccess($databaseAccess);
-    $this->assertAttributeSame(
-      $databaseAccess,
-      '_databaseAccessObject',
-      $dialog
-    );
-  }
-
-  /**
    * @covers \Papaya\UI\Dialog\Database\Record::getDatabaseAccess
    */
   public function testGetDatabaseAccess() {

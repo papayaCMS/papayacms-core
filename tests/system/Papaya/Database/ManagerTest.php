@@ -40,10 +40,9 @@ class ManagerTest extends \Papaya\TestCase {
     $manager = new Manager();
     $connector = new Connector('READ', 'WRITE');
     $manager->setConnector($connector);
-    $this->assertAttributeSame(
-      array("READ\nWRITE" => $connector),
-      '_connectors',
-      $manager
+    $this->assertSame(
+      $connector,
+      $manager->getConnector('READ', 'WRITE')
     );
   }
 

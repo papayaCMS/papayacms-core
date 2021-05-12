@@ -26,10 +26,9 @@ class ExceptionsTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
     $manager = $this->createMock(\Papaya\Message\Manager::class);
     $hook = new Exceptions($manager);
-    $this->assertAttributeSame(
+    $this->assertSame(
       $manager,
-      '_messageManager',
-      $hook
+      $hook->getMessageManager()
     );
   }
 

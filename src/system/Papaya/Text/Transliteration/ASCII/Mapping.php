@@ -45,6 +45,10 @@ class Mapping {
     );
   }
 
+  public function getMappingTables(): array {
+    return $this->_mappingTables;
+  }
+
   /**
    * Get a mapping for a given code point. The mapping can be language specific
    *

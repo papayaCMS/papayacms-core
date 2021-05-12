@@ -23,7 +23,7 @@ use Papaya\Utility;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Tokens implements Application\Access {
+class Tokens implements Application\Access, \IteratorAggregate {
   use Application\Access\Aggregation;
 
   /**
@@ -50,6 +50,14 @@ class Tokens implements Application\Access {
   public function __construct($maximum = 200) {
     Utility\Constraints::assertInteger($maximum);
     $this->_maximum = (int)$maximum;
+  }
+
+  public function getMaximum(): int {
+    return $this->_maximum;
+  }
+
+  public function getIterator(): \ArrayIterator {
+    return new \ArrayIterator($this->_tokens);
   }
 
   /**
@@ -101,7 +109,7 @@ class Tokens implements Application\Access {
     }
     $this->loadTokens();
     if (isset($this->_tokens[$token])) {
-      list($validUntil, $verification) = $this->_tokens[$token];
+      [$validUntil, $verification] = $this->_tokens[$token];
       if (NULL === $validUntil || $validUntil > \time()) {
         if ($verification === $this->getVerification($for)) {
           unset($this->_tokens[$token]);
@@ -121,7 +129,7 @@ class Tokens implements Application\Access {
    */
   protected function cleanup() {
     $now = \time();
-    foreach ($this->_tokens as $key => list($validUntil)) {
+    foreach ($this->_tokens as $key => [$validUntil]) {
       if (NULL !== $validUntil && $now > $validUntil) {
         unset($this->_tokens[$key]);
       }

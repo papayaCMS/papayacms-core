@@ -25,8 +25,8 @@ namespace Papaya\UI {
     public function testConstructor() {
       $owner = new \stdClass();
       $dialog = new Dialog($owner);
-      $this->assertAttributeSame(
-        $owner, '_owner', $dialog
+      $this->assertSame(
+        $owner, $dialog->getOwner()
       );
     }
 
@@ -40,18 +40,6 @@ namespace Papaya\UI {
       $dialog = new Dialog_TestProxy(new \stdClass());
       $dialog->parameterMethod($method);
       $this->assertEquals($expected, $dialog->getMethodString());
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::hiddenValues
-     */
-    public function testHiddenValuesSet() {
-      $values = $this->createMock(\Papaya\Request\Parameters::class);
-      $dialog = new Dialog(new \stdClass());
-      $dialog->hiddenValues($values);
-      $this->assertAttributeSame(
-        $values, '_hiddenValues', $dialog
-      );
     }
 
     /**
@@ -72,18 +60,6 @@ namespace Papaya\UI {
       $dialog = new Dialog(new \stdClass());
       $this->assertInstanceOf(
         \Papaya\Request\Parameters::class, $dialog->hiddenValues()
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::hiddenFields
-     */
-    public function testHiddenFieldsSet() {
-      $fields = $this->createMock(\Papaya\Request\Parameters::class);
-      $dialog = new Dialog(new \stdClass());
-      $dialog->hiddenFields($fields);
-      $this->assertAttributeSame(
-        $fields, '_hiddenFields', $dialog
       );
     }
 
@@ -114,8 +90,8 @@ namespace Papaya\UI {
     public function testActionSet() {
       $dialog = new Dialog(new \stdClass());
       $dialog->action('sample');
-      $this->assertAttributeEquals(
-        'sample', '_action', $dialog
+      $this->assertEquals(
+        'sample', $dialog->action()
       );
     }
 
@@ -137,18 +113,6 @@ namespace Papaya\UI {
       $dialog->papaya($this->mockPapaya()->application());
       $this->assertEquals(
         'http://www.test.tld/test.html', $dialog->action()
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::tokens
-     */
-    public function testTokensSet() {
-      $tokens = $this->createMock(Tokens::class);
-      $dialog = new Dialog(new \stdClass());
-      $dialog->tokens($tokens);
-      $this->assertAttributeSame(
-        $tokens, '_tokens', $dialog
       );
     }
 
@@ -221,18 +185,6 @@ namespace Papaya\UI {
       $dialog->parameterMethod($method);
       $this->assertEquals(
         $expected, (string)$dialog->getParameterName($name)
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::errors
-     */
-    public function testErrorsSet() {
-      $errors = $this->createMock(Dialog\Errors::class);
-      $dialog = new Dialog(new \stdClass());
-      $dialog->errors($errors);
-      $this->assertAttributeSame(
-        $errors, '_errors', $dialog
       );
     }
 
@@ -497,18 +449,6 @@ namespace Papaya\UI {
     /**
      * @covers \Papaya\UI\Dialog::options
      */
-    public function testOptionsSet() {
-      $dialog = new Dialog(new \stdClass());
-      $options = $this->createMock(Dialog\Options::class);
-      $dialog->options($options);
-      $this->assertAttributeSame(
-        $options, '_options', $dialog
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::options
-     */
     public function testOptionsGetAfterSet() {
       $dialog = new Dialog(new \stdClass());
       $options = $this->createMock(Dialog\Options::class);
@@ -523,8 +463,8 @@ namespace Papaya\UI {
     public function testCaptionSet() {
       $dialog = new Dialog(new \stdClass());
       $dialog->caption('success');
-      $this->assertAttributeEquals(
-        'success', '_caption', $dialog
+      $this->assertEquals(
+        'success', $dialog->caption
       );
     }
 
@@ -559,22 +499,6 @@ namespace Papaya\UI {
       );
       $this->assertSame(
         $application, $dialog->fields()->papaya()
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::fields
-     */
-    public function testFieldsSet() {
-      $dialog = new Dialog(new \stdClass());
-      $fields = $this->createMock(Dialog\Fields::class);
-      $fields
-        ->expects($this->once())
-        ->method('owner')
-        ->with($this->equalTo($dialog));
-      $dialog->fields($fields);
-      $this->assertAttributeSame(
-        $fields, '_fields', $dialog
       );
     }
 
@@ -625,22 +549,6 @@ namespace Papaya\UI {
     /**
      * @covers \Papaya\UI\Dialog::buttons
      */
-    public function testButtonsSet() {
-      $dialog = new Dialog(new \stdClass());
-      $buttons = $this->createMock(Dialog\Buttons::class);
-      $buttons
-        ->expects($this->once())
-        ->method('owner')
-        ->with($this->equalTo($dialog));
-      $dialog->buttons($buttons);
-      $this->assertAttributeSame(
-        $buttons, '_buttons', $dialog
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::buttons
-     */
     public function testButtonsGetAfterSet() {
       $dialog = new Dialog(new \stdClass());
       $buttons = $this->createMock(Dialog\Buttons::class);
@@ -671,18 +579,6 @@ namespace Papaya\UI {
       $dialog->hiddenFields()->merge(array('merge' => 'success'));
       $this->assertEquals(
         'success', $dialog->data()->get('merge')
-      );
-    }
-
-    /**
-     * @covers \Papaya\UI\Dialog::data
-     */
-    public function testDataSet() {
-      $dialog = new Dialog(new \stdClass());
-      $data = $this->createMock(\Papaya\Request\Parameters::class);
-      $dialog->data($data);
-      $this->assertAttributeSame(
-        $data, '_data', $dialog
       );
     }
 

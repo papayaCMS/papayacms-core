@@ -89,6 +89,10 @@ class Definition extends Content\Structure {
     }
   }
 
+  public function getProperties(): array {
+    return $this->_properties;
+  }
+
   public function __isset($name) {
     $identifier = Utility\Text\Identifier::toUnderscoreLower($name);
     return ('thumbnails' === $identifier || isset($this->_properties[$identifier]));

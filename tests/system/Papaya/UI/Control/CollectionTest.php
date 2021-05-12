@@ -249,8 +249,8 @@ namespace Papaya\UI\Control {
       $this->assertSame(
         $collection, $collection->add($itemTwo)
       );
-      $this->assertAttributeSame(
-        array($itemOne, $itemTwo), '_items', $collection
+      $this->assertSame(
+        array($itemOne, $itemTwo), iterator_to_array($collection)
       );
     }
 
@@ -300,8 +300,8 @@ namespace Papaya\UI\Control {
       $this->assertSame(
         $collection, $collection->set(0, $itemTwo)
       );
-      $this->assertAttributeSame(
-        array($itemTwo), '_items', $collection
+      $this->assertSame(
+        array($itemTwo), iterator_to_array($collection)
       );
     }
 
@@ -321,8 +321,8 @@ namespace Papaya\UI\Control {
       $this->assertSame(
         $collection, $collection->set(1, $itemReplace)
       );
-      $this->assertAttributeSame(
-        array($itemOne, $itemReplace, $itemTwo), '_items', $collection
+      $this->assertSame(
+        array($itemOne, $itemReplace, $itemTwo), iterator_to_array($collection)
       );
     }
 
@@ -393,8 +393,8 @@ namespace Papaya\UI\Control {
       $this->assertSame(
         $collection, $collection->insertBefore(0, $itemTwo)
       );
-      $this->assertAttributeSame(
-        array($itemTwo, $itemOne), '_items', $collection
+      $this->assertSame(
+        array($itemTwo, $itemOne), iterator_to_array($collection)
       );
     }
 
@@ -450,8 +450,8 @@ namespace Papaya\UI\Control {
       $collection->add($itemOne);
       $collection->add($itemTwo);
       $collection->remove(0);
-      $this->assertAttributeSame(
-        array($itemTwo), '_items', $collection
+      $this->assertSame(
+        array($itemTwo), iterator_to_array($collection)
       );
     }
 
@@ -557,8 +557,8 @@ namespace Papaya\UI\Control {
       $itemOne = $this->getMockItemFixture();
       $collection = new Collection();
       $collection[] = $itemOne;
-      $this->assertAttributeSame(
-        array($itemOne), '_items', $collection
+      $this->assertSame(
+        array($itemOne), iterator_to_array($collection)
       );
     }
 
@@ -571,8 +571,8 @@ namespace Papaya\UI\Control {
       $collection = new Collection();
       $collection->add($itemOne);
       $collection[0] = $itemTwo;
-      $this->assertAttributeSame(
-        array($itemTwo), '_items', $collection
+      $this->assertSame(
+        array($itemTwo), iterator_to_array($collection)
       );
     }
 
@@ -586,8 +586,8 @@ namespace Papaya\UI\Control {
       $collection->add($itemOne);
       $collection->add($itemTwo);
       unset($collection[0]);
-      $this->assertAttributeSame(
-        array($itemTwo), '_items', $collection
+      $this->assertSame(
+        array($itemTwo), iterator_to_array($collection)
       );
     }
 

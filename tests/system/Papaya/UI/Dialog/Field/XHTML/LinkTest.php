@@ -16,26 +16,17 @@
 namespace Papaya\UI\Dialog\Field\XHTML;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\XHTML\Link
+ */
 class LinkTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\XHTML\Link::__construct
-   */
-  public function testConstructor() {
-    $link = new Link('http://www.papaya-cms.com', 'PapayaCMS');
-    $this->assertAttributeEquals('http://www.papaya-cms.com', '_url', $link);
-    $this->assertAttributeEquals('PapayaCMS', '_urlCaption', $link);
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\XHTML\Link::appendTo
-   */
   public function testAppendTo() {
-    $link = new Link('http://www.papaya-cms.com', 'PapayaCMS');
+    $link = new Link('https://www.papaya-cms.com', 'PapayaCMS');
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<field class="DialogFieldXHTMLLink" error="no">
-        <xhtml><a href="http://www.papaya-cms.com">PapayaCMS</a></xhtml>
+        <xhtml><a href="https://www.papaya-cms.com">PapayaCMS</a></xhtml>
       </field>',
       $link->getXML()
     );

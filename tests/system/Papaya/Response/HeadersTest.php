@@ -52,8 +52,8 @@ class HeadersTest extends \Papaya\TestCase {
   public function testSet() {
     $headers = new Headers();
     $headers->set('X-sample', 'success');
-    $this->assertAttributeEquals(
-      array('X-Sample' => 'success'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Sample' => 'success'), iterator_to_array($headers)
     );
   }
 
@@ -65,8 +65,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-sample-1', 'success');
     $headers->set('x-Sample-2', 'success');
-    $this->assertAttributeEquals(
-      array('X-Sample-1' => 'success', 'X-Sample-2' => 'success'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Sample-1' => 'success', 'X-Sample-2' => 'success'), iterator_to_array($headers)
     );
   }
 
@@ -78,8 +78,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Sample', 'failed');
     $headers->set('x-sample', 'success');
-    $this->assertAttributeEquals(
-      array('X-Sample' => 'success'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Sample' => 'success'), iterator_to_array($headers)
     );
   }
 
@@ -91,8 +91,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Sample', 21);
     $headers->set('x-sample', 42, FALSE);
-    $this->assertAttributeEquals(
-      array('X-Sample' => array(21, 42)), '_headers', $headers
+    $this->assertEquals(
+      array('X-Sample' => array(21, 42)), iterator_to_array($headers)
     );
   }
 
@@ -105,8 +105,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers->set('X-Sample', 21);
     $headers->set('x-sample', 42, FALSE);
     $headers->set('x-sample', 23, FALSE);
-    $this->assertAttributeEquals(
-      array('X-Sample' => array(21, 42, 23)), '_headers', $headers
+    $this->assertEquals(
+      array('X-Sample' => array(21, 42, 23)), iterator_to_array($headers)
     );
   }
 
@@ -118,8 +118,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers->set('X-Sample', 'failed');
     $headers->remove('x-sample');
-    $this->assertAttributeEquals(
-      array(), '_headers', $headers
+    $this->assertEquals(
+      array(), iterator_to_array($headers)
     );
   }
 
@@ -129,8 +129,8 @@ class HeadersTest extends \Papaya\TestCase {
   public function testOffsetSet() {
     $headers = new Headers();
     $headers['X-Sample'] = 'success';
-    $this->assertAttributeEquals(
-      array('X-Sample' => 'success'), '_headers', $headers
+    $this->assertEquals(
+      array('X-Sample' => 'success'), iterator_to_array($headers)
     );
   }
 
@@ -151,8 +151,8 @@ class HeadersTest extends \Papaya\TestCase {
     $headers = new Headers();
     $headers['X-Sample'] = 'success';
     unset($headers['x-sample']);
-    $this->assertAttributeEquals(
-      array(), '_headers', $headers
+    $this->assertEquals(
+      array(), iterator_to_array($headers)
     );
   }
 

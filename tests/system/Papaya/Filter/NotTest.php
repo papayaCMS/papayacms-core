@@ -16,23 +16,11 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Not
+ */
 class NotTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\Not::__construct
-   */
-  public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
-    $filterMock = $this->createMock(\Papaya\Filter::class);
-    $filter = new Not($filterMock);
-    $this->assertAttributeInstanceOf(
-      \Papaya\Filter::class, '_filter', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\Not::validate
-   */
   public function testValidateExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);
@@ -46,9 +34,6 @@ class NotTest extends \Papaya\TestCase {
     $filter->validate(123);
   }
 
-  /**
-   * @covers \Papaya\Filter\Not::validate
-   */
   public function testValidateExpectingTrue() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);
@@ -61,9 +46,6 @@ class NotTest extends \Papaya\TestCase {
     $this->assertTrue($filter->validate('abc'));
   }
 
-  /**
-   * @covers \Papaya\Filter\Not::filter
-   */
   public function testFilter() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */
     $filterMock = $this->createMock(\Papaya\Filter::class);

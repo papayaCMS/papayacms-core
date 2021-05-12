@@ -26,8 +26,8 @@ namespace Papaya\UI\Dialog {
       $field = new Field_TestProxy();
       $field->collection($this->getCollectionMock());
       $field->setCaption('Test Caption');
-      $this->assertAttributeEquals(
-        'Test Caption', '_caption', $field
+      $this->assertEquals(
+        'Test Caption', $field->getCaption()
       );
     }
 
@@ -69,8 +69,8 @@ namespace Papaya\UI\Dialog {
       $field = new Field_TestProxy();
       $field->collection($this->getCollectionMock());
       $field->setHint('Test Hint');
-      $this->assertAttributeEquals(
-        'Test Hint', '_hint', $field
+      $this->assertEquals(
+        'Test Hint', $field->getHint()
       );
     }
 
@@ -134,8 +134,8 @@ namespace Papaya\UI\Dialog {
       $field = new Field_TestProxy();
       $field->collection($this->getCollectionMock());
       $field->setId('sample_id');
-      $this->assertAttributeEquals(
-        'sample_id', '_id', $field
+      $this->assertEquals(
+        'sample_id', $field->getId()
       );
     }
 
@@ -153,17 +153,6 @@ namespace Papaya\UI\Dialog {
 
     /**
      * @covers \Papaya\UI\Dialog\Field::setName
-     */
-    public function testSetName() {
-      $field = new Field_TestProxy();
-      $field->collection($this->getCollectionMock());
-      $field->setName('sample');
-      $this->assertAttributeEquals(
-        'sample', '_name', $field
-      );
-    }
-
-    /**
      * @covers \Papaya\UI\Dialog\Field::getName
      */
     public function testGetName() {
@@ -177,17 +166,6 @@ namespace Papaya\UI\Dialog {
 
     /**
      * @covers \Papaya\UI\Dialog\Field::setDefaultValue
-     */
-    public function testSetDefaultValue() {
-      $field = new Field_TestProxy();
-      $field->collection($this->getCollectionMock());
-      $field->setDefaultValue(42);
-      $this->assertAttributeEquals(
-        42, '_defaultValue', $field
-      );
-    }
-
-    /**
      * @covers \Papaya\UI\Dialog\Field::getDefaultValue
      */
     public function testGetDefaultValueAfterSetDefaultValue() {
@@ -201,19 +179,6 @@ namespace Papaya\UI\Dialog {
 
     /**
      * @covers \Papaya\UI\Dialog\Field::setFilter
-     */
-    public function testSetFilter() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
-      $filter = $this->createMock(\Papaya\Filter::class);
-      $field = new Field_TestProxy();
-      $field->collection($this->getCollectionMock());
-      $field->setFilter($filter);
-      $this->assertAttributeEquals(
-        $filter, '_filter', $field
-      );
-    }
-
-    /**
      * @covers \Papaya\UI\Dialog\Field::getFilter
      */
     public function testGetFilterWhileMandatoryTrue() {
@@ -359,9 +324,7 @@ namespace Papaya\UI\Dialog {
       $field = new Field_TestProxy();
       $field->collection($this->getCollectionMock($dialog));
       $field->handleValidationFailure($exception);
-      $this->assertAttributeSame(
-        FALSE, '_validationResult', $field
-      );
+      $this->assertFalse($field->validate());
     }
 
     /**

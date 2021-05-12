@@ -57,4 +57,8 @@ abstract class Button extends Element {
   public function setAlign($align) {
     $this->_align = (int)$align;
   }
+
+  public function getAlign(): int {
+    return $this->_align;
+  }
 }

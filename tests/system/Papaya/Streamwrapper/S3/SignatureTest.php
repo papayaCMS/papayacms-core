@@ -19,16 +19,6 @@ require_once __DIR__.'/../../../../bootstrap.php';
 class SignatureTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Streamwrapper\S3\Signature::__construct
-   */
-  public function testConstructor() {
-    $signature = new Signature(array(), 'GET', array('Date' => '42'));
-    $this->assertAttributeEquals(array(), '_resource', $signature);
-    $this->assertAttributeEquals('GET', '_method', $signature);
-    $this->assertAttributeEquals(array('Date' => '42'), '_headers', $signature);
-  }
-
-  /**
    * @covers \Papaya\Streamwrapper\S3\Signature
    * @dataProvider magicToStringDataProvider
    * @param array $resource

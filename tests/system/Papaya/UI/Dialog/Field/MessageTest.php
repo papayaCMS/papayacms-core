@@ -16,24 +16,11 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Message
+ */
 class MessageTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Message::__construct
-   */
-  public function testConstructor() {
-    $message = new Message(\Papaya\Message::SEVERITY_WARNING, 'Message');
-    $this->assertAttributeEquals(
-      'Message', '_text', $message
-    );
-    $this->assertAttributeEquals(
-      'status-dialog-warning', '_image', $message
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Message::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');

@@ -236,7 +236,7 @@ namespace Papaya\HTTP\Client {
         ->method('putConnection');
       $socket->setPool($pool);
       $this->assertTrue($socket->close());
-      $this->assertNull($this->readAttribute($socket, '_resource'));
+      $this->assertNull($socket->getResource());
     }
 
     public function testCloseWithOutstandingData() {
@@ -251,7 +251,7 @@ namespace Papaya\HTTP\Client {
         ->method('putConnection');
       $socket->setPool($pool);
       $this->assertTrue($socket->close());
-      $this->assertNull($this->readAttribute($socket, '_resource'));
+      $this->assertNull($socket->getResource());
       $this->assertEquals(4, ftell($ms));
     }
 
@@ -267,7 +267,7 @@ namespace Papaya\HTTP\Client {
         ->method('putConnection');
       $socket->setPool($pool);
       $this->assertTrue($socket->close());
-      $this->assertNull($this->readAttribute($socket, '_resource'));
+      $this->assertNull($socket->getResource());
     }
 
     public function testCloseWithChunked() {
@@ -282,7 +282,7 @@ namespace Papaya\HTTP\Client {
         ->method('putConnection');
       $socket->setPool($pool);
       $this->assertTrue($socket->close());
-      $this->assertNull($this->readAttribute($socket, '_resource'));
+      $this->assertNull($socket->getResource());
     }
 
     public function testCloseInvalid() {
@@ -303,7 +303,7 @@ namespace Papaya\HTTP\Client {
         ->method('putConnection');
       $socket->setPool($pool);
       $this->assertTrue($socket->close());
-      $this->assertNull($this->readAttribute($socket, '_resource'));
+      $this->assertNull($socket->getResource());
     }
 
     public function testGetPool() {
@@ -313,8 +313,8 @@ namespace Papaya\HTTP\Client {
 
     public function testSetPool() {
       $socket = new Socket();
-      $socket->setPool(new Socket\Pool);
-      $this->assertAttributeInstanceOf(Socket\Pool::class, '_pool', $socket);
+      $socket->setPool($pool =new Socket\Pool);
+      $this->assertSame($pool, $socket->getPool());
     }
 
     public function testSetKeepAliveWithInvalidType() {

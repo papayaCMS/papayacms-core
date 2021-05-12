@@ -32,7 +32,7 @@ class HandlerTest extends \Papaya\TestCase {
     $configuration = $this->getMockConfigurationObjectFixture();
     $service = new Handler($configuration);
     $service->initHTTPClient();
-    $this->assertInstanceOf(\Papaya\HTTP\Client::class, $this->readAttribute($service, '_client'));
+    $this->assertInstanceOf(\Papaya\HTTP\Client::class, $service->getHTTPClient());
   }
 
   public function testSetHTTPClient() {
@@ -113,21 +113,6 @@ class HandlerTest extends \Papaya\TestCase {
     $this->assertEquals(
       '',
       @$service->getSignatureData('http://')
-    );
-  }
-
-  public function testSetConfiguration() {
-    $configuration = $this->getMockConfigurationObjectFixture();
-    $service = new Handler($configuration);
-    $this->assertSame(
-      'sample_key_id', $this->readAttribute($service, '_storageAccessKeyId')
-    );
-    $this->assertSame(
-      array(
-        'inner' => 'EW[FZSi]SO'.str_repeat('6', 54),
-        'outer' => "/=1,09\x0379%".str_repeat('\\', 54)
-      ),
-      $this->readAttribute($service, '_storageAccessKey')
     );
   }
 

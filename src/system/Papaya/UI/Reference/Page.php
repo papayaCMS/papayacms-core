@@ -24,7 +24,7 @@ namespace Papaya\UI\Reference {
    * @package Papaya-Library
    * @subpackage UI
    */
-  class Page extends UI\Reference {
+  class Page extends UI\Reference implements \IteratorAggregate {
     /**
      * Page identification data
      *
@@ -41,6 +41,10 @@ namespace Papaya\UI\Reference {
     ];
 
     private $_pageReferences;
+
+    public function getIterator(): \ArrayIterator {
+      return new \ArrayIterator($this->_pageData);
+    }
 
     /**
      * Static create function to allow fluent calls.

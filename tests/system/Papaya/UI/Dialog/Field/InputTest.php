@@ -16,73 +16,17 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Input
+ */
 class InputTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::__construct
-   */
-  public function testConstructor() {
-    $input = new Input('Caption', 'name');
-    $this->assertAttributeEquals(
-      'Caption', '_caption', $input
-    );
-    $this->assertAttributeEquals(
-      'name', '_name', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::__construct
-   */
-  public function testConstructorWithAllParameters() {
-    $filter = $this->createMock(\Papaya\Filter::class);
-    $input = new Input('Caption', 'name', 42, '50670', $filter);
-    $this->assertAttributeEquals(
-      42, '_maximumLength', $input
-    );
-    $this->assertAttributeEquals(
-      '50670', '_defaultValue', $input
-    );
-    $this->assertAttributeSame(
-      $filter, '_filter', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::setMaximumLength
-   */
-  public function testSetMaximumLength() {
-    $input = new Input('Caption', 'name');
-    $input->setMaximumLength(42);
-    $this->assertAttributeEquals(
-      42, '_maximumLength', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::setMaximumLength
-   */
-  public function testSetMaximumLengthToZeroExpectingMinusOne() {
-    $input = new Input('Caption', 'name');
-    $input->setMaximumLength(0);
-    $this->assertAttributeEquals(
-      -1, '_maximumLength', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::setType
-   * @covers \Papaya\UI\Dialog\Field\Input::getType
-   */
   public function testGetTypeAfterSetType() {
     $input = new Input('Caption', 'name');
     $input->setType('email');
     $this->assertEquals('email', $input->getType());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
@@ -104,9 +48,6 @@ class InputTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::appendTo
-   */
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');
@@ -129,9 +70,6 @@ class InputTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input::appendTo
-   */
   public function testAppendToAffectedBySetType() {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('sample');

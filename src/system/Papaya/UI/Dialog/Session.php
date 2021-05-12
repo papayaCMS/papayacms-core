@@ -37,6 +37,10 @@ class Session extends UI\Dialog {
     $this->_sessionIdentifier = empty($sessionIdentifier) ? $this : $sessionIdentifier;
   }
 
+  public function getSessionIdentifier() {
+    return $this->_sessionIdentifier;
+  }
+
   /**
    * Execute the dialog, load and save the session value.
    *

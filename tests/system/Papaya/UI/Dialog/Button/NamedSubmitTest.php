@@ -16,36 +16,11 @@
 namespace Papaya\UI\Dialog\Button;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Button\NamedSubmit
+ */
 class NamedSubmitTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct
-   */
-  public function testConstructor() {
-    $button = new NamedSubmit('Test', 'name');
-    $this->assertAttributeEquals(
-      'name', '_name', $button
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::__construct
-   */
-  public function testConstructorWithAllParameters() {
-    $button = new NamedSubmit(
-      'Test', 'name', 'value', \Papaya\UI\Dialog\Button::ALIGN_LEFT
-    );
-    $this->assertAttributeEquals(
-      'value', '_value', $button
-    );
-    $this->assertAttributeEquals(
-      \Papaya\UI\Dialog\Button::ALIGN_LEFT, '_align', $button
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('test');
@@ -62,9 +37,6 @@ class NamedSubmitTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::appendTo
-   */
   public function testAppendToWithDialogParameterGroup() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
@@ -96,9 +68,6 @@ class NamedSubmitTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
-   */
   public function testCollectExpectingTrue() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
@@ -131,9 +100,6 @@ class NamedSubmitTest extends \Papaya\TestCase {
     $this->assertTrue($button->collect());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
-   */
   public function testCollectWithGroupExpectingTrue() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters
@@ -180,9 +146,6 @@ class NamedSubmitTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Button\NamedSubmit::collect
-   */
   public function testCollectExpectingFalse() {
     $parameters = $this->createMock(\Papaya\Request\Parameters::class);
     $parameters

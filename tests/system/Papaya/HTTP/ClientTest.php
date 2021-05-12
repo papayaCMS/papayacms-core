@@ -326,7 +326,7 @@ namespace Papaya\HTTP {
         'bar[foo2][2]' => '9'
       ];
       $client->addRequestData($data);
-      $this->assertEquals($expected, $this->readAttribute($client, '_requestData'));
+      $this->assertEquals($expected, $client->getRequestData());
     }
 
     public function testAddRequestFile() {
@@ -1027,21 +1027,17 @@ namespace Papaya\HTTP {
         [
           'Location' => 'http://www.redirected.tld'
         ],
-        $this->readAttribute($client, '_responseHeaders')->toArray()
+        $client->getResponseHeaders()->toArray()
       );
     }
 
     public function testReset() {
       $client = new Client('http://www.sample.tld/');
-      $originalData = $this->readAttribute($client, '_requestData');
+      $originalData = $client->getRequestData();
       $client->addRequestData('foo', 'bar');
       $client->setHeader('X-Foo', 'bar');
       $client->reset();
-      $this->assertNull($this->readAttribute($client, '_requestHeaders'));
-      $this->assertNull($this->readAttribute($client, '_responseHeaders'));
-      $this->assertEquals(
-        $originalData, $this->readAttribute($client, '_requestData')
-      );
+      $this->assertEquals($originalData, $client->getRequestData());
     }
   }
 }

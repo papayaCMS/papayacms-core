@@ -53,6 +53,10 @@ class Options extends Configuration implements Application\Access {
     $this->_guid = Utility\Text\Guid::toLower($guid);
   }
 
+  public function getGUID(): string {
+    return $this->_guid;
+  }
+
   /**
    * Set an value
    *

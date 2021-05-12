@@ -99,6 +99,10 @@ abstract class SubItem extends UI\Control\Collection\Item {
     $this->_actionParameters = $actionParameters;
   }
 
+  public function getActionParameters(): array {
+    return $this->_actionParameters;
+  }
+
   /**
    * @param XML\Element $parent
    * @return XML\Element

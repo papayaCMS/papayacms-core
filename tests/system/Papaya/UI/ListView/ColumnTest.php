@@ -16,35 +16,11 @@
 namespace Papaya\UI\ListView;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\ListView\Column
+ */
 class ColumnTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\ListView\Column::__construct
-   */
-  public function testConstructor() {
-    $column = new Column('test title');
-    $this->assertAttributeEquals(
-      'test title', '_caption', $column
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\ListView\Column::__construct
-   * @covers \Papaya\UI\ListView\Column::setAlign
-   */
-  public function testConstructorWithAllParameters() {
-    $column = new Column(
-      'test title', \Papaya\UI\Option\Align::CENTER
-    );
-    $this->assertAttributeEquals(
-      \Papaya\UI\Option\Align::CENTER, '_align', $column
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\ListView\Column::getAlign
-   * @covers \Papaya\UI\ListView\Column::setAlign
-   */
   public function testGetAlignAfterSetAlign() {
     $column = new Column('test title');
     $column->setAlign(\Papaya\UI\Option\Align::RIGHT);
@@ -53,9 +29,6 @@ class ColumnTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\ListView\Column::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendChild($document->createElement('sample'));

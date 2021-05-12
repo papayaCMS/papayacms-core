@@ -25,8 +25,8 @@ class URLTest extends \Papaya\TestCase {
   public function testConstructorWithUrl() {
     $requestUrl = $this->createMock(\Papaya\URL::class);
     $wrapperUrl = new URL($requestUrl);
-    $this->assertAttributeSame(
-      $requestUrl, '_requestURL', $wrapperUrl
+    $this->assertSame(
+      $requestUrl, $wrapperUrl->getRequestURL()
     );
   }
 
@@ -35,8 +35,8 @@ class URLTest extends \Papaya\TestCase {
    */
   public function testConstructorWithoutUrl() {
     $wrapperUrl = new URL();
-    $this->assertAttributeInstanceOf(
-      \Papaya\URL\Current::class, '_requestURL', $wrapperUrl
+    $this->assertInstanceOf(
+      \Papaya\URL\Current::class, $wrapperUrl->getRequestURL()
     );
   }
 
@@ -79,18 +79,6 @@ class URLTest extends \Papaya\TestCase {
       new \Papaya\URL('http://www.sample.tld/papaya-themes/theme/js')
     );
     $this->assertEquals(0, $wrapperUrl->getThemeSet());
-  }
-
-  /**
-   * @covers \Papaya\Theme\Wrapper\URL::parameters
-   */
-  public function testParametersSetParameters() {
-    $parameters = $this->createMock(\Papaya\Request\Parameters::class);
-    $wrapper = new URL(new \Papaya\URL('http://www.sample.tld'));
-    $wrapper->parameters($parameters);
-    $this->assertAttributeSame(
-      $parameters, '_parameters', $wrapper
-    );
   }
 
   /**

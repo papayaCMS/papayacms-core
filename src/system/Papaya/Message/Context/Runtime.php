@@ -167,4 +167,8 @@ class Runtime
   public static function setStartTime($startTime) {
     self::$_previousTime = self::$_startTime = NULL !== $startTime ? self::_prepareTimeValue($startTime) : NULL;
   }
+
+  public static function getStartTime(): float {
+    return self::$_startTime;
+  }
 }

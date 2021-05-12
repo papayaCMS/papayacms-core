@@ -94,10 +94,9 @@ namespace Papaya\Message {
       $context = $this->createMock(Context\Group::class);
       $message = new  PHPMessage_TestProxy();
       $message->setContext($context);
-      $this->assertAttributeSame(
+      $this->assertSame(
         $context,
-        '_context',
-        $message
+        $message->context()
       );
     }
   }

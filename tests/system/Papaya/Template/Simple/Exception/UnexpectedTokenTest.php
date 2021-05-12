@@ -28,11 +28,11 @@ class UnexpectedTokenTest extends \Papaya\TestCase {
     $e = new UnexpectedToken(
       $expectedToken, array(\Papaya\Template\Simple\Scanner\Token::VALUE_NAME)
     );
-    $this->assertAttributeEquals(
-      $expectedToken, 'encounteredToken', $e
+    $this->assertEquals(
+      $expectedToken, $e->encounteredToken
     );
-    $this->assertAttributeEquals(
-      array(\Papaya\Template\Simple\Scanner\Token::VALUE_NAME), 'expectedTokens', $e
+    $this->assertEquals(
+      array(\Papaya\Template\Simple\Scanner\Token::VALUE_NAME), $e->expectedTokens
     );
     $this->assertEquals(
       'Parse error: Found TEXT@42: "sample" while one of VALUE_NAME was expected.',

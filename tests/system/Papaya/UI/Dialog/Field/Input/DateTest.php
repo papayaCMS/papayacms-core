@@ -16,25 +16,11 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Input\Date
+ */
 class DateTest extends \Papaya\TestCase {
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Date::__construct
-   */
-  public function testConstructor() {
-    $input = new Date(
-      'Date', 'date', '2011-01-01 18:00', TRUE, \Papaya\Filter\Date::DATE_OPTIONAL_TIME, 300.0
-    );
-    $this->assertEquals('Date', $input->caption);
-    $this->assertEquals('date', $input->name);
-    $this->assertEquals('2011-01-01 18:00', $input->defaultValue);
-    $this->assertTrue($input->mandatory);
-    $this->assertAttributeEquals(\Papaya\Filter\Date::DATE_OPTIONAL_TIME, '_includeTime', $input);
-    $this->assertAttributeEquals(300.0, '_step', $input);
-  }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Date::__construct
-   */
   public function testConstructorWithInvalidIncludeTimeOption() {
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage(
@@ -45,9 +31,6 @@ class DateTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Date::__construct
-   */
   public function testConstructorWithInvalidStep() {
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must be greater than 0.');
@@ -57,7 +40,6 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Date
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -72,7 +54,6 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Date
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -86,9 +67,6 @@ class DateTest extends \Papaya\TestCase {
     $this->assertFalse($input->validate());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Date::getXML
-   */
   public function testGetXml() {
     $input = new Date('Date', 'date');
     $input->papaya($this->mockPapaya()->application());

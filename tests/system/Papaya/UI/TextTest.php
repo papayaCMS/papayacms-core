@@ -27,11 +27,11 @@ namespace Papaya\UI {
 
     public function testConstructor() {
       $string = new Text('Hello %s!', ['World']);
-      $this->assertAttributeEquals(
-        'Hello %s!', '_pattern', $string
+      $this->assertEquals(
+        'Hello %s!', $string->getPattern()
       );
-      $this->assertAttributeEquals(
-        ['World'], '_values', $string
+      $this->assertEquals(
+        ['World'], $string->getValues()
       );
     }
 
@@ -42,21 +42,21 @@ namespace Papaya\UI {
         ->willReturn('Hello %s!');
 
       $string = new Text($pattern, ['World']);
-      $this->assertAttributeEquals(
-        'Hello %s!', '_pattern', $string
+      $this->assertEquals(
+        'Hello %s!', $string->getPattern()
       );
-      $this->assertAttributeEquals(
-        ['World'], '_values', $string
+      $this->assertEquals(
+        ['World'], $string->getValues()
       );
     }
 
     public function testConstructorWithPatternOnly() {
       $string = new Text('Hello World!');
-      $this->assertAttributeEquals(
-        'Hello World!', '_pattern', $string
+      $this->assertEquals(
+        'Hello World!', $string->getPattern()
       );
-      $this->assertAttributeEquals(
-        [], '_values', $string
+      $this->assertEquals(
+        [], $string->getValues()
       );
     }
 

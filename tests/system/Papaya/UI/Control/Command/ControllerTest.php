@@ -23,11 +23,11 @@ class ControllerTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $controller = new Controller('group/sample', 'default');
-    $this->assertAttributeEquals(
-      new \Papaya\Request\Parameters\Name(array('group', 'sample')), '_parameterName', $controller
+    $this->assertEquals(
+      new \Papaya\Request\Parameters\Name(array('group', 'sample')), $controller->getParameterName()
     );
-    $this->assertAttributeEquals(
-      'default', '_defaultCommand', $controller
+    $this->assertEquals(
+      'default', $controller->getDefaultCommand()
     );
   }
 

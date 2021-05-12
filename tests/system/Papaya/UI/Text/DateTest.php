@@ -16,21 +16,11 @@
 namespace Papaya\UI\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Text\Date
+ */
 class DateTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Text\Date::__construct
-   */
-  public function testConstructor() {
-    $string = new Date(strtotime('2011-08-25 16:00:00'));
-    $this->assertAttributeEquals(
-      strtotime('2011-08-25 16:00:00'), '_timestamp', $string
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Text\Date::__toString
-   */
   public function testMagicMethodToString() {
     $string = new Date(strtotime('2011-08-25 16:00:00'));
     $this->assertEquals(
@@ -38,9 +28,6 @@ class DateTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Text\Date::__toString
-   */
   public function testMagicMethodToStringWithTime() {
     $string = new Date(
       strtotime('2011-08-25 16:00:00'),
@@ -51,9 +38,6 @@ class DateTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Text\Date::__toString
-   */
   public function testMagicMethodToStringWithTimeAndSeconds() {
     $string = new Date(
       strtotime('2011-08-25 16:00:00'),
@@ -64,9 +48,6 @@ class DateTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Text\Date::__toString
-   */
   public function testMagicMethodToStringWithSecondsExpectingDateOnly() {
     $string = new Date(
       strtotime('2011-08-25 16:00:00'),

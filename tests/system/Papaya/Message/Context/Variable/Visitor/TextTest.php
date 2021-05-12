@@ -257,7 +257,7 @@ namespace Papaya\Message\Context\Variable\Visitor {
       $visitor->visitResource($resource);
       $this->assertRegExp(
         "(^resource\(#\d+\)$)D",
-        $this->readAttribute($visitor, '_variableString')
+        (string)$visitor
       );
       fclose($resource);
     }
