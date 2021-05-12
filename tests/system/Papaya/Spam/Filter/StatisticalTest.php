@@ -124,7 +124,7 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testGetProbabilityIsBalanced() {
     $filter = new Statistical();
     $filter->setReference($this->getSpamReferenceMock());
-    $this->assertEqualsWithDelta(0.5, $filter->getProbability('download'), '', 0.00001);
+    $this->assertEqualsWithDelta(0.5, $filter->getProbability('download'), 0.00001);
   }
 
   /**
@@ -133,7 +133,7 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testGetProbabilityIsUnknown() {
     $filter = new Statistical();
     $filter->setReference($this->getSpamReferenceMock());
-    $this->assertEqualsWithDelta(0.5, $filter->getProbability('unknown'), '', 0.00001);
+    $this->assertEqualsWithDelta(0.5, $filter->getProbability('unknown'),  0.00001);
   }
 
   /**
@@ -179,7 +179,6 @@ class StatisticalTest extends \Papaya\TestCase {
       $filter->classify(
         '', array('papaya' => 1, 'casino' => 1, 'download' => 1, 'unknown' => 1), 1
       ),
-      '',
       0.00001
     );
   }
@@ -204,7 +203,7 @@ class StatisticalTest extends \Papaya\TestCase {
     $filter->setRelevanceLimit($relevanceLimit);
     $filter->setTokenLimit($tokenLimit);
     $this->assertEqualsWithDelta(
-      $expected, $filter->classify('', $tokens, 1), '', 0.00001
+      $expected, $filter->classify('', $tokens, 1), 0.00001
     );
     $this->assertEquals(
       $report, $filter->getDetails()
