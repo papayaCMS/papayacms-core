@@ -135,7 +135,8 @@ class base_mediadb_mimetypes extends base_db {
     $result = array();
     $groupCondition = $this->databaseGetSQLCondition('mimegroup_id', $groupId);
     $sql = "SELECT mimetype_id, mimetype, mimetype_icon, mimetype_ext, mimegroup_id,
-                   range_support, shaping, shaping_limit, shaping_offset
+                   range_support, shaping, shaping_limit, shaping_offset,
+                   download_octet_stream
               FROM %s
              WHERE $groupCondition
              ORDER BY mimetype ASC
@@ -188,7 +189,8 @@ class base_mediadb_mimetypes extends base_db {
       }
 
       $sql = "SELECT mimetype_id, mimetype, mimetype_icon, mimetype_ext, mimegroup_id,
-                     range_support, shaping, shaping_limit, shaping_offset
+                     range_support, shaping, shaping_limit, shaping_offset,
+                     download_octet_stream
                 FROM %s
               WHERE $condition
                  $idsCondition

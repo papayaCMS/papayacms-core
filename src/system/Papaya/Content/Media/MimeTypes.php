@@ -28,7 +28,8 @@ namespace Papaya\Content\Media {
       'supports_ranges' => 'range_support',
       'enable_shaping' => 'shaping',
       'shaping_limit' => 'shaping_limit',
-      'shaping_offset' => 'shaping_offset'
+      'shaping_offset' => 'shaping_offset',
+      'download_octet_stream' => 'download_octet_stream'
     ];
 
     protected $_tableName = \Papaya\Content\Tables::MEDIA_MIMETYPES;

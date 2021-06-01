@@ -130,16 +130,19 @@ namespace Papaya\Administration\Media\MimeTypes\Editor\Commands {
       );
       $dialog->fields[] = $group = new DialogFieldGroup(new TranslatedText('Delivery Options'));
       $group->fields[] = $field = new RadioGroupField(
+        new TranslatedText('Use octet-stream for download'),
+        'download_octet_stream',
+        new TranslatedList([TRUE => 'Yes', FALSE => 'No'])
+      );
+      $group->fields[] = $field = new RadioGroupField(
         new TranslatedText('Supports Range Headers'),
         'supports_ranges',
-        new TranslatedList([TRUE => 'Yes', FALSE => 'No']
-        )
+        new TranslatedList([TRUE => 'Yes', FALSE => 'No'])
       );
       $group->fields[] = $field = new RadioGroupField(
         new TranslatedText('Enable Bandwidth Limiter'),
         'enable_shaping',
-        new TranslatedList([TRUE => 'Yes', FALSE => 'No']
-        )
+        new TranslatedList([TRUE => 'Yes', FALSE => 'No'])
       );
       $dialog->fields[] = $field = new InputField\MappedValue(
         new TranslatedText('Bandwidth Limit (per second)'),

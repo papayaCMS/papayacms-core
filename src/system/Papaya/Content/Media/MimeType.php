@@ -30,6 +30,7 @@ namespace Papaya\Content\Media {
    * @property int $enableShaping
    * @property int $shapingLimit
    * @property int $shapingOffset
+   * @property int $downloadOctetStream
    */
   class MimeType extends LazyDatabaseRecord {
 
@@ -42,7 +43,8 @@ namespace Papaya\Content\Media {
       'supports_ranges' => 'range_support',
       'enable_shaping' => 'shaping',
       'shaping_limit' => 'shaping_limit',
-      'shaping_offset' => 'shaping_offset'
+      'shaping_offset' => 'shaping_offset',
+      'download_octet_stream' => 'download_octet_stream'
     ];
 
     protected $_tableName = ContentTables::MEDIA_MIMETYPES;

@@ -154,7 +154,8 @@ class base_mediadb extends base_db {
                      f.file_source, f.file_source_url, f.file_keywords,
                      f.current_version_id,
                      m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext, m.mimegroup_id,
-                     m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                     m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
                 FROM %s f
                 LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
               WHERE $fileCondition
@@ -240,7 +241,8 @@ class base_mediadb extends base_db {
                    fv.version_id, fv.width, fv.height, fv.metadata, fv.surfer_id,
                    fv.file_source, fv.file_source_url, fv.file_keywords,
                    m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
               FROM %s f
               LEFT OUTER JOIN %s fv ON (f.file_id = fv.file_id)
               LEFT OUTER JOIN %s m ON (fv.mimetype_id = m.mimetype_id)
@@ -381,7 +383,8 @@ class base_mediadb extends base_db {
                    f.file_source, f.file_source_url,
                    f.width, f.height,
                    m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
               FROM %s f
               LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
              WHERE $folderCondition
@@ -451,7 +454,8 @@ class base_mediadb extends base_db {
                    f.file_source, f.file_source_url,
                    ft.file_title, ft.file_description,
                    m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
               FROM %s f
               LEFT OUTER JOIN %s ft ON (ft.file_id = f.file_id AND ft.lng_id = '%d')
               LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
@@ -489,7 +493,8 @@ class base_mediadb extends base_db {
                      f.file_source, f.file_source_url,
                      ft.file_title, ft.file_description,
                      m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                     m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                     m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
                 FROM %s f
                 LEFT OUTER JOIN %s ft ON (ft.file_id = f.file_id AND ft.lng_id = '%d')
                 LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
@@ -528,7 +533,8 @@ class base_mediadb extends base_db {
                     f.file_sort, f.current_version_id, f.surfer_id,
                     f.file_source, f.file_source_url,
                     m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                    m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                    m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
                 FROM %s f
                 LEFT OUTER JOIN %s m ON (f.mimetype_id = m.mimetype_id)
               WHERE $surferCondition
@@ -642,7 +648,8 @@ class base_mediadb extends base_db {
                     f.file_sort, f.current_version_id, f.surfer_id,
                     f.file_source, f.file_source_url,
                     m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                    m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                    m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
                 FROM %s f
                INNER JOIN %s tl ON tl.link_type = 'media'
                                AND $tagCondition
@@ -789,7 +796,8 @@ class base_mediadb extends base_db {
                    f.width, f.height,
                    f.file_sort, f.current_version_id, f.surfer_id, f.file_source, f.file_source_url,
                    m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
               FROM %s f, %s m
              WHERE f.mimetype_id = m.mimetype_id
                    $conditionString
@@ -826,7 +834,8 @@ class base_mediadb extends base_db {
                    f.file_sort, f.current_version_id, f.surfer_id, f.file_source, f.file_source_url,
                    ft.file_title, ft.file_description,
                    m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                   m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
               FROM %s f
              INNER JOIN %s m ON f.mimetype_id = m.mimetype_id
               LEFT OUTER JOIN %s ft ON (f.file_id = ft.file_id AND ft.lng_id = %d)
@@ -868,7 +877,8 @@ class base_mediadb extends base_db {
                      fv.file_source, fv.file_source_url,
                      f.file_sort, f.current_version_id, f.surfer_id,
                      m.mimetype_id, m.mimetype, m.mimetype_icon, m.mimetype_ext,
-                     m.range_support, m.shaping, m.shaping_limit, m.shaping_offset
+                     m.range_support, m.shaping, m.shaping_limit, m.shaping_offset,
+                     m.download_octet_stream
                 FROM %s fv, %s m, %s f
                WHERE fv.file_id = '%s'
                  AND fv.mimetype_id = m.mimetype_id

@@ -180,12 +180,16 @@ class papaya_file_delivery {
       papaya_file_delivery::_outputTimeHeaders($localFileName, $data);
 
       if ($forceDownload) {
-        // get user agent
-        $agent = papaya_file_delivery::_getUserAgent();
-        // set download mime type header
-        $mimeType = ($agent == 'IE' || $agent == 'OPERA') ?
-          'application/octetstream' : 'application/octet-stream';
-        // send a nice filename to the client
+        if ($data['download_octet_stream'] || empty($data['mimetype'])) {
+          // get user agent
+          $agent = papaya_file_delivery::_getUserAgent();
+          // set download mime type header
+          $mimeType = ($agent == 'IE' || $agent == 'OPERA') ?
+            'application/octetstream' : 'application/octet-stream';
+          // send a nice filename to the client
+        } else {
+          $mimeType = $data['mimetype'];
+        }
         header(
           'Content-Disposition: attachment; filename="'.
           papaya_file_delivery::_escapeFileName($data['file_name']).'"'

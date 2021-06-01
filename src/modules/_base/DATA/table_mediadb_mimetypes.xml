@@ -9,7 +9,8 @@
 <field name="range_support" type="integer" size="2"  null="no"/>
 <field name="shaping" type="integer" size="4"  null="no"/>
 <field name="shaping_limit" type="integer" size="4"  null="no"/>
-<field name="shaping_offset" type="integer" size="4"  null="no"/>
+  <field name="shaping_offset" type="integer" size="4"  null="no"/>
+  <field name="download_octet_stream" type="integer" size="4"  null="no"/>
 </fields>
 <keys>
 <primary-key>
