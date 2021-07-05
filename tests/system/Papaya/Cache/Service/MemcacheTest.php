@@ -15,10 +15,21 @@
 
 namespace Papaya\Cache\Service {
 
+  use PHPUnit\Runner\Version as PHPUnitVersion;
+
   require_once __DIR__.'/../../../../bootstrap.php';
   require_once __DIR__.'/TestData/MemcacheClasses.php';
 
   class MemcacheTest extends \Papaya\TestCase {
+
+    public function setUp(): void {
+      if (
+        PHP_VERSION_ID >= 80000 &&
+        version_compare(PHPUnitVersion::id(), '9.0.0', '<')
+       ) {
+        $this->markTestSkipped("PHPUnit <= 8 doesn't support mocking memcache(d).");
+      }
+    }
 
     /**
      * @covers \Papaya\Cache\Service\Memcache
