@@ -73,6 +73,10 @@ class Errors
     $this->_exceptionHook = $exceptionHook;
   }
 
+  public function getMessageManager(): Message\Manager {
+    return $this->_messageManager;
+  }
+
   /**
    * Activate hook, override current error handler. E_STRICT errors are not handled because
    * we still have a lot of php 4 source.

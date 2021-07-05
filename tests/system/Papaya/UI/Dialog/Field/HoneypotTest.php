@@ -16,24 +16,11 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Honeypot
+ */
 class HoneypotTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Honeypot::__construct
-   */
-  public function testConstructor() {
-    $input = new Honeypot('Caption', 'name');
-    $this->assertAttributeEquals(
-      'Caption', '_caption', $input
-    );
-    $this->assertAttributeEquals(
-      'name', '_name', $input
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Honeypot::setFilter
-   */
   public function testSetFilterExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */
     $filter = $this->createMock(\Papaya\Filter::class);
@@ -42,18 +29,12 @@ class HoneypotTest extends \Papaya\TestCase {
     $input->setFilter($filter);
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Honeypot::setMandatory
-   */
   public function testSetMandatoryExpectingException() {
     $input = new Honeypot('Caption', 'name');
     $this->expectException(\LogicException::class);
     $input->setMandatory(FALSE);
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Honeypot
-   */
   public function testAppendTo() {
     $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
@@ -100,9 +81,6 @@ class HoneypotTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Honeypot
-   */
   public function testAppendToExpectingError() {
     $dialog = $this->createMock(\Papaya\UI\Dialog::class);
     $dialog
@@ -149,10 +127,6 @@ class HoneypotTest extends \Papaya\TestCase {
     );
   }
 
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Honeypot
-   */
   public function testAppendToWithoutCollection() {
     $input = new Honeypot('Caption', 'name');
     $this->assertXmlStringEqualsXmlString(

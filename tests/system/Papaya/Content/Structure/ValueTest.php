@@ -29,7 +29,7 @@ class ValueTest extends \Papaya\TestCase {
       ->disableOriginalConstructor()
       ->getMock();
     $value = new Value($group);
-    $this->assertAttributeSame($group, '_group', $value);
+    $this->assertSame($group, $value->getGroup());
   }
 
   /**

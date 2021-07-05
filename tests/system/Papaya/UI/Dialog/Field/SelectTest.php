@@ -16,47 +16,20 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Select
+ */
 class SelectTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::__construct
-   * @covers \Papaya\UI\Dialog\Field\Select::setValues
-   * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
-   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-   */
-  public function testConstructor() {
-    $select = new Select(
-      'Caption', 'name', array(21 => 'half', 42 => 'full')
-    );
-    $this->assertEquals('Caption', $select->getCaption());
-    $this->assertEquals('name', $select->getName());
-    $this->assertAttributeEquals(
-      array(21 => 'half', 42 => 'full'), '_values', $select
-    );
-    $this->assertEquals(
-      new \Papaya\Filter\ArrayKey(array(21 => 'half', 42 => 'full')), $select->getFilter()
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::__construct
-   * @covers \Papaya\UI\Dialog\Field\Select::setValues
-   * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
-   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-   */
   public function testConstructorWithTraversable() {
     $select = new Select(
       'Caption', 'name', $iterator = new \ArrayIterator(array(21 => 'half', 42 => 'full'))
     );
-    $this->assertAttributeSame(
-      $iterator, '_values', $select
+    $this->assertSame(
+      iterator_to_array($iterator), iterator_to_array($select->getValues())
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::setValues
-   * @covers \Papaya\UI\Dialog\Field\Select::getValues
-   */
   public function testGetValuesAfterSetValues() {
     $select = new Select(
       'Caption', 'name', array()
@@ -65,10 +38,6 @@ class SelectTest extends \Papaya\TestCase {
     $this->assertEquals(array(21 => 'half', 42 => 'full'), $select->getValues());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::setValueMode
-   * @covers \Papaya\UI\Dialog\Field\Select::getValueMode
-   */
   public function testGetValueModeAfterSetValueMode() {
     $select = new Select(
       'Caption', 'name', array()
@@ -77,12 +46,6 @@ class SelectTest extends \Papaya\TestCase {
     $this->assertEquals(Select::VALUE_USE_CAPTION, $select->getValueMode());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   */
   public function testAppendTo() {
     $select = new Select(
       'Caption', 'name', array(21 => 'half', 42 => 'full')
@@ -103,12 +66,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   */
   public function testAppendToWithEmptyValue() {
     $select = new Select(
       'Caption', 'name', array('' => 'empty', 'some' => 'filled')
@@ -129,13 +86,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-   */
   public function testAppendToUsingCaptionsAsOptionValues() {
     $select = new Select(
       'Caption',
@@ -160,12 +110,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   */
   public function testAppendToWithIterator() {
     $select = new Select(
       'Caption', 'name', new \ArrayIterator(array(21 => 'half', 42 => 'full'))
@@ -186,14 +130,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptionGroup
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   * @covers \Papaya\UI\Dialog\Field\Select::_createFilter
-   */
   public function testAppendToWithRecursiveIterator() {
     $select = new Select(
       'Caption',
@@ -223,13 +159,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   * @covers \Papaya\UI\Dialog\Field\Select::_isOptionSelected
-   */
   public function testAppendToWithDefaultValue() {
     $dialog = $this
       ->getMockBuilder(\Papaya\UI\Dialog::class)
@@ -267,12 +196,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   */
   public function testAppendToWithOptionCaptionCallback() {
     $select = new Select(
       'Caption', 'name', array(21 => array('title' => 'half'), 42 => array('title' => 'full'))
@@ -297,12 +220,6 @@ class SelectTest extends \Papaya\TestCase {
     return 'mapped: '.$data['title'];
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   */
   public function testAppendToWithOptionDataAttributesCallback() {
     $select = new Select(
       'Caption', 'name', array(21 => 'half', 42 => 'full')
@@ -327,13 +244,6 @@ class SelectTest extends \Papaya\TestCase {
     return array('title' => $data, 'index' => $index, 'json' => array(21, 42));
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::appendTo
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendSelect
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOption
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptionGroup
-   * @covers \Papaya\UI\Dialog\Field\Select::_appendOptions
-   */
   public function testAppendToWithOptionGroupCallback() {
     $select = new Select(
       'Caption',
@@ -367,9 +277,6 @@ class SelectTest extends \Papaya\TestCase {
     return 'Group: '.$data;
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::callbacks
-   */
   public function testCallbacksGetAfterSet() {
     $callbacks = $this
       ->getMockBuilder(\Papaya\UI\Dialog\Field\Select\Callbacks::class)
@@ -383,9 +290,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Select::callbacks
-   */
   public function testCallbacksGetImplicitCreate() {
     $select = new Select(
       'Caption', 'truth', array(21 => 'half', 42 => 'full')

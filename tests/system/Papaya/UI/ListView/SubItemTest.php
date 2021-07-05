@@ -132,8 +132,8 @@ namespace Papaya\UI\ListView {
     public function testSetActionParameters() {
       $subitem = new SubItem_TestProxy();
       $subitem->setActionParameters(array('foo'));
-      $this->assertAttributeEquals(
-        array('foo'), '_actionParameters', $subitem
+      $this->assertEquals(
+        array('foo'), $subitem->getActionParameters()
       );
     }
 

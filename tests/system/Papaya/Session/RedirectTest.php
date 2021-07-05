@@ -24,8 +24,8 @@ class RedirectTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $redirect = new Redirect('foo');
-    $this->assertAttributeEquals(
-      'foo', '_sessionName', $redirect
+    $this->assertEquals(
+      'foo', $redirect->sessionName
     );
   }
 
@@ -34,26 +34,14 @@ class RedirectTest extends \Papaya\TestCase {
    */
   public function testConstructorWithAllParameters() {
     $redirect = new Redirect('sid', '42', Id::SOURCE_PATH, 'test');
-    $this->assertAttributeEquals(
-      '42', '_sessionId', $redirect
+    $this->assertEquals(
+      '42', $redirect->sessionId
     );
-    $this->assertAttributeEquals(
-      Id::SOURCE_PATH, '_transport', $redirect
+    $this->assertEquals(
+      Id::SOURCE_PATH, $redirect->transport
     );
-    $this->assertAttributeEquals(
-      'test', '_reason', $redirect
-    );
-  }
-
-  /**
-   * @covers \Papaya\Session\Redirect::url
-   */
-  public function testUrlSet() {
-    $redirect = new Redirect('sid', '42', Id::SOURCE_PATH, 'test');
-    $url = $this->createMock(\Papaya\URL::class);
-    $redirect->url($url);
-    $this->assertAttributeSame(
-      $url, '_url', $redirect
+    $this->assertEquals(
+      'test', $redirect->reason
     );
   }
 

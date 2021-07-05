@@ -17,33 +17,11 @@ namespace Papaya\Filter {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
+  /**
+   * @covers \Papaya\Filter\Callback
+   */
   class CallbackTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\Filter\Callback::__construct
-     */
-    public function testConstructor() {
-      $filter = new Callback('CallbackTest_ValidateCallback');
-      $this->assertAttributeEquals(
-        'CallbackTest_ValidateCallback', '_callback', $filter
-      );
-    }
-
-    /**
-     * @covers \Papaya\Filter\Callback::__construct
-     */
-    public function testConstructorWithArgumentsArray() {
-      $filter = new Callback(
-        'CallbackTest_ValidateCallback', array('test')
-      );
-      $this->assertAttributeEquals(
-        array('test'), '_arguments', $filter
-      );
-    }
-
-    /**
-     * @covers \Papaya\Filter\Callback::validate
-     */
     public function testValidateExpectingTrue() {
       $filter = new Callback(
         function($value, $pattern) {
@@ -56,18 +34,12 @@ namespace Papaya\Filter {
       );
     }
 
-    /**
-     * @covers \Papaya\Filter\Callback::validate
-     */
     public function testValidateWithInvalidCallbackExpectingException() {
       $filter = new Callback('INVALID_CALLBACK_NAME');
       $this->expectException(Exception\InvalidCallback::class);
       $filter->validate('bar');
     }
 
-    /**
-     * @covers \Papaya\Filter\Callback::validate
-     */
     public function testValidateWithInvalidValueExpectingException() {
       $filter = new Callback(
         function($value, $pattern) {
@@ -79,9 +51,6 @@ namespace Papaya\Filter {
       $filter->validate('bar');
     }
 
-    /**
-     * @covers \Papaya\Filter\Callback::filter
-     */
     public function testFilterExpectingTrue() {
       $filter = new Callback(
         function($value, $pattern) {
@@ -94,9 +63,6 @@ namespace Papaya\Filter {
       );
     }
 
-    /**
-     * @covers \Papaya\Filter\Callback::filter
-     */
     public function testFilterExpectingNull() {
       $filter = new Callback(
         function($value, $pattern) {

@@ -14,6 +14,8 @@
  */
 namespace Papaya\Email;
 
+use InvalidArgumentException;
+
 /**
  * A single Email address, including properties for the parts and string casting.
  *
@@ -40,13 +42,14 @@ class Address {
   private $_email = '';
 
   /**
-   * Initialize object wiht address if provided.
+   * Initialize object with address if provided.
    *
-   * @param string $address
+   * @param string|NULL $address
+   * @param string $name
    */
-  public function __construct($address = NULL) {
+  public function __construct(string $address = NULL, string $name = '') {
     if (NULL !== $address) {
-      $this->setAddress($address);
+      $this->setAddress($address, $name);
     }
   }
 
@@ -65,14 +68,16 @@ class Address {
   /**
    * Set address from string (can include a name)
    *
-   * @param $address
+   * @param string $address
+   * @param string $name
    */
-  protected function setAddress($address) {
-    if (\preg_match('~^\s*(.*?)\s*<([^>]+)>~', $address, $matches)) {
+  protected function setAddress(string $address, string $name = ''): void {
+    if (\preg_match('(^\s*(.*?)\s*<([^>]+)>)', $address, $matches)) {
       $this->_name = $matches[1];
       $this->_email = $matches[2];
     } else {
       $this->_email = $address;
+      $this->_name = $name;
     }
   }
 
@@ -81,7 +86,7 @@ class Address {
    *
    * @param string $name
    */
-  protected function setName($name) {
+  protected function setName(string $name): void {
     $this->_name = $name;
   }
 
@@ -106,19 +111,21 @@ class Address {
    * @param string $name
    * @param string $value
    *
-   * @throws \InvalidArgumentException
+   * @throws InvalidArgumentException
    */
-  public function __set($name, $value) {
+  public function __set(string $name, string $value) {
     switch ($name) {
       case 'name' :
         $this->setName($value);
         return;
       case 'email' :
+        $this->setAddress($value, $this->_name);
+        return;
       case 'address' :
         $this->setAddress($value);
         return;
     }
-    throw new \InvalidArgumentException(
+    throw new InvalidArgumentException(
       \sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }
@@ -128,11 +135,11 @@ class Address {
    *
    * @param string $name
    *
-   * @throws \InvalidArgumentException
+   * @throws InvalidArgumentException
    *
    * @return string
    */
-  public function __get($name) {
+  public function __get(string $name) {
     switch ($name) {
       case 'name' :
         return $this->_name;
@@ -141,7 +148,7 @@ class Address {
       case 'address' :
         return $this->__toString();
     }
-    throw new \InvalidArgumentException(
+    throw new InvalidArgumentException(
       \sprintf('InvalidArgumentException: Unknown property "%s".', $name)
     );
   }

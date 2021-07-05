@@ -42,7 +42,7 @@ class CollectionTest extends \Papaya\TestCase {
   public function testOffsetSet() {
     $list = new Collection();
     $list['sample'] = $icon = new \Papaya\UI\Icon('sample.png');
-    $this->assertAttributeSame(array('sample' => $icon), '_icons', $list);
+    $this->assertSame($icon, $list['sample']);
   }
 
   /**

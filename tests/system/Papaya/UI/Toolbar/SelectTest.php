@@ -16,26 +16,11 @@
 namespace Papaya\UI\Toolbar;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Toolbar\Select
+ */
 class SelectTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::__construct
-   * @covers \Papaya\UI\Toolbar\Select::options
-   */
-  public function testConstructorSettingOptions() {
-    $select = new Select('foo', array('foo' => 'bar'));
-    $this->assertAttributeEquals(
-      'foo', '_parameterName', $select
-    );
-    $this->assertAttributeEquals(
-      array('foo' => 'bar'), '_options', $select
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::__construct
-   * @covers \Papaya\UI\Toolbar\Select::options
-   */
   public function testOptionsExpectingException() {
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Argument $options must be an array or implement Traversable.');
@@ -43,10 +28,6 @@ class SelectTest extends \Papaya\TestCase {
     new Select('foo', 'failed');
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::getCurrentValue
-   * @covers \Papaya\UI\Toolbar\Select::validateCurrentValue
-   */
   public function testGetCurrentValue() {
     $select = new Select('foo', array(23 => 'bar'));
     $select->defaultValue = 21;
@@ -62,10 +43,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::getCurrentValue
-   * @covers \Papaya\UI\Toolbar\Select::validateCurrentValue
-   */
   public function testGetCurrentValueNotInListUseDefault() {
     $select = new Select('foo', array(42 => 'bar'));
     $select->defaultValue = 21;
@@ -81,11 +58,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::setCurrentValue
-   * @covers \Papaya\UI\Toolbar\Select::getCurrentValue
-   * @covers \Papaya\UI\Toolbar\Select::validateCurrentValue
-   */
   public function testGetCurrentValueAfterSet() {
     $select = new Select('foo', array(42 => 'bar'));
     $select->currentValue = 42;
@@ -94,9 +66,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
@@ -114,9 +83,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::appendTo
-   */
   public function testAppendToWithAllProperties() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');
@@ -138,9 +104,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::appendTo
-   */
   public function testAppendToWithActionParameters() {
     $reference = $this->createMock(\Papaya\UI\Reference::class);
     $reference
@@ -174,9 +137,6 @@ class SelectTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Toolbar\Select::appendTo
-   */
   public function testAppendToWithCurrentValue() {
     $document = new \Papaya\XML\Document;
     $document->appendElement('sample');

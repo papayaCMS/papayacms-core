@@ -62,6 +62,10 @@ class URL {
     $this->_requestURL = NULL !== $url ? $url : new CurrentURL();
   }
 
+  public function getRequestURL() {
+    return $this->_requestURL;
+  }
+
   /**
    * Get mimetype from url path
    *

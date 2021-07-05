@@ -24,8 +24,8 @@ class StorageTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $storage = new Storage('AB123456789012345678901234567890');
-    $this->assertAttributeEquals(
-      'ab123456789012345678901234567890', '_guid', $storage
+    $this->assertEquals(
+      'ab123456789012345678901234567890', $storage->getGUID()
     );
   }
 

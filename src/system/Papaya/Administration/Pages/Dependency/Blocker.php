@@ -87,6 +87,10 @@ class Blocker extends UI\Control\Interactive {
     $this->_pageId = $pageId;
   }
 
+  public function getPageID(): int {
+    return $this->_pageId;
+  }
+
   /**
    * Append the blocker message/goto dialog to the parent xml.
    *

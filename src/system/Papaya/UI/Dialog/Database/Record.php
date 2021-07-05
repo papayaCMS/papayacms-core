@@ -81,7 +81,7 @@ class Record extends UI\Dialog {
   /**
    * Callback to check permissions
    *
-   * @var callable $_callbackPermissions
+   * @var callable|null $_callbackPermissions
    */
   protected $_callbackPermissions;
 
@@ -100,7 +100,7 @@ class Record extends UI\Dialog {
   protected $_databaseActionNext = 1;
 
   /**
-   * Initalize dialog object and define database table mapping.
+   * Initialize dialog object and define database table mapping.
    *
    * You still need to use {@see \Papaya\UI\Dialog::fields} to define the dialog interface.
    *
@@ -113,6 +113,18 @@ class Record extends UI\Dialog {
     $this->_table = $table;
     $this->_identifierColumn = $identifierColumn;
     $this->_columns = $columns;
+  }
+
+  public function getTableName(): string {
+    return $this->_table;
+  }
+
+  public function getIdentifierColumn(): string {
+    return $this->_identifierColumn;
+  }
+
+  public function getColumns(): array {
+    return $this->_columns;
   }
 
   /**
@@ -212,6 +224,10 @@ class Record extends UI\Dialog {
    */
   public function setPermissionCallback($callback) {
     $this->_callbackPermissions = $callback;
+  }
+
+  public function getPermissionCallback(): ?callable {
+    return $this->_callbackPermissions;
   }
 
   /**

@@ -377,6 +377,10 @@ namespace Papaya\UI {
       return $this;
     }
 
+    public function getBasePath(): string {
+      return $this->_basePath;
+    }
+
     /**
      * If subobjects were created, clone then, too.
      */

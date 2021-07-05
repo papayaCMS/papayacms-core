@@ -49,6 +49,10 @@ class Storage
     $this->_guid = Utility\Text\Guid::toLower($guid);
   }
 
+  public function getGUID(): string {
+    return $this->_guid;
+  }
+
   /**
    * Explicitly load module options from database
    *

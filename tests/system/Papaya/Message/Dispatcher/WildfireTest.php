@@ -82,24 +82,6 @@ class WildfireTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Message\Dispatcher\Wildfire::setHandler
-   */
-  public function testSetHandler() {
-    $callback = array($this, 'collectHeader');
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Wildfire\Handler $handler */
-    $handler = $this
-      ->getMockBuilder(Wildfire\Handler::class)
-      ->setConstructorArgs(array($callback))
-      ->getMock();
-    $dispatcher = new Wildfire();
-    $dispatcher->setHandler($handler);
-    $this->assertAttributeSame(
-      $handler,
-      '_handler',
-      $dispatcher
-    );
-  }
-
-  /**
    * @covers \Papaya\Message\Dispatcher\Wildfire::getHandler
    */
   public function testGetHandler() {

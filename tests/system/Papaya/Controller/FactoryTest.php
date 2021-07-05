@@ -25,14 +25,14 @@ class FactoryTest extends \Papaya\TestCase {
   public function testCreateError() {
     $error = Factory::createError(404, 'Test', 'TEST');
     $this->assertInstanceOf(Error::class, $error);
-    $this->assertAttributeEquals(
-      404, '_status', $error
+    $this->assertEquals(
+      404, $error->getStatus()
     );
-    $this->assertAttributeEquals(
-      'Test', '_errorMessage', $error
+    $this->assertEquals(
+      'Test', $error->getErrorMessage()
     );
-    $this->assertAttributeEquals(
-      'TEST', '_errorIdentifier', $error
+    $this->assertEquals(
+      'TEST', $error->getErrorIdentifier()
     );
   }
 
@@ -44,8 +44,8 @@ class FactoryTest extends \Papaya\TestCase {
       404, 'Test', 'TEST', __DIR__.'/Error/TestData/template.txt'
     );
     $this->assertInstanceOf(Error\File::class, $error);
-    $this->assertAttributeEquals(
-      'SAMPLE', '_template', $error
+    $this->assertEquals(
+      'SAMPLE', $error->getTemplate()
     );
   }
 

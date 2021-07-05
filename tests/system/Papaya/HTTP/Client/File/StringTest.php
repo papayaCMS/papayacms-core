@@ -24,16 +24,6 @@ class StringTest extends \Papaya\TestCase {
     $this->_fileContents = file_get_contents(__DIR__.'/DATA/sample.txt');
   }
 
-  public function testConstructor() {
-    $file = new Text(
-      'test', 'sample.txt', $this->_fileContents, 'text/plain'
-    );
-    $this->assertAttributeEquals('test', '_name', $file);
-    $this->assertAttributeEquals('sample.txt', '_fileName', $file);
-    $this->assertAttributeEquals('text/plain', '_mimeType', $file);
-    $this->assertAttributeEquals($this->_fileContents, '_data', $file);
-  }
-
   public function testConstructorExpectingError() {
     $this->expectException(\UnexpectedValueException::class);
     new Text('', '', '', '');

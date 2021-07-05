@@ -16,24 +16,11 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Context\Items
+ */
 class ItemsTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Context\Items::__construct
-   */
-  public function testConstructor() {
-    $context = new Items('List Sample', array('Hello', 'World'));
-    $this->assertAttributeEquals(
-      'List Sample', '_label', $context
-    );
-    $this->assertAttributeEquals(
-      array('Hello', 'World'), '_items', $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Items::getLabel
-   */
   public function testGetLabel() {
     $context = new Items('List Sample', array('Hello', 'World'));
     $this->assertEquals(
@@ -41,9 +28,6 @@ class ItemsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Items::asArray
-   */
   public function testAsArray() {
     $context = new Items('', array('Hello', 'World'));
     $this->assertEquals(
@@ -52,9 +36,6 @@ class ItemsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Items::asXhtml
-   */
   public function testAsXhtml() {
     $context = new Items('', array('Hello', 'World'));
     $this->assertEquals(
@@ -63,9 +44,6 @@ class ItemsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Items::asXhtml
-   */
   public function testAsXhtmlWithEmptyList() {
     $context = new Items('', array());
     $this->assertEquals(
@@ -74,9 +52,6 @@ class ItemsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Items::asString
-   */
   public function testAsString() {
     $context = new Items('', array('Hello', 'World'));
     $this->assertEquals(

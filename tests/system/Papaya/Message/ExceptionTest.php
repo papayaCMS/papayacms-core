@@ -26,14 +26,13 @@ namespace Papaya\Message {
       $message = new Exception(
         new SampleException('Sample Error')
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         \Papaya\Message::SEVERITY_ERROR,
-        '_type',
-        $message
+        $message->getSeverity()
       );
       $this->assertStringStartsWith(
         "Uncaught exception 'Papaya\Message\SampleException' with message 'Sample Error' in '",
-        $this->readAttribute($message, '_message')
+        $message->getMessage()
       );
       $this->assertCount(1, $message->context());
     }

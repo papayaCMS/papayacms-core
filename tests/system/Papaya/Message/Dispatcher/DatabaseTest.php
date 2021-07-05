@@ -180,10 +180,9 @@ namespace Papaya\Message\Dispatcher {
      */
     public function testDispatchPreventMessageRecursionDefault() {
       $dispatcher = new Database();
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         FALSE,
-        '_preventMessageRecursion',
-        $dispatcher
+        $dispatcher->preventMessageRecursion()
       );
     }
 
@@ -227,10 +226,9 @@ namespace Papaya\Message\Dispatcher {
       );
       $dispatcher->setDatabaseAccess($databaseAccess);
       $this->assertFalse($dispatcher->dispatch($message));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         TRUE,
-        '_preventMessageRecursion',
-        $dispatcher
+        $dispatcher->preventMessageRecursion()
       );
     }
 

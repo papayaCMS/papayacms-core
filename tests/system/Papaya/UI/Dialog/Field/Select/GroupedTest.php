@@ -25,11 +25,11 @@ class GroupedTest extends \Papaya\TestCase {
     $select = new Grouped(
       'Caption', 'name', array('Group Caption' => array(21 => 'half', 42 => 'full'))
     );
-    $this->assertAttributeEquals(
-      array('Group Caption' => array(21 => 'half', 42 => 'full')), '_values', $select
+    $this->assertEquals(
+      array('Group Caption' => array(21 => 'half', 42 => 'full')), $select->getValues()
     );
-    $this->assertAttributeEquals(
-      new \Papaya\Filter\ArrayElement(array(21, 42)), '_filter', $select
+    $this->assertEquals(
+      new \Papaya\Filter\ArrayElement(array(21, 42)), $select->getFilter()
     );
   }
 
@@ -47,8 +47,8 @@ class GroupedTest extends \Papaya\TestCase {
         )
       )
     );
-    $this->assertAttributeEquals(
-      new \Papaya\Filter\ArrayElement(array(21, 42)), '_filter', $select
+    $this->assertEquals(
+      new \Papaya\Filter\ArrayElement(array(21, 42)), $select->getFilter()
     );
   }
 

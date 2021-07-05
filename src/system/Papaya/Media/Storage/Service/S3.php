@@ -156,6 +156,10 @@ class S3 extends Media\Storage\Service {
     $this->_handler = $handler;
   }
 
+  public function getHandler(): S3\Handler {
+    return $this->_handler;
+  }
+
   /**
    * Get response xml and create xpath object
    *

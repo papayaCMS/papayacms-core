@@ -55,8 +55,8 @@ class NameTest extends \Papaya\TestCase {
    */
   public function testConstructorWithArray() {
     $name = new Name(array('foo', 'bar'), '/');
-    $this->assertAttributeEquals(
-      array('foo', 'bar'), '_parts', $name
+    $this->assertEquals(
+      array('foo', 'bar'), iterator_to_array($name)
     );
     $this->assertEquals(
       '/', $name->separator()
@@ -95,8 +95,8 @@ class NameTest extends \Papaya\TestCase {
   public function testSetArray() {
     $name = new Name();
     $name->setArray(array('foo', 'bar'));
-    $this->assertAttributeEquals(
-      array('foo', 'bar'), '_parts', $name
+    $this->assertEquals(
+      array('foo', 'bar'), iterator_to_array($name)
     );
   }
 
@@ -108,8 +108,8 @@ class NameTest extends \Papaya\TestCase {
    */
   public function testConstructorWithString() {
     $name = new Name('foo/bar');
-    $this->assertAttributeEquals(
-      array('foo', 'bar'), '_parts', $name
+    $this->assertEquals(
+      array('foo', 'bar'), iterator_to_array($name)
     );
   }
 
@@ -121,8 +121,8 @@ class NameTest extends \Papaya\TestCase {
    */
   public function testConstructorWithInteger() {
     $name = new Name(23);
-    $this->assertAttributeEquals(
-      array('23'), '_parts', $name
+    $this->assertEquals(
+      array('23'), iterator_to_array($name)
     );
   }
 
@@ -146,8 +146,8 @@ class NameTest extends \Papaya\TestCase {
   public function testSetString(array $nameArray, $nameString, $separator) {
     $name = new Name();
     $name->setString($nameString, $separator);
-    $this->assertAttributeEquals(
-      $nameArray, '_parts', $name
+    $this->assertEquals(
+      $nameArray, iterator_to_array($name)
     );
   }
 
@@ -158,8 +158,8 @@ class NameTest extends \Papaya\TestCase {
   public function testSetStringWithListSyntax() {
     $name = new Name();
     $name->setString('foo/bar[]', '/');
-    $this->assertAttributeEquals(
-      array('foo', 'bar', ''), '_parts', $name
+    $this->assertEquals(
+      array('foo', 'bar', ''), iterator_to_array($name)
     );
   }
 
@@ -169,8 +169,8 @@ class NameTest extends \Papaya\TestCase {
   public function testAppend() {
     $name = new Name(array('foo', 'bar'));
     $name->append('moo');
-    $this->assertAttributeEquals(
-      array('foo', 'bar', 'moo'), '_parts', $name
+    $this->assertEquals(
+      array('foo', 'bar', 'moo'), iterator_to_array($name)
     );
   }
 
@@ -180,8 +180,8 @@ class NameTest extends \Papaya\TestCase {
   public function testPrepend() {
     $name = new Name(array('foo', 'bar'));
     $name->prepend('moo');
-    $this->assertAttributeEquals(
-      array('moo', 'foo', 'bar'), '_parts', $name
+    $this->assertEquals(
+      array('moo', 'foo', 'bar'), iterator_to_array($name)
     );
   }
 
@@ -264,8 +264,8 @@ class NameTest extends \Papaya\TestCase {
     $name = new Name(
       new Name(array('foo', 'bar'), '/')
     );
-    $this->assertAttributeEquals(
-      array('foo', 'bar'), '_parts', $name
+    $this->assertEquals(
+      array('foo', 'bar'), iterator_to_array($name)
     );
     $this->assertEquals(
       '/', $name->separator()

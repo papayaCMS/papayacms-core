@@ -24,8 +24,8 @@ class BlockerTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $blocker = new Blocker(42);
-    $this->assertAttributeSame(
-      42, '_pageId', $blocker
+    $this->assertSame(
+      42, $blocker->getPageID()
     );
   }
 

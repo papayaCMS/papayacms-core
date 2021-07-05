@@ -16,20 +16,13 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Bitmask
+ */
 class BitmaskTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\Bitmask::__construct
-   */
-  public function testConstructor() {
-    $filter = new Bitmask(array(1, 2, 4));
-    $this->assertAttributeEquals(
-      array(1, 2, 4), '_bits', $filter
-    );
-  }
 
   /**
-   * @covers \Papaya\Filter\Bitmask::validate
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
    * @throws \Papaya\Filter\Exception
@@ -42,7 +35,6 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Bitmask::validate
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
    * @throws \Papaya\Filter\Exception
@@ -53,9 +45,6 @@ class BitmaskTest extends \Papaya\TestCase {
     $filter->validate($bitmask);
   }
 
-  /**
-   * @covers \Papaya\Filter\Bitmask::validate
-   */
   public function testValidateExpectingInvalidValueTypeException() {
     $filter = new Bitmask(array(1, 2, 4, 16));
     $this->expectException(\Papaya\Filter\Exception\UnexpectedType::class);
@@ -63,7 +52,6 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Bitmask::filter
    * @dataProvider provideValidBitmasks
    * @param mixed $bitmask
    */
@@ -75,7 +63,6 @@ class BitmaskTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Bitmask::filter
    * @dataProvider provideInvalidBitmasks
    * @param mixed $bitmask
    */

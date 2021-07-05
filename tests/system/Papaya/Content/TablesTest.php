@@ -98,6 +98,6 @@ class TablesTest extends \Papaya\TestCase {
    * @covers \Papaya\Content\Tables::getTables
    */
   public function testGetTables() {
-    $this->assertInternalType('array', \Papaya\Content\Tables::getTables());
+    $this->assertIsArray(\Papaya\Content\Tables::getTables());
   }
 }

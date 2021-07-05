@@ -128,6 +128,10 @@ class Statistical implements Spam\Filter {
     $this->_relevantDerivation = $derivation;
   }
 
+  public function getRelevanceLimit(): float {
+    return $this->_relevantDerivation;
+  }
+
   /**
    * Set the maximum count of tokens that are used to calculate the probability.
    *
@@ -141,6 +145,10 @@ class Statistical implements Spam\Filter {
       throw new \RangeException('RangeException: $count must be greater than 0');
     }
     $this->_maximumRelevant = $count;
+  }
+
+  public function getTokenLimit(): int {
+    return $this->_maximumRelevant;
   }
 
   /**

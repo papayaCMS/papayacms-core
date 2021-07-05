@@ -16,18 +16,12 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Number
+ */
 class NumberTest extends \Papaya\TestCase {
-  /**
-   * @covers \Papaya\Filter\Number::__construct
-   */
-  public function testConstructSuccess() {
-    $filter = new Number(15, 16);
-    $this->assertAttributeEquals(15, '_minimumLength', $filter);
-    $this->assertAttributeEquals(16, '_maximumLength', $filter);
-  }
 
   /**
-   * @covers \Papaya\Filter\Number::__construct
    * @dataProvider constructFailureProvider
    * @param int $minimumLength
    * @param int $maximumLength
@@ -38,7 +32,6 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Number::validate
    * @dataProvider validateSuccessProvider
    * @param mixed $value
    * @throws Exception\OutOfRange\ToLarge
@@ -51,9 +44,6 @@ class NumberTest extends \Papaya\TestCase {
     $this->assertTrue($filter->validate($value));
   }
 
-  /**
-   * @covers \Papaya\Filter\Number::validate
-   */
   public function testValidateFailureFormat() {
     $filter = new Number();
     $this->expectException(Exception\UnexpectedType::class);
@@ -61,9 +51,6 @@ class NumberTest extends \Papaya\TestCase {
     $filter->validate('I am not a number');
   }
 
-  /**
-   * @covers \Papaya\Filter\Number::validate
-   */
   public function testValidateFailureTooShort() {
     $filter = new Number(3);
     $this->expectException(Exception\OutOfRange\ToSmall::class);
@@ -71,9 +58,6 @@ class NumberTest extends \Papaya\TestCase {
     $filter->validate('22');
   }
 
-  /**
-   * @covers \Papaya\Filter\Number::validate
-   */
   public function testValidateFailureTooLong() {
     $filter = new Number(NULL, 3);
     $this->expectException(Exception\OutOfRange\ToLarge::class);
@@ -82,7 +66,6 @@ class NumberTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Number::filter
    * @dataProvider filterSuccessProvider
    * @param mixed $value
    * @param mixed $filtered
@@ -92,9 +75,6 @@ class NumberTest extends \Papaya\TestCase {
     $this->assertEquals($filtered, $filter->filter($value));
   }
 
-  /**
-   * @covers \Papaya\Filter\Number::filter
-   */
   public function testFilterFailure() {
     $filter = new Number();
     $this->assertNull($filter->filter('I am not a number'));

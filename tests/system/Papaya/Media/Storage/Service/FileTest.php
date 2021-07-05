@@ -76,27 +76,6 @@ namespace Papaya\Media\Storage\Service {
       return $configuration;
     }
 
-    public function testSetConfiguration() {
-      $configuration = $this->getMockConfigurationObjectFixture();
-      $service = new File($configuration);
-      $this->assertSame(
-        $this->_storageDirectory, $this->readAttribute($service, '_storageDirectory')
-      );
-      $this->assertSame(
-        $this->_publicDirectory, $this->readAttribute($service, '_publicDirectory')
-      );
-      $this->assertSame(1, $this->readAttribute($service, '_storageDirectoryDepth'));
-    }
-
-    public function testSetConfigurationWithNotExistingPublicDirectory() {
-      $configuration = $this->getMockConfigurationObjectFixture();
-      rmdir($this->_publicDirectory);
-      $service = new File($configuration);
-      $this->assertSame(
-        '', $this->readAttribute($service, '_publicDirectory')
-      );
-    }
-
     public function testVerifyConfiguration() {
       $configuration = $this->getMockConfigurationObjectFixture();
       $service = new File_TestProxy($configuration);

@@ -24,8 +24,8 @@ namespace Papaya\CSV {
      */
     public function testConstructor() {
       $reader = new Reader('sample.csv');
-      $this->assertAttributeSame(
-        'sample.csv', '_fileName', $reader
+      $this->assertSame(
+        'sample.csv', $reader->getFileName()
       );
     }
 
@@ -35,8 +35,8 @@ namespace Papaya\CSV {
     public function testSetMaximumFileSize() {
       $reader = new Reader('sample.csv');
       $reader->setMaximumFileSize(3);
-      $this->assertAttributeSame(
-        3, '_maxFileSize', $reader
+      $this->assertSame(
+        3, $reader->getMaximumFileSize()
       );
     }
 
@@ -46,8 +46,8 @@ namespace Papaya\CSV {
     public function testSetMaximumLineSize() {
       $reader = new Reader('sample.csv');
       $reader->setMaximumLineSize(3);
-      $this->assertAttributeSame(
-        3, '_maxLineSize', $reader
+      $this->assertSame(
+        3, $reader->getMaximumLineSize()
       );
     }
 

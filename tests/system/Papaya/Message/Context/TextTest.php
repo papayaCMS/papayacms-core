@@ -16,23 +16,11 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Context\Text
+ */
 class TextTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Context\Text::__construct
-   */
-  public function testConstructor() {
-    $context = new Text('Hello World');
-    $this->assertAttributeSame(
-      'Hello World',
-      '_text',
-      $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Text::asString
-   */
   public function testAsString() {
     $context = new Text('Hello World');
     $this->assertEquals(

@@ -49,7 +49,7 @@ class TranslationsTest extends \Papaya\TestCase {
     $list = new Translations();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->load(42));
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         '1' => array(
           'id' => '42',
@@ -59,8 +59,7 @@ class TranslationsTest extends \Papaya\TestCase {
           'view' => 'Box view title'
         )
       ),
-      '_records',
-      $list
+      iterator_to_array($list)
     );
   }
 

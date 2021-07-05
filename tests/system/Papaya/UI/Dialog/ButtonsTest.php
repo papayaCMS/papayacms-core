@@ -26,8 +26,8 @@ class ButtonsTest extends \Papaya\TestCase {
     $button = $this->createMock(Button::class);
     $buttons = new Buttons();
     $buttons->add($button);
-    $this->assertAttributeEquals(
-      array($button), '_items', $buttons
+    $this->assertEquals(
+      array($button), iterator_to_array($buttons)
     );
   }
 }

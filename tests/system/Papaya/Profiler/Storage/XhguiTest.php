@@ -23,14 +23,14 @@ class XhguiTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $storage = new Xhgui('database', 'table', 'foo');
-    $this->assertAttributeEquals(
-      'database', '_database', $storage
+    $this->assertEquals(
+      'database', $storage->getDatabase()
     );
-    $this->assertAttributeEquals(
-      'table', '_tableName', $storage
+    $this->assertEquals(
+      'table', $storage->getTableName()
     );
-    $this->assertAttributeEquals(
-      'foo', '_serverId', $storage
+    $this->assertEquals(
+      'foo', $storage->getServerID()
     );
   }
 

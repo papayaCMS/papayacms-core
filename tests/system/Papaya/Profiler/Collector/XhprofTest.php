@@ -44,8 +44,7 @@ class XhprofTest extends \Papaya\TestCase {
     $this->skipIfNotExtensionLoaded('xhprof');
     $collector = new Xhprof();
     $collector->enable();
-    $this->assertInternalType(
-      'array',
+    $this->assertIsArray(
       $collector->disable()
     );
   }

@@ -24,8 +24,8 @@ namespace Papaya\File\System\Action {
      */
     public function testConstructor() {
       $action = new Script('/local/script');
-      $this->assertAttributeEquals(
-        '/local/script', '_script', $action
+      $this->assertEquals(
+        '/local/script', (string)$action
       );
     }
 

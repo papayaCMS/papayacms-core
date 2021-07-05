@@ -24,8 +24,8 @@ class ValueTest extends \Papaya\TestCase {
   public function testConstructorWithDocument() {
     $document = new \Papaya\XML\Document();
     $value = new Value($document);
-    $this->assertAttributeSame(
-      $document, '_node', $value
+    $this->assertSame(
+      $document, $value->node()
     );
   }
 
@@ -36,8 +36,8 @@ class ValueTest extends \Papaya\TestCase {
     $document = new \Papaya\XML\Document();
     $node = $document->createElement('node');
     $value = new Value($node);
-    $this->assertAttributeSame(
-      $node, '_node', $value
+    $this->assertSame(
+      $node, $value->node()
     );
   }
 
@@ -62,8 +62,8 @@ class ValueTest extends \Papaya\TestCase {
       $document,
       $value->node($document)
     );
-    $this->assertAttributeSame(
-      $document, '_node', $value
+    $this->assertSame(
+      $document, $value->node()
     );
   }
 
@@ -89,10 +89,9 @@ class ValueTest extends \Papaya\TestCase {
       $value,
       $value->appendTo($document->documentElement)
     );
-    $this->assertAttributeSame(
+    $this->assertSame(
       $document->documentElement->firstChild,
-      '_node',
-      $value
+      $value->node()
     );
   }
 
@@ -107,7 +106,7 @@ class ValueTest extends \Papaya\TestCase {
     $this->assertEquals(
     /** @lang XML */
       '<node sample="yes">content</node>',
-      $document->saveXML($this->readAttribute($newValue, '_node'))
+      $document->saveXML($newValue->node())
     );
   }
 
@@ -123,7 +122,7 @@ class ValueTest extends \Papaya\TestCase {
     $this->assertEquals(
     /** @lang XML */
       '<node sample="yes">content</node>',
-      $document->saveXML($this->readAttribute($newValue, '_node'))
+      $document->saveXML($newValue->node())
     );
   }
 
@@ -139,7 +138,7 @@ class ValueTest extends \Papaya\TestCase {
     $this->assertEquals(
     /** @lang XML */
       '<node sample="yes">content</node>',
-      $document->saveXML($this->readAttribute($newValue, '_node'))
+      $document->saveXML($newValue->node())
     );
   }
 
@@ -155,12 +154,12 @@ class ValueTest extends \Papaya\TestCase {
     $this->assertEquals(
     /** @lang XML */
       '<node><child/></node>',
-      $document->saveXML($this->readAttribute($value, '_node'))
+      $document->saveXML($value->node())
     );
     $this->assertEquals(
     /** @lang XML */
       '<child/>',
-      $document->saveXML($this->readAttribute($newValue, '_node'))
+      $document->saveXML($newValue->node())
     );
   }
 
@@ -213,7 +212,7 @@ class ValueTest extends \Papaya\TestCase {
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
       '<?xml version="1.0" encoding="UTF-8"?><child/>',
-      $document->saveXML($this->readAttribute($newValue, '_node'))
+      $document->saveXML($newValue->node())
     );
   }
 

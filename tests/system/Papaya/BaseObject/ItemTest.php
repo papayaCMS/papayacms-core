@@ -24,13 +24,12 @@ namespace Papaya\BaseObject {
      */
     public function testConstructorSetsFields() {
       $item = new Item_TestProxy(array('sample_one', 'sampleTwo'));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'sample_one' => NULL,
           'sample_two' => NULL
         ),
-        '_values',
-        $item
+        iterator_to_array($item)
       );
     }
 
@@ -46,13 +45,12 @@ namespace Papaya\BaseObject {
           'unknown' => 23
         )
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'sample_one' => 21,
           'sample_two' => 42
         ),
-        '_values',
-        $item
+        iterator_to_array($item)
       );
     }
 

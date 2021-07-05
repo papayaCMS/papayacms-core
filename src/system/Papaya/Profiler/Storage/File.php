@@ -46,6 +46,14 @@ class File implements Profiler\Storage {
     }
   }
 
+  public function getDirectory(): string {
+    return $this->_directory;
+  }
+
+  public function getFileSuffix(): string {
+    return $this->_suffix;
+  }
+
   /**
    * Store xhprof profiling data into a file
    *

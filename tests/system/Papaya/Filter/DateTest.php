@@ -16,34 +16,22 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Date
+ */
 class DateTest extends \Papaya\TestCase {
-  /**
-   * @covers \Papaya\Filter\Date::__construct
-   */
-  public function testConstructSuccess() {
-    $filter = new Date(Date::DATE_OPTIONAL_TIME, 600.0);
-    $this->assertAttributeEquals(Date::DATE_OPTIONAL_TIME, '_includeTime', $filter);
-    $this->assertAttributeEquals(600.0, '_step', $filter);
-  }
 
-  /**
-   * @covers \Papaya\Filter\Date::__construct
-   */
   public function testConstructExpectsExceptionIncludeTime() {
     $this->expectException(\UnexpectedValueException::class);
     new Date(1000);
   }
 
-  /**
-   * @covers \Papaya\Filter\Date::__construct
-   */
   public function testConstructExpectsExceptionStep() {
     $this->expectException(\UnexpectedValueException::class);
     new Date(Date::DATE_OPTIONAL_TIME, -1);
   }
 
   /**
-   * @covers \Papaya\Filter\Date::validate
    * @dataProvider validateSuccessProvider
    * @param int $includeTime
    * @param mixed $value
@@ -56,7 +44,6 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Date::validate
    * @dataProvider validateExceptionFormatProvider
    * @param int $includeTime
    * @param mixed $value
@@ -70,7 +57,6 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Date::validate
    * @dataProvider validateExceptionRangeProvider
    * @param mixed $value
    * @throws Exception\OutOfRange\ToLarge
@@ -83,7 +69,6 @@ class DateTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Date::filter
    * @dataProvider filterSuccessProvider
    * @param mixed $value
    * @param string $result
@@ -93,9 +78,6 @@ class DateTest extends \Papaya\TestCase {
     $this->assertEquals($result, $filter->filter($value));
   }
 
-  /**
-   * @covers \Papaya\Filter\Date::filter
-   */
   public function testFilterFailure() {
     $filter = new Date(Date::DATE_OPTIONAL_TIME);
     $this->assertNull($filter->filter('I am not a date'));

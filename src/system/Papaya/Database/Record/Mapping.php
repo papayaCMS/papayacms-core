@@ -232,6 +232,10 @@ class Mapping implements Database\Interfaces\Mapping {
     return \array_keys($this->_properties);
   }
 
+  public function getPropertiesMap(): array {
+    return $this->_properties;
+  }
+
   /**
    * Get a list of the used database fields
    *
@@ -240,21 +244,29 @@ class Mapping implements Database\Interfaces\Mapping {
    * @return array
    */
   public function getFields($withAlias = TRUE) {
+    return array_keys($this->getFieldsMap($withAlias));
+  }
+
+  /**
+   * @param bool|string $withAlias
+   * @return array
+   */
+  public function getFieldsMap($withAlias = TRUE): array {
     if ($withAlias) {
-      if (\is_string($withAlias)) {
+      if (is_string($withAlias)) {
         $prefix = $withAlias.'.';
         $prefixLength = \strlen($prefix);
         $result = [];
         foreach ($this->_fields as $field => $property) {
           if (0 === \strpos($field, $prefix)) {
-            $result[] = \substr($field, $prefixLength);
+            $result[\substr($field, $prefixLength)] = $property;
           }
         }
         return $result;
       }
-      return \array_keys($this->_fields);
+      return $this->_fields;
     }
-    return \array_keys($this->_fieldsWithoutAlias);
+    return $this->_fieldsWithoutAlias;
   }
 
   /**

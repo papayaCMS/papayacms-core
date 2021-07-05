@@ -27,11 +27,11 @@ class ProfilerTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Profiler\Storage $storage */
     $storage = $this->createMock(Profiler\Storage::class);
     $profiler = new Profiler($collector, $storage);
-    $this->assertAttributeSame(
-      $collector, '_collector', $profiler
+    $this->assertSame(
+      $collector, $profiler->getCollector()
     );
-    $this->assertAttributeSame(
-      $storage, '_storage', $profiler
+    $this->assertSame(
+      $storage, $profiler->getStorage()
     );
   }
 

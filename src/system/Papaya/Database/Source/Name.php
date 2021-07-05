@@ -14,6 +14,7 @@
  */
 namespace Papaya\Database\Source;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\Database;
 use Papaya\Request;
 
@@ -35,7 +36,7 @@ use Papaya\Request;
  * @property string $database
  * @property Request\Parameters $parameters
  */
-class Name {
+class Name implements StringCastable, \IteratorAggregate {
   /**
    * Raw dsn string
    *
@@ -68,6 +69,14 @@ class Name {
    */
   public function __construct($name) {
     $this->setName($name);
+  }
+
+  public function __toString() {
+    return $this->_name;
+  }
+
+  public function getIterator(): \ArrayIterator {
+    return new \ArrayIterator($this->_properties);
   }
 
   /**

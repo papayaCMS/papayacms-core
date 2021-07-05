@@ -24,8 +24,8 @@ namespace Papaya\File\System\Action {
      */
     public function testConstructor() {
       $action = new URL('http://www.sample.tld/success');
-      $this->assertAttributeEquals(
-        'http://www.sample.tld/success', '_url', $action
+      $this->assertEquals(
+        'http://www.sample.tld/success', (string)$action
       );
     }
 

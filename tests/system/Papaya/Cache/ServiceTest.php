@@ -24,8 +24,8 @@ namespace Papaya\Cache {
      */
     public function testConstructor() {
       $service = new Service_TestProxy($options = new Configuration());
-      $this->assertAttributeSame(
-        $options, '_options', $service
+      $this->assertSame(
+        $options, $service->getConfiguration()
       );
     }
 
@@ -254,8 +254,6 @@ namespace Papaya\Cache {
 
   class Service_TestProxy extends Service {
 
-    protected $_options;
-
     public function _getCacheIdentification($group, $element, $parameters) {
       return parent::_getCacheIdentification($group, $element, $parameters);
     }
@@ -269,7 +267,7 @@ namespace Papaya\Cache {
     }
 
     public function setConfiguration(Configuration $configuration) {
-      $this->_options = $configuration;
+      $this->_configuration = $configuration;
     }
 
     public function verify($silent = TRUE) {

@@ -40,6 +40,10 @@ class Exceptions
     $this->_messageManager = $messageManager;
   }
 
+  public function getMessageManager(): Message\Manager {
+    return $this->_messageManager;
+  }
+
   /**
    * Activate hook, override current exception handler. This will only capture exception not
    * catched in the source.

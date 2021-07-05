@@ -27,18 +27,6 @@ class HandlerTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Streamwrapper\S3\Handler::setHTTPClient
-   */
-  public function testSetHTTPClient() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\HTTP\Client $client */
-    $client = $this->createMock(\Papaya\HTTP\Client::class);
-    $wrapper = new Handler();
-    $wrapper->setHTTPClient($client);
-    $this->assertAttributeSame(
-      $client, '_client', $wrapper
-    );
-  }
-
-  /**
    * @covers \Papaya\Streamwrapper\S3\Handler::getHTTPClient
    */
   public function testGetHTTPClient() {

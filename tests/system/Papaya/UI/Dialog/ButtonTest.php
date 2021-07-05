@@ -24,10 +24,9 @@ namespace Papaya\UI\Dialog {
      */
     public function testConstructor() {
       $button = new Button_TestProxy();
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         Button::ALIGN_RIGHT,
-        '_align',
-        $button
+        $button->getAlign()
       );
     }
 
@@ -36,10 +35,9 @@ namespace Papaya\UI\Dialog {
      */
     public function testConstructorWithAlign() {
       $button = new Button_TestProxy(Button::ALIGN_LEFT);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         Button::ALIGN_LEFT,
-        '_align',
-        $button
+        $button->getAlign()
       );
     }
 
@@ -49,10 +47,9 @@ namespace Papaya\UI\Dialog {
     public function testSetAlign() {
       $button = new Button_TestProxy();
       $button->setAlign(Button::ALIGN_LEFT);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         Button::ALIGN_LEFT,
-        '_align',
-        $button
+        $button->getAlign()
       );
     }
   }

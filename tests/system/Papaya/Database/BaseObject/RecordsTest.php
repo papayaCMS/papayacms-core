@@ -136,7 +136,7 @@ namespace Papaya\Database\BaseObject {
           )
         )
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           '21' => array(
             'property1' => '1.1',
@@ -147,10 +147,9 @@ namespace Papaya\Database\BaseObject {
             'property2' => '2.2'
           )
         ),
-        '_records',
-        $list
+        iterator_to_array($list)
       );
-      $this->assertEquals(2, $list->count());
+      $this->assertCount(2, $list);
     }
 
     /**
@@ -186,13 +185,12 @@ namespace Papaya\Database\BaseObject {
       $list = new Records_TestProxy();
       $list->setDatabaseAccess($databaseAccess);
       $this->assertTrue($list->_loadRecords('SQL', array('1', '2'), 'field1', 10, 5));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('Hello' => array('property1' => 'Hello', 'property2' => 'World')),
-        '_records',
-        $list
+        iterator_to_array($list)
       );
-      $this->assertAttributeEquals(
-        42, '_recordCount', $list
+      $this->assertEquals(
+        42, $list->_recordCount
       );
     }
 
@@ -214,8 +212,8 @@ namespace Papaya\Database\BaseObject {
       $list = new Records_TestProxy();
       $list->setDatabaseAccess($databaseAccess);
       $this->assertFalse($list->_loadRecords('SQL', array('1', '2')));
-      $this->assertAttributeEquals(array(), '_records', $list);
-      $this->assertAttributeEquals(0, '_recordCount', $list);
+      $this->assertEquals(array(), iterator_to_array($list));
+      $this->assertCount(0, $list);
     }
 
     /**
@@ -236,10 +234,9 @@ namespace Papaya\Database\BaseObject {
         );
       $list = new Records_TestProxy();
       $list->_fetchRecords($databaseResult);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(array('property1' => 'Hello', 'property2' => 'World')),
-        '_records',
-        $list
+        iterator_to_array($list)
       );
     }
 
@@ -261,10 +258,9 @@ namespace Papaya\Database\BaseObject {
         );
       $list = new Records_TestProxy();
       $list->_fetchRecords($databaseResult, 'field1');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array('Hello' => array('property1' => 'Hello', 'property2' => 'World')),
-        '_records',
-        $list
+        iterator_to_array($list)
       );
     }
   }

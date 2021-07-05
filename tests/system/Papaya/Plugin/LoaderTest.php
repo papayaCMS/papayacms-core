@@ -345,12 +345,11 @@ namespace Papaya\Plugin {
         )
       );
       $this->assertNull($loader->get('123'));
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           '/Plugin/Loader/Autoload/Prefix/' => str_replace('\\', '/', __DIR__).'/TestData/'
         ],
-        '_paths',
-        Autoloader::class
+        Autoloader::getRegisteredPaths()
       );
       Autoloader::clear();
     }
@@ -425,12 +424,11 @@ namespace Papaya\Plugin {
       $this->assertEquals(
         '/base/path/sample/path/sample.php', $loader->getFileName('123')
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           '/Plugin/Loader/Autoload/Prefix/' => '/base/path/sample/path/'
         ],
-        '_paths',
-        Autoloader::class
+        Autoloader::getRegisteredPaths()
       );
       Autoloader::clear();
     }

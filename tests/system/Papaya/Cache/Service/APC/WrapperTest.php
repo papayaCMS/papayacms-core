@@ -55,7 +55,7 @@ class WrapperTest extends \Papaya\TestCase {
   public function testStore() {
     $this->skipIfApcIsNotAvailable();
     $apc = new Wrapper();
-    $this->assertInternalType('boolean', $apc->store('SAMPLE', 'DATA', 5));
+    $this->assertIsBool($apc->store('SAMPLE', 'DATA', 5));
   }
 
 
@@ -74,6 +74,6 @@ class WrapperTest extends \Papaya\TestCase {
   public function testClearCache() {
     $this->skipIfApcIsNotAvailable();
     $apc = new Wrapper();
-    $this->assertInternalType('boolean', $apc->clearCache('user'));
+    $this->assertIsBool($apc->clearCache('user'));
   }
 }

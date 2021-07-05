@@ -118,7 +118,8 @@ class Select extends UI\Dialog\Field {
   }
 
   /**
-   * Return the value array|iterator
+   * Return the value
+   * @return iterable
    */
   public function getValues() {
     return $this->_values;

@@ -69,6 +69,10 @@ abstract class Factory
     $this->_owner = $owner;
   }
 
+  public function getOwner(): object {
+    return $this->_owner;
+  }
+
   /**
    * @param Loader $pluginLoader
    *

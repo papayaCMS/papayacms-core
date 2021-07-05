@@ -363,6 +363,10 @@ class Count extends UI\Control {
     return $this->_currentPage;
   }
 
+  public function isCalculated(): bool {
+    return $this->_calculated;
+  }
+
   /**
    * Resets the internal calculation result to NULL. This way they are calculated again if needed.
    */

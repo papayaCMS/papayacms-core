@@ -25,8 +25,8 @@ class TranslationsTest extends \Papaya\TestCase {
   public function testSetTranslationsTable() {
     $list = new Translations();
     $list->setTranslationsTableName('success');
-    $this->assertAttributeEquals(
-      'success', '_translationsTableName', $list
+    $this->assertEquals(
+      'success', $list->getTranslationsTableName()
     );
   }
 
@@ -61,7 +61,7 @@ class TranslationsTest extends \Papaya\TestCase {
     $list = new Translations();
     $list->setDatabaseAccess($databaseAccess);
     $this->assertTrue($list->load(42));
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         '1' => array(
           'id' => '42',
@@ -72,8 +72,7 @@ class TranslationsTest extends \Papaya\TestCase {
           'view' => 'Page view title'
         )
       ),
-      '_records',
-      $list
+      iterator_to_array($list)
     );
   }
 

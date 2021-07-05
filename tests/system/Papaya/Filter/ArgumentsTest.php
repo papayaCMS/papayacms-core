@@ -17,30 +17,13 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Arguments
+ */
 class ArgumentsTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\Arguments::__construct
-   */
-  public function testConstructor() {
-    $filter = new Arguments(array(new NotEmpty()));
-    $this->assertAttributeEquals(
-      array(new NotEmpty()), '_filters', $filter
-    );
-  }
 
   /**
-   * @covers \Papaya\Filter\Arguments::__construct
-   */
-  public function testConstructorWithAllParameters() {
-    $filter = new Arguments(array(new NotEmpty()), ';');
-    $this->assertAttributeEquals(
-      ';', '_separator', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\Arguments::validate
    * @dataProvider provideValidValidationData
    * @param mixed $value
    * @param array $filters
@@ -53,7 +36,6 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Arguments::validate
    * @dataProvider provideInvalidValidationData
    * @param mixed $value
    * @param array $filters
@@ -67,7 +49,6 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Arguments::filter
    * @dataProvider provideFilterData
    * @param mixed $expected
    * @param mixed $value
@@ -80,7 +61,6 @@ class ArgumentsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Arguments::filter
    * @dataProvider provideInvalidValidationData
    * @param mixed $value
    * @param array $filters

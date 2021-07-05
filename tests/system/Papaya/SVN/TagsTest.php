@@ -16,54 +16,11 @@
 namespace Papaya\SVN;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\SVN\Tags
+ */
 class TagsTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\SVN\Tags::__construct
-   */
-  public function testConstructWithDefaults() {
-    $expectedUri = 'testuri';
-    $expectedRevision = 0;
-    $tags = new Tags($expectedUri);
-    $this->assertAttributeSame(
-      $expectedUri,
-      '_tagDirectoryURL',
-      $tags
-    );
-    $this->assertAttributeSame(
-      $expectedRevision,
-      '_newerThanRevision',
-      $tags
-    );
-    $this->assertAttributeSame(
-      $expectedRevision,
-      '_highestRevisionSeen',
-      $tags
-    );
-  }
-
-  /**
-   * @covers \Papaya\SVN\Tags::__construct
-   */
-  public function testConstructWithRevision() {
-    $expectedUri = 'testuri';
-    $expectedRevision = 28;
-    $tags = new Tags($expectedUri, $expectedRevision);
-    $this->assertAttributeSame(
-      $expectedRevision,
-      '_newerThanRevision',
-      $tags
-    );
-    $this->assertAttributeSame(
-      $expectedRevision,
-      '_highestRevisionSeen',
-      $tags
-    );
-  }
-
-  /**
-   * @covers \Papaya\SVN\Tags::svnClient
-   */
   public function testSvnClientSet() {
     $tags = new Tags('');
     $client = $this->createMock(Client::class);
@@ -73,9 +30,6 @@ class TagsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\SVN\Tags::svnClient
-   */
   public function testSvnClientCreate() {
     $tags = new Tags('');
     $this->assertInstanceOf(
@@ -84,9 +38,6 @@ class TagsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\SVN\Tags::highestRevisionSeen
-   */
   public function testHighestRevisionSeen() {
     $expectedUri = 'testuri';
     $expectedRevision = 28;
@@ -105,9 +56,6 @@ class TagsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\SVN\Tags::getIterator
-   */
   public function testGetIterator() {
     $expectedUri = 'testuri';
     $tags = new Tags($expectedUri);
@@ -125,9 +73,6 @@ class TagsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\SVN\Tags::count
-   */
   public function testCount() {
     $expectedUri = 'testuri';
     $tags = new Tags($expectedUri);
@@ -145,9 +90,6 @@ class TagsTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\SVN\Tags::find
-   */
   public function testFindWithoutRevision() {
     $url = 'http://example.com/foo/tags/foo/';
     $tags = new Tags($url);
@@ -167,7 +109,6 @@ class TagsTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\SVN\Tags::find
    * @dataProvider provideFindExamples
    * @param string $url
    * @param array|FALSE $lsResult

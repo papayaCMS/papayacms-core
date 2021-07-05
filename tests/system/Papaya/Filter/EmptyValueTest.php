@@ -16,36 +16,12 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\EmptyValue
+ */
 class EmptyValueTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\EmptyValue::__construct
-   */
-  public function testConstructor() {
-    $filter = new EmptyValue();
-    $this->assertAttributeEquals(
-      TRUE, '_ignoreZero', $filter
-    );
-    $this->assertAttributeEquals(
-      TRUE, '_ignoreSpaces', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\EmptyValue::__construct
-   */
-  public function testConstructorWithArguments() {
-    $filter = new EmptyValue(FALSE, FALSE);
-    $this->assertAttributeEquals(
-      FALSE, '_ignoreZero', $filter
-    );
-    $this->assertAttributeEquals(
-      FALSE, '_ignoreSpaces', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -58,7 +34,6 @@ class EmptyValueTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\EmptyValue::validate
    * @dataProvider provideNonEmptyValues
    * @param mixed $value
    * @param bool $ignoreZero
@@ -71,9 +46,6 @@ class EmptyValueTest extends \Papaya\TestCase {
     $filter->validate($value);
   }
 
-  /**
-   * @covers \Papaya\Filter\EmptyValue::filter
-   */
   public function testFilter() {
     $filter = new EmptyValue();
     $this->assertNull($filter->filter(''));

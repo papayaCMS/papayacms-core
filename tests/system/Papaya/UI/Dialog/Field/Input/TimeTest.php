@@ -16,22 +16,18 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Input\Time
+ */
 class TimeTest extends \Papaya\TestCase {
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Time::__construct
-   */
   public function testConstructor() {
     $input = new Time('Time', 'time', '00:00:00', TRUE, 300.0);
     $this->assertEquals('Time', $input->caption);
     $this->assertEquals('time', $input->name);
     $this->assertEquals('00:00:00', $input->defaultValue);
     $this->assertTrue($input->mandatory);
-    $this->assertAttributeEquals(300.0, '_step', $input);
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Time::__construct
-   */
   public function testConstructorWithInvalidStep() {
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Step must not be less than 0.');
@@ -39,7 +35,6 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Time
    * @dataProvider filterExpectingTrueProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -52,7 +47,6 @@ class TimeTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Time
    * @dataProvider filterExpectingFalseProvider
    * @param mixed $value
    * @param bool $mandatory
@@ -64,9 +58,6 @@ class TimeTest extends \Papaya\TestCase {
     $this->assertFalse($input->validate());
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Input\Time::getXML
-   */
   public function testGetXml() {
     $input = new Time('Time', 'time');
     $input->papaya($this->mockPapaya()->application());

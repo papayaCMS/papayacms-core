@@ -58,6 +58,10 @@ class Parameters implements Application\Access {
     $this->parameters($parameters);
   }
 
+  public function getGroup() {
+    return $this->_group;
+  }
+
   /**
    * Load a given parameter. The parameter will be read from the session. If it exists in
    * $parameters it will be read from where and compared to the session value. If they are

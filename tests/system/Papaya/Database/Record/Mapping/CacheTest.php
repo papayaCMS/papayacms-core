@@ -26,39 +26,7 @@ class CacheTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
     $mapping = $this->createMock(\Papaya\Database\Interfaces\Mapping::class);
     $cache = new Cache($mapping);
-    $this->assertAttributeSame($mapping, '_mapping', $cache);
-  }
-
-  /**
-   * @covers \Papaya\Database\Record\Mapping\Cache::__construct
-   */
-  public function testConstructorWithCallbacks() {
-    $callbacks = $this->getCallbacksMock(
-      array(
-        'eventOne' => new \Papaya\BaseObject\Callback(NULL),
-        'eventTwo' => $callbackTwo = new \Papaya\BaseObject\Callback('42'),
-        'eventThree' => $callbackThree = new \Papaya\BaseObject\Callback(NULL)
-      )
-    );
-    $callbackThree->callback = 'substr';
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Database\Interfaces\Mapping $mapping */
-    $mapping = $this
-      ->getMockBuilder(\Papaya\Database\Record\Mapping::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-    $mapping
-      ->expects($this->once())
-      ->method('callbacks')
-      ->will($this->returnValue($callbacks));
-    $cache = new Cache($mapping);
-    $this->assertAttributeSame(
-      array(
-        'eventTwo' => $callbackTwo,
-        'eventThree' => $callbackThree
-      ),
-      '_callbacks',
-      $cache
-    );
+    $this->assertSame($mapping, $cache->getMapping());
   }
 
   /**

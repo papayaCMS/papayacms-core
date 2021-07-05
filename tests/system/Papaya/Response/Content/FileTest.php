@@ -24,7 +24,7 @@ class FileTest extends \Papaya\TestCase {
   public function testConstructor() {
     $content = new File(__DIR__.'/TestData/data.txt');
     $this->assertStringEndsWith(
-      '/TestData/data.txt', $this->readAttribute($content, '_filename')
+      '/TestData/data.txt', $content->getFileName()
     );
   }
 

@@ -86,29 +86,25 @@ namespace Papaya\Template\Engine {
     public function testSetTemplateString() {
       $engine = new Simple();
       $engine->setTemplateString('div { color: /*$FG_COLOR*/ #FFF; }');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         'div { color: /*$FG_COLOR*/ #FFF; }',
-        '_template',
-        $engine
+        $engine->getTemplate()
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         FALSE,
-        '_templateFile',
-        $engine
+        $engine->getTemplateFile()
       );
     }
 
     public function testSetTemplateFile() {
       $engine = new Simple();
       $engine->setTemplateFile(__DIR__.'/TestData/valid.css');
-      $this->assertAttributeNotEmpty(
-        '_template',
-        $engine
+      $this->assertNotEmpty(
+        $engine->getTemplate()
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         __DIR__.'/TestData/valid.css',
-        '_templateFile',
-        $engine
+        $engine->getTemplateFile()
       );
     }
 

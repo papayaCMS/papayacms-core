@@ -37,7 +37,7 @@ namespace Papaya\Theme {
       $definition = new Definition();
       $definition->pages($pages);
       $definition->load(__DIR__.'/TestData/theme.xml');
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'name' => 'TestData',
           'title' => 'Sample Papaya Theme',
@@ -47,16 +47,14 @@ namespace Papaya\Theme {
           'description' => 'Sample description',
           'template_path' => 'template-path'
         ],
-        '_properties',
-        $definition
+        $definition->getProperties()
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [
           'medium' => 'default48.jpg',
           'large' => 'default100.jpg'
         ],
-        '_thumbnails',
-        $definition
+        $definition->thumbnails
       );
     }
 

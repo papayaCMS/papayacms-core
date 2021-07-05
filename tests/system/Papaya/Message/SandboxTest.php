@@ -17,21 +17,11 @@ namespace Papaya\Message;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Sandbox
+ */
 class SandboxTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Sandbox::__construct
-   */
-  public function testConstructor() {
-    $sandbox = new Sandbox(array($this, 'callbackReturnImplodedArguments'));
-    $this->assertAttributeEquals(
-      array($this, 'callbackReturnImplodedArguments'), '_callback', $sandbox
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Sandbox::__invoke
-   */
   public function testInvokeWithoutArguments() {
     $sandbox = new Sandbox(array($this, 'callbackReturnImplodedArguments'));
     $this->assertEquals(
@@ -39,9 +29,6 @@ class SandboxTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Sandbox::__invoke
-   */
   public function testInvokeWithSeveralArguments() {
     $sandbox = new Sandbox(array($this, 'callbackReturnImplodedArguments'));
     $this->assertEquals(
@@ -49,9 +36,6 @@ class SandboxTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Sandbox::__invoke
-   */
   public function testInvokeWithErrorException() {
     $messages = $this->createMock(Manager::class);
     $messages
@@ -63,9 +47,6 @@ class SandboxTest extends \Papaya\TestCase {
     $this->assertNull($sandbox());
   }
 
-  /**
-   * @covers \Papaya\Message\Sandbox::__invoke
-   */
   public function testInvokewithLogicException() {
     $messages = $this->createMock(Manager::class);
     $messages

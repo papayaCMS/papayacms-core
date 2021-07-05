@@ -17,32 +17,17 @@ namespace Papaya\Filter\Ip;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Ip\V4
+ */
 class V4Test extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\Ip\V4::__construct
-   */
-  public function testConstructSuccess() {
-    $filter = new V4(
-      V4::ALLOW_LINK_LOCAL | V4::ALLOW_LOOPBACK
-    );
-    $this->assertAttributeEquals(
-      V4::ALLOW_LINK_LOCAL | V4::ALLOW_LOOPBACK,
-      '_configuration',
-      $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\Ip\V4::__construct
-   */
   public function testConstructInvalidArgumentException() {
     $this->expectException(\InvalidArgumentException::class);
     new V4('InvalidConfiguration');
   }
 
   /**
-   * @covers \Papaya\Filter\Ip\V4::__construct
    * @dataProvider getConfigurationOutOfRangeDataProvider
    * @param int $configuration
    */

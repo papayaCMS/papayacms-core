@@ -21,48 +21,6 @@ namespace Papaya\Filter {
    */
   class NumberWithUnitTest extends \Papaya\TestCase {
 
-    /**
-     * @dataProvider providerConstructArguments
-     * @param string|array $units
-     * @param array $expectedUnits
-     * @param float $minimum
-     * @param float $maximum
-     * @param string $algebraicSign
-     */
-    public function testConstruct($units, $expectedUnits, $minimum, $maximum, $algebraicSign) {
-      $filter = new NumberWithUnit($units, $minimum, $maximum, $algebraicSign);
-      $this->assertAttributeEquals($expectedUnits, '_units', $filter);
-      $this->assertAttributeEquals($minimum, '_minimum', $filter);
-      $this->assertAttributeEquals($maximum, '_maximum', $filter);
-      $this->assertAttributeEquals($algebraicSign, '_algebraicSign', $filter);
-    }
-
-    public function testConstructOnlyUnit() {
-      $filter = new NumberWithUnit('em');
-      $this->assertAttributeEquals(['em'], '_units', $filter);
-    }
-
-    public function testConstructOnlyUnitAndMin() {
-      $filter = new NumberWithUnit('px', 5);
-      $this->assertAttributeEquals(['px'], '_units', $filter);
-      $this->assertAttributeEquals(5, '_minimum', $filter);
-    }
-
-    public function testConstructOnlyUnitAndMinAndMax() {
-      $filter = new NumberWithUnit(['em', 'pt'], 81, 999, '-');
-      $this->assertAttributeEquals(['em', 'pt'], '_units', $filter);
-      $this->assertAttributeEquals(81, '_minimum', $filter);
-      $this->assertAttributeEquals(999, '_maximum', $filter);
-      $this->assertAttributeEquals('-', '_algebraicSign', $filter);
-    }
-
-    public function testConstructOnlyUnitAndMinAndMaxAndAlgebraicSign() {
-      $filter = new NumberWithUnit(['%', 'pt'], -34, 91);
-      $this->assertAttributeEquals(['%', 'pt'], '_units', $filter);
-      $this->assertAttributeEquals(-34, '_minimum', $filter);
-      $this->assertAttributeEquals(91, '_maximum', $filter);
-    }
-
     public function testConstructExceptionMissingUnit() {
       $this->expectException(\UnexpectedValueException::class);
       new NumberWithUnit('');

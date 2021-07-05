@@ -67,6 +67,14 @@ class Text implements Application\Access, StringCastable {
     $this->_values = $values;
   }
 
+  public function getPattern(): string {
+    return $this->_pattern;
+  }
+
+  public function getValues(): array {
+    return $this->_values;
+  }
+
   /**
    * Allow to cast the object into a string, compiling the pattern and values into a result string.
    *

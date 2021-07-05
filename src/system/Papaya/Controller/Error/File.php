@@ -30,7 +30,7 @@ class File extends Controller\Error {
    *
    * @return bool
    */
-  public function setTemplateFile($fileName) {
+  public function setTemplateFile(string $fileName): bool {
     if (!empty($fileName) &&
       \file_exists($fileName) &&
       \is_file($fileName) &&

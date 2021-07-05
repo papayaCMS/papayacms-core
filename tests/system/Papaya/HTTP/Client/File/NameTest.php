@@ -25,13 +25,6 @@ namespace Papaya\HTTP\Client\File {
       $this->_sampleFile = __DIR__.'/DATA/sample.txt';
     }
 
-    public function testConstructor() {
-      $file = new Name('test', $this->_sampleFile, 'text/plain');
-      $this->assertAttributeEquals('test', '_name', $file);
-      $this->assertAttributeEquals($this->_sampleFile, '_fileName', $file);
-      $this->assertAttributeEquals('text/plain', '_mimeType', $file);
-    }
-
     public function testConstructorExpectingError() {
       $this->expectException(\UnexpectedValueException::class);
       new Name('', '', '');

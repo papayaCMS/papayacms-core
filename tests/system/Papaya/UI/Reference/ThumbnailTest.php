@@ -68,7 +68,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => TRUE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -103,7 +103,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
     $this->assertEquals(
       'http://www.sample.tld/index.media.012345678901234567890123456789ab',
@@ -131,7 +131,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -155,7 +155,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -179,7 +179,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -203,7 +203,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -230,7 +230,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => '',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -254,7 +254,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => 'jpg',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
   }
 
@@ -281,7 +281,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => 'png',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
     $this->assertEquals(
       'http://www.sample.tld/'.
@@ -314,7 +314,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => 'jpg',
         'preview' => FALSE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
     $this->assertEquals(
       'http://www.sample.tld/index.media.59b56cc48b253e36c87c2a2e15772dc1.jpg',
@@ -344,7 +344,7 @@ class ThumbnailTest extends \Papaya\TestCase {
         'extension' => 'png',
         'preview' => TRUE
       ),
-      $this->readAttribute($reference, '_pageData')
+      iterator_to_array($reference)
     );
     $this->assertEquals(
       'http://www.sample.tld/'.

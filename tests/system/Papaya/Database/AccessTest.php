@@ -25,11 +25,8 @@ class AccessTest extends \Papaya\TestCase {
   public function testConstructor() {
     $owner = new \stdClass();
     $access = new Access(NULL, 'read', 'write');
-    $this->assertAttributeEquals(
-      'read', '_uriRead', $access
-    );
-    $this->assertAttributeSame(
-      'write', '_uriWrite', $access
+    $this->assertEquals(
+      ['read', 'write'], $access->getDatabaseURIs()
     );
   }
 
@@ -255,9 +252,7 @@ class AccessTest extends \Papaya\TestCase {
       ->method('setDataModified');
     $access = $this->getFixtureDatabaseAccess($connector);
     $access->setDataModified();
-    $this->assertAttributeSame(
-      TRUE, '_dataModified', $access
-    );
+    $this->assertTrue($access->isDataModified());
   }
 
   /**

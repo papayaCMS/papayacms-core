@@ -62,4 +62,8 @@ class Value extends Node {
   public function getIdentifier() {
     return $this->_group->getIdentifier().'/'.$this->name;
   }
+
+  public function getGroup(): Group {
+    return $this->_group;
+  }
 }

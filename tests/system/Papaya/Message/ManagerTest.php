@@ -224,22 +224,21 @@ namespace Papaya\Message {
       $manager = new Manager();
       $manager->papaya($papaya = $this->mockPapaya()->application());
       $sandbox = $manager->encapsulate('substr');
-      $this->assertInternalType('callable', $sandbox);
+      $this->assertIsCallable($sandbox);
       /** @noinspection PhpUndefinedMethodInspection */
       $this->assertSame($papaya, $sandbox[0]->papaya());
     }
 
-    public function testHooksSettingHooks() {
+    public function testHooksSettingMultipleHooks() {
       $hookOne = $this->createMock(Hook::class);
       $hookTwo = $this->createMock(Hook::class);
       $manager = new Manager();
       $manager->hooks(
         [$hookOne, $hookTwo]
       );
-      $this->assertAttributeSame(
+      $this->assertSame(
         [$hookOne, $hookTwo],
-        '_hooks',
-        $manager
+        $manager->hooks()
       );
     }
 
@@ -273,8 +272,8 @@ namespace Papaya\Message {
       $manager->hooks([$hookOne, $hookTwo]);
       $manager->setUp($options);
 
-      $this->assertAttributeGreaterThan(
-        0, '_startTime', Context\Runtime::class
+      $this->assertGreaterThan(
+        0, Context\Runtime::getStartTime()
       );
       $this->assertEquals(E_ALL & ~E_STRICT, error_reporting());
     }

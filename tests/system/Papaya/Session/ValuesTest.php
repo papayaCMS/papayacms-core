@@ -24,14 +24,6 @@ namespace Papaya\Session {
    */
   class ValuesTest extends \Papaya\TestCase {
 
-    public function testConstructor() {
-      $session = $this->getSessionFixture();
-      $values = new Values($session);
-      $this->assertAttributeSame(
-        $session, '_session', $values
-      );
-    }
-
     public function testOffsetExistsIfSessionActiveExpectingFalse() {
       $session = $this->getSessionFixture(TRUE);
       $values = new Values($session);

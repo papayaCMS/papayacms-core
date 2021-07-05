@@ -28,9 +28,9 @@ class FileTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $storage = new File(
-      $this->createTemporaryDirectory()
+      $directory = $this->createTemporaryDirectory()
     );
-    $this->assertAttributeNotEquals('', '_directory', $storage);
+    $this->assertEquals($directory, $storage->getDirectory());
   }
 
   /**
@@ -42,7 +42,7 @@ class FileTest extends \Papaya\TestCase {
       $this->createTemporaryDirectory(),
       'foo'
     );
-    $this->assertAttributeEquals('foo', '_suffix', $storage);
+    $this->assertEquals('foo', $storage->getFileSuffix());
   }
 
   /**

@@ -25,8 +25,8 @@ class ErrorTest extends \Papaya\TestCase {
   public function testSetStatus() {
     $controller = new Error();
     $controller->setStatus(403);
-    $this->assertAttributeEquals(
-      403, '_status', $controller
+    $this->assertEquals(
+      403, $controller->getStatus()
     );
   }
 
@@ -36,11 +36,11 @@ class ErrorTest extends \Papaya\TestCase {
   public function testSetError() {
     $controller = new Error();
     $controller->setError('ERROR_IDENTIFIER', 'ERROR_MESSAGE');
-    $this->assertAttributeEquals(
-      'ERROR_MESSAGE', '_errorMessage', $controller
+    $this->assertEquals(
+      'ERROR_MESSAGE', $controller->getErrorMessage()
     );
-    $this->assertAttributeEquals(
-      'ERROR_IDENTIFIER', '_errorIdentifier', $controller
+    $this->assertEquals(
+      'ERROR_IDENTIFIER', $controller->getErrorIdentifier()
     );
   }
 

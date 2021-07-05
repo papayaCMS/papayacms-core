@@ -35,7 +35,7 @@ class SynchronizationsTest extends \Papaya\TestCase {
   public function testGetList() {
     $synchronizations = new Synchronizations();
     $list = $synchronizations->getList();
-    $this->assertInternalType('array', $list);
+    $this->assertIsArray($list);
     $this->assertEquals($list, $synchronizations->getList());
   }
 

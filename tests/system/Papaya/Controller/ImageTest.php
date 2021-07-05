@@ -25,20 +25,8 @@ require_once __DIR__.'/../../../bootstrap.php';
 class ImageTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Controller\Image::setImageGenerator
-   */
-  public function testSetImageGenerator() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */
-    $generator = $this->createMock(\base_imagegenerator::class);
-    $controller = new Image();
-    $controller->setImageGenerator($generator);
-    $this->assertAttributeSame(
-      $generator, '_imageGenerator', $controller
-    );
-  }
-
-  /**
    * @covers \Papaya\Controller\Image::getImageGenerator
+   * @covers \Papaya\Controller\Image::setImageGenerator
    */
   public function testGetImageGenerator() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\base_imagegenerator $generator */

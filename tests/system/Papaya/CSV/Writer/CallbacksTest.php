@@ -24,8 +24,8 @@ class CallbacksTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $callbacks = new Callbacks();
-    $this->assertInternalType('array', $callbacks->onMapRow->defaultReturn);
-    $this->assertInternalType('array', $callbacks->onMapHeader->defaultReturn);
+    $this->assertIsArray($callbacks->onMapRow->defaultReturn);
+    $this->assertIsArray($callbacks->onMapHeader->defaultReturn);
   }
 
 }

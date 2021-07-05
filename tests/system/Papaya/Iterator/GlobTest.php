@@ -24,7 +24,7 @@ class GlobTest extends \Papaya\TestCase {
   public function testConstructor() {
     $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
     $this->assertStringEndsWith(
-      '/TestDataGlob/*.*', $this->readAttribute($glob, '_path')
+      '/TestDataGlob/*.*', $glob->getPath()
     );
   }
 
@@ -37,18 +37,6 @@ class GlobTest extends \Papaya\TestCase {
     $glob = new Glob(__DIR__.'/TestDataGlob/*.*', GLOB_NOSORT);
     $this->assertEquals(
       GLOB_NOSORT, $glob->getFlags()
-    );
-  }
-
-  /**
-   * @covers \Papaya\Iterator\Glob::rewind
-   */
-  public function testRewind() {
-    $glob = new Glob(__DIR__.'/TestDataGlob/*.*');
-    iterator_to_array($glob);
-    $glob->rewind();
-    $this->assertAttributeSame(
-      NULL, '_files', $glob
     );
   }
 

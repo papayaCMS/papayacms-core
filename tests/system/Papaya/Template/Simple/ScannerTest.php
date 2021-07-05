@@ -16,24 +16,11 @@
 namespace Papaya\Template\Simple;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Template\Simple\Scanner
+ */
 class ScannerTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner::__construct
-   */
-  public function testConstructor() {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|Scanner\Status $status */
-    $status = $this->createMock(Scanner\Status::class);
-    $scanner = new Scanner($status);
-    $this->assertAttributeSame(
-      $status, '_status', $scanner
-    );
-  }
-
-  /**
-   * @covers \Papaya\Template\Simple\Scanner::scan
-   * @covers \Papaya\Template\Simple\Scanner::_next
-   */
   public function testScanWithSingleValidToken() {
     $token = $this->getTokenMockObjectFixture(6);
     /** @var \PHPUnit_Framework_MockObject_MockObject|Scanner\Status $status */
@@ -58,10 +45,6 @@ class ScannerTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner::scan
-   * @covers \Papaya\Template\Simple\Scanner::_next
-   */
   public function testScanWithEndToken() {
     $token = $this->getTokenMockObjectFixture(6);
     $status = $this->getStatusMockObjectFixture(
@@ -81,10 +64,6 @@ class ScannerTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner::scan
-   * @covers \Papaya\Template\Simple\Scanner::_next
-   */
   public function testScanWithInvalidToken() {
     $status = $this->getStatusMockObjectFixture(
       array(NULL) // getToken() returns this elements
@@ -96,11 +75,6 @@ class ScannerTest extends \Papaya\TestCase {
     $scanner->scan($tokens, 'SAMPLE');
   }
 
-  /**
-   * @covers \Papaya\Template\Simple\Scanner::scan
-   * @covers \Papaya\Template\Simple\Scanner::_next
-   * @covers \Papaya\Template\Simple\Scanner::_delegate
-   */
   public function testScanWithSubStatus() {
     $tokenOne = $this->getTokenMockObjectFixture(6);
     $tokenTwo = $this->getTokenMockObjectFixture(4);

@@ -27,20 +27,17 @@ class LogTest extends \Papaya\TestCase {
       \Papaya\Message::SEVERITY_WARNING,
       'Sample Message'
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       Logable::GROUP_SYSTEM,
-      '_group',
-      $message
+      $message->getGroup()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       \Papaya\Message::SEVERITY_WARNING,
-      '_severity',
-      $message
+      $message->getSeverity()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       'Sample Message',
-      '_message',
-      $message
+      $message->getMessage()
     );
   }
 
@@ -87,10 +84,9 @@ class LogTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Context\Group $context */
     $context = $this->createMock(Context\Group::class);
     $message->setContext($context);
-    $this->assertAttributeSame(
+    $this->assertSame(
       $context,
-      '_context',
-      $message
+      $message->context()
     );
   }
 

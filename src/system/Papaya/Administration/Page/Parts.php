@@ -77,6 +77,10 @@ class Parts
     $this->_page = $page;
   }
 
+  public function getPage() {
+    return $this->_page;
+  }
+
   /**
    * @param string $name
    *

@@ -16,6 +16,9 @@
 namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Request\Log
+ */
 class LogTest extends \Papaya\TestCase {
 
   /**
@@ -23,12 +26,8 @@ class LogTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $log = new Log();
-    $this->assertAttributeGreaterThan(
-      0, '_startTime', $log
-    );
-    $events = $this->readAttribute($log, '_events');
     $this->assertStringStartsWith(
-      'Started at ', $events[0]
+      'Started at ', iterator_to_array($log)[0]
     );
   }
 
@@ -58,7 +57,7 @@ class LogTest extends \Papaya\TestCase {
   public function testLogTime() {
     $log = new Log();
     $log->logTime('SAMPLE');
-    $events = $this->readAttribute($log, '_events');
+    $events = iterator_to_array($log);
     $this->assertStringStartsWith(
       'SAMPLE', $events[1]
     );
@@ -71,7 +70,7 @@ class LogTest extends \Papaya\TestCase {
     $log = new Log();
     $log->logTime('SAMPLE');
     $log->logTime('SAMPLE');
-    $events = $this->readAttribute($log, '_events');
+    $events = iterator_to_array($log);
     $this->assertStringStartsWith(
       'SAMPLE', $events[2]
     );

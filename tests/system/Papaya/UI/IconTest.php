@@ -23,8 +23,8 @@ class IconTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $icon = new Icon('sample');
-    $this->assertAttributeEquals(
-      'sample', '_image', $icon
+    $this->assertEquals(
+      'sample', $icon->image
     );
   }
 
@@ -33,14 +33,14 @@ class IconTest extends \Papaya\TestCase {
    */
   public function testConstructorWithAllArguments() {
     $icon = new Icon('sample', 'caption', 'hint', array('foo' => 'bar'));
-    $this->assertAttributeEquals(
-      'caption', '_caption', $icon
+    $this->assertEquals(
+      'caption', $icon->caption
     );
-    $this->assertAttributeEquals(
-      'hint', '_hint', $icon
+    $this->assertEquals(
+      'hint', $icon->hint
     );
-    $this->assertAttributeEquals(
-      array('foo' => 'bar'), '_actionParameters', $icon
+    $this->assertEquals(
+      array('foo' => 'bar'), $icon->actionParameters
     );
   }
 

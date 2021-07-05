@@ -74,4 +74,8 @@ class Group extends Node {
   public function getIdentifier() {
     return $this->_page->getIdentifier().'/'.$this->name;
   }
+
+  public function getPage(): Page {
+    return $this->_page;
+  }
 }

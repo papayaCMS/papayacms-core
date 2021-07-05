@@ -121,15 +121,14 @@ namespace Papaya\UI\Dialog\Field {
           'BarFoo' => 'SampleFour'
         )
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'Foo' => 'SampleOne',
           'Bar' => 'SampleTwo',
           'FooBar' => 'SampleTree',
           'BarFoo' => 'SampleFour'
         ),
-        '_profiles',
-        $factory
+        $factory->getProfiles()
       );
     }
   }

@@ -16,30 +16,24 @@
 namespace Papaya\Message\Display;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Display\Translated
+ */
 class TranslatedTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Display\Translated::__construct
-   */
-  public function testConstructor() {
+  public function testGetMessage() {
     $message = new Translated(\Papaya\Message::SEVERITY_INFO, 'Test');
-    $string = $this->readAttribute($message, '_message');
-    $this->assertInstanceOf(
-      \Papaya\UI\Text\Translated::class, $string
-    );
-    $this->assertAttributeEquals(
-      'Test', '_pattern', $string
+    $message->papaya($this->mockPapaya()->application());
+    $this->assertEquals(
+      'Test', $message->getMessage()
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Display\Translated::__construct
-   */
-  public function testConstructorWithArguments() {
-    $message = new Translated(\Papaya\Message::SEVERITY_INFO, 'Test', array(1, 2, 3));
-    $string = $this->readAttribute($message, '_message');
-    $this->assertAttributeEquals(
-      array(1, 2, 3), '_values', $string
+  public function testGetMessageWithValues() {
+    $message = new Translated(\Papaya\Message::SEVERITY_INFO, 'Test %d %d %d', array(1, 2, 3));
+    $message->papaya($this->mockPapaya()->application());
+    $this->assertEquals(
+      'Test 1 2 3', $message->getMessage()
     );
   }
 }

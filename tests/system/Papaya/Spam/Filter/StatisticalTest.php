@@ -45,8 +45,8 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testSetRelevanceLimit() {
     $filter = new Statistical();
     $filter->setRelevanceLimit(0.3);
-    $this->assertAttributeEquals(
-      0.3, '_relevantDerivation', $filter
+    $this->assertEquals(
+      0.3, $filter->getRelevanceLimit()
     );
   }
 
@@ -66,8 +66,8 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testSetTokenLimit() {
     $filter = new Statistical();
     $filter->setTokenLimit(99);
-    $this->assertAttributeEquals(
-      99, '_maximumRelevant', $filter
+    $this->assertEquals(
+      99, $filter->getTokenLimit()
     );
   }
 
@@ -124,7 +124,7 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testGetProbabilityIsBalanced() {
     $filter = new Statistical();
     $filter->setReference($this->getSpamReferenceMock());
-    $this->assertEquals(0.5, $filter->getProbability('download'), '', 0.00001);
+    $this->assertEqualsWithDelta(0.5, $filter->getProbability('download'), 0.00001);
   }
 
   /**
@@ -133,7 +133,7 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testGetProbabilityIsUnknown() {
     $filter = new Statistical();
     $filter->setReference($this->getSpamReferenceMock());
-    $this->assertEquals(0.5, $filter->getProbability('unknown'), '', 0.00001);
+    $this->assertEqualsWithDelta(0.5, $filter->getProbability('unknown'),  0.00001);
   }
 
   /**
@@ -174,12 +174,11 @@ class StatisticalTest extends \Papaya\TestCase {
   public function testClassifyExpectingBalanced() {
     $filter = new Statistical();
     $filter->setReference($this->getSpamReferenceMock());
-    $this->assertEquals(
+    $this->assertEqualsWithDelta(
       0.5,
       $filter->classify(
         '', array('papaya' => 1, 'casino' => 1, 'download' => 1, 'unknown' => 1), 1
       ),
-      '',
       0.00001
     );
   }
@@ -203,8 +202,8 @@ class StatisticalTest extends \Papaya\TestCase {
     $filter->setReference($this->getSpamReferenceMock());
     $filter->setRelevanceLimit($relevanceLimit);
     $filter->setTokenLimit($tokenLimit);
-    $this->assertEquals(
-      $expected, $filter->classify('', $tokens, 1), '', 0.00001
+    $this->assertEqualsWithDelta(
+      $expected, $filter->classify('', $tokens, 1), 0.00001
     );
     $this->assertEquals(
       $report, $filter->getDetails()

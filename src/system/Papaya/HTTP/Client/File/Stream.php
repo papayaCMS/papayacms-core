@@ -56,6 +56,10 @@ class Stream extends HTTP\Client\File {
     }
   }
 
+  public function getResource() {
+    return $this->_resource;
+  }
+
   /**
    * read file resource size and/or return it
    *

@@ -16,24 +16,11 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\UI\Dialog\Field\Information
+ */
 class InformationTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Information::__construct
-   */
-  public function testConstructor() {
-    $message = new Information('Information', 'image');
-    $this->assertAttributeEquals(
-      'Information', '_text', $message
-    );
-    $this->assertAttributeEquals(
-      'image', '_image', $message
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Information::appendTo
-   */
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');
@@ -57,9 +44,6 @@ class InformationTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Information::appendTo
-   */
   public function testAppendToWithoutImage() {
     $document = new \Papaya\XML\Document();
     $document->appendElement('sample');

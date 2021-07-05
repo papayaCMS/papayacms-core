@@ -24,8 +24,8 @@ namespace Papaya\UI\Dialog {
      */
     public function testConstructor() {
       $dialog = new Session();
-      $this->assertAttributeSame(
-        $dialog, '_sessionIdentifier', $dialog
+      $this->assertSame(
+        $dialog, $dialog->getSessionIdentifier()
       );
     }
 
@@ -34,8 +34,8 @@ namespace Papaya\UI\Dialog {
      */
     public function testConstructorWithSessionIdentifier() {
       $dialog = new Session('sample_name');
-      $this->assertAttributeSame(
-        'sample_name', '_sessionIdentifier', $dialog
+      $this->assertSame(
+        'sample_name', $dialog->getSessionIdentifier()
       );
     }
 

@@ -15,25 +15,24 @@
 
 namespace Papaya\Cache\Service {
 
+  use PHPUnit\Runner\Version as PHPUnitVersion;
+
   require_once __DIR__.'/../../../../bootstrap.php';
+  require_once __DIR__.'/TestData/MemcacheClasses.php';
 
   class MemcacheTest extends \Papaya\TestCase {
 
-    /**
-     * @covers \Papaya\Cache\Service\Memcache::setMemcacheObject
-     */
-    public function testSetMemcacheObject() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|\Memcached $memcache */
-      $memcache = $this->createMock(\Memcached::class);
-      $service = new Memcache();
-      $service->setMemcacheObject($memcache);
-      $this->assertAttributeSame(
-        $memcache, '_memcache', $service
-      );
+    public function setUp(): void {
+      if (
+        PHP_VERSION_ID >= 80000 &&
+        version_compare(PHPUnitVersion::id(), '9.0.0', '<')
+       ) {
+        $this->markTestSkipped("PHPUnit <= 8 doesn't support mocking memcache(d).");
+      }
     }
 
     /**
-     * @covers \Papaya\Cache\Service\Memcache::getMemcacheObject
+     * @covers \Papaya\Cache\Service\Memcache
      */
     public function testGetMemcacheObject() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\Memcached $memcache */
@@ -91,7 +90,7 @@ namespace Papaya\Cache\Service {
       $configuration['MEMCACHE_SERVERS'] = 'TEST';
       $service = new Memcache();
       $service->setConfiguration($configuration);
-      $this->assertSame('TEST', $this->readAttribute($service, '_cachePath'));
+      $this->assertSame('TEST', $service->getCachePath());
     }
 
     /**
@@ -103,7 +102,7 @@ namespace Papaya\Cache\Service {
       $service = new Memcache();
       $service->setConfiguration($configuration);
       $this->assertThat(
-        $this->readAttribute($service, '_cachePath'),
+        $service->getCachePath(),
         $this->logicalOr(
           $this->equalTo(''),
           $this->equalTo(ini_get('session.save_path'))
@@ -767,53 +766,6 @@ namespace Papaya\Cache\Service {
 
     public function _createMemcacheObject() {
       return $this->memcacheObjects[$this->memcacheObjectCounter++];
-    }
-  }
-}
-
-namespace {
-
-  if (!class_exists('Memcache', FALSE)) {
-
-    /** @noinspection PhpUndefinedClassInspection */
-
-    class Memcache {
-      public function addServer() {
-      }
-
-      public function flush() {
-      }
-
-      public function get() {
-      }
-
-      public function set() {
-      }
-
-      public function replace() {
-      }
-    }
-  }
-
-  if (!class_exists('Memcached', FALSE)) {
-
-    /** @noinspection PhpUndefinedClassInspection */
-
-    class Memcached {
-      public function addServer() {
-      }
-
-      public function flush() {
-      }
-
-      public function get() {
-      }
-
-      public function set() {
-      }
-
-      public function replace() {
-      }
     }
   }
 }

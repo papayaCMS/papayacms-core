@@ -57,7 +57,7 @@ namespace Papaya\Content\Page {
       $this->assertTrue(
         $dependencies->load(42, 1, 10, 0)
       );
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           21 => array(
             'id' => 21,
@@ -72,8 +72,7 @@ namespace Papaya\Content\Page {
             'published_to' => 0
           )
         ),
-        '_records',
-        $dependencies
+        iterator_to_array($dependencies)
       );
     }
 
@@ -84,15 +83,14 @@ namespace Papaya\Content\Page {
       $dependencies = new Dependencies_TestProxy();
       $dependency = $dependencies->getDependency(21);
       $this->assertInstanceOf(Dependency::class, $dependency);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => NULL,
           'note' => NULL,
           'origin_id' => NULL,
           'synchronization' => NULL
         ),
-        '_values',
-        $dependency
+        iterator_to_array($dependency)
       );
     }
 
@@ -116,15 +114,14 @@ namespace Papaya\Content\Page {
         )
       );
       $dependency = $dependencies->getDependency(21);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => 21,
           'origin_id' => 42,
           'synchronization' => 35,
           'note' => 'sample note'
         ),
-        '_values',
-        $dependency
+        iterator_to_array($dependency)
       );
     }
 
@@ -172,8 +169,8 @@ namespace Papaya\Content\Page {
       );
       $dependencies->setDatabaseAccess($databaseAccess);
       $dependencies->delete(21);
-      $this->assertAttributeEquals(
-        array(), '_records', $dependencies
+      $this->assertEquals(
+        array(), iterator_to_array($dependencies)
       );
     }
 

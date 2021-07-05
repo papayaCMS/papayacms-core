@@ -29,18 +29,10 @@ class ListViewTest extends \Papaya\TestCase {
     $listview = new ListView(
       21, 42, $dependencies, $references, $synchronizations
     );
-    $this->assertAttributeSame(
-      $dependencies, '_dependencies', $listview
-    );
-    $this->assertAttributeEquals(
-      42, '_currentPageId', $listview
-    );
-    $this->assertAttributeEquals(
-      21, '_originPageId', $listview
-    );
-    $this->assertAttributeSame(
-      $synchronizations, '_synchronizations', $listview
-    );
+    $this->assertSame($dependencies, $listview->getDependencies());
+    $this->assertSame(42, $listview->getCurrentPageID());
+    $this->assertSame(21, $listview->getOriginPageID());
+    $this->assertSame($synchronizations, $listview->getSynchronizations());
   }
 
   /**

@@ -23,15 +23,13 @@ class ErrorTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $message = new Error(E_USER_WARNING, 'Sample Warning', 'Sample Context');
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       \Papaya\Message::SEVERITY_WARNING,
-      '_type',
-      $message
+      $message->getSeverity()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       'Sample Warning',
-      '_message',
-      $message
+      $message->getMessage()
     );
     $this->assertCount(2, $message->context());
   }

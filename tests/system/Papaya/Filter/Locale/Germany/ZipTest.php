@@ -16,81 +16,45 @@
 namespace Papaya\Filter\Locale\Germany;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Locale\Germany\Zip
+ */
 class ZipTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::__construct
-   * @dataProvider providerConstructor
-   * @param bool|NULL $value
-   */
-  public function testConstruct($value) {
-    $filter = new Zip($value);
-    $this->assertAttributeEquals($value, '_allowCountryPrefix', $filter);
-  }
-
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::__construct
-   */
-  public function testConstructWithoutArgument() {
-    $filter = new Zip();
-    $this->assertAttributeEquals(NULL, '_allowCountryPrefix', $filter);
-  }
-
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
-   */
   public function testValidate() {
     $filter = new Zip();
     $this->assertTrue($filter->validate('12345'));
   }
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
-   */
   public function testValidateExpectCharacterInvalidException() {
     $filter = new Zip(TRUE);
     $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('11235');
   }
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
-   */
   public function testValidateExpectLengthMinimumException() {
     $filter = new Zip();
     $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToShort::class);
     $filter->validate('123');
   }
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
-   */
   public function testValidateExpectLengthMaximumException() {
     $filter = new Zip();
     $this->expectException(\Papaya\Filter\Exception\InvalidLength\ToLong::class);
     $filter->validate('342423432424');
   }
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::validate
-   */
   public function testValidateExpectCharacterInvalidExceptionInPostalcode() {
     $filter = new Zip();
     $this->expectException(\Papaya\Filter\Exception\InvalidCharacter::class);
     $filter->validate('23a91');
   }
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::filter
-   */
   public function testFilter() {
     $filter = new Zip();
     $this->assertEquals('12345', $filter->filter('12345'));
   }
 
-  /**
-   * @covers \Papaya\Filter\Locale\Germany\Zip::filter
-   */
   public function testFilterExpectsFilterException() {
     $filter = new Zip();
     $this->assertNull($filter->filter('78asdblnnlnltest'));

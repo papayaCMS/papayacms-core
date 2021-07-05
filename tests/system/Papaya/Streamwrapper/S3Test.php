@@ -35,17 +35,7 @@ namespace Papaya\Streamwrapper {
       stream_wrapper_unregister('s3-test');
     }
 
-    public function testSetHandler() {
-      /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $client */
-      $client = $this->createMock(S3\Handler::class);
-      $wrapper = new S3();
-      $wrapper->setHandler($client);
-      $this->assertAttributeSame(
-        $client, '_handler', $wrapper
-      );
-    }
-
-    public function testGetHandler() {
+    public function testSetAndGetHandler() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|S3\Handler $client */
       $client = $this->createMock(S3\Handler::class);
       $wrapper = new S3();
@@ -89,46 +79,12 @@ namespace Papaya\Streamwrapper {
       );
     }
 
-    public function testSetSecret() {
-      $id = 'KEYID123456789012345';
-      $secret = '1234567890123456789012345678901234567890';
-      $secrets = [$id => $secret];
-      $this->assertTrue(
-        S3::setSecret(
-          $id,
-          $secret
-        )
-      );
-      $this->assertAttributeSame(
-        $secrets, '_secrets', S3::class
-      );
-      S3::setSecret($id, NULL);
-    }
-
-    public function testSetSecretUnset() {
-      $id = 'KEYID123456789012345';
-      $secret = '1234567890123456789012345678901234567890';
-      S3::setSecret($id, $secret);
-      $this->assertFalse(
-        S3::setSecret(
-          $id,
-          NULL
-        )
-      );
-      $this->assertAttributeSame(
-        [], '_secrets', S3::class
-      );
-    }
-
     public function testSetSecretWithInvalidSecret() {
       $this->assertFalse(
         S3::setSecret(
           'KEYID123456789012345',
           'INVALID'
         )
-      );
-      $this->assertAttributeSame(
-        [], '_secrets', S3::class
       );
     }
 
@@ -362,7 +318,7 @@ namespace Papaya\Streamwrapper {
       );
       $wrapper->stream_write($testContent);
       $result = $wrapper->stream_stat();
-      $this->assertInternalType('array', $result);
+      $this->assertIsArray($result);
       $this->assertEquals($result['size'], strlen($testContent));
       $this->assertLessThan($result['atime'], 0);
       $this->assertLessThan($result['mtime'], 0);

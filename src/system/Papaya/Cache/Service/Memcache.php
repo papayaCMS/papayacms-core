@@ -125,6 +125,10 @@ class Memcache extends Cache\Service {
     return FALSE;
   }
 
+  public function getCachePath(): string {
+    return $this->_cachePath;
+  }
+
   /**
    * read cache path option from configuration or ini file
    *

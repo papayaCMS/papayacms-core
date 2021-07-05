@@ -131,6 +131,10 @@ class Checkbox extends UI\Dialog\Field\Input {
     );
   }
 
+  public function getValues(): array {
+    return $this->_values;
+  }
+
   /**
    * Get the current field value. This can be either of two values specified by the member
    * variable $_values

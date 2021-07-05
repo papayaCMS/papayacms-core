@@ -27,8 +27,8 @@ class PartTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Email\Content $content */
     $content = $this->createMock(Content::class);
     $part = new Part($content);
-    $this->assertAttributeSame(
-      $content, '_content', $part
+    $this->assertSame(
+      $content, $part->content()
     );
   }
 
@@ -115,8 +115,8 @@ class PartTest extends \Papaya\TestCase {
     $part = new Part($content);
     $content = $this->createMock(Content::class);
     $part->content = $content;
-    $this->assertAttributeSame(
-      $content, '_content', $part
+    $this->assertSame(
+      $content, $part->content()
     );
   }
 
@@ -129,8 +129,8 @@ class PartTest extends \Papaya\TestCase {
     $part = new Part($content);
     $headers = $this->createMock(Headers::class);
     $part->headers = $headers;
-    $this->assertAttributeSame(
-      $headers, '_headers', $part
+    $this->assertSame(
+      $headers, $part->headers()
     );
   }
 

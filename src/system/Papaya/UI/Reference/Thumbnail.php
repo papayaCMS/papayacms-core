@@ -24,7 +24,7 @@ use Papaya\URL;
  * @package Papaya-Library
  * @subpackage UI
  */
-class Thumbnail extends UI\Reference {
+class Thumbnail extends UI\Reference implements \IteratorAggregate {
   /**
    * Page identification data
    *
@@ -40,6 +40,11 @@ class Thumbnail extends UI\Reference {
     'extension' => '',
     'preview' => FALSE
   ];
+
+
+  public function getIterator(): \ArrayIterator {
+    return new \ArrayIterator($this->_pageData);
+  }
 
   /**
    * Static create function to allow fluent calls.

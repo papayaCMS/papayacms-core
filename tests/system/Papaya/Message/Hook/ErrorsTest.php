@@ -36,10 +36,9 @@ class ErrorsTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Message\Manager $manager */
     $manager = $this->createMock(\Papaya\Message\Manager::class);
     $hook = new Errors($manager);
-    $this->assertAttributeSame(
+    $this->assertSame(
       $manager,
-      '_messageManager',
-      $hook
+      $hook->getMessageManager()
     );
   }
 

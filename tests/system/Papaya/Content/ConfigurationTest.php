@@ -41,19 +41,18 @@ class ConfigurationTest extends \Papaya\TestCase {
       ->expects($this->once())
       ->method('queryFmt')
       ->with($this->isType('string'), array('table_options'))
-      ->will($this->returnValue($databaseResult));
+      ->willReturn($databaseResult);
     $configuration = new Configuration();
     $configuration->setDatabaseAccess($databaseAccess);
     $this->assertTrue($configuration->load());
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'SAMPLE_OPTION' => array(
           'name' => 'SAMPLE_OPTION',
           'value' => '42'
         )
       ),
-      '_records',
-      $configuration
+      iterator_to_array($configuration)
     );
   }
 }

@@ -26,7 +26,7 @@ class GroupTest extends \Papaya\TestCase {
     /** @var \PHPUnit_Framework_MockObject_MockObject|Page $page */
     $page = $this->createMock(Page::class);
     $group = new Group($page);
-    $this->assertAttributeSame($page, '_page', $group);
+    $this->assertSame($page, $group->getPage());
   }
 
   /**

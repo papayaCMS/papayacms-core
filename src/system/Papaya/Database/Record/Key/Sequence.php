@@ -56,6 +56,10 @@ class Sequence implements Database\Interfaces\Key {
     $this->_property = $property;
   }
 
+  public function getSequence(): Database\Sequence {
+    return $this->_sequence;
+  }
+
   /**
    * Provide information about the key
    *

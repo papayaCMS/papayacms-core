@@ -23,8 +23,8 @@ class GroupTest extends \Papaya\TestCase {
    */
   public function testConstructor() {
     $group = new Group('Group Caption');
-    $this->assertAttributeEquals(
-      'Group Caption', '_caption', $group
+    $this->assertEquals(
+      'Group Caption', $group->caption
     );
   }
 
@@ -51,27 +51,6 @@ class GroupTest extends \Papaya\TestCase {
     $group->collection($this->getCollectionMock($dialog));
     $this->assertSame(
       $dialog, $group->fields()->owner()
-    );
-  }
-
-  /**
-   * @covers \Papaya\UI\Dialog\Field\Group::fields
-   */
-  public function testFieldsSet() {
-    $dialog = $this
-      ->getMockBuilder(\Papaya\UI\Dialog::class)
-      ->setConstructorArgs(array(new \stdClass()))
-      ->getMock();
-    $group = new Group('Group Caption');
-    $group->collection($this->getCollectionMock($dialog));
-    $fields = $this->createMock(\Papaya\UI\Dialog\Fields::class);
-    $fields
-      ->expects($this->once())
-      ->method('owner')
-      ->with($this->equalTo($dialog));
-    $group->fields($fields);
-    $this->assertAttributeSame(
-      $fields, '_fields', $group
     );
   }
 

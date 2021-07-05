@@ -21,23 +21,6 @@ require_once __DIR__.'/../../../../bootstrap.php';
  */
 class ItemTest extends \Papaya\TestCase {
 
-  public function testConstructor() {
-    $item = new Item('image', 'caption');
-    $this->assertAttributeEquals(
-      'image', '_image', $item
-    );
-    $this->assertAttributeEquals(
-      'caption', '_caption', $item
-    );
-  }
-
-  public function testConstructorWithOptionalParameters() {
-    $item = new Item('image', 'caption', array('id' => '42'));
-    $this->assertAttributeEquals(
-      array('id' => '42'), '_actionParameters', $item
-    );
-  }
-
   public function testPropertyActionParameters() {
     $item = new Item('', '');
     $item->actionParameters = array('id' => '42');

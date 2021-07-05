@@ -21,15 +21,6 @@ class GroupTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Wrapper\Group::__construct
-   */
-  public function testConstructor() {
-    $group = new Group('sample.xml');
-    $this->assertAttributeEquals(
-      'sample.xml', '_themeFile', $group
-    );
-  }
-
-  /**
    * @covers \Papaya\Theme\Wrapper\Group::getFiles
    */
   public function testGetFilesRequestingMainCss() {
@@ -104,14 +95,6 @@ class GroupTest extends \Papaya\TestCase {
 
   /**
    * @covers \Papaya\Theme\Wrapper\Group::setDocument
-   */
-  public function testSetDocument() {
-    $group = new Group('sample.xml');
-    $group->setDocument($document = new \DOMDocument);
-    $this->assertAttributeSame($document, '_document', $group);
-  }
-
-  /**
    * @covers \Papaya\Theme\Wrapper\Group::getDocument
    */
   public function testGetDocumentAfterSet() {

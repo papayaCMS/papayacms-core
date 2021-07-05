@@ -35,10 +35,9 @@ namespace Papaya\UI {
     public function testAdd() {
       $images = new Images();
       $images->add(['test' => 'test.png']);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         ['test' => 'test.png'],
-        '_images',
-        $images
+        iterator_to_array($images)
       );
     }
 
@@ -46,10 +45,9 @@ namespace Papaya\UI {
       $images = new Images();
       $images->add(['test' => 'success.png']);
       $images->add(['test' => 'fail.png'], Images::DUPLICATES_IGNORE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         ['test' => 'success.png'],
-        '_images',
-        $images
+        iterator_to_array($images)
       );
     }
 
@@ -57,10 +55,9 @@ namespace Papaya\UI {
       $images = new Images();
       $images->add(['test' => 'fail.png']);
       $images->add(['test' => 'success.png'], Images::DUPLICATES_OVERWRITE);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         ['test' => 'success.png'],
-        '_images',
-        $images
+        iterator_to_array($images)
       );
     }
 
@@ -68,10 +65,9 @@ namespace Papaya\UI {
       $images = new Images();
       $images->add(['test' => 'test.png']);
       $images->remove(['test']);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [],
-        '_images',
-        $images
+        iterator_to_array($images)
       );
     }
 
@@ -101,10 +97,9 @@ namespace Papaya\UI {
       $images = new Images();
       $images->add(['test' => 'fail.png']);
       $images['test'] = 'success.png';
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         ['test' => 'success.png'],
-        '_images',
-        $images
+        iterator_to_array($images)
       );
     }
 
@@ -112,10 +107,9 @@ namespace Papaya\UI {
       $images = new Images();
       $images->add(['test' => 'test.png']);
       unset($images['test']);
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         [],
-        '_images',
-        $images
+        iterator_to_array($images)
       );
     }
   }

@@ -93,7 +93,7 @@ class ReferenceTest extends \Papaya\TestCase {
     $reference = new Reference();
     $reference->setDatabaseAccess($databaseAccess);
     $this->assertTrue($reference->load(array('foo', 'bar'), 2));
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'papaya' => array(
           'word' => 'papaya',
@@ -106,8 +106,7 @@ class ReferenceTest extends \Papaya\TestCase {
           'spam' => 13
         )
       ),
-      '_records',
-      $reference
+      iterator_to_array($reference)
     );
     $this->assertEquals(42, $reference->getHamCount());
     $this->assertEquals(2142, $reference->getSpamCount());

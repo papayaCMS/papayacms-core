@@ -99,8 +99,8 @@ namespace Papaya\Media\Storage\Service {
       $configuration = $this->getMockConfigurationObjectFixture();
       $service = new S3($configuration);
       $service->setHandler($handler);
-      $this->assertAttributeSame(
-        $handler, '_handler', $service
+      $this->assertSame(
+        $handler, $service->getHandler()
       );
     }
 
@@ -116,52 +116,6 @@ namespace Papaya\Media\Storage\Service {
       $service = new S3($configuration);
       $service->setHandler($handler);
       $service->setHTTPClient($client);
-    }
-
-    public function testSetConfiguration() {
-      $configuration = $this->getMockConfigurationObjectFixture();
-      $service = new S3($configuration);
-      $this->assertSame(
-        'sample_bucket', $this->readAttribute($service, '_storageBucket')
-      );
-      $this->assertSame(
-        'd/i/rectory/', $this->readAttribute($service, '_storageDirectory')
-      );
-      $this->assertSame(
-        0, $this->readAttribute($service, '_storageDirectoryDepth')
-      );
-    }
-
-    public function testSetConfigurationWithSlash() {
-      $configuration = $this->mockPapaya()->options(
-        [
-          'PAPAYA_MEDIA_STORAGE_S3_BUCKET' => 'sample_bucket',
-          'PAPAYA_MEDIA_STORAGE_S3_KEYID' => 'sample_key_id',
-          'PAPAYA_MEDIA_STORAGE_S3_KEY' => 'sample_key',
-          'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY' => 'd/i/rectory/',
-          'PAPAYA_MEDIA_STORAGE_DIRECTORY_DEPTH' => 0
-        ]
-      );
-      $service = new S3($configuration);
-      $this->assertSame(
-        'd/i/rectory/', $this->readAttribute($service, '_storageDirectory')
-      );
-    }
-
-    public function testSetConfigurationWithEmptyDirectory() {
-      $configuration = $this->mockPapaya()->options(
-        [
-          'PAPAYA_MEDIA_STORAGE_S3_BUCKET' => 'sample_bucket',
-          'PAPAYA_MEDIA_STORAGE_S3_KEYID' => 'sample_key_id',
-          'PAPAYA_MEDIA_STORAGE_S3_KEY' => 'sample_key',
-          'PAPAYA_MEDIA_STORAGE_SUBDIRECTORY' => '',
-          'PAPAYA_MEDIA_STORAGE_DIRECTORY_DEPTH' => 0
-        ]
-      );
-      $service = new S3($configuration);
-      $this->assertSame(
-        '', $this->readAttribute($service, '_storageDirectory')
-      );
     }
 
     public function testBrowse() {

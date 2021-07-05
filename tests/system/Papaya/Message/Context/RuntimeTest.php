@@ -16,114 +16,11 @@
 namespace Papaya\Message\Context;
 require_once __DIR__.'/../../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Message\Context\Runtime
+ */
 class RuntimeTest extends \Papaya\TestCase {
 
-  /**
-   * @covers \Papaya\Message\Context\Runtime::__construct
-   */
-  public function testConstructorWithoutParameters() {
-    Runtime::setStartTime(NULL);
-    $context = new Runtime();
-    $this->assertAttributeGreaterThan(
-      0,
-      '_startTime',
-      Runtime::class
-    );
-    $this->assertAttributeGreaterThan(
-      0,
-      '_previousTime',
-      Runtime::class
-    );
-    $this->assertAttributeEquals(
-      Runtime::MODE_GLOBAL,
-      '_mode',
-      $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Runtime::__construct
-   */
-  public function testConstructorWithParameters() {
-    $context = new Runtime(23, 42);
-    $this->assertAttributeEquals(
-      19,
-      '_neededTime',
-      $context
-    );
-    $this->assertAttributeEquals(
-      42,
-      '_currentTime',
-      $context
-    );
-    $this->assertAttributeEquals(
-      Runtime::MODE_SINGLE,
-      '_mode',
-      $context
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Runtime::setTimeValues
-   * @covers \Papaya\Message\Context\Runtime::_prepareTimeValue
-   * @dataProvider setTimeValuesDataProvider
-   *
-   * @param float $expectedDiff
-   * @param float $expectedStop
-   * @param float|integer|string $start
-   * @param float|integer|string $stop
-   */
-  public function testSetTimeValues($expectedDiff, $expectedStop, $start, $stop) {
-    $context = new Runtime();
-    $context->setTimeValues($start, $stop);
-    $this->assertAttributeEquals(
-      $expectedDiff,
-      '_neededTime',
-      $context,
-      '',
-      0.000001
-    );
-    $this->assertAttributeEquals(
-      $expectedStop,
-      '_currentTime',
-      $context,
-      '',
-      0.000001
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Runtime::setStartTime
-   */
-  public function testSetStartTime() {
-    Runtime::setStartTime(42);
-    $this->assertAttributeEquals(
-      42,
-      '_startTime',
-      Runtime::class
-    );
-    $this->assertAttributeEquals(
-      42,
-      '_previousTime',
-      Runtime::class
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Runtime::rememberTime
-   */
-  public function testRememberTime() {
-    Runtime::rememberTime(42);
-    $this->assertAttributeEquals(
-      42,
-      '_previousTime',
-      Runtime::class
-    );
-  }
-
-  /**
-   * @covers \Papaya\Message\Context\Runtime::asString
-   */
   public function testAsStringInGlobalMode() {
     $context = new Runtime();
     Runtime::setStartTime(23);
@@ -134,9 +31,6 @@ class RuntimeTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Message\Context\Runtime::asString
-   */
   public function testAsStringInSingleMode() {
     $context = new Runtime(42, 77);
     $this->assertEquals(

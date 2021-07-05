@@ -32,30 +32,27 @@ class MappingTest extends \Papaya\TestCase {
         'property_three' => 'a.field_three'
       )
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'property_one' => 'field_one',
         'property_two' => '',
         'property_three' => 'a.field_three'
       ),
-      '_properties',
-      $mapping
+      $mapping->getPropertiesMap()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'field_one' => 'property_one',
         'a.field_three' => 'property_three'
       ),
-      '_fields',
-      $mapping
+      $mapping->getFieldsMap()
     );
-    $this->assertAttributeEquals(
+    $this->assertEquals(
       array(
         'field_one' => 'property_one',
         'field_three' => 'property_three'
       ),
-      '_fieldsWithoutAlias',
-      $mapping
+      $mapping->getFieldsMap(FALSE)
     );
   }
 

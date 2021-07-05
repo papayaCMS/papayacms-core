@@ -211,7 +211,7 @@ namespace Papaya\Content\Page {
         )
       );
       $page = $parentPage->createChild();
-      $this->assertAttributeEquals(
+      $this->assertEquals(
         array(
           'id' => NULL,
           'parent_id' => 21,
@@ -238,8 +238,7 @@ namespace Papaya\Content\Page {
           'expires_time' => 0,
           'unpublished_translations' => 0
         ),
-        '_values',
-        $page
+        iterator_to_array($page)
       );
     }
 

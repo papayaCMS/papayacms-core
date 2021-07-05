@@ -62,6 +62,10 @@ class Handler {
     $this->_client = $client;
   }
 
+  public function getHTTPClient(): \Papaya\HTTP\Client {
+    return $this->_client;
+  }
+
   /**
    * Set the storage configuration values.
    *

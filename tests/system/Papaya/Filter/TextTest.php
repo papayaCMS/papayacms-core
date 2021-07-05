@@ -16,21 +16,12 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\Filter\Text
+ */
 class TextTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Filter\Text::__construct
-   */
-  public function testConstructorWithOptionsParameter() {
-    $filter = new Text(Text::ALLOW_DIGITS);
-    $this->assertAttributeEquals(
-      Text::ALLOW_DIGITS, '_options', $filter
-    );
-  }
-
-  /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
    * @dataProvider provideValidValues
    * @param mixed $value
    * @param int $options
@@ -45,8 +36,6 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
    * @dataProvider provideInvalidValues
    * @param mixed $value
    * @param int $options
@@ -61,30 +50,18 @@ class TextTest extends \Papaya\TestCase {
     $filter->validate($value);
   }
 
-  /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
-   */
   public function testValidateWithEmptyValueExpectingException() {
     $filter = new Text();
     $this->expectException(Exception\IsEmpty::class);
     $filter->validate('');
   }
 
-  /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
-   */
   public function testValidateWithNullValueExpectingException() {
     $filter = new Text();
     $this->expectException(Exception\IsEmpty::class);
     $filter->validate(NULL);
   }
 
-  /**
-   * @covers \Papaya\Filter\Text::validate
-   * @covers \Papaya\Filter\Text::getPattern
-   */
   public function testValidateWithArrayValueExpectingException() {
     $filter = new Text();
     $this->expectException(Exception\UnexpectedType::class);
@@ -92,8 +69,6 @@ class TextTest extends \Papaya\TestCase {
   }
 
   /**
-   * @covers \Papaya\Filter\Text::filter
-   * @covers \Papaya\Filter\Text::getPattern
    * @dataProvider provideFilterValues
    * @param string|NULL $expected
    * @param mixed $value

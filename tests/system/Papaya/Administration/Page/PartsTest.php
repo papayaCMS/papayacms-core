@@ -26,8 +26,8 @@ class PartsTest extends \Papaya\TestCase {
     $parts = new Parts(
       $page = $this->getPageFixture()
     );
-    $this->assertAttributeEquals(
-      $page, '_page', $parts
+    $this->assertSame(
+      $page, $parts->getPage()
     );
   }
 
