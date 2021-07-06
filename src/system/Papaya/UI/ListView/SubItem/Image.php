@@ -89,7 +89,7 @@ class Image extends Link {
       $glyph = $subitem->appendElement(
         'glyph',
         [
-          'src' => $this->papaya()->images[(string)$this->_image],
+          'src' => $this->papaya()->images[(string)$this->_image] ?? (string)$this->_image,
           'hint' => (string)$this->_hint
         ]
       );

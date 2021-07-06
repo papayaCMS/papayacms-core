@@ -280,7 +280,7 @@ class Item extends UI\Control\Collection\Item {
         'title' => (string)$this->_caption,
       ]
     );
-    $image = $this->papaya()->images[(string)$this->_image] ?? '';
+    $image = $this->papaya()->images[(string)$this->_image] ?? (string)$this->_image;
     if (!empty($image)) {
       $itemNode->setAttribute('image', $image);
     }

@@ -119,7 +119,7 @@ class Item extends UI\Control\Collection\Item {
       [
         'caption' => (string)$this->_caption,
         'hint' => (string)$this->_hint,
-        'image' => $this->papaya()->images[(string)$this->_image] ?? '',
+        'image' => $this->papaya()->images[(string)$this->_image] ?? (string)$this->_image,
         'mode' => self::$_displayModes[$this->_displayMode]
       ]
     );

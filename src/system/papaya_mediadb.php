@@ -2654,7 +2654,7 @@ class papaya_mediadb extends base_mediadb_edit {
       // make sure a deep link to a folder opens all parent folders
       $folderData = $this->getFolder($this->params['folder_id']);
       $folder = current($folderData);
-      $parentIds = \Papaya\Utility\Arrays::decodeIdList($folder['parent_path']);
+      $parentIds = \Papaya\Utility\Arrays::decodeIdList((string)$folder['parent_path']);
       foreach ($parentIds as $parentId) {
         if ($parentId > 0) {
           $this->sessionParams['open_folders'][$parentId] = 1;

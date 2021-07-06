@@ -156,7 +156,7 @@ abstract class Paging extends UI\ListView\Item {
       $itemNode = $parent->appendElement(
         'listitem',
         [
-          'image' => $this->papaya()->images[(string)$this->_image],
+          'image' => $this->papaya()->images[(string)$this->_image] ?? (string)$this->_image,
           'href' => $reference->getRelative()
         ]
       );

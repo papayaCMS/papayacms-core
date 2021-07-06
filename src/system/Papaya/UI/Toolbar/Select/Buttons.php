@@ -64,7 +64,7 @@ namespace Papaya\UI\Toolbar\Select {
             'href' => $reference->getRelative(),
             'title' => (string)$caption,
             'hint' => (string)$hint,
-            'image' => empty($image) ? '' : (string)($this->papaya()->images[$image] ?? '')
+            'image' => empty($image) ? '' : (string)($this->papaya()->images[$image] ?? $image)
           ]
         );
         if (

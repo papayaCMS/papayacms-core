@@ -151,10 +151,10 @@ class Icon extends Control {
   /**
    * Use the global images object, to determine the image source
    *
-   * @return string
+   * @return string|null
    */
   public function getImageURL() {
-    return $this->papaya()->images[(string)$this->_image];
+    return $this->papaya()->images[(string)$this->_image] ?? null;
   }
 
   /**
