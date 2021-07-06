@@ -43,7 +43,7 @@ class Group extends UI\Dialog\Field {
    */
   protected $_declaredProperties = [
     'caption' => ['getCaption', 'setCaption'],
-    'caption' => ['setImage', 'getImage'],
+    'image' => ['getImage', 'setImage'],
     'fields' => ['fields', 'fields']
   ];
 

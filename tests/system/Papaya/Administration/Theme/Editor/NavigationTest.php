@@ -46,11 +46,12 @@ class NavigationTest extends \Papaya\TestCase {
     /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
          href="http://www.test.tld/test.html?cmd=skin_edit&amp;skin_id=0&amp;theme=default"
-         target="_self"
+         target="_self" glyph="actions-generic-add"
          title="Add skin"/>
       <button
          href="http://www.test.tld/test.html?cmd=skin_import&amp;skin_id=0&amp;theme=default"
          target="_self"
+          glyph="actions-upload"
          title="Import"/>',
       $navigation->toolbar()->getXML()
     );
@@ -70,18 +71,22 @@ class NavigationTest extends \Papaya\TestCase {
     $this->assertXmlFragmentEqualsXmlFragment(
     /* language=xml prefix=<fragment> suffix=</fragment> */
       '<button
+         glyph="actions-generic-add"
          href="http://www.test.tld/test.html?cmd=skin_edit&amp;skin_id=0&amp;theme=default"
          target="_self"
          title="Add skin"/>
       <button
          href="http://www.test.tld/test.html?cmd=skin_delete&amp;skin_id=42&amp;theme=default"
          target="_self"
+         glyph="actions-generic-delete"
          title="Delete skin"/>
       <button href="http://www.test.tld/test.html?cmd=skin_import&amp;skin_id=42&amp;theme=default"
          target="_self"
+         glyph="actions-upload"
          title="Import"/>
       <button href="http://www.test.tld/test.html?cmd=skin_export&amp;skin_id=42&amp;theme=default"
          target="_self"
+         glyph="actions-download"
          title="Export"/>',
       $navigation->toolbar()->getXML()
     );

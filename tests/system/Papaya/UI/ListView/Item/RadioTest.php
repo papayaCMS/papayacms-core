@@ -29,7 +29,7 @@ namespace Papaya\UI\ListView\Item {
     public function testRadioChecked() {
       $item = new Radio('image','caption', $this->getDialogFixture(), 'foo', 'checked');
       $this->assertXmlStringEqualsXmlString(
-        '<listitem title="caption">
+        '<listitem image="image" title="caption">
           <input checked="checked" name="group[field]" type="radio" value="checked"/>
         </listitem>',
         $item->getXML()
@@ -39,7 +39,7 @@ namespace Papaya\UI\ListView\Item {
     public function testRadioUnchecked() {
       $item = new Radio('image','caption', $this->getDialogFixture(), 'foo', 'unchecked');
       $this->assertXmlStringEqualsXmlString(
-        '<listitem title="caption">
+        '<listitem image="image" title="caption">
           <input name="group[field]" type="radio" value="unchecked"/>
         </listitem>',
         $item->getXML()
@@ -49,7 +49,7 @@ namespace Papaya\UI\ListView\Item {
     public function testRadioCheckedByParameter() {
       $item = new Radio('image','caption', $this->getDialogFixture([], ['foo' => 'checked']), 'foo', 'checked');
       $this->assertXmlStringEqualsXmlString(
-        '<listitem title="caption">
+        '<listitem image="image" title="caption">
           <input checked="checked" name="group[field]" type="radio" value="checked"/>
         </listitem>',
         $item->getXML()

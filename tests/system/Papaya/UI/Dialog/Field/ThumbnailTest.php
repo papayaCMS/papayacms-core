@@ -66,7 +66,7 @@ namespace Papaya\UI\Dialog\Field {
 
       $this->assertXmlStringEqualsXmlString(
         /** @lang XML */
-        '<field caption="A Caption" class="DialogFieldImage" error="no">
+        '<field caption="A Caption" class="DialogFieldThumbnail" error="no">
           <image mode="max" src="a-media-id-link.png"/>
         </field>',
         $image->getXML()

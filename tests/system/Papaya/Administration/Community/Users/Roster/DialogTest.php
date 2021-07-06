@@ -191,7 +191,10 @@ class DialogTest extends \Papaya\TestCase {
     $dialog->users($users);
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<listitem title="test" href="http://www.test.tld/test.html?page=1&amp;user_id=42"/>',
+      '<listitem 
+        title="test" 
+        href="http://www.test.tld/test.html?page=1&amp;user_id=42"
+        image="items-user"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }
@@ -260,7 +263,10 @@ class DialogTest extends \Papaya\TestCase {
     $dialog->papaya($this->mockPapaya()->application());
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<listitem title="test" href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"/>',
+      '<listitem 
+      title="test" 
+      href="http://www.test.tld/test.html?offset_page=1&amp;surfer_id=42"
+      image="items-user"/>',
       $dialog->listview()->items[0]->getXml()
     );
   }

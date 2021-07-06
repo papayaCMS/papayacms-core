@@ -375,7 +375,7 @@ namespace Papaya\Administration {
                           $template, $images['items-folder'] ?? '', ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
                         ),
                         self::CONTENT_FILES.'.refactor' => new UI\Route\Templated\Page(
-                          $template, $images['items-folder'], ['Content', 'Files'], MediaFilesPage::class, Permissions::FILE_MANAGE
+                          $template, $images['items-folder'] ?? '', ['Content', 'Files'], MediaFilesPage::class, Permissions::FILE_MANAGE
                         ),
                       ]
                     ),

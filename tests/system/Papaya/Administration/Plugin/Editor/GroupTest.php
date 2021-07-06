@@ -121,8 +121,8 @@ class GroupTest extends \Papaya\TestCase {
     $this->assertXmlFragmentEqualsXmlFragment(
     /** @lang XML */
       '<toolbar>
-        <button href="http://www.test.tld/test.html?dialog-index=0" title="ONE"/>
-        <button down="down" href="http://www.test.tld/test.html?dialog-index=1" title="TWO"/>
+        <button href="http://www.test.tld/test.html?dialog-index=0" image="image1" title="ONE"/>
+        <button down="down" href="http://www.test.tld/test.html?dialog-index=1" image="image2" title="TWO"/>
       </toolbar>',
       $editorGroup->getXML()
     );
