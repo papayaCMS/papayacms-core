@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Administration {
 
   use Papaya\Administration\LinkTypes\Editor as LinkTypeEditor;
@@ -19,7 +20,9 @@ namespace Papaya\Administration {
   use Papaya\Administration\Media\MimeTypes\Editor as MimeTypesEditor;
   use Papaya\Administration\Protocol\ProtocolPage;
   use Papaya\Administration\Settings\SettingsPage;
+  use Papaya\Administration\UI\Route\FeatureFlag;
   use Papaya\Application;
+  use Papaya\Configuration\CMS;
   use Papaya\Response;
   use Papaya\Router;
   use Papaya\Router\Path as RouterAddress;
@@ -145,7 +148,7 @@ namespace Papaya\Administration {
 
     public const ICON_LANGUAGE = './pics/language';
 
-      /**
+    /**
      * @var string
      */
     private $_path;
@@ -164,7 +167,7 @@ namespace Papaya\Administration {
 
     public function __construct($path, Application $application) {
       $this->_path = \str_replace(DIRECTORY_SEPARATOR, '/', $path);
-      parent::__construct($application, null);
+      parent::__construct($application, NULL);
     }
 
     /**
@@ -229,11 +232,11 @@ namespace Papaya\Administration {
       $cacheTime = $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_THEMES, FALSE)
         ? $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_TIME_THEMES, 0) : 0;
       return new Route\Group(
-        // logout and layout files need to work without login/authentication
+      // logout and layout files need to work without login/authentication
         new Route\PathChoice(
           [
             self::LOGOUT => new UI\Route\LogOut(),
-            self::STYLES => function(self $ui) use ($localPath, $cacheTime) {
+            self::STYLES => function (self $ui) use ($localPath, $cacheTime) {
               $this->papaya()->options->loadAndDefine();
               $stylePath = $localPath.'/styles';
               $themePath = $stylePath.'/themes';
@@ -248,12 +251,12 @@ namespace Papaya\Administration {
                         [
                           self::STYLES_CSS => new Route\CSS($stylePath.'/main.css', $themeName, $themePath),
                           self::STYLES_CSS_POPUP => new Route\CSS($stylePath.'/popup.css', $themeName, $themePath),
-                          self::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath)
+                          self::STYLES_CSS_RICHTEXT => new Route\CSS($stylePath.'/richtext.css', $themeName, $themePath),
                         ]
                       ),
                       self::STYLES_JAVASCRIPT => new Route\JavaScript(
                         [$stylePath.'/functions.js', $stylePath.'/lightbox.js', $stylePath.'/richtext-toggle.js']
-                      )
+                      ),
                     ],
                     NULL,
                     0,
@@ -265,16 +268,16 @@ namespace Papaya\Administration {
                 )
               );
             },
-            self::SCRIPTS => function() use ($localPath, $cacheTime) {
+            self::SCRIPTS => function () use ($localPath, $cacheTime) {
               $this->papaya()->options->loadAndDefine();
               $files = isset($_GET['files']) ? \explode(',', $_GET['files']) : [];
               $files = \array_map(
-                function($file) use ($localPath) {
+                function ($file) use ($localPath) {
                   return $localPath.'/script/'.$file;
                 },
                 \array_filter(
                   $files,
-                  function($file) {
+                  function ($file) {
                     return \preg_match('(^[\w.-]+(/[\w.-]+)*\.js$)', $file);
                   }
                 )
@@ -290,20 +293,20 @@ namespace Papaya\Administration {
               [
                 self::SCRIPTS_TINYMCE => new Route\PathChoice(
                   [
-                    self::SCRIPTS_TINYMCE_FILES => new UI\Route\TinyMCE()
+                    self::SCRIPTS_TINYMCE_FILES => new UI\Route\TinyMCE(),
                   ]
-                )
+                ),
               ]
             ),
             self::ICON => new Route\Gzip(
               new UI\Route\Cache(
                 new UI\Route\Icon($localPath.'/pics/icons'),
                 isset($_GET['size']) && \in_array((int)$_GET['size'], UI\Route\Icon::SIZES, TRUE)
-                   ? (int)$_GET['size'] : 16,
+                  ? (int)$_GET['size'] : 16,
                 $cacheTime,
                 UI\Route\Cache::CACHE_PUBLIC
               )
-            )
+            ),
           ]
         ),
         // enforce https (if configured)
@@ -311,7 +314,7 @@ namespace Papaya\Administration {
         // installer before authentication
         new Route\PathChoice(
           [
-            self::INSTALLER => new UI\Route\Templated\Installer($template)
+            self::INSTALLER => new UI\Route\Templated\Installer($template),
           ]
         ),
         // redirect broken installs
@@ -320,7 +323,7 @@ namespace Papaya\Administration {
         new UI\Route\Templated\Authenticated(
           $template,
           new Route\Group(
-            // validate options and add warnings
+          // validate options and add warnings
             new UI\Route\ValidateOptions(),
             new Route\PathChoice(
               [
@@ -356,7 +359,7 @@ namespace Papaya\Administration {
                     ),
                     self::PAGES_EDIT => new UI\Route\Templated\Page(
                       $template, $images['items-page'] ?? '', 'Pages', \papaya_topic::class, Permissions::PAGE_MANAGE
-                    )
+                    ),
                   ]
                 ),
 
@@ -372,10 +375,16 @@ namespace Papaya\Administration {
                           $template, $images['items-folder'] ?? '', ['Content', 'Files'], \papaya_mediadb::class, Permissions::FILE_MANAGE
                         ),
                         self::CONTENT_FILES_BROWSER => new UI\Route\Templated\Page(
-                          $template, $images['items-folder'] ?? '', ['Content', 'Files'], \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
+                          $template, $images['items-folder'] ?? '', ['Content', 'Files'],
+                          \papaya_mediadb_browser::class, Permissions::FILE_BROWSE
+
                         ),
-                        self::CONTENT_FILES.'.refactor' => new UI\Route\Templated\Page(
-                          $template, $images['items-folder'] ?? '', ['Content', 'Files'], MediaFilesPage::class, Permissions::FILE_MANAGE
+                        self::CONTENT_FILES.'.refactor' => new FeatureFlag(
+                          CMS::FEATURE_MEDIA_DATABASE_2,
+                          new UI\Route\Templated\Page(
+                            $template, $images['items-folder'] ?? '', ['Content', 'Files'], MediaFilesPage::class,
+                            Permissions::FILE_MANAGE
+                          )
                         ),
                       ]
                     ),
@@ -387,7 +396,7 @@ namespace Papaya\Administration {
                     ),
                     self::CONTENT_TAGS => new UI\Route\Templated\Page(
                       $template, $images['items-tag'] ?? '', ['Content', 'Tags'], \papaya_tags::class, Permissions::TAG_MANAGE
-                    )
+                    ),
                   ]
                 ),
                 // Extensions/Applications
@@ -416,7 +425,7 @@ namespace Papaya\Administration {
                         ),
                         self::ADMINISTRATION_PROTOCOL_LOGIN => new UI\Route\Templated\Page(
                           $template, $images['categories-protocol'] ?? '', ['Administration', 'Protocol', 'Login'], \papaya_auth_secure::class, Permissions::SYSTEM_PROTOCOL
-                        )
+                        ),
                       ]
                     ),
                     self::ADMINISTRATION_SETTINGS => new UI\Route\Templated\Page(
@@ -447,7 +456,7 @@ namespace Papaya\Administration {
                   $template, $images['categories-help'] ?? '', 'Help', \papaya_help::class
                 ),
                 // Popups
-                self::POPUP => function() use ($cacheTime, $localPath) {
+                self::POPUP => function () use ($cacheTime, $localPath) {
                   return new UI\Route\Cache(
                     new Route\PathChoice(
                       [
@@ -458,7 +467,7 @@ namespace Papaya\Administration {
                         self::POPUP_MEDIA_BROWSER_HEADER => new UI\Route\Popup($localPath.'/popup/media-header.xsl'),
                         self::POPUP_MEDIA_BROWSER_FOOTER => new UI\Route\Popup($localPath.'/popup/media-footer.xsl'),
                         self::POPUP_MEDIA_BROWSER_FILES => new UI\Route\Popup($localPath.'/popup/media-files.xsl'),
-                        self::POPUP_MEDIA_BROWSER_IMAGES => new UI\Route\Popup($localPath.'/popup/media-images.xsl')
+                        self::POPUP_MEDIA_BROWSER_IMAGES => new UI\Route\Popup($localPath.'/popup/media-images.xsl'),
                       ],
                       NULL,
                       0,
@@ -469,14 +478,14 @@ namespace Papaya\Administration {
                   );
                 },
                 // TinyMCE popups
-                self::SCRIPTS_RTE => function() use ($localPath) {
+                self::SCRIPTS_RTE => function () use ($localPath) {
                   $pluginPath = $localPath.'/script/tiny_mce3/plugins/papaya';
                   return new Route\PathChoice(
                     [
                       self::SCRIPTS_TINYMCE_POPUP_LINK => new UI\Route\Popup($pluginPath.'/link.xsl'),
                       self::SCRIPTS_TINYMCE_POPUP_IMAGE => new UI\Route\Popup(
                         $pluginPath.'/dynamic-image.xsl',
-                        function(\Papaya\XML\Element $popupNode) {
+                        function (\Papaya\XML\Element $popupNode) {
                           /** @var \Papaya\XML\Document $document */
                           $document = $popupNode->ownerDocument;
                           $document->registerNamespace('popup', $popupNode->namespaceURI);
@@ -494,7 +503,7 @@ namespace Papaya\Administration {
                                   'popup:image',
                                   [
                                     'name' => $image['image_ident'],
-                                    'title' => $image['image_title']
+                                    'title' => $image['image_title'],
                                   ]
                                 );
                               }
@@ -504,7 +513,7 @@ namespace Papaya\Administration {
                       ),
                       self::SCRIPTS_TINYMCE_POPUP_PLUGIN => new UI\Route\Popup(
                         $pluginPath.'/plugin.xsl',
-                        function(\Papaya\XML\Element $popupNode) {
+                        function (\Papaya\XML\Element $popupNode) {
                           /** @var \Papaya\XML\Document $document */
                           $document = $popupNode->ownerDocument;
                           $document->registerNamespace('popup', $popupNode->namespaceURI);
@@ -519,14 +528,14 @@ namespace Papaya\Administration {
                                   'popup:plugin',
                                   [
                                     'guid' => $plugin['guid'],
-                                    'title' => $plugin['title']
+                                    'title' => $plugin['title'],
                                   ]
                                 );
                               }
                             }
                           }
                         }
-                      )
+                      ),
                     ],
                     NULL,
                     0,
@@ -534,7 +543,7 @@ namespace Papaya\Administration {
                   );
                 },
                 // XML
-                self::XML_API => function() {
+                self::XML_API => function () {
                   $rpcCall = new \papaya_rpc();
                   $rpcCall->initialize();
                   $rpcCall->execute();
@@ -546,7 +555,7 @@ namespace Papaya\Administration {
                     $this->papaya()->database->close();
                   }
                   return $response;
-                }
+                },
               ],
               self::OVERVIEW
             )

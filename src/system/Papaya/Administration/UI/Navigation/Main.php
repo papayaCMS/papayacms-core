@@ -15,6 +15,7 @@
 namespace Papaya\Administration\UI\Navigation {
 
   use Papaya\Administration;
+  use Papaya\Configuration\CMS;
   use Papaya\Iterator\Filter\Callback as CallbackFilterIterator;
   use Papaya\Plugin\Types as PluginTypes;
   use Papaya\UI;
@@ -35,6 +36,7 @@ namespace Papaya\Administration\UI\Navigation {
      *  3) permission - user permission needed
      *  4) access_key
      *  5) target - default "_self"
+     *  6) feature_flag - setting needed
      */
     private static $_groups = [
       'General' => [
@@ -90,7 +92,8 @@ namespace Papaya\Administration\UI\Navigation {
           'items-folder',
           'Files (refactor)',
           'Media database',
-          Administration\Permissions::FILE_MANAGE
+          Administration\Permissions::FILE_MANAGE,
+          'feature_flag' => CMS::FEATURE_MEDIA_DATABASE_2
         ],
         Administration\UI::CONTENT_IMAGES => [
           'items-graphic',
@@ -201,9 +204,20 @@ namespace Papaya\Administration\UI\Navigation {
           $buttonCaption = Utility\Arrays::get($buttonData, ['caption', 1], '');
           $hint = Utility\Arrays::get($buttonData, ['hint', 2], '');
           $permission = Utility\Arrays::get($buttonData, ['permission', 3], 0);
+          $featureFlag = Utility\Arrays::get($buttonData, ['feature_flag', 6], '');
           $accessKey = Utility\Arrays::get($buttonData, ['access_key', 4], '');
           $target = Utility\Arrays::get($buttonData, ['target', 5], '_self');
-          if (0 === $permission || $this->papaya()->administrationUser->hasPerm($permission)) {
+
+          $isEnabled = (
+            empty($featureFlag) ||
+            $this->papaya()->options->get($featureFlag, FALSE)
+          );
+          $isAllowed = (
+            0 === $permission ||
+            $this->papaya()->administrationUser->hasPerm($permission)
+          );
+
+          if ($isEnabled && $isAllowed) {
             $button = new UI\Toolbar\Button();
             $button->papaya($this->papaya());
             $button->reference->setRelative($href);

@@ -320,7 +320,7 @@ namespace Papaya\Administration\Media {
         [
           MediaFilesPage::NAVIGATION_MODE_FOLDERS => [new Translated('Folders'), 'items.folder'],
           MediaFilesPage::NAVIGATION_MODE_TAGS => [new Translated('Tags'), 'items.tag'],
-          MediaFilesPage::NAVIGATION_MODE_SEARCH => [new Translated('Search'), 'actions.search']
+          MediaFilesPage::NAVIGATION_MODE_SEARCH => [new Translated('Search'), 'items.folder.search']
         ]
       );
       $toggle->defaultValue = MediaFilesPage::NAVIGATION_MODE_FOLDERS;

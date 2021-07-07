@@ -316,6 +316,7 @@ namespace Papaya\Configuration {
 
     // feature toggles
     const FEATURE_BOXGROUPS_LINKABLE = 'PAPAYA_FEATURE_BOXGROUPS_LINKABLE';
+    const FEATURE_MEDIA_DATABASE_2 = 'PAPAYA_FEATURE_MEDIA_DATABASE_2';
 
     /**
      * This is a list of all available options and their default values.
@@ -586,7 +587,8 @@ namespace Papaya\Configuration {
       self::MEDIA_STORAGE_SUBDIRECTORY => NULL,
 
       // feature toggles
-      self::FEATURE_BOXGROUPS_LINKABLE => TRUE
+      self::FEATURE_BOXGROUPS_LINKABLE => TRUE,
+      self::FEATURE_MEDIA_DATABASE_2 => FALSE
     ];
 
     /**

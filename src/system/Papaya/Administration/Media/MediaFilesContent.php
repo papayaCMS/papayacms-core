@@ -20,7 +20,8 @@ namespace Papaya\Administration\Media {
   use Papaya\Administration\Page\Part as AdministrationPagePart;
   use Papaya\Content\Media\File;
   use Papaya\Content\Media\Folder;
-  use Papaya\UI\Text\Translated;
+  use Papaya\UI\Control\Command\Controller;
+  use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Toolbar;
 
   class MediaFilesContent extends AdministrationPagePart {
@@ -34,7 +35,10 @@ namespace Papaya\Administration\Media {
      */
     private $_file;
 
-    protected function _createCommands($name = 'cmd', $default = 'show') {
+    protected function _createCommands(
+      $name = MediaFilesPage::PARAMETER_COMMAND,
+      $default = MediaFilesPage::PARAMETER_FILES_VIEW
+    ): Controller {
       $commands = parent::_createCommands($name, $default);
       $commands['edit-folder'] = new ChangeFolder($this->folder(), MediaFilesPage::COMMAND_EDIT_FOLDER);
       $commands['add-folder'] = new ChangeFolder($this->folder(), MediaFilesPage::COMMAND_ADD_FOLDER);
@@ -42,7 +46,7 @@ namespace Papaya\Administration\Media {
       return $commands;
     }
 
-    public function folder(Folder $folder = NULL) {
+    public function folder(Folder $folder = NULL): Folder {
       if (NULL !== $folder) {
         $this->_folder = $folder;
       } elseif (NULL === $this->_folder) {
@@ -58,7 +62,7 @@ namespace Papaya\Administration\Media {
       return $this->_folder;
     }
 
-    public function file(File $file = NULL) {
+    public function file(File $file = NULL): File {
       if (NULL !== $file) {
         $this->_file = $file;
       } elseif (NULL === $this->_file) {
@@ -74,30 +78,50 @@ namespace Papaya\Administration\Media {
       return $this->_file;
     }
 
-    public function _initializeToolbar(Toolbar\Collection $toolbar) {
+    public function _initializeToolbar(Toolbar\Collection $toolbar): void {
       parent::_initializeToolbar($toolbar);
       $toolbar->elements[] = new Toolbar\Separator();
-      if ($this->folder()->id > 0) {
-        $toolbar->elements[] = $button = new Toolbar\Button(
-          'items.folder.add',
-          new Translated('Add Folder'),
+      if ($this->getCurrentMode() === MediaFilesPage::NAVIGATION_MODE_FOLDERS) {
+        if ($this->folder()->id > 0) {
+          $toolbar->elements[] = new Toolbar\Button(
+            'actions.upload',
+            new TranslatedText('Upload'),
+            [
+              $this->parameterGroup() => [
+                MediaFilesPage::PARAMETER_FOLDER => $this->folder()->parentId,
+                MediaFilesPage::PARAMETER_COMMAND => MediaFilesPage::COMMAND_ADD_FOLDER
+              ]
+            ]
+          );
+          $toolbar->elements[] = new Toolbar\Separator();
+          $toolbar->elements[] = new Toolbar\Button(
+            'items.folder.add',
+            new TranslatedText('Add Folder'),
+            [
+              $this->parameterGroup() => [
+                MediaFilesPage::PARAMETER_FOLDER => $this->folder()->parentId,
+                MediaFilesPage::PARAMETER_COMMAND => MediaFilesPage::COMMAND_ADD_FOLDER
+              ]
+            ]
+          );
+        }
+        $toolbar->elements[] = new Toolbar\Button(
+          'items.folder-child.add',
+          new TranslatedText('Add Child Folder'),
           [
             $this->parameterGroup() => [
-              MediaFilesPage::PARAMETER_FOLDER => $this->folder()->parentId,
+              MediaFilesPage::PARAMETER_FOLDER => $this->folder()->id,
               MediaFilesPage::PARAMETER_COMMAND => MediaFilesPage::COMMAND_ADD_FOLDER
             ]
           ]
         );
       }
-      $toolbar->elements[] = $button = new Toolbar\Button(
-        'items.folder-child.add',
-        new Translated('Add Child Folder'),
-        [
-          $this->parameterGroup() => [
-            MediaFilesPage::PARAMETER_FOLDER => $this->folder()->id,
-            MediaFilesPage::PARAMETER_COMMAND => MediaFilesPage::COMMAND_ADD_FOLDER
-          ]
-        ]
+    }
+
+    private function getCurrentMode(): string {
+      return $this->parameters()->get(
+        MediaFilesPage::PARAMETER_NAVIGATION_MODE,
+        MediaFilesPage::NAVIGATION_MODE_FOLDERS
       );
     }
   }

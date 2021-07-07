@@ -530,7 +530,8 @@ namespace Papaya\Administration\Settings {
         CMS::PUBLICATION_CHANGE_LEVEL => FlagSetting::class,
         CMS::DATAFILTER_USE => FlagSetting::class,
         CMS::PUBLICATION_AUDITING => FlagSetting::class,
-        CMS::FEATURE_BOXGROUPS_LINKABLE => FlagSetting::class
+        CMS::FEATURE_BOXGROUPS_LINKABLE => FlagSetting::class,
+        CMS::FEATURE_MEDIA_DATABASE_2 => FlagSetting::class
       ],
       self::FEATURES_EXPERIMENTAL => [
         CMS::IMPORTFILTER_USE => FlagSetting::class
