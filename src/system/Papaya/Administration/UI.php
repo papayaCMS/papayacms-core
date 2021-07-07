@@ -27,123 +27,123 @@ namespace Papaya\Administration {
   use Papaya\Template;
 
   class UI extends Router {
-    const OVERVIEW = 'overview';
+    public const OVERVIEW = 'overview';
 
-    const MESSAGES = 'messages';
+    public const MESSAGES = 'messages';
 
-    const MESSAGES_TASKS = self::MESSAGES.'.tasks';
+    public const MESSAGES_TASKS = self::MESSAGES.'.tasks';
 
-    const PAGES = 'pages';
+    public const PAGES = 'pages';
 
-    const PAGES_SITEMAP = self::PAGES.'.sitemap';
+    public const PAGES_SITEMAP = self::PAGES.'.sitemap';
 
-    const PAGES_SEARCH = self::PAGES.'.search';
+    public const PAGES_SEARCH = self::PAGES.'.search';
 
-    const PAGES_EDIT = self::PAGES.'.edit';
+    public const PAGES_EDIT = self::PAGES.'.edit';
 
-    const CONTENT = 'content';
+    public const CONTENT = 'content';
 
-    const CONTENT_BOXES = self::CONTENT.'.boxes';
+    public const CONTENT_BOXES = self::CONTENT.'.boxes';
 
-    const CONTENT_FILES = self::CONTENT.'.files';
+    public const CONTENT_FILES = self::CONTENT.'.files';
 
-    const CONTENT_FILES_BROWSER = self::CONTENT_FILES.'.browser';
+    public const CONTENT_FILES_BROWSER = self::CONTENT_FILES.'.browser';
 
-    const CONTENT_ALIASES = self::CONTENT.'.aliases';
+    public const CONTENT_ALIASES = self::CONTENT.'.aliases';
 
-    const CONTENT_TAGS = self::CONTENT.'.tags';
+    public const CONTENT_TAGS = self::CONTENT.'.tags';
 
-    const CONTENT_IMAGES = self::CONTENT.'.images';
+    public const CONTENT_IMAGES = self::CONTENT.'.images';
 
-    const EXTENSIONS = 'extension';
+    public const EXTENSIONS = 'extension';
 
-    const EXTENSIONS_IMAGE = self::EXTENSIONS.'.image';
+    public const EXTENSIONS_IMAGE = self::EXTENSIONS.'.image';
 
-    const ADMINISTRATION = 'administration';
+    public const ADMINISTRATION = 'administration';
 
-    const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
+    public const ADMINISTRATION_USERS = self::ADMINISTRATION.'.users';
 
-    const ADMINISTRATION_VIEWS = self::ADMINISTRATION.'.views';
+    public const ADMINISTRATION_VIEWS = self::ADMINISTRATION.'.views';
 
-    const ADMINISTRATION_PLUGINS = self::ADMINISTRATION.'.plugins';
+    public const ADMINISTRATION_PLUGINS = self::ADMINISTRATION.'.plugins';
 
-    const ADMINISTRATION_THEMES = self::ADMINISTRATION.'.themes';
+    public const ADMINISTRATION_THEMES = self::ADMINISTRATION.'.themes';
 
-    const ADMINISTRATION_SETTINGS = self::ADMINISTRATION.'.settings';
+    public const ADMINISTRATION_SETTINGS = self::ADMINISTRATION.'.settings';
 
-    const ADMINISTRATION_PROTOCOL = self::ADMINISTRATION.'.protocol';
+    public const ADMINISTRATION_PROTOCOL = self::ADMINISTRATION.'.protocol';
 
-    const ADMINISTRATION_PROTOCOL_LOGIN = self::ADMINISTRATION_PROTOCOL.'.login';
+    public const ADMINISTRATION_PROTOCOL_LOGIN = self::ADMINISTRATION_PROTOCOL.'.login';
 
-    const ADMINISTRATION_PHRASES = self::ADMINISTRATION.'.phrases';
+    public const ADMINISTRATION_PHRASES = self::ADMINISTRATION.'.phrases';
 
-    const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
+    public const ADMINISTRATION_CRONJOBS = self::ADMINISTRATION.'.cronjobs';
 
-    const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
+    public const ADMINISTRATION_LINK_TYPES = self::ADMINISTRATION.'.link-types';
 
-    const ADMINISTRATION_MIME_TYPES = self::ADMINISTRATION.'.mime-types';
+    public const ADMINISTRATION_MIME_TYPES = self::ADMINISTRATION.'.mime-types';
 
-    const ADMINISTRATION_SPAM_FILTER = self::ADMINISTRATION.'.spam-filter';
+    public const ADMINISTRATION_SPAM_FILTER = self::ADMINISTRATION.'.spam-filter';
 
-    const ADMINISTRATION_ICONS = self::ADMINISTRATION.'.icons';
+    public const ADMINISTRATION_ICONS = self::ADMINISTRATION.'.icons';
 
-    const HELP = 'help';
+    public const HELP = 'help';
 
-    const XML_API = 'xml-api';
+    public const XML_API = 'xml-api';
 
-    const LOGOUT = 'logout';
+    public const LOGOUT = 'logout';
 
-    const INSTALLER = 'install';
+    public const INSTALLER = 'install';
 
-    const POPUP = 'popup';
+    public const POPUP = 'popup';
 
-    const POPUP_COLOR = self::POPUP.'/color';
+    public const POPUP_COLOR = self::POPUP.'/color';
 
-    const POPUP_GOOGLE_MAPS = self::POPUP.'/googlemaps';
+    public const POPUP_GOOGLE_MAPS = self::POPUP.'/googlemaps';
 
-    const POPUP_IMAGE = self::POPUP.'/image';
+    public const POPUP_IMAGE = self::POPUP.'/image';
 
-    const POPUP_PAGE = self::POPUP.'/page';
+    public const POPUP_PAGE = self::POPUP.'/page';
 
-    const POPUP_MEDIA_BROWSER_HEADER = self::POPUP.'/media-header';
+    public const POPUP_MEDIA_BROWSER_HEADER = self::POPUP.'/media-header';
 
-    const POPUP_MEDIA_BROWSER_FOOTER = self::POPUP.'/media-footer';
+    public const POPUP_MEDIA_BROWSER_FOOTER = self::POPUP.'/media-footer';
 
-    const POPUP_MEDIA_BROWSER_IMAGES = self::POPUP.'/media-images';
+    public const POPUP_MEDIA_BROWSER_IMAGES = self::POPUP.'/media-images';
 
-    const POPUP_MEDIA_BROWSER_FILES = self::POPUP.'/media-files';
+    public const POPUP_MEDIA_BROWSER_FILES = self::POPUP.'/media-files';
 
-    const STYLES = 'styles';
+    public const STYLES = 'styles';
 
-    const STYLES_CSS = self::STYLES.'/css';
+    public const STYLES_CSS = self::STYLES.'/css';
 
-    const STYLES_CSS_POPUP = self::STYLES_CSS.'.popup';
+    public const STYLES_CSS_POPUP = self::STYLES_CSS.'.popup';
 
-    const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.richtext';
+    public const STYLES_CSS_RICHTEXT = self::STYLES_CSS.'.richtext';
 
-    const STYLES_JAVASCRIPT = self::STYLES.'/js';
+    public const STYLES_JAVASCRIPT = self::STYLES.'/js';
 
-    const SCRIPTS = 'scripts';
+    public const SCRIPTS = 'scripts';
 
-    const SCRIPTS_RTE = 'script';
+    public const SCRIPTS_RTE = 'script';
 
-    const SCRIPTS_TINYMCE = self::SCRIPTS_RTE.'/tiny_mce3';
+    public const SCRIPTS_TINYMCE = self::SCRIPTS_RTE.'/tiny_mce3';
 
-    const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
+    public const SCRIPTS_TINYMCE_FILES = self::SCRIPTS_TINYMCE.'/files';
 
-    const SCRIPTS_TINYMCE_POPUP = self::SCRIPTS_TINYMCE.'/plugins/papaya';
+    public const SCRIPTS_TINYMCE_POPUP = self::SCRIPTS_TINYMCE.'/plugins/papaya';
 
-    const SCRIPTS_TINYMCE_POPUP_LINK = self::SCRIPTS_TINYMCE_POPUP.'/link';
+    public const SCRIPTS_TINYMCE_POPUP_LINK = self::SCRIPTS_TINYMCE_POPUP.'/link';
 
-    const SCRIPTS_TINYMCE_POPUP_IMAGE = self::SCRIPTS_TINYMCE_POPUP.'/dynamic-image';
+    public const SCRIPTS_TINYMCE_POPUP_IMAGE = self::SCRIPTS_TINYMCE_POPUP.'/dynamic-image';
 
-    const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
+    public const SCRIPTS_TINYMCE_POPUP_PLUGIN = self::SCRIPTS_TINYMCE_POPUP.'/plugin';
 
-    const ICON = 'icon';
+    public const ICON = 'icon';
 
-    const ICON_MIMETYPE = self::ICON.'.mimetypes';
+    public const ICON_MIMETYPE = self::ICON.'.mimetypes';
 
-    const ICON_LANGUAGE = './pics/language';
+    public const ICON_LANGUAGE = './pics/language';
 
       /**
      * @var string
