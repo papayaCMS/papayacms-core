@@ -80,7 +80,7 @@ namespace Papaya\Database\Connection {
         $port = NULL;
         $socket = NULL;
       }
-      $connection = @mysqli_connect(
+      $connection = mysqli_connect(
         $server,
         $this->getDSN()->username,
         $this->getDSN()->password,

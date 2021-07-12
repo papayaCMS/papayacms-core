@@ -22,10 +22,9 @@ namespace Papaya\CMS\Administration\Protocol {
   use Papaya\CMS\Content\Protocol\ProtocolGroups;
   use Papaya\Iterator\Callback as CallbackIterator;
   use Papaya\Iterator\Union;
-  use Papaya\UI\Dialog\Options;
   use Papaya\UI\ListView;
   use Papaya\UI\Option\Align;
-  use Papaya\CMS\Reference;
+  use Papaya\UI\Reference;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\UI\Toolbar;
   use Papaya\UI\Toolbar\Paging as ToolbarPaging;

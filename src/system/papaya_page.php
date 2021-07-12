@@ -15,6 +15,7 @@
 
 use Papaya\Application;
 use Papaya\Cache;
+use Papaya\CMS\CMSApplication;
 use Papaya\CMS\Content;
 use Papaya\Controller;
 use Papaya\Request;
@@ -220,6 +221,23 @@ class papaya_page extends base_object {
    * @var base_outputfilter
    */
   public $filter = NULL;
+  /**
+   * @var Application
+   */
+  private $_papaya;
+
+  /**
+   * @param Application|null $application
+   * @return Application|CMSApplication
+   */
+  public function papaya(Application $application = NULL): Application {
+    if (NULL !== $application) {
+      $this->_papaya = $application;
+    } elseif (NULL === $this->_papaya) {
+      $this->_papaya = CMSApplication::getInstance();
+    }
+    return $this->_papaya;
+  }
 
   /**
   * execute page controller
@@ -229,9 +247,6 @@ class papaya_page extends base_object {
   function execute() {
     Request\Log::getInstance();
     $application = $this->papaya();
-    $application->registerProfiles(
-      new Application\Profiles\CMS()
-    );
     $application->profiler->start();
     if (!defined('PAPAYA_WEBSITE_REVISION')) {
       define('PAPAYA_WEBSITE_REVISION', '');
@@ -1206,11 +1221,11 @@ class papaya_page extends base_object {
   }
 
   public function getThemeFile() {
-    $themeWrapperURL = new \Papaya\Theme\Wrapper\URL();
+    $themeWrapperURL = new \Papaya\CMS\Theme\Wrapper\URL();
     switch ($themeWrapperURL->getMimetype()) {
     case 'text/javascript' :
     case 'text/css' :
-      $themeWrapper = new \Papaya\Theme\Wrapper($themeWrapperURL);
+      $themeWrapper = new \Papaya\CMS\Theme\Wrapper($themeWrapperURL);
       $response = $themeWrapper->getResponse();
       $response->send(TRUE);
       return TRUE;

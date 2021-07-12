@@ -39,11 +39,19 @@ namespace Papaya\CMS {
    * @property \Papaya\CMS\Administration\Phrases $administrationPhrases
    * @property \Papaya\CMS\Administration\RichText\Toggle $administrationRichText
    */
-  class CMSApplication extends \Papaya\Application {
+  abstract class CMSApplication extends \Papaya\Application {
 
-    public function __construct() {
-      $this->registerProfiles(
-        new Application\Profiles\CMS()
+    public static function getInstance($reset = FALSE, callable $init = NULL) {
+      return parent::getInstance(
+        $reset,
+        static function($instance) use ($init) {
+          $instance->registerProfiles(
+            new Application\Profiles\CMS()
+          );
+          if (is_callable($init)) {
+            $init($instance);
+          }
+        }
       );
     }
   }

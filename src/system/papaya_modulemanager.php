@@ -70,7 +70,7 @@ class papaya_modulemanager extends base_db {
    * Module types
    * @var array $moduleTypes
    */
-  var $moduleTypes = \Papaya\Plugin\Types::ALL;
+  var $moduleTypes = \Papaya\CMS\Plugin\Types::ALL;
 
   /**
    * Packages

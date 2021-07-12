@@ -15,6 +15,7 @@
 namespace Papaya\CMS\Administration\UI\Route {
 
   use Papaya\CMS\Administration\UI;
+  use Papaya\CMS\CMSApplication;
   use Papaya\Response;
   use Papaya\Router;
 
@@ -29,6 +30,7 @@ namespace Papaya\CMS\Administration\UI\Route {
      * @return null|\Papaya\Response
      */
     public function __invoke(Router $router, $address = NULL, $level = 0) {
+      /** @var CMSApplication $application */
       $application = $router->papaya();
       if (!$application->options->loadAndDefine() && UI::INSTALLER !== $address->getRouteString(0)) {
         return new Response\Redirect(UI::INSTALLER);

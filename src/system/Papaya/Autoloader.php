@@ -53,6 +53,7 @@ class Autoloader {
 
     'PapayaContentLanguage' => CMS\Content\Language::class,
     'PapayaContentPagesPublications' => CMS\Content\Page\Publications::class,
+    'PapayaContentDomainGroups' => CMS\Content\Domain\Groups::class,
 
     'PapayaDatabaseObjectList' => Database\BaseObject\Records::class,
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
@@ -130,7 +131,8 @@ class Autoloader {
     'PapayaUtilArrayMapper' => Utility\ArrayMapper::class,
     'PapayaUtilArray' => Utility\Arrays::class,
 
-    'PapayaUiContentTeaserImages' => UI\Content\Teaser\Thumbnails::class,
+
+    'PapayaUiContentTeaserImages' => CMS\Output\Teaser\Thumbnails::class,
     'PapayaUiDialogButtonSubmitNamed' => UI\Dialog\Button\NamedSubmit::class,
     'PapayaUiDialogFieldBuilderArray' => UI\Dialog\Field\Builder\FromArray::class,
     'PapayaUiDialogFieldFactoryExceptionInvalidOption' => UI\Dialog\Field\Factory\Exception\InvalidOption::class,

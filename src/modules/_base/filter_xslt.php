@@ -88,16 +88,16 @@ class filter_xslt extends base_outputfilter {
     $xsl = new PapayaTemplateXslt($this->getTemplatePath().$this->data['xslfile']);
     $protocol = PapayaUtilServerProtocol::get();
     $url = strtr(
-      $protocol.'://'.PapayaUtilServerName::get().$options->get(\Papaya\Configuration\CMSConfiguration::PATH_WEB),
+      $protocol.'://'.PapayaUtilServerName::get().$options->get(\Papaya\CMS\CMSConfiguration::PATH_WEB),
       '\\',
       '/'
     );
     if (!empty($this->data['viewmode_ext'])) {
       $currentViewMode = $this->data['viewmode_ext'];
-      $defaultViewMode = $options->get(\Papaya\Configuration\CMSConfiguration::URL_EXTENSION, 'html');
-    } elseif ($options->get(\Papaya\Configuration\CMSConfiguration::URL_EXTENSION) != '') {
-      $currentViewMode = $options->get(\Papaya\Configuration\CMSConfiguration::URL_EXTENSION);
-      $defaultViewMode = $options->get(\Papaya\Configuration\CMSConfiguration::URL_EXTENSION);
+      $defaultViewMode = $options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION, 'html');
+    } elseif ($options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION) != '') {
+      $currentViewMode = $options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION);
+      $defaultViewMode = $options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION);
     } else {
       $currentViewMode = 'html';
       $defaultViewMode = 'html';
@@ -116,12 +116,12 @@ class filter_xslt extends base_outputfilter {
       $parameters->set('PAPAYA_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
       $parameters->set('PAGE_WEBSITE_REVISION', PAPAYA_WEBSITE_REVISION);
     }
-    $themeHandler = new PapayaThemeHandler();
+    $themeHandler = new Papaya\CMS\Theme\Handler();
     $parameters->set('PAGE_THEME', $themeHandler->getTheme());
-    $parameters->set('PAGE_THEME_SET', $themeHandler->getThemeSet());
+    $parameters->set('PAGE_THEME_SET', $themeHandler->getThemeSkin());
     $parameters->set('PAGE_THEME_PATH', $themeHandler->getUrl());
     $parameters->set('PAGE_THEME_PATH_LOCAL', $themeHandler->getLocalThemePath());
-    $parameters->set('PAGE_WEB_PATH', $options->get(\Papaya\Configuration\CMSConfiguration::PATH_WEB, '/'));
+    $parameters->set('PAGE_WEB_PATH', $options->get(\Papaya\CMS\CMSConfiguration::PATH_WEB, '/'));
     if (isset($topic) && isset($topic->currentLanguage['lng_short'])) {
       $parameters->set('PAGE_LANGUAGE', $topic->currentLanguage['lng_short']);
     }
@@ -130,10 +130,10 @@ class filter_xslt extends base_outputfilter {
     $parameters->set('PAGE_MODE_PUBLIC', $page->isPreview() ? 0 : 1);
     $parameters->set('PAGE_OUTPUTMODE_CURRENT', $currentViewMode);
     $parameters->set('PAGE_OUTPUTMODE_DEFAULT', $defaultViewMode);
-    $parameters->set('PAGE_URL_LEVEL_SEPARATOR', $options->get(\Papaya\Configuration\CMSConfiguration::URL_LEVEL_SEPARATOR, ''));
-    $parameters->set('PAPAYA_DBG_DEVMODE', $options->get(\Papaya\Configuration\CMSConfiguration::DBG_DEVMODE, FALSE));
+    $parameters->set('PAGE_URL_LEVEL_SEPARATOR', $options->get(\Papaya\CMS\CMSConfiguration::URL_LEVEL_SEPARATOR, ''));
+    $parameters->set('PAPAYA_DBG_DEVMODE', $options->get(\Papaya\CMS\CMSConfiguration::DBG_DEVMODE, FALSE));
     $parameters->set(
-      'PAPAYA_DEBUG_LANGUAGE_PHRASES', $options->get(\Papaya\Configuration\CMSConfiguration::DEBUG_LANGUAGE_PHRASES, FALSE)
+      'PAPAYA_DEBUG_LANGUAGE_PHRASES', $options->get(\Papaya\CMS\CMSConfiguration::DEBUG_LANGUAGE_PHRASES, FALSE)
     );
 
     if (FALSE === strpos($xmlString, '<?xml')) {

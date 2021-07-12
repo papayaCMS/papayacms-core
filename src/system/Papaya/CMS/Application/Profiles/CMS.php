@@ -33,6 +33,7 @@ class CMS implements \Papaya\Application\Profiles {
   public function getProfiles($application) {
     $profiles = [];
     $profiles['Database'] = new Profile\Database();
+    $profiles['Tables'] = new Profile\Tables();
     $profiles['Front'] = new Profile\Front();
     $profiles['Images'] = new Profile\Images();
     $profiles['Languages'] = new Profile\Languages();

@@ -51,7 +51,7 @@ namespace Papaya {
      *
      * @var Application
      */
-    private static $instance;
+    protected static $instance;
 
     /**
      * Profile objects
@@ -73,9 +73,12 @@ namespace Papaya {
      * @param bool $reset
      * @return self
      */
-    public static function getInstance($reset = FALSE) {
+    public static function getInstance($reset = FALSE, callable $init = NULL) {
       if ($reset || NULL === self::$instance) {
         self::$instance = new self();
+        if (is_callable($init)) {
+          $init(self::$instance);
+        }
       }
       return self::$instance;
     }

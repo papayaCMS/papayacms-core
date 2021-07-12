@@ -50,7 +50,7 @@ class Factory implements Application\Access {
 
   /**
    * @param $string
-   * @return \Papaya\CMS\Reference|Page
+   * @return UI\Reference|Page
    */
   public function byString($string) {
     foreach ($this->_patterns as $type => $pattern) {
