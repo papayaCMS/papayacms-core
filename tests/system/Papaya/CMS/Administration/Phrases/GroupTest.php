@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Administration\Phrases;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class GroupTest extends \Papaya\TestCase {
+class GroupTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Phrases\Group

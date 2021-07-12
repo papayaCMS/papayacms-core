@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class RichtextSimpleTest extends \Papaya\TestCase {
+class RichtextSimpleTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Profile\RichtextSimple::getField

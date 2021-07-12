@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\ListView\Item
  */
-class ItemTest extends \Papaya\TestCase {
+class ItemTest extends \Papaya\TestFramework\TestCase {
 
   public function testPropertyActionParameters() {
     $item = new Item('', '');

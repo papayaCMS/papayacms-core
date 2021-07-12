@@ -16,7 +16,7 @@
 namespace Papaya\UI\Link;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class AttributesTest extends \Papaya\TestCase {
+class AttributesTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Link\Attributes::isPopup

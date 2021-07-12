@@ -17,7 +17,7 @@ namespace Papaya\Media\Storage {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class ServiceTest extends \Papaya\TestCase {
+  class ServiceTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Media\Storage\Service::__construct

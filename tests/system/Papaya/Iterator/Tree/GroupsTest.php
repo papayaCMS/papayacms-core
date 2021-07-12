@@ -17,7 +17,7 @@ namespace Papaya\Iterator\Tree {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class GroupsTest extends \Papaya\TestCase {
+  class GroupsTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Iterator\Tree\Groups

@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Factory\Profile;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsIpAddressTest extends \Papaya\TestCase {
+class IsIpAddressTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsIpAddress::getFilter

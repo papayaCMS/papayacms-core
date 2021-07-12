@@ -22,7 +22,7 @@ namespace Papaya\Database\Condition {
   /**
    * @covers \Papaya\Database\Condition\Fulltext
    */
-  class FullTextTest extends \Papaya\TestCase {
+  class FullTextTest extends \Papaya\TestFramework\TestCase {
 
     public function testGetSqlWithInvalidFieldNameExpectingException() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();

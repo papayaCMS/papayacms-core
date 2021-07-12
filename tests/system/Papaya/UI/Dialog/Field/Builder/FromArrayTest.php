@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Builder\FromArray
  */
-class FromArrayTest extends \Papaya\TestCase {
+class FromArrayTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetFieldsCreateField() {
     $expectedOptions = new \Papaya\UI\Dialog\Field\Factory\Options(

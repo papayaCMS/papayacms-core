@@ -17,7 +17,7 @@ namespace Papaya\Filter\Factory\Profile;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsCssColorTest extends \Papaya\TestCase {
+class IsCssColorTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsCssColor::getFilter

@@ -17,7 +17,7 @@ namespace Papaya\Request\Parser;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class MediaTest extends \Papaya\TestCase {
+class MediaTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Request\Parser\Media::parse

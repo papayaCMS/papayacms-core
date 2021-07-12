@@ -16,7 +16,7 @@
 namespace Papaya\UI\ListView\Item;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class NodeTest extends \Papaya\TestCase {
+class NodeTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\ListView\Item\Node

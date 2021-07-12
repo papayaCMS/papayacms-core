@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Plugin\Editor;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class FieldsTest extends \Papaya\TestCase {
+class FieldsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Plugin\Editor\Fields::__construct

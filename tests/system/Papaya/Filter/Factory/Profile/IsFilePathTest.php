@@ -17,7 +17,7 @@ namespace Papaya\Filter\Factory\Profile;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsFilePathTest extends \Papaya\TestCase {
+class IsFilePathTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsFilePath::getFilter

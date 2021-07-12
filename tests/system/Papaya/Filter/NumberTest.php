@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Number
  */
-class NumberTest extends \Papaya\TestCase {
+class NumberTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider constructFailureProvider

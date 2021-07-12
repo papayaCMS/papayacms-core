@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Input\Suggest
  */
-class SuggestTest extends \Papaya\TestCase {
+class SuggestTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetTypeAfterSetType() {
     $input = new Suggest('Caption', 'name', 'www.example.com');

@@ -18,7 +18,7 @@ namespace Papaya\Iterator {
   /**
    * @covers \Papaya\Iterator\TraversableIterator
    */
-  class TraversableIteratorTest extends \Papaya\TestCase {
+  class TraversableIteratorTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructor() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|\IteratorAggregate $traversable */

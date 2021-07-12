@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Input;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class URLTest extends \Papaya\TestCase {
+class URLTest extends \Papaya\TestFramework\TestCase {
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\URL::__construct
    */

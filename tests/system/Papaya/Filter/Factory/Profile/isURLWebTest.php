@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Factory\Profile;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class IsURLWebTest extends \Papaya\TestCase {
+class IsURLWebTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Profile\IsURLWeb::getFilter

@@ -15,7 +15,7 @@
 
 namespace Papaya\Session {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Session\Options

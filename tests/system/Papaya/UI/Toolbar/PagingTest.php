@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Toolbar\Paging
  */
-class PagingTest extends \Papaya\TestCase {
+class PagingTest extends \Papaya\TestFramework\TestCase {
 
   public function testSetItemsCountResetsCalculations() {
     $paging = new Paging('foo/page', 30);

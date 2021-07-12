@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Sandbox
  */
-class SandboxTest extends \Papaya\TestCase {
+class SandboxTest extends \Papaya\TestFramework\TestCase {
 
   public function testInvokeWithoutArguments() {
     $sandbox = new Sandbox(array($this, 'callbackReturnImplodedArguments'));

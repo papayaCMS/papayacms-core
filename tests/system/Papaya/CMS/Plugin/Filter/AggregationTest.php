@@ -17,7 +17,7 @@ namespace Papaya\CMS\Plugin\Filter {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class AggregationTest extends \Papaya\TestCase {
+  class AggregationTest extends \Papaya\TestFramework\TestCase {
 
     public function testContentGetAfterSet() {
       $plugin = new FilterAggregation_TestProxy(

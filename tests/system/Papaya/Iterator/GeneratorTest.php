@@ -15,7 +15,7 @@
 
 namespace Papaya\Iterator {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\XML\Document;
 
   require_once __DIR__.'/../../../bootstrap.php';

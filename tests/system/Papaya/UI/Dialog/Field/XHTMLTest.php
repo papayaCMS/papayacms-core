@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class XHTMLTest extends \Papaya\TestCase {
+class XHTMLTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\XHTML::__construct

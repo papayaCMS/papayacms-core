@@ -26,7 +26,7 @@ namespace Papaya\CMS\Application\Profile {
   use Papaya\CMS\Plugin\Loader as PluginLoader;
   use Papaya\Plugin\LoggerFactory;
   use Papaya\CMS\Plugin\Types as PluginTypes;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\CMS\Application\Profile\Messages

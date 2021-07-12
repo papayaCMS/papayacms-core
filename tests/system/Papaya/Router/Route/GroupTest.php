@@ -18,7 +18,7 @@ namespace Papaya\Router\Route {
   use Papaya\Response;
   use Papaya\Router;
   use Papaya\Router\Route;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Router\Route\Group

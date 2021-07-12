@@ -17,7 +17,7 @@ namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class CallbackTest extends \Papaya\TestCase {
+class CallbackTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Cache\Identifier\Definition\Callback

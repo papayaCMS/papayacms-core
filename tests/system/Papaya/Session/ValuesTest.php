@@ -22,7 +22,7 @@ namespace Papaya\Session {
   /**
    * @covers \Papaya\Session\Values
    */
-  class ValuesTest extends \Papaya\TestCase {
+  class ValuesTest extends \Papaya\TestFramework\TestCase {
 
     public function testOffsetExistsIfSessionActiveExpectingFalse() {
       $session = $this->getSessionFixture(TRUE);

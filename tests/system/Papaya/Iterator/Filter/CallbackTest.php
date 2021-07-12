@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\Filter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CallbackTest extends \Papaya\TestCase {
+class CallbackTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Filter\Callback::__construct

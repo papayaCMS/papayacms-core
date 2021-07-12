@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Input\Time
  */
-class TimeTest extends \Papaya\TestCase {
+class TimeTest extends \Papaya\TestFramework\TestCase {
   public function testConstructor() {
     $input = new Time('Time', 'time', '00:00:00', TRUE, 300.0);
     $this->assertEquals('Time', $input->caption);

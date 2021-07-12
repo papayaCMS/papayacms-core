@@ -15,7 +15,7 @@
 
 namespace Papaya\Iterator {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use UnexpectedValueException;
 
   /**

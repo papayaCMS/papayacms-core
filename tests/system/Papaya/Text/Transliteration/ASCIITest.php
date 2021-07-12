@@ -16,7 +16,7 @@
 namespace Papaya\Text\Transliteration;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ASCIITest extends \Papaya\TestCase {
+class ASCIITest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Text\Transliteration\ASCII::transliterate

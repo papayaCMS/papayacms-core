@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog\Field\Select;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class BitmaskTest extends \Papaya\TestCase {
+class BitmaskTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Select\Bitmask::_createFilter

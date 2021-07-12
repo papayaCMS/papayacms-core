@@ -19,7 +19,7 @@ namespace Papaya\Database\Schema {
   use Papaya\Database\Schema\Structure\FieldStructure;
   use Papaya\Database\Schema\Structure\IndexStructure;
   use Papaya\Database\Schema\Structure\TableStructure;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

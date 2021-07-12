@@ -16,7 +16,7 @@
 namespace Papaya\HTTP\Client\File;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class StreamTest extends \Papaya\TestCase {
+class StreamTest extends \Papaya\TestFramework\TestCase {
 
   private $_fileResource;
 

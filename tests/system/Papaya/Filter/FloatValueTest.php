@@ -15,7 +15,7 @@
 
 namespace Papaya\Filter {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../bootstrap.php';
 

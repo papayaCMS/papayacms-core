@@ -17,7 +17,7 @@ namespace Papaya;
 
 require_once __DIR__.'/../../bootstrap.php';
 
-class CacheTest extends \Papaya\TestCase {
+class CacheTest extends \Papaya\TestFramework\TestCase {
 
   public function tearDown(): void {
     Cache::reset();

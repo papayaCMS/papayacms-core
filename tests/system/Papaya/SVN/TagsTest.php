@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\SVN\Tags
  */
-class TagsTest extends \Papaya\TestCase {
+class TagsTest extends \Papaya\TestFramework\TestCase {
 
   public function testSvnClientSet() {
     $tags = new Tags('');

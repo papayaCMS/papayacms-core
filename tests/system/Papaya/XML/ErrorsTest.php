@@ -17,7 +17,7 @@ namespace Papaya\XML;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ErrorsTest extends \Papaya\TestCase {
+class ErrorsTest extends \Papaya\TestFramework\TestCase {
 
   public function setUp(): void {
     if (!extension_loaded('dom')) {

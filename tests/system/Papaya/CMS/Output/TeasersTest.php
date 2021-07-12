@@ -19,7 +19,7 @@ namespace Papaya\CMS\Output {
   use Papaya\CMS\Content\View\Configurations as ViewConfigurations;
   use Papaya\CMS\Plugin\Loader as PluginLoader;
   use Papaya\Plugin\Quoteable as QuoteablePlugin;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\CMS\Reference\Page as PageReference;
   use Papaya\Utility\Date as DateUtilities;
   use Papaya\XML\Element as XMLElement;

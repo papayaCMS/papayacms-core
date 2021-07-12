@@ -17,7 +17,7 @@ namespace Papaya\UI\ListView\Item {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class PagingTest extends \Papaya\TestCase {
+  class PagingTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\ListView\Item\Paging::__construct

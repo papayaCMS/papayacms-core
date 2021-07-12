@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class GuidTest extends \Papaya\TestCase {
+class GuidTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text\Guid::validate

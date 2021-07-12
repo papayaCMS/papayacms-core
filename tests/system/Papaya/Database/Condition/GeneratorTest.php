@@ -17,7 +17,7 @@ namespace Papaya\Database\Condition;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class GeneratorTest extends \Papaya\TestCase {
+class GeneratorTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Condition\Generator

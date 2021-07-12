@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Button\NamedSubmit
  */
-class NamedSubmitTest extends \Papaya\TestCase {
+class NamedSubmitTest extends \Papaya\TestFramework\TestCase {
 
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();

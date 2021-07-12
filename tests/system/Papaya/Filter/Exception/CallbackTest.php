@@ -20,7 +20,7 @@ namespace Papaya\Filter\Exception {
   /**
    * @covers \Papaya\Filter\Exception\Callback
    */
-  class CallbackTest extends \Papaya\TestCase {
+  class CallbackTest extends \Papaya\TestFramework\TestCase {
 
     public function testGetCallback() {
       $e = new Callback_TestProxy('', $callback = static function() {});

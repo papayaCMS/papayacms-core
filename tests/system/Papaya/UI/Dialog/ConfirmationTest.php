@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ConfirmationTest extends \Papaya\TestCase {
+class ConfirmationTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Confirmation::__construct

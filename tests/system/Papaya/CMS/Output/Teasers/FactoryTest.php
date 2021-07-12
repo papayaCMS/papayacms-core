@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Output\Teasers;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class FactoryTest extends \Papaya\TestCase {
+class FactoryTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Output\Teasers\Factory

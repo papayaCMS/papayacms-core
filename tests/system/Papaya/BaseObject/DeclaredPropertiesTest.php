@@ -15,7 +15,7 @@
 
 namespace Papaya\BaseObject {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use UnexpectedValueException;
 
   /**

@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\File;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class TemporaryTest extends \Papaya\TestCase {
+class TemporaryTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\File\Temporary::__construct

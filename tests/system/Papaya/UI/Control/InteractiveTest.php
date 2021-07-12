@@ -17,7 +17,7 @@ namespace Papaya\UI\Control {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class InteractiveTest extends \Papaya\TestCase {
+  class InteractiveTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Control\Interactive::parameterMethod

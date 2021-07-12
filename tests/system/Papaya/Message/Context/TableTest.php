@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Context\Table
  */
-class TableTest extends \Papaya\TestCase {
+class TableTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetLabel() {
     $context = new Table('Sample');

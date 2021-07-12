@@ -15,7 +15,7 @@
 
 namespace Papaya\Template\Engine {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\XML\Document;
   use Papaya\XML\Errors as XMLErrors;
   use Papaya\XML\Exception as XMLException;

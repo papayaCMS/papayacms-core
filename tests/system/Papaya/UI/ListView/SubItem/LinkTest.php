@@ -15,7 +15,7 @@
 
 namespace Papaya\UI\ListView\SubItem {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI\ListView;
   use Papaya\XML\Element;
 

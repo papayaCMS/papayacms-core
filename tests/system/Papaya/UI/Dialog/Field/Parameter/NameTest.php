@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Parameter {
 
   use Papaya\Request\Parameters\Name as RequestParameterName;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI\Dialog;
 
   /**

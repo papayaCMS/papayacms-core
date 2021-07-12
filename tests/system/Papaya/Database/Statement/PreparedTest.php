@@ -17,7 +17,7 @@ namespace Papaya\Database\Statement {
 
   use Papaya\Database\Connection;
   use Papaya\Database\Syntax;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\Text\UTF8String;
 
   require_once __DIR__.'/../../../../bootstrap.php';

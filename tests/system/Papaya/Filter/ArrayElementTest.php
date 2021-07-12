@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\ArrayElement
  */
-class ArrayElementTest extends \Papaya\TestCase {
+class ArrayElementTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideValidValidateData

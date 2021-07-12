@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Application\Profile;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
-\Papaya\TestCase::defineConstantDefaults(
+\Papaya\TestFramework\TestCase::defineConstantDefaults(
   array(
     'PAPAYA_DB_TBL_SURFER',
     'PAPAYA_DB_TBL_SURFERGROUPS',
@@ -28,7 +28,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
   )
 );
 
-class SurferTest extends \Papaya\TestCase {
+class SurferTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Application\Profile\Surfer::createObject

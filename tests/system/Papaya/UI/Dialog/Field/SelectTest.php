@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Select
  */
-class SelectTest extends \Papaya\TestCase {
+class SelectTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorWithTraversable() {
     $select = new Select(

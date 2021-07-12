@@ -17,7 +17,7 @@ namespace Papaya\UI {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class MessageTest extends \Papaya\TestCase {
+  class MessageTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Message::__construct

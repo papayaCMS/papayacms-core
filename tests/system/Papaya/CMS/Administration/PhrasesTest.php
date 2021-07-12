@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration {
 
   use Papaya\CMS\Administration\Phrases\Storage as PhrasesStorage;
   use Papaya\CMS\Content\Language as ContentLanguage;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

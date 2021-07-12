@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FieldsTest extends \Papaya\TestCase {
+class FieldsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Fields::validate

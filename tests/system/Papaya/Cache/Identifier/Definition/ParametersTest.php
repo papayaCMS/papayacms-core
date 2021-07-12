@@ -17,7 +17,7 @@ namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ParametersTest extends \Papaya\TestCase {
+class ParametersTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Cache\Identifier\Definition\Parameters

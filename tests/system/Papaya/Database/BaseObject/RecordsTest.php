@@ -17,7 +17,7 @@ namespace Papaya\Database\BaseObject {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class RecordsTest extends \Papaya\TestCase {
+  class RecordsTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Database\BaseObject\Records::getIterator

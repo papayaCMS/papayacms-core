@@ -16,7 +16,7 @@
 namespace Papaya\UI\Hierarchy;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ItemTest extends \Papaya\TestCase {
+class ItemTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Hierarchy\Item::__construct

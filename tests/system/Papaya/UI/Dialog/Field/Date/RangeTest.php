@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Date {
 
   use Papaya\Filter;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../../../bootstrap.php';
 

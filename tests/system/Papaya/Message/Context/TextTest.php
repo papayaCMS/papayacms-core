@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Context\Text
  */
-class TextTest extends \Papaya\TestCase {
+class TextTest extends \Papaya\TestFramework\TestCase {
 
   public function testAsString() {
     $context = new Text('Hello World');

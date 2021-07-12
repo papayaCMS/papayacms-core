@@ -18,7 +18,7 @@ namespace Papaya\CMS\Plugin {
   use Papaya\Autoloader;
   use Papaya\Message\Log as LogMessage;
   use Papaya\Message\Manager as MessageManager;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use PluginLoader_SampleClass;
   use PluginLoader_SampleClassEditable;
 

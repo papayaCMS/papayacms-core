@@ -17,7 +17,7 @@ namespace Papaya\Database\Sequence;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HumanTest extends \Papaya\TestCase {
+class HumanTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Sequence\Human::__construct

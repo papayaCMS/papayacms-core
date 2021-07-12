@@ -23,7 +23,7 @@ namespace Papaya\CMS\Output {
   use Papaya\CMS\Plugin\PageModule;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Request\Parameters;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\CMS\Reference;
   use Papaya\XML\Document;
   use Papaya\XML\Element as XMLElement;

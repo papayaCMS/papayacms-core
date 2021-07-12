@@ -20,7 +20,7 @@ namespace Papaya\UI\Navigation {
   /**
    * @covers \Papaya\UI\Navigation\Item\Text
    */
-  class ItemTest extends \Papaya\TestCase {
+  class ItemTest extends \Papaya\TestFramework\TestCase {
 
     public function testAppendTo() {
       $document = new \Papaya\XML\Document();

@@ -22,7 +22,7 @@ namespace Papaya\CMS {
   /**
    * @covers \Papaya\Domains
    */
-  class DomainsTest extends \Papaya\TestCase {
+  class DomainsTest extends \Papaya\TestFramework\TestCase {
 
     public function testGetDomainsByPath() {
       $domains = new Domains();

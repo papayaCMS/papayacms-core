@@ -16,7 +16,7 @@
 namespace Papaya\Iterator;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class GlobTest extends \Papaya\TestCase {
+class GlobTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Glob::__construct

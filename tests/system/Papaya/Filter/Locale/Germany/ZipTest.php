@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Locale\Germany\Zip
  */
-class ZipTest extends \Papaya\TestCase {
+class ZipTest extends \Papaya\TestFramework\TestCase {
 
   public function testValidate() {
     $filter = new Zip();

@@ -20,7 +20,7 @@ namespace Papaya\Template\Simple {
   /**
    * @covers \Papaya\Template\Simple\Parser
    */
-  class ParserTest extends \Papaya\TestCase {
+  class ParserTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @dataProvider provideDirectMatchingTokens

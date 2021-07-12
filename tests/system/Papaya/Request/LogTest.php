@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Request\Log
  */
-class LogTest extends \Papaya\TestCase {
+class LogTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Request\Log::__construct

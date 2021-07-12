@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Input
  */
-class InputTest extends \Papaya\TestCase {
+class InputTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetTypeAfterSetType() {
     $input = new Input('Caption', 'name');

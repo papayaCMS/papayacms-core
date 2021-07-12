@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Select;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class CheckboxesTest extends \Papaya\TestCase {
+class CheckboxesTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Select\Checkboxes::_isOptionSelected

@@ -15,7 +15,7 @@
 
 namespace Papaya\UI\Control\Command\Condition {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\UI\Control\Command\Condition\Value

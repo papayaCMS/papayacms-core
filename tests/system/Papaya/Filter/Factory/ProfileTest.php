@@ -17,7 +17,7 @@ namespace Papaya\Filter\Factory {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class ProfileTest extends \Papaya\TestCase {
+  class ProfileTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Filter\Factory\Profile::options

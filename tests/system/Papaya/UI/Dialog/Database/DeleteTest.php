@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog\Database {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class DeleteTest extends \Papaya\TestCase {
+  class DeleteTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Dialog\Database\Delete::execute

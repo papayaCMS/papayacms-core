@@ -17,7 +17,7 @@ namespace Papaya\Database\Sequence;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class Md5Test extends \Papaya\TestCase {
+class Md5Test extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Sequence\Md5::create

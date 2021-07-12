@@ -20,7 +20,7 @@ namespace Papaya\Plugin\Editable\Options {
   use Papaya\Plugin\Configurable\Options as ConfigurableOptionsPlugin;
   use Papaya\Plugin\Editor;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Plugin\Editable\Options\Aggregation

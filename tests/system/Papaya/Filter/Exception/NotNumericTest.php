@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class NotNumericTest extends \Papaya\TestCase {
+class NotNumericTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\NotNumeric::__construct

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Not
  */
-class NotTest extends \Papaya\TestCase {
+class NotTest extends \Papaya\TestFramework\TestCase {
 
   public function testValidateExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filterMock */

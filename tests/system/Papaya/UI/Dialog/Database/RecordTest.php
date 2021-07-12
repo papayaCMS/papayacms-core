@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog\Database;
 /** @noinspection PhpDeprecationInspection */
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class RecordTest extends \Papaya\TestCase {
+class RecordTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Database\Record::__construct

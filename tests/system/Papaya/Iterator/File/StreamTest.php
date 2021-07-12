@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class StreamTest extends \Papaya\TestCase {
+class StreamTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Iterator\File\Stream::__construct

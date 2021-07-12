@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class NotNullTest extends \Papaya\TestCase {
+class NotNullTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\NotNull::validate

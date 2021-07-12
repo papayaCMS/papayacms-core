@@ -15,7 +15,7 @@
 
 namespace Papaya\UI {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI\Sheet\Subtitles;
   use Papaya\XML\Appendable as XMLAppendable;
   use Papaya\XML\Document;

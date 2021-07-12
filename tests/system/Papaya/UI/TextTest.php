@@ -16,7 +16,7 @@
 namespace Papaya\UI {
 
   use Papaya\BaseObject\Interfaces\StringCastable;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../bootstrap.php';
 

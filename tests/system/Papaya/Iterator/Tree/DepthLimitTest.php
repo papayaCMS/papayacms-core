@@ -16,7 +16,7 @@
 namespace Papaya\Iterator\Tree;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class DepthLimitTest extends \Papaya\TestCase {
+class DepthLimitTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Iterator\Tree\DepthLimit

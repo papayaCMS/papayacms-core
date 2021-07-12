@@ -16,7 +16,7 @@
 namespace Papaya\Profiler\Collector;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class XhprofTest extends \Papaya\TestCase {
+class XhprofTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Profiler\Collector\Xhprof::enable

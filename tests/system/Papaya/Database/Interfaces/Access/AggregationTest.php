@@ -18,7 +18,7 @@ namespace Papaya\Database\Interfaces\Access {
   use Papaya\Database\Accessible;
   use Papaya\Database\Access as Accessor;
   use Papaya\Database\Accessible\Aggregation;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 

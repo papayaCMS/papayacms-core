@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class NoLinebreakTest extends \Papaya\TestCase {
+class NoLinebreakTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\NoLinebreak::validate

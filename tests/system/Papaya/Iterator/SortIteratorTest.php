@@ -18,7 +18,7 @@ namespace Papaya\Iterator {
   /**
    * @covers \Papaya\Iterator\SortIterator
    */
-  class SortIteratorTest extends \Papaya\TestCase {
+  class SortIteratorTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructor() {
       $traversable = new \ArrayIterator([]);

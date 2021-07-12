@@ -19,7 +19,7 @@ namespace Papaya\Database\Connection {
   use Papaya\Database\Result as DatabaseResult;
   use Papaya\Database\Statement as DatabaseStatement;
   use Papaya\Message\Context as MessageContext;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

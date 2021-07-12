@@ -16,7 +16,7 @@
 namespace Papaya\Media\Storage\Service\S3;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class HandlerTest extends \Papaya\TestCase {
+class HandlerTest extends \Papaya\TestFramework\TestCase {
 
   private function getMockConfigurationObjectFixture() {
     $configuration = $this->mockPapaya()->options(

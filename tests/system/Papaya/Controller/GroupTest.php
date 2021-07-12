@@ -17,7 +17,7 @@ namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class GroupTest extends \Papaya\TestCase {
+class GroupTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Controller\Group

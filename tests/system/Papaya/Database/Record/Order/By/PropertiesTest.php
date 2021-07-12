@@ -17,7 +17,7 @@ namespace Papaya\Database\Record\Order\By;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class PropertiesTest extends \Papaya\TestCase {
+class PropertiesTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Record\Order\By\Properties::__construct

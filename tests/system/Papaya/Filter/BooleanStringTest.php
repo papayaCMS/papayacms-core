@@ -17,7 +17,7 @@ namespace Papaya\Filter;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class BooleanStringTest extends \Papaya\TestCase {
+class BooleanStringTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\BooleanString

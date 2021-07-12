@@ -20,7 +20,7 @@ namespace Papaya\BaseObject {
   /**
    * @covers \Papaya\BaseObject\Parameters
    */
-  class ParametersTest extends \Papaya\TestCase {
+  class ParametersTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructor() {
       $parameters = new Parameters(['foo' => 'bar']);

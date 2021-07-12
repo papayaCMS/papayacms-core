@@ -17,7 +17,7 @@ namespace Papaya\Database\Statement {
 
   use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\Exception\ConnectionFailed;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Database\Statement\ExecutableStatement

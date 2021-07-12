@@ -17,7 +17,7 @@ namespace Papaya\Database\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ConnectTest extends \Papaya\TestCase {
+class ConnectTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Exception\ConnectionFailed::__construct

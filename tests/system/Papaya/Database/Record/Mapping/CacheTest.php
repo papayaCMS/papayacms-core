@@ -17,7 +17,7 @@ namespace Papaya\Database\Record\Mapping;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class CacheTest extends \Papaya\TestCase {
+class CacheTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Record\Mapping\Cache::__construct

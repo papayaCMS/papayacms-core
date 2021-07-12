@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\ListView\Column
  */
-class ColumnTest extends \Papaya\TestCase {
+class ColumnTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetAlignAfterSetAlign() {
     $column = new Column('test title');

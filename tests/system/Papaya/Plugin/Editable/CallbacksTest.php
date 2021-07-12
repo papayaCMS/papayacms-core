@@ -16,7 +16,7 @@
 namespace Papaya\Plugin\Editable;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class CallbacksTest extends \Papaya\TestCase {
+class CallbacksTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Plugin\Editable\Callbacks::__construct

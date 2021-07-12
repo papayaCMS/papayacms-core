@@ -16,7 +16,7 @@
 namespace Papaya\Graphics {
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class BoundingRectangleTest extends \Papaya\TestCase {
+  class BoundingRectangleTest extends \Papaya\TestFramework\TestCase {
 
     public function testGetOffset() {
       $bounds = new BoundingRectangle(1,2,3,4);

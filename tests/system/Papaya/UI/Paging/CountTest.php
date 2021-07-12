@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Paging\Count
  */
-class CountTest extends \Papaya\TestCase {
+class CountTest extends \Papaya\TestFramework\TestCase {
 
   public function testAppendToWithAdditionalParameters() {
     $paging = new Count('foo/page', 0, 30);

@@ -17,7 +17,7 @@ namespace Papaya\CMS\Content\Box;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class VersionTest extends \Papaya\TestCase {
+class VersionTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Content\Box\Version::save

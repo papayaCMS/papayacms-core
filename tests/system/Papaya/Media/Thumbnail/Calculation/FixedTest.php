@@ -15,7 +15,7 @@
 
 namespace Papaya\Media\Thumbnail\Calculation {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   class FixedTest extends TestCase {
 

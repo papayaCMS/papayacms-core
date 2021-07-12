@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Context\Runtime
  */
-class RuntimeTest extends \Papaya\TestCase {
+class RuntimeTest extends \Papaya\TestFramework\TestCase {
 
   public function testAsStringInGlobalMode() {
     $context = new Runtime();

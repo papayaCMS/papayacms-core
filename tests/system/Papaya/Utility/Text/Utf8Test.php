@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class Utf8Test extends \Papaya\TestCase {
+class Utf8Test extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text\UTF8::ensure

@@ -17,7 +17,7 @@ namespace Papaya\Session {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ShareTest extends \Papaya\TestCase {
+  class ShareTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Session\Share::getSessionValues

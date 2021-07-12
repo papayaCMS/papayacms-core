@@ -14,7 +14,7 @@
  */
 
 namespace Papaya {
-  require_once __DIR__.'/../../../vendor/papaya/test-framework/src/PapayaTestCase.php';
+  require_once __DIR__.'/../../TestFramework/TestCase.php';
 
   require_once __DIR__.'/../../../src/system/Papaya/Autoloader.php';
   require_once __DIR__.'/../../../src/system/Papaya/Utility/File/Path.php';

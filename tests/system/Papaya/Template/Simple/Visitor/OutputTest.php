@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Visitor;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class OutputTest extends \Papaya\TestCase {
+class OutputTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Visitor\Output::clear

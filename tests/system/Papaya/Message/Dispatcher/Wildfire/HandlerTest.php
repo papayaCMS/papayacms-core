@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Dispatcher\Wildfire\Handler
  */
-class HandlerTest extends \Papaya\TestCase {
+class HandlerTest extends \Papaya\TestFramework\TestCase {
 
   private $_collectedHeaders = array();
 

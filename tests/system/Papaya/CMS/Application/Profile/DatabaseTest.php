@@ -17,7 +17,7 @@ namespace Papaya\CMS\Application\Profile;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class DatabaseTest extends \Papaya\TestCase {
+class DatabaseTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Application\Profile\Database::createObject

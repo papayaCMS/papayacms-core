@@ -16,7 +16,7 @@
 namespace Papaya\Message\Dispatcher;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class XhtmlTest extends \Papaya\TestCase {
+class XhtmlTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Message\Dispatcher\XHTML::dispatch

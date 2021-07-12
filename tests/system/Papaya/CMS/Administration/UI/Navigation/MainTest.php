@@ -15,7 +15,7 @@
 
 namespace Papaya\CMS\Administration\UI\Navigation {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI;
   use Papaya\XML\Element as XMLElement;
 

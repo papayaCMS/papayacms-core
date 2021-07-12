@@ -21,7 +21,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Navigation\Builder
  */
-class BuilderTest extends \Papaya\TestCase {
+class BuilderTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorWithArray() {
     $builder = new Builder(array('42'));

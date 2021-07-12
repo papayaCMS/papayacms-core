@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Text {
 
   use Papaya\Filter\Exception as FilterException;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use RangeException;
 
   /**

@@ -16,7 +16,7 @@
 namespace Papaya\Profiler\Storage;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class XhguiTest extends \Papaya\TestCase {
+class XhguiTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Profiler\Storage\Xhgui::__construct

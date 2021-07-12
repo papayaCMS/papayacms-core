@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Input\Media;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class ImageResizedTest extends \Papaya\TestCase {
+class ImageResizedTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Media\ImageResized::__construct

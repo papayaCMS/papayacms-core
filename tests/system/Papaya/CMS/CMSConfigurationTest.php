@@ -19,7 +19,7 @@ use Papaya\Configuration\Storage as ConfigurationStorage;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CMSConfigurationTest extends \Papaya\TestCase {
+class CMSConfigurationTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\CMSConfiguration::__construct

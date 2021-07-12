@@ -16,7 +16,7 @@
 namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class RandomTest extends \Papaya\TestCase {
+class RandomTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Random::rand

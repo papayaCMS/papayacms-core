@@ -19,7 +19,7 @@ namespace Papaya\CMS\Application\Profile\Administration {
   use Papaya\CMS\Content\Languages as ContentLanguages;
   use Papaya\CMS\Administration\Phrases as PhraseTranslations;
   use Papaya\Request\Parameters;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\CMS\Application\Profile\Administration\Phrases

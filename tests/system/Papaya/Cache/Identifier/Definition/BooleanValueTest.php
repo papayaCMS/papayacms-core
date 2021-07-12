@@ -17,7 +17,7 @@ namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class BooleanValueTest extends \Papaya\TestCase {
+class BooleanValueTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Cache\Identifier\Definition\BooleanValue

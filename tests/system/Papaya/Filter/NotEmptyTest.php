@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\NotEmpty
  */
-class NotEmptyTest extends \Papaya\TestCase {
+class NotEmptyTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideNonEmptyValues

@@ -15,7 +15,7 @@
 
 namespace Papaya\Message\Context {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Message\Context\Exception

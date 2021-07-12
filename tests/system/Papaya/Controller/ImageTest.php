@@ -16,13 +16,13 @@
 namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
-\Papaya\TestCase::defineConstantDefaults(
+\Papaya\TestFramework\TestCase::defineConstantDefaults(
   'PAPAYA_DB_TBL_IMAGES',
   'PAPAYA_DB_TBL_MODULES',
   'PAPAYA_DB_TBL_MODULEGROUPS'
 );
 
-class ImageTest extends \Papaya\TestCase {
+class ImageTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Controller\Image::getImageGenerator

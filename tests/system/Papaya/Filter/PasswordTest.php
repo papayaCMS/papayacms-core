@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Password
  */
-class PasswordTest extends \Papaya\TestCase {
+class PasswordTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideValidPasswords

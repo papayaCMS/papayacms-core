@@ -17,7 +17,7 @@ namespace Papaya\CMS\Content;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class DomainTest extends \Papaya\TestCase {
+class DomainTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Content\Domain::_createMapping

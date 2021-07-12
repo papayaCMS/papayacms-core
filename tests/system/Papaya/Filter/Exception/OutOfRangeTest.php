@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class OutOfRangeTest extends \Papaya\TestCase {
+  class OutOfRangeTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Filter\Exception\OutOfRange::__construct

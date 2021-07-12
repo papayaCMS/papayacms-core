@@ -16,7 +16,7 @@
 namespace Papaya\UI\ListView\Item {
 
   use Papaya\Request\Parameters;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI\Dialog;
 
   require_once __DIR__.'/../../../../../bootstrap.php';

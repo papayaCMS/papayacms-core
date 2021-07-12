@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Cast
  */
-class CastTest extends \Papaya\TestCase {
+class CastTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorExpectingException() {
     $this->expectException(\InvalidArgumentException::class);

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Email\Address
  */
-class AddressTest extends \Papaya\TestCase {
+class AddressTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorWithAddress(): void {
     $address = new Address('John Doe <john.doe@local.tld>');

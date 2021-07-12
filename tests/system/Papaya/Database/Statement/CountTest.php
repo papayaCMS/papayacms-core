@@ -18,7 +18,7 @@ namespace Papaya\Database\Statement {
   use BadMethodCallException;
   use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\Statement as DatabaseStatement;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Database\Statement\Count

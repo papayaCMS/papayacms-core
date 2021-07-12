@@ -17,7 +17,7 @@ namespace Papaya\Plugin\Cacheable {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class AggregationTest extends \Papaya\TestCase {
+  class AggregationTest extends \Papaya\TestFramework\TestCase {
 
     public function testContentGetAfterSet() {
       $plugin = new CacheableAggregation_TestProxy();

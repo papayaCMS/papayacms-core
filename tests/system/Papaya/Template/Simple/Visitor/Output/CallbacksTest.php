@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Visitor\Output;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class CallbacksTest extends \Papaya\TestCase {
+class CallbacksTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Visitor\Output\Callbacks::__construct

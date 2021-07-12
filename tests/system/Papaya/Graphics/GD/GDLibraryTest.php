@@ -16,7 +16,7 @@
 namespace Papaya\Graphics\GD {
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class GDLibraryTest extends \Papaya\TestCase {
+  class GDLibraryTest extends \Papaya\TestFramework\TestCase {
 
     public function testLoad() {
       $gd = new GDLibrary();

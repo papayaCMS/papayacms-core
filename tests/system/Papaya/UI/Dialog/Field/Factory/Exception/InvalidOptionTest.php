@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Factory\Exception;
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class InvalidOptionTest extends \Papaya\TestCase {
+class InvalidOptionTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption::__construct

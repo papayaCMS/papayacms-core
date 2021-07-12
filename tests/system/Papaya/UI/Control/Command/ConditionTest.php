@@ -17,7 +17,7 @@ namespace Papaya\UI\Control\Command {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ConditionTest extends \Papaya\TestCase {
+  class ConditionTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Control\Command\Condition::command

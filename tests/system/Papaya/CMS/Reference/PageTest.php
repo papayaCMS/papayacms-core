@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Reference {
 
   use Papaya\Request;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\URL;
 
   require_once __DIR__.'/../../../../bootstrap.php';

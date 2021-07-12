@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Hidden
  */
-class HiddenTest extends \Papaya\TestCase {
+class HiddenTest extends \Papaya\TestFramework\TestCase {
 
   public function testAppendToWithDefaultValue() {
     $document = new \Papaya\XML\Document();

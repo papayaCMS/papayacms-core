@@ -16,7 +16,7 @@
 namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class TextTest extends \Papaya\TestCase {
+class TextTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text::truncate

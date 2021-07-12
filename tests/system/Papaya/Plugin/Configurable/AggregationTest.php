@@ -17,7 +17,7 @@ namespace Papaya\Plugin\Configurable {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class AggregationTest extends \Papaya\TestCase {
+  class AggregationTest extends \Papaya\TestFramework\TestCase {
     public function testContentGetAfterSet() {
       $plugin = new ConfigurableAggregation_TestProxy();
       $plugin->configuration($content = $this->createMock(\Papaya\BaseObject\Parameters::class));

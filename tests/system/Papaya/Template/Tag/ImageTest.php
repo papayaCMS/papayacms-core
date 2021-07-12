@@ -15,7 +15,7 @@
 
 namespace Papaya\Template\Tag {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\XML\Document as XMLDocument;
 
   require_once __DIR__.'/../../../../bootstrap.php';

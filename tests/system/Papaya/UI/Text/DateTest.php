@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Text\Date
  */
-class DateTest extends \Papaya\TestCase {
+class DateTest extends \Papaya\TestFramework\TestCase {
 
   public function testMagicMethodToString() {
     $string = new Date(strtotime('2011-08-25 16:00:00'));

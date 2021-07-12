@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Theme\Editor;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class ChangesTest extends \Papaya\TestCase {
+class ChangesTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Theme\Editor\Changes::appendTo

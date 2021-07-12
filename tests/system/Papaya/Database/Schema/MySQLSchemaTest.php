@@ -17,7 +17,7 @@ namespace Papaya\Database\Schema {
 
   use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\Result as DatabaseResult;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

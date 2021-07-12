@@ -19,7 +19,7 @@ namespace Papaya\Template;
 /** @noinspection XmlUnusedNamespaceDeclaration */
 require_once __DIR__.'/../../../bootstrap.php';
 
-class XSLTTest extends \Papaya\TestCase {
+class XSLTTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Template\XSLT

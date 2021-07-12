@@ -16,7 +16,7 @@
 namespace Papaya\UI\Text {
 
   use Papaya\Phrases;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use \LogicException;
 
   require_once __DIR__.'/../../../../bootstrap.php';

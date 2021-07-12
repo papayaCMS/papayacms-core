@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\XML
  */
-class XMLTest extends \Papaya\TestCase {
+class XMLTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideValidXmlFragments

@@ -17,7 +17,7 @@ namespace Papaya\Cache\Identifier\Definition;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class SurferTest extends \Papaya\TestCase {
+class SurferTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Cache\Identifier\Definition\Surfer

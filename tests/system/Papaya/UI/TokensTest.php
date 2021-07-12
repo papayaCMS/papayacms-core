@@ -17,7 +17,7 @@ namespace Papaya\UI {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class TokensTest extends \Papaya\TestCase {
+  class TokensTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Tokens::__construct

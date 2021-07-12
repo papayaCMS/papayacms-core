@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog\Field\Input {
 
   require_once __DIR__.'/../../../../../../bootstrap.php';
 
-  class CaptchaTest extends \Papaya\TestCase {
+  class CaptchaTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Dialog\Field\Input\Captcha::__construct

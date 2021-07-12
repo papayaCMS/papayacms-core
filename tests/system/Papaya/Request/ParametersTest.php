@@ -16,7 +16,7 @@
 namespace Papaya\Request;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ParametersTest extends \Papaya\TestCase {
+class ParametersTest extends \Papaya\TestFramework\TestCase {
 
   public function testCreateFromString() {
     $parameters = Parameters::createFromString('foo=42&bar=21');

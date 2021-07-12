@@ -20,7 +20,7 @@ namespace Papaya\Message\Context\Variable {
   /**
    * @covers \Papaya\Message\Context\Variable\Visitor
    */
-  class VisitorTest extends \Papaya\TestCase {
+  class VisitorTest extends \Papaya\TestFramework\TestCase {
 
     public function testMagicMethodToString() {
       $visitor = new Visitor_TestProxy(21, 42);

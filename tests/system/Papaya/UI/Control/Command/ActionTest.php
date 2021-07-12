@@ -16,7 +16,7 @@
 namespace Papaya\UI\Control\Command;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ActionTest extends \Papaya\TestCase {
+class ActionTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Control\Command\Action

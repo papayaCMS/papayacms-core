@@ -16,7 +16,7 @@
 namespace Papaya\Template\Simple\Exception;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class UnexpectedTokenTest extends \Papaya\TestCase {
+class UnexpectedTokenTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Template\Simple\Exception\UnexpectedToken::__construct

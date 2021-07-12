@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Date
  */
-class DateTest extends \Papaya\TestCase {
+class DateTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructExpectsExceptionIncludeTime() {
     $this->expectException(\UnexpectedValueException::class);

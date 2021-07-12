@@ -17,7 +17,7 @@ namespace Papaya\UI {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class PanelTest extends \Papaya\TestCase {
+  class PanelTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Panel::appendTo

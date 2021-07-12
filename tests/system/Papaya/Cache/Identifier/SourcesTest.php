@@ -15,7 +15,7 @@
 
 namespace Papaya\Cache\Identifier {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Cache\Identifier\Sources

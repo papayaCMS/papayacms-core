@@ -20,7 +20,7 @@ namespace Papaya\CMS\Theme {
   use Papaya\Request;
   use Papaya\Session;
   use Papaya\Session\Values as SessionValues;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\URL;
 
   require_once __DIR__.'/../../../../bootstrap.php';

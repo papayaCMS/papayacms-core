@@ -20,7 +20,7 @@ namespace Papaya\Filter {
   /**
    * @covers \Papaya\Filter\ArrayKey
    */
-  class ArrayKeyTest extends \Papaya\TestCase {
+  class ArrayKeyTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @dataProvider provideValidValidateData

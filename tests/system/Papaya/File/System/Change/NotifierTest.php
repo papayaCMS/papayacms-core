@@ -17,7 +17,7 @@ namespace Papaya\File\System\Change;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class NotifierTest extends \Papaya\TestCase {
+class NotifierTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\File\System\Change\Notifier::__construct

@@ -19,7 +19,7 @@ namespace Papaya\Message\Context {
   /**
    * @covers \Papaya\Message\Context\Group
    */
-  class GroupTest extends \Papaya\TestCase {
+  class GroupTest extends \Papaya\TestFramework\TestCase {
 
     public function testAppend() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Data $element */

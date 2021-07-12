@@ -20,7 +20,7 @@ namespace Papaya\Database\Statement {
   /**
    * @covers \Papaya\Database\Statement\Formatted
    */
-  class FormattedTest extends \Papaya\TestCase {
+  class FormattedTest extends \Papaya\TestFramework\TestCase {
 
     public function testToString() {
       $databaseAccess = $this->mockPapaya()->databaseAccess();

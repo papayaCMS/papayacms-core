@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class InvalidXMLTest extends \Papaya\TestCase {
+class InvalidXMLTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\InvalidXML

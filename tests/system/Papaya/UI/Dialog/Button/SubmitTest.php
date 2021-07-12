@@ -19,7 +19,7 @@ namespace Papaya\UI\Dialog\Button {
   /**
    * @covers \Papaya\UI\Dialog\Button\Submit
    */
-  class SubmitTest extends \Papaya\TestCase {
+  class SubmitTest extends \Papaya\TestFramework\TestCase {
 
     public function testAppendTo() {
       $button = new Submit('Test Caption');

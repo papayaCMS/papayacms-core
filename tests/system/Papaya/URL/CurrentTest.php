@@ -16,7 +16,7 @@
 namespace Papaya\URL;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CurrentTest extends \Papaya\TestCase {
+class CurrentTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\URL\Current::__construct

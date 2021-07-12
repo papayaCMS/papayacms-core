@@ -17,7 +17,7 @@ namespace Papaya\Database\Records {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class GroupedTest extends \Papaya\TestCase {
+  class GroupedTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Database\Records\Grouped::_loadRecords

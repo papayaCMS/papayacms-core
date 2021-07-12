@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Textarea;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class RichtextTest extends \Papaya\TestCase {
+class RichtextTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Textarea\Richtext::__construct

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\CMS\Administration\Languages\Caption
  */
-class CaptionTest extends \Papaya\TestCase {
+class CaptionTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideSampleWithoutLanguageSwitch

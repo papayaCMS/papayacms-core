@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\Input {
 
   use Papaya\Request\Parameters;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI\Dialog;
   use Papaya\UI\Dialog\Fields;
 

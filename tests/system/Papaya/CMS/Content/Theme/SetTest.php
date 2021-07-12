@@ -17,7 +17,7 @@ namespace Papaya\CMS\Content\Theme;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class SetTest extends \Papaya\TestCase {
+class SetTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Content\Theme\Skin::_createMapping

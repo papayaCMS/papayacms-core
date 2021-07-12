@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Display\Translated
  */
-class TranslatedTest extends \Papaya\TestCase {
+class TranslatedTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetMessage() {
     $message = new Translated(\Papaya\Message::SEVERITY_INFO, 'Test');

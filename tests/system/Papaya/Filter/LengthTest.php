@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Length
  */
-class LengthTest extends \Papaya\TestCase {
+class LengthTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorWithMaximumToSmallExpectingException() {
     $this->expectException(\RangeException::class);

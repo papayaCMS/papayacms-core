@@ -20,7 +20,7 @@ namespace Papaya\Filter {
   /**
    * @covers \Papaya\Filter\Logical
    */
-  class LogicalTest extends \Papaya\TestCase {
+  class LogicalTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructorWithTwoFilters() {
       $subFilterOne = $this->createMock(\Papaya\Filter::class);

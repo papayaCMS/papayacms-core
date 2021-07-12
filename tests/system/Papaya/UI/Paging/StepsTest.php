@@ -16,7 +16,7 @@
 namespace Papaya\UI\Paging;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class StepsTest extends \Papaya\TestCase {
+class StepsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Paging\Steps::__construct

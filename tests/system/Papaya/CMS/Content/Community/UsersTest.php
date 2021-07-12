@@ -17,7 +17,7 @@ namespace Papaya\CMS\Content\Community;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class UsersTest extends \Papaya\TestCase {
+class UsersTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Content\Community\Users::_compileCondition

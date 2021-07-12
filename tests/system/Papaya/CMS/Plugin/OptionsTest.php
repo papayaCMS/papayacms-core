@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Plugin;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class OptionsTest extends \Papaya\TestCase {
+class OptionsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Plugin\Options::__construct

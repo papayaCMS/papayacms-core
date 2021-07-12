@@ -17,7 +17,7 @@ namespace Papaya\UI {
 
   use Papaya\Request;
   use Papaya\Request\Parameters as RequestParameters;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\URL;
 
   require_once __DIR__.'/../../../bootstrap.php';

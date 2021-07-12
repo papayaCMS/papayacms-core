@@ -16,7 +16,7 @@
 namespace Papaya\Request\Parameter;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class FileTest extends \Papaya\TestCase {
+class FileTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Request\Parameter\File::__construct

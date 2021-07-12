@@ -17,7 +17,7 @@ namespace Papaya\UI\Control\Command {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ToolbarTest extends \Papaya\TestCase {
+  class ToolbarTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Control\Command\Toolbar

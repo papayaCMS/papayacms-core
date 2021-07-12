@@ -16,7 +16,7 @@
 namespace Papaya\Message\Dispatcher {
 
   use Papaya\Message;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Psr\Log\LoggerInterface;
 
   /**

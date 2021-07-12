@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Equals
  */
-class EqualsTest extends \Papaya\TestCase {
+class EqualsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideEqualValues

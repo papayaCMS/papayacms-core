@@ -23,7 +23,7 @@ namespace Papaya\Database\Connection {
   use Papaya\Database\Source\Name as DataSourceName;
   use Papaya\Database\Schema as DatabaseSchema;
   use Papaya\Database\Syntax as DatabaseSyntax;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Languages;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ImageTest extends \Papaya\TestCase {
+class ImageTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Languages\Image

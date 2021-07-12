@@ -17,7 +17,7 @@ namespace Papaya\Email;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class PartTest extends \Papaya\TestCase {
+class PartTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Email\Part::__construct

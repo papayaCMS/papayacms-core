@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Context\Variable
  */
-class VariableTest extends \Papaya\TestCase {
+class VariableTest extends \Papaya\TestFramework\TestCase {
 
 
   /**

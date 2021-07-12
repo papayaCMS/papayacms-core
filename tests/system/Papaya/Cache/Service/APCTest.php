@@ -17,7 +17,7 @@ namespace Papaya\Cache\Service;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class APCTest extends \Papaya\TestCase {
+class APCTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Cache\Service\APC::setConfiguration

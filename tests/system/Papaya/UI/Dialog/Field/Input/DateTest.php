@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Input\Date
  */
-class DateTest extends \Papaya\TestCase {
+class DateTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorWithInvalidIncludeTimeOption() {
     $this->expectException(\InvalidArgumentException::class);

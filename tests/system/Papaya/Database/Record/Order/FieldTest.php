@@ -17,7 +17,7 @@ namespace Papaya\Database\Record\Order;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class FieldTest extends \Papaya\TestCase {
+class FieldTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Database\Record\Order\Field::__construct

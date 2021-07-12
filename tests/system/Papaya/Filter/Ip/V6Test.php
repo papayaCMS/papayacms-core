@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Ip;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class V6Test extends \Papaya\TestCase {
+class V6Test extends \Papaya\TestFramework\TestCase {
   /**
    * @covers \Papaya\Filter\Ip\V6::validate
    * @dataProvider getIpV6ValidDataProvider

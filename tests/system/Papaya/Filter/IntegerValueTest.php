@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\IntegerValue
  */
-class IntegerValueTest extends \Papaya\TestCase {
+class IntegerValueTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructorWithMaximumOnlyExpectingException() {
     $this->expectException(\RangeException::class);

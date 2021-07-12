@@ -19,7 +19,7 @@ namespace Papaya\Filter {
   /**
    * @covers \Papaya\Filter\NumberWithUnit
    */
-  class NumberWithUnitTest extends \Papaya\TestCase {
+  class NumberWithUnitTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructExceptionMissingUnit() {
       $this->expectException(\UnexpectedValueException::class);

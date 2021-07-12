@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Text
  */
-class TextTest extends \Papaya\TestCase {
+class TextTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideValidValues

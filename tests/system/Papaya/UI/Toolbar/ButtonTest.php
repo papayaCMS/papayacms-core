@@ -16,7 +16,7 @@
 namespace Papaya\UI\Toolbar;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ButtonTest extends \Papaya\TestCase {
+class ButtonTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Toolbar\Button::setAccessKey

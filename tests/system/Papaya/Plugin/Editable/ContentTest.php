@@ -16,7 +16,7 @@
 namespace Papaya\Plugin\Editable;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ContentTest extends \Papaya\TestCase {
+class ContentTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Plugin\Editable\Content::getXML

@@ -17,7 +17,7 @@ namespace Papaya\Configuration;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class IteratorTest extends \Papaya\TestCase {
+class IteratorTest extends \Papaya\TestFramework\TestCase {
 
   public function testIterator() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Configuration $configuration */

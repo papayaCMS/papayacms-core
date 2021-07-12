@@ -17,7 +17,7 @@ namespace Papaya\UI\Toolbar {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class SeparatorTest extends \Papaya\TestCase {
+  class SeparatorTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\UI\Toolbar\Separator::appendTo

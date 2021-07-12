@@ -17,7 +17,7 @@ namespace Papaya\Cache;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ConfigurationTest extends \Papaya\TestCase {
+class ConfigurationTest extends \Papaya\TestFramework\TestCase {
 
   public function testConstructor() {
     $configuration = new Configuration();

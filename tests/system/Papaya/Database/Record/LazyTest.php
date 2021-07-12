@@ -17,7 +17,7 @@ namespace Papaya\Database\Record {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class LazyTest extends \Papaya\TestCase {
+  class LazyTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Database\Record\Lazy::activateLazyLoad

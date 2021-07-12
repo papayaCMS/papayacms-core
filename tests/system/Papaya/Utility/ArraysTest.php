@@ -17,7 +17,7 @@ namespace Papaya\Utility {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class ArraysTest extends \Papaya\TestCase {
+  class ArraysTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Utility\Arrays::merge

@@ -3,7 +3,7 @@
 namespace Papaya\Database\Condition {
 
   use Papaya\Database\Connection;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

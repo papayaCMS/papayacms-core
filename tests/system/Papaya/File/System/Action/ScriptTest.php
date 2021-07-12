@@ -17,7 +17,7 @@ namespace Papaya\File\System\Action {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class ScriptTest extends \Papaya\TestCase {
+  class ScriptTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\File\System\Action\Script::__construct

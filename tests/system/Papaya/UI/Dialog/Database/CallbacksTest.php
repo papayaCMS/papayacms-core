@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Database;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class CallbacksTest extends \Papaya\TestCase {
+class CallbacksTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Database\Callbacks::__construct

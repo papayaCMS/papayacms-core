@@ -16,7 +16,7 @@
 namespace Papaya\Router\Route {
 
   use Papaya\Router;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Router\Route\Files

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Context\File
  */
-class FileTest extends \Papaya\TestCase {
+class FileTest extends \Papaya\TestFramework\TestCase {
 
   public function testGetLabel() {
     $context = new File(__FILE__);

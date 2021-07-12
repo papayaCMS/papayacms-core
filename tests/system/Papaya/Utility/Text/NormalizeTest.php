@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class NormalizeTest extends \Papaya\TestCase {
+class NormalizeTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text\Normalize::toHTTPHeaderName

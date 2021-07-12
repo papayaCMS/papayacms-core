@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Pages\Reference\Command;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class ChangeTest extends \Papaya\TestCase {
+class ChangeTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Pages\Reference\Command\Change::createDialog

@@ -20,7 +20,7 @@ namespace Papaya\Database\Condition {
   /**
    * @covers \Papaya\Database\Condition\Condition
    */
-  class ConditionTest extends \Papaya\TestCase {
+  class ConditionTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructor() {
       /** @var \PHPUnit_Framework_MockObject_MockObject|Group $group */

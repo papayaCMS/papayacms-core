@@ -15,7 +15,7 @@
 
 namespace Papaya\UI {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\UI\Toolbars

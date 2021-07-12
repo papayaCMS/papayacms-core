@@ -24,7 +24,7 @@ namespace Papaya\UI\Dialog\Field\Input {
   /**
    * @covers \Papaya\UI\Dialog\Field\Input\Checkbox
    */
-  class CheckboxTest extends \Papaya\TestCase {
+  class CheckboxTest extends \Papaya\TestFramework\TestCase {
 
     public function testConstructor() {
       $checkbox = new Checkbox('caption', 'name', TRUE, TRUE);

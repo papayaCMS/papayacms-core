@@ -17,7 +17,7 @@ namespace Papaya\Media\Storage\Service {
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 
-  class FileTest extends \Papaya\TestCase {
+  class FileTest extends \Papaya\TestFramework\TestCase {
 
     private $_storageDirectory;
     private $_publicDirectory;

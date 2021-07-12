@@ -17,7 +17,7 @@ namespace Papaya\HTTP\Client {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class SocketTest extends \Papaya\TestCase {
+  class SocketTest extends \Papaya\TestFramework\TestCase {
 
     public function getMemoryStreamFixture($data = '', $mode = 'wb+') {
       $ms = fopen('php://memory', $mode);

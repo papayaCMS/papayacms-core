@@ -19,7 +19,7 @@ namespace Papaya\Parser\Search {
   /**
    * @covers \Papaya\Parser\Search\Text
    */
-  class TextTest extends \Papaya\TestCase {
+  class TextTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @param array $expected

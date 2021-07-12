@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Pages\Dependency;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class SynchronizationsTest extends \Papaya\TestCase {
+class SynchronizationsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Pages\Dependency\Synchronizations::getIcons

@@ -16,7 +16,7 @@
 namespace Papaya\Plugin {
 
   use Papaya\Request\Parameters;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\XML\Element as XMLElement;
 
   require_once __DIR__.'/../../../bootstrap.php';

@@ -15,7 +15,7 @@
 
 namespace Papaya\Utility {
 
-  class ConstraintsTest extends \Papaya\TestCase {
+  class ConstraintsTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Utility\Constraints::assertArray
@@ -182,7 +182,7 @@ namespace Papaya\Utility {
      */
     public function testAssertInstanceOfWithSuperclass() {
       $this->assertTrue(
-        Constraints::assertInstanceOf(\Papaya\TestCase::class, $this)
+        Constraints::assertInstanceOf(\Papaya\TestFramework\TestCase::class, $this)
       );
     }
 
@@ -191,7 +191,7 @@ namespace Papaya\Utility {
      */
     public function testAssertInstanceOfWithTwoClasses() {
       $this->assertTrue(
-        Constraints::assertInstanceOf(array(\stdClass::class, \Papaya\TestCase::class), $this)
+        Constraints::assertInstanceOf(array(\stdClass::class, \Papaya\TestFramework\TestCase::class), $this)
       );
     }
 
@@ -216,7 +216,7 @@ namespace Papaya\Utility {
      */
     public function testAssertInstanceOfOrNullWithObject() {
       $this->assertTrue(
-        Constraints::assertInstanceOfOrNull(array(\stdClass::class, \Papaya\TestCase::class), $this)
+        Constraints::assertInstanceOfOrNull(array(\stdClass::class, \Papaya\TestFramework\TestCase::class), $this)
       );
     }
 
@@ -225,7 +225,7 @@ namespace Papaya\Utility {
      */
     public function testAssertInstanceOfOrNullWithNull() {
       $this->assertTrue(
-        Constraints::assertInstanceOfOrNull(array(\stdClass::class, \Papaya\TestCase::class), NULL)
+        Constraints::assertInstanceOfOrNull(array(\stdClass::class, \Papaya\TestFramework\TestCase::class), NULL)
       );
     }
 

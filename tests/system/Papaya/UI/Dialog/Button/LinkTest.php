@@ -15,7 +15,7 @@
 
 namespace Papaya\UI\Dialog\Button {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\CMS\Reference;
 
   /**

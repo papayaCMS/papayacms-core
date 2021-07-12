@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Server;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ProtocolTest extends \Papaya\TestCase {
+class ProtocolTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Server\Protocol::isSecure

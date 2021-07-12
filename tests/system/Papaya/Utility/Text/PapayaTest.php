@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PapayaTest extends \Papaya\TestCase {
+class PapayaTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider getImageTagDataProvider

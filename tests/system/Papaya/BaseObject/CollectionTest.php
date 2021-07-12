@@ -16,15 +16,15 @@
 namespace Papaya\BaseObject;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class CollectionTest extends \Papaya\TestCase {
+class CollectionTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\BaseObject\Collection::__construct
    */
   public function testConstructorWithClass() {
-    $list = new Collection(\Papaya\TestCase::class);
+    $list = new Collection(\Papaya\TestFramework\TestCase::class);
     $this->assertEquals(
-      \Papaya\TestCase::class,
+      \Papaya\TestFramework\TestCase::class,
       $list->getItemClass()
     );
   }
@@ -45,9 +45,9 @@ class CollectionTest extends \Papaya\TestCase {
    */
   public function testSetItemClassWithClass() {
     $list = new Collection();
-    $list->setItemClass(\Papaya\TestCase::class);
+    $list->setItemClass(\Papaya\TestFramework\TestCase::class);
     $this->assertEquals(
-      \Papaya\TestCase::class,
+      \Papaya\TestFramework\TestCase::class,
       $list->getItemClass()
     );
   }
@@ -80,7 +80,7 @@ class CollectionTest extends \Papaya\TestCase {
   public function testSetItemClassRemovesItems() {
     $list = new Collection();
     $list->add(new \stdClass());
-    $list->setItemClass(\Papaya\TestCase::class);
+    $list->setItemClass(\Papaya\TestFramework\TestCase::class);
     $this->assertEquals(
       array(),
       iterator_to_array($list)
@@ -91,9 +91,9 @@ class CollectionTest extends \Papaya\TestCase {
    * @covers \Papaya\BaseObject\Collection::getItemClass
    */
   public function testGetItemClass() {
-    $list = new Collection(\Papaya\TestCase::class);
+    $list = new Collection(\Papaya\TestFramework\TestCase::class);
     $this->assertEquals(
-      \Papaya\TestCase::class,
+      \Papaya\TestFramework\TestCase::class,
       $list->getItemClass()
     );
   }

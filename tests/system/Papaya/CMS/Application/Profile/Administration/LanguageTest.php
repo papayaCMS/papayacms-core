@@ -17,7 +17,7 @@ namespace Papaya\CMS\Application\Profile\Administration;
 
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class LanguageTest extends \Papaya\TestCase {
+class LanguageTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Application\Profile\Administration\Language::createObject

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Ip\V4
  */
-class V4Test extends \Papaya\TestCase {
+class V4Test extends \Papaya\TestFramework\TestCase {
 
   public function testConstructInvalidArgumentException() {
     $this->expectException(\InvalidArgumentException::class);

@@ -19,7 +19,7 @@ namespace Papaya\Media\Storage\Service {
   use Papaya\Configuration;
   use Papaya\HTTP\Client as HTTPClient;
   use Papaya\HTTP\Client\Socket;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../../bootstrap.php';
 

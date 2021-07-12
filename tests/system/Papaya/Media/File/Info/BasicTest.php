@@ -15,7 +15,7 @@
 
 namespace Papaya\Media\File\Info {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Media\File\Info\Basic

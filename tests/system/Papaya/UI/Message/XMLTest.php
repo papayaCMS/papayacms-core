@@ -16,7 +16,7 @@
 namespace Papaya\UI\Message;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class XMLTest extends \Papaya\TestCase {
+class XMLTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Message\Text::appendTo

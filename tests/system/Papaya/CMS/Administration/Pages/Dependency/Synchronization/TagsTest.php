@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Pages\Dependency\Synchronization;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class TagsTest extends \Papaya\TestCase {
+class TagsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Pages\Dependency\Synchronization\Tags::synchronize

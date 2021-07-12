@@ -16,7 +16,7 @@
 namespace Papaya\Media\File\Info;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ImageTest extends \Papaya\TestCase {
+class ImageTest extends \Papaya\TestFramework\TestCase {
 
   public function testFetchInfoFromPng() {
     $info = new Image(__DIR__.'/TestData/20x20.png');

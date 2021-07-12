@@ -16,7 +16,7 @@
 namespace Papaya\UI\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PlaceholdersTest extends \Papaya\TestCase {
+class PlaceholdersTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Text\Placeholders

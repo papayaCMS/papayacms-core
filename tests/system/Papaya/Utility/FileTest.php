@@ -16,7 +16,7 @@
 namespace Papaya\Utility;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class FileTest extends \Papaya\TestCase {
+class FileTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\File::formatBytes

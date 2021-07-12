@@ -15,7 +15,7 @@
 
 namespace Papaya\Response\Content {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Response\Content\Collection

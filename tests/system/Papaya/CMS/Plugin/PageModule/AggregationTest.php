@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Plugin\PageModule {
 
   use Papaya\CMS\Plugin\PageModule;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\CMS\Output\Page;
 
   /**

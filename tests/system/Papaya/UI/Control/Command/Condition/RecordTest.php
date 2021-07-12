@@ -17,7 +17,7 @@ namespace Papaya\UI\Control\Command\Condition {
 
   use Papaya\Database\Interfaces\Key as DatabaseRecordKey;
   use Papaya\Database\Record as DatabaseRecord;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\UI\Control\Command\Condition\Record

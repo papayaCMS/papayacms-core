@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Page;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class PartsTest extends \Papaya\TestCase {
+class PartsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Administration\Page\Parts::__construct

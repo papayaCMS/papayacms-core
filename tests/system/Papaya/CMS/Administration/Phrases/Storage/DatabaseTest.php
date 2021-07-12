@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Phrases\Storage {
 
   use Papaya\CMS\Content\Phrase as ContentPhrase;
   use Papaya\CMS\Content\Phrases as ContentPhrases;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\CMS\Administration\Phrases\Storage\Database

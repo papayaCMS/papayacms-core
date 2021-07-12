@@ -19,7 +19,7 @@ namespace Papaya\Media\File\Info {
   /**
    * @covers \Papaya\Media\File\Info\SVG
    */
-  class SVGTest extends \Papaya\TestCase {
+  class SVGTest extends \Papaya\TestFramework\TestCase {
 
     public function testIsSupportedExtensionExpectingTrue() {
       $info = new SVG(__DIR__.'/TestData/minimum.svg', 'minimum.svg');

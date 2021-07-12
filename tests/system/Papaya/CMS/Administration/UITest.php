@@ -18,7 +18,7 @@ namespace Papaya\CMS\Administration {
   use Papaya\Router\Path as RouterAddress;
   use Papaya\Router\Route;
   use Papaya\Template;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\CMS\Administration\UI

@@ -15,7 +15,7 @@
 
 namespace Papaya\Database\Syntax {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

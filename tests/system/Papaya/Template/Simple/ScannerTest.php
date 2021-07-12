@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Template\Simple\Scanner
  */
-class ScannerTest extends \Papaya\TestCase {
+class ScannerTest extends \Papaya\TestFramework\TestCase {
 
   public function testScanWithSingleValidToken() {
     $token = $this->getTokenMockObjectFixture(6);

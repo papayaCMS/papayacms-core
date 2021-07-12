@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\CMS\Output\Teaser\Images
  */
-class ImagesTest extends \Papaya\TestCase {
+class ImagesTest extends \Papaya\TestFramework\TestCase {
 
   public function testAppendToWithTeasers() {
     $xml =

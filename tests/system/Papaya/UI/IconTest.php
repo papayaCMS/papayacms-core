@@ -16,7 +16,7 @@
 namespace Papaya\UI;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class IconTest extends \Papaya\TestCase {
+class IconTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Icon::__construct

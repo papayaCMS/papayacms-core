@@ -16,7 +16,7 @@
 namespace system\Papaya\Domain\HostName {
 
   use Papaya\Domain\HostName\Variants;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   class VariantsTest extends TestCase {
 

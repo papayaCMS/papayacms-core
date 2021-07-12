@@ -16,7 +16,7 @@
 namespace Papaya\CMS\Application\Profile\Administration {
 
   use Papaya\CMS\Administration\RichText\Toggle as RichTextToggle;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @coverage \Papaya\CMS\Application\Profile\Administration\RichText

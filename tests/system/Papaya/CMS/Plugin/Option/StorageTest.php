@@ -17,7 +17,7 @@ namespace Papaya\CMS\Plugin\Option;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class StorageTest extends \Papaya\TestCase {
+class StorageTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Plugin\Option\Storage::__construct

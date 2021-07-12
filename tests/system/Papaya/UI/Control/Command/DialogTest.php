@@ -16,7 +16,7 @@
 namespace Papaya\UI\Control\Command;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class DialogTest extends \Papaya\TestCase {
+class DialogTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Control\Command\Dialog::appendTo

@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Message\Context\Memory
  */
-class MemoryTest extends \Papaya\TestCase {
+class MemoryTest extends \Papaya\TestFramework\TestCase {
 
   public function testRememberMemoryUsage() {
     $context = new Memory();

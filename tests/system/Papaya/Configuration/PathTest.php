@@ -22,7 +22,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\CMS\Configuration\Path
  */
-class PathTest extends \Papaya\TestCase {
+class PathTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @backupGlobals enabled

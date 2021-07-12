@@ -17,7 +17,7 @@ namespace Papaya\CMS\Content\Module;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class OptionsTest extends \Papaya\TestCase {
+class OptionsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Content\Module\Options::_createMapping

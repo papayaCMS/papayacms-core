@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\XHTML\Link
  */
-class LinkTest extends \Papaya\TestCase {
+class LinkTest extends \Papaya\TestFramework\TestCase {
 
   public function testAppendTo() {
     $link = new Link('https://www.papaya-cms.com', 'PapayaCMS');

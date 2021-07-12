@@ -16,7 +16,7 @@
 namespace system\Papaya\Response\Content {
 
   use Papaya\Response\Content\JSON;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Response\Content\JSON

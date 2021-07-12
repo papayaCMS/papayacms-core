@@ -16,7 +16,7 @@
 namespace Papaya\Filter {
 
   use Papaya\Filter;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Filter\Lines

@@ -20,7 +20,7 @@ namespace Papaya\Filter {
   /**
    * @covers \Papaya\Filter\Callback
    */
-  class CallbackTest extends \Papaya\TestCase {
+  class CallbackTest extends \Papaya\TestFramework\TestCase {
 
     public function testValidateExpectingTrue() {
       $filter = new Callback(

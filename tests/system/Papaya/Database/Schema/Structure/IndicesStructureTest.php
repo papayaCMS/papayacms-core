@@ -15,7 +15,7 @@
 
 namespace Papaya\Database\Schema\Structure {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\XML\Document;
 
   require_once __DIR__.'/../../../../../bootstrap.php';

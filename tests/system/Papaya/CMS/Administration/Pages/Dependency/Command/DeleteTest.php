@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Pages\Dependency\Command;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class DeleteTest extends \Papaya\TestCase {
+class DeleteTest extends \Papaya\TestFramework\TestCase {
 
   private $_dependencyRecordData;
 

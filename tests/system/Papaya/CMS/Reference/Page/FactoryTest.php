@@ -20,7 +20,7 @@ namespace Papaya\CMS\Reference\Page {
   use Papaya\CMS\Content\Page\Publications as ContentPagePublications;
   use Papaya\CMS\Content\Pages as ContentPages;
   use Papaya\CMs\Domains;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\CMS\Reference\Page as PageReference;
   use Papaya\Utility\Server\Protocol as ServerProtocolUtility;
   use Papaya\XML\Document as XMLDocument;

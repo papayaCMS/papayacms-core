@@ -16,7 +16,7 @@
 namespace Papaya\Message {
 
   use Papaya\Template;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../bootstrap.php';
 

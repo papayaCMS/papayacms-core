@@ -16,7 +16,7 @@
 namespace Papaya\Media\File {
 
   use BadMethodCallException;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Media\File\Info

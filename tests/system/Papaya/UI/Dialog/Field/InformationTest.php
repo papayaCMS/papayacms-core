@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Information
  */
-class InformationTest extends \Papaya\TestCase {
+class InformationTest extends \Papaya\TestFramework\TestCase {
 
   public function testAppendTo() {
     $document = new \Papaya\XML\Document();

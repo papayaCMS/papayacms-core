@@ -16,7 +16,7 @@
 namespace Papaya\Iterator {
 
   use Papaya\Filter\IntegerValue;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Iterator\Filter

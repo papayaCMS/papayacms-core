@@ -17,7 +17,7 @@ namespace Papaya\Template\Simple {
 
   require_once __DIR__.'/../../../../bootstrap.php';
 
-  class VisitorTest extends \Papaya\TestCase {
+  class VisitorTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\Template\Simple\Visitor::visit

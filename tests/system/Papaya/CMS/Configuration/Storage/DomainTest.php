@@ -20,7 +20,7 @@ namespace Papaya\CMS\Configuration\Storage {
   /**
    * @covers \Papaya\CMS\Configuration\Storage\Domain
    */
-  class DomainTest extends \Papaya\TestCase {
+  class DomainTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @dataProvider provideHostUrls

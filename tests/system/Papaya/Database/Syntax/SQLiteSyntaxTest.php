@@ -18,7 +18,7 @@ namespace Papaya\Database\Syntax {
   require_once __DIR__.'/../../../../bootstrap.php';
 
   use Papaya\Database\Connection as DatabaseConnection;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Database\Syntax\SQLiteSyntax

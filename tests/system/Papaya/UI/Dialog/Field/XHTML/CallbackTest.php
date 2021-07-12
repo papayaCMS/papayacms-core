@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field\XHTML;
 require_once __DIR__.'/../../../../../../bootstrap.php';
 
-class CallbackTest extends \Papaya\TestCase {
+class CallbackTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Field\XHTML\Callback

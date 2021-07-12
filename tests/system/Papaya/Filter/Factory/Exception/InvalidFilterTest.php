@@ -16,7 +16,7 @@
 namespace Papaya\Filter\Factory\Exception;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class InvalidFilterTest extends \Papaya\TestCase {
+class InvalidFilterTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Factory\Exception\InvalidFilter

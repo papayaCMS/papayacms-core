@@ -17,7 +17,7 @@ namespace Papaya\Message\Dispatcher {
 
   use InvalidArgumentException;
   use Papaya\Message\Dispatcher;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\Message;
 
   /**

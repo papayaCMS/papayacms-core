@@ -17,7 +17,7 @@ namespace Papaya\CMS\Administration\Pages\Dependency\Command;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 
-class ChangeTest extends \Papaya\TestCase {
+class ChangeTest extends \Papaya\TestFramework\TestCase {
 
   private $_dependencyRecordData;
 

@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Arguments
  */
-class ArgumentsTest extends \Papaya\TestCase {
+class ArgumentsTest extends \Papaya\TestFramework\TestCase {
 
 
   /**

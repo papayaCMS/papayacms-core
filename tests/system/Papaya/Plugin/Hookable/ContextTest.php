@@ -16,7 +16,7 @@
 namespace Papaya\Plugin\Hookable;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ContextTest extends \Papaya\TestCase {
+class ContextTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Plugin\Hookable\Context::__construct

@@ -17,7 +17,7 @@ namespace Papaya\UI\Dialog;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class ErrorsTest extends \Papaya\TestCase {
+class ErrorsTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\Dialog\Errors::getIterator

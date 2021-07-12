@@ -16,7 +16,7 @@
 namespace Papaya\Utility\Text;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class Base32Test extends \Papaya\TestCase {
+class Base32Test extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\Text\Base32::encode

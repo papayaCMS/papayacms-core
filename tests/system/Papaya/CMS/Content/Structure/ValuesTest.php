@@ -17,7 +17,7 @@ namespace Papaya\CMS\Content\Structure;
 
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class ValuesTest extends \Papaya\TestCase {
+class ValuesTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\CMS\Content\Structure\Values::__construct

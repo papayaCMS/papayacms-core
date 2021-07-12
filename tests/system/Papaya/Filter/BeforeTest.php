@@ -16,7 +16,7 @@
 namespace Papaya\Filter;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class BeforeTest extends \Papaya\TestCase {
+class BeforeTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Before

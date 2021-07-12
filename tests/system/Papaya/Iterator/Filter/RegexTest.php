@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Iterator\Filter\RegEx
  */
-class RegExTest extends \Papaya\TestCase {
+class RegExTest extends \Papaya\TestFramework\TestCase {
 
   public function testAccept() {
     $data = array(

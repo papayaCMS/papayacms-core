@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Exception\InvalidCharacter::getCharacterPosition
  */
-class InvalidCharacterTest extends \Papaya\TestCase {
+class InvalidCharacterTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @dataProvider provideExceptionDataAndMessage

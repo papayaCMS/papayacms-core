@@ -15,7 +15,7 @@
 
 namespace Papaya\UI\Dialog\Element {
 
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\UI\Dialog\Element\Description

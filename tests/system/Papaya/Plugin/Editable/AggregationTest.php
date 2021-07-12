@@ -18,7 +18,7 @@ namespace Papaya\Plugin\Editable {
   use Papaya\CMS\Administration\Plugin\Editor\Dialog;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../../bootstrap.php';
 

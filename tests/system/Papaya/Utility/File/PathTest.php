@@ -16,7 +16,7 @@
 namespace Papaya\Utility\File;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class PathTest extends \Papaya\TestCase {
+class PathTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Utility\File\Path::cleanup

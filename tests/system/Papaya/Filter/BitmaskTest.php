@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Bitmask
  */
-class BitmaskTest extends \Papaya\TestCase {
+class BitmaskTest extends \Papaya\TestFramework\TestCase {
 
 
   /**

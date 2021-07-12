@@ -15,7 +15,7 @@
 
 namespace Papaya\UI\Dialog\Field\Textarea {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\UI\Dialog\Field\Textarea\Lines

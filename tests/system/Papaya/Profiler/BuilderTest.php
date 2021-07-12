@@ -16,7 +16,7 @@
 namespace Papaya\Profiler;
 require_once __DIR__.'/../../../bootstrap.php';
 
-class BuilderTest extends \Papaya\TestCase {
+class BuilderTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Profiler\Builder::createCollector

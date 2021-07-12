@@ -17,7 +17,7 @@ namespace Papaya\Controller;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
-class ErrorTest extends \Papaya\TestCase {
+class ErrorTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Controller\Error::setStatus

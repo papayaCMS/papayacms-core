@@ -20,7 +20,7 @@ namespace Papaya {
 
   require_once __DIR__.'/../../bootstrap.php';
 
-  \Papaya\Test\TestCase::defineConstantDefaults(
+  \Papaya\TestFramework\TestCase::defineConstantDefaults(
     [
       'PAPAYA_DB_TBL_AUTHOPTIONS',
       'PAPAYA_DB_TBL_AUTHUSER',

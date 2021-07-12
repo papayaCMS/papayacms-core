@@ -20,7 +20,7 @@ namespace Papaya\CMS\Administration {
   use Papaya\Message\Manager as MessageManager;
   use Papaya\Session;
   use Papaya\Template;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\UI\Toolbar;
 
   require_once __DIR__.'/../../../../bootstrap.php';

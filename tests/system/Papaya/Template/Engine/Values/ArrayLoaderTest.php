@@ -15,7 +15,7 @@
 
 namespace Papaya\Template\Engine\Values {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Template\Engine\Values\ArrayLoader

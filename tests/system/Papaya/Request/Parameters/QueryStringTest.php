@@ -16,7 +16,7 @@
 namespace Papaya\Request\Parameters;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class QueryStringTest extends \Papaya\TestCase {
+class QueryStringTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Request\Parameters\QueryString::__construct

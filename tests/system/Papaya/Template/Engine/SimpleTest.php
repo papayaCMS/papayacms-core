@@ -18,7 +18,7 @@ namespace Papaya\Template\Engine {
   use Papaya\Template\Simple\AST as SimpleTemplateAST;
   use Papaya\Template\Simple\Exception as SimpleTemplateException;
   use Papaya\Template\Simple\Visitor as SimpleTemplateVisitor;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\XML\Document as XMLDocument;
 
   require_once __DIR__.'/../../../../bootstrap.php';

@@ -16,7 +16,7 @@
 namespace Papaya\Streamwrapper {
 
   use Papaya\Streamwrapper\S3\S3Exception;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   require_once __DIR__.'/../../../bootstrap.php';
 

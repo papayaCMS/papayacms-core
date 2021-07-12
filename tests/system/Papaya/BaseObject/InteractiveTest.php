@@ -17,7 +17,7 @@ namespace Papaya\BaseObject {
 
   require_once __DIR__.'/../../../bootstrap.php';
 
-  class InteractiveTest extends \Papaya\TestCase {
+  class InteractiveTest extends \Papaya\TestFramework\TestCase {
 
     /**
      * @covers \Papaya\BaseObject\Interactive::parameterMethod

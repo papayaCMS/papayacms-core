@@ -19,7 +19,7 @@ require_once __DIR__.'/../../../../../bootstrap.php';
 /**
  * @covers \Papaya\UI\Dialog\Field\Honeypot
  */
-class HoneypotTest extends \Papaya\TestCase {
+class HoneypotTest extends \Papaya\TestFramework\TestCase {
 
   public function testSetFilterExpectingException() {
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Papaya\Filter $filter */

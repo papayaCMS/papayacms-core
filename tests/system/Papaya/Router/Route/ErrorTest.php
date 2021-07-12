@@ -17,7 +17,7 @@ namespace Papaya\Router\Route {
 
   use Papaya\Response\Failure as FailureResponse;
   use Papaya\Router;
-  use Papaya\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Router\Route\Error

@@ -19,7 +19,7 @@ namespace Papaya\Plugin\Editable\Content {
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editable\Content;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
 
   /**
    * @covers \Papaya\Plugin\Editable\Content\Aggregation

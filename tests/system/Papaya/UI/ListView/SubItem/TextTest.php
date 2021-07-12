@@ -16,7 +16,7 @@
 namespace Papaya\UI\ListView\SubItem;
 require_once __DIR__.'/../../../../../bootstrap.php';
 
-class TextTest extends \Papaya\TestCase {
+class TextTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\UI\ListView\SubItem\Text::__construct

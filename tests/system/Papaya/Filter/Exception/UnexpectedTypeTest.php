@@ -17,7 +17,7 @@ namespace Papaya\Filter\Exception;
 
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class UnexpectedTypeTest extends \Papaya\TestCase {
+class UnexpectedTypeTest extends \Papaya\TestFramework\TestCase {
 
   /**
    * @covers \Papaya\Filter\Exception\UnexpectedType::__construct

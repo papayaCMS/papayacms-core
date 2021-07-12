@@ -15,7 +15,7 @@
 
 namespace Papaya\CMS\Administration\UI {
 
-  use Papaya\Test\TestCase;
+  use Papaya\TestFramework\TestCase;
   use Papaya\URL;
 
   /**

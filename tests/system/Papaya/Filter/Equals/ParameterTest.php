@@ -20,7 +20,7 @@ require_once __DIR__.'/../../../../bootstrap.php';
 /**
  * @covers \Papaya\Filter\Equals\Parameter
  */
-class ParameterTest extends \Papaya\TestCase {
+class ParameterTest extends \Papaya\TestFramework\TestCase {
 
   public function testValidateTrue() {
     $parameters = new \Papaya\Request\Parameters(array('foo' => 'bar'));
