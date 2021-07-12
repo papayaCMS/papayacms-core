@@ -6,7 +6,8 @@
   "minimum-stability": "dev",
   "autoload" : {
     "psr-4": {
-      "Papaya\\Modules\\Core\\": "src/modules/_base/"
+      "Papaya\\Modules\\Core\\": "src/modules/_base/",
+      "Papaya\\TestFramework\\": "tests/TestFramework"
     },
     "files" : ["src/core.php"]
   },
@@ -23,7 +24,6 @@
     "roave/security-advisories": "dev-master",
 
     "papaya/cms-administration": "dev-master",
-    "papaya/test-framework": "dev-master",
 
     "papaya/theme-dynamic": "dev-master",
 
