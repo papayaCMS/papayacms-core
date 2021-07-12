@@ -16,14 +16,14 @@
 namespace Papaya\Modules\Core\Partials {
 
   use Papaya\Plugin\Editable\Content as EditableContent;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
+  use Papaya\CMS\Output\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
   use Papaya\UI\Dialog\Field as DialogField;
 
   /**
-   * @method EditableContent content()
+   * @method EditableContent content(\Papaya\Plugin\Editable\Content $content = NULL)
    */
   trait TeasersAggregation {
 

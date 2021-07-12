@@ -19,14 +19,14 @@ namespace Papaya\Modules\Core\Partials {
 
   interface QueryString {
 
-    const QUERYSTRING_MODE_IGNORE = 0;
-    const QUERYSTRING_MODE_APPEND = 1;
-    const QUERYSTRING_MODE_TEMPLATE = 2;
+    public const QUERYSTRING_MODE_IGNORE = 0;
+    public const QUERYSTRING_MODE_APPEND = 1;
+    public const QUERYSTRING_MODE_TEMPLATE = 2;
 
-    const FIELD_QUERYSTRING_MODE = 'target-querystring-mode';
-    const FIELD_QUERYSTRING_TEMPLATE = 'target-querystring-template';
+    public const FIELD_QUERYSTRING_MODE = 'target-querystring-mode';
+    public const FIELD_QUERYSTRING_TEMPLATE = 'target-querystring-template';
 
-    const _QUERYSTRING_DEFAULTS = [
+    public const _QUERYSTRING_DEFAULTS = [
       self::FIELD_QUERYSTRING_MODE => 0,
       self::FIELD_QUERYSTRING_TEMPLATE => ''
     ];

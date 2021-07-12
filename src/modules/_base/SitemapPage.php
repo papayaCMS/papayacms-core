@@ -34,13 +34,13 @@ namespace Papaya\Modules\Core {
 
     use EditableContent\Aggregation;
 
-    const FIELD_MODE = 'sitemap-mode';
-    const FIELD_INCLUDE_HIDDEN = 'sitemap-include-hidden';
-    const FIELD_ANCESTOR_PAGE_ID = 'ancestor-page-id';
-    const FIELD_ANCESTOR_OFFSET = 'ancestor-offset';
-    const FIELD_ANCESTOR_LEVELS = 'ancestor-levels';
+    private const FIELD_MODE = 'sitemap-mode';
+    private const FIELD_INCLUDE_HIDDEN = 'sitemap-include-hidden';
+    private const FIELD_ANCESTOR_PAGE_ID = 'ancestor-page-id';
+    private const FIELD_ANCESTOR_OFFSET = 'ancestor-offset';
+    private const FIELD_ANCESTOR_LEVELS = 'ancestor-levels';
 
-    const _DEFAULTS = [
+    private const _DEFAULTS = [
       self::FIELD_INCLUDE_HIDDEN => FALSE,
       self::FIELD_ANCESTOR_PAGE_ID => 0,
       self::FIELD_ANCESTOR_OFFSET => 0,

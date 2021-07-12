@@ -30,18 +30,18 @@ namespace Papaya\Modules\Core\Partials {
 
     use EditablePlugin\Content\Aggregation;
 
-    const FIELD_TITLE = 'title';
-    const FIELD_SUBTITLE = 'subtitle';
-    const FIELD_OVERLINE = 'overline';
-    const FIELD_IMAGE = 'image';
-    const FIELD_TEASER = 'teaser';
+    private const FIELD_TITLE = 'title';
+    private const FIELD_SUBTITLE = 'subtitle';
+    private const FIELD_OVERLINE = 'overline';
+    private const FIELD_IMAGE = 'image';
+    private const FIELD_TEASER = 'teaser';
 
-    const TEASER_RTE_NONE = 'none';
+    private const TEASER_RTE_NONE = 'none';
 
     /**
      * @access private
      */
-    const _TEASER_DEFAULTS = [
+    private const _TEASER_DEFAULTS = [
       self::FIELD_TITLE => '',
       self::FIELD_SUBTITLE => '',
       self::FIELD_OVERLINE => '',

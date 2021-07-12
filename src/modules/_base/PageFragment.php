@@ -15,7 +15,7 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Plugin\PageModule;
+  use Papaya\CMS\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Response;
   use Papaya\Router;

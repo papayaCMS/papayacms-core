@@ -28,13 +28,13 @@ namespace Papaya\Modules\Core {
 
     use EditableContent\Aggregation;
 
-    const FIELD_PASSTHROUGH_CONTENT = 'passtrough-content';
-    const FIELD_PASSTHROUGH_TYPE = 'passtrough-content-type';
+    private const FIELD_PASSTHROUGH_CONTENT = 'passtrough-content';
+    private const FIELD_PASSTHROUGH_TYPE = 'passtrough-content-type';
 
-    const PASSTHROUGH_TYPE_XHTML = 'xhtml';
-    const PASSTHROUGH_TYPE_HTML = 'html';
+    private const PASSTHROUGH_TYPE_XHTML = 'xhtml';
+    private const PASSTHROUGH_TYPE_HTML = 'html';
 
-    const _BOX_DEFAULTS = [
+    private const _BOX_DEFAULTS = [
       self::FIELD_PASSTHROUGH_CONTENT => '',
       self::FIELD_PASSTHROUGH_TYPE => self::PASSTHROUGH_TYPE_XHTML
     ];

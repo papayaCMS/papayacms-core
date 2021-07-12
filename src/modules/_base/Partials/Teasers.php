@@ -15,18 +15,18 @@
 namespace Papaya\Modules\Core\Partials {
 
   use Papaya\Plugin\Editable\Content as EditableContent;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
+  use Papaya\CMS\Output\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog;
 
   interface Teasers {
 
-    const FIELD_TEASERS_ORDER = 'teasers-order';
-    const FIELD_TEASERS_LIMIT = 'teasers-limit';
-    const FIELD_TEASERS_IMAGE_RESIZE = 'teasers-image-resize-mode';
-    const FIELD_TEASERS_IMAGE_WIDTH = 'teasers-image-width';
-    const FIELD_TEASERS_IMAGE_HEIGHT = 'teasers-image-height';
+    public const FIELD_TEASERS_ORDER = 'teasers-order';
+    public const FIELD_TEASERS_LIMIT = 'teasers-limit';
+    public const FIELD_TEASERS_IMAGE_RESIZE = 'teasers-image-resize-mode';
+    public const FIELD_TEASERS_IMAGE_WIDTH = 'teasers-image-width';
+    public const FIELD_TEASERS_IMAGE_HEIGHT = 'teasers-image-height';
 
-    const _TEASERS_DEFAULTS = [
+    public const _TEASERS_DEFAULTS = [
       self::FIELD_TEASERS_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
       self::FIELD_TEASERS_LIMIT => 10,
       self::FIELD_TEASERS_IMAGE_RESIZE => 'max',

@@ -13,7 +13,7 @@ namespace Papaya\Modules\Core {
   use Papaya\Template\Tag\Image as ImageTag;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\Plugin\Filter as PluginFilter;
+  use Papaya\CMS\Plugin\Filter as PluginFilter;
   use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
@@ -28,16 +28,16 @@ namespace Papaya\Modules\Core {
     use PluginFilter\Aggregation;
     use EditablePlugin\Options\Aggregation;
 
-    const FIELD_TEXT = 'text';
-    const FIELD_CATCH_LINE_TITLE = 'catch-line-title';
-    const FIELD_CATCH_LINE_TEXT = 'catch-line-text';
+    private const FIELD_TEXT = 'text';
+    private const FIELD_CATCH_LINE_TITLE = 'catch-line-title';
+    private const FIELD_CATCH_LINE_TEXT = 'catch-line-text';
 
-    const OPTION_CATCH_LINE_ENABLED = 'OPTION_CATCH_LINE_ENABLED';
+    private const OPTION_CATCH_LINE_ENABLED = 'OPTION_CATCH_LINE_ENABLED';
 
     /**
      * @access private
      */
-    const _ARTICLE_DEFAULTS = [
+    private const _ARTICLE_DEFAULTS = [
       self::FIELD_TEXT => '',
       self::FIELD_CATCH_LINE_TITLE => '',
       self::FIELD_CATCH_LINE_TEXT => ''

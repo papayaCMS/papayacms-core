@@ -25,8 +25,8 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\Plugin\Filter as PluginFilter;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
+  use Papaya\CMS\Plugin\Filter as PluginFilter;
+  use Papaya\CMS\Output\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
@@ -40,10 +40,10 @@ namespace Papaya\Modules\Core {
     use PluginFilter\Aggregation;
     use Partials\TeasersAggregation;
 
-    const FIELD_CATEGORY_ORDER = 'category-order';
-    const FIELD_CATEGORY_LIMIT = 'category-limit';
+    private const FIELD_CATEGORY_ORDER = 'category-order';
+    private const FIELD_CATEGORY_LIMIT = 'category-limit';
 
-    const _CATEGORY_GROUP_DEFAULTS = [
+    private const _CATEGORY_GROUP_DEFAULTS = [
       self::FIELD_CATEGORY_ORDER => PageTeaserFactory::ORDER_POSITION_ASCENDING,
       self::FIELD_CATEGORY_LIMIT => 10
     ];

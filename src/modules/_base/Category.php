@@ -31,9 +31,8 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Configurable\Context as ContextAwarePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\Plugin\Filter as PluginFilter;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
-  use Papaya\UI\Dialog\Field\Textarea\Richtext;
+  use Papaya\CMS\Plugin\Filter as PluginFilter;
+  use Papaya\CMs\Output\Teasers\Factory as PageTeaserFactory;
   use Papaya\XML\Element as XMLElement;
 
   class Category extends Article implements Partials\Teasers {
@@ -44,7 +43,7 @@ namespace Papaya\Modules\Core {
     use PluginFilter\Aggregation;
     use Partials\TeasersAggregation;
 
-    const PARAMETER_NAME_PAGING = 'page';
+    private const PARAMETER_NAME_PAGING = 'page';
 
     /**
      * @var PageTeaserFactory

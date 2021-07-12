@@ -148,7 +148,7 @@ class Autoloader {
   ];
 
   private static $_noOldClassAlias = [
-    UI\Content\Teaser\Images::class => TRUE
+    CMS\Output\Teaser\Images::class => TRUE
   ];
 
   private static $_mapClassesReverse;

@@ -31,9 +31,9 @@ namespace Papaya\Modules\Core {
     use EditableContent\Aggregation;
     use Partials\TeasersAggregation;
 
-    const FIELD_PAGE_ID = 'category-page-id';
+    private const FIELD_PAGE_ID = 'category-page-id';
 
-    const _TEASERS_BOX_DEFAULTS = [
+    private const _TEASERS_BOX_DEFAULTS = [
       self::FIELD_PAGE_ID => 0
     ];
 

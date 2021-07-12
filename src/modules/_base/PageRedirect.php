@@ -23,7 +23,7 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Router;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
+  use Papaya\CMS\Output\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Document;
@@ -35,9 +35,9 @@ namespace Papaya\Modules\Core {
     use PageModule\Aggregation;
     use Partials\QueryStringAggregation;
 
-    const FIELD_PAGE_ID = 'target-page-id';
+    private const FIELD_PAGE_ID = 'target-page-id';
 
-    const _PAGE_REDIRECT_DEFAULTS = [
+    private const _PAGE_REDIRECT_DEFAULTS = [
       self::FIELD_PAGE_ID => 0
     ];
     /**

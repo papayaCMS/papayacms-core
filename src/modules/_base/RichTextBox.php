@@ -30,9 +30,9 @@ namespace Papaya\Modules\Core {
 
     use EditableContent\Aggregation;
 
-    const FIELD_TEXT = 'text';
+    private const FIELD_TEXT = 'text';
 
-    const _RICHTEXT_DEFAULTS = [
+    private const _RICHTEXT_DEFAULTS = [
       self::FIELD_TEXT => ''
     ];
 

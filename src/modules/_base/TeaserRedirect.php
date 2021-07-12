@@ -34,10 +34,10 @@ namespace Papaya\Modules\Core {
     use PageModule\Aggregation;
     use Partials\QueryStringAggregation;
 
-    const FIELD_TARGET_URL = 'target-url';
-    const FIELD_TARGET_LINK_CAPTION = 'target-link-caption';
+    private const FIELD_TARGET_URL = 'target-url';
+    private const FIELD_TARGET_LINK_CAPTION = 'target-link-caption';
 
-    const _REDIRECT_DEFAULTS = [
+    private const _REDIRECT_DEFAULTS = [
       self::FIELD_TARGET_URL => NULL,
       self::FIELD_TARGET_LINK_CAPTION => ''
     ];
