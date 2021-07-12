@@ -1,8 +1,8 @@
 <?php
-/**
+/*
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2021 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -59,7 +59,7 @@ return array(
   'base_phraseeditor' => '/base_phraseeditor.php',
   'base_plugin' => '/base_plugin.php',
   'base_plugin_alias' => '/base_plugin_alias.php',
-  'base_pluginloader' => '/deprecated/base_pluginloader.php',
+  'base_pluginloader' => '/base_pluginloader.php',
   'base_robots' => '/base_robots.php',
   'searchstringparser' => '/base_searchstringparser.php',
   'base_selectview' => '/base_selectview.php',

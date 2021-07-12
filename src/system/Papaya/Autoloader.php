@@ -446,7 +446,7 @@ class Autoloader {
   private static function lazyLoadClassmap(string $directory): void {
     if (empty(self::$_classMaps) || !isset(self::$_classMaps[$directory])) {
       /* @noinspection PhpIncludeInspection */
-      self::registerClassMap($directory, include $directory.'/_classmap.php');
+      self::registerClassMap($directory.'/deprecated', include $directory.'/deprecated/_classmap.php');
     }
   }
 }

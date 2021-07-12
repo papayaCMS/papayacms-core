@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-$path = __DIR__.'/';
+$path = __DIR__.'papaya_atom_feed.php/';
 /**
 * an atom feed element - a single value, it's type, ... - abstract class
 */

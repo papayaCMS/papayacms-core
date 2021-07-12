@@ -32,6 +32,7 @@ class CMSTest extends \Papaya\TestFramework\TestCase {
     $this->assertEquals(
       array(
         'Database' => new Profile\Database(),
+        'Tables' => new Profile\Tables(),
         'Front' => new Profile\Front(),
         'Images' => new Profile\Images(),
         'Languages' => new Profile\Languages(),

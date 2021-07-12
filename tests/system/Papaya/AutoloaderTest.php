@@ -159,7 +159,7 @@ namespace Papaya {
         ['/system/Papaya/Sample.php', 'PapayaSample'],
         ['/system/Papaya/Sample/Abbr.php', 'PapayaSampleABBR'],
         ['/system/Papaya/Sample/Abbr/Class.php', 'PapayaSampleABBRClass'],
-        ['/system/base_options.php', 'base_options'],
+        ['/system/deprecated/base_options.php', 'base_options'],
         ['/system/Papaya/Sample.php', '\\Papaya\\Sample']
       ];
     }

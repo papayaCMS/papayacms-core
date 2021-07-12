@@ -1,8 +1,8 @@
 <?php
-/**
+/*
  * papaya CMS
  *
- * @copyright 2000-2018 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2021 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *
@@ -28,7 +28,7 @@ use Papaya\Response;
  */
 if (!class_exists('\\Papaya\\Autoloader', FALSE)) {
   if (!defined('PAPAYA_INCLUDE_PATH')) {
-    define('PAPAYA_INCLUDE_PATH', dirname(__DIR__).'/');
+    define('PAPAYA_INCLUDE_PATH', dirname(__DIR__).'papaya_page.php/');
   }
   include_once PAPAYA_INCLUDE_PATH.'system/Papaya/Autoloader.php';
   spl_autoload_register(\Papaya\Autoloader::class.'::load');
