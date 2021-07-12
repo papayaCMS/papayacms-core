@@ -16,7 +16,7 @@
 namespace Papaya\Database {
 
   use Papaya\Application\Access as ApplicationAccess;
-  use Papaya\Content\Tables as ContentTables;
+  use Papaya\CMS\Content\Tables as ContentTables;
   use Papaya\Database\Connection as DatabaseConnection;
   use Papaya\Database\Connection\MySQLiConnection;
   use Papaya\Database\Connection\PostgreSQLConnection;
@@ -320,7 +320,7 @@ namespace Papaya\Database {
      * @return void
      */
     public function disconnect() {
-      if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_RUNTIME_DATABASE, FALSE)) {
+      if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::LOG_RUNTIME_DATABASE, FALSE)) {
         if ($this->_queryTimeSum > 0) {
           $message = 'Database Query Count: '.$this->_queryCounterObject.' in '.
             Utility\Date::periodToString($this->_queryTimeSum);
@@ -418,9 +418,9 @@ namespace Papaya\Database {
       $measureTime = FALSE;
       if (
         $this->debugCounter > 0 ||
-        $settings->get(\Papaya\Configuration\CMS::LOG_RUNTIME_DATABASE, FALSE) ||
-        $settings->get(\Papaya\Configuration\CMS::LOG_DATABASE_QUERY, 0) > 0 ||
-        $settings->get(\Papaya\Configuration\CMS::QUERYLOG, 0) > 0
+        $settings->get(\Papaya\CMS\CMSConfiguration::LOG_RUNTIME_DATABASE, FALSE) ||
+        $settings->get(\Papaya\CMS\CMSConfiguration::LOG_DATABASE_QUERY, 0) > 0 ||
+        $settings->get(\Papaya\CMS\CMSConfiguration::QUERYLOG, 0) > 0
       ) {
         $measureTime = TRUE;
       }
@@ -434,7 +434,7 @@ namespace Papaya\Database {
 
       if (
         $mode === self::MODE_READ &&
-        $settings->get(\Papaya\Configuration\CMS::LOG_DATABASE_CLUSTER_VIOLATIONS, FALSE) &&
+        $settings->get(\Papaya\CMS\CMSConfiguration::LOG_DATABASE_CLUSTER_VIOLATIONS, FALSE) &&
         preg_match(
           '~^\s*(INSERT|UPDATE|ALTER|CREATE|DROP)~i', $sql
         )
@@ -514,7 +514,7 @@ namespace Papaya\Database {
         $this->debugCounter--;
       } else {
         $deltaMilliseconds = $timeDelta * 1000;
-        switch ($options->get(\Papaya\Configuration\CMS::LOG_DATABASE_QUERY, 0)) {
+        switch ($options->get(\Papaya\CMS\CMSConfiguration::LOG_DATABASE_QUERY, 0)) {
         case 2 : // all
           if (!empty($_GET['DEBUG_QUERIES'])) {
             $queryNumbers = explode(',', $_GET['DEBUG_QUERIES']);
@@ -527,16 +527,16 @@ namespace Papaya\Database {
           break;
         case 1 : //slow queries
           $dispatchLogMessage =
-            $options->get(\Papaya\Configuration\CMS::LOG_DATABASE_QUERY_SLOW, 0) < $deltaMilliseconds;
+            $options->get(\Papaya\CMS\CMSConfiguration::LOG_DATABASE_QUERY_SLOW, 0) < $deltaMilliseconds;
           break;
         }
-        switch ($options->get(\Papaya\Configuration\CMS::QUERYLOG, 0)) {
+        switch ($options->get(\Papaya\CMS\CMSConfiguration::QUERYLOG, 0)) {
         case 2 : // all
           $populateQueryLog = TRUE;
           break;
         case 1 : //slow queries
           $populateQueryLog =
-            $options->get(\Papaya\Configuration\CMS::QUERYLOG_SLOW, 0) < $deltaMilliseconds;
+            $options->get(\Papaya\CMS\CMSConfiguration::QUERYLOG_SLOW, 0) < $deltaMilliseconds;
           break;
         }
       }
@@ -549,10 +549,10 @@ namespace Papaya\Database {
         $backtrace = NULL;
         $explain = NULL;
         $counter = NULL;
-        if ($options->get(\Papaya\Configuration\CMS::LOG_DATABASE_QUERY_DETAILS, FALSE)) {
+        if ($options->get(\Papaya\CMS\CMSConfiguration::LOG_DATABASE_QUERY_DETAILS, FALSE)) {
           $dispatchLogMessageDetails = TRUE;
         }
-        if ($options->get(\Papaya\Configuration\CMS::QUERYLOG_DETAILS, FALSE)) {
+        if ($options->get(\Papaya\CMS\CMSConfiguration::QUERYLOG_DETAILS, FALSE)) {
           $populateQueryLogDetails = TRUE;
         }
         if ($dispatchLogMessageDetails || $populateQueryLogDetails) {
@@ -697,7 +697,7 @@ namespace Papaya\Database {
 
     private function getTableName($tableName, $usePrefix) {
       if ($usePrefix && isset($this->papaya()->options)) {
-        $prefixString = $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX, 'papaya');
+        $prefixString = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DB_TABLEPREFIX, 'papaya');
         if ('' !== $prefixString && 0 !== \strpos($tableName, $prefixString.'_')) {
           return $prefixString.'_'.$tableName;
         }
@@ -788,7 +788,7 @@ namespace Papaya\Database {
         return self::MODE_WRITE;
       }
       if (
-        $this->papaya()->options->get(\Papaya\Configuration\CMS::DATABASE_CLUSTER_SWITCH, 0) === 2
+        $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DATABASE_CLUSTER_SWITCH, 0) === 2
       ) {
         return $this->_dataModified ? self::MODE_READ : self::MODE_WRITE;
       }

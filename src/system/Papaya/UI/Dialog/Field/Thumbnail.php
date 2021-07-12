@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field {
 
   use Papaya\UI;
-  use Papaya\UI\Reference\Thumbnail as ThumbnailReference;
+  use Papaya\CMS\Reference\Thumbnail as ThumbnailReference;
   use Papaya\XML;
 
   class Thumbnail extends UI\Dialog\Field {

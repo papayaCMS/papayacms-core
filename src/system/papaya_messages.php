@@ -197,7 +197,7 @@ class papaya_messages extends base_messages {
       '<icon src="%s" subtitle="%s" href="%s"/>',
       papaya_strings::escapeHTMLChars($images['items-task']),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(-3)),
-      papaya_strings::escapeHTMLChars(Papaya\Administration\UI::MESSAGES_TASKS)
+      papaya_strings::escapeHTMLChars(Papaya\CMS\Administration\UI::MESSAGES_TASKS)
     );
     $result .= sprintf(
       '<icon src="%s" subtitle="%s" href="%s"/>',
@@ -208,7 +208,7 @@ class papaya_messages extends base_messages {
       ),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(0)),
       papaya_strings::escapeHTMLChars(
-        $this->getLink(array('folder_id' => 0), NULL, Papaya\Administration\UI::MESSAGES)
+        $this->getLink(array('folder_id' => 0), NULL, Papaya\CMS\Administration\UI::MESSAGES)
       )
     );
     $result .= sprintf(
@@ -220,7 +220,7 @@ class papaya_messages extends base_messages {
       ),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(-1)),
       papaya_strings::escapeHTMLChars(
-        $this->getLink(array('folder_id' => '-1'), NULL, Papaya\Administration\UI::MESSAGES)
+        $this->getLink(array('folder_id' => '-1'), NULL, Papaya\CMS\Administration\UI::MESSAGES)
       )
     );
     $result .= sprintf(
@@ -230,7 +230,7 @@ class papaya_messages extends base_messages {
       ),
       papaya_strings::escapeHTMLChars($this->getFolderTitle(-2)),
       papaya_strings::escapeHTMLChars(
-        $this->getLink(array('folder_id' => '-2'), NULL, Papaya\Administration\UI::MESSAGES)
+        $this->getLink(array('folder_id' => '-2'), NULL, Papaya\CMS\Administration\UI::MESSAGES)
       )
     );
     $result .= '</iconpanel>';
@@ -460,7 +460,7 @@ class papaya_messages extends base_messages {
               $this->getLink(
                 array('page_id' => $this->message['msg_rel_topic_id']),
                 'tt',
-                Papaya\Administration\UI::PAGES_EDIT
+                Papaya\CMS\Administration\UI::PAGES_EDIT
               )
             ),
             $this->papaya()->images['items-page'],
@@ -477,7 +477,7 @@ class papaya_messages extends base_messages {
                 'bid' => $this->message['msg_rel_box_id']
               ),
               'bb',
-              Papaya\Administration\UI::CONTENT_BOXES
+              Papaya\CMS\Administration\UI::CONTENT_BOXES
             ),
             $this->papaya()->images['items-box'],
             papaya_strings::escapeHTMLChars($this->_gt('Goto box'))
@@ -1002,7 +1002,7 @@ class papaya_messages extends base_messages {
     $toolbar->addButton(
       'Add task',
       $this->getLink(
-        array('cmd' => 'new', 'todo_id' => 0), 'todo', Papaya\Administration\UI::MESSAGES_TASKS
+        array('cmd' => 'new', 'todo_id' => 0), 'todo', Papaya\CMS\Administration\UI::MESSAGES_TASKS
       ),
       'actions-task-add',
       'Add a new task'

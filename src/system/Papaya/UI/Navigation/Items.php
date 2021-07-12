@@ -45,8 +45,12 @@ class Items extends UI\Control\Collection {
     if (NULL !== $reference) {
       $this->_reference = $reference;
     } elseif (NULL === $this->_reference) {
-      $this->_reference = new UI\Reference\Page();
-      $this->_reference->papaya($this->papaya());
+      if ($this->papaya()->pageReferences) {
+        $this->_reference = $this->papaya()->pageReferences->create();
+      } else {
+        $this->_reference = new UI\Reference();
+        $this->_reference->papaya($this->papaya());
+      }
     }
     return $this->_reference;
   }

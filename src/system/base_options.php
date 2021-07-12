@@ -501,7 +501,7 @@ class base_options extends base_db {
   * @return base_options
   */
   public static function getInstance($reset = FALSE) {
-    /** @var \Papaya\Application\CMS $application */
+    /** @var \Papaya\Application\CMSApplication $application */
     $application = \Papaya\Application::getInstance();
     return $application->options;
   }
@@ -513,7 +513,7 @@ class base_options extends base_db {
   */
   function defineDatabaseTables() {
     $options = $this->papaya()->options;
-    if ($options instanceof \Papaya\Configuration\CMS) {
+    if ($options instanceof \Papaya\CMS\CMSConfiguration) {
       $options->defineDatabaseTables();
     }
   }
@@ -527,7 +527,7 @@ class base_options extends base_db {
    */
   function loadAndDefine($loadFromDB = TRUE) {
     $options = $this->papaya()->options;
-    if ($options instanceof \Papaya\Configuration\CMS) {
+    if ($options instanceof \Papaya\CMS\CMSConfiguration) {
       $options->loadAndDefine();
     }
   }

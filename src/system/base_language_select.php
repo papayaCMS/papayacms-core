@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Languages\Selector;
+use Papaya\CMS\Administration\Languages\Selector;
 
 /**
  * Language managment UI and Content

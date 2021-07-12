@@ -13,9 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\CMS as CMSSettings;
-use Papaya\Content\Media\Folder;
-use Papaya\Content\Tables;
+use Papaya\CMS\CMSConfiguration as CMSSettings;
+use Papaya\CMS\Content\Media\Folder;
+use Papaya\CMS\Content\Tables;
 
 if (!defined('IMAGETYPE_SWC')) {
   /**

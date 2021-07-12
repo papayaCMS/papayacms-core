@@ -105,10 +105,10 @@ class LanguageTest extends \Papaya\TestCase {
   }
 
   /**
-   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\Content\Languages
+   * @return \PHPUnit_Framework_MockObject_MockObject|\Papaya\CMS\Content\Languages
    */
   private function getLanguagesFixture() {
-    $languages = $this->createMock(\Papaya\Content\Languages::class);
+    $languages = $this->createMock(\Papaya\CMS\Content\Languages::class);
     $languages
       ->expects($this->any())
       ->method('getIterator')

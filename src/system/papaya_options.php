@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 
 /**
 * papaya_options variable
@@ -89,14 +89,14 @@ class papaya_options extends base_options {
     $toolbar = new base_btnbuilder;
     $toolbar->images = $this->papaya()->images;
     $toolbar->addButton(
-      'Install/Upgrade', Papaya\Administration\UI::INSTALLER, 'categories-installer', '', FALSE
+      'Install/Upgrade', Papaya\CMS\Administration\UI::INSTALLER, 'categories-installer', '', FALSE
     );
     $toolbar->addSeperator();
     $toolbar->addButton(
       'Link types', Administration\UI::ADMINISTRATION_LINK_TYPES, 'items-link', 'Configure Link types', FALSE
     );
     $toolbar->addButton(
-      'Mime types', Papaya\Administration\UI::ADMINISTRATION_MIME_TYPES, 'items-mimetype-group', 'Configure Mime types', FALSE
+      'Mime types', Papaya\CMS\Administration\UI::ADMINISTRATION_MIME_TYPES, 'items-mimetype-group', 'Configure Mime types', FALSE
     );
     $toolbar->addButton(
       'Cronjobs', Administration\UI::ADMINISTRATION_CRONJOBS, 'items-cronjob', '', FALSE
@@ -106,7 +106,7 @@ class papaya_options extends base_options {
     );
     $toolbar->addSeperator();
     $toolbar->addButton(
-      'View icons', Papaya\Administration\UI::ADMINISTRATION_ICONS, 'categories-view-icons', '', FALSE
+      'View icons', Papaya\CMS\Administration\UI::ADMINISTRATION_ICONS, 'categories-view-icons', '', FALSE
     );
     $toolbar->addSeperator();
     $toolbar->addButton(
@@ -180,7 +180,7 @@ class papaya_options extends base_options {
             if ($this->save('PAPAYA_LAYOUT_THEME', $theme->name)) {
               $this->addMsg(MSG_INFO, $this->_gt('Option modified.'));
               if (
-                $theme->templatePath != $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_TEMPLATES, '') &&
+                $theme->templatePath != $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::LAYOUT_TEMPLATES, '') &&
                 $this->save('PAPAYA_LAYOUT_TEMPLATES', $theme->templatePath)
               ) {
                 $this->addMsg(MSG_INFO, $this->_gt('Templates option modified.'));
@@ -884,9 +884,9 @@ class papaya_options extends base_options {
    * @return string
    */
   function getThemeSetsCombo($name, $element, $data) {
-    $themeSets = new \Papaya\Content\Theme\Skins();
+    $themeSets = new \Papaya\CMS\Content\Theme\Skins();
     $themeSets->load(
-      array('theme_name' => $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_THEME))
+      array('theme_name' => $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::LAYOUT_THEME))
     );
     $result = '';
     $result .= sprintf(
@@ -898,7 +898,7 @@ class papaya_options extends base_options {
       '<option value="">%s</option>'.LF,
       new \Papaya\UI\Text\Translated('None')
     );
-    $current = $this->papaya()->options->get(\Papaya\Configuration\CMS::LAYOUT_THEME_SET, '');
+    $current = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::LAYOUT_THEME_SET, '');
     foreach ($themeSets as $themeSet) {
       $selected = ($current == $data) ? ' selected="selected"' : '';
       $result .= sprintf(

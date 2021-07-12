@@ -15,7 +15,7 @@
 
 namespace Papaya\Plugin\Editable\Options {
 
-  use Papaya\Administration\Plugin\Editor\Dialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog;
   use Papaya\Plugin;
   use Papaya\Plugin\Configurable\Options as ConfigurableOptionsPlugin;
   use Papaya\Plugin\Editor;

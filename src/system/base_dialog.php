@@ -1117,7 +1117,7 @@ class base_dialog extends base_object {
       $dir = $_SERVER['DOCUMENT_ROOT'].PAPAYA_PATH_WEB.'papaya-themes/'.$path;
       break;
     case 'current_theme':
-      $themeHandler = new \Papaya\Theme\Handler();
+      $themeHandler = new \Papaya\CMS\Theme\Handler();
       $dir = $themeHandler->getLocalThemePath().$path;
       break;
     case 'page':
@@ -1256,7 +1256,7 @@ class base_dialog extends base_object {
       $dir = PAPAYA_PATH_DATA.$path;
       break;
     case 'templates':
-      $dir = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_TEMPLATES, PAPAYA_PATH_DATA.'templates/').$path;
+      $dir = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_TEMPLATES, PAPAYA_PATH_DATA.'templates/').$path;
       break;
     default:
       $dir = $path;

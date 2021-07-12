@@ -14,8 +14,8 @@
  */
 namespace Papaya\Message\Dispatcher;
 
-use Papaya\Content\Protocol\ProtocolEntry;
-use Papaya\Content\Tables;
+use Papaya\CMS\Content\Protocol\ProtocolEntry;
+use Papaya\CMS\Content\Tables;
 use Papaya\Database\Accessible as DatabaseBaseAccess;
 use Papaya\Message;
 use Papaya\URL\Current as CurrentURL;
@@ -82,10 +82,10 @@ class Database
    */
   public function allow(Message\Logable $message) {
     $options = $this->papaya()->options;
-    if ($options->get(\Papaya\Configuration\CMS::PROTOCOL_DATABASE, FALSE)) {
+    if ($options->get(\Papaya\CMS\CMSConfiguration::PROTOCOL_DATABASE, FALSE)) {
       switch ($message->getSeverity()) {
         case Message::SEVERITY_DEBUG:
-          return $options->get(\Papaya\Configuration\CMS::PROTOCOL_DATABASE_DEBUG, FALSE);
+          return $options->get(\Papaya\CMS\CMSConfiguration::PROTOCOL_DATABASE_DEBUG, FALSE);
       }
       return TRUE;
     }
@@ -119,8 +119,8 @@ class Database
       'log_msg_cookies' => $cookies,
       'log_msg_script' => empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME'],
       'log_msg_from_ip' => empty($_SERVER['REMOTE_ADDR']) ? '' : $_SERVER['REMOTE_ADDR'],
-      'log_version_papaya' => $options->get(\Papaya\Configuration\CMS::VERSION_STRING, ''),
-      'log_version_project' => $options->get(\Papaya\Configuration\CMS::WEBSITE_REVISION, '')
+      'log_version_papaya' => $options->get(\Papaya\CMS\CMSConfiguration::VERSION_STRING, ''),
+      'log_version_project' => $options->get(\Papaya\CMS\CMSConfiguration::WEBSITE_REVISION, '')
     ];
     if ($this->papaya()->hasObject('AdministrationUser', FALSE) &&
       $this->papaya()->administrationUser->isLoggedIn()) {

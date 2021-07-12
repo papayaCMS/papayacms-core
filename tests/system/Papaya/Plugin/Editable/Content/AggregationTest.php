@@ -15,7 +15,7 @@
 
 namespace Papaya\Plugin\Editable\Content {
 
-  use Papaya\Administration\Plugin\Editor\Dialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editable\Content;
   use Papaya\Plugin\Editor as PluginEditor;

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 
 /**
 * Papaya media db administration class - provides the backend
@@ -3157,7 +3157,7 @@ class papaya_mediadb extends base_mediadb_edit {
       } else {
         $folder = array(
           'folder_name' => $this->_gt('No title'),
-          'permission_mode' => \Papaya\Content\Media\Folder::PERMISSION_MODE_INHERIT,
+          'permission_mode' => \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_INHERIT,
         );
       }
 
@@ -3184,7 +3184,7 @@ class papaya_mediadb extends base_mediadb_edit {
         'Properties',
         'folder_name' => array('Name', 'isSomeText', TRUE, 'input', 100)
       );
-      $hidden['permission_mode'] = \Papaya\Content\Media\Folder::PERMISSION_MODE_DEFINE;
+      $hidden['permission_mode'] = \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_DEFINE;
     }
 
     $this->dialog = new base_dialog($this, $this->paramName, $fields, $data, $hidden);
@@ -3242,7 +3242,7 @@ class papaya_mediadb extends base_mediadb_edit {
             $addFileLink = '';
           }
         } else {
-          if ($folder['permission_mode'] !== \Papaya\Content\Media\Folder::PERMISSION_MODE_INHERIT) {
+          if ($folder['permission_mode'] !== \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_INHERIT) {
             $addFileIcon = $images['status-node-empty'];
             $addFileLink = $this->getLink(
               array(
@@ -3275,7 +3275,7 @@ class papaya_mediadb extends base_mediadb_edit {
             $viewFileLink = '';
           }
         } else {
-          if ($folder['permission_mode'] !== \Papaya\Content\Media\Folder::PERMISSION_MODE_INHERIT) {
+          if ($folder['permission_mode'] !== \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_INHERIT) {
             $viewFileIcon = $images['status-node-empty'];
             $viewFileLink = $this->getLink(
               array(
@@ -3359,7 +3359,7 @@ class papaya_mediadb extends base_mediadb_edit {
             papaya_strings::escapeHTMLChars($permission['surferperm_title'])
           );
           if (isset($folderPerms['surfer_add'][$permId])) {
-            if ($folderPerms['surfer_add'][$permId] === \Papaya\Content\Media\Folder::PERMISSION_MODE_DEFINE &&
+            if ($folderPerms['surfer_add'][$permId] === \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_DEFINE &&
                 $permission['surferperm_active'] == 1) {
               $addFileIcon = $images['status-node-checked'];
               $addFileLink = $this->getLink(
@@ -3375,7 +3375,7 @@ class papaya_mediadb extends base_mediadb_edit {
               $addFileIcon = $images['status-node-checked-disabled'];
               $addFileLink = '';
             }
-          } elseif ($folder['permission_mode'] !== \Papaya\Content\Media\Folder::PERMISSION_MODE_INHERIT &&
+          } elseif ($folder['permission_mode'] !== \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_INHERIT &&
                     $permission['surferperm_active'] == 1) {
             $addFileIcon = $images['status-node-empty'];
             $addFileLink = $this->getLink(
@@ -3392,7 +3392,7 @@ class papaya_mediadb extends base_mediadb_edit {
             $addFileLink = '';
           }
           if (isset($folderPerms['surfer_view'][$permId])) {
-            if ($folderPerms['surfer_view'][$permId] === \Papaya\Content\Media\Folder::PERMISSION_MODE_DEFINE &&
+            if ($folderPerms['surfer_view'][$permId] === \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_DEFINE &&
                 $permission['surferperm_active'] == 1) {
               $viewFileIcon = $images['status-node-checked'];
               $viewFileLink = $this->getLink(
@@ -3408,7 +3408,7 @@ class papaya_mediadb extends base_mediadb_edit {
               $viewFileIcon = $images['status-node-checked-disabled'];
               $viewFileLink = '';
             }
-          } elseif ($folder['permission_mode'] !== \Papaya\Content\Media\Folder::PERMISSION_MODE_INHERIT &&
+          } elseif ($folder['permission_mode'] !== \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_INHERIT &&
                     $permission['surferperm_active'] == 1) {
             $viewFileIcon = $images['status-node-empty'];
             $viewFileLink = $this->getLink(
@@ -3580,7 +3580,7 @@ class papaya_mediadb extends base_mediadb_edit {
       $params = array(
         'folder_id' => $this->params['folder_id'],
       );
-      if ($this->params['permission_mode'] === \Papaya\Content\Media\Folder::PERMISSION_MODE_INHERIT) {
+      if ($this->params['permission_mode'] === \Papaya\CMS\Content\Media\Folder::PERMISSION_MODE_INHERIT) {
         $this->databaseDeleteRecord(
           $this->tableFoldersPermissions,
           'folder_id',

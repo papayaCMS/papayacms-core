@@ -13,9 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 use Papaya\Cache;
-use Papaya\Content;
+use Papaya\CMS\Content;
 
 /**
 * Create topic list
@@ -382,8 +382,8 @@ class papaya_overview extends base_db {
         if (isset($topic['ancestors'])) {
           $title .= $this->getAncestorsTitle(
             $topic['ancestors'],
-            $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_SEARCH_CHARACTER_LIMIT, 100) - strlen($pageTitle),
-            $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_SEARCH_ANCESTOR_LIMIT,  0)
+            $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::UI_SEARCH_CHARACTER_LIMIT, 100) - strlen($pageTitle),
+            $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::UI_SEARCH_ANCESTOR_LIMIT,  0)
           );
         }
         $title .= $pageTitle;
@@ -420,7 +420,7 @@ class papaya_overview extends base_db {
         $listview->items[] = $item = new \Papaya\UI\ListView\Item($image, $title);
         $item->text = $text;
         $item->emphased = ($topic['user_id'] == $this->papaya()->administrationUser->userId);
-        $item->reference()->setRelative(Papaya\Administration\UI::PAGES_EDIT);
+        $item->reference()->setRelative(Papaya\CMS\Administration\UI::PAGES_EDIT);
         $item->reference()->setParameters(array('page_id' => $topic['topic_id']), 'tt');
 
         if ($showDetails) {
@@ -544,7 +544,7 @@ class papaya_overview extends base_db {
               $this->getLink(
                 array('msg_id' => $values['msg_id']),
                 'msg',
-                Papaya\Administration\UI::MESSAGES
+                Papaya\CMS\Administration\UI::MESSAGES
               )
             ),
             papaya_strings::escapeHTMLChars(
@@ -693,7 +693,7 @@ class papaya_overview extends base_db {
               $this->getLink(
                 array('todo_id' => $values['todo_id']),
                 'todo',
-                Papaya\Administration\UI::MESSAGES_TASKS
+                Papaya\CMS\Administration\UI::MESSAGES_TASKS
               )
             ),
             papaya_strings::escapeHTMLChars($images[$iconIndex])
@@ -920,8 +920,8 @@ class papaya_overview extends base_db {
                 AND taglinks.link_type = 'topic'
                 AND %s
            )",
-          $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_LINKS),
-          $this->getDatabaseAccess()->getTableName(\Papaya\Content\Tables::TAG_TRANSLATIONS),
+          $this->getDatabaseAccess()->getTableName(\Papaya\CMS\Content\Tables::TAG_LINKS),
+          $this->getDatabaseAccess()->getTableName(\Papaya\CMS\Content\Tables::TAG_TRANSLATIONS),
           $sqlString->getSQL($this->params['filter_tag'], array('tagdata.tag_title'))
         );
       } else {
@@ -1036,8 +1036,8 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a pages list subobject
    *
-   * @param \Papaya\Content\Pages $pages
-   * @return \Papaya\Content\Pages
+   * @param \Papaya\CMS\Content\Pages $pages
+   * @return \Papaya\CMS\Content\Pages
    */
   public function pages(Content\Pages $pages = NULL) {
     if (isset($pages)) {
@@ -1052,8 +1052,8 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a view list subobject
    *
-   * @param \Papaya\Content\Views $views
-   * @return \Papaya\Content\Views
+   * @param \Papaya\CMS\Content\Views $views
+   * @return \Papaya\CMS\Content\Views
    */
   public function views(Content\Views $views = NULL) {
     if (isset($views)) {
@@ -1068,8 +1068,8 @@ class papaya_overview extends base_db {
   /**
    * Getter/Setter for a modules list subobject
    *
-   * @param \Papaya\Content\Modules $modules
-   * @return \Papaya\Content\Modules
+   * @param \Papaya\CMS\Content\Modules $modules
+   * @return \Papaya\CMS\Content\Modules
    */
   public function modules(Content\Modules $modules = NULL) {
     if (isset($modules)) {

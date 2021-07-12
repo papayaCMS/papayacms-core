@@ -63,7 +63,7 @@ class base_btnbuilder extends base_object {
     if (isset($this->images[$img])) {
       $glyph = ' glyph="'.papaya_strings::escapeHTMLChars($this->images[$img]).'"';
     } elseif (preg_match('~^module:([a-f\d]{32})/(.+)~', $img, $regs)) {
-      $glyph = ' glyphscript="'.\Papaya\Administration\UI::EXTENSIONS_IMAGE.'?module='.
+      $glyph = ' glyphscript="'.\Papaya\CMS\Administration\UI::EXTENSIONS_IMAGE.'?module='.
         urlencode($regs[1]).'&amp;src='.urlencode($regs[2]).'"';
     } else {
       $glyph = ' glyph="'.papaya_strings::escapeHTMLChars($img).'"';

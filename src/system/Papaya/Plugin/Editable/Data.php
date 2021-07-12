@@ -53,7 +53,9 @@ abstract class Data extends BaseObject\Parameters {
           );
         }
       } else {
-        $this->_editor = new \Papaya\Administration\Plugin\Editor\Dialog($this);
+        throw new \LogicException(
+          'No editor callback defined.'
+        );
       }
     }
     return $this->_editor;

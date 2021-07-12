@@ -227,7 +227,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     }
     $fileName = \Papaya\Utility\File\Path::cleanup(
       \Papaya\Utility\File\Path::getDocumentRoot($this->papaya()->options).
-      $this->papaya()->options->get(\Papaya\Configuration\CMS::PATHWEB_ADMIN, '/papaya/').
+      $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATHWEB_ADMIN, '/papaya/').
       '/data/'.$lng.'/'
     ).$fileName;
     if (file_exists($fileName) && is_readable($fileName)) {
@@ -503,7 +503,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   function getBasePath($withDocumentRoot = FALSE) {
     $path = \Papaya\Utility\File\Path::getBasePath($withDocumentRoot);
     if ($this->papaya()->request->isAdministration) {
-      $path .= $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/papaya').'/';
+      $path .= $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_ADMIN, '/papaya').'/';
     }
     return \Papaya\Utility\File\Path::cleanup($path);
   }
@@ -535,7 +535,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         $ext = $regs[2];
       }
     } else {
-      $ext = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
+      $ext = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION, 'html');
     }
     $mode = $request->getParameter(
       'mode', 'page', NULL, \Papaya\Request::SOURCE_PATH
@@ -606,7 +606,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   ) {
     $application = $this->papaya();
     $request = $application->request;
-    $reference = new \Papaya\UI\Reference\Page();
+    $reference = new \Papaya\CMS\Reference\Page();
     $reference->load($request);
     if (isset($pageId)) {
       $reference->setPageId($pageId);
@@ -671,7 +671,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   * @return string
   */
   function _getWebLinkPageModeExtension($mode) {
-    $defaultExtension = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
+    $defaultExtension = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION, 'html');
     $pageModes = array(
       'page' => $defaultExtension,
       'preview' => $defaultExtension
@@ -711,7 +711,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
         $parameters->remove('preview_date');
       }
       $queryString = $parameters->getQueryString(
-        $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_LEVEL_SEPARATOR)
+        $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_LEVEL_SEPARATOR)
       );
       if (!empty($queryString)) {
         return '?'.$queryString;
@@ -729,7 +729,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
    */
   public function recodeQueryString($queryString, $newQueryParams = array()) {
     $query = new \Papaya\Request\Parameters\QueryString(
-      $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_LEVEL_SEPARATOR)
+      $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_LEVEL_SEPARATOR)
     );
     $query->setString($queryString);
     $query->values()->merge($newQueryParams);
@@ -752,7 +752,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   function escapeForFilename($str, $default = 'index', $language = NULL) {
     $str = \Papaya\Utility\File::normalizeName(
       $str,
-      $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_NAMELENGTH, 50),
+      $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_NAMELENGTH, 50),
       $language
     );
     return ($str != '') ? strtolower($str) : $default;
@@ -770,9 +770,9 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
   function getWebMediaLink($mid, $mode = 'media', $text = '', $ext = '') {
     $application = $this->papaya();
     $request = $application->request;
-    $thumbsFileType = $this->papaya()->options->get(\Papaya\Configuration\CMS::THUMBS_FILETYPE, IMAGETYPE_PNG);
+    $thumbsFileType = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::THUMBS_FILETYPE, IMAGETYPE_PNG);
     if (in_array($mode, array('thumb', 'thumbs', 'thumbnail'))) {
-      $reference = new \Papaya\UI\Reference\Thumbnail();
+      $reference = new \Papaya\CMS\Reference\Thumbnail();
       $reference->papaya($this->papaya());
       $storageGroup = 'thumbs';
       $mode = 'thumbnail';
@@ -783,7 +783,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       );
       $ext = $extensions[$thumbsFileType];
     } else {
-      $reference = new \Papaya\UI\Reference\Media();
+      $reference = new \Papaya\CMS\Reference\Media();
       $reference->papaya($this->papaya());
       $reference->setMode($mode);
       $storageGroup = 'files';
@@ -817,7 +817,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       }
       if ($isPublic) {
         $storage = \Papaya\Media\Storage::getService(
-          $options->get(\Papaya\Configuration\CMS::MEDIA_STORAGE_SERVICE, ''),
+          $options->get(\Papaya\CMS\CMSConfiguration::MEDIA_STORAGE_SERVICE, ''),
           $options
         );
         if ($storage->isPublic($storageGroup, $mid, $mimeType)) {
@@ -874,7 +874,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $hostPort .= ':'.$port;
     }
     if (!($hostPort)) {
-      $hostPort = $this->papaya()->options->get(\Papaya\Configuration\CMS::DEFAULT_HOST, 'localhost');
+      $hostPort = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DEFAULT_HOST, 'localhost');
     }
     $baseHref = $protocol."://".$hostPort;
 
@@ -897,7 +897,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $urlAppend = '';
     }
 
-    $pathWeb = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/');
+    $pathWeb = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_WEB, '/');
     if ($url == '/') {
       $href = $baseHref.$pathWeb;
     } elseif (preg_match("(^(?:(\d+)\.)?(\d+)$)", trim($url), $regs)) {
@@ -928,7 +928,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $iURL = preg_replace('([^/]+$)', '', $iURL);
       $href = $baseHref.$iURL.$url;
     }
-    $pathAdmin = $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN, '/');
+    $pathAdmin = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_ADMIN, '/');
     $href = preg_replace(
       '('.preg_quote($pathAdmin, '(').'/../)', '/', $href
     );
@@ -1054,7 +1054,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
       $dom = new DOMDocument('1.0', 'UTF-8');
       $fragment = $dom->createDocumentFragment();
       if (!$fragment->appendXml($iStr)) {
-        /** @var \Papaya\Application\CMS $application */
+        /** @var \Papaya\Application\CMSApplication $application */
         $application = \Papaya\Application::getInstance();
         $showErrors = $application->options->get(
           'PAPAYA_DBG_XML_USERINPUT', FALSE

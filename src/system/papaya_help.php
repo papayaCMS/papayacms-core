@@ -225,11 +225,11 @@ class papaya_help extends base_object {
 
       if (isset($this->params['log_id']) && $this->params['log_id'] > 0) {
         $logId = (int)$this->params['log_id'];
-        $protocolEntry = new \Papaya\Content\Protocol\ProtocolEntry();
+        $protocolEntry = new \Papaya\CMS\Content\Protocol\ProtocolEntry();
         if ($protocolEntry->load(['id' => $logId])) {
           $msgGroups = base_statictables::getTableLogGroups();
           $data['description'] =
-             '*Log message: '.\Papaya\Content\Protocol\ProtocolGroups::getLabel($protocolEntry->groupId).
+             '*Log message: '.\Papaya\CMS\Content\Protocol\ProtocolGroups::getLabel($protocolEntry->groupId).
              '* ('.(new \Papaya\UI\Text\Date($protocolEntry->createdAt)).")\n\n";
           $data['description'] .= 'URL: <'.$protocolEntry->requestURL.'>'."\n";
           $data['description'] .= 'Script: <'.$protocolEntry->script.'>'."\n\n\n";

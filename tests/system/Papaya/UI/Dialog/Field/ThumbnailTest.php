@@ -16,7 +16,7 @@
 namespace Papaya\UI\Dialog\Field {
 
   use Papaya\Test\TestCase;
-  use Papaya\UI\Reference\Thumbnail as ThumbnailReference;
+  use Papaya\CMS\Reference\Thumbnail as ThumbnailReference;
 
   TestCase::defineConstantDefaults(
     [

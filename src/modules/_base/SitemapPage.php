@@ -15,13 +15,13 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Administration\Plugin\Editor\Dialog as EditorDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as EditorDialog;
   use Papaya\Application\Access as ApplicationAccess;
   use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editable\Content as EditableContent;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\UI\Content\Sitemap;
+  use Papaya\CMS\Output\Sitemap;
   use Papaya\UI\Dialog\Field\Group as FieldGroup;
   use Papaya\UI\Dialog\Field\Input\Range as RangeField;
   use Papaya\UI\Dialog\Field\Input\Page as PageIdField;

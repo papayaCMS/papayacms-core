@@ -74,13 +74,13 @@ class base_boxes_public extends base_boxes {
   */
   function getBoxBrowserCacheTime() {
     switch ($this->box['box_expiresmode']) {
-    case \Papaya\Content\Options::CACHE_SYSTEM :
+    case \Papaya\CMS\Content\Options::CACHE_SYSTEM :
       //system cache time
       if (defined('PAPAYA_CACHE_TIME_BROWSER') && PAPAYA_CACHE_TIME_BROWSER > 0) {
         return (int)PAPAYA_CACHE_TIME_BROWSER;
       }
       break;
-    case \Papaya\Content\Options::CACHE_INDIVIDUAL :
+    case \Papaya\CMS\Content\Options::CACHE_INDIVIDUAL :
       if ($this->box['box_expirestime'] > 0) {
         return (int)$this->box['box_expirestime'];
       }

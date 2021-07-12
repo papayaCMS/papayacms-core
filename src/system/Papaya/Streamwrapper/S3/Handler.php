@@ -17,7 +17,7 @@ namespace Papaya\Streamwrapper\S3;
 use Papaya\HTTP;
 
 /**
- * Papaya Streamwrapper Amazon S3 Papaya\Theme\Handler
+ * Papaya Streamwrapper Amazon S3
  *
  * @package Papaya-Library
  * @subpackage Streamwrapper

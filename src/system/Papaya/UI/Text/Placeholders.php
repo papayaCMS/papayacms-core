@@ -28,14 +28,15 @@ class Placeholders extends UI\Text {
   private $_string;
 
   /**
-   * Allow to cast the object into a string, replacing the {key} placeholders in the string.
+   * Allow to cast the object into a string, replacing the ${key} or
+   * {key} placeholders in the string.
    *
    * return string
    */
   public function __toString() {
     if (NULL === $this->_string) {
       $this->_string = \preg_replace_callback(
-        '(\\{(?P<key>[^}\r\n ]+)\\})u',
+        '({\\$?(?P<key>[^}\r\n ]+)})u',
         function($match) {
           if (isset($match['key'], $this->_values[$match['key']])) {
             return $this->_values[$match['key']];

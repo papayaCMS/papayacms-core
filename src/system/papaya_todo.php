@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 
 /**
 * Object to display user task list
@@ -377,7 +377,7 @@ class papaya_todo extends base_db {
                 $this->getLink(
                   array('page_id' => $values['topic_id']),
                   'tt',
-                  Papaya\Administration\UI::PAGES_EDIT
+                  Papaya\CMS\Administration\UI::PAGES_EDIT
                 )
               ),
               papaya_strings::escapeHTMLChars($images['items-page'])
@@ -599,7 +599,7 @@ class papaya_todo extends base_db {
     );
     $toolbar->addButton(
       'Compose message',
-      $this->getLink(array('cmd' => 'new'), 'msg', Papaya\Administration\UI::MESSAGES),
+      $this->getLink(array('cmd' => 'new'), 'msg', Papaya\CMS\Administration\UI::MESSAGES),
       'actions-mail-add',
       'Compose a new message'
     );

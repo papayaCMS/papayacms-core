@@ -30,7 +30,7 @@ class base_module extends base_plugin {
   public $guid;
 
   /**
-   * @var \Papaya\Administration\UI  administration UI
+   * @var \Papaya\CMS\Administration\UI  administration UI
    */
   public $administrationUI;
 

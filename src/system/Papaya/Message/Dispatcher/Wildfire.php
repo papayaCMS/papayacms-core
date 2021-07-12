@@ -88,7 +88,7 @@ class Wildfire
   public function allow($usableCallback = NULL) {
     $options = $this->papaya()->options;
     if (
-      $options->get(\Papaya\Configuration\CMS::PROTOCOL_WILDFIRE, FALSE) &&
+      $options->get(\Papaya\CMS\CMSConfiguration::PROTOCOL_WILDFIRE, FALSE) &&
       (
         isset($_SERVER['HTTP_X_FIREPHP_VERSION']) ||
         (

@@ -16,7 +16,7 @@ namespace Papaya\UI\Text\Translated;
 
 use Papaya\Application;
 use Papaya\Iterator;
-use Papaya\Phrases;
+use Papaya\UI\Text\Phrases;
 use Papaya\UI\Text\Translated as TranslatedText;
 
 /**
@@ -31,6 +31,9 @@ use Papaya\UI\Text\Translated as TranslatedText;
 class Collection
   extends \IteratorIterator
   implements Application\Access {
+
+  use Application\Access\Aggregation;
+
   /**
    * @var Phrases
    */
@@ -81,21 +84,5 @@ class Collection
       return $current;
     }
     return $value;
-  }
-
-  /**
-   * An combined getter/setter for the Papaya Application object
-   *
-   * @param Application $application
-   *
-   * @return \Papaya\Application\CMS|Application
-   */
-  public function papaya(Application $application = NULL) {
-    if (NULL !== $application) {
-      $this->_applicationObject = $application;
-    } elseif (NULL === $this->_applicationObject) {
-      $this->_applicationObject = Application::getInstance();
-    }
-    return $this->_applicationObject;
   }
 }

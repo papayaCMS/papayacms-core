@@ -14,7 +14,7 @@
  */
 
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 
 /**
 * page administration class
@@ -199,7 +199,7 @@ class base_topic_edit extends base_topic {
           $currentWeight = $this->topic['topic_weight'];
           $direction = (int)$this->params['direction'];
           $this->changePosition($currentWeight, $direction);
-          if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_EVENT_PAGE_MOVED, TRUE)) {
+          if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::LOG_EVENT_PAGE_MOVED, TRUE)) {
             $this->papaya()->messages->dispatch(
               new \Papaya\Message\Log(
                 \Papaya\Message\Logable::GROUP_CONTENT,
@@ -249,7 +249,7 @@ class base_topic_edit extends base_topic {
             $moveSteps != 0
           ) {
             $this->changePosition($this->topic['topic_weight'], $moveSteps);
-            if ($this->papaya()->options->get(\Papaya\Configuration\CMS::LOG_EVENT_PAGE_MOVED, TRUE)) {
+            if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::LOG_EVENT_PAGE_MOVED, TRUE)) {
               $this->papaya()->messages->dispatch(
                 new \Papaya\Message\Log(
                   \Papaya\Message\Logable::GROUP_CONTENT,
@@ -311,9 +311,9 @@ class base_topic_edit extends base_topic {
               )
             );
             $this->sychronizations()->synchronizeAction(
-              \Papaya\Content\Page\Dependency::SYNC_PROPERTIES |
-              \Papaya\Content\Page\Dependency::SYNC_VIEW |
-              \Papaya\Content\Page\Dependency::SYNC_CONTENT,
+              \Papaya\CMS\Content\Page\Dependency::SYNC_PROPERTIES |
+              \Papaya\CMS\Content\Page\Dependency::SYNC_VIEW |
+              \Papaya\CMS\Content\Page\Dependency::SYNC_CONTENT,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -421,9 +421,9 @@ class base_topic_edit extends base_topic {
             }
           }
           $this->sychronizations()->synchronizeAction(
-            \Papaya\Content\Page\Dependency::SYNC_PROPERTIES |
-            \Papaya\Content\Page\Dependency::SYNC_VIEW |
-            \Papaya\Content\Page\Dependency::SYNC_CONTENT,
+            \Papaya\CMS\Content\Page\Dependency::SYNC_PROPERTIES |
+            \Papaya\CMS\Content\Page\Dependency::SYNC_VIEW |
+            \Papaya\CMS\Content\Page\Dependency::SYNC_CONTENT,
             $this->topicId,
             (array)$this->params['del_trans_language']
           );
@@ -505,7 +505,7 @@ class base_topic_edit extends base_topic {
         break;
       case 1: //edit content
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_CONTENT)) {
           $this->layout->add($dependencyBlocker->getXML());
         } elseif ($str = $this->getEditContent()) {
           $this->layout->add($str);
@@ -513,7 +513,7 @@ class base_topic_edit extends base_topic {
         break;
       case 2:  //boxes
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_BOXES)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_BOXES)) {
           $this->layout->add($dependencyBlocker->getXML());
         } elseif ($authUser->hasPerm(Administration\Permissions::BOX_LINK)) {
           $boxLinks = new papaya_boxeslinks($this);
@@ -527,7 +527,7 @@ class base_topic_edit extends base_topic {
             if ($saved) {
               $this->load($this->topicId, $this->papaya()->administrationLanguage->id);
               $this->sychronizations()->synchronizeAction(
-                \Papaya\Content\Page\Dependency::SYNC_BOXES,
+                \Papaya\CMS\Content\Page\Dependency::SYNC_BOXES,
                 $this->topicId,
                 array($this->papaya()->administrationLanguage->id)
               );
@@ -539,7 +539,7 @@ class base_topic_edit extends base_topic {
           $boxLinks->loadBoxGroupList();
           if ($boxLinks->execute()) {
             $this->sychronizations()->synchronizeAction(
-              \Papaya\Content\Page\Dependency::SYNC_BOXES,
+              \Papaya\CMS\Content\Page\Dependency::SYNC_BOXES,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -561,13 +561,13 @@ class base_topic_edit extends base_topic {
         break;
       case 4: // surfer permissions
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_ACCESS)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_ACCESS)) {
           $this->layout->add($dependencyBlocker->getXML());
         } elseif ($authUser->hasPerm(2, '88236ef1454768e23787103f46d711c2')) {
           $sfl = new base_surferlinks($this->topicId);
           if ($sfl->execute()) {
             $this->sychronizations()->synchronizeAction(
-              \Papaya\Content\Page\Dependency::SYNC_ACCESS,
+              \Papaya\CMS\Content\Page\Dependency::SYNC_ACCESS,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -583,7 +583,7 @@ class base_topic_edit extends base_topic {
         break;
       case 6 : //view and module
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_VIEW)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_VIEW)) {
           $this->layout->add($dependencyBlocker->getXML());
           $this->layout->addRight($this->getInformation());
           break;
@@ -598,7 +598,7 @@ class base_topic_edit extends base_topic {
                 sprintf($this->_gt('%s modified.'), $this->_gt('View'))
               );
               $this->sychronizations()->synchronizeAction(
-                \Papaya\Content\Page\Dependency::SYNC_VIEW,
+                \Papaya\CMS\Content\Page\Dependency::SYNC_VIEW,
                 $this->topicId,
                 array($this->papaya()->administrationLanguage->id)
               );
@@ -650,14 +650,14 @@ class base_topic_edit extends base_topic {
         break;
       case 10: // tags
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_TAGS)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_TAGS)) {
           $this->layout->add($dependencyBlocker->getXML());
         } elseif ($authUser->hasPerm(Administration\Permissions::TAG_MANAGE)) {
           $tags = papaya_taglinks::getInstance($this);
           if (isset($tags) && $tags->prepare('topic', $this->topicId)) {
             if ($tags->execute()) {
               $this->sychronizations()->synchronizeAction(
-                \Papaya\Content\Page\Dependency::SYNC_TAGS,
+                \Papaya\CMS\Content\Page\Dependency::SYNC_TAGS,
                 $this->topicId,
                 array($this->papaya()->administrationLanguage->id)
               );
@@ -700,7 +700,7 @@ class base_topic_edit extends base_topic {
         $this->execPageActions();
         $this->setMenuBar(TRUE);
         $dependencyBlocker = $this->getDependencyBlocker();
-        if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
+        if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_PROPERTIES)) {
           $this->layout->add($dependencyBlocker->getXML());
         } else {
           $this->layout->add($this->getPropertiesDialog());
@@ -713,7 +713,7 @@ class base_topic_edit extends base_topic {
       $this->setMenuBar(TRUE);
       $this->execPageActions();
       $dependencyBlocker = $this->getDependencyBlocker();
-      if ($dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
+      if ($dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_PROPERTIES)) {
         $this->layout->add($dependencyBlocker->getXML());
       } else {
         $this->layout->add($this->addTranslationDialog());
@@ -743,7 +743,7 @@ class base_topic_edit extends base_topic {
     $outputObj = new papaya_output();
     $views = $outputObj->loadViewsList($this->topic['TRANSLATION']['view_id']);
 
-    $viewMode = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
+    $viewMode = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION, 'html');
     $viewLinks = array();
     if (count($views) > 0) {
       $viewLinks['xml'] = 'xml';
@@ -790,7 +790,7 @@ class base_topic_edit extends base_topic {
   }
 
   public function getPreviewURL($mode = NULL, $time = 0) {
-    $reference = new \Papaya\UI\Reference\Page();
+    $reference = new \Papaya\CMS\Reference\Page();
     $reference->setPreview(TRUE, $time);
     $reference->setOutputMode($mode);
     $reference->setPageLanguage(
@@ -825,7 +825,7 @@ class base_topic_edit extends base_topic {
     switch ($this->params['cmd']) {
     case 'save_properties':
       $dependencyBlocker = $this->getDependencyBlocker();
-      if (!$dependencyBlocker->isSynchronized(\Papaya\Content\Page\Dependency::SYNC_PROPERTIES)) {
+      if (!$dependencyBlocker->isSynchronized(\Papaya\CMS\Content\Page\Dependency::SYNC_PROPERTIES)) {
         $this->initializePropertiesDialog();
         if ($this->dialogProperties->checkDialogInput()) {
           if ($this->saveProperties()) {
@@ -833,7 +833,7 @@ class base_topic_edit extends base_topic {
             $this->load($this->topicId, $this->papaya()->administrationLanguage->id);
             $this->addMsg(MSG_INFO, $this->_gt('Changes saved.'));
             $this->sychronizations()->synchronizeAction(
-              \Papaya\Content\Page\Dependency::SYNC_PROPERTIES,
+              \Papaya\CMS\Content\Page\Dependency::SYNC_PROPERTIES,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -1420,7 +1420,7 @@ class base_topic_edit extends base_topic {
               )
             );
             $this->sychronizations()->synchronizeAction(
-              \Papaya\Content\Page\Dependency::SYNC_CONTENT,
+              \Papaya\CMS\Content\Page\Dependency::SYNC_CONTENT,
               $this->topicId,
               array($this->papaya()->administrationLanguage->id)
             );
@@ -2414,8 +2414,8 @@ class base_topic_edit extends base_topic {
   * @return array(id => string)
   */
   function getVirtualDomains() {
-    $domains = new \Papaya\Content\Domains();
-    $domains->load(array('mode' => \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN));
+    $domains = new \Papaya\CMS\Content\Domains();
+    $domains->load(array('mode' => \Papaya\CMS\Content\Domain::MODE_VIRTUAL_DOMAIN));
     $result = array();
     $schemes = array(
       0 => 'http://',
@@ -2944,10 +2944,10 @@ class base_topic_edit extends base_topic {
         } elseif ($dependency->isDependency($this->topicId)) {
           $dependency->load($this->topicId);
           //check if new view is compatible to current view of origin
-          if (($dependency->synchronization & \Papaya\Content\Page\Dependency::SYNC_VIEW) xor
-              ($dependency->synchronization & \Papaya\Content\Page\Dependency::SYNC_CONTENT)) {
+          if (($dependency->synchronization & \Papaya\CMS\Content\Page\Dependency::SYNC_VIEW) xor
+              ($dependency->synchronization & \Papaya\CMS\Content\Page\Dependency::SYNC_CONTENT)) {
             // load view of origin page - new view module must be equal to module of origin page
-            $originTranslation = new \Papaya\Content\Page\Translation();
+            $originTranslation = new \Papaya\CMS\Content\Page\Translation();
             $originTranslation->load(
               array(
                 'id' => $dependency->originId,
@@ -3610,10 +3610,10 @@ class base_topic_edit extends base_topic {
                AND bp.box_id = pb.box_id
                AND v.view_id = bpt.view_id";
     $parameters = array(
-      $databaseAccess->getTableName(\Papaya\Content\Tables::PAGE_BOXES),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::BOX_PUBLICATIONS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
-      $databaseAccess->getTableName(\Papaya\Content\Tables::VIEWS),
+      $databaseAccess->getTableName(\Papaya\CMS\Content\Tables::PAGE_BOXES),
+      $databaseAccess->getTableName(\Papaya\CMS\Content\Tables::BOX_PUBLICATIONS),
+      $databaseAccess->getTableName(\Papaya\CMS\Content\Tables::BOX_PUBLICATION_TRANSLATIONS),
+      $databaseAccess->getTableName(\Papaya\CMS\Content\Tables::VIEWS),
       $boxesPageId
     );
     $result = array();
@@ -4398,7 +4398,7 @@ class base_topic_edit extends base_topic {
                     )
                   );
                   $this->sychronizations()->synchronizeAction(
-                    \Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
+                    \Papaya\CMS\Content\Page\Dependency::SYNC_PUBLICATION,
                     $this->topicId,
                     empty($this->params['public_languages'])
                       ? NULL : $this->params['public_languages']
@@ -4615,7 +4615,7 @@ class base_topic_edit extends base_topic {
         new \Papaya\Filter\NotEmpty()
       );
       $field->setMandatory(TRUE);
-      if ($this->papaya()->options->get(\Papaya\Configuration\CMS::PUBLICATION_CHANGE_LEVEL, FALSE)) {
+      if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PUBLICATION_CHANGE_LEVEL, FALSE)) {
         $group->fields[] = new \Papaya\UI\Dialog\Field\Select(
           new \Papaya\UI\Text\Translated('Change level'),
           'change_level',
@@ -4658,7 +4658,7 @@ class base_topic_edit extends base_topic {
         )
       );
 
-      if ($this->papaya()->options->get(\Papaya\Configuration\CMS::PUBLICATION_AUDITING, FALSE)) {
+      if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PUBLICATION_AUDITING, FALSE)) {
         $dialog->buttons[] = new \Papaya\UI\Dialog\Button\NamedSubmit(
           new \Papaya\UI\Text\Translated('Audited'), 'audit', 1, \Papaya\UI\Dialog\Button::ALIGN_LEFT
         );
@@ -4792,7 +4792,7 @@ class base_topic_edit extends base_topic {
   * @return string
   */
   function getShortTitle($topicId, $languageId) {
-    $pages = new \Papaya\Content\Page\Publications();
+    $pages = new \Papaya\CMS\Content\Page\Publications();
     $pages->load(array('id' => array($topicId), 'language_id' => $languageId));
     $pageTitles = \Papaya\Utility\ArrayMapper::byIndex($pages, 'title');
     $pageTitle = isset($pageTitles[$topicId]) ? $pageTitles[$topicId] : '';

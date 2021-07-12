@@ -812,10 +812,10 @@ class base_boxeslinks extends base_db {
       } else {
         foreach ($this->data as $boxId => $box) {
           switch ($box['box_deliverymode']) {
-          case \Papaya\Content\Box::DELIVERY_MODE_JAVASCRIPT :
+          case \Papaya\CMS\Content\Box::DELIVERY_MODE_JAVASCRIPT :
             $result .= $this->getJavascriptCode($box, $lngId, $boxId);
             break;
-          case \Papaya\Content\Box::DELIVERY_MODE_ESI :
+          case \Papaya\CMS\Content\Box::DELIVERY_MODE_ESI :
             if ($this->papaya()->request->allowEsi()) {
               $result .= $this->getEsiCode($box, $lngId, $boxId);
             } else {

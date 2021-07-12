@@ -2,7 +2,7 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Cache\Identifier\Definition\Page as PageCacheDefinition;
   use Papaya\Plugin;
   use Papaya\Plugin\Appendable as AppendablePlugin;

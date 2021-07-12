@@ -142,10 +142,10 @@ class Path {
     if (isset($_SERVER['SCRIPT_FILENAME'])) {
       $path = \dirname($_SERVER['SCRIPT_FILENAME']);
       if (NULL !== $options) {
-        if ($options->get(\Papaya\Configuration\CMS::ADMIN_PAGE, FALSE)) {
+        if ($options->get(\Papaya\CMS\CMSConfiguration::ADMIN_PAGE, FALSE)) {
           $path = \dirname($path);
         }
-        if ($webPath = $options->get(\Papaya\Configuration\CMS::PATH_WEB, '/')) {
+        if ($webPath = $options->get(\Papaya\CMS\CMSConfiguration::PATH_WEB, '/')) {
           $path = \substr($path, 0, 1 - \strlen($webPath));
         }
       }

@@ -51,7 +51,8 @@ class Autoloader {
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
 
-    'PapayaContentPagesPublications' => Content\Page\Publications::class,
+    'PapayaContentLanguage' => CMS\Content\Language::class,
+    'PapayaContentPagesPublications' => CMS\Content\Page\Publications::class,
 
     'PapayaDatabaseObjectList' => Database\BaseObject\Records::class,
     'PapayaDatabaseRecordOrderList' => Database\Record\Order\Collection::class,
@@ -140,6 +141,7 @@ class Autoloader {
     'PapayaUiListviewSubitemImageList' => UI\ListView\SubItem\Images::class,
     'PapayaUiListviewSubitemEmpty' => UI\ListView\SubItem\EmptyValue::class,
     'PapayaUiListviewSubitemImageSelect' => UI\ListView\SubItem\Image\Toggle::class,
+    'PapayaUiReferenceFactory' => CMS\Reference\Factory::class,
     'PapayaUiToolbarSet' => UI\Toolbar\Collection::class
   ];
 

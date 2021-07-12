@@ -134,9 +134,10 @@ class ContentTest extends \Papaya\TestCase {
   /**
    * @covers \Papaya\Plugin\Editable\Content::editor
    */
-  public function testEditorGetImplicitCreateWithoutCallback() {
+  public function testEditorGetImplicitCreateWithoutCallbackExpectingException() {
     $content = new Content();
-    $this->assertInstanceOf(\Papaya\Plugin\Editor::class, $content->editor());
+    $this->expectException(\LogicException::class);
+    $content->editor();
   }
 
   /**

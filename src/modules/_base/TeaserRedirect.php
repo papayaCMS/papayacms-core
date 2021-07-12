@@ -15,11 +15,11 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\BaseObject\Parameters;
   use Papaya\Filter;
   use Papaya\Plugin\Editable as EditablePlugin;
-  use Papaya\Plugin\PageModule;
+  use Papaya\CMS\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Router;
   use Papaya\UI\Dialog\Field as DialogField;

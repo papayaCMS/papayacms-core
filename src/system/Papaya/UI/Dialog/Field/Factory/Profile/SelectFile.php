@@ -15,6 +15,7 @@
 namespace Papaya\UI\Dialog\Field\Factory\Profile;
 
 use Papaya\Application;
+use Papaya\BaseObject\Interfaces\StringCastable;
 use Papaya\Configuration;
 use Papaya\File\System as FileSystem;
 use Papaya\Iterator;
@@ -36,6 +37,11 @@ class SelectFile
   protected $_fileSystemItems = FileSystem\Directory::FETCH_FILES;
 
   /**
+   * @var Configuration\Path
+   */
+  private $_path;
+
+  /**
    * @see \Papaya\UI\Dialog\Field\Factory\Profile::getField()
    *
    * @return UI\Dialog\Field\Select
@@ -44,8 +50,8 @@ class SelectFile
    */
   public function getField() {
     $parameters = $this->options()->parameters;
-    $path = $this->getPath();
-    $directory = $this->fileSystem()->getDirectory((string)$path);
+    $path = (string)$this->getPath();
+    $directory = $this->fileSystem()->getDirectory($path);
     if ($directory->isReadable()) {
       $elements = $directory->getEntries(
         empty($parameters[1]) ? '' : (string)$parameters[1],
@@ -89,10 +95,17 @@ class SelectFile
   }
 
   /**
+   * @param string|StringCastable $path
+   */
+  public function setPath($path): void {
+    $this->_path = $path;
+  }
+
+  /**
    * Get the path for the file list, ig it is an callback, fetch it from the context otherwise use
    * a \Papaya\Configuration\Path object.
    *
-   * @return string|Configuration\Path
+   * @return string|StringCastable
    *
    * @throws \Papaya\UI\Dialog\Field\Factory\Exception\InvalidOption
    */
@@ -101,17 +114,25 @@ class SelectFile
     $basePath = empty($parameters[0]) ? '' : (string)$parameters[0];
     if (0 === \strpos($basePath, 'callback:')) {
       $callback = [$this->options()->context, \substr($basePath, 9)];
-      $path = $callback();
-    } else {
-      $path = new Configuration\Path(
-        $basePath,
-        empty($parameters[2]) ? '' : (string)$parameters[2]
-      );
-      if ($this->options()->context instanceof Application\Access) {
-        $path->papaya($this->options()->context->papaya());
-      }
+      return $callback();
     }
-    return $path;
+    if ($this->_path instanceof StringCastable) {
+      if (
+        $this->_path instanceof Application\Access &&
+        $this->options()->context instanceof Application\Access
+      ) {
+        $this->_path->papaya($this->options()->context->papaya());
+      }
+      return $this->_path;
+    }
+    if ($this->options()->context instanceof Application\Access) {
+      $path = $this->_path = $this->options()->context->papaya()->options->getPath(
+        $basePath,
+        empty($parameters[2]) ? (string)$parameters[0] : (string)$parameters[2]
+      );
+      return $path;
+    }
+    return empty($parameters[2]) ? (string)$parameters[0] : (string)$parameters[2];
   }
 
   /**

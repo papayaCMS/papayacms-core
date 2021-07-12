@@ -44,7 +44,7 @@ class Mimetype extends Media\File\Info {
         return $mimeType;
       }
 
-      $fileCommand = $this->papaya()->options->get(\Papaya\Configuration\CMS::FILE_CMD_PATH, '/usr/bin/file');
+      $fileCommand = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::FILE_CMD_PATH, '/usr/bin/file');
       $disabledFunctions = \array_flip(
         \preg_split('/,\s*/', \ini_get('disable_functions'))
       );

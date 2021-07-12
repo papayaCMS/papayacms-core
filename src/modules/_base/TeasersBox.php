@@ -15,13 +15,13 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Administration\Plugin\Editor\Dialog as EditorDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as EditorDialog;
   use Papaya\Application\Access as ApplicationAccess;
   use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;
   use Papaya\Plugin\Editable\Content as EditableContent;
   use Papaya\Plugin\Editor as PluginEditor;
-  use Papaya\UI\Content\Teasers\Factory as PageTeaserFactory;
+  use Papaya\CMS\Output\Teasers\Factory as PageTeaserFactory;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\XML\Element as XMLElement;

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Application\CMS;
+use Papaya\Application\CMSApplication;
 
 /**
 * Deliver binary content
@@ -76,7 +76,7 @@ class papaya_file_delivery {
   * @return float
   */
   public static function _microtimeFloat() {
-    list($usec, $sec) = explode(" ", microtime());
+    [$usec, $sec] = explode(" ", microtime());
     return ((float)$usec + (float)$sec);
   }
 
@@ -254,7 +254,7 @@ class papaya_file_delivery {
           $useSendFile = TRUE;
         } elseif (isset($_SERVER['HTTP_RANGE'])) {
           // check whether the client requested a range (e.g. 'Range: bytes=2999-')
-          list(, $range) = explode('=', $_SERVER['HTTP_RANGE']);
+          [, $range] = explode('=', $_SERVER['HTTP_RANGE']);
           $fileOffset = (int)str_replace('-', '', $range);
           header('HTTP/1.1 206 Partial Content');
           // tell the client, how large the current chunk is
@@ -350,7 +350,7 @@ class papaya_file_delivery {
   * @access private
   */
   public static function _closeSession() {
-    /** @var CMS $application */
+    /** @var CMSApplication $application */
     $application = \Papaya\Application::getInstance();
     $application->session->close();
   }

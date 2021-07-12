@@ -124,8 +124,8 @@ class videoediting_common {
   */
   function execCmd($cmd, &$stdout, &$stderr) {
     $result = FALSE;
-    $stdoutFile = tempnam(\Papaya\Configuration\CMS::PATH_CACHE, "exec");
-    $stderrFile = tempnam(\Papaya\Configuration\CMS::PATH_CACHE, "exec");
+    $stdoutFile = tempnam(\Papaya\CMS\CMSConfiguration::PATH_CACHE, "exec");
+    $stderrFile = tempnam(\Papaya\CMS\CMSConfiguration::PATH_CACHE, "exec");
     $descriptorSpec = array(
       0 => array("pipe", "r"),
       1 => array("file", $stdoutFile, "w"),

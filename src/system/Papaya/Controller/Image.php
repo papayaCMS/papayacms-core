@@ -52,7 +52,7 @@ class Image implements Controller {
   /**
    * Execute controller
    *
-   * @param Application|Application\CMS $application
+   * @param Application|Application\CMSApplication $application
    * @param Request &$request
    * @param Response &$response
    *

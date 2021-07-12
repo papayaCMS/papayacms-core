@@ -15,10 +15,10 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Plugin\PageModule;
+  use Papaya\CMS\Plugin\PageModule;
   use Papaya\Plugin\Routable as RoutablePlugin;
   use Papaya\Response;
-  use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Plugin\Editable\Content as PluginContent;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;

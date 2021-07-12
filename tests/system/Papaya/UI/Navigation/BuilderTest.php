@@ -121,7 +121,7 @@ class BuilderTest extends \Papaya\TestCase {
     $builder->papaya($this->mockPapaya()->application());
     $this->assertEquals(
     /** @lang XML */
-      '<links><link href="http://www.test.tld/index.html">Item One</link></links>',
+      '<links><link href="http://www.test.tld/test.html">Item One</link></links>',
       $builder->getXML()
     );
   }

@@ -161,7 +161,7 @@ class base_plugin extends base_object {
   /**
   * parent object / owner
   *
-  * @var object|base_topic|\Papaya\Content\Page|NULL
+  * @var object|base_topic|\Papaya\CMS\Content\Page|NULL
   */
   var $parentObj = NULL;
 

@@ -14,8 +14,7 @@
  */
 namespace Papaya\UI\Control\Command\Dialog\Plugin;
 
-use Papaya\Database;
-use Papaya\Plugin;
+use Papaya\Plugin\Editable\Content as EditableContent;
 use Papaya\UI;
 use Papaya\XML;
 
@@ -32,16 +31,16 @@ class Content extends UI\Control\Command\Dialog {
   /**
    * This dialog command uses database record objects
    *
-   * @param Plugin\Editable\Content $content
+   * @param EditableContent $content
    */
-  public function __construct(Plugin\Editable\Content $content) {
+  public function __construct(EditableContent $content) {
     $this->_content = $content;
   }
 
   /**
    * Getter/Setter for the database record
    *
-   * @return Plugin\Editable\Content
+   * @return EditableContent
    */
   public function getContent() {
     return $this->_content;

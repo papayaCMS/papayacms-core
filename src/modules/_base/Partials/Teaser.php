@@ -15,9 +15,9 @@
 
 namespace Papaya\Modules\Core\Partials {
 
-  use Papaya\Administration\Plugin\Editor\Dialog as PluginDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as PluginDialog;
   use Papaya\Plugin\Editable as EditablePlugin;
-  use Papaya\Plugin\PageModule;
+  use Papaya\CMS\Plugin\PageModule;
   use Papaya\Plugin\Quoteable as QuotablePlugin;
   use Papaya\Template\Tag\Image as ImageTag;
   use Papaya\UI\Dialog\Field as DialogField;

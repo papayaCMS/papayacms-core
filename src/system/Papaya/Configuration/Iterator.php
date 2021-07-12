@@ -33,7 +33,7 @@ class Iterator implements \Iterator {
   /**
    * configuration object
    *
-   * @var Configuration
+   * @var CMSConfiguration
    */
   private $_configuration;
 
@@ -55,7 +55,7 @@ class Iterator implements \Iterator {
    * Create object, store names and configuration object
    *
    * @param array $names
-   * @param Configuration $configuration
+   * @param CMSConfiguration $configuration
    */
   public function __construct(array $names, Configuration $configuration) {
     $this->_names = \array_values($names);

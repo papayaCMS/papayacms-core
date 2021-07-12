@@ -28,7 +28,7 @@ class NamedTest extends \Papaya\TestCase {
     );
     $this->assertXmlStringEqualsXmlString(
     /** @lang XML */
-      '<link href="http://www.test.tld/index.html" name="sample"/>',
+      '<link href="http://www.test.tld/test.html" name="sample"/>',
       $item->getXML()
     );
   }

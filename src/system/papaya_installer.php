@@ -58,15 +58,15 @@ class papaya_installer extends base_db {
   * @var array $authTables
   */
   var $authTables = array(
-    \Papaya\Content\Tables::AUTHENTICATION_USERS,
-    \Papaya\Content\Tables::AUTHENTICATION_USER_GROUP_LINKS,
-    \Papaya\Content\Tables::AUTHENTICATION_USER_OPTIONS,
-    \Papaya\Content\Tables::AUTHENTICATION_GROUPS,
-    \Papaya\Content\Tables::AUTHENTICATION_PERMISSIONS,
-    \Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSIONS,
-    \Papaya\Content\Tables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
-    \Papaya\Content\Tables::AUTHENTICATION_LOGIN_TRIES,
-    \Papaya\Content\Tables::AUTHENTICATION_LOGIN_IPS
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_USERS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_USER_GROUP_LINKS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_USER_OPTIONS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_GROUPS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_PERMISSIONS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_MODULE_PERMISSIONS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_MODULE_PERMISSION_LINKS,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_LOGIN_TRIES,
+    \Papaya\CMS\Content\Tables::AUTHENTICATION_LOGIN_IPS
   );
 
   /**
@@ -322,7 +322,7 @@ class papaya_installer extends base_db {
       if (isset($this->params['table']) && isset($this->params['table_idx'])) {
         $count = $this->getTableCount(
           $this->params['table'],
-          $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX)
+          $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DB_TABLEPREFIX)
         );
         $this->outputRPCResponse(
           (int)$this->params['table_idx'], TRUE, (int)$count, 'count'
@@ -598,10 +598,10 @@ class papaya_installer extends base_db {
     $result .= '</cols>';
     $result .= '<items>';
     $counter = 0;
-    $tableNames = \Papaya\Content\Tables::getTables();
+    $tableNames = \Papaya\CMS\Content\Tables::getTables();
     foreach ($tableNames as $table) {
       $tableName = $this->databaseGetTableName($table);
-      if ($tableName != $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TBL_OPTIONS)) {
+      if ($tableName != $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DB_TBL_OPTIONS)) {
         $result .= sprintf(
           '<listitem title="%s">',
           papaya_strings::escapeHTMLChars($tableName)
@@ -669,9 +669,9 @@ class papaya_installer extends base_db {
     $result .= '      imageUnchecked : "'.$images['status-node-empty'].'"'.LF;
     $result .= '    },'.LF;
     $result .= '    ['.LF;
-    foreach (\Papaya\Content\Tables::getTables() as $table) {
+    foreach (\Papaya\CMS\Content\Tables::getTables() as $table) {
       $tableName = $this->databaseGetTableName($table);
-      if ($tableName != $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TBL_OPTIONS)) {
+      if ($tableName != $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DB_TBL_OPTIONS)) {
         if ($this->checkTableExists($tableName)) {
           $exists = 'true';
           $tableCounts['exists']++;
@@ -837,7 +837,7 @@ class papaya_installer extends base_db {
     } else {
       header('HTTP/1.1 302 Found');
     }
-    if (!$this->papaya()->options->get(\Papaya\Configuration\CMS::DISABLE_XHEADERS)) {
+    if (!$this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DISABLE_XHEADERS)) {
       header('X-Papaya-Status: reloading installer');
     }
     header('Location: '.$url);
@@ -864,10 +864,10 @@ class papaya_installer extends base_db {
     if ($missed + $old == 0) {
       $sql = "SELECT COUNT(*) FROM %s";
       $params = array(
-        $this->databaseGetTableName(\Papaya\Content\Tables::AUTHENTICATION_USERS)
+        $this->databaseGetTableName(\Papaya\CMS\Content\Tables::AUTHENTICATION_USERS)
       );
       if ($res = $this->databaseQueryFmt($sql, $params)) {
-        list($count) = $res->fetchRow();
+        [$count] = $res->fetchRow();
         return ($count > 0) ? TRUE : FALSE;
       }
     }
@@ -881,7 +881,7 @@ class papaya_installer extends base_db {
   * @return boolean
   */
   function checkLoginExists() {
-    $userTable = $this->databaseGetTableName(\Papaya\Content\Tables::AUTHENTICATION_USERS);
+    $userTable = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::AUTHENTICATION_USERS);
     if ($this->checkTableExists($userTable)) {
       $sql = "SELECT COUNT(*) FROM %s";
       if ($res = $this->databaseQueryFmt($sql, $userTable)) {
@@ -953,7 +953,7 @@ class papaya_installer extends base_db {
     $sql = "SELECT COUNT(*)
               FROM %s";
     if ($res = $this->databaseQueryFmt($sql, $tableName)) {
-      list($count) = $res->fetchRow();
+      [$count] = $res->fetchRow();
       return $count;
     }
     return 0;
@@ -1112,7 +1112,7 @@ class papaya_installer extends base_db {
           if (FALSE !== $this->databaseEmptyTable($tableName)) {
             if (is_array($done = $this->insertCSV($tableName, $dataFileName))) {
               $count = $this->getTableCount(
-                $this->params['table'], $this->papaya()->options->get(\Papaya\Configuration\CMS::DB_TABLEPREFIX)
+                $this->params['table'], $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::DB_TABLEPREFIX)
               );
               if ($tableName == PAPAYA_DB_TBL_AUTHUSER) {
                 $this->initAdminAccount();
@@ -1584,10 +1584,10 @@ class papaya_installer extends base_db {
       if (isset($this->administrationUser)) {
         $this->licenseLng = $this->administrationUser->options['PAPAYA_UI_LANGUAGE'];
       } else {
-        $this->licenseLng = $this->papaya()->options->get(\Papaya\Configuration\CMS::UI_LANGUAGE);
+        $this->licenseLng = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::UI_LANGUAGE);
       }
     }
-    $fileName = $this->installationPath.$this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_ADMIN).
+    $fileName = $this->installationPath.$this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_ADMIN).
       '/data/'.$this->licenseLng.'/gpl.txt';
     $fileName = \Papaya\Utility\File\Path::cleanup($fileName, FALSE);
     if ($fileName) {

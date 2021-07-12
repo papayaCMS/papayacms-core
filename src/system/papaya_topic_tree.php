@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 
 /**
 * object to show sitemap in edit area (n-dimensional)
@@ -134,7 +134,7 @@ class papaya_topic_tree extends base_topic_tree {
               if ($topic->publishTopic()) {
                 $this->addMsg(MSG_INFO, $this->_gt('Page published.'));
                 $this->sychronizations()->synchronizeAction(
-                  \Papaya\Content\Page\Dependency::SYNC_PUBLICATION,
+                  \Papaya\CMS\Content\Page\Dependency::SYNC_PUBLICATION,
                   $this->topicId,
                   array($languageId)
                 );
@@ -541,16 +541,16 @@ class papaya_topic_tree extends base_topic_tree {
       );
     }
     // load the current dependency if available
-    $old = new \Papaya\Content\Page\Dependency();
+    $old = new \Papaya\CMS\Content\Page\Dependency();
     if ($old->load($oldId)) {
       // if available change clone id and save
-      $new = new \Papaya\Content\Page\Dependency();
+      $new = new \Papaya\CMS\Content\Page\Dependency();
       $new->assign($old->toArray());
       $new->id = $newId;
       return $new->save();
     } elseif ($createMissing) {
       // if not available and create allowed define new dependency and save
-      $new = new \Papaya\Content\Page\Dependency();
+      $new = new \Papaya\CMS\Content\Page\Dependency();
       $new->id = $newId;
       $new->originId = $oldId;
       $new->synchronization = $synchronization;
@@ -1048,7 +1048,7 @@ class papaya_topic_tree extends base_topic_tree {
             '<a href="%s"><glyph src="%s" hint="%s"/></a>',
             papaya_strings::escapeHTMLChars(
               $this->getLink(
-                array('page_id' => (int)$id), NULL, Papaya\Administration\UI::PAGES_EDIT
+                array('page_id' => (int)$id), NULL, Papaya\CMS\Administration\UI::PAGES_EDIT
               )
             ),
             papaya_strings::escapeHTMLChars($images['actions-edit']),

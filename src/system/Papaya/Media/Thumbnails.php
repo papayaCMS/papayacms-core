@@ -16,7 +16,7 @@
 namespace Papaya\Media {
 
   use Papaya\Application\Access as ApplicationAccess;
-  use Papaya\Configuration\CMS as CMSSettings;
+  use Papaya\CMS\CMSConfiguration as CMSSettings;
   use Papaya\File\System\Factory as FileSystemFactory;
   use Papaya\Graphics\Color;
   use Papaya\Graphics\GD\Filter\CopyResampled;

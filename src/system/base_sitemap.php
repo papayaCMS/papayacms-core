@@ -322,7 +322,7 @@ class base_sitemap extends base_db {
       $this->tableLanguages,
       $this->tableViewLinks,
       $this->tableViewModes,
-      $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSTION, 'html')
+      $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSTION, 'html')
     );
     header('Content-Type: text/html; charset=utf-8');
     echo '<html><head>'.

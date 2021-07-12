@@ -27,9 +27,9 @@ class Options extends Data {
   /**
    * Options constructor.
    *
-   * @param Plugin\Options $options
+   * @param \Papaya\CMS\Plugin\Options $options
    */
-  public function __construct(Plugin\Options $options) {
+  public function __construct(\Papaya\CMS\Plugin\Options $options) {
     parent::__construct(\iterator_to_array($options));
     $this->_checksum = $this->getChecksum();
   }

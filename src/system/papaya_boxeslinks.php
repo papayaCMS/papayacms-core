@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\CMS\Administration\Permissions;
 
 /**
 * Link Box with page
@@ -217,7 +217,7 @@ class papaya_boxeslinks extends base_boxeslinks {
     $dialog = new \Papaya\UI\Dialog();
     $dialog->caption = new \Papaya\UI\Text\Translated('Link Mode');
     $dialog->options->captionStyle = \Papaya\UI\Dialog\Options::CAPTION_NONE;
-    if ($this->papaya()->options->get(\Papaya\Configuration\CMS::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
+    if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
       $modes = array(
         self::INHERIT_ALL => new \Papaya\UI\Text\Translated('None'),
         self::INHERIT_BOXES => new \Papaya\UI\Text\Translated('Groups'),
@@ -273,7 +273,7 @@ class papaya_boxeslinks extends base_boxeslinks {
     $listview = new \Papaya\UI\ListView();
     $listview->caption = new \Papaya\UI\Text\Translated('Boxes And Box Groups');
 
-    if ($this->papaya()->options->get(\Papaya\Configuration\CMS::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
+    if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
       if ($linkGroups) {
         $listview->items[] = $item = new \Papaya\UI\ListView\Item(
           'items-page',
@@ -413,7 +413,7 @@ class papaya_boxeslinks extends base_boxeslinks {
                   )
                 );
                 $subitem->reference(clone $listview->reference);
-                $subitem->reference()->setRelative(Papaya\Administration\UI::CONTENT_BOXES);
+                $subitem->reference()->setRelative(Papaya\CMS\Administration\UI::CONTENT_BOXES);
               } else {
                 $item->columnSpan = 2;
               }
@@ -522,7 +522,7 @@ class papaya_boxeslinks extends base_boxeslinks {
                     )
                   );
                   $subitem->reference(clone $listview->reference);
-                  $subitem->reference()->setRelative(Papaya\Administration\UI::CONTENT_BOXES);
+                  $subitem->reference()->setRelative(Papaya\CMS\Administration\UI::CONTENT_BOXES);
                 } else {
                   $item->columnSpan = 2;
                 }

@@ -14,7 +14,7 @@
  */
 namespace Papaya\UI\Dialog\Field\Select;
 
-use Papaya\Content;
+use Papaya\CMS\Content;
 use Papaya\Iterator;
 use Papaya\UI;
 use Papaya\Utility;

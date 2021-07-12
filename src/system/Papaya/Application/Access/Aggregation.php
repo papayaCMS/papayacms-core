@@ -32,7 +32,7 @@ namespace Papaya\Application\Access {
      *
      * @param Application $application
      *
-     * @return Application\CMS|Application
+     * @return Application\CMSApplication|Application
      */
     public function papaya(Application $application = NULL) {
       if (NULL !== $application) {

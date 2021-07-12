@@ -15,7 +15,7 @@
 
 namespace Papaya\Modules\Core {
 
-  use Papaya\Administration\Plugin\Editor\Dialog as EditorDialog;
+  use Papaya\CMS\Administration\Plugin\Editor\Dialog as EditorDialog;
   use Papaya\Application\Access as ApplicationAccess;
   use Papaya\Plugin\Appendable as AppendablePlugin;
   use Papaya\Plugin\Editable as EditablePlugin;

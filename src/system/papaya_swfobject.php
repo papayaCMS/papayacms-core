@@ -139,7 +139,7 @@ class papaya_swfobject extends base_object {
       if ($this->papaya()->request->isAdministration) {
         $this->_expressInstall = 'script/swfobject/expressInstall.swf';
       } else {
-        $themeHandler = new \Papaya\Theme\Handler();
+        $themeHandler = new \Papaya\CMS\Theme\Handler();
         $this->_expressInstall = $themeHandler->getURL().'/papaya/swfobject/expressInstall.swf';
       }
     }

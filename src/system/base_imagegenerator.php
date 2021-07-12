@@ -364,7 +364,7 @@ class base_imagegenerator extends base_db {
     if (isset($this->_validFormats[$format])) {
       return $format;
     } else {
-      $systemFormat = $this->papaya()->options->get(\Papaya\Configuration\CMS::THUMBS_FILETYPE);
+      $systemFormat = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::THUMBS_FILETYPE);
       if (isset($this->_validFormats[$systemFormat])) {
         return $systemFormat;
       } else {

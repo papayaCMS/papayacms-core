@@ -46,7 +46,7 @@ class Start extends Request\Parser {
    * @return false|array
    */
   public function parse($url) {
-    if ($url->getPath() === $this->papaya()->options->get(\Papaya\Configuration\CMS::PATH_WEB, '/')) {
+    if ($url->getPath() === $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_WEB, '/')) {
       return [
         'mode' => 'page',
         'is_startpage' => TRUE,

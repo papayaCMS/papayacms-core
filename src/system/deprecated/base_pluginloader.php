@@ -45,7 +45,7 @@ class base_pluginloader extends base_db {
   * Get the new PluginLoader
   *
   * @access public
-  * @return \Papaya\Plugin\Loader
+  * @return \Papaya\CMS\Plugin\Loader
   */
   public function getPluginLoader() {
     return $this->papaya()->plugins;

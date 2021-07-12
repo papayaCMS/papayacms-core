@@ -146,7 +146,7 @@ class base_topic extends base_db {
   /**
   * current content language
   *
-  * @var \Papaya\Content\Language $currentLanguage
+  * @var \Papaya\CMS\Content\Language $currentLanguage
   */
   var $currentLanguage = NULL;
 
@@ -408,14 +408,14 @@ class base_topic extends base_db {
       return 0;
     }
     if ($this->papaya()->session->isActive() &&
-        $this->papaya()->options->get(\Papaya\Configuration\CMS::SESSION_CACHE, 'nocache') == 'nocache') {
+        $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::SESSION_CACHE, 'nocache') == 'nocache') {
       //browser cache disabled by session option
       return 0;
     } elseif ($this->topic['topic_expiresmode'] == 0) {
       //browser cache disabled by page property
       return 0;
     } elseif ($this->topic['topic_expiresmode'] == 1) {
-      return $this->papaya()->options->get(\Papaya\Configuration\CMS::CACHE_TIME_BROWSER, 0);
+      return $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::CACHE_TIME_BROWSER, 0);
     } elseif ($this->topic['topic_expiresmode'] == 2) {
       return (int)$this->topic['topic_expirestime'];
     } else {
@@ -1101,7 +1101,7 @@ class base_topic extends base_db {
         }
       }
       if (!$isValid) {
-        $allowFixation = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_FIXATION, FALSE);
+        $allowFixation = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_FIXATION, FALSE);
         if ($allowFixation) {
           if ($this->papaya()->request->getMethod() !== 'get') {
             //url fixation should only be used on GET requests, not POST ...
@@ -1141,7 +1141,7 @@ class base_topic extends base_db {
   }
 
   public function getPageLanguage() {
-    if ($this->_language instanceof \Papaya\Content\Language) {
+    if ($this->_language instanceof \Papaya\CMS\Content\Language) {
       return $this->_language;
     } elseif (0 < ($languageId = $this->getContentLanguageId())) {
       return $this->_language = $this->papaya()->languages->getLanguage($languageId);

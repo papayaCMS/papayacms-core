@@ -15,7 +15,7 @@
 
 namespace Papaya\UI\Dialog\Field\Select\Media;
 
-use Papaya\Content\Media\Folders;
+use Papaya\CMS\Content\Media\Folders;
 
 require_once __DIR__.'/../../../../../../../bootstrap.php';
 

@@ -968,7 +968,7 @@ class papaya_modulemanager extends base_db {
                      module_file, module_path, module_glyph, modulegroup_id
                 FROM %s
                ORDER BY module_guid";
-      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, $tableModules)) {
         $modInDatabase = array();
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -1070,7 +1070,7 @@ class papaya_modulemanager extends base_db {
     if (isset($this->packages) && is_array($this->packages)) {
       if (
         FALSE !== $this->databaseEmptyTable(
-          $this->databaseGetTableName(\Papaya\Content\Tables::MODULE_GROUPS)
+          $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULE_GROUPS)
         )
       ) {
         $idx = 1;
@@ -1096,7 +1096,7 @@ class papaya_modulemanager extends base_db {
         }
         if (isset($data) && is_array($data) && count($data) > 0) {
           $this->databaseInsertRecords(
-            $this->databaseGetTableName(\Papaya\Content\Tables::MODULE_GROUPS), $data
+            $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULE_GROUPS), $data
           );
           return TRUE;
         }
@@ -1116,7 +1116,7 @@ class papaya_modulemanager extends base_db {
   function updatePackageStatus($pkgId, $activate) {
     return (
       FALSE !== $this->databaseUpdateRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
+        $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES),
         array('module_active' => ($activate) ? 1 : 0),
         array('modulegroup_id' => $pkgId)
       )
@@ -1134,7 +1134,7 @@ class papaya_modulemanager extends base_db {
   function updateModuleStatus($moduleId, $activate) {
     return (
       FALSE !== $this->databaseUpdateRecord(
-        $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
+        $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES),
         array('module_active' => ($activate) ? 1 : 0),
         array('module_guid' => $moduleId)
       )
@@ -1405,7 +1405,7 @@ class papaya_modulemanager extends base_db {
                    modulegroup_prefix, modulegroup_classes
               FROM %s
              ORDER BY modulegroup_title";
-    $groupTable = $this->databaseGetTableName(\Papaya\Content\Tables::MODULE_GROUPS);
+    $groupTable = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULE_GROUPS);
     if ($res = $this->databaseQueryFmt($sql, $groupTable)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $this->packages[(int)$row['modulegroup_id']] = $row;
@@ -1423,7 +1423,7 @@ class papaya_modulemanager extends base_db {
     $sql = "SELECT modulegroup_id, module_active, count(module_guid) as counted
               FROM %s
              GROUP BY modulegroup_id, module_active";
-    $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
+    $tableModules = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES);
     if ($res = $this->databaseQueryFmt($sql, $tableModules)) {
       while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $active = (bool)$row['module_active'];
@@ -1471,7 +1471,7 @@ class papaya_modulemanager extends base_db {
                 FROM %s
                WHERE $filter
                ORDER BY module_guid";
-      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, $tableModules)) {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           if (isset($this->modules[$row['module_guid']])) {
@@ -1511,7 +1511,7 @@ class papaya_modulemanager extends base_db {
               FROM %s
              WHERE module_type = '%s' AND module_active = 1";
     $params = array(
-      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
+      $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES),
       $moduleType
     );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
@@ -1539,7 +1539,7 @@ class papaya_modulemanager extends base_db {
                     module_active
                 FROM %s
               WHERE module_guid = '%s'";
-      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, array($tableModules, $moduleId))) {
         if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           $this->module = $row;
@@ -1773,7 +1773,7 @@ class papaya_modulemanager extends base_db {
       'module_title' => $this->params['module_title']
     );
     return FALSE !== $this->databaseUpdateRecord(
-      $this->databaseGetTableName(\Papaya\Content\Tables::MODULES),
+      $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES),
       $data,
       'module_guid',
       $this->params['module_id']
@@ -2142,7 +2142,7 @@ class papaya_modulemanager extends base_db {
             if (isset($module['error']) && $module['error']) {
               $glyph = $images['status-dialog-error'];
             } elseif (trim($module['glyph']) != '') {
-              $glyph = \Papaya\Administration\UI::EXTENSIONS_IMAGE.'?module='.urlencode($module['guid']);
+              $glyph = \Papaya\CMS\Administration\UI::EXTENSIONS_IMAGE.'?module='.urlencode($module['guid']);
             } else {
               switch ($module['type']) {
               case 'alias':
@@ -3019,7 +3019,7 @@ class papaya_modulemanager extends base_db {
    */
   function resetModuleNames() {
     $sql = "UPDATE %s SET module_title = module_title_org";
-    $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
+    $tableModules = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES);
     return (FALSE !== $this->databaseQueryFmtWrite($sql, $tableModules));
   }
 

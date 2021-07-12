@@ -26,7 +26,7 @@ interface Access {
    *
    * @param \Papaya\Application $application
    *
-   * @return \Papaya\Application\CMS
+   * @return \Papaya\Application\CMSApplication
    */
   public function papaya(\Papaya\Application $application = NULL);
 }

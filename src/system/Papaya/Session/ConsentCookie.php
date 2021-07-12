@@ -15,7 +15,7 @@
 namespace Papaya\Session {
 
   use Papaya\Application\Access as ApplicationAccess;
-  use Papaya\Configuration\CMS as CMSSettings;
+  use Papaya\CMS\CMSConfiguration as CMSSettings;
 
   class ConsentCookie implements ApplicationAccess {
 

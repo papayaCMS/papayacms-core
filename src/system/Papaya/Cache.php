@@ -80,12 +80,12 @@ class Cache {
       $result = new Cache\Configuration();
       $result->assign(
         [
-          'SERVICE' => $configuration->get(\Papaya\Configuration\CMS::CACHE_SERVICE, 'file'),
-          'FILESYSTEM_PATH' => $configuration->get(\Papaya\Configuration\CMS::PATH_CACHE),
+          'SERVICE' => $configuration->get(\Papaya\CMS\CMSConfiguration::CACHE_SERVICE, 'file'),
+          'FILESYSTEM_PATH' => $configuration->get(\Papaya\CMS\CMSConfiguration::PATH_CACHE),
           'FILESYSTEM_DISABLE_CLEAR' =>
-          $configuration->get(\Papaya\Configuration\CMS::CACHE_DISABLE_FILE_DELETE),
-          'FILESYSTEM_NOTIFIER_SCRIPT' => $configuration->get(\Papaya\Configuration\CMS::CACHE_NOTIFIER, ''),
-          'MEMCACHE_SERVERS' => $configuration->get(\Papaya\Configuration\CMS::CACHE_MEMCACHE_SERVERS),
+          $configuration->get(\Papaya\CMS\CMSConfiguration::CACHE_DISABLE_FILE_DELETE),
+          'FILESYSTEM_NOTIFIER_SCRIPT' => $configuration->get(\Papaya\CMS\CMSConfiguration::CACHE_NOTIFIER, ''),
+          'MEMCACHE_SERVERS' => $configuration->get(\Papaya\CMS\CMSConfiguration::CACHE_MEMCACHE_SERVERS),
         ]
       );
       return $result;
@@ -105,36 +105,36 @@ class Cache {
   public static function get($for, $globalConfiguration, $static = TRUE) {
     switch ($for) {
       case self::DATA :
-        if ($globalConfiguration->get(\Papaya\Configuration\CMS::CACHE_DATA, FALSE)) {
+        if ($globalConfiguration->get(\Papaya\CMS\CMSConfiguration::CACHE_DATA, FALSE)) {
           $configuration = new Cache\Configuration();
           $configuration->assign(
             [
               'SERVICE' =>
-              $globalConfiguration->get(\Papaya\Configuration\CMS::CACHE_DATA_SERVICE, 'file'),
+              $globalConfiguration->get(\Papaya\CMS\CMSConfiguration::CACHE_DATA_SERVICE, 'file'),
               'FILESYSTEM_PATH' =>
-              $globalConfiguration->get(\Papaya\Configuration\CMS::PATH_CACHE),
+              $globalConfiguration->get(\Papaya\CMS\CMSConfiguration::PATH_CACHE),
               'FILESYSTEM_NOTIFIER_SCRIPT' =>
-              $configuration->get(\Papaya\Configuration\CMS::CACHE_NOTIFIER, ''),
+              $configuration->get(\Papaya\CMS\CMSConfiguration::CACHE_NOTIFIER, ''),
               'MEMCACHE_SERVERS' =>
-              $globalConfiguration->get(\Papaya\Configuration\CMS::CACHE_DATA_MEMCACHE_SERVERS),
+              $globalConfiguration->get(\Papaya\CMS\CMSConfiguration::CACHE_DATA_MEMCACHE_SERVERS),
             ]
           );
           return self::getService($configuration, $static);
         }
       break;
       case self::IMAGES :
-        if ($globalConfiguration->get(\Papaya\Configuration\CMS::CACHE_IMAGES, FALSE)) {
+        if ($globalConfiguration->get(\Papaya\CMS\CMSConfiguration::CACHE_IMAGES, FALSE)) {
           $configuration = new Cache\Configuration();
           $configuration->assign(
             [
               'SERVICE' =>
-              $globalConfiguration->get(\Papaya\Configuration\CMS::CACHE_IMAGES_SERVICE, 'file'),
+              $globalConfiguration->get(\Papaya\CMS\CMSConfiguration::CACHE_IMAGES_SERVICE, 'file'),
               'FILESYSTEM_PATH' =>
-              $globalConfiguration->get(\Papaya\Configuration\CMS::PATH_CACHE),
+              $globalConfiguration->get(\Papaya\CMS\CMSConfiguration::PATH_CACHE),
               'FILESYSTEM_NOTIFIER_SCRIPT' =>
-              $configuration->get(\Papaya\Configuration\CMS::CACHE_NOTIFIER, ''),
+              $configuration->get(\Papaya\CMS\CMSConfiguration::CACHE_NOTIFIER, ''),
               'MEMCACHE_SERVERS' =>
-              $globalConfiguration->get(\Papaya\Configuration\CMS::CACHE_IMAGES_MEMCACHE_SERVERS),
+              $globalConfiguration->get(\Papaya\CMS\CMSConfiguration::CACHE_IMAGES_MEMCACHE_SERVERS),
             ]
           );
           return self::getService($configuration, $static);

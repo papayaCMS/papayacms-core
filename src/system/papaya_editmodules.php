@@ -66,7 +66,7 @@ class papaya_editmodules extends base_db {
   private $_moduleGuid;
 
   /**
-   * @var \Papaya\Administration\UI
+   * @var \Papaya\CMS\Administration\UI
    */
   public $administrationUI;
 
@@ -136,7 +136,7 @@ class papaya_editmodules extends base_db {
         $this->_moduleInstance = $this->papaya()->plugins->get(
           $this->module['module_guid'], $this->administrationUI
         );
-        if ($this->_moduleInstance instanceof \Papaya\Administration\Page) {
+        if ($this->_moduleInstance instanceof \Papaya\CMS\Administration\Page) {
 
         } elseif ($this->_moduleInstance instanceof base_module) {
           $this->_moduleInstance->administrationUI = $this->administrationUI;
@@ -150,7 +150,7 @@ class papaya_editmodules extends base_db {
               'PAGE_TITLE' =>
                 $this->_gt('Applications').' - '.$this->module['module_title'],
               'PAGE_ICON' =>
-              \Papaya\Administration\UI::EXTENSIONS_IMAGE.'?size=22&module='.urlencode($this->module['module_guid'])
+              \Papaya\CMS\Administration\UI::EXTENSIONS_IMAGE.'?size=22&module='.urlencode($this->module['module_guid'])
             )
           );
           return TRUE;
@@ -184,7 +184,7 @@ class papaya_editmodules extends base_db {
   */
   function execute() {
     if (isset($this->_moduleInstance) && is_object($this->_moduleInstance)) {
-      if ($this->_moduleInstance instanceof Papaya\Administration\Page) {
+      if ($this->_moduleInstance instanceof Papaya\CMS\Administration\Page) {
         $this->_moduleInstance->execute();
       } elseif (method_exists($this->_moduleInstance, 'execModule')) {
         $this->_moduleInstance->execModule();
@@ -268,7 +268,7 @@ class papaya_editmodules extends base_db {
             $msg = $this->_gt('Missing tables - Go to module managment?');
             $dialog = new base_msgdialog($this, 'mods', $hidden, $msg, 'warning');
             $dialog->buttonTitle = 'Goto';
-            $dialog->baseLink = \Papaya\Administration\UI::ADMINISTRATION_PLUGINS;
+            $dialog->baseLink = \Papaya\CMS\Administration\UI::ADMINISTRATION_PLUGINS;
             if ($str = $dialog->getMsgDialog()) {
               $this->administrationUI->template()->add($str);
             }
@@ -312,7 +312,7 @@ class papaya_editmodules extends base_db {
         foreach ($modules as $id) {
           $module = $this->modules[$id];
           if (trim($module['module_glyph']) != '') {
-            $glyph = \Papaya\Administration\UI::EXTENSIONS_IMAGE.'?module='.urlencode($module['module_guid']);
+            $glyph = \Papaya\CMS\Administration\UI::EXTENSIONS_IMAGE.'?module='.urlencode($module['module_guid']);
           } else {
             $glyph = '';
           }
@@ -321,7 +321,7 @@ class papaya_editmodules extends base_db {
             '<listitem image="%s" href="%s" title="%s" subtitle="%s">',
             papaya_strings::escapeHTMLChars($glyph),
             papaya_strings::escapeHTMLChars(
-              Papaya\Administration\UI::EXTENSIONS.'.'.$module['module_guid']
+              Papaya\CMS\Administration\UI::EXTENSIONS.'.'.$module['module_guid']
             ),
             papaya_strings::escapeHTMLChars($module['module_title']),
             papaya_strings::escapeHTMLChars($basePath.'/...')
@@ -331,7 +331,7 @@ class papaya_editmodules extends base_db {
               '<subitem align="center"><a href="%s"><glyph src="%s" hint="%s"/></a></subitem>',
               papaya_strings::escapeHTMLChars(
                 sprintf(
-                  Papaya\Administration\UI::EXTENSIONS.'?p/cmd=%s&p/module_id=%s',
+                  Papaya\CMS\Administration\UI::EXTENSIONS.'?p/cmd=%s&p/module_id=%s',
                   'switch_favorite',
                   $id
                 )
@@ -344,7 +344,7 @@ class papaya_editmodules extends base_db {
               '<subitem align="center"><a href="%s"><glyph src="%s" hint="%s"/></a></subitem>',
               papaya_strings::escapeHTMLChars(
                 sprintf(
-                  Papaya\Administration\UI::EXTENSIONS.'?p/cmd=%s&p/module_id=%s',
+                  Papaya\CMS\Administration\UI::EXTENSIONS.'?p/cmd=%s&p/module_id=%s',
                   'switch_favorite',
                   $id
                 )
@@ -374,7 +374,7 @@ class papaya_editmodules extends base_db {
       $sql = "SELECT module_path, module_glyph
                 FROM %s
                WHERE module_guid = '%s'";
-      $tableModules = $this->databaseGetTableName(\Papaya\Content\Tables::MODULES);
+      $tableModules = $this->databaseGetTableName(\Papaya\CMS\Content\Tables::MODULES);
       if ($res = $this->databaseQueryFmt($sql, array($tableModules, $_GET['module']))) {
         if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
           $pattern = '(^((?:script)/)([\w-]+\.(js|vbs|css|html|xml))$)D';

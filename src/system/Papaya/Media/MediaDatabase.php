@@ -20,7 +20,7 @@ namespace Papaya\Media {
   use Papaya\Media\Thumbnail\Calculation\Cover;
   use Papaya\Media\Thumbnail\Calculation\CoverCrop;
   use Papaya\Media\Thumbnail\Calculation\Fixed;
-  use Papaya\UI\Reference\Media as MediaReference;
+  use Papaya\CMS\Reference\Media as MediaReference;
 
   class MediaDatabase implements ApplicationAccess {
 

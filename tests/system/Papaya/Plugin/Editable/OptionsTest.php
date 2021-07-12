@@ -15,7 +15,7 @@
 
 namespace Papaya\Plugin\Editable {
 
-  use Papaya\Plugin\Options as PluginOptions;
+  use Papaya\CMS\Plugin\Options as PluginOptions;
   use Papaya\Test\TestCase;
 
   /**

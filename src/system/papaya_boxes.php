@@ -13,9 +13,9 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration;
+use Papaya\CMS\Administration;
 use Papaya\Cache;
-use Papaya\Content;
+use Papaya\CMS\Content;
 
 /**
 * Manage action boxes
@@ -416,7 +416,7 @@ class papaya_boxes extends base_boxes {
               if (isset($this->params['viewmode'])) {
                 $currentView = $this->params['viewmode'];
               } else {
-                $currentView = $this->papaya()->options->get(\Papaya\Configuration\CMS::URL_EXTENSION, 'html');
+                $currentView = $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::URL_EXTENSION, 'html');
               }
               foreach ($views as $view) {
                 $viewLinks[$view['viewmode_ext']] = $view['viewmode_ext'];
@@ -1536,9 +1536,9 @@ class papaya_boxes extends base_boxes {
       $fields['boxgroup_id'] = array('Group', 'isNum', TRUE, 'combo', $boxGroups);
 
       $deliveryModes = array(
-        \Papaya\Content\Box::DELIVERY_MODE_STATIC => $this->_gt('Static (include in page)'),
-        \Papaya\Content\Box::DELIVERY_MODE_ESI => $this->_gt('Allow reverse proxy embed (ESI)'),
-        \Papaya\Content\Box::DELIVERY_MODE_JAVASCRIPT => $this->_gt('Javascript embed (lazy load)'),
+        \Papaya\CMS\Content\Box::DELIVERY_MODE_STATIC => $this->_gt('Static (include in page)'),
+        \Papaya\CMS\Content\Box::DELIVERY_MODE_ESI => $this->_gt('Allow reverse proxy embed (ESI)'),
+        \Papaya\CMS\Content\Box::DELIVERY_MODE_JAVASCRIPT => $this->_gt('Javascript embed (lazy load)'),
       );
       $fields[] = 'Delivery';
       $fields['box_deliverymode'] = array('Mode', 'isNum', TRUE, 'combo', $deliveryModes);
@@ -1622,7 +1622,7 @@ class papaya_boxes extends base_boxes {
       foreach ($topicIds as $topicId => $title) {
         $result .= sprintf(
           '<listitem href="%s" image="%s" title="%s (#%d)"/>'.LF,
-          $this->getLink(NULL, NULL, Papaya\Administration\UI::PAGES_EDIT, $topicId),
+          $this->getLink(NULL, NULL, Papaya\CMS\Administration\UI::PAGES_EDIT, $topicId),
           papaya_strings::escapeHTMLChars($images['items-page']),
           papaya_strings::escapeHTMLChars($title),
           (int)$topicId
@@ -1741,7 +1741,7 @@ class papaya_boxes extends base_boxes {
         'boxgroup_title' => array('Title', 'isNoHTML', TRUE, 'input', 100, ''),
         'boxgroup_name' => array('Name', 'isAlphaChar', TRUE, 'input', 100, '')
       );
-      if ($this->papaya()->options->get(\Papaya\Configuration\CMS::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
+      if ($this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::FEATURE_BOXGROUPS_LINKABLE, TRUE)) {
         $fields['boxgroup_linkable'] = array('Linkable', 'isNum', TRUE, 'yesno', NULL, '', 0);
       }
       $this->dialogGroup = new base_dialog($this, $this->paramName, $fields, $data, $hidden);

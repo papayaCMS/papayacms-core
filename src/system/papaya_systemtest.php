@@ -472,7 +472,7 @@ class papaya_systemtest {
    * @return integer
    */
   function testDatabaseConnection($title) {
-    /** @var \Papaya\Application\CMS $application */
+    /** @var \Papaya\Application\CMSApplication $application */
     $application = \Papaya\Application::getInstance();
     $database = $application->database->getConnector();
     try {
@@ -493,7 +493,7 @@ class papaya_systemtest {
   */
   function testDatabasePermissions() {
     try {
-      /** @var \Papaya\Application\CMS $application */
+      /** @var \Papaya\Application\CMSApplication $application */
       $application = \Papaya\Application::getInstance();
       $database = $application->database->getConnector();
       if ($database->connect(\Papaya\Database\Connector::MODE_WRITE)) {
@@ -825,7 +825,7 @@ class papaya_systemtest {
           ? papaya_strings::escapeHTMLChars($this->resultTestMessages[$title])
           : ''
       );
-      list($resultStr, $imgIndex) = $this->getResultOuput($testResult);
+      [$resultStr, $imgIndex] = $this->getResultOuput($testResult);
       $result .= sprintf(
         '<subitem><glyph src="%s" hint="%s"/></subitem>'.LF,
         papaya_strings::escapeHTMLChars($this->images[$imgIndex]),

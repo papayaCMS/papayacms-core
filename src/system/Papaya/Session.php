@@ -16,7 +16,7 @@ namespace Papaya {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties;
-  use Papaya\Configuration\CMS;
+  use Papaya\CMS\CMSConfiguration;
   use Papaya\Session\ConsentCookie;
   use Papaya\Session\Id as SessionId;
   use Papaya\Session\Redirect as RedirectAlias;
@@ -256,11 +256,11 @@ namespace Papaya {
      */
     public function isSecureOnly() {
       $options = $this->papaya()->options;
-      if ($options->get(\Papaya\Configuration\CMS::SESSION_SECURE, FALSE)) {
+      if ($options->get(\Papaya\CMS\CMSConfiguration::SESSION_SECURE, FALSE)) {
         return TRUE;
       }
       if (
-        $options->get(\Papaya\Configuration\CMS::UI_SECURE, FALSE) &&
+        $options->get(\Papaya\CMS\CMSConfiguration::UI_SECURE, FALSE) &&
         $this->isAdministration()
       ) {
         return TRUE;
@@ -282,12 +282,12 @@ namespace Papaya {
         }
         if ($isAdministration) {
           $this->setName(
-            'sid'.$this->papaya()->options->get(\Papaya\Configuration\CMS::SESSION_NAME, '').'admin'
+            'sid'.$this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::SESSION_NAME, '').'admin'
           );
           $this->options->cache = Session\Options::CACHE_NONE;
         } else {
           $this->setName(
-            'sid'.$this->papaya()->options->get(\Papaya\Configuration\CMS::SESSION_NAME, '')
+            'sid'.$this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::SESSION_NAME, '')
           );
           $this->options->cache = $this->papaya()->options->get(
             'PAPAYA_SESSION_CACHE', Session\Options::CACHE_PRIVATE
@@ -343,7 +343,7 @@ namespace Papaya {
             'SameSite' => 'Strict',
             'secure' => $this->isSecureOnly(),
             'httponly' => $options->get(
-              \Papaya\Configuration\CMS::SESSION_HTTP_ONLY, $defaults['httponly'] ?? True
+              \Papaya\CMS\CMSConfiguration::SESSION_HTTP_ONLY, $defaults['httponly'] ?? True
             ),
           ]
         );

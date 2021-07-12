@@ -14,6 +14,8 @@
  */
 namespace Papaya;
 
+use Papaya\BaseObject\Interfaces\StringCastable;
+
 /**
  * A superclass for configurations. The actual configuration class needs to extend this class and
  * define option names and default values in the internal $_options array.
@@ -73,6 +75,15 @@ class Configuration
       }
       $this->_options[$name] = $default;
     }
+  }
+
+  /**
+   * @param string $identifier
+   * @param string $path
+   * @return StringCastable|string
+   */
+  public function getPath(string $identifier, string $path = '') {
+    return $path;
   }
 
   /**

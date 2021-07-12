@@ -73,7 +73,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getTableName
    */
   public function testGetTableName() {
-    $tables = $this->createMock(\Papaya\Content\Tables::class);
+    $tables = $this->createMock(\Papaya\CMS\Content\Tables::class);
     $tables
       ->expects($this->once())
       ->method('get')
@@ -88,7 +88,7 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::getTableName
    */
   public function testGetTableNameWithoutPrefix() {
-    $tables = $this->createMock(\Papaya\Content\Tables::class);
+    $tables = $this->createMock(\Papaya\CMS\Content\Tables::class);
     $tables
       ->expects($this->once())
       ->method('get')
@@ -113,9 +113,10 @@ class AccessTest extends \Papaya\TestCase {
    * @covers \Papaya\Database\Access::tables
    */
   public function testTablesGetAfterSet() {
-    $tables = $this->createMock(\Papaya\Content\Tables::class);
+    $tables = $this->createMock(Tables::class);
     $access = new Access(NULL, 'read', 'write');
     $this->assertSame($tables, $access->tables($tables));
+    $this->assertInstanceOf(Tables::class, $access->tables());
   }
 
   /**
@@ -123,7 +124,14 @@ class AccessTest extends \Papaya\TestCase {
    */
   public function testTablesImplicitCreate() {
     $access = new Access(NULL, 'read', 'write');
-    $this->assertInstanceOf(\Papaya\Content\Tables::class, $access->tables());
+    $access->papaya(
+      $this->mockPapaya()->application(
+        [
+          'tables' => $this->createMock(Tables::class)
+        ]
+      )
+    );
+    $this->assertInstanceOf(Tables::class, $access->tables());
   }
 
   /**

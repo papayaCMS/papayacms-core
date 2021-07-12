@@ -14,8 +14,9 @@
  */
 namespace Papaya {
 
-  use Papaya\Configuration\CMS as CMSConfiguration;
+  use Papaya\CMS\CMSConfiguration as CMSConfiguration;
   use Papaya\Request\Content as RequestContent;
+  use Papaya\Request\ContentMode;
   use Papaya\Request\Parameters as RequestParameters;
   use Papaya\Request\Parser as RequestParser;
 
@@ -25,18 +26,9 @@ namespace Papaya {
    * @package Papaya-Library
    * @subpackage Request
    *
-   * @property Content\Language $language
-   * @property Content\View\Mode $mode
    * @property-read URL $url
    * @property-read string $method
    * @property-read bool $allowCompression
-   * @property-read int $pageId
-   * @property-read int $categoryId
-   * @property-read int $languageId
-   * @property-read string $languageIdentifier
-   * @property-read int $modeId
-   * @property-read bool $isPreview
-   * @property bool $isAdministration
    * @property-read RequestContent $content
    * @property-read int $contentLength
    */
@@ -49,35 +41,35 @@ namespace Papaya {
      *
      * @var int
      */
-    const SOURCE_PATH = 1;
+    public const SOURCE_PATH = 1;
 
     /**
      * Parameter source type: query string
      *
      * @var int
      */
-    const SOURCE_QUERY = 2;
+    public const SOURCE_QUERY = 2;
 
     /**
      * Parameter source type: request body ($_POST)
      *
      * @var int
      */
-    const SOURCE_BODY = 4;
+    public const SOURCE_BODY = 4;
 
     /**
      * Parameter source group: body, query, path (in this priority)
      *
      * @var int
      */
-    const SOURCE_ALL = 7;
+    public const SOURCE_ALL = 7;
 
     /**
      * Parameter source type: cookie (not included in SOURCE_ALL)
      *
      * @var int
      */
-    const SOURCE_COOKIE = 8;
+    public const SOURCE_COOKIE = 8;
 
     /**
      * allowed request methods
@@ -115,15 +107,6 @@ namespace Papaya {
     private $_url;
 
     /**
-     * Request url object
-     *
-     * @var URL
-     */
-    private $_language;
-
-    private $_mode;
-
-    /**
      * Request path parameter data
      *
      * @var array
@@ -152,11 +135,6 @@ namespace Papaya {
     private $_content;
 
     /**
-     * @var bool|null
-     */
-    private $_isAdministration;
-
-    /**
      * Create object and set options if given.
      *
      * @param Configuration $options
@@ -176,17 +154,8 @@ namespace Papaya {
       $name = Utility\Text\Identifier::toCamelCase($name);
       switch ($name) {
       case 'url' :
-      case 'language' :
       case 'method' :
       case 'allowCompression' :
-      case 'pageId' :
-      case 'categoryId' :
-      case 'languageId' :
-      case 'languageIdentifier' :
-      case 'mode' :
-      case 'modeId' :
-      case 'isPreview' :
-      case 'isAdministration' :
       case 'content' :
       case 'contentLength' :
         return TRUE;
@@ -208,40 +177,10 @@ namespace Papaya {
       switch ($name) {
       case 'url' :
         return $this->getURL();
-      case 'language' :
-        return $this->language();
       case 'method' :
         return $this->getMethod();
       case 'allowCompression' :
         return $this->allowCompression();
-      case 'pageId' :
-        return $this->getParameter(
-          'page_id',
-          $this->papaya()->options->get(CMSConfiguration::PAGEID_DEFAULT, 0),
-          NULL,
-          self::SOURCE_PATH
-        );
-      case 'categoryId' :
-        return $this->getParameter(
-          'category_id',
-          0,
-          NULL,
-          self::SOURCE_PATH
-        );
-      case 'languageId' :
-        return (int)$this->language->id;
-      case 'languageIdentifier' :
-        return $this->language->identifier;
-      case 'mode' :
-        return $this->mode();
-      case 'modeId' :
-        return $this->mode()->id;
-      case 'isPreview' :
-        return $this->getParameter(
-          'preview', FALSE, NULL, self::SOURCE_PATH
-        );
-      case 'isAdministration' :
-        return NULL !== $this->_isAdministration ? $this->_isAdministration : FALSE;
       case 'content' :
         return $this->content();
       case 'contentLength' :
@@ -263,18 +202,6 @@ namespace Papaya {
      * @throws \LogicException
      */
     public function __set($name, $value) {
-      $name = Utility\Text\Identifier::toCamelCase($name);
-      switch ($name) {
-      case 'language' :
-        $this->language($value);
-        return;
-      case 'mode' :
-        $this->mode($value);
-        return;
-      case 'isAdministration' :
-        $this->_isAdministration = (bool)$value;
-        return;
-      }
       throw new \LogicException(
         \sprintf(
           'Property %s::$%s can not be changed', \get_class($this), $name
@@ -317,67 +244,6 @@ namespace Papaya {
         $this->load(new URL\Current());
       }
       return $this->_url;
-    }
-
-    /**
-     * Getter/Setter for the request language
-     *
-     * @param Content\Language $language
-     *
-     * @return Content\Language
-     */
-    public function language(Content\Language $language = NULL) {
-      if (NULL !== $language) {
-        $this->_language = $language;
-      } elseif (NULL === $this->_language) {
-        $this->_language = new Content\Language();
-        $this->_language->papaya($this->papaya());
-        if ($identifier = $this->getParameter('language', '', NULL, self::SOURCE_PATH)) {
-          $this->_language->activateLazyLoad(
-            ['identifier' => $identifier]
-          );
-        } elseif ($id = $this->papaya()->options->get(CMSConfiguration::CONTENT_LANGUAGE, 0)) {
-          $this->_language->activateLazyLoad(
-            ['id' => $id]
-          );
-        }
-      }
-      return $this->_language;
-    }
-
-    /**
-     * Getter/Setter for view mode object
-     *
-     * @param Content\View\Mode $mode
-     *
-     * @return Content\View\Mode
-     */
-    public function mode(Content\View\Mode $mode = NULL) {
-      if (NULL !== $mode) {
-        $this->_mode = $mode;
-      } elseif (NULL === $this->_mode) {
-        $this->_mode = new Content\View\Mode();
-        $this->_mode->papaya($this->papaya());
-        $extension = $this->getParameter(
-          'output_mode', 'html', NULL, self::SOURCE_PATH
-        );
-        if ('xml' === $extension) {
-          $this->_mode->assign(
-            [
-              'id' => -1,
-              'extension' => 'xml',
-              'type' => 'page',
-              'charset' => 'utf-8',
-              'content_type' => 'application/xml'
-            ]
-          );
-        } else {
-          $this->_mode->activateLazyLoad(
-            ['extension' => $extension]
-          );
-        }
-      }
-      return $this->_mode;
     }
 
     /**
@@ -430,15 +296,7 @@ namespace Papaya {
     public function getParsers() {
       if (empty($this->_parsers)) {
         $this->_parsers = [
-          new Request\Parser\Session(),
-          new Request\Parser\File(),
-          new Request\Parser\System(),
-          new Request\Parser\Page(),
-          new Request\Parser\Thumbnail(),
-          new Request\Parser\Media(),
-          new Request\Parser\Image(),
-          new Request\Parser\Wrapper(),
-          new Request\Parser\Start()
+          new Request\Parser\Session()
         ];
         /** @var RequestParser $parser */
         foreach ($this->_parsers as $parser) {

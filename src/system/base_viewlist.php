@@ -1477,7 +1477,7 @@ class base_viewlist extends base_db {
           $module['module_type'] == 'page' ? 'items-page' : 'items-box',
           $module['module_title']
         );
-      $item->reference()->setRelative(\Papaya\Administration\UI::ADMINISTRATION_PLUGINS);
+      $item->reference()->setRelative(\Papaya\CMS\Administration\UI::ADMINISTRATION_PLUGINS);
       $item->reference()->setParameters(
         array(
           'pkg_id' => $module['modulegroup_id'],
@@ -1773,7 +1773,7 @@ class base_viewlist extends base_db {
    */
   public function loadViewDuplicates() {
     if (isset($this->view) && $this->view['view_id'] > 0) {
-      $views = new \Papaya\Content\Views();
+      $views = new \Papaya\CMS\Content\Views();
       $views->activateLazyLoad(array('checksum' => $this->view['view_checksum']));
       return $views;
     }
@@ -2057,7 +2057,7 @@ class base_viewlist extends base_db {
                 $this->getLink(
                   array('page_id' => (int)$viewLimit['topic_id']),
                   'tt',
-                  Papaya\Administration\UI::PAGES_EDIT
+                  Papaya\CMS\Administration\UI::PAGES_EDIT
                 )
               ),
               papaya_strings::escapeHTMLChars($this->_gt('View Page')),

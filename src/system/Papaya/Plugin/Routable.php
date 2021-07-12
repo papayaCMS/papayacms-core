@@ -1,8 +1,8 @@
 <?php
-/**
+/*
  * papaya CMS
  *
- * @copyright 2000-2019 by papayaCMS project - All rights reserved.
+ * @copyright 2000-2021 by papayaCMS project - All rights reserved.
  * @link http://www.papaya-cms.com/
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  *

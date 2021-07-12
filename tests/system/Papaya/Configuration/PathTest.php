@@ -13,14 +13,18 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Configuration;
+namespace Papaya\CMS\Configuration;
+
+use Papaya\CMS\Theme\Handler as ThemeHandler;
 
 require_once __DIR__.'/../../../bootstrap.php';
 
+/**
+ * @covers \Papaya\CMS\Configuration\Path
+ */
 class PathTest extends \Papaya\TestCase {
 
   /**
-   * @covers \Papaya\Configuration\Path
    * @backupGlobals enabled
    * @dataProvider providePathSamples
    * @param string $expected
@@ -48,11 +52,8 @@ class PathTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Configuration\Path
-   */
   public function testPathThemeCallsThemeHandler() {
-    $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
+    $themeHandler = $this->createMock(ThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getLocalPath')
@@ -64,11 +65,8 @@ class PathTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Configuration\Path
-   */
   public function testPathCurrentThemeCallsThemeHandler() {
-    $themeHandler = $this->createMock(\Papaya\Theme\Handler::class);
+    $themeHandler = $this->createMock(ThemeHandler::class);
     $themeHandler
       ->expects($this->once())
       ->method('getLocalThemePath')
@@ -80,35 +78,23 @@ class PathTest extends \Papaya\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Configuration\Path::themeHandler
-   */
   public function testThemeHandlerGetAfterSet() {
     $path = new Path('', '');
-    $path->themeHandler($handler = $this->createMock(\Papaya\Theme\Handler::class));
+    $path->themeHandler($handler = $this->createMock(ThemeHandler::class));
     $this->assertSame($handler, $path->themeHandler());
   }
 
-  /**
-   * @covers \Papaya\Configuration\Path::themeHandler
-   */
   public function testThemeHandlerGetImplicitCreate() {
     $path = new Path('', '');
-    $this->assertInstanceOf(\Papaya\Theme\Handler::class, $path->themeHandler());
+    $this->assertInstanceOf(ThemeHandler::class, $path->themeHandler());
   }
 
-  /**
-   * @covers \Papaya\Configuration\Path::isIdentifier
-   */
   public function testIsIdentiferExpectingTrue() {
     $this->assertTrue(
       Path::isIdentifier(Path::PATH_INSTALLATION)
     );
   }
 
-  /**
-   * @covers \Papaya\Configuration\Path::isIdentifier
-   */
   public function testIsIdentiferExpectingFalse() {
     $this->assertFalse(
       Path::isIdentifier('###')

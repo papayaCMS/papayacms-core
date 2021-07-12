@@ -15,7 +15,6 @@
 
 namespace Papaya\Database {
 
-  use Papaya\Content\Tables as ContentTables;
   use Papaya\Database\Statement\Formatted as FormattedStatement;
   use Papaya\Database\Statement\Limited as LimitedStatement;
   use Papaya\Database\Statement\Prepared as PreparedStatement;
@@ -175,7 +174,10 @@ namespace Papaya\Database {
      * @return bool
      */
     public function getTableName($tableName, $usePrefix = TRUE) {
-      return $this->tables()->get($tableName, $usePrefix);
+      if ($tables = $this->tables()) {
+        return $tables->get($tableName, $usePrefix);
+      }
+      return $tableName;
     }
 
     /**
@@ -191,15 +193,18 @@ namespace Papaya\Database {
     /**
      * Get table name mapper object
      *
-     * @param ContentTables $tables
-     *
-     * @return ContentTables
+     * @param Tables|NULL $tables
+     * @return Tables
      */
-    public function tables(ContentTables $tables = NULL) {
+    public function tables(Tables $tables = NULL): ?Tables {
       if (NULL !== $tables) {
         $this->_tables = $tables;
       } elseif (NULL === $this->_tables) {
-        $this->_tables = new ContentTables();
+        if (isset($this->papaya()->tables)) {
+          $this->_tables = $this->papaya()->tables;
+        } else {
+          return null;
+        }
       }
       return $this->_tables;
     }
@@ -244,7 +249,7 @@ namespace Papaya\Database {
       }
       $switchOption = 0;
       if ($options = $this->papaya()->options) {
-        $switchOption = $options->get(\Papaya\Configuration\CMS::DATABASE_CLUSTER_SWITCH, $switchOption);
+        $switchOption = $options->get(\Papaya\CMS\CMSConfiguration::DATABASE_CLUSTER_SWITCH, $switchOption);
       }
       switch ($switchOption) {
         /** @noinspection PhpMissingBreakStatementInspection */

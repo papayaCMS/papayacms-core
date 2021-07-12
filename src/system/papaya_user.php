@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
+use Papaya\CMS\Administration\Permissions;
 
 /**
 * User class for papaya

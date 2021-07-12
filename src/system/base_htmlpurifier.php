@@ -42,7 +42,7 @@
 *
 * </code>
 *
-* @see configuration http://htmlpurifier.org/live/configdoc/plain.html
+* @see CMSConfiguration http://htmlpurifier.org/live/configdoc/plain.html
 * @see enduse doc http://htmlpurifier.org/docs/
 *
 * @copyright 2002-2007 by papaya Software GmbH - All rights reserved.

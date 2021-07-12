@@ -86,7 +86,7 @@ abstract class base_statictables {
   * @return array
   */
   public static function getTableLogGroups() {
-    return iterator_to_array(new \Papaya\Content\Protocol\ProtocolGroups());
+    return iterator_to_array(new \Papaya\CMS\Content\Protocol\ProtocolGroups());
   }
 
   /**

@@ -16,23 +16,23 @@
 /**
 * No special handling
 */
-define('PAPAYA_DOMAIN_MODE_DEFAULT', \Papaya\Content\Domain::MODE_DEFAULT);
+define('PAPAYA_DOMAIN_MODE_DEFAULT', \Papaya\CMS\Content\Domain::MODE_DEFAULT);
 /**
 * redirect to another domain - keep request uri
 */
-define('PAPAYA_DOMAIN_MODE_DOMAIN', \Papaya\Content\Domain::MODE_REDIRECT_DOMAIN);
+define('PAPAYA_DOMAIN_MODE_DOMAIN', \Papaya\CMS\Content\Domain::MODE_REDIRECT_DOMAIN);
 /**
 * redirct to a specific page on antoher domain
 */
-define('PAPAYA_DOMAIN_MODE_PAGE', \Papaya\Content\Domain::MODE_REDIRECT_PAGE);
+define('PAPAYA_DOMAIN_MODE_PAGE', \Papaya\CMS\Content\Domain::MODE_REDIRECT_PAGE);
 /**
 * redirect to a start page in a specific language
 */
-define('PAPAYA_DOMAIN_MODE_LANG', \Papaya\Content\Domain::MODE_REDIRECT_LANGUAGE);
+define('PAPAYA_DOMAIN_MODE_LANG', \Papaya\CMS\Content\Domain::MODE_REDIRECT_LANGUAGE);
 /**
 * restrict access to a part of the page tree
 */
-define('PAPAYA_DOMAIN_MODE_TREE', \Papaya\Content\Domain::MODE_VIRTUAL_DOMAIN);
+define('PAPAYA_DOMAIN_MODE_TREE', \Papaya\CMS\Content\Domain::MODE_VIRTUAL_DOMAIN);
 
 /**
 * domain management basic class

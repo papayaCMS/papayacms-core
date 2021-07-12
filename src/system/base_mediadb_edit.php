@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Media\Folder;
+use Papaya\CMS\Content\Media\Folder;
 
 /**
 * Basic class for media db file handling - creating, modifying

@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Configuration\CMS as CMSSettings;
+use Papaya\CMS\CMSConfiguration as CMSSettings;
 use Papaya\Graphics\Color;
 use Papaya\Graphics\ImageTypes;
 

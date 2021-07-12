@@ -111,7 +111,7 @@ abstract class Item extends UI\Control\Collection\Item {
         $collection = $this->collection();
         $this->_reference = clone $collection->reference();
       } else {
-        $this->_reference = new UI\Reference\Page();
+        $this->_reference = new UI\Reference();
         $this->_reference->papaya($this->papaya());
       }
     }

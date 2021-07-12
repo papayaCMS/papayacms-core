@@ -13,7 +13,7 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Content\Link\Types as LinkTypes;
+use Papaya\CMS\Content\Link\Types as LinkTypes;
 use Papaya\Iterator\Filter;
 
 /**

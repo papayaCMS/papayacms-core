@@ -13,8 +13,8 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-use Papaya\Administration\Permissions;
-use Papaya\Application\CMS;
+use Papaya\CMS\Administration\Permissions;
+use Papaya\Application\CMSApplication;
 
 /**
 * Tags Administration
@@ -129,7 +129,7 @@ class papaya_taglinks extends base_tags {
    * @return object $tagLinks instance of base_taglinks
    */
   public static function getInstance($parentObj = NULL, $paramName = NULL) {
-    /** @var CMS $application */
+    /** @var CMSApplication $application */
     $application = \Papaya\Application::getInstance();
     $validUser = $application->administrationUser->hasPerm(
       Permissions::TAG_MANAGE

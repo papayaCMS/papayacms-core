@@ -14,7 +14,6 @@
  */
 namespace Papaya\UI\Text;
 
-use Papaya\Phrases;
 use Papaya\UI;
 use Papaya\Utility;
 
@@ -95,7 +94,10 @@ class Translated extends UI\Text {
     if (NULL !== $this->_phrases) {
       return $this->_phrases->getText($string, $this->_phrasesGroupName);
     }
-    if ($phrases = $application->administrationPhrases) {
+    if (
+      isset($application->administrationPhrases) &&
+      ($phrases = $application->administrationPhrases)
+    ) {
       return $phrases->getText($string, $this->_phrasesGroupName);
     }
     return $string;
