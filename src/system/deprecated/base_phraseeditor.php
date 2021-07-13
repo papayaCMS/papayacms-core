@@ -868,10 +868,9 @@ class base_phraseeditor extends base_db {
               if (isset($this->languages[$lngId]) &&
                   is_array($this->languages[$lngId])) {
                 $lng = $this->languages[$lngId];
-                if ($lng['lng_glyph'] != '' &&
-                    file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['lng_glyph'])) {
+                if ($lng['lng_glyph'] !== '') {
                   $result .= sprintf(
-                    '<glyph src="./pics/language/%s" hint="%s"/>  ',
+                    '<glyph src="i18n-icon.%s" hint="%s"/>  ',
                     papaya_strings::escapeHTMLChars($lng['lng_glyph']),
                     papaya_strings::escapeHTMLChars($translation)
                   );

@@ -14,6 +14,7 @@
  */
 namespace Papaya\CMS\Administration\Languages;
 
+use Papaya\CMS\Administration\UI\Navigation\Reference\LanguageIcon;
 use Papaya\CMS\Content;
 use Papaya\UI;
 use Papaya\XML;
@@ -83,7 +84,7 @@ class Selector extends UI\Control\Interactive {
         return $this->getCurrent()->$name;
       case 'image' :
         $image = $this->getCurrent()->image;
-        return empty($image) ? '' : './pics/language/'.$image;
+        return empty($image) ? '' : new LanguageIcon($image);
     }
     throw new \LogicException(
       \sprintf(
@@ -125,7 +126,7 @@ class Selector extends UI\Control\Interactive {
         [
           'href' => $reference->getRelative(),
           'title' => $language['title'],
-          'image' => $language['image']
+          'image' => new LanguageIcon($language['image'])
         ]
       );
       if ((string)$current->id === (string)$id) {

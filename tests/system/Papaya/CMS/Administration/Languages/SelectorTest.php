@@ -85,7 +85,7 @@ class SelectorTest extends \Papaya\TestFramework\TestCase {
         )
       )
     );
-    $this->assertEquals('./pics/language/us.gif', $switch->image);
+    $this->assertEquals('i18n-icon.us.gif', (string)$switch->image);
   }
 
   /**
@@ -249,9 +249,11 @@ class SelectorTest extends \Papaya\TestFramework\TestCase {
           <link 
             href="http://www.test.tld/test.html?lngsel[language_select]=21" 
             title="English" 
-            image="us.gif" 
+            image="i18n-icon.us.gif" 
             selected="selected"/>
-          <link href="http://www.test.tld/test.html?lngsel[language_select]=23" title="German" image="de.gif"/>
+          <link href="http://www.test.tld/test.html?lngsel[language_select]=23" 
+            title="German" 
+            image="i18n-icon.de.gif"/>
         </links>
       </sample>',
       $document->saveXML($document->documentElement)

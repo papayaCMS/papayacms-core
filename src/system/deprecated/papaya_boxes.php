@@ -2683,10 +2683,9 @@ class papaya_boxes extends base_boxes {
     }
     $result .= '</listitem>';
     foreach ($this->papaya()->languages as $lngId => $lng) {
-      if ($lng['image'] != '' &&
-          file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['image'])) {
+      if ($lng['image'] !== '') {
         $image = sprintf(
-          ' image="./pics/language/%s"',
+          ' image="./i18n-icon.%s"',
           papaya_strings::escapeHTMLChars($lng['image'])
         );
       } else {
@@ -2829,7 +2828,7 @@ class papaya_boxes extends base_boxes {
       foreach ($this->papaya()->languages as $languageId => $language) {
         if ($language['is_content'] || isset($this->box['TRANSLATIONINFOS'][$languageId])) {
           $listview->items[] = $item = new \Papaya\UI\ListView\Item(
-            './pics/language/'.$language['image'],
+            './i18n-icon.'.$language['image'],
             $language['title'].' ('.$language['code'].')'
           );
           $item->columnSpan = 2;
@@ -2911,7 +2910,7 @@ class papaya_boxes extends base_boxes {
           if (isset($this->papaya()->languages[$languageId])) {
             $language = $this->papaya()->languages[$languageId];
             $listview->items[] = $item = $aggregation = new \Papaya\UI\ListView\Item(
-              './pics/language/'.$language['image'],
+              './i18n-icon.'.$language['image'],
               $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 0;

@@ -1470,7 +1470,7 @@ class base_viewlist extends base_db {
   public function getViewModuleInfos() {
     if (isset($this->view) && isset($this->modules[$this->view['module_guid']])) {
       $module = $this->modules[$this->view['module_guid']];
-      $listview = new \Papaya\UI\ListView($module);
+      $listview = new \Papaya\UI\ListView();
       $listview->caption = new \Papaya\UI\Text\Translated('Module');
       $listview->items[] = $item =
         new \Papaya\UI\ListView\Item(
@@ -1855,7 +1855,7 @@ class base_viewlist extends base_db {
         foreach ($this->papaya()->languages as $lngId => $language) {
           if ($language['is_content']) {
             $listview->items[] = $item = new \Papaya\UI\ListView\Item(
-              './pics/language/'.$language['image'], $language['title'].' ('.$language['code'].')'
+              './i18n-icon.'.$language['image'], $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 1;
             $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(
@@ -1882,7 +1882,7 @@ class base_viewlist extends base_db {
         foreach ($this->papaya()->languages as $lngId => $language) {
           if ($language['is_content']) {
             $listview->items[] = $item = new \Papaya\UI\ListView\Item(
-              './pics/language/'.$language['image'], $language['title'].' ('.$language['code'].')'
+              './i18n-icon.'.$language['image'], $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 1;
             $item->subitems[] = new \Papaya\UI\ListView\SubItem\Text(

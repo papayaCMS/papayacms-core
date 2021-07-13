@@ -15,6 +15,7 @@
 namespace Papaya\CMS\Administration\Languages;
 
 use Papaya\Application;
+use Papaya\CMS\Administration\UI\Navigation\Reference\LanguageIcon;
 use Papaya\Utility;
 
 /**
@@ -72,7 +73,7 @@ class Image  implements Application\Access {
         }
       }
       if ($this->_language) {
-        $this->_image = './pics/language/'.$this->_language['image'];
+        $this->_image = new LanguageIcon($this->_language['image']);
       }
     }
     return (string)$this->_image;

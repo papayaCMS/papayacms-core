@@ -1153,7 +1153,7 @@ class papaya_tags extends base_tags {
 
         $result .= sprintf(
           '<listitem image="%s/%s" href="%s" title="%s (%d)" %s>'.LF,
-          './pics/language',
+          './i18n-icon.',
           papaya_strings::escapeHTMLChars(
             $this->papaya()->languages->getLanguage($tag['lng_id'])->image
           ),

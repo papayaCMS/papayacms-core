@@ -358,12 +358,11 @@ class base_languages extends base_db {
           papaya_strings::escapeHTMLChars($lng['lng_title']),
           $selected
         );
-        if ($lng['lng_glyph'] != '' &&
-            file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['lng_glyph'])) {
+        if ($lng['lng_glyph'] !== '') {
           $result .= '<subitem>';
           $result .= sprintf(
             '<glyph src="%s"/>',
-            papaya_strings::escapeHTMLChars('./pics/language/'.$lng['lng_glyph'])
+            papaya_strings::escapeHTMLChars('./i18n-icon.'.$lng['lng_glyph'])
           );
           $result .= '</subitem>';
         } else {
@@ -401,7 +400,7 @@ class base_languages extends base_db {
         $data = array();
         $caption = 'Add';
       }
-      $path = $this->getBasePath(TRUE).'pics/language/';
+      $path = dirname(__DIR__).'/Papaya/CMS/Administration/Assets/I18N/Icons/';
       $fields = array(
         'lng_short' => array('Language', '/^[a-z]{2,3}-[a-z]{2,3}$/i', TRUE,
           'input', 7, '', 'en-US'),

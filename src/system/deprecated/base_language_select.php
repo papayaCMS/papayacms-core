@@ -230,7 +230,9 @@ class base_language_select extends base_db {
     if (empty($image)) {
       return '';
     } else {
-      return './pics/language/'.$image;
+      return new \Papaya\CMS\Administration\UI\Navigation\Reference\LanguageIcon(
+        $image
+      );
     }
   }
 

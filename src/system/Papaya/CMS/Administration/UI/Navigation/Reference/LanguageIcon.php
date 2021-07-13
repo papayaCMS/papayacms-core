@@ -32,7 +32,7 @@ namespace Papaya\CMS\Administration\UI\Navigation\Reference {
       if ($this->_icon === '') {
         return '';
       }
-       return UI::ICON_LANGUAGE.'/'.$this->_icon;
+       return UI::ICON_LANGUAGE.'.'.$this->_icon;
     }
   }
 }

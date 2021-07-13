@@ -73,6 +73,7 @@ namespace Papaya\CMS\Administration\Settings\Icons {
         'emblem: remove' => 'items.folder.remove',
         'disabled, emblem: add' => 'items.folder.disabled,add',
         'emblem: add, disabled' => 'items.folder.add,disabled',
+        'emblems: public, blocked' => 'items.page.public,blocked',
       ];
       foreach ($examples as $name => $example) {
         $iconRoute = implode('.', [AdministrationUI::ICON, $example]);
@@ -95,21 +96,29 @@ namespace Papaya\CMS\Administration\Settings\Icons {
               $sizesAvailable[$type] = [];
             }
           }
-          $image = 'pics/tpoint.gif';
           $imageCount++;
           $iconRoute = implode('.', [AdministrationUI::ICON, $groupName, $iconName]);
           $listView->items[] = $item = new UI\ListView\Item(
             implode('.', [AdministrationUI::ICON, $groupName, $iconName]), $iconName
           );
           $item->hint = $iconRoute;
-          $item->text = \sprintf(
-            'SVG: %s, PNG: %s',
-            \implode(', ', array_keys($sizesAvailable['svg'] ?? [])),
-            \implode(', ', array_keys($sizesAvailable['png'] ?? []))
-          );
-          if (\count($sizesAvailable['svg']) < \count($sizesAvailable['png'])) {
-            $item->subitems[] = new UI\ListView\SubItem\Image('status-dialog-warning');
+          $text = '';
+          if ($sizesAvailable['svg'] && $sizesAvailable['png']) {
+            $text .= \sprintf(
+              'SVG: %s, PNG: %s',
+              \implode(', ', array_keys($sizesAvailable['svg'] ?? [])),
+              \implode(', ', array_keys($sizesAvailable['png'] ?? []))
+            );
+          } else {
+            $text .= implode(
+              ', ',
+              array_merge(
+                array_keys($sizesAvailable['svg'] ?? []),
+                array_keys($sizesAvailable['png'] ?? [])
+              )
+            );
           }
+          $item->text = $text;
         }
         $listView->caption = \sprintf(
           '%s (%s: %d)',

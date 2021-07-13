@@ -3472,7 +3472,7 @@ class base_topic_edit extends base_topic {
     foreach ($this->papaya()->languages as $languageId => $language) {
       if ($language['is_content'] || isset($this->topic['TRANSLATIONINFOS'][$languageId])) {
         $listview->items[] = $item = new \Papaya\UI\ListView\Item(
-          './pics/language/'.$language['image'],
+          'i18n-icon.'.$language['image'],
           $language['title'].' ('.$language['code'].')'
         );
         $item->columnSpan = 2;
@@ -3560,7 +3560,7 @@ class base_topic_edit extends base_topic {
           if (isset($this->papaya()->languages[$languageId])) {
             $language = $this->papaya()->languages[$languageId];
             $listview->items[] = $item = $aggregation = new \Papaya\UI\ListView\Item(
-              './pics/language/'.$language['image'],
+              'i18n-icon.'.$language['image'],
               $language['title'].' ('.$language['code'].')'
             );
             $item->indentation = 0;
@@ -3816,10 +3816,9 @@ class base_topic_edit extends base_topic {
         papaya_strings::escapeHTMLChars($this->savedVersion['topic_weight'])
       );
       foreach ($this->papaya()->languages as $lngId => $lng) {
-        if ($lng['image'] != '' &&
-            file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['image'])) {
+        if ($lng['image'] !== '') {
           $image = sprintf(
-            ' image="./pics/language/%s"',
+            ' image="./i18n-icon.%s"',
             papaya_strings::escapeHTMLChars($lng['image'])
           );
         } else {
@@ -4250,10 +4249,9 @@ class base_topic_edit extends base_topic {
     }
     $result .= '</listitem>';
     foreach ($this->papaya()->languages as $lngId => $lng) {
-      if ($lng['image'] != '' &&
-          file_exists($this->getBasePath(TRUE).'pics/language/'.$lng['image'])) {
+      if ($lng['image'] !== '') {
         $image = sprintf(
-          ' image="./pics/language/%s"',
+          ' image="./i18n-icon.%s"',
           papaya_strings::escapeHTMLChars($lng['image'])
         );
       } else {

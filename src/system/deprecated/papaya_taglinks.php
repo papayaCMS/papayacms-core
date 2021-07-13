@@ -1200,7 +1200,7 @@ class papaya_taglinks extends base_tags {
           papaya_strings::escapeHTMLChars($categories[$tag['category_id']]['category_title'])
         );
         $result .= sprintf(
-          '<listitem image="./pics/language/%s" title="%s (%d)" id="tags_available_%d">'.LF,
+          '<listitem image="./i18n-icon.%s" title="%s (%d)" id="tags_available_%d">'.LF,
           papaya_strings::escapeHTMLChars(
             $this->papaya()->languages[$tag['lng_id']]['image']
           ),

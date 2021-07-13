@@ -146,7 +146,7 @@ namespace Papaya\CMS\Administration {
 
     public const ICON_MIMETYPE = self::ICON.'.mimetypes';
 
-    public const ICON_LANGUAGE = './pics/language';
+    public const ICON_LANGUAGE = 'i18n-icon';
 
     /**
      * @var string
@@ -298,12 +298,15 @@ namespace Papaya\CMS\Administration {
                 ),
               ]
             ),
+            self::ICON_LANGUAGE => new UI\Route\LanguageIcon(
+              __DIR__.'/Assets/I18N/Icons'
+            ),
             self::ICON => new Route\Gzip(
               new UI\Route\Cache(
                 new UI\Route\Icon(__DIR__.'/Assets/Icons'),
                 isset($_GET['size']) && \in_array((int)$_GET['size'], UI\Route\Icon::SIZES, TRUE)
                   ? (int)$_GET['size'] : 16,
-                $cacheTime,
+                1, //$cacheTime,
                 UI\Route\Cache::CACHE_PUBLIC
               )
             ),

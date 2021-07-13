@@ -56,7 +56,7 @@ class ImageTest extends \Papaya\TestFramework\TestCase {
     $image->papaya(
       $this->mockPapaya()->application(array('administrationLanguage' => $switch))
     );
-    $this->assertEquals('./pics/language/sample.png', (string)$image);
+    $this->assertEquals('i18n-icon.sample.png', (string)$image);
   }
 
   /**
@@ -79,7 +79,7 @@ class ImageTest extends \Papaya\TestFramework\TestCase {
     $image->papaya(
       $this->mockPapaya()->application(array('administrationLanguage' => $switch))
     );
-    $this->assertEquals('./pics/language/sample.png', (string)$image);
+    $this->assertEquals('i18n-icon.sample.png', (string)$image);
   }
 
   /**
