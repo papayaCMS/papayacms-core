@@ -131,15 +131,18 @@ namespace Papaya\CMS\Administration\UI\Route {
       $document->registerNamespace('xlink', 'http://www.w3.org/1999/xlink');
       if ('disabled' === $name) {
         $group = $svg
-          ->appendElement('g', ['opacity' => '0.75', 'filter' => 'url(#disabled)']);
+          ->appendElement('svg:g', ['opacity' => '0.75', 'filter' => 'url(#disabled)']);
         foreach ($document->xpath()->evaluate('svg:*[not(self::svg:defs)]', $svg) as $node) {
+          if ($node === $group) {
+            continue;
+          }
           $group->appendChild($node);
         }
         $svg
-          ->appendElement('defs')
-          ->appendElement('filter', ['id' => 'disabled'])
+          ->appendElement('svg:defs')
+          ->appendElement('svg:filter', ['id' => 'disabled'])
           ->appendElement(
-            'feColorMatrix',
+            'svg:feColorMatrix',
             [
               'type' => 'matrix',
               'values' => '0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'
@@ -152,7 +155,7 @@ namespace Papaya\CMS\Administration\UI\Route {
         $modifierDocument = new Document();
         $modifierDocument->load($modifierFile);
         $modifierDocument->registerNamespace('svg', 'http://www.w3.org/2000/svg');
-        $group = $svg->appendElement('g');
+        $group = $svg->appendElement('svg:g');
         foreach ($modifierDocument->xpath()->evaluate('(/svg:svg/svg:*)') as $node) {
           $group->appendChild($document->importNode($node, TRUE));
         }

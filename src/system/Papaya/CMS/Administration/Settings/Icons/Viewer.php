@@ -72,6 +72,7 @@ namespace Papaya\CMS\Administration\Settings\Icons {
         'emblem: add' => 'items.folder.add',
         'emblem: remove' => 'items.folder.remove',
         'disabled, emblem: add' => 'items.folder.disabled,add',
+        'emblem: add, disabled' => 'items.folder.add,disabled',
       ];
       foreach ($examples as $name => $example) {
         $iconRoute = implode('.', [AdministrationUI::ICON, $example]);
