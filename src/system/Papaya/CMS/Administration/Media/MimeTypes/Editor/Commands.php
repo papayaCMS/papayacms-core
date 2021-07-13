@@ -79,9 +79,7 @@ namespace Papaya\CMS\Administration\Media\MimeTypes\Editor {
     }
 
     public function getLocalIconPath() {
-      $path = FilePathUtilities::getBasePath(TRUE);
-      $path .= $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::PATH_ADMIN, '/papaya');
-      $path .= '/pics/icons/16x16/mimetypes';
+      $path = dirname(__DIR__, 3).'/Assets/Icons/16x16/mimetypes';
       return FilePathUtilities::cleanup($path, FALSE);
     }
   }

@@ -113,7 +113,7 @@ class papaya_installer extends base_db {
   * @access public
   */
   function initialize() {
-    $this->pathFrameworkRoot = dirname(dirname(__FILE__)).'/';
+    $this->pathFrameworkRoot = dirname(__DIR__, 2).'/';
     $this->installationPath = papaya_systemtest::infoInstallPath();
     $this->sessionParamName = 'PAPAYA_SESS_'.$this->paramName;
     $this->initializeParams();
