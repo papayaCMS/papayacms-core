@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="48" width="48">
+ <defs>
+  <radialGradient xlink:href="#a" id="j" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-2.77439 0 0 1.9697 112.762 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="i" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1891.633 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-opacity="0"/>
+   <stop offset=".5"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="h" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1892.179 -872.885)" x1="302.857" y1="366.648" x2="302.857" y2="609.505"/>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#f8f8f8"/>
+  </linearGradient>
+  <radialGradient id="g" cx="20.892" cy="64.568" r="5.257" fx="20.892" fy="64.568" gradientUnits="userSpaceOnUse">
+   <stop offset="0" stop-color="#f0f0f0"/>
+   <stop offset="1" stop-color="#9a9a9a"/>
+  </radialGradient>
+  <radialGradient id="f" cx="20.892" cy="114.568" r="5.256" fx="20.892" fy="114.568" gradientUnits="userSpaceOnUse">
+   <stop offset="0" stop-color="#f0f0f0"/>
+   <stop offset="1" stop-color="#9a9a9a"/>
+  </radialGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#a3a3a3"/>
+   <stop offset="1" stop-color="#4c4c4c"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#fafafa"/>
+   <stop offset="1" stop-color="#bbb"/>
+  </linearGradient>
+  <radialGradient xlink:href="#c" id="l" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.96827 0 0 1.03277 3.354 .646)" cx="8.824" cy="3.756" fx="8.824" fy="3.756" r="37.752"/>
+  <radialGradient xlink:href="#d" id="k" gradientUnits="userSpaceOnUse" gradientTransform="scale(.9605 1.04113)" cx="33.967" cy="35.737" fx="33.967" fy="35.737" r="86.708"/>
+  <radialGradient xlink:href="#e" id="m" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.96827 0 0 1.03277 3.354 .646)" cx="8.144" cy="7.268" fx="8.144" fy="7.268" r="38.159"/>
+  <radialGradient r="5.256" fy="114.568" fx="20.892" cy="114.568" cx="20.892" gradientTransform="translate(4.614 3.98) scale(.2297)" gradientUnits="userSpaceOnUse" id="n" xlink:href="#f"/>
+  <radialGradient r="5.257" fy="64.568" fx="20.892" cy="64.568" cx="20.892" gradientTransform="translate(4.614 3.98) scale(.2297)" gradientUnits="userSpaceOnUse" id="o" xlink:href="#g"/>
+ </defs>
+ <g transform="matrix(.02105 0 0 .02087 42.852 41.154)" color="#000">
+  <rect style="marker:none" width="1339.633" height="478.357" x="-1559.252" y="-150.697" opacity=".402" fill="url(#h)" overflow="visible"/>
+  <path style="marker:none" d="M-219.619-150.68v478.33c142.874.9 345.4-107.17 345.4-239.196S-33.655-150.68-219.619-150.68z" opacity=".402" fill="url(#i)" overflow="visible"/>
+  <path d="M-1559.252-150.68v478.33c-142.875.9-345.4-107.17-345.4-239.196s159.436-239.134 345.4-239.134z" style="marker:none" opacity=".402" fill="url(#j)" overflow="visible"/>
+ </g>
+ <rect style="marker:none" width="34.875" height="40.92" x="6.604" y="3.646" ry="1.149" color="#000" fill="url(#k)" stroke="url(#l)" stroke-linecap="round" stroke-linejoin="round" display="block" overflow="visible"/>
+ <rect style="marker:none" width="32.776" height="38.946" x="7.666" y="4.584" ry=".149" rx=".149" color="#000" fill="none" stroke="url(#m)" stroke-linecap="round" stroke-linejoin="round" display="block" overflow="visible"/>
+ <path d="M10.995 30.18a.82.82 0 1 1-1.641 0 .82.82 0 0 1 1.641 0zm0-11.486a.82.82 0 1 1-1.642 0 .82.82 0 0 1 1.642 0z" fill="#fff"/>
+ <path d="M9.995 29.952a.82.82 0 1 1-1.641 0 .82.82 0 0 1 1.641 0z" fill="url(#n)" transform="translate(.646 -.038)"/>
+ <path d="M9.995 18.467a.82.82 0 1 1-1.642 0 .82.82 0 0 1 1.642 0z" fill="url(#o)" transform="translate(.646 -.038)"/>
+ <path d="M11.506 5.494v37.907" fill="none" stroke="#000" stroke-width=".989" stroke-opacity=".018"/>
+ <path d="M12.5 5.02v38.018" fill="none" stroke="#fff" stroke-opacity=".205"/>
+ <g transform="matrix(.9091 0 0 1 2.364 0)" color="#000" fill="#9b9b9b" fill-opacity=".55">
+  <rect style="marker:none" width="22" height="1" x="15" y="9" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="11" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="13" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="15" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="17" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="19" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="21" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="23" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="9.9" height="1" x="15" y="25" rx=".068" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="29" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="31" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="33" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="22" height="1" x="15" y="35" rx=".152" ry=".065" display="block" overflow="visible"/>
+  <rect style="marker:none" width="15.4" height="1" x="15" y="37" rx=".106" ry=".065" display="block" overflow="visible"/>
+ </g>
+</svg>

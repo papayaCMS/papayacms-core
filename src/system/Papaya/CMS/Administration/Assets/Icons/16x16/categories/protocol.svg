@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#5187d6"/>
+   <stop offset="1" stop-color="#1e4580"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#a9aaa7"/>
+   <stop offset="1" stop-color="#676964"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#c3c6c0"/>
+   <stop offset="1" stop-color="#e8eae6"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="f" x1="25.861" y1="26.134" x2="18.3" y2="19.568" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.31917 0 0 .31747 .34 .377)"/>
+  <linearGradient xlink:href="#b" id="g" x1=".001" y1="24.012" x2="47.999" y2="24.012" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.31917 0 0 .31747 .34 .377)"/>
+  <linearGradient xlink:href="#c" id="i" x1="20.339" y1="19.637" x2="46.092" y2="39.708" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.28864 0 0 .2818 1.072 1.52)"/>
+  <linearGradient xlink:href="#d" id="j" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.11027 0 0 .51954 -3.658 -2.755)" x1="8.821" y1="12.538" x2="12.499" y2="24.238"/>
+  <radialGradient xlink:href="#e" id="h" cx="23.994" cy="32.267" fx="23.994" fy="32.267" r="19.089" gradientTransform="matrix(.52329 0 0 .43115 -4.556 -2.957)" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <rect width="15" height="13.001" x=".5" y="1.5" rx="1.53" ry="1.423" fill="url(#f)" fill-rule="evenodd" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect width="11" height="9" x="2.5" y="3.5" rx=".049" ry=".046" fill="url(#h)" fill-rule="evenodd" stroke="#173562" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M4.39 8.222H2.525v.298h2.394l.436-1.449 1.074 3.356.995-2.65.898 1.448 1.205-.86h3.942V7.86h-4.08l-.983.769L7.39 6.997 6.457 9 5.442 5.85 4.391 8.221z" stroke-miterlimit="10" fill="#ecffd9" fill-rule="evenodd" stroke="#c3ea9b" stroke-opacity=".416"/>
+ <rect width="13" height="11" x="1.5" y="2.5" rx=".74" ry=".709" fill="none" stroke="url(#i)" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M3 4v2.62c1.07.204 2.255.32 3.506.32 2.604 0 4.937-.494 6.494-1.27V4z" opacity=".432" fill="url(#j)" fill-rule="evenodd"/>
+</svg>

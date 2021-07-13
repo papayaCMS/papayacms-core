@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22">
+ <defs>
+  <radialGradient xlink:href="#a" id="j" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-2.77439 0 0 1.9697 112.762 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="i" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1891.633 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-opacity="0"/>
+   <stop offset=".5"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="h" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1892.179 -872.885)" x1="302.857" y1="366.648" x2="302.857" y2="609.505"/>
+  <linearGradient id="g">
+   <stop offset="0" stop-color="#5187d6"/>
+   <stop offset="1" stop-color="#1e4580"/>
+  </linearGradient>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#a9aaa7"/>
+   <stop offset="1" stop-color="#676964"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#c3c6c0"/>
+   <stop offset="1" stop-color="#e8eae6"/>
+  </linearGradient>
+  <linearGradient id="f">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#c" id="k" x1="25.861" y1="26.134" x2="18.3" y2="19.568" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.40428 0 0 .41513 1.298 .032)"/>
+  <linearGradient xlink:href="#d" id="l" x1=".001" y1="24.012" x2="47.999" y2="24.012" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.40428 0 0 .41513 1.298 .032)"/>
+  <linearGradient xlink:href="#e" id="n" x1="20.339" y1="19.637" x2="46.092" y2="39.708" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.37745 0 0 .38426 1.94 1.164)"/>
+  <linearGradient xlink:href="#f" id="o" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.55437 0 0 .67935 -5.32 -4.832)" x1="8.821" y1="12.538" x2="12.499" y2="24.238"/>
+  <radialGradient xlink:href="#g" id="m" cx="23.994" cy="32.267" fx="23.994" fy="32.267" r="19.089" gradientTransform="matrix(.71358 0 0 .62277 -6.121 -5.827)" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <g transform="matrix(.01084 0 0 .00909 20.637 17.952)" color="#000" stroke-width="2.281">
+  <rect y="-150.697" x="-1559.252" height="478.357" width="1339.633" style="marker:none" overflow="visible" opacity=".402" fill="url(#h)"/>
+  <path d="M-219.619-150.68v478.33c142.874.9 345.4-107.17 345.4-239.196S-33.655-150.68-219.619-150.68z" style="marker:none" overflow="visible" opacity=".402" fill="url(#i)"/>
+  <path style="marker:none" d="M-1559.252-150.68v478.33c-142.875.9-345.4-107.17-345.4-239.196s159.436-239.134 345.4-239.134z" overflow="visible" opacity=".402" fill="url(#j)"/>
+ </g>
+ <rect width="19" height="17" x="1.5" y="1.5" rx="1.938" ry="1.861" fill="url(#k)" fill-rule="evenodd" stroke="url(#l)" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect width="15" height="13" x="3.5" y="3.5" rx=".067" ry=".067" fill="url(#m)" fill-rule="evenodd" stroke="#173562" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M6 9.815H3.424v.454h3.303l.602-2.207 1.481 5.112 1.374-4.038 1.238 2.206 1.664-1.31h5.438v-.769h-5.627l-1.357 1.172-1.4-2.485L8.85 11l-1.4-4.8L6 9.816z" stroke-miterlimit="10" fill="#ecffd9" fill-rule="evenodd" stroke="#c3ea9b" stroke-opacity=".416"/>
+ <rect width="17" height="15" x="2.5" y="2.5" rx=".967" ry=".967" fill="none" stroke="url(#n)" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M4 4v3.426a28.15 28.15 0 0 0 4.909.419c3.646 0 6.91-.646 9.091-1.66V4z" opacity=".432" fill="url(#o)" fill-rule="evenodd"/>
+</svg>

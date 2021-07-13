@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" version="1.0">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#c4c4c4"/>
+  </linearGradient>
+  <filter x="-.1" width="1.201" y="-.904" height="2.807" id="c">
+   <feGaussianBlur stdDeviation="1.788"/>
+  </filter>
+  <linearGradient xlink:href="#a" id="d" gradientUnits="userSpaceOnUse" x1="29.456" y1="43.948" x2="28.444" y2="15.222" gradientTransform="matrix(.48571 0 0 .48204 -.657 -.059)"/>
+  <linearGradient xlink:href="#b" id="e" gradientUnits="userSpaceOnUse" x1="24" y1="10.619" x2="26.878" y2="70.744" gradientTransform="matrix(.4725 0 0 .45219 -.34 .623)"/>
+ </defs>
+ <g color="#000">
+  <rect style="marker:none" width="42.75" height="4.75" x="-1.625" y="32.75" rx="5.371" ry="5.425" transform="matrix(.46548 0 0 .46083 1.84 2.897)" opacity=".506" overflow="visible" filter="url(#c)" enable-background="accumulate"/>
+  <path style="marker:none" d="M19.5 18.5h-17L11 3.557 19.5 18.5z" fill="url(#d)" stroke="#c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate"/>
+  <path style="marker:none" d="M10.955 3.566a.29.29 0 0 0-.207.137L2.561 17.806a.439.439 0 0 0 .004.452.48.48 0 0 0 .41.226h16.05a.48.48 0 0 0 .41-.226.439.439 0 0 0 .004-.452L11.252 3.703a.294.294 0 0 0-.297-.137z" opacity=".458" fill="none" stroke="url(#e)" stroke-linecap="round" stroke-linejoin="round" overflow="visible" enable-background="accumulate"/>
+  <path d="M12 15a1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1zm-2.003-1.997H12L11.998 9h-1.97l-.031 4.003z" style="marker:none" overflow="visible" enable-background="accumulate"/>
+ </g>
+</svg>

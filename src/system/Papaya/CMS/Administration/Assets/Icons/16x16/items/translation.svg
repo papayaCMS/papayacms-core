@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff" stop-opacity=".439"/>
+   <stop offset=".5" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="f" x1=".993" y1="8.38" x2="9.446" y2="8.38" gradientUnits="userSpaceOnUse"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#75507b"/>
+   <stop offset=".257" stop-color="#a984af"/>
+   <stop offset=".566" stop-color="#513755"/>
+   <stop offset="1" stop-color="#875c8e"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="e" x1=".002" y1="3.251" x2="13" y2="3.251" gradientUnits="userSpaceOnUse"/>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#73d216"/>
+   <stop offset=".256" stop-color="#9ced4b"/>
+   <stop offset=".594" stop-color="#64b813"/>
+   <stop offset="1" stop-color="#8eea34"/>
+  </linearGradient>
+  <linearGradient xlink:href="#c" id="h" x1="2.978" y1="11.641" x2="15.977" y2="11.641" gradientUnits="userSpaceOnUse"/>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset=".342" stop-color="#222"/>
+   <stop offset="1" stop-color="#fff" stop-opacity=".471"/>
+  </linearGradient>
+  <linearGradient xlink:href="#d" id="g" x1="1.5" y1="5.5" x2="11.5" y2="5.5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.1 0 0 1.125 2.32 4.293)"/>
+  <linearGradient xlink:href="#a" id="i" gradientUnits="userSpaceOnUse" x1="5.922" y1="8.38" x2="10.948" y2="8.38"/>
+ </defs>
+ <g color="#000">
+  <path style="marker:none" fill="url(#e)" fill-rule="evenodd" stroke="#5c3566" display="block" overflow="visible" d="M.523.5H12.5v10H.523z"/>
+  <path style="marker:none" opacity=".629" fill="none" stroke="url(#f)" display="block" overflow="visible" d="M1.493 1.5h10v8h-10z"/>
+  <path style="marker:none" opacity=".462" fill="url(#g)" fill-rule="evenodd" display="block" overflow="visible" d="M3.97 5.98h11v9h-11z"/>
+  <path style="marker:none" fill="url(#h)" fill-rule="evenodd" stroke="#4e9a06" display="block" overflow="visible" d="M3.5 5.5h11.977v10H3.5z"/>
+  <path style="marker:none" opacity=".629" fill="none" stroke="url(#i)" display="block" overflow="visible" d="M4.47 6.5h10v7.98h-10z"/>
+ </g>
+</svg>

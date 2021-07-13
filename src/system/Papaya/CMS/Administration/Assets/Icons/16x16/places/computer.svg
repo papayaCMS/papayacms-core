@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="16" width="16">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#729fcf"/>
+   <stop offset="1" stop-color="#729fcf" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="b" x1="9.139" y1="32.342" x2="12.235" y2="35.438" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.6923 0 0 .7 .385 14.55)"/>
+ </defs>
+ <g transform="translate(0 -32)">
+  <rect width="13" height="11" x="1.5" y="32.5" rx="1.528" ry="1.57" fill="#3465a4" stroke="#888a85" stroke-linecap="square"/>
+  <path d="M1.17 44.456h13.376L15.5 47.5H.5z" fill="#eeeeec" stroke="#888a85" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect ry=".572" rx=".572" y="33.5" x="2.5" height="9" width="11" fill="#3465a4" stroke="#eeeeec" stroke-linecap="square"/>
+  <rect width="9" height="7" x="3.5" y="34.5" rx="0" ry="0" fill="url(#b)" stroke="#204a87" stroke-linecap="square"/>
+  <path style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" d="M1.323 46.03l-.207.966h13.675l-.271-.966z" color="#000" font-weight="400" font-family="sans-serif" overflow="visible" fill="#babdb6"/>
+ </g>
+</svg>

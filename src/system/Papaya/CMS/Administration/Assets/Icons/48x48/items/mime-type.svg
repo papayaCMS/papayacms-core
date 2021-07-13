@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+ <defs>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fcaf3e"/>
+   <stop offset="1" stop-color="#d37f03"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-opacity=".327"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient gradientUnits="userSpaceOnUse" r="11.69" fy="72.568" fx="14.288" cy="68.873" cx="14.288" gradientTransform="matrix(1.66005 0 0 .42464 .281 11.295)" id="d" xlink:href="#a"/>
+  <radialGradient xlink:href="#b" id="e" cx="24.286" cy="36.721" fx="24.286" fy="36.721" r="20.411" gradientUnits="userSpaceOnUse" gradientTransform="translate(-17.677 -26.728) scale(1.72787)"/>
+  <linearGradient xlink:href="#c" id="f" x1="26.503" y1="10.027" x2="28.786" y2="52.807" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <path d="M47.643 39.32a23.643 8.138 0 1 1-47.286 0 23.643 8.138 0 1 1 47.286 0z" style="marker:none" overflow="visible" color="#000" fill="url(#d)" fill-rule="evenodd"/>
+ <g stroke-width=".971">
+  <path d="M24.286 43.196l-19.91-19.91 19.91-19.91 19.91 19.91z" fill="url(#e)" stroke="#f57900" stroke-linecap="round" stroke-linejoin="round" transform="scale(1.03046 1.02995) rotate(45 20.253 23.549)"/>
+  <path d="M24.286 41.605l-18.32-18.32 18.32-18.319 18.32 18.32-18.32 18.32v0z" opacity=".473" fill="none" stroke="url(#f)" transform="scale(1.03046 1.02995) rotate(45 20.253 23.549)"/>
+ </g>
+ <text style="line-height:1.25" x="15.353" y="40.016" transform="scale(1.09568 .91268)" font-weight="400" font-size="27.041" font-family="sans-serif" letter-spacing="0" word-spacing="0" fill="#eeeeec" stroke="#fff">
+  <tspan x="15.353" y="40.016">?</tspan>
+ </text>
+</svg>

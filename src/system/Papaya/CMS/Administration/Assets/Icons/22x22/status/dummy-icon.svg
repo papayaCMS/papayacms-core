@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fffcde"/>
+   <stop offset=".645" stop-color="#f6e76a"/>
+   <stop offset="1" stop-color="#ffb738"/>
+  </linearGradient>
+  <radialGradient r="8.902" fy="15.756" fx="29.158" cy="15.721" cx="29.288" gradientUnits="userSpaceOnUse" id="d" xlink:href="#a" gradientTransform="matrix(1.09675 0 0 1.0967 -23.123 -10.846)"/>
+  <radialGradient gradientUnits="userSpaceOnUse" fy="39.593" fx="25.053" r="15.757" cy="39.593" cx="25.053" id="e" gradientTransform="matrix(.66556 0 0 .69547 -5.234 -8.843)">
+   <stop offset="0" stop-color="#777"/>
+   <stop offset="1"/>
+  </radialGradient>
+  <linearGradient id="b">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#b" id="c" cx="24.714" cy="38.571" fx="24.714" fy="38.571" r="19.714" gradientTransform="matrix(.54212 0 0 .1788 -2.398 11.577)" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <path style="marker:none" d="M21.688 18.474a10.688 3.525 0 1 1-21.376 0 10.688 3.525 0 1 1 21.376 0z" overflow="visible" color="#000" opacity=".532" fill="url(#c)" fill-rule="evenodd"/>
+ <path style="marker:none" d="M20.5 10.002a9.5 9.5 0 1 1-19 0 9.5 9.5 0 1 1 19 0z" overflow="visible" color="#000" fill="url(#d)" fill-rule="evenodd" stroke="#9c8c0a" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M19.5 9.999a8.5 8.5 0 1 1-17 0 8.5 8.5 0 1 1 17 0z" style="marker:none" overflow="visible" color="#000" opacity=".677" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M16.178 14.143c0 1.877-2.293 3.352-5.059 3.352s-5.06-1.475-5.06-3.352c0-1.878 2.294-3.353 5.06-3.353 2.766 0 5.06 1.475 5.06 3.353z" opacity=".36" fill="#fff"/>
+ <path d="M15.997 13.482c0 1.947-2.263 3.477-4.991 3.477-2.729 0-4.992-1.53-4.992-3.477 0-1.948 2.263-3.478 4.992-3.478s4.992 1.53 4.992 3.478z" fill="url(#e)"/>
+ <path d="M9.87 5.912c0 1.34-.61 2.413-1.355 2.413S7.092 7.253 7.092 5.912c0-1.342.61-2.414 1.356-2.414.745 0 1.355 1.072 1.355 2.414zm5.038 0c0 1.34-.61 2.413-1.356 2.413-.745 0-1.355-1.072-1.355-2.413 0-1.342.61-2.414 1.355-2.414.746 0 1.356 1.072 1.356 2.414z" opacity=".36" fill="#fff"/>
+ <path d="M9.803 5.497c0 1.405-.628 2.53-1.395 2.53s-1.395-1.125-1.395-2.53c0-1.406.628-2.53 1.395-2.53s1.395 1.124 1.395 2.53zm5.184 0c0 1.405-.628 2.53-1.395 2.53s-1.395-1.125-1.395-2.53c0-1.406.628-2.53 1.395-2.53s1.395 1.124 1.395 2.53z"/>
+</svg>

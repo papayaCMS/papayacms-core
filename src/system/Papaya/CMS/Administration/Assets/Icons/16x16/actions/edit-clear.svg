@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fef088"/>
+   <stop offset=".5" stop-color="#fde63a"/>
+   <stop offset="1" stop-color="#dac203"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#c17d10"/>
+   <stop offset="1" stop-color="#9b650c"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.31326 -.20245 -.04383 .95481 20.26 127.745)" cx="5.617" cy="-36.605" fx="5.617" fy="-36.605" r="15.571"/>
+  <linearGradient xlink:href="#b" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.96593 .2621 -.25882 .97818 2.957 -5.94)" x1="12.233" y1="12.363" x2="16.871" y2="17.111"/>
+  <radialGradient xlink:href="#c" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.39959 -.11136 .06425 .23056 3.041 8.84)" cx="9.69" cy="1.444" fx="9.69" fy="1.444" r="14.8"/>
+ </defs>
+ <path style="marker:none" d="M38.143 30.857a15.571 10.143 0 1 1-31.143 0 15.571 10.143 0 1 1 31.143 0z" transform="matrix(.42338 -.0354 .03123 .09659 -1.262 12.806)" opacity=".474" color="#000" fill="url(#d)" overflow="visible"/>
+ <path d="M.936 1.033c.96-.96 2.505-.258 2.831.587l1.37 2.589c.44.501.442 1.095.024 1.415-.418.32-1.274.372-1.714-.13L1.28 3.73C.841 3.229.002 1.967.936 1.033z" fill="url(#e)" fill-rule="evenodd" stroke="#784800" stroke-width="1.006" stroke-linecap="round"/>
+ <path d="M4.265 8.308c-.719.395.379 4.642 3.417 7.235.288.351 7.908-2.303 7.842-6.93-3.795-.74-6.752-4.16-8.648-2.562l-.253-3.008L1.86 7.001l2.405 1.307z" fill="url(#f)" fill-rule="evenodd" stroke="#9c8b00"/>
+ <path d="M5.165 7.841c-.29.232-.398 3.528 2.761 6.59 3.027-.635 6.277-3.202 6.5-5.145-3.77-.922-5.639-3.89-8.568-2.281L5.77 5.013 3.68 6.832l1.484 1.01z" opacity=".462" fill="none" stroke="#fff"/>
+ <path d="M3.714 8.627l3.83-3.198" fill="none" stroke="#a30000" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#c00"/>
+   <stop offset=".276" stop-color="#c84a00"/>
+   <stop offset="1" stop-color="#be0000"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#f2d565"/>
+   <stop offset="1" stop-color="#f2d565" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#ffa107"/>
+   <stop offset="1" stop-color="#c00"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#ccc"/>
+   <stop offset=".346" stop-color="#fff"/>
+   <stop offset=".725" stop-color="#fff"/>
+   <stop offset="1" stop-color="#cecece"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="i" gradientUnits="userSpaceOnUse" x1="14" y1="21.063" x2="14" y2="34.306" gradientTransform="matrix(.41156 0 0 .57826 2.238 -4.607)"/>
+  <linearGradient xlink:href="#a" id="j" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.41156 0 0 .4825 -.265 -2.38)" x1="14" y1="21.063" x2="13.5" y2="33.427"/>
+  <linearGradient xlink:href="#a" id="k" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.41156 0 0 .47752 4.713 -2.287)" x1="14" y1="21.063" x2="14.5" y2="33.431"/>
+  <linearGradient xlink:href="#b" id="h" x1="9.789" y1="29.629" x2="38.391" y2="29.629" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.32994 0 0 .3236 .039 .38)"/>
+  <radialGradient xlink:href="#c" id="f" cx="30.561" cy="15.699" fx="30.561" fy="15.699" r="8.902" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.57873 0 0 .5786 -10.1 -3.566)"/>
+  <linearGradient xlink:href="#d" id="g" x1="28.764" y1="12.221" x2="38.07" y2="38.297" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.63497 0 0 .63488 -11.756 -4.069)"/>
+  <linearGradient xlink:href="#e" id="l" x1="30.526" y1="7.361" x2="32.312" y2="9.423" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.41156 0 0 .41172 -.213 -1.443)"/>
+  <linearGradient xlink:href="#e" id="m" gradientUnits="userSpaceOnUse" x1="10.401" y1="7.611" x2="8.812" y2="9.673" gradientTransform="matrix(.41156 0 0 .41172 -.85 -1.496)"/>
+ </defs>
+ <path style="marker:none" d="M14.5 8a6.5 6.498 0 1 1-13 0 6.5 6.498 0 1 1 13 0z" overflow="visible" color="#000" fill="url(#f)" fill-rule="evenodd" stroke="#a40000" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M13.5 8a5.5 5.5 0 1 1-11 0 5.5 5.5 0 1 1 11 0z" style="marker:none" overflow="visible" color="#000" opacity=".432" fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M8.658 5.365a1.21 1.184 15.248 0 1 2.333.012m-5.934-.012a1.21 1.184 15.248 0 1 2.332.012" fill="none" stroke="#000"/>
+ <path d="M3.327 7.19C2.843 9.639 4.803 12.745 8 12.745c3.224 0 5.192-2.728 4.63-5.535z" style="marker:none" overflow="visible" color="#000" fill="url(#h)"/>
+ <path d="M8 7.536v6.94" opacity=".182" fill="none" stroke="url(#i)" stroke-linecap="square"/>
+ <path d="M5.497 7.753v5.79" opacity=".182" fill="none" stroke="url(#j)" stroke-linecap="square"/>
+ <path d="M10.475 7.74v5.732" opacity=".182" fill="none" stroke="url(#k)" stroke-linecap="square"/>
+ <path style="marker:none" d="M3.585 7.518C3.049 9.948 5.137 12.5 8.04 12.5c3.01 0 5.01-2.638 4.323-5l-8.779.018z" overflow="visible" color="#000" fill="none" stroke="#a40000"/>
+ <path style="marker:none" d="M14 .506a.453.453 0 0 0-.147.055l-2.457 1.348c-.126.073-.255.205-.225.348.18.859.858 1.446 1.771 1.55.138.015.252-.115.316-.238l1.219-2.412A.453.453 0 0 0 14 .506z" overflow="visible" color="#000" fill="url(#l)" fill-rule="evenodd" stroke="#a40000" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M2 .504a.453.453 0 0 1 .147.056l2.457 1.348c.126.073.255.205.225.348-.18.859-.858 1.446-1.771 1.55-.138.015-.252-.115-.316-.238L1.523 1.156A.453.453 0 0 1 2 .504z" style="marker:none" overflow="visible" color="#000" fill="url(#m)" fill-rule="evenodd" stroke="#a40000" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

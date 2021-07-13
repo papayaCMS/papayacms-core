@@ -47,7 +47,7 @@ class GlobalValues extends Configuration {
    *
    * @param string $name
    * @param mixed $default
-   * @param Filter $filter
+   * @param Filter|NULL $filter
    *
    * @return null|int|bool|float|string
    */

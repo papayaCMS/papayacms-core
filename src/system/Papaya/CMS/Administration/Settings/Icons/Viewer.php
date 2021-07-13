@@ -14,68 +14,98 @@
  */
 namespace Papaya\CMS\Administration\Settings\Icons {
 
-  use Papaya\Iterator;
+  use Papaya\CMS\Administration\UI as AdministrationUI;
   use Papaya\UI;
+  use Papaya\Iterator;
+  use Papaya\Utility\File\Path;
   use Papaya\XML;
 
   class Viewer extends \Papaya\CMS\Administration\Page\Part {
+    /**
+     * @var mixed
+     */
+    private static $_pattern = '(
+      (?<size>\\d+x\\d+)/(?<group>[^/]+)/(?<name>[^/]+)(?:\.(?<type>svg|png))$
+    )x';
+
+    /**
+     * @var iterable
+     */
+    private $_files;
+
+    public function files(iterable $files = NULL): iterable {
+      if (isset($files)) {
+        $this->_files = $files;
+      } elseif (NULL === $this->_files) {
+        $path = Path::cleanup(__DIR__.'/../../Assets/Icons');
+        $this->_files = new Iterator\RecursiveTraversableIterator(
+          new \RecursiveDirectoryIterator(
+            $path,
+            \RecursiveDirectoryIterator::CURRENT_AS_PATHNAME |
+            \RecursiveDirectoryIterator::SKIP_DOTS
+          ),
+          \RecursiveIteratorIterator::LEAVES_ONLY
+        );
+      }
+      return $this->_files;
+    }
+
     public function appendTo(XML\Element $parent) {
       parent::appendTo($parent);
-      $groups = new Iterator\Tree\Groups\RegEx(
-        $this->papaya()->images,
-        '((?<group>^[a-z]+)-)',
-        'group',
-        Iterator\Tree\Groups\RegEx::GROUP_KEYS
-      );
-      $path = $this->getPage()->getUI()->getLocalPath();
-      foreach ($groups as $groupName) {
+      $files = $this->files();
+      $groups = [];
+      foreach ($files as $file) {
+        $file = str_replace(DIRECTORY_SEPARATOR, '/', $file);
+        if (preg_match(self::$_pattern, $file, $match)) {
+          $group = strtolower($match['group']);
+          $name = strtolower($match['name']);
+          $size = strtolower($match['size']);
+          $type = strtolower($match['type']);
+          $groups[$group][$name][$type][$size] = $file;
+        }
+      }
+      $listView = new UI\ListView();
+      $listView->mode = UI\ListView::MODE_TILES;
+      $listView->caption = new UI\Text\Translated('Combination Examples');
+      $examples = [
+        'disabled' => 'items.folder.disabled',
+        'emblem: add' => 'items.folder.add',
+        'emblem: remove' => 'items.folder.remove',
+        'disabled, emblem: add' => 'items.folder.disabled,add',
+      ];
+      foreach ($examples as $name => $example) {
+        $iconRoute = implode('.', [AdministrationUI::ICON, $example]);
+        $listView->items[] = $item = new UI\ListView\Item(
+          $iconRoute, $name
+        );
+        $item->hint = $iconRoute;
+      }
+      $parent->append($listView);
+
+      foreach ($groups as $groupName => $group) {
         $listView = new UI\ListView();
         $listView->mode = UI\ListView::MODE_TILES;
-
-        $group = $groups->getChildren();
         $imageCount = 0;
-        foreach ($group as $index => $fileName) {
+        foreach ($group as $iconName => $sizesAvailable) {
           $sizes = ['16x16', '22x22', '48x48'];
-          $image = 'pics/tpoint.gif';
-          $sizesAvailable = [
-            'svg' => [],
-            'png' => []
-          ];
-          foreach ($sizes as $size) {
-            if (0 === strpos($fileName, 'icon.')) {
-              list(, $category, $name) = \explode('.', $fileName);
-              $imageFile = 'pics/icons/'.$size.'/'.$category.'/'.$name.'.png';
-              if (\file_exists($path.'/'.$imageFile)) {
-                $image = $fileName;
-                $sizesAvailable['png'][] = $size;
-              }
-              $imageFile = 'pics/icons/'.$size.'/'.$category.'/'.$name.'.svg';
-              if (\file_exists($path.'/'.$imageFile)) {
-                $image = $fileName;
-                $sizesAvailable['svg'][] = $size;
-              }
-            } else {
-              $imageFile = 'pics/icons/'.$size.'/'.$fileName;
-              if (\file_exists($path.'/'.$imageFile)) {
-                $image = './'.$imageFile;
-                $matches = NULL;
-                if (preg_match('(\.(svg|png)$)', $fileName, $matches)) {
-                  $sizesAvailable[$matches[1]][] = $size;
-                }
-              }
+          $types = ['svg', 'png'];
+          foreach ($types as $type) {
+            if (!isset($sizesAvailable[$type])) {
+              $sizesAvailable[$type] = [];
             }
           }
+          $image = 'pics/tpoint.gif';
           $imageCount++;
+          $iconRoute = implode('.', [AdministrationUI::ICON, $groupName, $iconName]);
           $listView->items[] = $item = new UI\ListView\Item(
-            $image,
-            \substr($index, \strlen($groupName) + 1)
+            implode('.', [AdministrationUI::ICON, $groupName, $iconName]), $iconName
           );
+          $item->hint = $iconRoute;
           $item->text = \sprintf(
             'SVG: %s, PNG: %s',
-            \implode(', ', $sizesAvailable['svg']),
-            \implode(', ', $sizesAvailable['png'])
+            \implode(', ', array_keys($sizesAvailable['svg'] ?? [])),
+            \implode(', ', array_keys($sizesAvailable['png'] ?? []))
           );
-          $item->hint = $index.': '.$fileName;
           if (\count($sizesAvailable['svg']) < \count($sizesAvailable['png'])) {
             $item->subitems[] = new UI\ListView\SubItem\Image('status-dialog-warning');
           }

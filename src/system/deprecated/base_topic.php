@@ -1033,7 +1033,7 @@ class base_topic extends base_db {
   * @return boolean|integer
   */
   public function deleteCache() {
-    $cache = \Papaya\Cache::getService($this->papaya()->options);
+    $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
     return $cache->delete('pages', $this->topicId);
   }
 

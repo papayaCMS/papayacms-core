@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#babdb6"/>
+   <stop offset="1" stop-color="#d3d7cf"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="d" x1="6.25" y1="8.796" x2="11.925" y2="8.796" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#b" id="c" gradientUnits="userSpaceOnUse" x1="10.677" y1="8.562" x2="5.51" y2="8.578"/>
+ </defs>
+ <g transform="translate(0 -.017)" stroke-linejoin="round">
+  <path d="M3.5 2.499v10.97c0 .553 2.015 1 4.5 1s4.5-.447 4.5-1V2.5z" fill="url(#c)" stroke="#888a85"/>
+  <path d="M3.5 6.53c0 .552 2.015 1 4.5 1s4.5-.448 4.5-1m-9 3.966c0 .553 2.015 1 4.5 1s4.5-.447 4.5-1" fill="none" stroke="#fff"/>
+  <path d="M3.5 2.499v11.018c0 .552 2.015 1 4.5 1s4.5-.448 4.5-1V2.499" fill="none" stroke="#888a85"/>
+  <path d="M3.5 2.499v10.986c0 .553 2.015 1 4.5 1s4.5-.447 4.5-1V2.5z" fill="url(#d)" stroke="#888a85"/>
+  <ellipse cx="8" cy="2.5" rx="4.5" ry="1" fill="#fff" stroke="#888a85"/>
+  <path d="M3.5 5.53c0 .553 2.015 1 4.5 1s4.5-.447 4.5-1m-9 3.965c0 .553 2.015 1 4.5 1s4.5-.447 4.5-1" fill="none" stroke="#888a85"/>
+ </g>
+</svg>

@@ -980,7 +980,7 @@ class papaya_page extends base_object {
           }
         }
       }
-      $cache = \Papaya\Cache::getService($this->papaya()->options);
+      $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
       $cacheIdGzip = $cacheId.'.gz';
       if ($this->acceptGzip &&
           defined('PAPAYA_COMPRESS_CACHE_OUTPUT') &&
@@ -1053,7 +1053,7 @@ class papaya_page extends base_object {
   function setCache($cacheId, $topicId, $page) {
     if (defined('PAPAYA_CACHE_OUTPUT') && PAPAYA_CACHE_OUTPUT &&
         defined('PAPAYA_CACHE_TIME_OUTPUT') && PAPAYA_CACHE_TIME_OUTPUT > 0) {
-      $cache = \Papaya\Cache::getService($this->papaya()->options);
+      $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
       if (defined('PAPAYA_COMPRESS_CACHE_OUTPUT') &&
           PAPAYA_COMPRESS_CACHE_OUTPUT) {
         $cache->write(

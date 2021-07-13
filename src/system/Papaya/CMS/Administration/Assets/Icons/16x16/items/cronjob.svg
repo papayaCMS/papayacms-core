@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#c4a000"/>
+   <stop offset="1" stop-color="#c4a000" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#c4a000"/>
+   <stop offset="1" stop-color="#c4a000" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#f3f4ff"/>
+   <stop offset="1" stop-color="#9193af"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fffffd"/>
+   <stop offset="1" stop-color="#cbcbc9"/>
+  </linearGradient>
+  <linearGradient id="f">
+   <stop offset="0" stop-color="#9497b3"/>
+   <stop offset="1" stop-color="#4c4059"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#9aa29a"/>
+   <stop offset="1" stop-color="#b5beb5"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="g" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.09762 0 0 .34072 -11.578 25.19)" x1="8.916" y1="37.197" x2="9.886" y2="52.091"/>
+  <radialGradient xlink:href="#b" id="l" gradientUnits="userSpaceOnUse" cx="11.329" cy="10.584" fx="11.329" fy="10.584" r="15.532" gradientTransform="translate(.945 32.627) scale(.43416)"/>
+  <radialGradient xlink:href="#c" id="i" gradientUnits="userSpaceOnUse" cx="11.902" cy="10.045" fx="11.902" fy="10.045" r="29.293" gradientTransform="translate(2.504 34.281) scale(.33819)"/>
+  <radialGradient xlink:href="#d" id="j" cx="23.375" cy="10.973" fx="23.375" fy="10.973" r="3.348" gradientTransform="matrix(1.64758 0 0 1.69825 -30.33 21.392)" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#e" id="k" x1="19.667" y1="4.257" x2="20.33" y2="5.285" gradientUnits="userSpaceOnUse" gradientTransform="translate(-2.427 34.637) scale(.45383)"/>
+  <radialGradient xlink:href="#f" id="h" gradientUnits="userSpaceOnUse" cx="8.747" cy="6.828" fx="8.747" fy="6.828" r="29.89" gradientTransform="matrix(.503 0 0 .503 -.174 31.494)"/>
+ </defs>
+ <g transform="translate(0 -32)">
+  <path d="M6.157 32.569l-5.046 5.865.443.437z" style="marker:none" color="#000" overflow="visible" fill="url(#g)" fill-rule="evenodd"/>
+  <path d="M6.115 32.537l-4.5 6.24.643.567z" fill="#fefefe" fill-rule="evenodd"/>
+  <circle cx="8" cy="40" r="7.5" fill="url(#h)" fill-rule="evenodd" stroke="#605773" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="8" cy="40" r="5.043" fill="url(#i)" fill-rule="evenodd"/>
+  <path style="marker:none" d="M5.143 37.65a3.858 3.858 0 0 1 3.02-1.481l.019 3.857z" color="#000" overflow="visible" fill="url(#j)" fill-rule="evenodd" stroke="url(#k)"/>
+  <circle cx="8" cy="40" r=".893" fill="#f3f3f3" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7.37 39.355l-2.39-1.65" fill="none" stroke="#000" stroke-linecap="round"/>
+  <path d="M6.58 42.194l.725-1.071" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="8" cy="36.278" r=".714" fill="#b6b9b1" fill-rule="evenodd"/>
+  <circle cx="8" cy="43.729" r=".714" fill="#b6b9b1" fill-rule="evenodd"/>
+  <circle cx="4.29" cy="40" r=".714" fill="#b6b9b1" fill-rule="evenodd"/>
+  <circle cx="11.714" cy="40" r=".714" fill="#b6b9b1" fill-rule="evenodd"/>
+  <circle cx="8" cy="39.969" r="6.474" fill="none" stroke="url(#l)" stroke-linecap="round" stroke-linejoin="round"/>
+ </g>
+</svg>

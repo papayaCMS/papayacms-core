@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+ <defs>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#f0f0ef"/>
+   <stop offset=".599" stop-color="#e8e8e8"/>
+   <stop offset=".828" stop-color="#fff"/>
+   <stop offset="1" stop-color="#d8d8d3"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#7c7c7c"/>
+   <stop offset="1" stop-color="#b8b8b8"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="i" x1="35.997" y1="40.458" x2="33.665" y2="37.771" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.162 4.033)"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="j" x1="33.396" y1="36.921" x2="34.17" y2="38.07" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.162 3.658)"/>
+  <linearGradient xlink:href="#c" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.0657 0 0 .9876 -8.548 -4.892)" x1="22.308" y1="18.992" x2="35.785" y2="39.498"/>
+  <linearGradient xlink:href="#d" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.9985 0 0 .99825 -6.97 -4.893)" x1="26.076" y1="26.697" x2="30.811" y2="42.007"/>
+  <linearGradient xlink:href="#d" id="h" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.99942 0 0 1 5.991 4.033)" x1="26.076" y1="26.697" x2="30.811" y2="42.007"/>
+  <linearGradient xlink:href="#c" id="g" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.06724 0 0 .98928 4.392 4.035)" x1="22.308" y1="18.992" x2="35.785" y2="39.498"/>
+ </defs>
+ <g transform="matrix(1.0015 0 0 1.00062 -.05 -.063)" opacity=".5">
+  <rect y="34.033" x="20.162" height="2" width="13" style="marker:none" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+  <rect ry=".566" rx=".566" y="1.563" x="1.548" height="35.977" width="30.952" fill="url(#e)" fill-rule="evenodd" stroke="#888a85" stroke-width=".999"/>
+  <rect ry="0" rx="0" y="2.561" x="2.533" height="33.981" width="28.971" fill="none" stroke="url(#f)" stroke-width=".999"/>
+  <rect y="10.033" x="7.016" height="2" width="21" style="marker:none" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+  <rect style="marker:none" width="20" height="2" x="7.016" y="14.033" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+  <rect y="18.033" x="7.016" height="2" width="18" style="marker:none" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+  <rect style="marker:none" width="21" height="2" x="7.016" y="22.033" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+  <rect y="26.033" x="7.016" height="2" width="13" style="marker:none" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+ </g>
+ <path d="M15.073 10.5h29.856c.316 0 .57.254.57.568v27.168c0 2.476-6.88 8.303-9.268 8.303H15.073a.567.567 0 0 1-.57-.568V11.068c0-.314.254-.567.57-.567z" fill="url(#g)" fill-rule="evenodd" stroke="#888a85"/>
+ <rect ry="0" rx="0" y="11.5" x="15.503" height="34.041" width="28.997" fill="none" stroke="url(#h)"/>
+ <path d="M36.22 46.537c2.031.33 9.59-4.53 9.285-8.498-1.563 2.423-4.758 1.287-8.867 1.446 0 0 .395 6.552-.417 7.052z" style="marker:none" color="#000" fill="url(#i)" fill-rule="evenodd" stroke="#868a84" overflow="visible"/>
+ <path style="marker:none" d="M37.671 44.345c1.37-.683 4.429-2.146 5.728-4.027-1.596.68-2.948.21-5.702.19 0 0 .162 3.062-.026 3.837z" opacity=".369" color="#000" fill="none" stroke="url(#j)" overflow="visible"/>
+ <rect y="19.033" x="20" height="2" width="21" style="marker:none" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+ <rect style="marker:none" width="19.992" height="2" x="20" y="23.033" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+ <rect y="27.033" x="20" height="2" width="17.977" style="marker:none" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+ <rect style="marker:none" width="21" height="2" x="20" y="31.033" opacity=".17" color="#000" fill-rule="evenodd" overflow="visible"/>
+</svg>

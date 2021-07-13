@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="48" width="48">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 .5098 0 16.054)" cx="4.392" cy="32.308" fx="4.392" fy="32.308" r="6.375"/>
+  <radialGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 .5098 0 16.054)" cx="4.392" cy="32.308" fx="4.392" fy="32.308" r="6.375"/>
+  <radialGradient xlink:href="#b" id="c" cx="23.25" cy="35.375" fx="23.25" fy="35.375" r="18.5" gradientTransform="matrix(1 0 0 .39865 0 21.273)" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <g color="#000">
+  <path style="marker:none" d="M41.75 35.375a18.5 7.375 0 1 1-37 0 18.5 7.375 0 1 1 37 0z" transform="translate(0 2.835)" opacity=".3" fill="url(#c)" fill-rule="evenodd" overflow="visible"/>
+  <path d="M41.625 7.795L18.562 10.63v21.78c-1.645-.558-3.931-.703-6.437-.187-4.356.897-7.478 3.299-7 5.343.478 2.045 4.394 2.991 8.75 2.094 4.117-.848 7.684-3.038 7.603-5l.156-19.031 16.93-2.896V30.02c-10.25-1.5-13.292 2.893-12.814 4.938.478 2.044 4.394 2.99 8.75 2.093 3.865-.796 6.632-2.763 6.906-4.625l.219-24.63z" style="marker:none" fill="#9db029" stroke="#596616" stroke-linecap="round" stroke-linejoin="round" display="block"/>
+  <path style="marker:none" d="M40.729 8.896L19.547 11.73v21.84c-7.565-1.906-13.733 1.834-13.278 3.778.704 3.32 14.378 1.102 14.3-3.139l.15-19.473 18.85-2.892V31.28c-7.567-1.927-13.266 1.376-12.812 3.32.58 3.194 12.379 2.114 13.764-2.657l.208-23.047z" opacity=".512" fill="none" stroke="#fff" display="block"/>
+  <path style="marker:none" d="M12.25 32.75a6.375 3.25 0 1 1-12.75 0 6.375 3.25 0 1 1 12.75 0z" transform="rotate(-8.641 82.845 -19.717) scale(.74295)" opacity=".512" fill="url(#d)" display="block" overflow="visible"/>
+  <path transform="rotate(-8.641 74.007 -152.428) scale(.74295)" d="M12.25 32.75a6.375 3.25 0 1 1-12.75 0 6.375 3.25 0 1 1 12.75 0z" style="marker:none" opacity=".512" fill="url(#e)" display="block" overflow="visible"/>
+ </g>
+</svg>

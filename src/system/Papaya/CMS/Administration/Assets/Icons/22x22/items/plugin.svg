@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#d1f4b0"/>
+   <stop offset="1" stop-color="#73d216"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="b" x1="11.524" y1="3.468" x2="11.524" y2="13.602" gradientUnits="userSpaceOnUse" gradientTransform="translate(.136 7.318) scale(.9091)"/>
+ </defs>
+ <path d="M12.553 18.472V20.5h3.975v-5.068h2.184l.796.99c.553 0 1-1.119 1-2.5 0-1.38-.447-2.5-1-2.5l-.804 1.022h-2.176V6.473h-5.03v-2.15l1.003-.799c0-.552-1.12-1-2.5-1s-2.5.448-2.5 1l.996.799v2.15H1.5v6.013h1.97l1.017-1.012c.552 0 1 1.12 1 2.5s-.448 2.526-1 2.526l-1.017-1H1.5v5h8.039v-2.028l-1.012-1.018c0-.552 1.12-1 2.5-1s2.526.448 2.526 1z" fill="url(#b)" stroke="#4e9a06" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M10.96 3.595a8.342 8.342 0 0 0-1.847.013l.41.577v2.296c0 .538-.453 1.042-1 1.042l-6.016.01-.006 3.976m9.023-3.976l4.014-.01-.032 5.037" opacity=".75" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

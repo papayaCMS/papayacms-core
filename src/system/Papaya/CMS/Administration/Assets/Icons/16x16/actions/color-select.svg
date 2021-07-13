@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+ <rect width="13" height="2" x="1.5" y="12.5" rx="0" ry="0" fill="#fff" fill-opacity=".625" stroke="#babdb6" stroke-linecap="round"/>
+ <path d="M4.203 10.831l6.236-6.236 1.414 1.414-6.236 6.236L4 12.308z" fill="#d3d7cf" fill-opacity=".625" stroke="#888a85" stroke-linecap="round"/>
+ <path d="M9 4l3.502 3.5c.095-.595.26-1.113 0-2.1l1.988-2.044c-.237-1.281-.884-1.27-1.486-1.4l-2.016 2.016C10.19 3.656 9.584 3.802 9 4z" fill="#2e3436" stroke="#2e3436" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M5 11.436l3.484-3.52" fill="#ffcf3f" stroke="#edd400" stroke-linecap="round" fill-opacity=".867"/>
+ <path d="M11.956 4.044l1.288-1.316" opacity=".5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect width="1" height="1" x="2" y="13" fill="#ff7200" fill-opacity=".651"/>
+ <rect y="13" x="3" height="1" width="1" fill="#ffbe00" fill-opacity=".651"/>
+ <rect width="1" height="1" x="4" y="13" fill="#d2ff00" fill-opacity=".651"/>
+ <rect y="13" x="5" height="1" width="1" fill="#05fd0c" fill-opacity=".651"/>
+ <rect y="13" x="6" height="1" width="1" fill="#05fd54" fill-opacity=".651"/>
+ <rect width="1" height="1" x="7" y="13" fill="#02fa9d" fill-opacity=".651"/>
+ <rect y="13" x="8" height="1" width="1" fill="#02fae5" fill-opacity=".651"/>
+ <rect width="1" height="1" x="9" y="13" fill="#00c8f1" fill-opacity=".651"/>
+ <rect width="1" height="1" x="10" y="13" fill="#0079dd" fill-opacity=".651"/>
+ <rect y="13" x="11" height="1" width="1" fill="#002bc8" fill-opacity=".651"/>
+ <rect width="1" height="1" x="12" y="13" fill="#3308bd" fill-opacity=".651"/>
+ <rect y="13" x="13" height="1" width="1" fill="#8c08b8" fill-opacity=".651"/>
+</svg>

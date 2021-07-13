@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#b9cfe7"/>
+   <stop offset="1" stop-color="#729fcf"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#3465a4"/>
+   <stop offset="1" stop-color="#3465a4"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="c" gradientUnits="userSpaceOnUse" x1="62.514" y1="36.061" x2="15.985" y2="20.609" gradientTransform="matrix(.1339 .10982 .11312 -.12998 4.076 13.305)"/>
+  <linearGradient xlink:href="#b" id="d" gradientUnits="userSpaceOnUse" x1="46.835" y1="45.264" x2="45.38" y2="50.94" gradientTransform="matrix(.1339 .10982 .11312 -.12998 4.076 13.305)"/>
+  <linearGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.1339 -.10982 -.11312 .12998 18.955 8.605)" x1="62.514" y1="36.061" x2="15.985" y2="20.609"/>
+  <linearGradient xlink:href="#b" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.1339 -.10982 -.11312 .12998 18.955 8.605)" x1="46.835" y1="45.264" x2="45.38" y2="50.94"/>
+ </defs>
+ <path style="marker:none" d="M15.498 11.775c.256 2.776-3.255 5.241-7.001 2.373l-.977 1.176.022-3.846 3.64.004-1.134 1.257c2.635 1.938 5.491 1.926 5.45-.964z" display="block" overflow="visible" color="#000" fill="url(#c)" stroke="url(#d)" stroke-linejoin="round"/>
+ <path overflow="visible" display="block" d="M7.533 10.135c-.256-2.775 3.255-5.241 7.001-2.372l.977-1.177-.022 3.846-3.64-.004 1.134-1.256c-2.635-1.938-5.491-1.927-5.45.963z" style="marker:none" color="#000" fill="url(#e)" stroke="url(#f)" stroke-linejoin="round"/>
+</svg>

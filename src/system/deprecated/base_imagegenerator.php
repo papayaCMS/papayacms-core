@@ -165,7 +165,7 @@ class base_imagegenerator extends base_db {
             $cacheTime = 0;
           }
           if ($this->publicMode && $cacheTime > 0) {
-            $cache = Cache::getService($this->papaya()->options);
+            $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
             $imageData = $cache->read(
               'dynamic_images',
               $this->imageConf['image_ident'],
@@ -197,7 +197,7 @@ class base_imagegenerator extends base_db {
                 echo $imageData;
               }
               if ($this->publicMode && $moduleObj->cacheable && $cacheTime > 0) {
-                $cache = Cache::getService($this->papaya()->options);
+                $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
                 $cache->write(
                   'dynamic_images',
                   $this->imageConf['image_ident'],

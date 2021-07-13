@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="16" width="16" version="1.0">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#3a7304"/>
+   <stop offset="1" stop-color="#3a7304" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.55282 0 0 .64574 -3.548 -2.398)" spreadMethod="pad" x1="25.911" y1="13.867" x2="27.19" y2="22.987"/>
+  <linearGradient xlink:href="#b" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.47172 0 0 .55101 -1.343 -1.611)" x1="12.106" y1="24.59" x2="8.358" y2="28.479"/>
+  <linearGradient xlink:href="#c" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.55282 0 0 .64574 -3.548 -2.398)" x1="18.592" y1="15.327" x2="8.821" y2="19.408"/>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#73d216"/>
+   <stop offset="1" stop-color="#4e9a06"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="g" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.34817 0 0 -.51643 16.899 18.82)" x1="12.106" y1="24.59" x2="8.358" y2="28.479"/>
+ </defs>
+ <g color="#000">
+  <g stroke-width="1.202">
+   <path d="M.677 10.498c.678-6.402 9.484-6.402 8.13.533H4.741l8.129 6.936L21 11.03h-4.065C18.29-1.772-1.177 1.24.677 10.498z" style="marker:none" display="block" overflow="visible" fill="url(#d)" stroke="url(#e)" transform="matrix(-.7381 0 0 -.93725 15.908 17.31)"/>
+   <path style="marker:none" d="M2.032 6.763C4.065 3.03 16.934-.163 15.581 12.098h2.71L12.87 16.9l-5.42-4.802h2.71c1.355-9.602-8.129-8.002-8.129-5.335z" display="block" overflow="visible" opacity=".418" fill="none" stroke="url(#f)" transform="matrix(-.7381 0 0 -.93725 15.908 17.31)"/>
+  </g>
+  <path d="M15.408 7.472c-.5 6-7 6-6-.5h3l-6-6.5-6 6.5h3c-1 12 13.369 9.177 12 .5z" style="marker:none" display="block" overflow="visible" fill="none" stroke="url(#g)"/>
+ </g>
+</svg>

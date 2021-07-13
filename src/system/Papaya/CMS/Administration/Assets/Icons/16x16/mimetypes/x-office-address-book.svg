@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-opacity="0"/>
+   <stop offset=".5"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#729fcf"/>
+   <stop offset="1" stop-color="#3465a4"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#eeeeec"/>
+   <stop offset="1" stop-color="#fff"/>
+  </linearGradient>
+  <linearGradient xlink:href="#e" id="f" x1="4.226" y1="5.792" x2="6" y2="5.792" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <path d="M2.5 11.512A1.984 1.984 0 0 0 .512 13.5c0 1.101.887 1.988 1.988 1.988h10.744c.135 0 .259-.044.244-.093l-1.119-3.79c-.014-.049-.11-.093-.244-.093H3.756z" fill="#babdb6" stroke="#204a87" stroke-width="1.025" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect width="11" height="2.265" x="1" y="11.735" rx=".701" ry=".803" fill="#eeeeec"/>
+ <rect ry=".803" rx=".701" y="10.735" x="1" height="2.265" width="11" fill="#d3d7cf"/>
+ <rect width="4" height="5" x="12" y="1" rx="1" ry="1" fill="#edd400"/>
+ <rect ry="1" rx="1" y="4" x="12" height="5" width="4" fill="#73d216"/>
+ <rect width="4" height="5" x="12" y="7" rx="1" ry="1" fill="#ef2929"/>
+ <path d="M3.67.512c-.02 0-.034.018-.053.023H3A2.482 2.482 0 0 0 .512 3.02v9.984c0 .085.017.165.025.248.123-.982.948-1.79 1.963-1.733h10.713a.249.249 0 0 0 .244-.254V.768a.25.25 0 0 0-.244-.256z" fill="#729fcf" stroke="#204a87" stroke-width="1.025" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M3.057 1.512h9.43v8.974H2.562c-.463-.093-.775-.094-1.05.12V3.051c0-.853.69-1.54 1.545-1.54z" fill="url(#f)" stroke="#fff" stroke-width="1.025" opacity=".5"/>
+ <text style="line-height:1.25;-inkscape-font-specification:'sans-serif Bold'" x="3.351" y="8.474" transform="scale(1.01077 .98934)" font-weight="700" font-size="9.157" font-family="sans-serif" letter-spacing="0" word-spacing="0" fill="#ef2929" opacity=".75">
+  <tspan x="3.351" y="8.474">@</tspan>
+ </text>
+</svg>

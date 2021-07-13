@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="f">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#9a0c00"/>
+   <stop offset="1" stop-color="#9a0c00" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#df2a2a"/>
+   <stop offset="1" stop-color="#df2a2a" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="c" gradientUnits="userSpaceOnUse" x1="292.972" y1="4.759" x2="296.94" y2="10.711">
+   <stop offset="0" stop-color="#eeeeec"/>
+   <stop offset="1" stop-color="#fff"/>
+  </linearGradient>
+  <radialGradient id="b" cx="165.061" cy="23.333" r="7.285" gradientTransform="matrix(1 0 0 1.0103 0 -.16)" gradientUnits="userSpaceOnUse">
+   <stop offset="0" stop-color="#ef3535"/>
+   <stop offset="0" stop-color="#c91a1a"/>
+   <stop offset="1" stop-color="#ff4c4c"/>
+  </radialGradient>
+  <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="68.175" y1="21.425" x2="74.587" y2="27.837">
+   <stop offset="0" stop-color="#babdb6"/>
+   <stop offset="1" stop-color="#eeeeec"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="n" x1="22.225" y1="23.843" x2="24.19" y2="22.861" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.01779 0 0 1.01706 -16.12 15.76)"/>
+  <linearGradient xlink:href="#b" id="h" x1="294.595" y1="12.188" x2="297.185" y2="13.34" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#c" id="i" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.38357 0 0 1.38258 -401.59 27.975)" x1="292.972" y1="4.759" x2="296.94" y2="10.711"/>
+  <linearGradient xlink:href="#b" id="g" gradientUnits="userSpaceOnUse" x1="7.185" y1="31.057" x2="25.152" y2="50.775" gradientTransform="matrix(.39659 0 0 .33172 -1.876 32.043)"/>
+  <radialGradient xlink:href="#b" id="k" cx="34.376" cy="37.5" fx="34.376" fy="37.5" r="8.389" gradientTransform="matrix(.34133 0 0 .35441 -.341 31.186)" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#d" id="l" x1="298.479" y1="13.6" x2="298.869" y2="13.803" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#e" id="m" x1="298.479" y1="13.6" x2="298.869" y2="13.803" gradientUnits="userSpaceOnUse"/>
+  <radialGradient xlink:href="#f" id="j" cx="25.188" cy="41.625" fx="25.188" fy="41.625" r="18.063" gradientTransform="matrix(.42873 0 0 .08905 -2.799 42.682)" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <g transform="translate(0 -32)">
+  <path d="M4.996 42.077c1.104.577 1.193 2.21.197 3.648-.996 1.439-2.698 2.138-3.803 1.563-1.105-.577-1.193-2.21-.197-3.647.995-1.438 2.698-2.137 3.803-1.564zm-.634.917c-.49-.256-1.538.18-2.207 1.147-.67.967-.622 1.977-.132 2.231.49.257 1.539-.18 2.208-1.147.67-.968.622-1.976.131-2.231z" fill="url(#g)" stroke="#a40000"/>
+  <path d="M10.619 32.497c.072.023.142.049.213.073.222.734 1.253 1.477.86 2.208-1.305 2.133-2.601 4.294-3.898 6.443a4.624 4.624 0 0 1-.768.082 4.56 4.56 0 0 1-1.612-.246c1.725-2.858 3.45-5.722 5.205-8.56z" fill="#d3d7cf" stroke="#888a85" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="296.39941,13.384766 295.13281,14.71875 294.73242,13.672852 295.74658,11.960449 297.04443,12.300293" transform="matrix(1.24173 0 0 1.15991 -361.534 26.604)" fill="url(#h)" stroke="#9a0c00" stroke-width=".833" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4.082 32.497c-.07.023-.14.049-.209.073-.218.734-1.23 1.477-.845 2.208 1.282 2.133 2.555 4.294 3.828 6.443.25.049.502.076.755.082a4.405 4.405 0 0 0 1.582-.246c-1.693-2.858-3.387-5.722-5.11-8.56z" fill="url(#i)" stroke="#888a85" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse style="marker:none" cx="8" cy="46.389" rx="7.744" ry="1.608" color="#000" overflow="visible" opacity=".267" fill="url(#j)" fill-rule="evenodd"/>
+  <path d="M10.012 42.077c-1.104.577-1.193 2.21-.197 3.648.996 1.439 2.698 2.138 3.802 1.563 1.105-.577 1.194-2.21.198-3.647-.996-1.438-2.698-2.137-3.803-1.564zm.633.917c.49-.256 1.539.18 2.207 1.147.67.967.623 1.977.133 2.231-.49.257-1.54-.18-2.208-1.147-.67-.968-.622-1.976-.132-2.231z" fill="url(#k)" stroke="#a40000"/>
+  <polygon points="297.6001,13.384766 298.86719,14.71875 299.26807,13.672852 298.25391,11.960449 296.95605,12.300293" transform="matrix(1.23714 0 0 1.2114 -359.827 26.323)" fill="url(#l)" stroke="url(#m)" stroke-width=".817" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse style="marker:none" cx="7.5" cy="40.01" rx="1" ry=".999" color="#000" overflow="visible" fill="url(#n)"/>
+ </g>
+</svg>

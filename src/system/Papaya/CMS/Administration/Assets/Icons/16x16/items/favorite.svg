@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#f5a108" stop-opacity="0"/>
+   <stop offset="1" stop-color="#fefdc3" stop-opacity=".743"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.32216 0 0 .323 .3 1.02)" x1="34.798" y1="29.173" x2="17.445" y2="-6.889"/>
+  <linearGradient xlink:href="#b" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.78778 0 0 .4278 -1.048 -1.153)" x1="11.355" y1="32.757" x2="6.358" y2="6.1"/>
+  <linearGradient xlink:href="#b" id="c" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.37072 0 0 .19304 .087 .982)" x1="22.82" y1="28.829" x2="12.85" y2="12.239"/>
+ </defs>
+ <path d="M7.34 13.761c.023-.034.39.44.39.44 1.612-1.774 5.727-5.09 6.85-7.857-2.27 2.548-5.98 6.646-7.24 7.417z" fill="#d4572d" fill-rule="evenodd"/>
+ <path d="M4.562 2.343C2.684 2.249 1.808 3.47 1.335 4.632c-.47 1.53.194 4.419 3.449 4.199 1.856 0 2.593-1.926 3.57-2.426.888-.34.958-.37 1.896-.37 1.303 0 3.66-.955 3.66-1.902-.4-.76-1.464-2.113-3.418-1.883-1.245.147-2.422 1.047-2.73 1.495-.752-.673-1.714-1.402-3.2-1.402z" fill="url(#c)" fill-rule="evenodd"/>
+ <path d="M7.991 2.945c3.25-3.29 7.718-.258 7.688 2.861-.027 2.852-2.175 4.217-7.57 9.29C2.46 10.376.47 9.288.5 5.905c.03-3.502 3.854-6.13 7.491-2.961z" fill="#c71807" fill-rule="evenodd"/>
+ <path d="M.613 5.79C.528 8.636.924 8.185 1.64 9.086c.704.886 3.775.329 6.531-2.3 2.79-2.662 5.632-1.156 7.01-2.637-1.026-1.781-4.23-3.94-7.18-.949C4.22-.258.697 2.915.612 5.791z" opacity=".625" fill="url(#d)" fill-rule="evenodd"/>
+ <path d="M8.035 3.906c2.815-3.05 6.662-.502 6.637 2.121-.022 2.398-1.987 3.717-6.566 7.982-4.793-3.967-6.624-5.025-6.599-7.87.025-2.944 3.44-5.269 6.528-2.233z" opacity=".392" fill="none" stroke="url(#e)"/>
+ <path d="M7.991 2.945c3.25-3.29 7.718-.258 7.688 2.861-.027 2.852-2.175 4.217-7.57 9.29C2.46 10.376.47 9.288.5 5.905c.03-3.502 3.854-6.13 7.491-2.961z" fill="none" stroke="#820000"/>
+</svg>

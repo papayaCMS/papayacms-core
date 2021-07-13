@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+ <rect width="10.001" height="12.011" x="1.109" y=".823" rx="1.058" ry="1.075" opacity=".25" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect ry="1.075" rx="1.058" y=".5" x=".5" height="12.011" width="10.001" fill="#fff" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect width="7.074" height="10" x="1.964" y="1" rx="0" ry="0" fill="#ececec"/>
+ <rect width="10.006" height="2" x=".5" y=".5" rx="0" ry="0" fill="#ccc" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M2.518 5.526c.848 0 1.012.067 1.012.524v3.408m-1.014.08H4.53" fill="none" stroke="#000" stroke-linecap="square"/>
+ <g transform="translate(4.047 -1034.392)">
+  <rect ry="1.075" rx="1.058" y="1037.185" x="1.109" height="12.011" width="10.001" opacity=".25" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="10.001" height="12.011" x=".5" y="1036.862" rx="1.058" ry="1.075" fill="#fff" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect ry="0" rx="0" y="1037.362" x="1.964" height="10" width="7.074" fill="#ececec"/>
+  <rect ry="0" rx="0" y="1036.862" x=".5" height="2" width="10.006" fill="#ccc" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke="#000" stroke-linecap="square">
+   <g stroke-width="1.032" stroke-linejoin="bevel">
+    <path transform="matrix(.93855 0 0 1 17.445 .01)" d="M-15.94 1043.863c1.75 0 2.168.32 2.168 1.005 0 .503-.447 1.005-2.168 1.005"/>
+    <path transform="matrix(.93855 0 0 1 17.445 .01)" d="M-15.93 1043.873c1.751 0 2.169-.32 2.169-1.005 0-.503-.448-1.005-2.169-1.005"/>
+   </g>
+   <path d="M6.494 1041.888c.848 0 1.012.067 1.012.524v3.408m-1.015.08h2.015"/>
+  </g>
+ </g>
+</svg>

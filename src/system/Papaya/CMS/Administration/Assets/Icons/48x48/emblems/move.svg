@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="48" width="48">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.76559 0 0 -.7882 54.123 50.908)" x1="23.708" y1="11.028" x2="36.172" y2="50.995"/>
+  <linearGradient xlink:href="#b" id="f" gradientUnits="userSpaceOnUse" x1="11.963" y1="14.859" x2="37.114" y2="36.087" gradientTransform="matrix(.99031 0 0 1.01957 6.398 1.06)"/>
+  <linearGradient id="c">
+   <stop offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <radialGradient r="16.529" fy="37.968" fx="24.13" cy="37.968" cx="24.13" gradientTransform="matrix(.96243 0 0 .24068 7.866 30.133)" gradientUnits="userSpaceOnUse" id="d" xlink:href="#c"/>
+ </defs>
+ <path style="marker:none" d="M46.997 39.271a15.908 3.978 0 0 1-15.908 3.977 15.908 3.978 0 0 1-15.908-3.978 15.908 3.978 0 0 1 15.908-3.978 15.908 3.978 0 0 1 15.908 3.978z" overflow="visible" color="#000" opacity=".171" fill="url(#d)" fill-rule="evenodd"/>
+ <path overflow="visible" display="block" style="marker:none" d="M22.491 37.56h10.04v7.94L46.013 33 32.531 20.5v8h-10.04z" color="#000" fill="#73d216" stroke="#4e9a06"/>
+ <path stroke-miterlimit="10" overflow="visible" display="block" d="M23.507 36.576h10.036v6.455L44.54 33.03 33.554 22.899v6.566H23.507z" style="marker:none" color="#000" opacity=".7" fill="none" stroke="url(#e)"/>
+ <path overflow="visible" display="block" style="marker:none" d="M32.98 21.558l.002 7.47-10.02-.064.017 4.005c5.83 1.77 15.164-2.465 20.129-1.99zm9.311 12.192c-6.284 4.764-6.286 4.765 0 0z" color="#000" fill="url(#f)"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fcaf3e"/>
+   <stop offset="1" stop-color="#d37f03"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="b" cx="24.286" cy="36.721" fx="24.286" fy="36.721" r="20.411" gradientUnits="userSpaceOnUse" gradientTransform="rotate(45 37.683 -.006) scale(.92048)"/>
+ </defs>
+ <path d="M.5 15.5V.5h15v15z" fill="url(#b)" stroke="#f57900" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M7.085 10.98h1.919v1.94H7.085zm1.862-.985H7.142v-.531c0-.452.088-.823.265-1.113.176-.29.548-.628 1.115-1.013l.85-.596c.36-.237.618-.46.775-.67.164-.21.246-.425.246-.644 0-.398-.208-.72-.624-.966-.41-.246-.954-.369-1.635-.369a6.02 6.02 0 0 0-1.597.235c-.56.157-.97.384-1.58.684v-1.26c.592-.255 1.013-.445 1.618-.57a9.399 9.399 0 0 1 1.89-.188c1.16 0 2.089.217 2.788.65.706.434 1.059 1.006 1.059 1.717 0 .34-.114.663-.34.972-.227.304-.624.648-1.191 1.032l-.832.577a6.01 6.01 0 0 0-.633.496 1.15 1.15 0 0 0-.255.342 1.472 1.472 0 0 0-.085.342 4.15 4.15 0 0 0-.029.55z" aria-label="?" font-weight="400" font-size="16.302" font-family="sans-serif" letter-spacing="0" word-spacing="0" fill="#eeeeec"/>
+ <rect width="13" height="13" x="1.5" y="1.5" opacity=".5" fill="none" stroke="#fff" stroke-linecap="square"/>
+</svg>

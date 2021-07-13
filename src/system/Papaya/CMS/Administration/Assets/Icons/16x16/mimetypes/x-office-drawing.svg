@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="c">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-opacity="0" stop-color="#fff" offset="1"/>
+  </linearGradient>
+  <linearGradient y2="7.109" x2="21.933" y1="24.627" x1="21.933" gradientUnits="userSpaceOnUse" id="a">
+   <stop stop-color="#8595bc" offset="0"/>
+   <stop stop-color="#041a3b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="21.933" y1="24.627" x2="21.933" y2="7.109">
+   <stop stroke-width="1.217" stop-color="#d0d6e5" offset="0"/>
+   <stop stroke-width="1.217" stop-color="#093a80" offset="1"/>
+  </linearGradient>
+ </defs>
+ <rect x=".5" y=".5" width="13" height="14" fill="#eeeeec" stroke="#888a85" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect width="6" height="4" x="2.501" y="8.499" fill="#3465a4" stroke="#729fcf" stroke-width="1.002"/>
+ <rect height="12" width="11" y="1.5" x="1.5" fill="none" stroke="#fff" stroke-linecap="square"/>
+ <image y="-.203" x="-18.102" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA B3RJTUUH1gQTDiQbzowOYwAAAbxJREFUOMutkb9rE2EYxz/PmzgUBFt7Sj3kKkInBXUQdBA3l072 Ag51cBFcExxDw52Ck39AzOAiilISRFxaREqnLBKF4uAPUDC54r05grZpueZeh7Sh0ngQ8Ls878OX 98PzfB8pl8uLQRC4jKYbpVLpBQCe55lR5Xme2SOpvYfWGtd1yefzaK3RWlOpVGjrNrqtKRQK5NyD g2b3N47jALC2vkIjWCayWzx5/44LJ671/enpdECxWGRtfYV69Ax7xuK4OkmS9Kh/f8r12/Ocnbp6 AKD+boVGsIztWGxsd+hshvze6mA7Fo3WEjIkzQFARKjVqkTdFhmVwZgEEAwGpbJEW00Wq9WUCQy4 c3McHbNJkh5K+pYSIUl6TIzZ5HJpISrh/stvbCbn6EWvsB0LpTIkSY/D8U8u2fOIkZQVDCw99gne 1jmVyRF9hh8fm3z9sMPlyZvUHq3i3/NTVhAh3u7SCTvIlw2mmhf59eY0xzJ3ObObfhiG/15BMMze eUD8aZWWjtmJuxyZtHc9YaG0gAy5wwBgpG8emrnSr/uPK33MMA0AE+PjPLx1nlGVtSzrte/7s6N8 sizrOf9LfwCZvc+DDWWprwAAAABJRU5ErkJggg==" preserveAspectRatio="none" height="16" width="16" image-rendering="optimizeSpeed"/>
+ <path d="M7.499 2.016v8.99M11.994 6.511H3.003" fill="#888a85" stroke="#888a85"/>
+ <circle cx="7.534" cy="6.547" r="3.003" fill="#73d216" stroke="#4e9a06" stroke-width="1.002"/>
+ <rect width="1.99" height="1.99" x="3.039" y="2.016" fill="#555753"/>
+ <rect y="2.016" x="9.968" height="1.99" width="1.99" fill="#555753"/>
+ <rect y="8.963" x="3.039" height="1.99" width="1.99" fill="#555753"/>
+ <rect width="1.99" height="1.99" x="9.968" y="8.963" fill="#555753"/>
+</svg>

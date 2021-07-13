@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+ <defs>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#a4e267"/>
+   <stop offset="1" stop-color="#4e9a06"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="g" x1="17" y1="21" x2="17" y2="37" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#b" id="h" x1="32" y1="20" x2="32.301" y2="36" gradientUnits="userSpaceOnUse"/>
+  <radialGradient xlink:href="#c" id="f" cx="24" cy="8.21" fx="24" fy="8.21" r="10" gradientTransform="matrix(1 -.00066 .00027 .4042 -.002 6.097)" gradientUnits="userSpaceOnUse"/>
+  <filter id="e" x="-.077" width="1.155" y="-.067" height="1.135" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation=".87"/>
+  </filter>
+  <filter id="d" x="-.066" width="1.132" y="-.115" height="1.23" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation=".524"/>
+  </filter>
+ </defs>
+ <path d="M23.997 5.511a9.607 9.607 0 0 0-9.497 8.23l3.15 2.702h13.453L33.5 13.74a9.607 9.607 0 0 0-9.503-8.229z" transform="matrix(1 0 0 .82332 0 3.462)" stroke="#000" stroke-width="1.102" stroke-linecap="round" stroke-linejoin="round" filter="url(#d)"/>
+ <path d="M10.5 18.982V34.23c.008 5.517 6.568 10.432 11.956 12.271.992-.62 2.015-.711 3.084 0 5.387-1.84 11.952-6.754 11.96-12.271V18.982z" transform="matrix(1.11111 0 0 1.0357 -2.667 -1.66)" opacity=".75" stroke="#000" stroke-width=".932" stroke-linecap="round" stroke-linejoin="round" filter="url(#e)"/>
+ <path d="M10.5 15.5v18.729c.008 5.517 6.568 10.432 11.956 12.271.992-.62 2.015-.711 3.084 0 5.387-1.84 11.952-6.754 11.96-12.271V15.5z" fill="#4e9a06" stroke="#4e9a06" stroke-linecap="round" stroke-linejoin="round"/>
+ <path style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" d="M13.883 4.053a1 1 0 0 0-.697 1.717l3.084 3.085a1 1 0 1 0 1.414-1.414L14.6 4.355a1 1 0 0 0-.717-.302zm19.997 0a1 1 0 0 0-.687.302L30.11 7.441a1 1 0 1 0 1.414 1.414l3.084-3.085a1 1 0 0 0-.726-1.717z" color="#000" font-weight="400" font-family="sans-serif" overflow="visible" fill="#555753" stroke="#2e3436" stroke-linecap="round" enable-background="accumulate"/>
+ <path d="M23.997 5.511a9.607 9.607 0 0 0-9.497 8.23l3.15 2.702h13.453L33.5 13.74a9.607 9.607 0 0 0-9.503-8.229z" fill="url(#f)" stroke="#4e9a06" stroke-linecap="round" stroke-linejoin="round"/>
+ <path style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" d="M36.78 23.645a1.5 1.5 0 0 0-.535 2.867l5.17 2.396 2.736 5.389a1.5 1.5 0 1 0 2.674-1.36l-2.97-5.85a1.5 1.5 0 0 0-.708-.68l-5.64-2.616a1.5 1.5 0 0 0-.727-.146zm-25.621-.002a1.5 1.5 0 0 0-.684.148l-5.64 2.615a1.5 1.5 0 0 0-.707.682l-2.971 5.85a1.5 1.5 0 1 0 2.676 1.359l2.734-5.389 5.17-2.396a1.5 1.5 0 0 0-.578-2.87z" color="#000" font-weight="400" font-family="sans-serif" overflow="visible" fill="#555753" stroke="#2e3436" stroke-linecap="round" stroke-linejoin="round" enable-background="accumulate"/>
+ <path style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" d="M11.325 34.7a1.5 1.5 0 0 0-1.031.452l-3.258 3.26-3.004 6.05a1.5 1.5 0 1 0 2.687 1.335l2.786-5.611 2.912-2.913a1.5 1.5 0 0 0-1.092-2.574zm25.235-.003a1.5 1.5 0 0 0-1.046 2.576l2.91 2.913 2.788 5.61a1.5 1.5 0 1 0 2.687-1.333l-3.006-6.05-3.258-3.26a1.5 1.5 0 0 0-1.076-.456zM5.346 6.348a1.5 1.5 0 0 0-1.37 2.185l3.005 6.051 3.256 3.26a1.5 1.5 0 1 0 2.123-2.121L9.45 12.81 6.663 7.199a1.5 1.5 0 0 0-1.317-.851zm37.287 0a1.5 1.5 0 0 0-1.421.851l-2.788 5.612-2.91 2.912a1.5 1.5 0 1 0 2.121 2.12l3.258-3.259 3.006-6.05a1.5 1.5 0 0 0-1.266-2.186z" font-weight="400" overflow="visible" enable-background="accumulate" font-family="sans-serif" stroke-linecap="round" stroke="#2e3436" fill="#555753" color="#000"/>
+ <path d="M10.5 15.5v18.729c.008 5.517 6.568 10.432 11.956 12.271V18.551h3.084V46.5c5.387-1.84 11.952-6.754 11.96-12.271V15.5z" fill="#73d216" stroke="#4e9a06" stroke-linecap="round" stroke-linejoin="round"/>
+ <ellipse cx="19.254" cy="9.429" rx="1.431" ry="1.432" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+ <ellipse cy="9.448" cx="28.6" rx="1.431" ry="1.432" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M11.582 35.307V16.552h24.856V35.21" opacity=".5" fill="none" stroke="#fff" stroke-linecap="round"/>
+ <path d="M10.5 15.5v18.729c.008 5.517 6.568 10.432 11.956 12.271l1.077-27.949h.89L25.54 46.5c5.387-1.84 11.952-6.754 11.96-12.271V15.5z" fill="#73d216" stroke="#4e9a06" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M11.039 16v18.229c0 .467.064.927.154 1.384 2.457-2.577 5.142-5.846 11.461-5.81L23 17.998l1 .027.008-2.025z" opacity=".75" fill="url(#g)"/>
+ <path d="M24.008 16v1.988L25 18l.615 17.613c2.458-2.577 5.066-5.846 11.385-5.81-.013-4.601.03-9.202-.023-13.803z" opacity=".75" fill="url(#h)"/>
+</svg>

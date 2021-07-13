@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+ <defs>
+  <linearGradient id="f">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#888a85"/>
+   <stop offset="1" stop-color="#b8b9b6"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#888a85"/>
+   <stop offset="1" stop-color="#888a85" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient id="a" cx="9.342" cy="22.614" r="14.152" fx="9.342" fy="22.614" gradientUnits="userSpaceOnUse">
+   <stop offset="0" stop-color="#767676"/>
+   <stop offset="1" stop-color="#484848"/>
+  </radialGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+ </defs>
+ <path d="M15.429 15.474C14 15.226 14.21 13.513 11 13.448" fill="none" stroke="#555753" stroke-linecap="round"/>
+ <circle cx="7.5" cy="7.5" r="3.435" fill="#555753" stroke="#555753" stroke-width="1.002" stroke-linecap="round"/>
+ <path d="M7.5.502A6.999 6.999 0 0 0 .502 7.5 6.999 6.999 0 0 0 7.5 14.498 6.999 6.999 0 0 0 14.498 7.5 6.999 6.999 0 0 0 7.5.502zm-2.5 3A1.499 1.499 0 0 1 6.498 5 1.499 1.499 0 0 1 5 6.498 1.499 1.499 0 0 1 3.502 5 1.499 1.499 0 0 1 5 3.502zm5 0A1.499 1.499 0 0 1 11.498 5 1.499 1.499 0 0 1 10 6.498 1.499 1.499 0 0 1 8.502 5 1.499 1.499 0 0 1 10 3.502zm-5 5A1.499 1.499 0 0 1 6.498 10 1.499 1.499 0 0 1 5 11.498 1.499 1.499 0 0 1 3.502 10 1.499 1.499 0 0 1 5 8.502zm5 0A1.499 1.499 0 0 1 11.498 10 1.499 1.499 0 0 1 10 11.498 1.499 1.499 0 0 1 8.502 10 1.499 1.499 0 0 1 10 8.502z" fill="#d3d7cf" stroke="#babdb6" stroke-width="1.002" stroke-linecap="square"/>
+ <circle cy="7.5" cx="7.5" r="5.999" fill="none" stroke="#eeeeec" stroke-width="1.002" stroke-linecap="square"/>
+ <circle cx="7.5" cy="7.5" r="6.999" fill="none" stroke="#888a85" stroke-width="1.002" stroke-linecap="square"/>
+ <circle cx="7.5" cy="7.5" r="1.5" fill="#888a85"/>
+</svg>

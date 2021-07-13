@@ -14,6 +14,8 @@
  */
 namespace Papaya\CMS\Administration\Theme\Editor\Changes;
 
+use Papaya\Cache\Service as CacheService;
+use Papaya\CMS\Cache\Cache as CMSCache;
 use Papaya\CMS\Content;
 use Papaya\UI;
 
@@ -41,7 +43,7 @@ class Dialog
   private $_fieldFactory;
 
   /**
-   * @var \Papaya\Cache\Service
+   * @var CacheService
    */
   private $_cacheService;
 
@@ -184,16 +186,16 @@ class Dialog
   /**
    * Access to the theme cache service - to reset the cache after changes.
    *
-   * @param \Papaya\Cache\Service $service
+   * @param CacheService $service
    *
-   * @return \Papaya\Cache\Service
+   * @return CacheService
    */
-  public function cache(\Papaya\Cache\Service $service = NULL) {
+  public function cache(CacheService $service = NULL) {
     if (NULL !== $service) {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
       /* @noinspection PhpParamsInspection */
-      $this->_cacheService = \Papaya\Cache::getService($this->papaya()->options);
+      $this->_cacheService = CMSCache::getService($this->papaya()->options);
     }
     return $this->_cacheService;
   }

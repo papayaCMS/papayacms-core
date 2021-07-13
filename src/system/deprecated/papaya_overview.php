@@ -1087,7 +1087,7 @@ class papaya_overview extends base_db {
   * @access public
   */
   function refreshPages() {
-    $cache = Cache::getService($this->papaya()->options);
+    $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
     $counter = $cache->delete();
     if ($counter > 0) {
       $this->addMsg(MSG_INFO, sprintf($this->_gt('%s files deleted.'), $counter));

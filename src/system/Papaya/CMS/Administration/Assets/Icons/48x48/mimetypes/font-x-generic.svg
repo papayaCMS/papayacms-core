@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+ <defs>
+  <radialGradient xlink:href="#a" id="g" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-2.77439 0 0 1.9697 112.762 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1891.633 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-opacity="0"/>
+   <stop offset=".5"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1892.179 -872.885)" x1="302.857" y1="366.648" x2="302.857" y2="609.505"/>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#729fcf"/>
+   <stop offset="1" stop-color="#3465a4"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#eeeeec"/>
+   <stop offset="1" stop-color="#fff"/>
+  </linearGradient>
+  <linearGradient xlink:href="#c" id="h" x1="36.669" y1="36.383" x2="10.304" y2="7.493" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#d" id="i" x1="18.562" y1="12.998" x2="30.936" y2="33.681" gradientUnits="userSpaceOnUse" gradientTransform="translate(-1 -1)"/>
+ </defs>
+ <g transform="matrix(.02475 0 0 .02087 46.137 41.507)" color="#000">
+  <rect style="marker:none" width="1339.633" height="478.357" x="-1559.252" y="-150.697" opacity=".402" fill="url(#e)" overflow="visible"/>
+  <path style="marker:none" d="M-219.619-150.68v478.33c142.874.9 345.4-107.17 345.4-239.196S-33.655-150.68-219.619-150.68z" opacity=".402" fill="url(#f)" overflow="visible"/>
+  <path d="M-1559.252-150.68v478.33c-142.875.9-345.4-107.17-345.4-239.196s159.436-239.134 345.4-239.134z" style="marker:none" opacity=".402" fill="url(#g)" overflow="visible"/>
+ </g>
+ <rect width="41.011" height="42.987" x="3.488" y="2.512" rx=".999" ry=".999" fill="url(#h)" stroke="#888a85" stroke-width="1.025" stroke-linecap="round" stroke-linejoin="round"/>
+ <path style="text-align:start;line-height:125%" d="M39 39.009c-2.656-.233-2.936-.231-3.542-3.633L31.078 9h-.837L16.352 32.3c-3.681 6.198-4.554 6.336-6.418 6.709v1.12h9.121v-1.12c-2.377-.233-2.75-.091-2.75-1.256 0-.886.14-1.305.933-2.89l2.656-4.703h10.252l.932 5.542c.047.42.093.839.093 1.212 0 1.77-.246 1.815-3.228 2.095v1.12H39v-1.12m-18.128-11.09l6.99-12.115 2.05 12.116h-9.04" font-size="46.601" font-style="italic" font-weight="400" fill="url(#i)" font-family="Nimbus Roman No9 L"/>
+ <path d="M8 6.5a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 4a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0-24a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 26a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm0 2a.5.5 0 1 0-1 0 .5.5 0 1 0 1 0zm-3-34a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm6 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm-24 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm26 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0zm-32-2a.5.5 0 1 0 1 0 .5.5 0 1 0-1 0z" fill="#888a85"/>
+ <rect width="39.014" height="41.034" x="4.487" y="3.512" rx="0" ry="0" fill="none" stroke="#fff" stroke-width="1.025"/>
+</svg>

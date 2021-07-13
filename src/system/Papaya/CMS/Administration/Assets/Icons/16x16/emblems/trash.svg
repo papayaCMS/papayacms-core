@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#b5c051"/>
+   <stop offset="1" stop-color="#858e3f"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#616c08"/>
+   <stop offset="1" stop-color="#495106"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#eff3f4"/>
+   <stop offset="1" stop-color="#939596"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="f" gradientTransform="matrix(.29777 0 0 .07184 12.349 1.547)" x1="-4.638" y1="104.388" x2="-4.524" y2="110.614" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#b" id="d" gradientTransform="matrix(.19961 0 0 .18949 6.873 5.338)" x1="10.861" y1="33.139" x2="30.587" y2="37.721" gradientUnits="userSpaceOnUse"/>
+  <linearGradient gradientUnits="userSpaceOnUse" y2="52.625" x2="19.673" y1="23.114" x1="19.347" gradientTransform="matrix(.19961 0 0 .18949 6.873 5.338)" id="e" xlink:href="#c"/>
+ </defs>
+ <path d="M7.525 9.083c-.008-.008.294 5.619.294 5.62.028.562.266.768.531.769l5.093-.002c.448-.002.557-.36.587-.75.002-.008.304-5.63.306-5.637z" fill="url(#d)" fill-rule="evenodd" stroke="url(#e)"/>
+ <g fill="#fff" fill-opacity=".488" fill-rule="evenodd" stroke-width="4.982">
+  <path d="M10.836 11.605l1.072.084.415-1.03-.49.352s-.21-.5-.362-.54c-.151-.04-.797-.027-.797-.027.206.052.365.411.368.415.064.107.243.465.243.465z"/>
+  <path style="marker:none" d="M10.969 10.893l-.355.69-.73-.468s.33-.637.592-.637c.263 0 .38.231.493.415z" overflow="visible" color="#000" fill-opacity=".31"/>
+  <path d="M11.491 12.532l-.691.842.66.869.011-.547s.487.047.598-.065c.112-.112.576-.674.576-.674-.15.153-.534.108-.539.108-.122 0-.607-.01-.607-.01l-.008-.523z"/>
+  <path style="marker:none" d="M12.14 12.968l-.398-.664.77-.398s.365.617.23.845c-.134.23-.389.214-.602.217z" overflow="visible" color="#000" fill-opacity=".31"/>
+  <path d="M10.282 12.483l-.341-.916-.995.072.408.303s-.282.406-.243.56c.04.154.26.793.26.793-.055-.208.175-.525.178-.529.06-.109.311-.531.311-.531z"/>
+  <path style="marker:none" d="M9.6 12.853l.764-.02-.046.878s-.707.016-.834-.216c-.128-.234.012-.452.115-.642z" overflow="visible" color="#000" fill-opacity=".31"/>
+ </g>
+ <path d="M7.668 7.445c-.212 0-.39.004-.487.153-.016.026-.529 1.078-.554 1.118-.21.343-.016.775.391.772.078 0 8.032.003 8.155 0 .347-.007.391-.508.242-.733-.008-.013-.701-1.171-.72-1.192-.08-.091-.264-.131-.4-.128l-6.627.01z" fill="url(#f)" fill-rule="evenodd" stroke="#4d5506"/>
+</svg>

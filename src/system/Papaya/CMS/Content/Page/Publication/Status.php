@@ -71,7 +71,9 @@ class Status extends Content\Page\Status {
       $this->_cache = $cache;
     } elseif (NULL === $this->_cache) {
       /* @noinspection PhpParamsInspection */
-      $this->_cache = Cache::get(Cache::DATA, $this->papaya()->options);
+      $this->_cache = \Papaya\CMS\Cache\Cache::get(
+        \Papaya\CMS\Cache\Cache::DATA, $this->papaya()->options
+      );
     }
     return $this->_cache;
   }

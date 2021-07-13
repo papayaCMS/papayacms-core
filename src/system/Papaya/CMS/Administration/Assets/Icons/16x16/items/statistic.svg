@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="f" x1="13" y1="5" x2="13" y2="12" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#b" id="e" x1="8" y1="9" x2="8" y2="12" gradientUnits="userSpaceOnUse"/>
+  <linearGradient xlink:href="#c" id="d" x1="3" y1="3" x2="3" y2="12" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <rect width="3" height="12" x="1.5" y="1.5" fill="#73d216" stroke="#4e9a06" stroke-linecap="square"/>
+ <rect y="7.5" x="6.5" height="6" width="3" fill="#ef2929" stroke="#a40000" stroke-linecap="square"/>
+ <rect y="3.5" x="11.5" height="10" width="3" fill="#729fcf" stroke="#3465a4" stroke-linecap="square"/>
+ <path d="M1.5 14.49h3" fill="none" stroke="#4e9a06" stroke-linecap="square" opacity=".25"/>
+ <path d="M6.5 14.49h3" fill="none" stroke="#a40000" stroke-linecap="square" opacity=".25"/>
+ <path d="M11.5 14.49h3" fill="none" stroke="#3465a4" stroke-linecap="square" opacity=".25"/>
+ <rect width="2" height="11" x="2" y="2" opacity=".25" fill="url(#d)"/>
+ <rect y="8" x="7" height="5" width="2" opacity=".25" fill="url(#e)"/>
+ <rect width="2" height="9" x="12" y="4" opacity=".25" fill="url(#f)"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="16" width="16">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="b" x1="11.176" y1="11.606" x2="10.264" y2="11.94" gradientUnits="userSpaceOnUse"/>
+ </defs>
+ <path d="M1.004 15.483h1.535l9.96-2.95V9.568l-3.984-4.06z" fill="#d3d7cf" stroke="#888a85"/>
+ <path d="M11.54.46L8.546 3.456l-.973 3.071 4.03 3.93h.973l3.01-3.018" fill="#d3d7cf" stroke="#888a85" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M11.747 1.554L9.411 3.976l-.698 2.27 3.378 3.276 2.917-2.858" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>
+ <path d="M8.804 8.458l1.748 4.12 1.43-.395v-1.231c-.898 0-.68-.198-3.178-2.494z" opacity=".75" fill="url(#b)"/>
+ <path d="M7.74 7.386l-5.733 7.572h.487l.8-.224 5.297-6.557z" opacity=".5" fill="#fff"/>
+ <path d="M10.72 7.5L9.29 6.086l.545-1.865 2.405-2.484C11.18 3.472 10.912 5.52 10.72 7.5z" opacity=".5" fill="#555753"/>
+</svg>

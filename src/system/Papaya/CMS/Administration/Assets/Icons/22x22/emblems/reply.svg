@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="22" width="22">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#3465a4"/>
+   <stop offset="1" stop-color="#729fcf"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#3465a4"/>
+   <stop offset="1" stop-color="#729fcf"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" x1="32.708" y1="28.042" x2="43.987" y2="34.408"/>
+  <linearGradient xlink:href="#b" id="f" gradientUnits="userSpaceOnUse" x1="32.708" y1="28.042" x2="43.987" y2="34.408"/>
+  <linearGradient xlink:href="#c" id="g" gradientUnits="userSpaceOnUse" gradientTransform="translate(-3.869 -2.707) scale(.91411)" x1="23.708" y1="11.028" x2="36.172" y2="50.995"/>
+  <linearGradient xlink:href="#d" id="h" gradientUnits="userSpaceOnUse" x1="11.963" y1="14.859" x2="37.114" y2="36.087" gradientTransform="translate(-.094 .104)"/>
+ </defs>
+ <g color="#000" stroke-width="2.147">
+  <path transform="matrix(.39527 0 0 -.39252 4.59 21.908)" d="M36.11 36.462c4.918-4.56 15.746-22.395-13.648-23.964V3.122L5.814 17.71l16.648 15.297v-8.968c17.02-.882 15.598 2.137 8.432 12.424z" style="marker:none" display="block" overflow="visible" fill="url(#e)" stroke="url(#f)" stroke-width="2.539"/>
+  <path transform="matrix(.39527 0 0 -.39252 4.59 21.908)" style="marker:none" d="M34.495 34.87c3.46-4.72 14.586-19.535-14.362-19.946V8.347L9.594 17.715l10.539 9.729v-5.786c17.07-2.074 22.89 4.374 14.362 13.212z" display="block" overflow="visible" stroke-miterlimit="10" opacity=".7" fill="none" stroke="url(#g)" stroke-width="2.539"/>
+  <path d="M32.708 37.503l-.021 8.1L43.761 34.26 33.368 23.65l.102 6.182c-15.183 1.583-15.65-3.403-11.24-10.18-4.773 2.098-12.635 16.955 10.478 17.851zm7.979-7.774c.08-.005.136.002.219 0l3.7 4.562L32.78 45.573l-.135-8.102-4.188-.53c3.657-1.04 7.237-6.91 12.229-7.212z" style="marker:none" display="block" overflow="visible" transform="matrix(-.46738 0 0 .46413 28.616 -.9)" fill="url(#h)"/>
+ </g>
+</svg>

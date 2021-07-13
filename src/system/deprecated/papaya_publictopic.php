@@ -214,7 +214,7 @@ class papaya_publictopic extends base_topic {
     if ($definition) {
       return new Cache\Identifier\Definition\Group(
         new Cache\Identifier\Definition\BooleanValue(\Papaya\Utility\Request\Method::isGet()),
-        new Cache\Identifier\Definition\Page(),
+        new \Papaya\CMS\Cache\Identifier\Definition\Page(),
         new Cache\Identifier\Definition\Surfer(),
         $definition
       );
@@ -256,7 +256,7 @@ class papaya_publictopic extends base_topic {
   * @return string
   */
   function getContentCache($cacheId) {
-    $cache = Cache::getService($this->papaya()->options);
+    $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
     return $cache->read(
       'pages',
       $this->topicId,
@@ -276,7 +276,7 @@ class papaya_publictopic extends base_topic {
   function writeContentCache($cacheId, $contentStr) {
     $expires = $this->getContentCacheTime();
     if ($expires > 0) {
-      $cache = Cache::getService($this->papaya()->options);
+      $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
       return $cache->write('pages', $this->topicId, $cacheId, $contentStr, $expires);
     }
     return FALSE;

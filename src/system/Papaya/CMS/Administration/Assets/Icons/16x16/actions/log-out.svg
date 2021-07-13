@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="f">
+   <stop offset="0" stop-color="#babdb6"/>
+   <stop offset="1" stop-color="#babdb6" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#4e4e4e"/>
+   <stop offset="1" stop-color="#616161" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#4e4e4e"/>
+   <stop offset="1" stop-color="#ababab"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient gradientUnits="userSpaceOnUse" y2="27.759" x2="18.031" y1="19.804" x1="46.846" id="i" xlink:href="#a" gradientTransform="matrix(.35024 0 0 .35483 -3.903 -.084)"/>
+  <radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(.90069 0 0 .49732 -17.178 -3.443)" r="9.723" fy="7.14" fx="27.884" cy="7.14" cx="27.884" id="j" xlink:href="#b"/>
+  <linearGradient xlink:href="#c" id="k" x1="40.25" y1="31.625" x2="40.25" y2="43.25" gradientUnits="userSpaceOnUse" gradientTransform="translate(-12.02)"/>
+  <filter x="-.142" width="1.283" y="-.104" height="1.208" id="l">
+   <feGaussianBlur stdDeviation="2.07"/>
+  </filter>
+  <filter x="-.067" width="1.134" y="-.12" height="1.239" id="h">
+   <feGaussianBlur stdDeviation=".769"/>
+  </filter>
+  <radialGradient xlink:href="#d" id="m" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.25344 0 0 .9539 -15.48 11.277)" cx="19.701" cy="2.897" fx="19.701" fy="2.897" r="17.171"/>
+  <linearGradient xlink:href="#e" id="n" gradientUnits="userSpaceOnUse" x1="8.76" y1="13.663" x2="19.756" y2="43.45" gradientTransform="matrix(.96872 0 0 .96892 .362 .738)"/>
+  <linearGradient xlink:href="#f" id="g" x1="18.729" y1="44" x2="18.729" y2="29.068" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.41935 0 0 .42734 .17 -3.803)"/>
+ </defs>
+ <rect ry=".707" rx=".707" y=".5" x=".5" height="15" width="14" style="marker:none" color="#000" fill="#eeeeec" fill-rule="evenodd" stroke="#555753" stroke-miterlimit="10" overflow="visible"/>
+ <path style="marker:none" color="#000" fill="url(#g)" fill-rule="evenodd" overflow="visible" d="M1 3.565h13V15H1z"/>
+ <path d="M2.104 43.875L23.48 35s3.514-2.22.25-3.5c-3.415-1.34-7 .5-7 .5L2.104 43.875z" transform="matrix(.40158 0 0 .43167 -1.087 -2.9)" opacity=".886" fill-rule="evenodd" filter="url(#h)"/>
+ <path d="M1.014 15.51L1 1l6.985.016L8 11.632l-6.986 3.877z" style="marker:none" color="#000" fill="url(#i)" fill-rule="evenodd" overflow="visible"/>
+ <path style="marker:none" d="M1 15.51l7-3.858-6.449 3.164V1h-.545L1 15.51z" opacity=".422" color="#000" fill="#fff" display="block" overflow="visible"/>
+ <path style="marker:none" d="M1.016 15.425L1 1h7l-.063 10.854-6.921 3.571z" color="#000" fill="url(#j)" fill-rule="evenodd" overflow="visible"/>
+ <path d="M22.23 3.5l-.5 29.75-18 9.75 29.25.25-.25-39.75h-10.5z" transform="matrix(.44806 0 0 .34167 -.149 .223)" opacity=".874" fill="url(#k)" fill-rule="evenodd" filter="url(#l)"/>
+ <g color="#000">
+  <path d="M1.732 17.064v13.358h6.977v4.865l13.179-11.334L8.636 12.842v4.225l-6.904-.003z" style="marker:none" fill="#c00" fill-rule="evenodd" stroke="#a40000" stroke-width="2.234" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" overflow="visible" transform="matrix(-.44806 0 0 .44728 16.307 -2.283)"/>
+  <path d="M9.43 14.328l.297 3.884-6.696.099-.296 6.32c10.258-3.828 8.53 3.143 17.869-.685L9.43 14.328z" style="marker:none" opacity=".508" fill="url(#m)" fill-rule="evenodd" overflow="visible" transform="matrix(-.44806 0 0 .44728 16.307 -2.283)"/>
+  <path style="marker:none" d="M4.068 19.29v8.91h6.714v2.574l8.094-6.832-8.354-7.14v2.49l-6.454-.002z" opacity=".481" fill="none" stroke="url(#n)" stroke-width="2.234" stroke-miterlimit="10" overflow="visible" transform="matrix(-.44806 0 0 .44728 16.307 -2.283)"/>
+ </g>
+</svg>

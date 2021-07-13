@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="f">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#b9cfe7"/>
+   <stop offset="1" stop-color="#729fcf"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#3465a4"/>
+   <stop offset="1" stop-color="#3465a4"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#3465a4"/>
+   <stop offset="1" stop-color="#3465a4" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#3465a4"/>
+   <stop offset=".333" stop-color="#5b86be"/>
+   <stop offset="1" stop-color="#83a8d8" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="e">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="g" gradientUnits="userSpaceOnUse" gradientTransform="translate(-1.124 -.526) scale(.37258)" x1="13.479" y1="10.612" x2="15.419" y2="19.115"/>
+  <linearGradient xlink:href="#b" id="h" gradientUnits="userSpaceOnUse" gradientTransform="translate(16.41 16.66) scale(.37258)" x1="37.128" y1="29.73" x2="37.149" y2="27.201"/>
+  <linearGradient xlink:href="#c" id="j" gradientUnits="userSpaceOnUse" x1="46.835" y1="45.264" x2="45.38" y2="50.94"/>
+  <linearGradient xlink:href="#d" id="i" gradientUnits="userSpaceOnUse" x1="62.514" y1="36.061" x2="15.985" y2="20.609"/>
+  <linearGradient xlink:href="#a" id="l" gradientUnits="userSpaceOnUse" gradientTransform="translate(17.18 16.633) scale(.37258)" x1="13.479" y1="10.612" x2="15.419" y2="19.115"/>
+  <linearGradient xlink:href="#b" id="m" gradientUnits="userSpaceOnUse" gradientTransform="translate(-.355 -.553) scale(.37258)" x1="37.128" y1="29.73" x2="37.065" y2="27.201"/>
+  <linearGradient xlink:href="#d" id="n" gradientUnits="userSpaceOnUse" x1="62.514" y1="36.061" x2="15.985" y2="20.609"/>
+  <linearGradient xlink:href="#c" id="o" gradientUnits="userSpaceOnUse" x1="46.835" y1="45.264" x2="45.38" y2="50.94"/>
+  <linearGradient xlink:href="#e" id="p" gradientUnits="userSpaceOnUse" x1="25.16" y1="22.131" x2="51.147" y2="28.068"/>
+  <linearGradient xlink:href="#f" id="k" gradientUnits="userSpaceOnUse" x1="30.403" y1="18.275" x2="57.052" y2="29.033"/>
+ </defs>
+ <path style="marker:none" d="M6.476 3.368S3.897 3.135 4.701 7.18l-3.13-.177s-.078-4.38 4.905-3.635z" color="#000" fill="url(#g)" stroke="url(#h)" display="block" overflow="visible"/>
+ <path d="M44.379 48.447c17.062-15.843 3.97-36.146-21.917-35.95l-.348-9.345-14.49 17.345 15.09 12.722-.252-9.881c18.83.999 28.34 10.354 21.917 25.11z" style="marker:none" color="#000" fill="url(#i)" stroke="url(#j)" stroke-width="3.541" display="block" overflow="visible" transform="matrix(-.21574 -.18228 -.18228 .21574 19.908 4.56)"/>
+ <path style="marker:none" d="M60.734 41.39c-3.613-15.737-13.512-27.777-44.513-27.995l-.167-4.52-8.936 10.55 9.237 7.635-.078-8.579c35.669 1.12 43.506 18.674 44.457 22.908z" color="#000" stroke="url(#k)" stroke-width="4.978" display="block" overflow="visible" transform="matrix(-.15344 -.12964 -.12964 .15344 17.152 4.581)" opacity=".828" fill="none"/>
+ <path d="M9.845 12.65s2.27-.164 1.554-3.811l3.262.177c-.31 1.635.167 4.38-4.816 3.635z" style="marker:none" color="#000" fill="url(#l)" stroke="url(#m)" display="block" overflow="visible"/>
+ <path style="marker:none" d="M43.975 48.925c16.382-16.008 5.69-35.513-21.513-36.427l-.348-9.346-14.49 17.345 15.09 12.722-.252-9.881c18.83.999 32.65 12.767 21.513 25.587z" color="#000" fill="url(#n)" stroke="url(#o)" stroke-width="3.541" display="block" overflow="visible" transform="matrix(.21574 .18228 .18228 -.21574 -3.852 11.547)"/>
+ <path d="M60.892 44.577c-1.185-18.369-17.249-30.82-44.67-31.182l-.015-4.975-8.989 10.886L16.1 26.64l-.26-8.122c30.333.686 41.016 12.7 45.053 26.06z" style="marker:none" color="#000" stroke="url(#p)" stroke-width="4.978" display="block" overflow="visible" transform="matrix(.15344 .12964 .12964 -.15344 -1.096 11.526)" opacity=".828" fill="none"/>
+</svg>

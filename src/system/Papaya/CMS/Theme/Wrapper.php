@@ -206,7 +206,7 @@ class Wrapper implements Application\Access {
       $this->_cacheService = $service;
     } elseif (NULL === $this->_cacheService) {
       /* @noinspection PhpParamsInspection */
-      $this->_cacheService = \Papaya\Cache::getService(
+      $this->_cacheService = \Papaya\CMS\Cache\Cache::getService(
         $this->papaya()->options
       );
     }

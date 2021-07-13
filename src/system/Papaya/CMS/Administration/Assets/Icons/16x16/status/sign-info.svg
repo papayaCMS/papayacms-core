@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fffeff" stop-opacity=".333"/>
+   <stop offset="1" stop-color="#fffeff" stop-opacity=".216"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#ffe69b"/>
+   <stop offset="1" stop-color="#fff"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="c" gradientUnits="userSpaceOnUse" x1="43.936" y1="53.836" x2="20.065" y2="-8.563" gradientTransform="matrix(.27093 0 0 .27087 .98 .785)"/>
+  <linearGradient xlink:href="#b" id="d" gradientUnits="userSpaceOnUse" x1="21.994" y1="33.955" x2="20.917" y2="15.815" gradientTransform="matrix(.3499 0 0 .34009 -.398 .273)"/>
+ </defs>
+ <path d="M15.5 8a7.5 7.5 0 1 1-15 0 7.5 7.5 0 1 1 15 0z" fill="#3465a4" stroke="#204a87"/>
+ <path d="M14.5 8a6.5 6.499 0 1 1-13 0 6.5 6.499 0 1 1 13 0z" opacity=".347" fill="none" stroke="url(#c)"/>
+ <path d="M14.777 7.658c0 3.683-3.623-2.131-6.534.132C5.4 10 1.037 11.935 1.037 8.252c0-3.77 3.042-7.267 6.832-7.267 3.789 0 6.909 2.99 6.909 6.673z" fill="url(#d)"/>
+ <path d="M8 3c-.761 0-1.347.575-1.347 1.322 0 .805.527 1.322 1.347 1.322s1.288-.517 1.347-1.322C9.347 3.575 8.82 3 8 3zM6.83 6.39V13h2.34V6.39z" fill="#fff"/>
+</svg>

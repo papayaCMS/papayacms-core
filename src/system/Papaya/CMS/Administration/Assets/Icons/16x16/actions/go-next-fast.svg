@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="16" width="16" version="1.0">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.70545 0 0 .68087 22.53 -1.031)" cx="19.389" cy="4.693" fx="19.389" fy="4.693" r="17.171"/>
+  <radialGradient xlink:href="#b" id="c" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.29404 -.0089 .00597 -.2968 14.212 16.223)" cx="28.698" cy="15.607" fx="28.698" fy="15.607" r="16.956"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#73d216"/>
+   <stop offset="1" stop-color="#4e9a06"/>
+  </linearGradient>
+  <radialGradient xlink:href="#b" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.29404 -.0089 .00597 -.2968 14.212 16.223)" cx="28.698" cy="15.607" fx="28.698" fy="15.607" r="16.956"/>
+  <radialGradient xlink:href="#a" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.70545 0 0 .68087 22.53 -1.031)" cx="19.389" cy="4.693" fx="19.389" fy="4.693" r="17.171"/>
+ </defs>
+ <g color="#000">
+  <path style="marker:none" d="M8.548.554L.452 8l8.096 7.447z" stroke-miterlimit="10" overflow="visible" fill="url(#c)" fill-rule="evenodd" stroke="#3a7304" stroke-linecap="round" stroke-linejoin="round" transform="matrix(-1 0 0 1 9 0)"/>
+  <path d="M8.053 1.615v6.388c-1.97.823-1.869-2.005-6.895 0z" style="marker:none" overflow="visible" opacity=".508" fill="url(#d)" fill-rule="evenodd" transform="matrix(-1 0 0 1 9 0)"/>
+  <path style="marker:none" d="M1.44 2.732L7.1 7.975l-5.66 5.243z" stroke-miterlimit="10" overflow="visible" opacity=".481" fill="none" stroke="#fff"/>
+ </g>
+ <g color="#000">
+  <path overflow="visible" stroke-miterlimit="10" d="M8.548.554L.452 8l8.096 7.447z" style="marker:none" fill="url(#e)" fill-rule="evenodd" stroke="#3a7304" stroke-linecap="round" stroke-linejoin="round" transform="matrix(-1 0 0 1 15.952 0)"/>
+  <path overflow="visible" style="marker:none" d="M8.053 1.615v6.388c-1.97.823-1.869-2.005-6.895 0z" opacity=".508" fill="url(#f)" fill-rule="evenodd" transform="matrix(-1 0 0 1 15.952 0)"/>
+  <path overflow="visible" stroke-miterlimit="10" d="M8.391 2.732l5.66 5.243-5.66 5.243z" style="marker:none" opacity=".481" fill="none" stroke="#fff"/>
+ </g>
+</svg>

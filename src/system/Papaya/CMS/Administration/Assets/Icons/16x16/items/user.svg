@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16">
+ <defs>
+  <linearGradient id="e">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#3b74bc"/>
+   <stop offset="1" stop-color="#2d5990"/>
+  </linearGradient>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#c9c9c9"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="d">
+   <stop offset="0" stop-color="#f4d9b1"/>
+   <stop offset="1" stop-color="#df9725"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="i" cx="31.113" cy="19.009" fx="31.113" fy="19.009" r="8.662" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.47907 0 0 .4794 -6.897 29.217)"/>
+  <linearGradient xlink:href="#b" id="h" x1="30.936" y1="29.553" x2="30.936" y2="35.803" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.47907 0 0 .4794 -6.837 27.539)"/>
+  <radialGradient xlink:href="#c" id="g" cx="28.09" cy="27.203" fx="28.09" fy="27.203" r="13.565" gradientTransform="matrix(.62163 0 0 .42418 -10.841 29.907)" gradientUnits="userSpaceOnUse"/>
+  <radialGradient xlink:href="#d" id="j" gradientUnits="userSpaceOnUse" cx="29.345" cy="17.064" fx="29.345" fy="17.064" r="9.162" gradientTransform="matrix(.3775 0 0 .37776 -3.856 29.273)"/>
+  <linearGradient xlink:href="#e" id="k" x1="20.662" y1="35.818" x2="22.627" y2="36.218" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.4711 .08705 -.087 .47142 -3.796 26.074)"/>
+  <linearGradient xlink:href="#e" id="l" gradientUnits="userSpaceOnUse" x1="22.687" y1="36.39" x2="21.408" y2="35.74" gradientTransform="matrix(-.46838 .1007 .10064 .4687 19.412 25.468)"/>
+  <linearGradient xlink:href="#e" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-.46838 .1007 .10064 .4687 13.191 22.209)" x1="22.687" y1="36.39" x2="21.408" y2="35.74"/>
+ </defs>
+ <g transform="translate(0 -32)" color="#000">
+  <path d="M6.316 43.236c.59-.278.864-.96.864-.96-.46-1.938-1.905-3.28-1.905-3.28s1.18 3.04 1.04 4.24z" style="marker:none" overflow="visible" opacity=".228" fill="url(#f)" fill-rule="evenodd"/>
+  <path style="marker:none" d="M5.612 47.5h5.082c1.44 0 2.865-.53 3.387-2.035.496-1.43.085-4.152-3.133-6.356H4.935c-3.218 2.034-3.62 4.816-2.88 6.441.755 1.656 2.033 1.95 3.557 1.95z" overflow="visible" fill="url(#g)" fill-rule="evenodd" stroke="#204a87" stroke-linecap="round" stroke-linejoin="round"/>
+  <path style="marker:none" d="M5.951 39.872c1.525 1.356 2.202 6.271 2.202 6.271s.678-4.915 1.863-6.356z" overflow="visible" fill="url(#h)" fill-rule="evenodd"/>
+  <path d="M5.781 46.46l4.602-.009c1.766-.083 2.414-.203 2.723-1.53.31-1.325-.041-3.122-2.629-4.78l-5.053-.099c-2.588 1.53-3.089 3.621-2.483 4.943.605 1.322 1.489 1.466 2.84 1.475z" style="marker:none" overflow="visible" opacity=".215" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+  <path style="marker:none" d="M9.17 40.38s1.03.796.941 1.755c.978-.863 1.006-2.517 1.006-2.517zm-2.203 0s-1.03.796-.942 1.755c-.978-.863-1.006-2.517-1.006-2.517z" overflow="visible" fill="#729fcf" fill-rule="evenodd"/>
+  <ellipse style="marker:none" cx="8.009" cy="38.33" rx="4.15" ry="4.153" overflow="visible" fill="url(#i)" fill-rule="evenodd"/>
+  <ellipse style="marker:none" cx="8.068" cy="36.652" rx="4.15" ry="4.153" overflow="visible" fill="url(#j)" fill-rule="evenodd" stroke="#c17d11" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse style="marker:none" cx="8.068" cy="36.652" rx="3.199" ry="3.202" overflow="visible" opacity=".196" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+  <path style="marker:none" d="M3.687 46.693c-.598-.26-.865-.89-.865-.89.403-1.951 1.782-3.179 1.782-3.179s-1.092 2.874-.917 4.07z" overflow="visible" opacity=".228" fill="url(#k)" fill-rule="evenodd"/>
+  <path d="M12.537 46.37c.59-.278.864-.96.864-.96-.46-1.938-1.905-3.155-1.905-3.155s1.181 2.916 1.04 4.115z" style="marker:none" overflow="visible" opacity=".228" fill="url(#l)" fill-rule="evenodd"/>
+ </g>
+</svg>

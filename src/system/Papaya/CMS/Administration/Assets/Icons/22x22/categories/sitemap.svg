@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="22" width="22">
+ <defs>
+  <filter id="a" x="-.086" width="1.173" y="-.435" height="1.87" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation=".611"/>
+  </filter>
+ </defs>
+ <ellipse cx="10.5" cy="19.687" rx="8.5" ry="1.687" opacity=".5" fill="#888a85" fill-opacity=".867" filter="url(#a)"/>
+ <rect y="-12.534" x=".555" height="4" width="6" transform="rotate(90)" fill="#eeeeec" stroke="#888a85"/>
+ <rect transform="rotate(90)" width="6" height="4" x="13.455" y="-5.458" fill="#eeeeec" stroke="#888a85"/>
+ <rect y="-12.507" x="13.455" height="4" width="6" transform="rotate(90)" fill="#eeeeec" stroke="#888a85"/>
+ <rect transform="rotate(90)" width="6" height="4" x="13.455" y="-19.475" fill="#eeeeec" stroke="#888a85"/>
+ <path d="M10.533 7v6M3 9.508h15M3.402 9v4m14.125-4v4" fill="none" stroke="#000"/>
+ <rect transform="rotate(90)" width="4" height="2" x="1.5" y="-11.5" fill="none" stroke="#fff"/>
+ <rect y="-4.5" x="14.5" height="2" width="4" transform="rotate(90)" fill="none" stroke="#fff"/>
+ <rect transform="rotate(90)" width="4" height="2" x="14.5" y="-11.522" fill="none" stroke="#fff"/>
+ <rect y="-18.489" x="14.5" height="2" width="4" transform="rotate(90)" fill="none" stroke="#fff"/>
+</svg>

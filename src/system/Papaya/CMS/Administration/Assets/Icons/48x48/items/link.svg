@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48">
+ <defs>
+  <radialGradient xlink:href="#a" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-2.77439 0 0 1.9697 112.762 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="a">
+   <stop offset="0"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1891.633 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/>
+  <linearGradient id="b">
+   <stop offset="0" stop-opacity="0"/>
+   <stop offset=".5"/>
+   <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#b" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1892.179 -872.885)" x1="302.857" y1="366.648" x2="302.857" y2="609.505"/>
+  <linearGradient id="c">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#dcdcdc"/>
+  </linearGradient>
+  <radialGradient xlink:href="#c" id="g" gradientUnits="userSpaceOnUse" gradientTransform="translate(-24.325 -35.7) scale(1.99506)" cx="24.446" cy="35.878" fx="24.446" fy="35.878" r="20.531"/>
+ </defs>
+ <g color="#000">
+  <g transform="matrix(.02244 0 0 .02087 44.068 40.547)">
+   <rect style="marker:none" width="1339.633" height="478.357" x="-1559.252" y="-150.697" opacity=".402" fill="url(#d)" overflow="visible"/>
+   <path style="marker:none" d="M-219.619-150.68v478.33c142.874.9 345.4-107.17 345.4-239.196S-33.655-150.68-219.619-150.68z" opacity=".402" fill="url(#e)" overflow="visible"/>
+   <path d="M-1559.252-150.68v478.33c-142.875.9-345.4-107.17-345.4-239.196s159.436-239.134 345.4-239.134z" style="marker:none" opacity=".402" fill="url(#f)" overflow="visible"/>
+  </g>
+  <rect ry="5.455" rx="5.455" y="3.523" x="4.415" height="40.062" width="40.062" style="marker:none" fill="url(#g)" fill-rule="evenodd" stroke="#9b9b9b" stroke-linejoin="bevel" stroke-miterlimit="10" overflow="visible"/>
+  <rect style="marker:none" width="37.697" height="37.697" x="5.597" y="4.706" rx="4.243" ry="4.243" fill="none" stroke="#fff" stroke-linejoin="bevel" stroke-miterlimit="10" overflow="visible"/>
+  <path d="M11.5 31.437c.44-11.34 10.543-20.114 20.659-9.458l4.91-4.733.02 14.754-14.929-.022 4.838-4.838c-8.47-8.876-13.706-1.91-15.498 4.297z" style="marker:none" opacity=".699" fill="#888a85" display="block" overflow="visible"/>
+ </g>
+</svg>

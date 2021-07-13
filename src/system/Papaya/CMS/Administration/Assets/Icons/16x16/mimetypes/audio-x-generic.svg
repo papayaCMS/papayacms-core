@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" version="1.0">
+ <defs>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity=".148"/>
+  </linearGradient>
+  <radialGradient xlink:href="#a" id="b" cx="4" cy="11.674" fx="4" fy="11.674" r="2.465" gradientTransform="matrix(.92834 -.21498 .0915 .39514 -.782 8.247)" gradientUnits="userSpaceOnUse"/>
+  <radialGradient xlink:href="#a" id="c" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.92834 -.21498 .0915 .39514 7.265 8.247)" cx="4" cy="11.674" fx="4" fy="11.674" r="2.465"/>
+ </defs>
+ <path d="M5.5 1.5v9.117a4.37 4.37 0 0 0-1-.117c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V4.496h6v6.121a4.37 4.37 0 0 0-1-.117c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2v-11z" fill="#c8d17b" stroke="#747e2b" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".961"/>
+ <path d="M6.513 2.476h7.999" fill="none" stroke="#fff" stroke-linecap="square" opacity=".5"/>
+ <ellipse cx="4.481" cy="12.499" rx="2.465" ry="1.491" opacity=".5" fill="url(#b)"/>
+ <ellipse ry="1.491" rx="2.465" cy="12.499" cx="12.528" opacity=".5" fill="url(#c)"/>
+</svg>

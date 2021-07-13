@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+ <g transform="translate(0 -1036.362)" opacity=".5">
+  <rect width="10.001" height="12.011" x="1.109" y="1037.185" rx="1.058" ry="1.075" opacity=".25" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect ry="1.075" rx="1.058" y="1036.862" x=".5" height="12.011" width="10.001" fill="#fff" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="7.074" height="10" x="1.964" y="1037.362" rx="0" ry="0" fill="#ececec"/>
+  <rect width="10.006" height="2" x=".5" y="1036.862" rx="0" ry="0" fill="#ccc" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2.518 1041.888c.848 0 1.012.067 1.012.524v3.408m-1.014.08H4.53" fill="none" stroke="#000" stroke-linecap="square"/>
+ </g>
+ <g transform="translate(4.047 -1034.392)">
+  <rect width="10.001" height="12.011" x="1.109" y="1037.185" rx="1.058" ry="1.075" opacity=".25" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect ry="1.075" rx="1.058" y="1036.862" x=".5" height="12.011" width="10.001" fill="#fff" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="7.074" height="10" x="1.964" y="1037.362" rx="0" ry="0" fill="#ececec"/>
+  <rect width="10.006" height="2" x=".5" y="1036.862" rx="0" ry="0" fill="#ccc" stroke="#787877" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M6.471 1041.937l-3.053 1.903 3.078 2.04" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+ </g>
+</svg>

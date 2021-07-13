@@ -155,8 +155,8 @@ namespace Papaya\CMS\Administration\UI\Route {
         $this->_cacheService = $service;
       } elseif (NULL === $this->_cacheService) {
         /* @noinspection PhpParamsInspection */
-        $this->_cacheService = \Papaya\Cache::get(
-          \Papaya\Cache::OUTPUT, $this->papaya()->options
+        $this->_cacheService = \Papaya\CMS\Cache\Cache::get(
+          \Papaya\CMS\Cache\Cache::OUTPUT, $this->papaya()->options
         );
       }
       return $this->_cacheService;

@@ -1286,7 +1286,7 @@ class papaya_boxes extends base_boxes {
    * @access public
    */
   function deleteCache($boxId) {
-    $cache = Cache::getService($this->papaya()->options);
+    $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
     return $cache->delete('boxes', $boxId);
   }
 

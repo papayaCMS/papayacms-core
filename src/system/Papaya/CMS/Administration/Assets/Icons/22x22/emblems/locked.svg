@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22">
+ <defs>
+  <linearGradient id="b">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient id="a">
+   <stop offset="0" stop-color="#c4a000"/>
+   <stop offset="1" stop-color="#c4a000" stop-opacity="0"/>
+  </linearGradient>
+  <linearGradient xlink:href="#a" id="c" x1="20.738" y1="17.253" x2="16.659" y2="17.253" gradientUnits="userSpaceOnUse"/>
+  <radialGradient xlink:href="#b" id="d" cx="14.334" cy="7.757" fx="14.334" fy="7.757" r="4.5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.5366 .92943 -.86603 .5 13.36 -9.444)"/>
+ </defs>
+ <path d="M20 10.5V14h-7v-3.5a3.5 3.5 0 1 1 7 0z" fill="none" stroke="#888a85" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
+ <path fill="#edd400" stroke="#c4a000" stroke-linecap="square" stroke-linejoin="round" d="M11.5 13.5h10v8h-10z"/>
+ <path fill="url(#c)" stroke="#c4a000" stroke-linecap="square" stroke-linejoin="round" d="M11.5 13.5h10v8h-10z"/>
+ <path d="M12.502 20.468l-.003-5.936L20.5 14.5" opacity=".75" fill="none" stroke="#fff" stroke-linecap="square"/>
+ <path d="M20 10.5V14h-7v-3.5a3.5 3.5 0 1 1 7 0z" fill="none" stroke="url(#d)" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
+</svg>

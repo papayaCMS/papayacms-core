@@ -300,7 +300,7 @@ namespace Papaya\CMS\Administration {
             ),
             self::ICON => new Route\Gzip(
               new UI\Route\Cache(
-                new UI\Route\Icon($localPath.'/pics/icons'),
+                new UI\Route\Icon(__DIR__.'/Assets/Icons'),
                 isset($_GET['size']) && \in_array((int)$_GET['size'], UI\Route\Icon::SIZES, TRUE)
                   ? (int)$_GET['size'] : 16,
                 $cacheTime,

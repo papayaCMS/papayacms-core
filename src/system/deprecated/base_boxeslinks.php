@@ -750,7 +750,9 @@ class base_boxeslinks extends base_db {
   function loadBoxCache($cacheForTime, $ifModfiedSince, $boxData, $box, $lngId, $viewModeId) {
     if ($cacheForTime > 0) {
       if ($cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
-        $cache = Cache::getService($this->papaya()->options);
+        $cache = \Papaya\CMS\Cache\Cache::getService(
+          $this->papaya()->options
+        );
         return $cache->read('boxes', $boxData['box_id'], $cacheId, $cacheForTime, $ifModfiedSince);
       }
     }
@@ -771,7 +773,7 @@ class base_boxeslinks extends base_db {
   */
   function writeBoxCache($boxData, $box, $lngId, $viewModeId, $str, $expires) {
     if ($str != '' && $cacheId = $this->getBoxCacheId($boxData, $box, $lngId, $viewModeId)) {
-      $cache = Cache::getService($this->papaya()->options);
+      $cache = \Papaya\CMS\Cache\Cache::getService($this->papaya()->options);
       return $cache->write('boxes', $boxData['box_id'], $cacheId, $str, $expires);
     }
     return FALSE;
