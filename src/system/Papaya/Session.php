@@ -16,14 +16,13 @@ namespace Papaya {
 
   use Papaya\BaseObject\DeclaredProperties;
   use Papaya\BaseObject\Interfaces\Properties;
-  use Papaya\CMS\CMSConfiguration;
   use Papaya\Session\ConsentCookie;
   use Papaya\Session\Id as SessionId;
+  use Papaya\Session\Options;
   use Papaya\Session\Redirect as RedirectAlias;
   use Papaya\Session\Values as SessionValues;
   use Papaya\Session\Options as SessionOptions;
   use Papaya\Session\Wrapper as SessionWrapper;
-  use PHPUnit\phpDocumentor\Reflection\Types\True_;
 
   /**
    * Papaya Session Handling, initialize, start, close and destroy session, give access to the the
@@ -36,17 +35,17 @@ namespace Papaya {
    * @property-read string $name
    * @property-read string $id
    * @property-read SessionValues $values
-   * @property-read SessionOptions $options
+   * @property SessionOptions $options
    */
   class Session implements Application\Access, Properties {
     use Application\Access\Aggregation;
     use DeclaredProperties;
 
-    const ACTIVATION_ALWAYS = 1;
+    public const ACTIVATION_ALWAYS = 1;
 
-    const ACTIVATION_NEVER = 2;
+    public const ACTIVATION_NEVER = 2;
 
-    const ACTIVATION_DYNAMIC = 3;
+    public const ACTIVATION_DYNAMIC = 3;
 
     /**
      * Internal storage vor values subobject
@@ -256,11 +255,11 @@ namespace Papaya {
      */
     public function isSecureOnly() {
       $options = $this->papaya()->options;
-      if ($options->get(\Papaya\CMS\CMSConfiguration::SESSION_SECURE, FALSE)) {
+      if ($this->options[Options::SECURE_SESSION]) {
         return TRUE;
       }
       if (
-        $options->get(\Papaya\CMS\CMSConfiguration::UI_SECURE, FALSE) &&
+        $this->options[Options::SECURE_EDITOR_SESSION] &&
         $this->isAdministration()
       ) {
         return TRUE;
@@ -281,17 +280,10 @@ namespace Papaya {
           throw new \LogicException('Active sessions can not be changed.');
         }
         if ($isAdministration) {
-          $this->setName(
-            'sid'.$this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::SESSION_NAME, '').'admin'
-          );
+          $this->setName('sid'.$this->options[Options::NAME].'admin');
           $this->options->cache = Session\Options::CACHE_NONE;
         } else {
-          $this->setName(
-            'sid'.$this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::SESSION_NAME, '')
-          );
-          $this->options->cache = $this->papaya()->options->get(
-            'PAPAYA_SESSION_CACHE', Session\Options::CACHE_PRIVATE
-          );
+          $this->setName('sid'.$this->options[Options::NAME]);
         }
         $this->_isAdministration = (bool)$isAdministration;
       }
@@ -327,24 +319,17 @@ namespace Papaya {
     }
 
     private function configure() {
-      $options = $this->papaya()->options;
       $wrapper = $this->wrapper();
       if ($this->hasCookieConsent()) {
         $defaults = $wrapper->getCookieParameters();
         $wrapper->setCookieParameters(
           [
             'lifetime' => $defaults['lifetime'] ?? 1800,
-            'path' => $options->get(
-              'PAPAYA_SESSION_PATH', '/', new Filter\NotEmpty()
-            ),
-            'domain' => $options->get(
-              'PAPAYA_SESSION_DOMAIN', $defaults['domain'] ?? '', new Filter\NotEmpty()
-            ),
+            'path' => $this->options[Options::PATH],
+            'domain' => $this->options[Options::DOMAIN] ?: $defaults['domain'],
             'SameSite' => 'Strict',
             'secure' => $this->isSecureOnly(),
-            'httponly' => $options->get(
-              \Papaya\CMS\CMSConfiguration::SESSION_HTTP_ONLY, $defaults['httponly'] ?? True
-            ),
+            'httponly' => $this->options[Options::HTTP_ONLY]
           ]
         );
       } else {

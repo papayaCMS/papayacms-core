@@ -14,6 +14,9 @@
  */
 
 namespace Papaya {
+
+  use Papaya\Session\Options;
+
   require_once __DIR__.'/../../bootstrap.php';
 
   /**
@@ -258,17 +261,7 @@ namespace Papaya {
 
     public function testIsProtocolAllowedWithSecureSessionExpectingTrue() {
       $session = new Session();
-      $session->papaya(
-        $this->mockPapaya()->application(
-          [
-            'options' => $this->mockPapaya()->options(
-              [
-                'PAPAYA_SESSION_SECURE' => TRUE
-              ]
-            )
-          ]
-        )
-      );
+      $session->options[Options::SECURE_SESSION] = TRUE;
       $_SERVER['HTTPS'] = 'on';
       $this->assertTrue($session->isProtocolAllowed());
     }
@@ -278,51 +271,21 @@ namespace Papaya {
      */
     public function testIsProtocolAllowedWithSecureSessionExpectingFalse() {
       $session = new Session();
-      $session->papaya(
-        $this->mockPapaya()->application(
-          [
-            'options' => $this->mockPapaya()->options(
-              [
-                'PAPAYA_SESSION_SECURE' => TRUE
-              ]
-            )
-          ]
-        )
-      );
+      $session->options[Options::SECURE_SESSION] = TRUE;
       $_SERVER['HTTPS'] = NULL;
       $this->assertFalse($session->isProtocolAllowed());
     }
 
     public function testIsSecureOnlyExpectingTrue() {
       $session = new Session();
-      $session->papaya(
-        $this->mockPapaya()->application(
-          [
-            'options' => $this->mockPapaya()->options(
-              [
-                'PAPAYA_SESSION_SECURE' => TRUE
-              ]
-            )
-          ]
-        )
-      );
+      $session->options[Options::SECURE_SESSION] = TRUE;
       $this->assertTrue($session->isSecureOnly());
     }
 
     public function testIsSecureOnlyAdministrationExpectingTrue() {
       $session = new Session();
-      $session->papaya(
-        $this->mockPapaya()->application(
-          [
-            'options' => $this->mockPapaya()->options(
-              [
-                'PAPAYA_SESSION_SECURE' => FALSE,
-                'PAPAYA_UI_SECURE' => TRUE
-              ]
-            )
-          ]
-        )
-      );
+      $session->options[Options::SECURE_SESSION] = FALSE;
+      $session->options[Options::SECURE_EDITOR_SESSION] = TRUE;
       $session->isAdministration(TRUE);
       $this->assertTrue($session->isSecureOnly());
     }
@@ -333,13 +296,7 @@ namespace Papaya {
      */
     public function testIsSecureOnlyExpectingFalse(array $options) {
       $session = new Session();
-      $session->papaya(
-        $this->mockPapaya()->application(
-          [
-            'options' => $this->mockPapaya()->options($options)
-          ]
-        )
-      );
+      $session->options[Options::SECURE_SESSION] = FALSE;
       $session->isAdministration(FALSE);
       $this->assertFalse($session->isSecureOnly());
     }

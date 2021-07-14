@@ -33,38 +33,13 @@ namespace Papaya {
     }
 
     /**
-     * @covers \Papaya\Request::__construct
+     * @covers \Papaya\Request::getBasePath
      */
-    public function testConstructorWithConfigurationArgument() {
-      $options = $this->mockPapaya()->options(
-        [
-          'PAPAYA_URL_LEVEL_SEPARATOR' => '!',
-          'PAPAYA_PATH_WEB' => '/foo/'
-        ]
-      );
-      $request = new Request($options);
-      $this->assertEquals(
-        '!', $request->getParameterGroupSeparator()
-      );
-      $this->assertEquals(
-        '/foo/', $request->getBasePath()
-      );
-    }
-
-    public function testSetConfiguration() {
-      $options = $this->mockPapaya()->options(
-        [
-          'PAPAYA_URL_LEVEL_SEPARATOR' => '!',
-          'PAPAYA_PATH_WEB' => '/foo/'
-        ]
-      );
+    public function testGetBasePathAfterSet() {
       $request = new Request();
-      $request->setConfiguration($options);
+      $request->setBasePath('/test/');
       $this->assertEquals(
-        '!', $request->getParameterGroupSeparator()
-      );
-      $this->assertEquals(
-        '/foo/',$request->getBasePath()
+        '/test/', $request->getBasePath()
       );
     }
 

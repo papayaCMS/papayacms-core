@@ -12,6 +12,7 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
+
 namespace Papaya\Session;
 
 use Papaya\BaseObject\Options\Defined as DefinedOptions;
@@ -27,43 +28,54 @@ use Papaya\BaseObject\Options\Defined as DefinedOptions;
  */
 class Options
   extends DefinedOptions {
+
+  public const SECURE_SESSION = 'SECURE_SESSION';
+  public const SECURE_EDITOR_SESSION = 'SECURE_EDITOR_SESSION';
+  public const ID_FALLBACK = 'FALLBACK';
+  public const CACHE = 'CACHE';
+  public const NAME = 'NAME';
+  public const PATH = 'PATH';
+  public const DOMAIN = 'DOMAIN';
+  public const HTTP_ONLY = 'HTTP_ONLY';
+
   /**
    * Fallback mode: only use cookie, no fallback
    *
    * @var int
    */
-  const FALLBACK_NONE = 0;
+  public const FALLBACK_NONE = 0;
 
   /**
    * Fallback mode: use parameters (query stirng or request body) if no cookie is available.
    *
    * @var int
    */
-  const FALLBACK_PARAMETER = 1;
+  public const FALLBACK_PARAMETER = 1;
 
   /**
    * Fallback mode: use path rewrite (put the sid like a path directly behind the host).
    *
    * @var int
    */
-  const FALLBACK_REWRITE = 2;
+  public const FALLBACK_REWRITE = 2;
 
   /**
    * Cache mode: no cache, no caching at all
    *
    * @var int
    */
-  const CACHE_NONE = 'nocache';
+  public const CACHE_NONE = 'nocache';
 
   /**
    * Cache mode: private, caching only in the browser (for a single user)
    *
    * @var int
    */
-  const CACHE_PRIVATE = 'private';
+  public const CACHE_PRIVATE = 'private';
 
   /**
    * Option definitions: The key is the option name, the element a list of possible values.
+   * The definition can be a scalar or an array of values.
    *
    * FALLBACK: session id fallback mode (if cookie can not be used)
    * CACHE: output caching on http clients (proxy, browser)
@@ -71,8 +83,14 @@ class Options
    * @var array
    */
   private static $_definitions = [
-    'FALLBACK' => [self::FALLBACK_NONE, self::FALLBACK_PARAMETER, self::FALLBACK_REWRITE],
-    'CACHE' => [self::CACHE_NONE, self::CACHE_PRIVATE]
+    self::NAME => '',
+    self::PATH => '',
+    self::DOMAIN => '',
+    self::HTTP_ONLY => [TRUE, FALSE],
+    self::SECURE_SESSION => [TRUE, FALSE],
+    self::SECURE_EDITOR_SESSION => [TRUE, FALSE],
+    self::ID_FALLBACK => [self::FALLBACK_NONE, self::FALLBACK_PARAMETER, self::FALLBACK_REWRITE],
+    self::CACHE => [self::CACHE_NONE, self::CACHE_PRIVATE],
   ];
 
   /**
@@ -81,8 +99,11 @@ class Options
    * @var array
    */
   protected $_options = [
-    'FALLBACK' => self::FALLBACK_REWRITE,
-    'CACHE' => self::CACHE_PRIVATE
+    self::HTTP_ONLY => FALSE,
+    self::SECURE_SESSION => FALSE,
+    self::SECURE_EDITOR_SESSION => FALSE,
+    self::ID_FALLBACK => self::FALLBACK_REWRITE,
+    self::CACHE => self::CACHE_PRIVATE,
   ];
 
   /**

@@ -80,8 +80,12 @@ class Defined
   protected function _read($name) {
     if (\array_key_exists($name, $this->_options)) {
       return $this->_options[$name];
-    } elseif (isset($this->_definitions[$name])) {
-      return $this->_definitions[$name][0];
+    }
+    if (isset($this->_definitions[$name])) {
+      if (is_array($this->_definitions[$name])) {
+        return $this->_definitions[$name][0];
+      }
+      return $this->_definitions[$name];
     }
     throw new \InvalidArgumentException(
       \sprintf('Unknown option name "%s".', $name)

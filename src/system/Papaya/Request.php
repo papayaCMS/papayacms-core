@@ -14,9 +14,7 @@
  */
 namespace Papaya {
 
-  use Papaya\CMS\CMSConfiguration as CMSConfiguration;
   use Papaya\Request\Content as RequestContent;
-  use Papaya\Request\ContentMode;
   use Papaya\Request\Parameters as RequestParameters;
   use Papaya\Request\Parser as RequestParser;
 
@@ -90,7 +88,7 @@ namespace Papaya {
      *
      * @var string
      */
-    private $_installationPath = '/';
+    private $_basePath = '/';
 
     /**
      * Request parsers list
@@ -133,17 +131,6 @@ namespace Papaya {
      * @var RequestContent
      */
     private $_content;
-
-    /**
-     * Create object and set options if given.
-     *
-     * @param Configuration $options
-     */
-    public function __construct($options = NULL) {
-      if (NULL !== $options) {
-        $this->setConfiguration($options);
-      }
-    }
 
     /**
      * @param string $name
@@ -222,19 +209,6 @@ namespace Papaya {
     }
 
     /**
-     * Initialize object configuration
-     *
-     * @param Configuration $options
-     */
-    public function setConfiguration($options) {
-      $this->_separator = $options->get(
-        CMSConfiguration::URL_LEVEL_SEPARATOR,
-        RequestParameters\GroupSeparator::ARRAY_SYNTAX
-      );
-      $this->_installationPath = $options->get(CMSConfiguration::PATH_WEB, '/');
-    }
-
-    /**
      * get the attached url object
      *
      * @return URL
@@ -277,6 +251,10 @@ namespace Papaya {
       return $this;
     }
 
+    public function setBasePath(string $basePath) {
+      return $this->_basePath = $basePath ?: '/';
+    }
+
     /**
      * get base web path (without file name)
      *
@@ -284,9 +262,9 @@ namespace Papaya {
      */
     public function getBasePath() {
       if ($session = $this->getParameter('session', '', NULL, self::SOURCE_PATH)) {
-        return '/'.$session.$this->_installationPath;
+        return '/'.$session.$this->_basePath;
       }
-      return $this->_installationPath;
+      return $this->_basePath;
     }
 
     /**

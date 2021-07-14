@@ -28,7 +28,8 @@ namespace Papaya\BaseObject\Options {
       $options = new Defined_TestProxy();
       $this->assertEquals(
         [
-          'VALID_OPTION' => TRUE
+          'VALID_OPTION' => TRUE,
+          'VALID_STRING_OPTION' => '',
         ],
         $options->toArray()
       );
@@ -36,7 +37,7 @@ namespace Papaya\BaseObject\Options {
 
     public function testCount() {
       $options = new Defined_TestProxy();
-      $this->assertCount(1, $options);
+      $this->assertCount(2, $options);
     }
 
     public function testSetOption() {
@@ -44,7 +45,20 @@ namespace Papaya\BaseObject\Options {
       $options->validOption = FALSE;
       $this->assertEquals(
         [
-          'VALID_OPTION' => FALSE
+          'VALID_OPTION' => FALSE,
+          'VALID_STRING_OPTION' => '',
+        ],
+        iterator_to_array($options)
+      );
+    }
+
+    public function testSetStringOption() {
+      $options = new Defined_TestProxy();
+      $options->validStringOption = 'test';
+      $this->assertEquals(
+        [
+          'VALID_OPTION' => TRUE,
+          'VALID_STRING_OPTION' => 'test',
         ],
         iterator_to_array($options)
       );
@@ -95,7 +109,8 @@ namespace Papaya\BaseObject\Options {
     public function __construct(array $options = NULL) {
       parent::__construct(
         [
-          'VALID_OPTION' => [TRUE, FALSE]
+          'VALID_OPTION' => [TRUE, FALSE],
+          'VALID_STRING_OPTION' => '',
         ],
         $options
       );

@@ -12,31 +12,41 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\CMS\Application\Profile;
+namespace Papaya\CMS\Application\Profile {
 
-use Papaya\Application;
-use Papaya\CMS\Content\View\Mode as ViewMode;
-use Papaya\Request\ContentMode;
-use Papaya\URL\Current as CurrentURL;
+  use Papaya\Application;
+  use Papaya\CMS\CMSConfiguration;
+  use Papaya\Request\Parameters\GroupSeparator;
+  use Papaya\URL\Current as CurrentURL;
 
-/**
- * Application object profile for default request object
- *
- * @package Papaya-Library
- * @subpackage Application
- */
-class Request implements Application\Profile {
   /**
-   * Create the profile object and return it
+   * Application object profile for default request object
    *
-   * @param \Papaya\CMS\CMSApplication $application
-   *
-   * @return \Papaya\Request
+   * @package Papaya-Library
+   * @subpackage Application
    */
-  public function createObject($application) {
-    $request = new \Papaya\CMS\CMSRequest($application->options);
-    $request->papaya($application);
-    $request->load(new CurrentURL());
-    return $request;
+  class Request implements Application\Profile {
+    /**
+     * Create the profile object and return it
+     *
+     * @param \Papaya\CMS\CMSApplication $application
+     *
+     * @return \Papaya\Request
+     */
+    public function createObject($application) {
+      $request = new \Papaya\CMS\CMSRequest();
+      $request->setBasePath(
+        $application->options->get(CMSConfiguration::PATH_WEB, '/')
+      );
+      $request->setParameterGroupSeparator(
+        $application->options->get(
+          CMSConfiguration::URL_LEVEL_SEPARATOR,
+          GroupSeparator::ARRAY_SYNTAX
+        )
+      );
+      $request->papaya($application);
+      $request->load(new CurrentURL());
+      return $request;
+    }
   }
 }
