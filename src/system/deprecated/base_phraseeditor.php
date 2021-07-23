@@ -870,7 +870,7 @@ class base_phraseeditor extends base_db {
                 $lng = $this->languages[$lngId];
                 if ($lng['lng_glyph'] !== '') {
                   $result .= sprintf(
-                    '<glyph src="i18n-icon.%s" hint="%s"/>  ',
+                    '<glyph src="./i18n-icon.%s" hint="%s"/>  ',
                     papaya_strings::escapeHTMLChars($lng['lng_glyph']),
                     papaya_strings::escapeHTMLChars($translation)
                   );
