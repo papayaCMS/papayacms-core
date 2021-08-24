@@ -13,6 +13,7 @@ namespace Papaya\Modules\Core {
   use Papaya\Template\Tag\Image as ImageTag;
   use Papaya\UI\Dialog\Field as DialogField;
   use Papaya\Plugin\Editor as PluginEditor;
+  use Papaya\CMS\Plugin\Options as PluginOptions;
   use Papaya\CMS\Plugin\Filter as PluginFilter;
   use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
@@ -26,7 +27,7 @@ namespace Papaya\Modules\Core {
     use ContextAwarePlugin\Aggregation;
     use CacheablePlugin\Aggregation;
     use PluginFilter\Aggregation;
-    use EditablePlugin\Options\Aggregation;
+    use PluginOptions\Aggregation;
 
     private const FIELD_TEXT = 'text';
     private const FIELD_CATCH_LINE_TITLE = 'catch-line-title';

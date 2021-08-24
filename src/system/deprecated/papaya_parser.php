@@ -1207,7 +1207,7 @@ class papaya_parser extends base_db {
           $thumbParams
         );
         [$tWidth, $tHeight] = $thumbnail->lastThumbSize;
-        $result['filename'] = $thumbFile;
+        $result['filename'] = (string)$thumbFile;
         $result['storage_group'] = 'thumbs';
         $result['storage_id'] = $thumbFile;
       }

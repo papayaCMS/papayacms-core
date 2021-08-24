@@ -36,12 +36,16 @@ namespace Papaya\Media {
 
     public function __construct($localFileName, $name = '', $type = NULL) {
       $this->_localFileName = (string)$localFileName;
-      $this->_name = empty($name) ? basename($localFileName) : $name;
       $this->_type = $type;
+      $this->setName($name ?: 'file');
     }
 
     public function getName() {
       return $this->_name;
+    }
+
+    public function setName(string $name) {
+      $this->_name = empty($name) ? basename($this->_localFileName) : $name;
     }
 
     public function getType() {
@@ -72,7 +76,7 @@ namespace Papaya\Media {
     }
 
     public function __toString() {
-      return $this->getMediaURI();
+      return $this->getURL();
     }
 
   }

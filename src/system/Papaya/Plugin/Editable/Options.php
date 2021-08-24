@@ -14,6 +14,7 @@
  */
 namespace Papaya\Plugin\Editable;
 
+use Papaya\Configuration;
 use Papaya\Plugin;
 
 class Options extends Data {
@@ -27,9 +28,9 @@ class Options extends Data {
   /**
    * Options constructor.
    *
-   * @param \Papaya\CMS\Plugin\Options $options
+   * @param iterable $options
    */
-  public function __construct(\Papaya\CMS\Plugin\Options $options) {
+  public function __construct(iterable $options) {
     parent::__construct(\iterator_to_array($options));
     $this->_checksum = $this->getChecksum();
   }

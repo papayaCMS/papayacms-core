@@ -80,7 +80,7 @@ class base_thumbnail extends base_object {
     if (!empty($bgColor)) {
       $thumbnails->setBackgroundColor(Color::createFromString($bgColor));
     }
-    $calculation = $thumbnails->createCalculation($width, $height, $mode);
+    $calculation = $thumbnails->createCalculation([$width, $height], $mode);
     $thumbnail = $thumbnails->createThumbnail($calculation, $mimeType);
     if ($thumbnail) {
       $this->lastThumbSize = $calculation->getTargetSize();
