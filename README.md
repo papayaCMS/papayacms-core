@@ -20,7 +20,7 @@ http://www.papaya-cms.com/forum
 
 If you've stumbled upon a bug or if you have any proposals for
 improvements, we'd love to hear from you - please either file a bug
-at https://bugs.papaya-cms.com/ or even fork the project and submit
+at https://github.com/papayaCMS/papayacms-core/issues or even fork the project and submit
 a pull request.
 
 Here are some starting points that will hopefully make it a pleasure
