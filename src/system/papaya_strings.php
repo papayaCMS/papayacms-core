@@ -133,15 +133,15 @@ class papaya_strings {
         switch ($itemChar) {
         case '<' : //tag or comment starts
           $tagsAmount++;
-          if (!empty($buffer)) {
+          if ($buffer !== '') {
             if ($nl2br) {
-              $result .= preg_replace("((?:\r\n)|(?:\n\r)|[\r\n])", "<br />\n", $buffer);
+              $result .= preg_replace("(\r\n|\n\r|[\r\n])", "<br />\n", $buffer);
             } else {
               $result .= $buffer;
             }
           }
           $buffer = '';
-          if (substr($str, $nextItemPos, 4) == '<!--') {
+          if (substr($str, $nextItemPos, 4) === '<!--') {
             $offset = $nextItemPos + 4;
             $status = 4;
           } else {
@@ -150,7 +150,7 @@ class papaya_strings {
           }
           break;
         case '>' : //tag ends
-          if (!empty($buffer)) {
+          if ($buffer !== '') {
             $result .= '<'.str_replace($replace, $replaceWith, $buffer).'>';
           }
           $buffer = '';
@@ -159,16 +159,16 @@ class papaya_strings {
           break;
         case '"' : //double quote attribute starts or ends
           $buffer .= $itemChar;
-          $status = ($status == 1) ? 2 : 1;
+          $status = ($status === 1) ? 2 : 1;
           $offset = $nextItemPos + 1;
           break;
         case "'" : //single quote attribute starts or ends
           $buffer .= $itemChar;
-          $status = ($status == 1) ? 3 : 1;
+          $status = ($status === 1) ? 3 : 1;
           $offset = $nextItemPos + 1;
           break;
         case '-' : //comment ends
-          if (!empty($buffer)) {
+          if ($buffer !== '') {
             $result .= '<!--'.$buffer.'-->';
           }
           $buffer = '';
@@ -178,11 +178,11 @@ class papaya_strings {
       }
     } while (FALSE !== $nextItemPos);
     $buffer .= substr($str, $offset);
-    if ((!empty($buffer)) && $status == 0) {
+    if ($buffer !== '' && $status === 0) {
       $result .= $buffer;
     }
-    if ($tagsAmount == 0 && $nl2br == TRUE) {
-      $result = preg_replace("((?:\r\n)|(?:\n\r)|[\r\n])", "<br />\n", $buffer);
+    if ($tagsAmount === 0 && $nl2br === TRUE) {
+      $result = preg_replace("(\r\n|\n\r|[\r\n])", "<br />\n", $buffer);
     }
     return $result;
   }
@@ -800,4 +800,3 @@ class papaya_strings {
     return $ret;
   }
 }
-
