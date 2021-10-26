@@ -28,7 +28,7 @@ use Papaya\Response;
  */
 if (!class_exists('\\Papaya\\Autoloader', FALSE)) {
   if (!defined('PAPAYA_INCLUDE_PATH')) {
-    define('PAPAYA_INCLUDE_PATH', dirname(__DIR__).'papaya_page.php/');
+    define('PAPAYA_INCLUDE_PATH', dirname(__DIR__).'/../');
   }
   include_once PAPAYA_INCLUDE_PATH.'system/Papaya/Autoloader.php';
   spl_autoload_register(\Papaya\Autoloader::class.'::load');
@@ -2816,4 +2816,3 @@ class papaya_page extends base_object {
     );
   }
 }
-

@@ -195,6 +195,10 @@ namespace Papaya\CMS\Administration {
         \Papaya\Request\Log::getInstance();
       }
       $application->request->isAdministration = TRUE;
+      $this->template()->parameters()->set(
+        'PAGE_WEB_PATH',
+        \Papaya\Utility\File\Path::getBasePath(FALSE)
+      );
       $application->session->isAdministration(TRUE);
       if ($redirect = $application->session->activate(TRUE)) {
         $redirect->send(TRUE);
