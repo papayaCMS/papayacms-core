@@ -49,6 +49,9 @@ class Autoloader {
    */
   private static $_mapClasses = [
     'PapayaAdministrationCommunityUsersListDialog' => Administration\Community\Users\Roster\Dialog::class,
+
+    'PapayaCacheIdentifierDefinitionPage' => CMS\Cache\Identifier\Definition\Page::class,
+
     'PapayaConfigurationGlobal' => Configuration\GlobalValues::class,
 
     'PapayaContentLanguage' => CMS\Content\Language::class,
