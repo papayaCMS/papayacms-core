@@ -13,12 +13,11 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Plugin\Editable\Options {
+namespace Papaya\CMS\Plugin\Options {
 
   use Papaya\CMS\Administration\Plugin\Editor\Dialog;
   use Papaya\Plugin;
   use Papaya\Plugin\Configurable\Options as ConfigurableOptionsPlugin;
-  use Papaya\Plugin\Editor;
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\TestFramework\TestCase;
 
@@ -57,7 +56,7 @@ namespace Papaya\Plugin\Editable\Options {
     /**
      * @param Plugin\Editable\Options $options
      *
-     * @return Editor
+     * @return PluginEditor
      */
     public function createOptionsEditor(Plugin\Editable\Options $options) {
       return new Dialog($options);
