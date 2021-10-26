@@ -326,7 +326,7 @@ namespace Papaya {
           [
             'lifetime' => $defaults['lifetime'] ?? 1800,
             'path' => $this->options[Options::PATH],
-            'domain' => $this->options[Options::DOMAIN] ?: $defaults['domain'],
+            'domain' => $this->options[Options::DOMAIN] ?? $defaults['domain'],
             'SameSite' => 'Strict',
             'secure' => $this->isSecureOnly(),
             'httponly' => $this->options[Options::HTTP_ONLY]
