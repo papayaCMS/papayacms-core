@@ -819,8 +819,12 @@ class papaya_parser extends base_db {
         'target' => isset($params['target']) ? $params['target'] : '_self',
         'title' => isset($params['title']) ? $params['title'] : ''
       );
-    } elseif (isset($params['href']) &&
-              \Papaya\Filter\Factory::isURL($params['href'], TRUE) && $this->isSessionInUri()) {
+    } elseif (
+      isset($params['href']) &&
+      \Papaya\Filter\Factory::isURL($params['href'], TRUE) &&
+      $this->isSessionInUri() &&
+      $this->papaya()->options->get(\Papaya\CMS\CMSConfiguration::EXIT_REDIRECT_ENABLE, false)
+    ) {
       $hrefData = array(
         'href' => $this->getWebLink(0, '', 'page', array('exit' => $params['href'])),
         'target' => isset($params['target']) ? $params['target'] : '_self',
