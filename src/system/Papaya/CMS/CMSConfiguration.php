@@ -444,6 +444,8 @@ namespace Papaya\CMS {
       self::URL_ALIAS_SEPARATOR => ',',
       self::URL_FIXATION => FALSE,
 
+      self::EXIT_REDIRECT_ENABLE => false,
+
       self::DATAFILTER_USE => FALSE,
       self::IMPORTFILTER_USE => FALSE,
       self::PUBLICATION_AUDITING => FALSE,
