@@ -196,7 +196,8 @@ namespace Papaya\Administration\Settings {
           ]
         ],
         CMS::URL_FIXATION => FlagSetting::class,
-        CMS::XSLT_EXTENSION => XSLTExtensionSetting::class
+        CMS::XSLT_EXTENSION => XSLTExtensionSetting::class,
+        CMS::EXIT_REDIRECT_ENABLE => FlagSetting::class,
       ],
       self::LAYOUT => [
         CMS::LAYOUT_TEMPLATES => [
@@ -639,4 +640,3 @@ namespace Papaya\Administration\Settings {
     }
   }
 }
-

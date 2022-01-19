@@ -150,6 +150,8 @@ namespace Papaya\Configuration {
     const BROWSER_CRONJOBS = 'PAPAYA_BROWSER_CRONJOBS';
     const BROWSER_CRONJOBS_IP = 'PAPAYA_BROWSER_CRONJOBS_IP';
 
+    const EXIT_REDIRECT_ENABLE = 'PAPAYA_EXIT_REDIRECT_ENABLE';
+
     const URL_NAMELENGTH = 'PAPAYA_URL_NAMELENGTH';
     const URL_EXTENSION = 'PAPAYA_URL_EXTENSION';
     const URL_LEVEL_SEPARATOR = 'PAPAYA_URL_LEVEL_SEPARATOR';
@@ -431,6 +433,8 @@ namespace Papaya\Configuration {
 
       self::BROWSER_CRONJOBS => FALSE,
       self::BROWSER_CRONJOBS_IP => '127.0.0.1',
+
+      self::EXIT_REDIRECT_ENABLE => false,
 
       self::URL_NAMELENGTH => 50,
       self::URL_EXTENSION => 'html',

@@ -307,7 +307,10 @@ class papaya_page extends base_object {
     }
     $this->initPageMode();
     /* exit script handling */
-    if (isset($_GET['exit'])) {
+    if (
+      isset($_GET['exit']) &&
+      $options->get(\Papaya\Configuration\CMS::EXIT_REDIRECT_ENABLE, FALSE)
+    ) {
       $this->allowSessionRedirects = FALSE;
       $this->startSession();
       $urlPattern = '(^/sid[a-z]+([a-zA-Z\d,-]{20,40})((?:/.*)|$))i';
@@ -2801,4 +2804,3 @@ class papaya_page extends base_object {
     );
   }
 }
-
