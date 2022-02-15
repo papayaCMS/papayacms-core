@@ -30,10 +30,17 @@ namespace Papaya\Modules\Core {
     use PluginOptions\Aggregation;
 
     private const FIELD_TEXT = 'text';
+    private const FIELD_CATCH_LINE_OVERLINE = 'catch-line-overline';
     private const FIELD_CATCH_LINE_TITLE = 'catch-line-title';
     private const FIELD_CATCH_LINE_TEXT = 'catch-line-text';
+    private const FIELD_PAGE_TITLE_MODE = 'page-title-mode';
+
 
     private const OPTION_CATCH_LINE_ENABLED = 'OPTION_CATCH_LINE_ENABLED';
+
+    private const PAGE_TITLE_MODE_CONTENT_TITLE = 'content-title';
+    private const PAGE_TITLE_MODE_CATCH_LINE_TITLE = 'catch-line-title';
+    private const PAGE_TITLE_MODE_CATCH_LINE_OVERLINE = 'catch-line-overline';
 
     /**
      * @access private
@@ -41,7 +48,9 @@ namespace Papaya\Modules\Core {
     private const _ARTICLE_DEFAULTS = [
       self::FIELD_TEXT => '',
       self::FIELD_CATCH_LINE_TITLE => '',
-      self::FIELD_CATCH_LINE_TEXT => ''
+      self::FIELD_CATCH_LINE_TEXT => '',
+      self::FIELD_CATCH_LINE_OVERLINE => '',
+      self::FIELD_PAGE_TITLE_MODE => self::PAGE_TITLE_MODE_CONTENT_TITLE,
     ];
 
     /**
@@ -62,6 +71,12 @@ namespace Papaya\Modules\Core {
       if ($this->options()->get(self::OPTION_CATCH_LINE_ENABLED, FALSE)) {
         $dialog->fields[] = $group = new DialogField\Group(new TranslatedText('Catch-Line'));
         $group->fields[] = new DialogField\Input(
+          new TranslatedText('Overline'),
+          self::FIELD_CATCH_LINE_OVERLINE,
+          -1,
+          $defaults[self::FIELD_CATCH_LINE_OVERLINE]
+        );
+        $group->fields[] = new DialogField\Input(
           new TranslatedText('Title'),
           self::FIELD_CATCH_LINE_TITLE,
           -1,
@@ -73,6 +88,19 @@ namespace Papaya\Modules\Core {
           -1,
           $defaults[self::FIELD_CATCH_LINE_TEXT]
         );
+        $group->fields[] = $field = new DialogField\Select\Radio(
+          new TranslatedText('Page title element'),
+          self::FIELD_PAGE_TITLE_MODE,
+          new TranslatedList(
+            [
+              self::PAGE_TITLE_MODE_CONTENT_TITLE => 'Content title',
+              self::PAGE_TITLE_MODE_CATCH_LINE_TITLE => 'Catch line title',
+              self::PAGE_TITLE_MODE_CATCH_LINE_OVERLINE => 'Catch line overline'
+            ]
+          ),
+          FALSE
+        );
+        $field->setDefaultValue($defaults[self::FIELD_PAGE_TITLE_MODE]);
       }
       return $editor;
     }
@@ -97,6 +125,8 @@ namespace Papaya\Modules\Core {
       $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
       if ($this->options()->get(self::OPTION_CATCH_LINE_ENABLED, FALSE)) {
         $catchLine = $parent->appendElement('catch-line');
+        $catchLine->setAttribute('title-mode', $content[self::FIELD_PAGE_TITLE_MODE]);
+        $catchLine->appendElement('overline', $content[self::FIELD_CATCH_LINE_OVERLINE]);
         $catchLine->appendElement('title', $content[self::FIELD_CATCH_LINE_TITLE]);
         $catchLine->appendElement('text', $content[self::FIELD_CATCH_LINE_TEXT]);
       }
