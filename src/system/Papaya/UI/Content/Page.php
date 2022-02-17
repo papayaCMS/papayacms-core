@@ -135,6 +135,16 @@ class Page implements Application\Access {
   }
 
   /**
+   * @return int
+   */
+  public function getContentLanguageId() {
+    if ($language = $this->getPageLanguage()) {
+      return $language->id;
+    }
+    return 0;
+  }
+
+  /**
    * @return null|Content\Language
    */
   public function getPageLanguage() {
