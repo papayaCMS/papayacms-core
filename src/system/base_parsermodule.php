@@ -47,10 +47,10 @@ class base_parsermodule extends base_plugin {
   /**
    * Initialize Plugin
    *
-   * @param papaya_parser $parser
-   * @return bool|void
+   * @param papaya_parser|null $parser
+   * @return void
    */
-  public function initialize($parser) {
+  public function initialize($parser = null) {
     $this->parserObj = $parser;
   }
 
