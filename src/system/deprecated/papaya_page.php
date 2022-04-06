@@ -585,7 +585,7 @@ class papaya_page extends base_object {
                 $this->doRedirect(302, $aliasURL, 'Alias Plugin Redirect');
               } else {
                 $requestURL = new \Papaya\URL($url);
-                $request = new \Papaya\Request($this->papaya()->options);
+                $request = new \Papaya\CMS\CMSRequest($this->papaya()->options);
                 $request->load($requestURL);
                 $urlData = array(
                   'topic_id' => $request->getParameter(
@@ -666,7 +666,7 @@ class papaya_page extends base_object {
     }
     $reference->setParameters($parameters);
     //exchange request object
-    $request = new \Papaya\Request($application->options);
+    $request = new \Papaya\CMS\CMSRequest($application->options);
     $request->load(new \Papaya\URL($reference->get()));
     $request->setParameters(Request::SOURCE_QUERY, $parameters);
     $application->setObject(

@@ -31,7 +31,7 @@ namespace Papaya\CMS\Application\Profile {
      *
      * @param \Papaya\CMS\CMSApplication $application
      *
-     * @return \Papaya\Request
+     * @return \Papaya\CMS\CMSRequest
      */
     public function createObject($application) {
       $request = new \Papaya\CMS\CMSRequest();

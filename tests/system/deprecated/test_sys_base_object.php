@@ -28,7 +28,7 @@ class PapayaLibSystemBaseObjectTest extends \Papaya\TestFramework\TestCase {
    * @param string $expectedLink
    */
   public function testGetWebLinkResetCategory($categoryId, $expectedLink) {
-    $request = new \Papaya\Request(
+    $request = new \Papaya\CMS\CMSRequest(
       $this->mockPapaya()->options(
         array('PAPAYA_URL_LEVEL_SEPARATOR' => ':')
       )

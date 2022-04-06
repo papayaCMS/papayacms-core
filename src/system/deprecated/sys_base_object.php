@@ -519,7 +519,7 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     if (empty($url)) {
       $request = $application->getObject('Request');
     } else {
-      $request = new \Papaya\Request($application->options);
+      $request = new \Papaya\CMS\CMSRequest($application->options);
       if (is_object($url)) {
         $request->load($url);
       } else {
@@ -1141,4 +1141,3 @@ class base_object extends BaseObject implements \Papaya\Request\Parameters\Acces
     return $this->_parameters;
   }
 }
-

@@ -16,6 +16,7 @@ namespace Papaya\CMS\Output;
 
 use Papaya\Application;
 use Papaya\BaseObject\Parameters;
+use Papaya\CMS\CMSRequest;
 use Papaya\CMS\Content;
 use Papaya\CMS\Plugin;
 use Papaya\CMS\Reference\Page as PageReference;
@@ -235,7 +236,7 @@ class Page implements Application\Access {
       $href = $reference->get();
       $validatedHref = FALSE;
       if ($plugin instanceof Plugin\Addressable) {
-        $request = new Request($this->papaya()->options);
+        $request = new CMSRequest($this->papaya()->options);
         $request->load($reference->url());
         $validatedHref = $plugin->validateURL($request);
       }
