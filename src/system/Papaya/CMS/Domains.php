@@ -206,9 +206,9 @@ namespace Papaya\CMS {
         ? $targetDomain['options']['PAPAYA_PAGEID_DEFAULT']
         : $this->papaya()->options['PAPAYA_PAGEID_DEFAULT'];
       $outputMode = $this->papaya()->options['PAPAYA_URL_EXTENSION'];
-      if ($targetDomain['language_id'] > 0) {
+      if ($targetDomain && $targetDomain['language_id'] > 0) {
         $languageId = $targetDomain['language_id'];
-      } elseif (!empty($targetDomain['options']['PAPAYA_CONTENT_LANGUAGE'])) {
+      } elseif ($targetDomain && !empty($targetDomain['options']['PAPAYA_CONTENT_LANGUAGE'])) {
         $languageId = $targetDomain['options']['PAPAYA_CONTENT_LANGUAGE'];
       } else {
         $languageId = $this->papaya()->options['PAPAYA_CONTENT_LANGUAGE'];
