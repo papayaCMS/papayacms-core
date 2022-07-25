@@ -131,6 +131,7 @@
     <delete file="${directory.base}/php-server.log"/>
     <delete dir="${directory.base}/papaya-data/cache"/>
     <mkdir dir="${directory.base}/papaya-data/cache"/>
+    <property name="bootstrap" value="${phing.dir.papaya_cms}/server.php"/>
     <echo message="Start PHP built-in webserver at http://${configuration.run.host}:${configuration.run.port}"/>
     <echo message="Administration-UI available at http://${configuration.run.host}:${configuration.run.port}/papaya/"/>
     <exec executable="php">
@@ -138,7 +139,7 @@
       <arg value="${configuration.run.host}:${configuration.run.port}"/>
       <arg value="-t"/>
       <arg path="${directory.base}/${configuration.directory.document-root}"/>
-      <arg file="${phing.dir.papaya_cms}/server.php"/>
+      <arg file="${bootstrap}"/>
       <arg value=">"/>
       <arg file="${directory.base}/php-server.log"/>
     </exec>
