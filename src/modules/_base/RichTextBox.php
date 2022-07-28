@@ -53,7 +53,7 @@ namespace Papaya\Modules\Core {
         20,
         $defaults[self::FIELD_TEXT],
         NULL,
-        DialogField\Textarea\Richtext::RTE_SIMPLE
+        DialogField\Textarea\Richtext::RTE_DEFAULT
       );
       return $editor;
     }
@@ -74,4 +74,3 @@ namespace Papaya\Modules\Core {
     }
   }
 }
-
