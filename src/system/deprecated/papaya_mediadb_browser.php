@@ -430,9 +430,7 @@ class papaya_mediadb_browser extends base_mediadb {
           ($large) ? 80 :  48
         );
         if ($thumbFileName) {
-          $icon = $this->getWebMediaLink(
-            $thumbFileName, 'thumb', $file['file_name']
-          );
+          $icon = '../'.$thumbFileName;
         }
       } elseif ($file['mimetype'] === 'image/svg+xml') {
         $icon = $this->getWebMediaLink(
@@ -1146,4 +1144,3 @@ var linkThumbs = "'.$this->getLink(array('mode' => 'thumbs')).'";
     );
   }
 }
-

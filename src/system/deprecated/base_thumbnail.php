@@ -54,7 +54,7 @@ class base_thumbnail extends base_object {
   * @param integer $height
   * @param string $mode
   * @param array $params
-  * @return string|NULL
+  * @return NULL|\Papaya\Media\Thumbnail
   */
   public function getThumbnail(
     $fileId, $fileVersion, $width = NULL, $height = NULL, $mode = NULL, $params = NULL

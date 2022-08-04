@@ -2205,9 +2205,7 @@ class papaya_mediadb extends base_mediadb_edit {
                 ($viewMode == 'thumbs') ? 80 : 48
               );
               if ($thumbFile) {
-                $icon = $this->getWebMediaLink(
-                  $thumbFile, 'thumb', $name
-                );
+                $icon = '../'.$thumbFile;
               }
             } elseif ($file['mimetype'] === 'image/svg+xml') {
               $icon = $this->getWebMediaLink($file['file_id']);
