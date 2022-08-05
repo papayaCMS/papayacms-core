@@ -2005,7 +2005,11 @@ class papaya_mediadb extends base_mediadb_edit {
       }
       if (
         (isset($this->currentFile['DERIVED']) && $this->currentFile['DERIVED']) ||
-        (isset($this->currentFile['DERIVATIONS']) && count($this->currentFile['DERIVATIONS']) > 0)
+        (
+          isset($this->currentFile['DERIVATIONS']) &&
+          is_array($this->currentFile['DERIVATIONS']) &&
+          count($this->currentFile['DERIVATIONS']) > 0
+        )
       ) {
         $this->fileToolBar->addButton(
           'Derivations',
@@ -3542,7 +3546,9 @@ class papaya_mediadb extends base_mediadb_edit {
   */
   function addNewFolder() {
     if (isset($this->currentFolder)) {
-      $ancestors = \Papaya\Utility\Arrays::decodeIdList($this->currentFolder['parent_path']);
+      $ancestors = \Papaya\Utility\Arrays::decodeIdList(
+        $this->currentFolder['parent_path'] ?? ''
+      );
       $ancestors[] = $this->currentFolder['folder_id'];
     } else {
       $ancestors = array(0);
