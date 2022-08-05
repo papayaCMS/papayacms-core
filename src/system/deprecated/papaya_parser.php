@@ -726,9 +726,10 @@ class papaya_parser extends base_db {
         $data['width'] != $orgWidth || $data['height'] != $orgHeight
       ) {
         $imageData = array(
-          'src' => $this->getWebMediaLink(
-            $data['filename'], 'thumb', $data['title']
-          ),
+          'src' => (
+            $this->papaya()->options->get(
+              \Papaya\CMS\CMSConfiguration::ADMIN_PAGE, false
+            ) ? '../' : '').$data['filename'],
           'width' => (int)$data['width'],
           'height' => (int)$data['height'],
           'storage_group' => $data['storage_group'],
