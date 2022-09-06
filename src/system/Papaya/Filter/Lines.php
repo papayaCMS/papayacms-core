@@ -63,8 +63,8 @@ class Lines implements Filter {
    * @return array
    */
   private function getLines($string) {
-    if (\preg_match_all('(^.+$)m', $string, $matches, PREG_PATTERN_ORDER)) {
-      return $matches[0];
+    if (\preg_match_all('(^([^\\r\\n]+))m', $string, $matches, PREG_PATTERN_ORDER)) {
+      return $matches[1];
     }
     return [];
   }
