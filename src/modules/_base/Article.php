@@ -15,6 +15,7 @@ namespace Papaya\Modules\Core {
   use Papaya\Plugin\Editor as PluginEditor;
   use Papaya\CMS\Plugin\Options as PluginOptions;
   use Papaya\CMS\Plugin\Filter as PluginFilter;
+  use Papaya\Filter as Filter;
   use Papaya\UI\Dialog\Field\Textarea\Richtext;
   use Papaya\UI\Text\Translated as TranslatedText;
   use Papaya\UI\Text\Translated\Collection as TranslatedList;
@@ -33,10 +34,12 @@ namespace Papaya\Modules\Core {
     private const FIELD_CATCH_LINE_OVERLINE = 'catch-line-overline';
     private const FIELD_CATCH_LINE_TITLE = 'catch-line-title';
     private const FIELD_CATCH_LINE_TEXT = 'catch-line-text';
+    private const FIELD_CATCH_LINE_VARIANT = 'catch-line-variant';
     private const FIELD_PAGE_TITLE_MODE = 'page-title-mode';
 
 
     private const OPTION_CATCH_LINE_ENABLED = 'OPTION_CATCH_LINE_ENABLED';
+    private const OPTION_CATCH_LINE_VARIANTS = 'OPTION_CATCH_LINE_VARIANTS';
 
     private const PAGE_TITLE_MODE_CONTENT_TITLE = 'content-title';
     private const PAGE_TITLE_MODE_CATCH_LINE_TITLE = 'catch-line-title';
@@ -100,9 +103,25 @@ namespace Papaya\Modules\Core {
           ),
           FALSE
         );
-        $field->setDefaultValue($defaults[self::FIELD_PAGE_TITLE_MODE]);
+        if ($variants = $this->getCatchLineVariants()) {
+          $group->fields[] = $field = new DialogField\Select\Radio(
+            new TranslatedText('Variant'),
+            self::FIELD_CATCH_LINE_VARIANT,
+            $variants,
+            FALSE
+          );
+        }
+        $field->setDefaultValue(reset($variants) ?? '');
       }
       return $editor;
+    }
+
+    private function getCatchLineVariants() {
+      $variants = preg_split(
+        '([\r\n]+)',
+        $this->options()->get(self::OPTION_CATCH_LINE_VARIANTS, '')
+      );
+      return array_combine($variants, $variants);
     }
 
     /**
@@ -124,8 +143,13 @@ namespace Papaya\Modules\Core {
       $parent->appendElement('teaser')->appendXML($content[self::FIELD_TEASER]);
       $parent->appendElement('image')->append(new ImageTag($content[self::FIELD_IMAGE]));
       if ($this->options()->get(self::OPTION_CATCH_LINE_ENABLED, FALSE)) {
-        $catchLine = $parent->appendElement('catch-line');
-        $catchLine->setAttribute('title-mode', $content[self::FIELD_PAGE_TITLE_MODE]);
+        $catchLine = $parent->appendElement(
+          'catch-line',
+          [
+            'title-mode' => $content[self::FIELD_PAGE_TITLE_MODE],
+            'variant' => $content[self::FIELD_CATCH_LINE_VARIANT]
+          ]
+        );
         $catchLine->appendElement('overline', $content[self::FIELD_CATCH_LINE_OVERLINE]);
         $catchLine->appendElement('title', $content[self::FIELD_CATCH_LINE_TITLE]);
         $catchLine->appendElement('text', $content[self::FIELD_CATCH_LINE_TEXT]);
@@ -153,6 +177,13 @@ namespace Papaya\Modules\Core {
         self::OPTION_CATCH_LINE_ENABLED,
           new TranslatedList([TRUE => 'Yes', FALSE => 'No']
         )
+      );
+      $dialog->fields[] = $field = new DialogField\Textarea\Lines(
+        new TranslatedText('Catch-Line Variant Identifiers'),
+        self::OPTION_CATCH_LINE_VARIANTS,
+        10,
+        [],
+        new \Papaya\Filter\NotEmpty()
       );
       $field->setDefaultValue(FALSE);
       return $editor;
