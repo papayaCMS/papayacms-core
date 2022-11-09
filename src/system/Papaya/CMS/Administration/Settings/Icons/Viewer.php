@@ -64,6 +64,7 @@ namespace Papaya\CMS\Administration\Settings\Icons {
           $groups[$group][$name][$type][$size] = $file;
         }
       }
+      ksort($groups);
       $listView = new UI\ListView();
       $listView->mode = UI\ListView::MODE_TILES;
       $listView->caption = new UI\Text\Translated('Combination Examples');
@@ -85,6 +86,7 @@ namespace Papaya\CMS\Administration\Settings\Icons {
       $parent->append($listView);
 
       foreach ($groups as $groupName => $group) {
+        ksort($group);
         $listView = new UI\ListView();
         $listView->mode = UI\ListView::MODE_TILES;
         $imageCount = 0;
