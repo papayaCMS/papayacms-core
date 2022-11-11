@@ -53,7 +53,7 @@ class Records extends Group {
   /**
    * @return \Traversable
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     if (!$this->_loaded) {
       foreach ($this->records() as $record) {
         /** @var Plugin\Filter\Content|\base_plugin $plugin */

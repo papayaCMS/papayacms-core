@@ -76,7 +76,7 @@ class Language extends Database\Record\Lazy implements ContentLanguage {
    * @param string $name
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     switch ($name) {
       case 'lng_id' :
       case 'lng_ident' :

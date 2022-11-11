@@ -91,7 +91,7 @@ namespace Papaya\Message\Context {
     /**
      * @return \Traversable
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->_elements);
     }
 
@@ -100,7 +100,7 @@ namespace Papaya\Message\Context {
      *
      * @return int
      */
-    public function count() {
+    public function count(): int {
       return \count($this->_elements);
     }
   }

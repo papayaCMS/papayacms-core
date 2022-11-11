@@ -151,7 +151,7 @@ class Collection
    *
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     return $this->_exists($this->_prepareName($name));
   }
 
@@ -169,7 +169,7 @@ class Collection
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_options);
   }
 
@@ -224,7 +224,7 @@ class Collection
   /**
    * IteratorAggrate Interface: return an iterator for the options in this object
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->toArray());
   }
 

@@ -38,7 +38,7 @@ class Groups implements Application\Access, \ArrayAccess {
    * @param string $guid
    * @return bool
    */
-  public function offsetExists($guid) {
+  public function offsetExists($guid): bool {
     $guid = Utility\Text\Guid::toLower($guid);
     return isset($this->_groups[$guid]);
   }

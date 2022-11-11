@@ -143,7 +143,7 @@ class Collection
    * Countable interface: return count of items in list
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_items);
   }
 
@@ -217,7 +217,7 @@ class Collection
    * @param int|string $index
    * @return bool
    */
-  public function offsetExists($index) {
+  public function offsetExists($index): bool {
     $index = $this->prepareKey($index);
     return isset($this->_items[$index]);
   }

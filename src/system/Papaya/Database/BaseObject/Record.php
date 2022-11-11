@@ -234,7 +234,7 @@ abstract class Record
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->toArray());
   }
 
@@ -247,7 +247,7 @@ abstract class Record
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     return \array_key_exists($offset, $this->_fields);
   }

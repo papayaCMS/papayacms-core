@@ -317,7 +317,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return isset($this->_parts[$offset]);
   }
 
@@ -358,7 +358,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_parts);
   }
 
@@ -367,7 +367,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->getArray());
   }
 }

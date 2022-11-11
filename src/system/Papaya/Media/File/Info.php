@@ -73,7 +73,7 @@ namespace Papaya\Media\File {
     /**
      * @return \Traversable
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->getProperties());
     }
 
@@ -100,7 +100,7 @@ namespace Papaya\Media\File {
      * @param string $offset
      * @return bool
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       return \array_key_exists($offset, $this->getProperties());
     }
 

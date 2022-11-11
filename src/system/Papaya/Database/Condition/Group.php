@@ -117,14 +117,14 @@ class Group
   /**
    * @return \Traversable
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->_conditions);
   }
 
   /**
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_conditions);
   }
 

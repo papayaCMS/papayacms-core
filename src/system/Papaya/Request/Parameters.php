@@ -238,7 +238,7 @@ class Parameters extends BaseObject\Parameters {
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return parent::offsetExists($this->_parseParameterName($offset));
   }
 

@@ -133,7 +133,7 @@ class Validator
    *
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     $this->validate();
     return \array_key_exists($name, $this->_values);
   }
@@ -226,7 +226,7 @@ class Validator
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $this->validate();
     return new \ArrayIterator($this->_values);
   }

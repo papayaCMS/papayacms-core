@@ -100,7 +100,7 @@ class Teasers extends UIControl implements \Countable {
     $this->_replaceImageTags = $replaceImageTags;
   }
 
-  public function count() {
+  public function count(): int {
     return $this->pages()->count();
   }
 

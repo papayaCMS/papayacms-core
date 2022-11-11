@@ -13,14 +13,14 @@
  *  FOR A PARTICULAR PURPOSE.
  */
 
-namespace Papaya\Template\XSLT;
+namespace Papaya\Template;
 require_once __DIR__.'/../../../../bootstrap.php';
 
-class HandlerTest extends \Papaya\TestFramework\TestCase {
+/**
+ * @covers \Papaya\Template\FileHandler
+ */
+class FileHandlerTest extends \Papaya\TestFramework\TestCase {
 
-  /**
-   * @covers \Papaya\Template\XSLT\Handler::getLocalPath
-   */
   public function testGetLocalPath() {
     $request = $this->createMock(\Papaya\Request::class);
     $request
@@ -47,9 +47,6 @@ class HandlerTest extends \Papaya\TestFramework\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Template\XSLT\Handler::getTemplate
-   */
   public function testGetTemplateInPublicMode() {
     $request = $this->createMock(\Papaya\Request::class);
     $request
@@ -75,9 +72,6 @@ class HandlerTest extends \Papaya\TestFramework\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Template\XSLT\Handler::getTemplate
-   */
   public function testGetTemplateInPreviewMode() {
     $request = $this->createMock(\Papaya\Request::class);
     $request
@@ -116,9 +110,6 @@ class HandlerTest extends \Papaya\TestFramework\TestCase {
     );
   }
 
-  /**
-   * @covers \Papaya\Template\XSLT\Handler::setTemplatePreview
-   */
   public function testSetTemplatePreview() {
     $session = $this->createMock(\Papaya\Session::class);
     $values = $this->getMockBuilder(\Papaya\Session\Values::class)->disableOriginalConstructor()->getMock();
@@ -138,9 +129,6 @@ class HandlerTest extends \Papaya\TestFramework\TestCase {
     $handler->setTemplatePreview('Sample');
   }
 
-  /**
-   * @covers \Papaya\Template\XSLT\Handler::removeTemplatePreview
-   */
   public function testRemoveTemplatePreview() {
     $session = $this->createMock(\Papaya\Session::class);
     $values = $this->getMockBuilder(\Papaya\Session\Values::class)->disableOriginalConstructor()->getMock();

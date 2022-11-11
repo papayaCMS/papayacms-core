@@ -52,7 +52,7 @@ class Groups implements \ArrayAccess {
    *
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     return \array_key_exists($name, $this->_groups);
   }
 

@@ -102,7 +102,7 @@ class Types extends Database\Records\Lazy {
     return $mapping;
   }
 
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return isset(self::$_internalLinkTypes[$offset]) || parent::offsetExists($offset);
   }
 

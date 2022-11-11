@@ -36,7 +36,7 @@ class Collection implements Application\Access, \IteratorAggregate {
    *
    * @see \IteratorAggregate::getIterator()
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new Iterator\Callback(
       new Iterator\Glob($this->handler()->getLocalPath().'*', GLOB_ONLYDIR),
       function($element) {

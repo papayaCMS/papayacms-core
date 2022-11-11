@@ -22,11 +22,11 @@ namespace Papaya\Domain\HostName {
       $this->_variants = $this->createVariants($hostName);
     }
 
-    public function count() {
+    public function count(): int {
       return count($this->_variants);
     }
 
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->_variants);
     }
 

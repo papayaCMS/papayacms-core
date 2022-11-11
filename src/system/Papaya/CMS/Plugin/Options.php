@@ -104,7 +104,7 @@ class Options extends Configuration implements Application\Access {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $this->lazyLoad();
     return new Configuration\Iterator(\array_keys($this->_options), $this);
   }

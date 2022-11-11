@@ -284,7 +284,7 @@ class Configuration
    *
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     return $this->has($name);
   }
 
@@ -334,7 +334,7 @@ class Configuration
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new Configuration\Iterator(\array_keys($this->_options), $this);
   }
 }

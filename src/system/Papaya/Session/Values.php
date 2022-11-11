@@ -49,7 +49,7 @@ class Values implements \ArrayAccess {
    *
    * @return bool
    */
-  public function offsetExists($identifier) {
+  public function offsetExists($identifier): bool {
     $key = $this->_compileKey($identifier);
     if ($this->_session->wrapper()->hasValue($key)) {
       return TRUE;

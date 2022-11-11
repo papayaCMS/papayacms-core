@@ -163,7 +163,7 @@ class Options implements \ArrayAccess {
    *
    * @throws Exception\InvalidOption
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return $this->exists($offset, TRUE);
   }
 

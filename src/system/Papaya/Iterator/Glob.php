@@ -107,14 +107,14 @@ class Glob implements \IteratorAggregate, \Countable {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->getFilesLazy());
   }
 
   /**
    * Return the file count.
    */
-  public function count() {
+  public function count(): int {
     return \count($this->getFilesLazy());
   }
 }

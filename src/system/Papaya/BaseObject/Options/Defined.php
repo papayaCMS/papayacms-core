@@ -64,7 +64,7 @@ class Defined
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_definitions);
   }
 

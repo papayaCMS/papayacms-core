@@ -255,7 +255,7 @@ abstract class Unbuffered
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     if ($databaseResult = $this->databaseResult()) {
       return $databaseResult->count();
     }
@@ -289,7 +289,7 @@ abstract class Unbuffered
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return $this->getResultIterator();
   }
 

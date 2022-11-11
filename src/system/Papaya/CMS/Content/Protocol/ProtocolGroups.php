@@ -43,7 +43,7 @@ namespace Papaya\CMS\Content\Protocol {
       self::DEBUG => 'Debug'
     ];
 
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator(self::$_GROUPS);
     }
 
@@ -52,4 +52,3 @@ namespace Papaya\CMS\Content\Protocol {
     }
   }
 }
-

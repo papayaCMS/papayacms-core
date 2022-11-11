@@ -174,7 +174,7 @@ abstract class Lazy
    *
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     $this->lazyLoad();
     return parent::offsetExists($name);
   }

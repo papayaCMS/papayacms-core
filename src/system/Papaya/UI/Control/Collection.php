@@ -277,7 +277,7 @@ class Collection
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->toArray());
   }
 
@@ -286,7 +286,7 @@ class Collection
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_items);
   }
 
@@ -297,7 +297,7 @@ class Collection
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return $this->has($offset);
   }
 

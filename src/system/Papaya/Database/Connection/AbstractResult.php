@@ -49,7 +49,7 @@ namespace Papaya\Database\Connection {
      *
      * @return \Iterator
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new DatabaseResultIterator($this);
     }
 

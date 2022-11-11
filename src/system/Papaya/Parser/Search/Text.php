@@ -253,7 +253,7 @@ class Text implements \IteratorAggregate {
     return 0;
   }
 
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->_tokens);
   }
 }

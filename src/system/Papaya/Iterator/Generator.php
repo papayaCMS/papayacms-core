@@ -53,7 +53,7 @@ class Generator implements \IteratorAggregate {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     if (NULL === $this->_iterator) {
       $this->_iterator = $this->createIterator();
     }

@@ -141,7 +141,7 @@ class Groups implements \IteratorAggregate {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new Iterator\Tree\Details(
       $this->_groups,
       $this->_groupedPermissions

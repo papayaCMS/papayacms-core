@@ -156,7 +156,7 @@ abstract class Records
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_records);
   }
 
@@ -174,7 +174,7 @@ abstract class Records
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return empty($this->_records) ? new \EmptyIterator() : new \ArrayIterator($this->_records);
   }
 
@@ -185,7 +185,7 @@ abstract class Records
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return isset($this->_records[$this->getIdentifier($offset)]);
   }
 

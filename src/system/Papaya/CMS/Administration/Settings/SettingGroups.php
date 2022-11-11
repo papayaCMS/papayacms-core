@@ -611,7 +611,7 @@ namespace Papaya\CMS\Administration\Settings {
       );
     }
 
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new CallbackIterator(
         $this->getTranslatedLabels(),
         function($label, $group) {

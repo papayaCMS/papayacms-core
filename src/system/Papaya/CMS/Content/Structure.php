@@ -74,7 +74,7 @@ class Structure implements \IteratorAggregate {
    *
    * @return Structure\Pages
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return $this->pages();
   }
 

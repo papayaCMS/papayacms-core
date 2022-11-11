@@ -68,15 +68,15 @@ namespace Papaya\Graphics {
 
     /** Interfaces */
 
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->_segments);
     }
 
-    public function count() {
+    public function count(): int {
       return \count($this->_segments);
     }
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       return isset($this->_segments[$offset]);
     }
 

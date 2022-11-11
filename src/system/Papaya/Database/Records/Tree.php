@@ -97,7 +97,7 @@ abstract class Tree extends Lazy {
    *
    * @return \RecursiveIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $this->lazyLoad();
     $identifiers = array_keys($this->_rootIdentifiers);
     if (count($identifiers) < 1) {

@@ -12,19 +12,20 @@
  *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  *  FOR A PARTICULAR PURPOSE.
  */
-namespace Papaya\Template\XSLT;
+namespace Papaya\Template;
 
 use Papaya\Application;
 use Papaya\Request;
 use Papaya\Utility;
 
 /**
- * Papaya XSLT template handler class
+ * Papaya template file handler class
  *
  * @package Papaya-Library
  * @subpackage Template
  */
-class Handler extends Application\BaseObject {
+class FileHandler extends Application\BaseObject {
+
   /**
    * Get absolute local file path to current template directory
    *

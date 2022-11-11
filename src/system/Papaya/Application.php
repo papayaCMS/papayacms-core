@@ -86,7 +86,7 @@ namespace Papaya {
     /**
      * @return \Traversable
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->_objects);
     }
 
@@ -334,7 +334,7 @@ namespace Papaya {
      *
      * @return bool
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       return $this->hasObject($offset);
     }
 

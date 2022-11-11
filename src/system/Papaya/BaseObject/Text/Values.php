@@ -91,7 +91,7 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * @see \ArrayAccess::offsetExists()
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return $this->_values->offsetExists($offset);
   }
 
@@ -119,14 +119,14 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * @see \Countable::count()
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_values);
   }
 
   /**
    * @see \IteratorAggregate::getIterator()
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return $this->_values->getIterator();
   }
 }

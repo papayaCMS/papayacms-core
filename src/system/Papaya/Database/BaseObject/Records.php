@@ -56,7 +56,7 @@ abstract class Records
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->_records);
   }
 
@@ -65,7 +65,7 @@ abstract class Records
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_records);
   }
 

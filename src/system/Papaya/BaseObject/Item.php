@@ -95,7 +95,7 @@ class Item
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->toArray());
   }
 
@@ -153,7 +153,7 @@ class Item
    *
    * @return bool
    */
-  public function offsetExists($name) {
+  public function offsetExists($name): bool {
     $name = Utility\Text\Identifier::toUnderscoreLower($name);
     return \array_key_exists($name, $this->_values);
   }

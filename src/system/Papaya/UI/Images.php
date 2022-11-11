@@ -89,7 +89,7 @@ class Images implements \ArrayAccess, \IteratorAggregate {
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return isset($this->_images[$offset]);
   }
 
@@ -123,7 +123,7 @@ class Images implements \ArrayAccess, \IteratorAggregate {
     $this->remove([$offset]);
   }
 
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->_images);
   }
 }

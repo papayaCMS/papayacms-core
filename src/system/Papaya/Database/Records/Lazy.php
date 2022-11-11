@@ -107,7 +107,7 @@ abstract class Lazy extends Database\Records {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $this->lazyLoad();
     return parent::getIterator();
   }
@@ -117,7 +117,7 @@ abstract class Lazy extends Database\Records {
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     $this->lazyLoad();
     return parent::count();
   }
@@ -129,7 +129,7 @@ abstract class Lazy extends Database\Records {
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     $this->lazyLoad();
     return parent::offsetExists($offset);
   }

@@ -67,7 +67,7 @@ class Storage
    *
    * @return \Traversable
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $result = [];
     foreach ($this->options() as $option) {
       $result[$option['name']] = $option['value'];

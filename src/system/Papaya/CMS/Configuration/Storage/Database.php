@@ -85,7 +85,7 @@ class Database extends Application\BaseObject
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $options = [];
     foreach ($this->records() as $option) {
       $options[$option['name']] = $option['value'];

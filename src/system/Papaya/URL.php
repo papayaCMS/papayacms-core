@@ -68,7 +68,7 @@ class URL implements \IteratorAggregate, Properties {
   /**
    * @return \ArrayIterator|\Traversable
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return NULL !== $this->_elements ? new \ArrayIterator($this->_elements) : new \EmptyIterator();
   }
 

@@ -76,7 +76,7 @@ class Factory implements \IteratorAggregate {
    *
    * @throws \ReflectionException
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator(self::_getProfiles());
   }
 

@@ -89,7 +89,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $this->lazyFetch();
     return new \ArrayIterator($this->_values);
   }
@@ -99,7 +99,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * @param string $offset
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     if ('temporary' === $offset) {
       $this->lazyFetch();
       return isset($this->_values['temporary']);

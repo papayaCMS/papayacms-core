@@ -109,7 +109,7 @@ namespace Papaya\UI\Control\Command {
      *
      * @return bool
      */
-    public function offsetExists($name) {
+    public function offsetExists($name): bool {
       return isset($this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)]);
     }
 
@@ -153,7 +153,7 @@ namespace Papaya\UI\Control\Command {
      *
      * @return int
      */
-    public function count() {
+    public function count(): int {
       return \count($this->_commands);
     }
 
@@ -162,7 +162,7 @@ namespace Papaya\UI\Control\Command {
      *
      * @return \ArrayIterator
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->_commands);
     }
 

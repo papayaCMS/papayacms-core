@@ -102,7 +102,7 @@ namespace Papaya\Database\Connection {
     /**
      * @return int
      */
-    public function count() {
+    public function count(): int {
       if ($this->_recordCount >= 0) {
         return $this->_recordCount;
       }

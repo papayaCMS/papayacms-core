@@ -339,7 +339,7 @@ namespace Papaya\Graphics {
      * @param string|int $offset
      * @return bool
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       return $this->hasValue((string)$offset);
     }
 
@@ -528,4 +528,3 @@ namespace Papaya\Graphics {
     }
   }
 }
-

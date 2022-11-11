@@ -79,7 +79,7 @@ namespace Papaya\Router\Route {
      * @param string $command
      * @return bool
      */
-    public function offsetExists($command) {
+    public function offsetExists($command): bool {
       return isset($this->_routes[$command]);
     }
 

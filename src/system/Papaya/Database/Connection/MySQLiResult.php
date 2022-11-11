@@ -63,7 +63,7 @@ namespace Papaya\Database\Connection {
     /**
      * @return int
      */
-    public function count() {
+    public function count(): int {
       if ($this->isValid()) {
         return $this->_mysqli->num_rows;
       }

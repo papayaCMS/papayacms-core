@@ -116,7 +116,7 @@ namespace Papaya\BaseObject {
      * @see \ArrayObject::offsetExists()
      *
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       if (empty($offset) && 0 !== $offset) {
         return FALSE;
       }

@@ -116,7 +116,7 @@ class Tags implements \IteratorAggregate, \Countable {
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $this->find();
     return new \ArrayIterator($this->_newTags);
   }
@@ -126,7 +126,7 @@ class Tags implements \IteratorAggregate, \Countable {
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     $this->find();
     return \count($this->_newTags);
   }

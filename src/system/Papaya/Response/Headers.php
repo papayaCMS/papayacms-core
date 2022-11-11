@@ -39,7 +39,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->_headers);
   }
 
@@ -48,7 +48,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_headers);
   }
 
@@ -108,7 +108,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @return bool
    */
-  public function offsetExists($header) {
+  public function offsetExists($header): bool {
     return isset($this->_headers[$this->_normalize($header)]);
   }
 

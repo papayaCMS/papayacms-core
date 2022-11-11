@@ -170,7 +170,7 @@ class Reader implements \IteratorAggregate {
     return NULL;
   }
 
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     if (NULL === $this->_values) {
       $offset = 0;
       $this->_values = $this->fetchAssoc($offset);

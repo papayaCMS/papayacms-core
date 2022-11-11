@@ -103,7 +103,7 @@ class papaya_atom_element_list
   * @access public
   * @return integer
   */
-  function count() {
+  function count(): int {
     return count($this->_elements);
   }
 
@@ -113,7 +113,7 @@ class papaya_atom_element_list
   * @access public
   * @return ArrayIterator
   */
-  function getIterator() {
+  function getIterator(): Traversable {
     return new ArrayIterator($this->_elements);
   }
 

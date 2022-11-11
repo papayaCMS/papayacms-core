@@ -58,7 +58,7 @@ class Timer implements \IteratorAggregate, Application\Access {
    *
    * @return \Traversable
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     $result = [];
     $offset = $this->_start;
     foreach ($this->_takes as $take) {

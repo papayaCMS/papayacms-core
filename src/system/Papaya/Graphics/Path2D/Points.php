@@ -45,7 +45,7 @@ namespace Papaya\Graphics\Path2D {
       return $result;
     }
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       return isset($this->_points[$offset]);
     }
 

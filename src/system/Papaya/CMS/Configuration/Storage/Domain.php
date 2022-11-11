@@ -106,7 +106,7 @@ namespace Papaya\CMS\Configuration\Storage {
      *
      * @return \Iterator
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       if (
         Content\Domain::MODE_VIRTUAL_DOMAIN === (int)$this->domain()->mode &&
         \is_array($this->domain()->options)

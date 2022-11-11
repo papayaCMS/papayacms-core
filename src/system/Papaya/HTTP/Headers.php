@@ -59,7 +59,7 @@ class Headers
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->toArray());
   }
 
@@ -69,7 +69,7 @@ class Headers
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_headers);
   }
 
@@ -149,7 +149,7 @@ class Headers
    *
    * @return bool
    */
-  public function offsetExists($offset) {
+  public function offsetExists($offset): bool {
     return isset($this->_headers[$this->normalizeName($offset)]);
   }
 

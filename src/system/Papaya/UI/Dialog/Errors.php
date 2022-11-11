@@ -55,7 +55,7 @@ class Errors implements \IteratorAggregate, \Countable {
    *
    * @return int
    */
-  public function count() {
+  public function count(): int {
     return \count($this->_errors);
   }
 
@@ -64,7 +64,7 @@ class Errors implements \IteratorAggregate, \Countable {
    *
    * @return \ArrayIterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator($this->_errors);
   }
 

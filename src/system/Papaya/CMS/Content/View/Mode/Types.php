@@ -61,7 +61,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    *
    * @return \Iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new \ArrayIterator(self::$_typeCaptions);
   }
 
@@ -74,7 +74,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    *
    * @return bool
    */
-  public function offsetExists($mode) {
+  public function offsetExists($mode): bool {
     return self::exists($mode);
   }
 

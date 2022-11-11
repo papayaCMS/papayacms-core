@@ -78,7 +78,7 @@ namespace Papaya\Database\Connection {
     /**
      * @return int
      */
-    public function count() {
+    public function count(): int {
       if ($this->isValid()) {
         return pg_num_rows($this->_postgreSQL);
       }

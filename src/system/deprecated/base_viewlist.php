@@ -1245,7 +1245,7 @@ class base_viewlist extends base_db {
         'feed' => $this->_gt('Feed'),
         'hidden' => $this->_gt('Hidden')
       );
-      $templateHandler = new \Papaya\Template\XSLT\Handler();
+      $templateHandler = new \Papaya\Template\FileHandler();
       $fields = array(
         'viewmode_ext' => array('Extension', '/^[a-z]{1,20}$/',
           TRUE, 'input', 20, ''),

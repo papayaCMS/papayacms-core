@@ -47,14 +47,14 @@ namespace Papaya\Router {
      *
      * @return \ArrayIterator|\Traversable
      */
-    public function getIterator() {
+    public function getIterator(): \Traversable {
       return new \ArrayIterator($this->getRouteArray());
     }
 
     /**
      * @return int
      */
-    public function count() {
+    public function count(): int {
       return \count($this->getRouteArray());
     }
 
@@ -62,7 +62,7 @@ namespace Papaya\Router {
      * @param int $offset
      * @return bool
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset): bool {
       return \array_key_exists($offset, $this->getRouteArray());
     }
 
