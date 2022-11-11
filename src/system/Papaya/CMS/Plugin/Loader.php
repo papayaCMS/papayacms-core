@@ -60,6 +60,10 @@ namespace Papaya\CMS\Plugin {
      */
     private $_instances = [];
 
+    public function __construct() {
+      PluginStreamWrapper::register('plugin', this);
+    }
+
     /**
      * define plugins and options as readable properties
      *
@@ -251,9 +255,20 @@ namespace Papaya\CMS\Plugin {
         if ($result = Autoloader::getClassFile($pluginData['class'])) {
           return $result;
         }
-        return $this->getPluginPath($pluginData['path']).$pluginData['file'];
+        return $this->getRealPluginPath($pluginData['path']).$pluginData['file'];
       }
       return '';
+    }
+
+    public function getPluginFilesPath($guid) {
+      $plugins = $this->plugins();
+      if ($pluginData = $plugins[$guid]) {
+        $this->prepareAutoloader($pluginData);
+        if ($result = Autoloader::getClassFile($pluginData['class'])) {
+          return dirname($result).'/files';
+        }
+        return $this->getRealPluginPath($pluginData['path']).'/files';
+      }
     }
 
     /**
@@ -264,11 +279,11 @@ namespace Papaya\CMS\Plugin {
      */
     private function prepareAutoloader(array $pluginData) {
       if (!(empty($pluginData['prefix']) || Autoloader::hasPrefix($pluginData['prefix']))) {
-        $path = $this->getPluginPath($pluginData['path']);
+        $path = $this->getRealPluginPath($pluginData['path']);
         Autoloader::registerPath($pluginData['prefix'], $path);
       }
       if (!empty($pluginData['classes'])) {
-        $path = \substr($this->getPluginPath($pluginData['path']), 0, -1);
+        $path = \substr($this->getRealPluginPath($pluginData['path']), 0, -1);
         /* @noinspection PhpIncludeInspection */
         if (
           !Autoloader::hasClassMap($path) &&
@@ -289,7 +304,7 @@ namespace Papaya\CMS\Plugin {
     private function preparePluginFile(array $pluginData) {
       $this->prepareAutoloader($pluginData);
       if (!\class_exists($pluginData['class'], TRUE)) {
-        $fileName = $this->getPluginPath($pluginData['path']).$pluginData['file'];
+        $fileName = $this->getRealPluginPath($pluginData['path']).$pluginData['file'];
         /* @noinspection PhpIncludeInspection */
         /* @noinspection UsingInclusionOnceReturnValueInspection */
         if (
@@ -336,7 +351,7 @@ namespace Papaya\CMS\Plugin {
      * @throws
      *
      */
-    private function getPluginPath($path = '') {
+    private function getRealPluginPath($path = '') {
       if (\preg_match('(^(?:/|[a-zA-Z]:))', $path)) {
         return $path;
       }
