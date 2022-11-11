@@ -97,7 +97,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    * @param string $header
    * @param mixed $value
    */
-  public function offsetSet($header, $value) {
+  public function offsetSet($header, $value): void {
     $this->set($header, $value, TRUE);
   }
 
@@ -119,7 +119,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @param string $header
    */
-  public function offsetUnset($header) {
+  public function offsetUnset($header): void {
     unset($this->_headers[$this->_normalize($header)]);
   }
 
@@ -130,7 +130,7 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @return mixed
    */
-  public function offsetGet($header) {
+  public function offsetGet($header): mixed {
     $header = $this->_normalize($header);
     return isset($this->_headers[$header]) ? $this->_headers[$header] : NULL;
   }

@@ -167,7 +167,7 @@ class Item
    *
    * @return mixed
    */
-  public function offsetGet($name) {
+  public function offsetGet($name): mixed {
     return $this->__get($name);
   }
 
@@ -179,7 +179,7 @@ class Item
    * @param string $name
    * @param mixed $value
    */
-  public function offsetSet($name, $value) {
+  public function offsetSet($name, $value): void {
     $this->__set($name, $value);
   }
 
@@ -191,7 +191,7 @@ class Item
    *
    * @internal param mixed $value
    */
-  public function offsetUnset($name) {
+  public function offsetUnset($name): void {
     $this->__unset($name);
   }
 

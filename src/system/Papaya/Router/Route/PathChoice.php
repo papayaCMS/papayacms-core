@@ -87,7 +87,7 @@ namespace Papaya\Router\Route {
      * @param string $command
      * @return callable|\Papaya\Router\Route
      */
-    public function offsetGet($command) {
+    public function offsetGet($command): mixed {
       return $this->_routes[$command];
     }
 
@@ -95,7 +95,7 @@ namespace Papaya\Router\Route {
      * @param string $command
      * @param callable $route
      */
-    public function offsetSet($command, $route) {
+    public function offsetSet($command, $route): void {
       Utility\Constraints::assertString($command);
       Utility\Constraints::assertCallable($route);
       $this->_routes[$command] = $route;
@@ -104,7 +104,7 @@ namespace Papaya\Router\Route {
     /**
      * @param string $command
      */
-    public function offsetUnset($command) {
+    public function offsetUnset($command): void {
       unset($this->_routes[$command]);
     }
   }

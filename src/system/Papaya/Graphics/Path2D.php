@@ -80,15 +80,15 @@ namespace Papaya\Graphics {
       return isset($this->_segments[$offset]);
     }
 
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->_segments[$offset];
     }
 
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       throw new \BadMethodCallException('Please use the specific methods to modify the path.');
     }
 
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       throw new \BadMethodCallException('Please use the specific methods to modify the path.');
     }
   }

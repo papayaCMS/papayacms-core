@@ -160,7 +160,7 @@ class Headers
    *
    * @return string|array|null
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->get($offset);
   }
 
@@ -172,7 +172,7 @@ class Headers
    *
    * @internal param $ string|array|NULL
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->set($offset, $value);
   }
 
@@ -181,7 +181,7 @@ class Headers
    *
    * @param int $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     unset($this->_headers[$this->normalizeName($offset)]);
   }
 

@@ -64,7 +64,7 @@ namespace Papaya\Router\Route {
      * @param int $offset
      * @param callable|Route $route
      */
-    public function offsetSet($offset, $route) {
+    public function offsetSet($offset, $route): void {
       Utility\Constraints::assertCallable($route);
       if (NULL === $offset) {
         $this->_routes[] = $route;
@@ -79,14 +79,14 @@ namespace Papaya\Router\Route {
      * @param int $offset
      * @return callable|Route $route
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->_routes[$offset];
     }
 
     /**
      * @param int $offset
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       unset($this->_routes[$offset]);
       $this->_routes = \array_values($this->_routes);
     }

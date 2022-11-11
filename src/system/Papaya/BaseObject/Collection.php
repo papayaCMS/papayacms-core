@@ -152,7 +152,7 @@ class Collection
    *
    * @return object|false
    */
-  public function current() {
+  public function current(): mixed {
     return \current($this->_items);
   }
 
@@ -161,7 +161,7 @@ class Collection
    *
    * @return int|string|null
    */
-  public function key() {
+  public function key(): mixed {
     return \key($this->_items);
   }
 
@@ -177,14 +177,14 @@ class Collection
   /**
    * Iterator interface: move internal pointer to next item
    */
-  public function next() {
+  public function next(): void {
     \next($this->_items);
   }
 
   /**
    * Iterator interface: move internal pointer to first item
    */
-  public function rewind() {
+  public function rewind(): void {
     \reset($this->_items);
   }
 
@@ -207,7 +207,7 @@ class Collection
    *
    * @return bool
    */
-  public function valid() {
+  public function valid(): bool {
     return FALSE !== $this->current();
   }
 
@@ -228,7 +228,7 @@ class Collection
    * @param int|string $index
    * @return object|NULL
    */
-  public function offsetGet($index) {
+  public function offsetGet($index): mixed {
     $index = $this->prepareKey($index);
     return $this->_items[$index];
   }
@@ -244,7 +244,7 @@ class Collection
    *
    * @throws \InvalidArgumentException
    */
-  public function offsetSet($index, $value) {
+  public function offsetSet($index, $value): void {
     $value = $this->prepareItem($value);
     $index = $this->prepareKey($index, $value);
     if ($value instanceof $this->_itemClass) {
@@ -276,7 +276,7 @@ class Collection
    *
    * @param int|string $index
    */
-  public function offsetUnset($index) {
+  public function offsetUnset($index): void {
     $index = $this->prepareKey($index);
     if (isset($this->_items[$index])) {
       unset($this->_items[$index]);

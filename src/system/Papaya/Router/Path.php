@@ -70,7 +70,7 @@ namespace Papaya\Router {
      * @param int $offset
      * @return string
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->offsetExists($offset) ? $this->getRouteArray()[$offset] : NULL;
     }
 
@@ -78,14 +78,14 @@ namespace Papaya\Router {
      * @param int $offset
      * @param string $value
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       throw new \LogicException(\sprintf('%s is immutable', static::class));
     }
 
     /**
      * @param int $offset
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       throw new \LogicException(\sprintf('%s is immutable', static::class));
     }
 

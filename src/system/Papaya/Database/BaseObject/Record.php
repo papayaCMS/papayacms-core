@@ -261,7 +261,7 @@ abstract class Record
    *
    * @return string|null
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       return $this->_values[$offset];
@@ -282,7 +282,7 @@ abstract class Record
    *
    * @throws \OutOfBoundsException
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if ($this->offsetExists($offset)) {
       $this->_values[$offset] = $value;
@@ -298,7 +298,7 @@ abstract class Record
    *
    * @param string $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       unset($this->_values[$offset]);

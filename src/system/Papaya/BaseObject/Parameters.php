@@ -148,7 +148,7 @@ namespace Papaya\BaseObject {
      * @see \ArrayObject::offsetGet()
      *
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->getValueByOffset($offset);
     }
 
@@ -185,7 +185,7 @@ namespace Papaya\BaseObject {
      * @see \ArrayObject::offsetSet()
      *
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       if ($value instanceof \Traversable) {
         $value = \iterator_to_array($value);
       }
@@ -232,7 +232,7 @@ namespace Papaya\BaseObject {
      * @see \ArrayObject::offsetUnset()
      *
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       if (empty($offset) && 0 !== $offset) {
         return;
       }

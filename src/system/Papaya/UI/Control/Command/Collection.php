@@ -98,7 +98,7 @@ class Collection
    *
    * @return UI\Control\Command
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->_commands[$offset];
   }
 
@@ -110,7 +110,7 @@ class Collection
    *
    * @throws \UnexpectedValueException
    */
-  public function offsetSet($offset, $command) {
+  public function offsetSet($offset, $command): void {
     if ($command instanceof UI\Control\Command) {
       $this->_commands[$offset] = $command;
       $this->_commands = \array_values($this->_commands);
@@ -129,7 +129,7 @@ class Collection
    *
    * @param int $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     unset($this->_commands[$offset]);
     $this->_commands = \array_values($this->_commands);
   }

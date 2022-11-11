@@ -108,7 +108,7 @@ namespace Papaya\Media\File {
      * @param string $offset
      * @return bool
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->getProperties()[$offset];
     }
 
@@ -116,14 +116,14 @@ namespace Papaya\Media\File {
      * @param string $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       throw new \BadMethodCallException(\sprintf('Object %s is immutable.', static::class));
     }
 
     /**
      * @param string $offset
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       throw new \BadMethodCallException(\sprintf('Object %s is immutable.', static::class));
     }
   }

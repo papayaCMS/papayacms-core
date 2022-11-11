@@ -347,7 +347,7 @@ namespace Papaya\Graphics {
      * @param string|int $offset
      * @return int|float
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->getValue((string)$offset);
     }
 
@@ -356,7 +356,7 @@ namespace Papaya\Graphics {
      * @param int|float $value
      * @throws \LogicException
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       $this->setValue((string)$offset, $value);
     }
 
@@ -364,7 +364,7 @@ namespace Papaya\Graphics {
      * @param string|int $offset
      * @throws \LogicException
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       throw new \LogicException('Can not unset color parts.');
     }
 

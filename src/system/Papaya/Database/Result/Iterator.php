@@ -97,7 +97,7 @@ class Iterator implements \Iterator {
    * Rewind the iterator, eg seek the internal pointer in the database result and fetch the first
    * record.
    */
-  public function rewind() {
+  public function rewind(): void {
     $this->_offset = -1;
     $this->_databaseResult->seek(0);
     $this->next();
@@ -106,7 +106,7 @@ class Iterator implements \Iterator {
   /**
    * Return the current record, use the mapping subobject if set.
    */
-  public function current() {
+  public function current(): ?array {
     if (
       NULL !== $this->_current &&
       Database\Result::FETCH_ASSOC === $this->_fetchMode &&
@@ -120,14 +120,14 @@ class Iterator implements \Iterator {
   /**
    * Return the current record index
    */
-  public function key() {
+  public function key(): int {
     return $this->_offset;
   }
 
   /**
    * Fetch the next record and store it in the object
    */
-  public function next() {
+  public function next(): void {
     if ($this->_offset < 0 || \is_array($this->_current)) {
       $this->_current = $this->_databaseResult->fetchRow($this->_fetchMode);
       ++$this->_offset;
@@ -137,7 +137,7 @@ class Iterator implements \Iterator {
   /**
    * Check if a valid record was fetched
    */
-  public function valid() {
+  public function valid(): bool {
     return \is_array($this->_current);
   }
 }

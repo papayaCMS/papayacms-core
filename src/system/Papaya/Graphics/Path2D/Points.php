@@ -49,15 +49,15 @@ namespace Papaya\Graphics\Path2D {
       return isset($this->_points[$offset]);
     }
 
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->_points[$offset];
     }
 
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       throw new \BadMethodCallException(sprintf('%s are immutable', __CLASS__));
     }
 
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       throw new \BadMethodCallException(sprintf('%s are immutable', __CLASS__));
     }
   }

@@ -145,7 +145,7 @@ class Validator
    *
    * @return mixed|null
    */
-  public function offsetGet($name) {
+  public function offsetGet($name): mixed {
     return $this->get($name);
   }
 
@@ -167,7 +167,7 @@ class Validator
    *
    * @throws \InvalidArgumentException
    */
-  public function offsetSet($name, $value) {
+  public function offsetSet($name, $value): void {
     $this->validate();
     if (isset($this->_definitions[$name])) {
       $definition = $this->_definitions[$name];
@@ -208,7 +208,7 @@ class Validator
    *
    * @throws \InvalidArgumentException
    */
-  public function offsetUnset($name) {
+  public function offsetUnset($name): void {
     $this->validate();
     if (isset($this->_definitions[$name])) {
       $this->_values[$name] = $this->_definitions[$name]['default'];

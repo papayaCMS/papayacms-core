@@ -179,7 +179,7 @@ class Options implements \ArrayAccess {
    * @throws Exception\InvalidOption
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->__get($offset);
   }
 
@@ -193,7 +193,7 @@ class Options implements \ArrayAccess {
    *
    * @throws Exception\InvalidOption
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->__set($offset, $value);
   }
 
@@ -206,7 +206,7 @@ class Options implements \ArrayAccess {
    *
    * @throws Exception\InvalidOption
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $this->__unset($offset);
   }
 

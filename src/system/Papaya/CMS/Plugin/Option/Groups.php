@@ -50,7 +50,7 @@ class Groups implements Application\Access, \ArrayAccess {
    *
    * @return \Papaya\Configuration
    */
-  public function offsetGet($guid) {
+  public function offsetGet($guid): mixed {
     $guid = Utility\Text\Guid::toLower($guid);
     $this->createLazy($guid);
     return $this->_groups[$guid];
@@ -62,7 +62,7 @@ class Groups implements Application\Access, \ArrayAccess {
    * @param string $guid
    * @param \Papaya\Configuration $group
    */
-  public function offsetSet($guid, $group) {
+  public function offsetSet($guid, $group): void {
     $guid = Utility\Text\Guid::toLower($guid);
     Utility\Constraints::assertInstanceOf(\Papaya\Configuration::class, $group);
     $this->_groups[$guid] = $group;
@@ -73,7 +73,7 @@ class Groups implements Application\Access, \ArrayAccess {
    *
    * @param string $guid
    */
-  public function offsetUnset($guid) {
+  public function offsetUnset($guid): void {
     $guid = Utility\Text\Guid::toLower($guid);
     if ($this->offsetExists($guid)) {
       unset($this->_groups[$guid]);

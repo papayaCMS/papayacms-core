@@ -301,7 +301,7 @@ class UTF8String implements \Iterator, \ArrayAccess, StringCastable {
    * @param int $offset
    * @return null|string
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->charAt($offset);
   }
 
@@ -309,7 +309,7 @@ class UTF8String implements \Iterator, \ArrayAccess, StringCastable {
    * @param int $offset
    * @param string $char
    */
-  public function offsetSet($offset, $char) {
+  public function offsetSet($offset, $char): void {
     if (1 !== $this->_getLength($char)) {
       throw new \LogicException('Invalid character: '.$char);
     }
@@ -320,7 +320,7 @@ class UTF8String implements \Iterator, \ArrayAccess, StringCastable {
   /**
    * @param int $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     throw new \LogicException('You can not remove character from the string.');
   }
 }

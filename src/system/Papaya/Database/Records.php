@@ -196,7 +196,7 @@ abstract class Records
    *
    * @return array|null
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     $identifier = $this->getIdentifier($offset);
     return isset($this->_records[$identifier]) ? $this->_records[$identifier] : NULL;
   }
@@ -207,7 +207,7 @@ abstract class Records
    * @param mixed $offset
    * @param mixed $value
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     Utility\Constraints::assertArray($value);
     $identifier = $this->getIdentifier($offset);
     $record = [];
@@ -230,7 +230,7 @@ abstract class Records
    *
    * @param mixed $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $identifier = $this->getIdentifier($offset);
     if (isset($this->_records[$identifier])) {
       unset($this->_records[$identifier]);

@@ -115,7 +115,7 @@ class Collection
    *
    * @return mixed
    */
-  public function offsetGet($name) {
+  public function offsetGet($name): mixed {
     return $this->_read($this->_prepareName($name));
   }
 
@@ -127,7 +127,7 @@ class Collection
    * @param string $name
    * @param mixed $value
    */
-  public function offsetSet($name, $value) {
+  public function offsetSet($name, $value): void {
     $name = $this->_prepareName($name);
     if (\is_scalar($value)) {
       $this->_write($name, $value);
@@ -160,7 +160,7 @@ class Collection
    *
    * @param string $name
    */
-  public function offsetUnset($name) {
+  public function offsetUnset($name): void {
     unset($this->_options[$this->_prepareName($name)]);
   }
 

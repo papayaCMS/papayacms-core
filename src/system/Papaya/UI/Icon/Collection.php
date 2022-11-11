@@ -46,7 +46,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return \Papaya\UI\Icon
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->_icons[$offset];
   }
 
@@ -59,7 +59,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @throws \InvalidArgumentException
    */
-  public function offsetSet($offset, $icon) {
+  public function offsetSet($offset, $icon): void {
     if (NULL === $offset) {
       throw new \InvalidArgumentException(
         'InvalidArgumentException: Please provide a valid offset for the icon.'
@@ -79,7 +79,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param string $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     unset($this->_icons[$offset]);
   }
 

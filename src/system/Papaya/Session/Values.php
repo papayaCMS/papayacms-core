@@ -64,7 +64,7 @@ class Values implements \ArrayAccess {
    *
    * @return mixed
    */
-  public function offsetGet($identifier) {
+  public function offsetGet($identifier): mixed {
     $key = $this->_compileKey($identifier);
     if ($this->_session->isActive()) {
       return $this->_session->wrapper()->hasValue($key) ? $this->_session->wrapper()->readValue($key) : NULL;
@@ -115,7 +115,7 @@ class Values implements \ArrayAccess {
    * @param mixed $identifier
    * @param mixed $value
    */
-  public function offsetSet($identifier, $value) {
+  public function offsetSet($identifier, $value): void {
     $key = $this->_compileKey($identifier);
     if ($this->_session->isActive()) {
       $this->_session->wrapper()->storeValue($key, $value);
@@ -138,7 +138,7 @@ class Values implements \ArrayAccess {
    *
    * @param mixed $identifier
    */
-  public function offsetUnset($identifier) {
+  public function offsetUnset($identifier): void {
     $key = $this->_compileKey($identifier);
     if (
       $this->_session->isActive() &&

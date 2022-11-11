@@ -227,7 +227,7 @@ class Parameters extends BaseObject\Parameters {
    * @param string|int $offset
    * @param mixed $value
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     parent::offsetSet($this->_parseParameterName($offset), $value);
   }
 
@@ -247,7 +247,7 @@ class Parameters extends BaseObject\Parameters {
    *
    * @param string|int $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     parent::offsetUnset($this->_parseParameterName($offset));
   }
 
@@ -262,7 +262,7 @@ class Parameters extends BaseObject\Parameters {
    *
    * @return mixed|self
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     $result = parent::offsetGet($this->_parseParameterName($offset));
     if (\is_array($result)) {
       return new self($result);

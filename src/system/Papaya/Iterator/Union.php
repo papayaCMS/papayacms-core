@@ -26,6 +26,7 @@ use Papaya\Utility;
  * @subpackage Iterator
  */
 class Union implements \OuterIterator {
+
   const MIT_NEED_ANY = 0;
 
   const MIT_KEYS_NUMERIC = 0;
@@ -141,14 +142,14 @@ class Union implements \OuterIterator {
   /**
    * Return the currently activ inner iterator
    */
-  public function getInnerIterator() {
-    return \current($this->_iterators);
+  public function getInnerIterator(): ?\Iterator {
+    return \current($this->_iterators) ?: null;
   }
 
   /**
    * Rewind to the first element in the first iterator
    */
-  public function rewind() {
+  public function rewind(): void {
     $this->_position = -1;
     $iterator = \reset($this->_iterators);
     if ($iterator instanceof \Iterator) {
@@ -164,7 +165,7 @@ class Union implements \OuterIterator {
   /**
    * Validate if the current iterator element is valid
    */
-  public function valid() {
+  public function valid(): bool {
     $iterator = $this->getInnerIterator();
     if ($iterator instanceof \Iterator) {
       return $iterator->valid();
@@ -178,7 +179,7 @@ class Union implements \OuterIterator {
    *
    * @return mixed
    */
-  public function key() {
+  public function key(): mixed {
     if (self::MIT_KEYS_ASSOC === ($this->getFlags() & self::MIT_KEYS_ASSOC)) {
       $iterator = $this->getInnerIterator();
       return ($iterator instanceof \Iterator) ? $iterator->key() : NULL;
@@ -191,7 +192,7 @@ class Union implements \OuterIterator {
    *
    * @return mixed
    */
-  public function current() {
+  public function current(): mixed {
     $iterator = $this->getInnerIterator();
     return ($iterator instanceof \Iterator) ? $iterator->current() : NULL;
   }
@@ -201,7 +202,7 @@ class Union implements \OuterIterator {
    * element in the current iterator move to the next iterator and rewind it until a valid element
    * ist found or here is no next iterator available.
    */
-  public function next() {
+  public function next(): void {
     $iterator = $this->getInnerIterator();
     if ($iterator instanceof \Iterator) {
       $iterator->next();

@@ -343,7 +343,7 @@ namespace Papaya {
      *
      * @return object
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset): mixed {
       return $this->getObject($offset);
     }
 
@@ -351,14 +351,14 @@ namespace Papaya {
      * @param string $offset
      * @param object $value
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value): void {
       $this->setObject($offset, $value);
     }
 
     /**
      * @param string $offset
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset): void {
       $this->removeObject($offset);
     }
   }

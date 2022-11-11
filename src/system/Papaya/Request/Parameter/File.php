@@ -112,7 +112,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * @param string $offset
    * @return mixed
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     $this->lazyFetch();
     return $this->_values[$offset];
   }
@@ -124,7 +124,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * @param string $offset
    * @param mixed $value
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->lazyFetch();
     throw new \LogicException('Values are loaded from $_FILES.');
   }
@@ -135,7 +135,7 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * @see \ArrayAccess::offsetSet()
    * @param string $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $this->lazyFetch();
     throw new \LogicException('Values are loaded from $_FILES.');
   }

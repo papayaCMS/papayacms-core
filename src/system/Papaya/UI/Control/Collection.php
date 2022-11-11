@@ -308,7 +308,7 @@ class Collection
    *
    * @return Collection\Item|UI\Control
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->get($offset);
   }
 
@@ -319,7 +319,7 @@ class Collection
    * @param int $offset
    * @param Collection\Item $item
    */
-  public function offsetSet($offset, $item) {
+  public function offsetSet($offset, $item): void {
     if (NULL === $offset) {
       $this->add($item);
     } else {
@@ -334,7 +334,7 @@ class Collection
    *
    * @return self
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     return $this->remove($offset);
   }
 

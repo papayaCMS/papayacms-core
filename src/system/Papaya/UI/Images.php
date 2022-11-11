@@ -100,7 +100,7 @@ class Images implements \ArrayAccess, \IteratorAggregate {
    *
    * @return mixed|string
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return empty($this->_images[$offset]) ? $offset : $this->_images[$offset];
   }
 
@@ -110,7 +110,7 @@ class Images implements \ArrayAccess, \IteratorAggregate {
    * @param string $offset
    * @param mixed $value
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->add([$offset => $value], self::DUPLICATES_OVERWRITE);
   }
 
@@ -119,7 +119,7 @@ class Images implements \ArrayAccess, \IteratorAggregate {
    *
    * @param string $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $this->remove([$offset]);
   }
 

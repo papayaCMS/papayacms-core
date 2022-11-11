@@ -98,21 +98,21 @@ class Values implements \ArrayAccess, \Countable, \IteratorAggregate {
   /**
    * @see \ArrayAccess::offsetGet()
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->_values->offsetGet($offset);
   }
 
   /**
    * @see \ArrayAccess::offsetSet()
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->_values->offsetSet($offset, $value);
   }
 
   /**
    * @see \ArrayAccess::offsetUnset()
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $this->_values->offsetUnset($offset);
   }
 

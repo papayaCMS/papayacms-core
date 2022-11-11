@@ -87,7 +87,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    *
    * @return string
    */
-  public function offsetGet($mode) {
+  public function offsetGet($mode): mixed {
     return $this->offsetExists($mode)
       ? self::$_typeCaptions[$mode]
       : self::$_typeCaptions[self::PAGE];
@@ -100,7 +100,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * @param string $caption
    * @see \ArrayAccess::offsetSet()
    */
-  public function offsetSet($mode, $caption) {
+  public function offsetSet($mode, $caption): void {
     throw new \LogicException('View types list can not be modified.');
   }
 
@@ -110,7 +110,7 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    * @param string $mode
    * @see \ArrayAccess::offsetSet()
    */
-  public function offsetUnset($mode) {
+  public function offsetUnset($mode): void {
     throw new \LogicException('View types list can not be modified.');
   }
 }

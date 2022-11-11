@@ -297,7 +297,7 @@ class Configuration
    *
    * @return mixed
    */
-  public function offsetGet($name) {
+  public function offsetGet($name): mixed {
     return $this->get($name);
   }
 
@@ -309,7 +309,7 @@ class Configuration
    * @param string $name
    * @param mixed $value
    */
-  public function offsetSet($name, $value) {
+  public function offsetSet($name, $value): void {
     $this->set($name, $value);
   }
 
@@ -322,7 +322,7 @@ class Configuration
    *
    * @throws \LogicException
    */
-  public function offsetUnset($name) {
+  public function offsetUnset($name): void {
     throw new \LogicException(
       'LogicException: You can only read or write options, not remove them.'
     );

@@ -328,7 +328,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return string
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     return $this->_parts[$offset];
   }
 
@@ -338,7 +338,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    * @param int $offset
    * @param string $value
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->_parts[$offset] = (string)$value;
     $this->_parts = \array_values($this->_parts);
   }
@@ -348,7 +348,7 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @param int $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     unset($this->_parts[$offset]);
     $this->_parts = \array_values($this->_parts);
   }

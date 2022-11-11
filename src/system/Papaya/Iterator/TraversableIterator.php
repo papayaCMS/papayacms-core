@@ -77,9 +77,17 @@ class TraversableIterator implements \OuterIterator {
   }
 
   /**
+   * Return the original stored iterator, if here is one
+   *
+   */
+  public function getInnerIterator(): ?\Iterator {
+    return $this->_traversable instanceof \Traversable ? $this->_traversable : null;
+  }
+
+  /**
    * Return the original stored traversable or array, like in IteratorIterator
    */
-  public function getInnerIterator() {
+  public function getInnerSource(): mixed {
     return $this->_traversable;
   }
 
@@ -88,7 +96,7 @@ class TraversableIterator implements \OuterIterator {
    *
    * @return mixed
    */
-  public function current() {
+  public function current(): \Iterator {
     return $this->getIteratorForTraversable(TRUE)->current();
   }
 
@@ -97,21 +105,21 @@ class TraversableIterator implements \OuterIterator {
    *
    * @return mixed
    */
-  public function key() {
+  public function key(): mixed {
     return $this->getIteratorForTraversable(TRUE)->key();
   }
 
   /**
    * Fetch next element
    */
-  public function next() {
+  public function next(): void {
     $this->getIteratorForTraversable(TRUE)->next();
   }
 
   /**
    * Rewind iterator to first element
    */
-  public function rewind() {
+  public function rewind(): void {
     $this->getIteratorForTraversable(TRUE)->rewind();
   }
 
@@ -120,7 +128,7 @@ class TraversableIterator implements \OuterIterator {
    *
    * @return bool
    */
-  public function valid() {
+  public function valid(): bool {
     return $this->getIteratorForTraversable(TRUE)->valid();
   }
 }

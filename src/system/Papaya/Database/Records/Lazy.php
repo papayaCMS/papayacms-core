@@ -141,7 +141,7 @@ abstract class Lazy extends Database\Records {
    *
    * @return array
    */
-  public function offsetGet($offset) {
+  public function offsetGet($offset): mixed {
     $this->lazyLoad();
     return parent::offsetGet($offset);
   }
@@ -152,7 +152,7 @@ abstract class Lazy extends Database\Records {
    * @param mixed $offset
    * @param array $value
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value): void {
     $this->lazyLoad();
     parent::offsetSet($offset, $value);
   }
@@ -162,7 +162,7 @@ abstract class Lazy extends Database\Records {
    *
    * @param mixed $offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset($offset): void {
     $this->lazyLoad();
     parent::offsetUnset($offset);
   }

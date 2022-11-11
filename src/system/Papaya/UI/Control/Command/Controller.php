@@ -120,7 +120,7 @@ namespace Papaya\UI\Control\Command {
      *
      * @return UI\Control\Command
      */
-    public function offsetGet($name) {
+    public function offsetGet($name): mixed {
       return $this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)];
     }
 
@@ -131,7 +131,7 @@ namespace Papaya\UI\Control\Command {
      * @param string $name
      * @param UI\Control\Command $command
      */
-    public function offsetSet($name, $command) {
+    public function offsetSet($name, $command): void {
       $name = Utility\Text\Identifier::toUnderscoreLower($name);
       if ($this->hasOwner()) {
         $command->owner($this->owner());
@@ -144,7 +144,7 @@ namespace Papaya\UI\Control\Command {
      *
      * @param string $name
      */
-    public function offsetUnset($name) {
+    public function offsetUnset($name): void {
       unset($this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)]);
     }
 

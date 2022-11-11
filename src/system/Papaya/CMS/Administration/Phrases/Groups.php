@@ -61,7 +61,7 @@ class Groups implements \ArrayAccess {
    *
    * @return Group
    */
-  public function offsetGet($name) {
+  public function offsetGet($name): mixed {
     if (!isset($this->_groups[$name])) {
       $this->_groups[$name] = new Group($this->_phrases, $name);
     }
@@ -72,7 +72,7 @@ class Groups implements \ArrayAccess {
    * @param string $name
    * @param Group $group
    */
-  public function offsetSet($name, $group) {
+  public function offsetSet($name, $group): void {
     Utility\Constraints::assertInstanceOf(Group::class, $group);
     $this->_groups[$name] = $group;
   }
@@ -80,7 +80,7 @@ class Groups implements \ArrayAccess {
   /**
    * @param string $name
    */
-  public function offsetUnset($name) {
+  public function offsetUnset($name): void {
     if (isset($this->_groups[$name])) {
       unset($this->_groups[$name]);
     }
