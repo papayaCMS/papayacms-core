@@ -33,26 +33,6 @@ use Papaya\XML;
 class XSLT extends Template\Engine {
 
 
-  private static $_modules = [
-    'Context' => Context::class,
-    'DateTime/Components' => DateTime\Components::class,
-    'DateTime/TimezoneAdjust' => DateTime\TimezoneAdjust::class,
-    'Duration/Components' => Duration\Components::class,
-    'Errors' => Errors::class,
-    'MapsAndArrays/Arrays' => MapsAndArrays\Arrays::class,
-    'MapsAndArrays/JSON' => MapsAndArrays\JSON::class,
-    'MapsAndArrays/Maps' => MapsAndArrays\Maps::class,
-    'Numeric/Formatting' => Numeric\Formatting::class,
-    'Numeric/Math' => Numeric\Math::class,
-    'Numeric/Values' => Numeric\Values::class,
-    'Sequences/Cardinality' => Sequences\Cardinality::class,
-    'Sequences/External' => Sequences\External::class,
-    'Sequences/Parse' => Sequences\Parse::class,
-    'Strings/Comparsion' => Strings\Comparsion::class,
-    'Strings/RegExp' => Strings\RegExp::class,
-    'Strings/Values' => Strings\Values::class
-  ];
-
   /**
    * Transformation result buffer
    *
@@ -210,13 +190,14 @@ class XSLT extends Template\Engine {
       } else {
         $this->_processor = new \XsltProcessor();
       }
-      $this->_processor->registerPHPFunctions(
-        [
-          __CLASS__.'::handleFunctionCall',
-          __CLASS__.'::parseXML'
-        ]
-      );
-      XSLT\FunctionLoader::register('xpath-functions', __DIR__.'/XSLT');
+      $functions = [
+        __CLASS__.'::parseXML'
+      ];
+      if (class_exists('Carica\\XPathFunctions\\XSLTProcessor')) {
+        Carica\XPathFunctions\ModuleLoader::register('xpath-functions');
+        $functions[] = 'Carica\\XPathFunctions\\XSLTProcessor::handleFunctionCall';
+      }
+      $this->_processor->registerPHPFunctions($functions);
     }
     return $this->_processor;
   }

@@ -308,7 +308,8 @@ class Collection
    *
    * @return Collection\Item|UI\Control
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->get($offset);
   }
 
@@ -335,7 +336,7 @@ class Collection
    * @return self
    */
   public function offsetUnset($offset): void {
-    return $this->remove($offset);
+    $this->remove($offset);
   }
 
   public function indexOf($item) {

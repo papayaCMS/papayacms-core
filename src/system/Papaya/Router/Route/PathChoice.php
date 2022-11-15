@@ -87,7 +87,8 @@ namespace Papaya\Router\Route {
      * @param string $command
      * @return callable|\Papaya\Router\Route
      */
-    public function offsetGet($command): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($command) {
       return $this->_routes[$command];
     }
 

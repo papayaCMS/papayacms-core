@@ -79,7 +79,8 @@ namespace Papaya\Router\Route {
      * @param int $offset
      * @return callable|Route $route
      */
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->_routes[$offset];
     }
 

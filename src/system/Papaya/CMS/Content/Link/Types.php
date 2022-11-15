@@ -106,7 +106,8 @@ class Types extends Database\Records\Lazy {
     return isset(self::$_internalLinkTypes[$offset]) || parent::offsetExists($offset);
   }
 
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     if (isset(self::$_internalLinkTypes[$offset])) {
       return self::$_internalLinkTypes[$offset];
     }

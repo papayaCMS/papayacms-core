@@ -46,7 +46,8 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return \Papaya\UI\Icon
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->_icons[$offset];
   }
 

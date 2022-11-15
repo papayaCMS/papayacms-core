@@ -141,7 +141,8 @@ abstract class Lazy extends Database\Records {
    *
    * @return array
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     $this->lazyLoad();
     return parent::offsetGet($offset);
   }

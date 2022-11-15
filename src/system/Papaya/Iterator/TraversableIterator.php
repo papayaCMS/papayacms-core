@@ -87,7 +87,8 @@ class TraversableIterator implements \OuterIterator {
   /**
    * Return the original stored traversable or array, like in IteratorIterator
    */
-  public function getInnerSource(): mixed {
+  #[\ReturnTypeWillChange]
+  public function getInnerSource() {
     return $this->_traversable;
   }
 
@@ -96,7 +97,8 @@ class TraversableIterator implements \OuterIterator {
    *
    * @return mixed
    */
-  public function current(): \Iterator {
+  #[\ReturnTypeWillChange]
+  public function current() {
     return $this->getIteratorForTraversable(TRUE)->current();
   }
 
@@ -105,7 +107,8 @@ class TraversableIterator implements \OuterIterator {
    *
    * @return mixed
    */
-  public function key(): mixed {
+  #[\ReturnTypeWillChange]
+  public function key() {
     return $this->getIteratorForTraversable(TRUE)->key();
   }
 

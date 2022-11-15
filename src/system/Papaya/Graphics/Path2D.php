@@ -80,7 +80,7 @@ namespace Papaya\Graphics {
       return isset($this->_segments[$offset]);
     }
 
-    public function offsetGet($offset): mixed {
+    public function offsetGet($offset): Segment {
       return $this->_segments[$offset];
     }
 

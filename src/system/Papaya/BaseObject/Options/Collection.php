@@ -115,7 +115,8 @@ class Collection
    *
    * @return mixed
    */
-  public function offsetGet($name): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($name) {
     return $this->_read($this->_prepareName($name));
   }
 

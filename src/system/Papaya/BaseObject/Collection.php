@@ -152,7 +152,8 @@ class Collection
    *
    * @return object|false
    */
-  public function current(): mixed {
+  #[\ReturnTypeWillChange]
+  public function current() {
     return \current($this->_items);
   }
 
@@ -161,7 +162,8 @@ class Collection
    *
    * @return int|string|null
    */
-  public function key(): mixed {
+  #[\ReturnTypeWillChange]
+  public function key() {
     return \key($this->_items);
   }
 
@@ -228,7 +230,8 @@ class Collection
    * @param int|string $index
    * @return object|NULL
    */
-  public function offsetGet($index): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($index) {
     $index = $this->prepareKey($index);
     return $this->_items[$index];
   }

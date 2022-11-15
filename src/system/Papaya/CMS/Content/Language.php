@@ -58,7 +58,8 @@ class Language extends Database\Record\Lazy implements ContentLanguage {
    * @param string $name
    * @return mixed
    */
-  public function offsetGet($name): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($name) {
     switch ($name) {
       case 'lng_id' :
         return parent::offsetGet('id');

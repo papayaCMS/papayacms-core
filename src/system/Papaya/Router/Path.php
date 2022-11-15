@@ -70,7 +70,8 @@ namespace Papaya\Router {
      * @param int $offset
      * @return string
      */
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->offsetExists($offset) ? $this->getRouteArray()[$offset] : NULL;
     }
 

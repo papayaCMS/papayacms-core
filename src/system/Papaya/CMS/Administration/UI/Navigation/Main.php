@@ -267,12 +267,14 @@ namespace Papaya\CMS\Administration\UI\Navigation {
         $this->_favorites = $favorites;
       } elseif (NULL === $this->_favorites) {
         $administrationUser = $this->papaya()->administrationUser;
+        $plugins = $this->papaya()->plugins->plugins()->withType(PluginTypes::ADMINISTRATION);
         $this->_favorites = new CallbackFilterIterator(
-          $this->papaya()->plugins->plugins()->withType(PluginTypes::ADMINISTRATION),
+          $plugins,
           static function(
             /** @noinspection PhpUnusedParameterInspection */
             $plugin, $pluginGuid
           ) use ($administrationUser) {
+            var_dump(123);
             return (
               \is_array($administrationUser->userModules) &&
               \in_array($pluginGuid, $administrationUser->userModules, TRUE) &&

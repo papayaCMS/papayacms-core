@@ -196,7 +196,8 @@ abstract class Records
    *
    * @return array|null
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     $identifier = $this->getIdentifier($offset);
     return isset($this->_records[$identifier]) ? $this->_records[$identifier] : NULL;
   }

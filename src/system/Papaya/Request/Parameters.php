@@ -262,7 +262,8 @@ class Parameters extends BaseObject\Parameters {
    *
    * @return mixed|self
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     $result = parent::offsetGet($this->_parseParameterName($offset));
     if (\is_array($result)) {
       return new self($result);

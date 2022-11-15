@@ -87,7 +87,8 @@ class Types implements \ArrayAccess, \IteratorAggregate {
    *
    * @return string
    */
-  public function offsetGet($mode): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($mode) {
     return $this->offsetExists($mode)
       ? self::$_typeCaptions[$mode]
       : self::$_typeCaptions[self::PAGE];

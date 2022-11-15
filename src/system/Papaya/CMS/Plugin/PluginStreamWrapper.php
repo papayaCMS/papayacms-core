@@ -9,6 +9,7 @@ namespace Papaya\CMS\Plugin {
      * @var Loader[]
      */
     private static $_loaders = [];
+    private static $_paths = [];
     private $_stream;
 
     /**
@@ -17,9 +18,10 @@ namespace Papaya\CMS\Plugin {
      * @param string $protocol
      * @param string $path
      */
-    public static function register(string $protocol, Loader $pluginLoader): void {
+    public static function register(string $protocol, Loader $pluginLoader, string $path): void {
       if (!in_array($protocol, stream_get_wrappers(), TRUE)) {
         self::$_loaders[$protocol] = $pluginLoader;
+        self::$_paths[$protocol] = $path;
         stream_wrapper_register($protocol, __CLASS__);
       }
     }
@@ -42,18 +44,26 @@ namespace Papaya\CMS\Plugin {
       /** @noinspection PhpUnusedParameterInspection */
       string $path, string $mode, int $options, &$opened_path
     ): bool {
-      [$protocol, $fileWithModule] = \explode(':', $path);
-      [$moduleID, $file] = \explode(':', $path);
-      if (
-        isset(self::$_loaders[$protocol]) &&
-        preg_match('(^[a-z\d_./-]$)Di')
-      ) {
-        $loader = self::$_loaders[$protocol];
-        $modulePath = $loader->getPluginFilesPath();
-        if ($modulePath) {
-          $this->_stream = fopen($modulePath.DIRECTORY_SEPARATOR.$file, 'rb');
+      $pattern = '(^
+        (?<protocol>[\w+-]+)://
+        (?<guid>[a-f\d]+)/
+        (?<file>(?:[a-z\d_-]+/)*(?:[a-z\d_-][a-z\d_.-]*))
+      )ix';
+      if (preg_match($pattern, $path, $matches)) {
+        $protocol = $matches['protocol'];
+        $pluginGuid = $matches['guid'];
+        $file = $matches['file'];
+        if (isset(self::$_loaders[$protocol])) {
+          $loader = self::$_loaders[$protocol];
+          $subPath = self::$_paths[$protocol]
+            ? DIRECTORY_SEPARATOR.self::$_paths[$protocol]
+            : '';
+          $pluginPath = $loader->getPluginPath($pluginGuid).$subPath;
+          if ($pluginPath) {
+            $this->_stream = fopen($pluginPath.DIRECTORY_SEPARATOR.$file, 'rb');
+          }
+          return is_resource($this->_stream);
         }
-        return is_resource($this->_stream);
       }
       return FALSE;
     }

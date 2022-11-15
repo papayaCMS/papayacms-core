@@ -50,7 +50,8 @@ class Groups implements Application\Access, \ArrayAccess {
    *
    * @return \Papaya\Configuration
    */
-  public function offsetGet($guid): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($guid) {
     $guid = Utility\Text\Guid::toLower($guid);
     $this->createLazy($guid);
     return $this->_groups[$guid];

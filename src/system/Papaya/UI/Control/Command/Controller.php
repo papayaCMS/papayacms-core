@@ -120,7 +120,8 @@ namespace Papaya\UI\Control\Command {
      *
      * @return UI\Control\Command
      */
-    public function offsetGet($name): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($name) {
       return $this->_commands[Utility\Text\Identifier::toUnderscoreLower($name)];
     }
 

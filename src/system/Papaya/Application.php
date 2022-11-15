@@ -343,7 +343,8 @@ namespace Papaya {
      *
      * @return object
      */
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->getObject($offset);
     }
 

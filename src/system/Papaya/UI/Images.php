@@ -100,7 +100,8 @@ class Images implements \ArrayAccess, \IteratorAggregate {
    *
    * @return mixed|string
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return empty($this->_images[$offset]) ? $offset : $this->_images[$offset];
   }
 

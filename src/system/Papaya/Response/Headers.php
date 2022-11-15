@@ -130,7 +130,8 @@ class Headers implements \IteratorAggregate, \ArrayAccess, \Countable {
    *
    * @return mixed
    */
-  public function offsetGet($header): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($header) {
     $header = $this->_normalize($header);
     return isset($this->_headers[$header]) ? $this->_headers[$header] : NULL;
   }

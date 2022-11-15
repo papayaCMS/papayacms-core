@@ -179,7 +179,8 @@ class Union implements \OuterIterator {
    *
    * @return mixed
    */
-  public function key(): mixed {
+  #[\ReturnTypeWillChange]
+  public function key() {
     if (self::MIT_KEYS_ASSOC === ($this->getFlags() & self::MIT_KEYS_ASSOC)) {
       $iterator = $this->getInnerIterator();
       return ($iterator instanceof \Iterator) ? $iterator->key() : NULL;
@@ -192,7 +193,8 @@ class Union implements \OuterIterator {
    *
    * @return mixed
    */
-  public function current(): mixed {
+  #[\ReturnTypeWillChange]
+  public function current() {
     $iterator = $this->getInnerIterator();
     return ($iterator instanceof \Iterator) ? $iterator->current() : NULL;
   }

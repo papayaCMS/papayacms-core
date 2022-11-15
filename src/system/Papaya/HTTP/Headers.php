@@ -160,7 +160,8 @@ class Headers
    *
    * @return string|array|null
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->get($offset);
   }
 

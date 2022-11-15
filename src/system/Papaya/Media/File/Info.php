@@ -108,7 +108,8 @@ namespace Papaya\Media\File {
      * @param string $offset
      * @return bool
      */
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->getProperties()[$offset];
     }
 

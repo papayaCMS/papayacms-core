@@ -328,7 +328,8 @@ class Name implements \ArrayAccess, \Countable, \IteratorAggregate {
    *
    * @return string
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->_parts[$offset];
   }
 

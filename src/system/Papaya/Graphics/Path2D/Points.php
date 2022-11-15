@@ -49,7 +49,8 @@ namespace Papaya\Graphics\Path2D {
       return isset($this->_points[$offset]);
     }
 
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->_points[$offset];
     }
 

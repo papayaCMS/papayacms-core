@@ -69,6 +69,7 @@ class Exceptions
    * @param \Exception|\Throwable $exception
    */
   public function handle($exception) {
+    var_dump($exception->getMessage(), $exception->getFile(), $exception->getLine());
     if ($exception instanceof \ErrorException) {
       $this->_messageManager->dispatch(
         new Message\PHP\Exception($exception)

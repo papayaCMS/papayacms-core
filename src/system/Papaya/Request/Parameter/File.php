@@ -112,7 +112,8 @@ class File implements \ArrayAccess, \IteratorAggregate {
    * @param string $offset
    * @return mixed
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     $this->lazyFetch();
     return $this->_values[$offset];
   }

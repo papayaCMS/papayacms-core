@@ -261,7 +261,8 @@ abstract class Record
    *
    * @return string|null
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     $offset = \Papaya\Utility\Text\Identifier::toUnderscoreLower($offset);
     if (isset($this->_values[$offset])) {
       return $this->_values[$offset];

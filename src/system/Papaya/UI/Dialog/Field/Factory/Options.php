@@ -179,7 +179,8 @@ class Options implements \ArrayAccess {
    * @throws Exception\InvalidOption
    * @throws \Papaya\Filter\Factory\Exception\InvalidProfile
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->__get($offset);
   }
 

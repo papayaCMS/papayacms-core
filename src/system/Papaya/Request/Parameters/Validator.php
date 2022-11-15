@@ -145,7 +145,8 @@ class Validator
    *
    * @return mixed|null
    */
-  public function offsetGet($name): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($name) {
     return $this->get($name);
   }
 

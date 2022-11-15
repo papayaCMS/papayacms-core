@@ -347,7 +347,8 @@ namespace Papaya\Graphics {
      * @param string|int $offset
      * @return int|float
      */
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->getValue((string)$offset);
     }
 

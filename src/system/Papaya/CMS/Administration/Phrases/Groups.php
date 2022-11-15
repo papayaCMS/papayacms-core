@@ -61,7 +61,8 @@ class Groups implements \ArrayAccess {
    *
    * @return Group
    */
-  public function offsetGet($name): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($name) {
     if (!isset($this->_groups[$name])) {
       $this->_groups[$name] = new Group($this->_phrases, $name);
     }

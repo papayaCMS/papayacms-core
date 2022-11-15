@@ -61,7 +61,8 @@ namespace Papaya\CMS\Plugin {
     private $_instances = [];
 
     public function __construct() {
-      PluginStreamWrapper::register('plugin', this);
+      PluginStreamWrapper::register('plugin-asset', $this, 'ASSETS');
+      PluginStreamWrapper::register('plugin-template', $this, 'TEMPLATES');
     }
 
     /**
@@ -260,14 +261,25 @@ namespace Papaya\CMS\Plugin {
       return '';
     }
 
-    public function getPluginFilesPath($guid) {
+    /**
+     * Use by te plguins files streamwrapper. It returns a sibling directory
+     * "ASSETS" to the plugin (class) file.
+     *
+     * This directory is for static files (xsl, svg, js, ...)
+     *
+     * It is possible to address the files as `plugin:{$guid}:file.xsl`
+     *
+     * @param string $guid
+     * @return string|void
+     */
+    public function getPluginPath($guid) {
       $plugins = $this->plugins();
       if ($pluginData = $plugins[$guid]) {
         $this->prepareAutoloader($pluginData);
         if ($result = Autoloader::getClassFile($pluginData['class'])) {
-          return dirname($result).'/files';
+          return dirname($result);
         }
-        return $this->getRealPluginPath($pluginData['path']).'/files';
+        return $this->getRealPluginPath($pluginData['path']);
       }
     }
 

@@ -301,7 +301,8 @@ class UTF8String implements \Iterator, \ArrayAccess, StringCastable {
    * @param int $offset
    * @return null|string
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->charAt($offset);
   }
 

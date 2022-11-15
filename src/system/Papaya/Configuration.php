@@ -297,7 +297,8 @@ class Configuration
    *
    * @return mixed
    */
-  public function offsetGet($name): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($name) {
     return $this->get($name);
   }
 

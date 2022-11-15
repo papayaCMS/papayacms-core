@@ -98,7 +98,8 @@ class Collection
    *
    * @return UI\Control\Command
    */
-  public function offsetGet($offset): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($offset) {
     return $this->_commands[$offset];
   }
 

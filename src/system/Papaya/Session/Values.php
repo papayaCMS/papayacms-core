@@ -64,7 +64,8 @@ class Values implements \ArrayAccess {
    *
    * @return mixed
    */
-  public function offsetGet($identifier): mixed {
+  #[\ReturnTypeWillChange]
+  public function offsetGet($identifier) {
     $key = $this->_compileKey($identifier);
     if ($this->_session->isActive()) {
       return $this->_session->wrapper()->hasValue($key) ? $this->_session->wrapper()->readValue($key) : NULL;

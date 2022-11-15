@@ -148,7 +148,8 @@ namespace Papaya\BaseObject {
      * @see \ArrayObject::offsetGet()
      *
      */
-    public function offsetGet($offset): mixed {
+    #[\ReturnTypeWillChange]
+    public function offsetGet($offset) {
       return $this->getValueByOffset($offset);
     }
 

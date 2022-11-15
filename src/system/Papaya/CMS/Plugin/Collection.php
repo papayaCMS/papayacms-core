@@ -98,7 +98,7 @@ class Collection extends Database\Records\Lazy {
   public function withType($type, $activeOnly = TRUE) {
     $this->lazyLoad();
     return new Iterator\Filter\Callback(
-      $this,
+      $this->getIterator(),
       function($plugin) use ($type, $activeOnly) {
         return $plugin['type'] === $type && (!$activeOnly || $plugin['active']);
       }
