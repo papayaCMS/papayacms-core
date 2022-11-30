@@ -40,7 +40,7 @@ namespace Papaya\Session {
 
     public function getName() {
       return $this->papaya()->options->get(
-        CMSSettings::CONSENT_COOKIE_NAME, Session\ConsentCookie::DEFAULT_NAME
+        CMSSettings::CONSENT_COOKIE_NAME, self::DEFAULT_NAME
       );
     }
 
