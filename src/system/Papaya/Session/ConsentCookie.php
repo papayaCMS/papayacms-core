@@ -38,6 +38,33 @@ namespace Papaya\Session {
       );
     }
 
+    public function getName() {
+      return $this->papaya()->options->get(
+        CMSSettings::CONSENT_COOKIE_NAME, Session\ConsentCookie::DEFAULT_NAME
+      );
+    }
+
+    public function getLevels($minimumLevel = 1) {
+      $levels = array_filter(
+        array_map(
+          static function($value) {
+            return trim($value);
+          },
+          explode(
+            ',',
+            $this->papaya()->options->get(CMSSettings::CONSENT_COOKIE_LEVELS, self::DEFAULT_LEVELS)
+          )
+        ),
+        static function($value) {
+          return !empty($value);
+        }
+      );
+      $offset =  (is_string($minimumLevel))
+        ? array_search($levels, $minimumLevel, TRUE)
+        : $minimumLevel;
+      return $offset > 0 ? array_slice($levels, $offset) : $levels;
+    }
+
     /**
      * @return int
      */
@@ -49,15 +76,7 @@ namespace Papaya\Session {
         return self::$_level;
       }
       $cookieName = $this->papaya()->options->get(CMSSettings::CONSENT_COOKIE_NAME, self::DEFAULT_NAME);
-      $levels = array_map(
-        static function($value) {
-          return trim($value);
-        },
-        explode(
-          ',',
-          $this->papaya()->options->get(CMSSettings::CONSENT_COOKIE_LEVELS, self::DEFAULT_LEVELS)
-        )
-      );
+      $levels = $this->getLevels(0);
       if (
         isset($_COOKIE[$cookieName]) &&
         FALSE !== ($current = array_search($_COOKIE[$cookieName], $levels))
@@ -67,8 +86,15 @@ namespace Papaya\Session {
       return self::$_level = -1;
     }
 
+    public function getLevelIndex($levelName) {
+      $levels = $this->getLevels();
+      $index = array_search($level, $levels, true);
+      return (FALSE !== $index) ? $index : -1;
+    }
+
     public function hasLevel($level) {
-      return $level <= $this->getLevel();
+      $minimumLevel = is_string($level) ? $this->getLevelIndex($level) : $level;
+      return $minimumLevel <= $this->getLevel();
     }
 
     public static function reset(){
