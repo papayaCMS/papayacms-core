@@ -523,9 +523,8 @@ class base_topic_tree extends base_db {
       }
     }
     if (isset($this->nodes) && is_array($this->nodes)) {
-      reset($this->nodes);
       $counter = 0;
-      while (list($key) = each($this->nodes)) {
+      foreach($this->_nodes as $key => $node) {
         $this->generatePrevPath($key);
         if (isset($this->nodes[$key]['new_path'])) {
           $newPath = $this->nodes[$key]['new_path'].';';
@@ -836,5 +835,3 @@ class base_topic_tree extends base_db {
     return FALSE;
   }
 }
-
-

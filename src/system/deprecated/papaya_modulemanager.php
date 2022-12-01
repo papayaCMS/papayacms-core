@@ -636,13 +636,15 @@ class papaya_modulemanager extends base_db {
       $nextPackageId = NULL;
       $nextPackageName = NULL;
       $nextTableName = NULL;
-      reset($this->packages);
-      while (list($packageId) = each($this->packages)) {
-        if ($pkgId == $packageId) {
-          $nextPackageData = current($this->packages);
+
+      $packageIds = array_keys($this->packages);
+      $currentPackageIndex = array_search($pkgId, $packageIds);
+      if (FALSE !== $currentPackageIndex) {
+        $nextPackageId = $packageIds[$currentPackageIndex + 1] ?? null;
+        $nextPackageData = $this->packages[$nextPackageId] ?? null;
+        if ($nextPackageData) {
           $nextPackageId = $nextPackageData['modulegroup_id'];
           $nextPackageName = $nextPackageData['modulegroup_title'];
-          break;
         }
       }
       $this->loadTables = TRUE;
