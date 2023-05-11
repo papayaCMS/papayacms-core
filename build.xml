@@ -339,7 +339,10 @@
           <try>
             <adhoc-task name="composer-version">
               <![CDATA[
-                class PapayaVersionTask extends Task {
+                if (!class_exists('Phing\\Task')) {
+                    class_alias(Task::class, 'Phing\\Task');
+                }
+                class PapayaVersionTask extends Phing\Task {
 
                   function main() {
                     $json = json_decode(file_get_contents("composer.lock"));
