@@ -59,7 +59,7 @@ namespace Papaya\CMS {
     public const PASSWORD_ALGORITHM = 'PAPAYA_PASSWORD_ALGORITHM';
     public const PASSWORD_METHOD = 'PAPAYA_PASSWORD_METHOD';
     public const PASSWORD_PREFIX = 'PAPAYA_PASSWORD_PREFIX';
-    public const PASSWORD_SUFFFIX = 'PAPAYA_PASSWORD_SUFFFIX';
+    public const PASSWORD_SUFFIX = 'PAPAYA_PASSWORD_SUFFIX';
     public const DISABLE_XHEADERS = 'PAPAYA_DISABLE_XHEADERS';
     public const HEADER_HTTPS_TOKEN = 'PAPAYA_HEADER_HTTPS_TOKEN';
     // profiler (defined in configuration file)
@@ -344,7 +344,7 @@ namespace Papaya\CMS {
       self::PASSWORD_ALGORITHM => 0,
       self::PASSWORD_METHOD => 'md5',
       self::PASSWORD_PREFIX => '',
-      self::PASSWORD_SUFFFIX => '',
+      self::PASSWORD_SUFFIX => '',
       self::DISABLE_XHEADERS => FALSE,
       self::HEADER_HTTPS_TOKEN => '',
       // profiler (defined in configuration file)
