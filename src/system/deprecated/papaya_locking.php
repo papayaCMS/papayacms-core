@@ -26,18 +26,6 @@
 class papaya_locking extends base_db {
 
   /**
-  * locking table
-  * @var string
-  */
-  var $tableLocking = PAPAYA_DB_TBL_LOCKING;
-
-  /**
-  * papaya database table authentification user
-  * @var string $tableAuthUser
-  */
-  var $tableAuthUser = PAPAYA_DB_TBL_AUTHUSER;
-
-  /**
   * locking timeout in seconds
   * @var integer
   */
@@ -96,7 +84,7 @@ class papaya_locking extends base_db {
         );
         unset($this->locks[$type][$ident]);
         return FALSE !== $this->databaseUpdateRecord(
-          $this->tableLocking, $data, $filter
+          $this->databaseGetTableName('locking'), $data, $filter
         );
       } else {
         $this->removeLocks($sessionId, $type);
@@ -111,7 +99,7 @@ class papaya_locking extends base_db {
         'locking_ident' => $ident,
         'locking_time' => time()
       );
-      return (FALSE !== $this->databaseInsertRecord($this->tableLocking, NULL, $data));
+      return (FALSE !== $this->databaseInsertRecord($this->databaseGetTableName('locking'), NULL, $data));
     }
   }
 
@@ -138,7 +126,7 @@ class papaya_locking extends base_db {
       );
       $this->locks = array();
     }
-    if (FALSE !== $this->databaseDeleteRecord($this->tableLocking, $filter)) {
+    if (FALSE !== $this->databaseDeleteRecord($this->databaseGetTableName('locking'), $filter)) {
       $this->removeOldLocks();
       return TRUE;
     }
@@ -154,7 +142,7 @@ class papaya_locking extends base_db {
   function removeOldLocks() {
     $sql = "DELETE FROM %s WHERE locking_time < %d";
     $params = array(
-      $this->tableLocking,
+      $this->databaseGetTableName('locking'),
       time() - $this->maxValidTime
     );
     return (FALSE !== $this->databaseQueryFmtWrite($sql, $params));
@@ -176,8 +164,13 @@ class papaya_locking extends base_db {
              WHERE l.locking_ident = '%s'
                AND l.locking_type = '%d'
                AND l.locking_time >= '%d'";
-    $params = array($this->tableLocking, $this->tableAuthUser, $ident, $type,
-      time() - $this->maxValidTime);
+    $params = array(
+      $this->databaseGetTableName('locking'),
+      $this->databaseGetTableName('auth_user'),
+      $ident,
+      $type,
+      time() - $this->maxValidTime
+    );
     if ($res = $this->databaseQueryFmt($sql, $params)) {
       if ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
         $this->locks[$type][$ident] = $row;
