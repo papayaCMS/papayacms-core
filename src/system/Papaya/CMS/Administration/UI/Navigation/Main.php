@@ -274,7 +274,6 @@ namespace Papaya\CMS\Administration\UI\Navigation {
             /** @noinspection PhpUnusedParameterInspection */
             $plugin, $pluginGuid
           ) use ($administrationUser) {
-            var_dump(123);
             return (
               \is_array($administrationUser->userModules) &&
               \in_array($pluginGuid, $administrationUser->userModules, TRUE) &&
