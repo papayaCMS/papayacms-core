@@ -42,7 +42,7 @@ namespace Papaya\Media\Thumbnail\Calculation {
 
     public function getIdentifier() {
       if ($this->_addPadding) {
-        return Calculation::MODE_CONTAIN_PADDED.'_'.$this->_width.'x'.$this->_height;
+        return Calculation::MODE_CONTAIN_PADDED.'_'.$this->_maximumWidth.'x'.$this->_maximumHeight;
       }
       $targetSize = $this->getTargetSize();
       return Calculation::MODE_FIX.'_'.$targetSize[0].'x'.$targetSize[1];

@@ -33,7 +33,7 @@ namespace Papaya\Media\Thumbnail\Calculation {
       $this->_targetHeight = (int)$targetHeight;
     }
     public function getIdentifier() {
-      return Calculation::MODE_FIX.'_'.$this->_width.'x'.$this->_height;
+      return Calculation::MODE_FIX.'_'.$this->_targetWidth.'x'.$this->_targetHeight;
     }
 
     public function getTargetSize() {
