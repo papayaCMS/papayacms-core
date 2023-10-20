@@ -33,7 +33,7 @@ namespace Papaya\Media\Thumbnail\Calculation {
       $this->_minimumHeight = (int)$minimumHeight;
     }
     public function getIdentifier() {
-      return Calculation::MODE_COVER_CROPPED.'_'.$this->_width.'x'.$this->_height;
+      return Calculation::MODE_COVER_CROPPED.'_'.$this->_minimumWidth.'x'.$this->_minimumHeight;
     }
 
     public function getTargetSize() {
